@@ -12,3 +12,33 @@ pre {
 pre code {
   white-space: inherit;
 }
+pre.numberSource code > span > a:first-child::before {
+  left: -0.3em;
+}
+.header-section-number {
+  padding-right: .2em;
+  font-weight: 500;
+}
+.level1 .header-section-number {
+  display: inline-block;
+  border-bottom: 3px solid;
+}
+.level1 h1 {
+  border-bottom: 1px solid;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+}
+h1.title {
+  font-weight: 700;
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 25%;
+<<<<<<< HEAD
+}
+=======
+}
+>>>>>>> d8e02bf5d668c07a63674cf054db092c2f1a236b
