@@ -1,0 +1,50 @@
+<<<<<<< HEAD
+# Model Selection
+=======
+<<<<<<< HEAD:06-diagnostics.Rmd
+# Diagnostics
+>>>>>>> 2affea00618e91ad68927252cfbcadf70a25ead1
+
+Here is a list of resources that might help you in your R journey:
+
+## Cheat Sheets
+
+* [Base R Cheat Sheet](http://github.com/rstudio/cheatsheets/raw/master/base-r.pdf)
+* [Advanced R Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2016/02/advancedR.pdf)
+* [Data Wrangling with dplyr and tidyr Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+* [Work with strings with stringr Cheat Sheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf)
+* [Basic Regular Expressions in R Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf)
+
+## Programming Style
+
+* [Google's R Style Guide](https://google.github.io/styleguide/Rguide.html) 
+
+## Books
+
+* [R for Data Science](https://r4ds.had.co.nz/)
+* [SAS Programming for R Users](https://support.sas.com/content/dam/SAS/support/en/books/free-books/sas-programming-for-r-users.pdf)
+<<<<<<< HEAD
+=======
+=======
+# Resources
+
+Here is a list of resources that might help you in your R journey:
+
+## Cheat Sheets
+
+* [Base R Cheat Sheet](http://github.com/rstudio/cheatsheets/raw/master/base-r.pdf)
+* [Advanced R Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2016/02/advancedR.pdf)
+* [Data Wrangling with dplyr and tidyr Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+* [Work with strings with stringr Cheat Sheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf)
+* [Basic Regular Expressions in R Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf)
+
+## Programming Style
+
+* [Google's R Style Guide](https://google.github.io/styleguide/Rguide.html) 
+
+## Books
+
+* [R for Data Science](https://r4ds.had.co.nz/)
+* [SAS Programming for R Users](https://support.sas.com/content/dam/SAS/support/en/books/free-books/sas-programming-for-r-users.pdf)
+>>>>>>> 2affea00618e91ad68927252cfbcadf70a25ead1:05-model_selection.Rmd
+>>>>>>> 2affea00618e91ad68927252cfbcadf70a25ead1
