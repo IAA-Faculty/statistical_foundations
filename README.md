@@ -14,7 +14,7 @@ This repository contains the source files of the book Statistical Foundations. Y
 
 ### Contributions
 
-If you have any feedback, please feel free to [file an issue on GitHub](https://github.com/andreavillanes/R_Data_Manipulation_Techniques/issues). Thank you!
+If you have any feedback, please feel free to [file an issue on GitHub](https://github.com/iaa-faculty/statistical_foundations/issues). Thank you!
 
 *This repo was initially generated from a bookdown template available here: https://github.com/jtr13/bookdown-template.*
 
