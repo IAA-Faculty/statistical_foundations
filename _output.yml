@@ -1,7 +1,10 @@
 bookdown::gitbook:
   css: style.css
+  split_by: section
   config:
     toc:
+      toc:
+      collapse: section
       before: |
         <li><a style="font-weight:bold" href="https://github.com/IAA-Faculty/statistical_foundations/">Statistical Foundations</a>
         <img src="./img/iaaicon.png" alt="IAA"  class="center"</li>

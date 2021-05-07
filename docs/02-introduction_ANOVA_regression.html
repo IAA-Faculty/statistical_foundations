@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Introduction to ANOVA and Linear Regression | Statistical Foundations</title>
+  <meta name="description" content="Chapter 2 Introduction to ANOVA and Linear Regression | Statistical Foundations" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Introduction to ANOVA and Linear Regression | Statistical Foundations" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="IAA-Faculty/statistical_foundations" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Introduction to ANOVA and Linear Regression | Statistical Foundations" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="011-introduction_statistics.html"/>
+<link rel="next" href="03-complex_ANOVA_Regression.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a style="font-weight:bold" href="https://github.com/IAA-Faculty/statistical_foundations/">Statistical Foundations</a>
+<img src="./img/iaaicon.png" alt="IAA"  class="center"</li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="01-introduction_statistics.html"><a href="01-introduction_statistics.html"><i class="fa fa-check"></i><b>1</b> Introduction to Statistics</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="011-introduction_statistics.html"><a href="011-introduction_statistics.html"><i class="fa fa-check"></i><b>1.1</b> Types of Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="02-introduction_ANOVA_regression.html"><a href="02-introduction_ANOVA_regression.html"><i class="fa fa-check"></i><b>2</b> Introduction to ANOVA and Linear Regression</a></li>
+<li class="chapter" data-level="3" data-path="03-complex_ANOVA_Regression.html"><a href="03-complex_ANOVA_Regression.html"><i class="fa fa-check"></i><b>3</b> Complex ANOVA and Multiple Linear Regression</a></li>
+<li class="chapter" data-level="4" data-path="04-model_building_scoring.html"><a href="04-model_building_scoring.html"><i class="fa fa-check"></i><b>4</b> Model Building &amp; Scoring for Prediction</a></li>
+<li class="chapter" data-level="5" data-path="05-model_selection.html"><a href="05-model_selection.html"><i class="fa fa-check"></i><b>5</b> Model Selection</a></li>
+<li class="chapter" data-level="6" data-path="06-diagnostics.html"><a href="06-diagnostics.html"><i class="fa fa-check"></i><b>6</b> Diagnostics</a></li>
+<li class="chapter" data-level="7" data-path="07-categorical.html"><a href="07-categorical.html"><i class="fa fa-check"></i><b>7</b> Categorical Data Analysis</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical Foundations</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-to-anova-and-linear-regression" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Introduction to ANOVA and Linear Regression</h1>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="011-introduction_statistics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="03-complex_ANOVA_Regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/IAA-Faculty/statistical_foundations.git/edit/master/02-introduction_ANOVA_regression.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/IAA-Faculty/statistical_foundations.git/blob/master/02-introduction_ANOVA_regression.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"toc": null
+}
+});
+});
+</script>
+
+</body>
+
+</html>

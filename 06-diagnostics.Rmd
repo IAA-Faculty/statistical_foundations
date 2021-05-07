@@ -1,1 +1,15 @@
 # Diagnostics
+
+## Examining Residuals
+
+## Misspecified Model
+
+## Constant Variance
+
+## Normality
+
+## Correlated Errors
+
+## Influential Observations and Outliers
+
+## Multicollinearity

@@ -1,1 +1,13 @@
 # Introduction to ANOVA and Linear Regression
+
+## Explanation vs. Prediction
+
+## Exploratory Data Analysis
+
+## One-Way ANOVA
+
+## ANOVA Post-hoc Testing
+
+## Pearson Correlation
+
+## Simple Linear Regression

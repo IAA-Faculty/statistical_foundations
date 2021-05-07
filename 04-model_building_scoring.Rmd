@@ -1,1 +1,9 @@
 # Model Building & Scoring for Prediction
+
+## Model Complexity
+
+## Regularized Regression
+
+## Modeling Scoring
+
+## Model Metrics

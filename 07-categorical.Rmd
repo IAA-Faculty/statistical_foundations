@@ -1,2 +1,12 @@
 # Categorical Data Analysis
 
+## Describing Categorical Data
+
+## Tests of Association
+
+## Measures of Association
+
+## Introduction to Logistic Regression
+
+## Adding Categorical Variables and Interactions
+

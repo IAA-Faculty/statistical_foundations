@@ -1,1 +1,15 @@
 # Model Selection
+
+## Stepwise Selection
+
+### Forward {.unnumbered}
+
+### Backward {.unnumbered}
+
+### Stepwise {.unnumbered}
+
+### LASSO {.unnumbered}
+
+## Selection Criteria
+
+## Significance Levels

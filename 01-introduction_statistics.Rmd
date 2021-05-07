@@ -1,2 +1,27 @@
 # Introduction to Statistics {#introduction_statistics}
 
+## Types of Variables
+
+## Populations and Samples
+
+## Honest Assessment
+
+## Distributions
+
+### Center {.unnumbered}
+
+### Spread {.unnumbered}
+
+### Variation {.unnumbered}
+
+### Normal Distribution {.unnumbered}
+
+### Skewness {.unnumbered}
+
+### Kurtosis {.unnumbered}
+
+## Confidence Intervals
+
+## Hypothesis Testing
+
+## Two-Sample t-tests

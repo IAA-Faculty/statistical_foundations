@@ -8,13 +8,13 @@ github-repo: IAA-Faculty/statistical_foundations
 
 # Preface {.unnumbered}
 
-## Structure of the book {-}
+### Structure of the book {.unnumbered}
 
 The book is broken down into small sections that aim to demonstrate a single concept at a time. Chapter \@ref(introduction) introduces the basic components of R, and how you can assign values to variables. This book is a work in progress. Submit any issues  [here](https://https://github.com/IAA-Faculty/statistical_foundations/issues). Please check back for frequent updates. 
 
-## About the Authors {-}
+### About the Authors {.unnumbered}
 
 
-## Acknowledgements {-}
+### Acknowledgements {.unnumbered}
 
 The author would like to thank the members of the faculty and the TAs at the Institute who provided feedback on this work.
