@@ -1,4 +1,3 @@
-down-the-rabbit-hole
 introduction_statistics
 getting-started
 variable-assignment
