@@ -1,4 +1,3 @@
-<<<<<<< HEAD:01-introduction_statistics.Rmd
 # Introduction to Statistics {#introduction_statistics}
 
 ## Getting Started
