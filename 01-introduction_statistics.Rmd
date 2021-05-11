@@ -1,24 +1,365 @@
-# Introduction to Statistics {#introduction_statistics}
+# Exploratory Data Analysis (EDA) {#eda}
+The crucial first step to any data science problem is exploratory data analysis (EDA). Before you attempt to run any models, or jump towards any formal statistical analysis, you must ___explore your data___. Many unexpected frustrations arise when exploratory analysis is overlooked; knowing your data is critical to your ability to make necessary assumptions about it. This preliminary analysis will help inform our decisions for data manipulation, give us a base-level understanding of our variables and the relationships between them, and help determine which statistical analyses might be appropriate for the questions we are trying to answer. Some of the questions we aim to answer through exploratory analysis are:
+<ul>
+<li> What kind of variables to you have? 
+<ul> 
+<li> Continuous
+<li> Nominal
+<li> Ordinal
+</ul>
+<li> How are the attributes stored?
+<ul>
+<li> Strings
+<li> Integers
+<li> Floats/Numeric
+<li> Dates
+</ul>
+<li> What do their distributions look like?
+<ul>
+<li> Center/Location
+<li> Spread
+<li> Shape
+</ul>
+<li> Are there any anomolies?
+<ul>
+<li> Outliers
+<li> Leverage points
+<li> Missing values
+<li> Low-frequency categories
+</ul>
+</ul>
 
-## Types of Variables
+ We will maintain an example data set throughout this text to demonstrate the various tools and techniques being discussed. It is a real-estate data set that contains the `sale_price` and physical attributes of nearly 3,000 homes in Ames, Iowa in the early 2000s. To access this data, we first install the `AmesHousing` package, add it to our library and create the nicely formatted data with the `make_ames()` function. 
 
-## Populations and Samples
+```{r eval=F}
+install.packages("AmesHousing")
+```
+
+```{r results='hide'}
+library(AmesHousing)
+
+ames <- make_ames() 
+str(ames)
+```
+
+## Types of Variables {#vartypes}
+
+The columns of a data set are referred to by a number of __equivalent terms__:
+
+</ul>
+<li> Variables
+<li> Features
+<li> Attributes
+<li> Predictors/Targets
+<li> Factors
+<li> Inputs/Outputs
+</ul> 
+
+This book may use any of these words interchangeably to refer to a quality or quantity of interest in our data. 
+
+### Nominal Variables 
+
+A __nominal__ or __categorical variable__ is a _quality of interest_ whose values have no logical ordering.  Color ("blue", "red", "green"...), ethnicity ("African-American", "Asian", "Caucasian",...), and style of house ("ranch", "two-story", "duplex", ...) are all examples of nominal attributes. The categories or values that these variables can take on - those words listed in quotes and parenthesis - are called the __levels__ of the variable. 
+
+In modeling, nominal attributes are commonly transformed into __dummy variables__. Dummy variables are binary columns that indicate the presence or absence of a quality. There is more than one way to create dummy variables, and the treatment will be different depending on what type of model you are using. Linear regression models will use either __reference-level__ or __effects coding__, whereas other machine learning models are more likely to use one-hot encoding or a variation thereof. 
+
+#### One-hot encoding {-}
+
+For machine learning applications, it is common to create a binary dummy column for each level of your categorical variable. This is the most intuitive representation of categorical information, answering indicative questions for each level of the variable: _"is it blue?"_, _"is it red?"_ etc. The table below gives an example of some data, the original nominal variable (color) and the one-hot encoded color information. 
+
+<table>
+<tr>
+<td> Observation<td> Color<td> Blue<td> Red<td> Yellow<td> Other
+<tr><td> 1<td> Blue<td> 1<td> 0<td> 0<td> 0
+<tr> <td> 2<td> Yellow<td> 0<td> 0<td> 1<td> 0
+<tr><td> 3<td> Blue<td> 1<td> 0<td> 0<td> 0
+<tr><td> 4<td> Red<td> 0<td> 1<td> 0<td> 0
+<tr><td> 5<td> Red<td> 0<td> 1<td> 0<td> 0
+<tr><td> 6<td> Blue<td> 1<td> 0<td> 0<td> 0
+<tr> <td> 7<td> Yellow<td> 0<td> 0<td> 1<td> 0
+<tr><td> 8<td> Other<td> 0<td> 0<td> 0<td> 1
+</table>
+<caption> (\#tab:onehot)One-hot dummy variable coding for the categorical attribute _color_ </caption>
+
+We will demonstrate the creation of this data using some simple random categorical data:
+
+```{r}
+set.seed(41)
+data <- data.frame(y = c(rnorm(10,2), rnorm(10,1),rnorm(10,0)),
+                x1 = factor(rep(c("A", "B", "C"), each = 10)),
+                x2 = factor(rep(c("Z", "X", "Y","W","V","U"), each = 5)))
+View(data)
+```
+Unlike reference and effects coding, which are typically specified within the `lm()` function as we will see in Chapter \@ref(slr), one-hot encoding is most quickly achieved through use of the `onehot` package in R, which first creates an "encoder" to do the job quickly. 
+
+The speed of this function has been tested against both the base R `model.matrix()` function and the `dummyVars()` function in the `caret` package and is _substantially_ faster than either. 
+
+```
+install.packages("onehot")
+```
+```{r results='hide'}
+library(onehot)
+```
+
+```{r}
+encoder  = onehot(data)
+dummies = predict(encoder,data)
+head(dummies)
+```
+
+#### Reference-level coding {-}
+
+Reference-level coding is similar to one-hot encoding except one of the levels of the attribute, called the __reference level__, is omitted. Notice that the 4 dummy columns from Table \@ref(tab:onehot) collectively form a linearly dependent set; that is, if you know the values of 3 of the 4 dummy variables you can determine the $4^{th}$ with complete certainty. This would be a problem for linear regression, where we assume our input attributes are not linearly dependent as we will discuss in Chapter \@ref(slr).  
+
+A reference level of the attribute is often specified by the user to be a particular level worthy of comparison (a baseline), as the regression output will be interpreted in a way that compares each non-reference level to the reference level. If a reference level is not specified by the user, one will be picked by the software by default either using the order in which the levels were encountered in the data, or their alphabetical ordering. Users should check the documentation of the associated function to understand what to expect.
+
+Table \@ref(tab:refcoding) transforms the one-hot encoding from Table \@ref(tab:onehot) into reference-level coding with the color "blue" as the reference level. Notice the absence of the column indicating "blue" and how each blue observation exists as a row of zeros. 
+
+<table>
+<tr><td> Observation<td> Color<td> Red<td> Yellow<td> Other</tr>
+<tr><td> 1<td> Blue<td> 0<td> 0<td> 0</tr>
+<tr><td> 2<td> Yellow<td> 0<td> 1<td> 0</tr>
+<tr><td> 3<td> Blue<td> 0<td> 0<td> 0</tr>
+<tr><td> 4<td> Red<td> 1<td> 0<td> 0</tr>
+<tr><td> 5<td> Red<td> 1<td> 0<td> 0</tr>
+<tr><td> 6<td> Blue<td> 0<td> 0<td> 0</tr>
+<tr><td> 7<td> Yellow<td> 0<td> 1<td> 0</tr>
+<tr><td> 8<td> Other<td> 0<td> 0<td> 1</tr>
+</table>
+<caption> (\#tab:refcoding) Reference-level dummy variable coding for the categorical attribute _color_ and the reference level of "blue" </caption>
+
+#### Effects coding {-}
+
+Effects coding is useful for obtaining a more general comparative interpretation when you have approximately equal sample sizes across each level of your categorical attribute. Effects coding is designed to allow the user to compare each level to _all_ the other levels. More specifically the mean of each level is compared to the __overall mean__ of your data. However, the comparison is actually to the so-called _grand mean_, which is the mean of the means of each group. When sample sizes are equal, the grand mean and the overall sample mean are equivalent. When sample sizes are _not_ equal, the parameter estimates for effects coding should not be used for interpretation or explanation. 
+
+Effects coding still requires a _reference level_, however the purpose of the reference level is not the same as it was in reference-level coding. Here, the reference level is left out in the sense that no comparison is made between it and the overall mean. Table \@ref(tab:effcoding) shows our same example with effects coding. Again we notice the absence of the column indicating "blue"  but now the reference level receives values of `-1` rather than `0` for all 3 dummy columns.  We will revisit the interpretation of linear regression coefficients under this coding scheme in Chapter \@ref(slr). 
+
+<table>
+<tr><td> Observation<td> Color<td> Red<td> Yellow<td> Other
+<tr><td> 1<td> Blue<td> -1<td> -1<td> -1
+<tr> <td> 2<td> Yellow<td> 0<td> 1<td> 0
+<tr><td> 3<td> Blue<td> -1<td> -1<td> -1
+<tr><td> 4<td> Red<td> 1<td> 0<td> 0
+<tr><td> 5<td> Red<td> 1<td> 0<td> 0
+<tr><td> 6<td> Blue<td> -1<td> -1<td> -1
+<tr> <td> 7<td> Yellow<td> 0<td> 1<td> 0
+<tr><td> 8<td> Other<td> 0<td> 0<td> 1
+</table>
+<caption> (\#tab:effcoding) Effects coding for the categorical attribute _color_ and the reference level of "blue" </caption>
+
+### Interval Variables 
+
+An interval variable is a _quantity of interest_ on which the mathematical operations of addition, subtraction, multiplication and division can be performed. Time, temperature and age are all examples of interval attributes. To illustrate the definition, note that "15 minutes" divided by "5 minutes" is 3, which indicates that 15 minutes is 3 times as long as 5 minutes. The sensible interpretation of this simple arithmetic sentence demonstrates the nature of interval attributes. One should note that such arithmetic would not make sense in the treatment of nominal variables. 
+
+### Ordinal Variables 
+
+__Ordinal variables__ are attributes that are qualitative in nature but have some natural ordering. _Level of education_ is a common example, with a level of 'PhD' indicating _more_ education than 'Bachelors' but lacking a numerical framework to quantify _how much more_. The treatment of ordinal variables will depend on the application. Survey responses on a Likert scale are also ordinal - a response of 4="somewhat agree" on a 1-to-5 scale of agreement cannot reliably be said to be twice as enthusiastic as a response of 2="somewhat disagree". These are not interval measurements, though they are often treated as such in a trade-off for computational efficiency. 
+
+__Ordinal variables will either be given some numeric value and treated as interval variables or they will be treated as categorical variables and dummy variables will be created. The choice of solution is up to the analyst.__ When numeric values are assigned to ordinal variables, the possibilities are many. For example, consider _level of education_. The simplest ordinal treatment for such an attribute might be something like:
+
+<table>
+<tr> <td> Level of Education <td> Numeric Value
+<tr> <td> No H.S. Diploma <td> 1
+<tr> <td> H.S. Diploma or GED <td> 2
+<tr> <td> Associates or Certificate <td> 3
+<tr> <td> Bachelors <td> 4
+<tr> <td> Graduate Certificate <td> 5
+<tr> <td> Masters <td> 6
+<tr> <td> PhD <td> 7
+</table>
+
+While numeric values have been assigned and this data _could_ be used like an interval attribute, it's important to realize that the notion of a "one-unit-increase" is qualitative in nature rather than quantitative. However, if we're interested in learning whether there is a _linear_ type of relationship between education and another attribute (meaning as education level increases, the value of another attribute increases or decreases), this would be the path to get us there. However we're making an assumption in this model that the difference between a H.S. Diploma and an Associates degree (a difference of "1 unit") is the same as the difference between a Master's degree and a PhD (also a difference of "1 unit"). These types of assumptions can be flawed, and it is often desirable to develop an alternative system of measurement based either on domain expertise or the target variable of interest. This is the notion behind __optimal scaling__ and __target-level encoding__.
+
+#### Optimal Scaling {-}
+
+
+
+#### Target-level Encoding {-}
+
 
 ## Honest Assessment
 
+When performing predictive modeling, we _always_ divide our data into subsets for training, validation, and/or final testing. This is a concept that will be revisited several times throughout the introductory curriculum, highlighting its importance to honest assessment of models. There is no single right answer for how this division should occur for every data set - the answer depends on a multitude of factors that are beyond the scope of our present discussion. 
+
+Generally speaking, one expects to keep about 70% of the data for model training purposes, and the remaining 30% for validation and testing. These proportions may change depending on the amount and of data available. If one has millions of observations, they can often get away with a much smaller proportion of training data to reduce computation time and increase confidence in validation. If one has substantially fewer observations, it may be necessary to increase the training proportion in order to build a sound model - trading validation confidence for proper training. 
+
+Below we demonstrate two techniques for separating the data into just two subsets: training and test. These two subsets will suffice for our analyses in this text. We'll use 70% of our data for the training set and the remainder for testing. 
+
+Since we are taking a random sample, each time you run these functions you will get a different result. This can be difficult for team members who wish to keep their analyses in sync. To avoid that variation of results, we can provide a "seed" to the internal random number generation process, which ensures that the randomly generated output is the same to all who use that seed. 
+
+<ol>
+<li> Sampling via the `tidyverse`. This method requires the use of an id variable. If your data set has a unique identifier built in, you may omit the first line of code (after `set.seed()`) and use that unique identifier in the third line.
+
+```{r}
+library(tidyverse)
+set.seed(123)
+
+ames <- ames %>% mutate(id = row_number())
+
+train <- ames %>% sample_frac(0.7)
+
+test <- anti_join(ames, train, by = 'id')
+
+dim(train)
+dim(test)
+```
+<li> Sampling via old-fashioned local indexing. This method creates a logical vector (containing the values `TRUE` or `FALSE`) that indicates the training set observations. The opposite vector, `!train_obs` then indicates the test set. The benefit of this method is the storage of this vector that permanently identifies which observations were placed in the training set. 
+```{r}
+set.seed(123)
+train_obs = sample(c(T,F), nrow(ames),replace=T, prob = c(70,30))
+train = ames[train_obs, ]
+test = ames[!train_obs, ]
+
+dim(train)
+dim(test)
+```
+</ol>
+It's important to note that _even with the same seed_, these two methods will not produce the same result as the randomization contained within them is fundamentally different. 
+
 ## Distributions
 
-### Center {.unnumbered}
+After reviewing the types and formats of the data inputs, we move on to some basic __univariate__ (one variable at a time) analysis. We start by describing the distribution of values that each variable takes on. For nominal variables, this amounts to frequency tables and bar charts of how often each level of the variable appears in the data set.
 
-### Spread {.unnumbered}
+We'll begin by exploring one of our nominal features, `Heating_QC` which categorizes the quality and condition of a home's heating system.
 
-### Variation {.unnumbered}
+```{r fig=T, fig.align='center', fig.cap = 'Distribution of Nominal Variable Heating_QC', id='fig:barchart'}
+ggplot(data = ames) +
+  geom_bar(mapping = aes(x = Heating_QC))
+```
+To summon the same information in tabular form, we can use the `count()` function to create a table:
+```{r}
+ames %>% 
+  count(Heating_QC)
+```
+You'll notice that very few houses (3) have heating system in `Poor` condition, and the majority of houses have systems rated `Excellent`. __It will likely make sense to combine the categories of `Fair` and `Poor` in our eventual analysis, a decision we will revisit later.__
 
-### Normal Distribution {.unnumbered}
+Next we create a __histogram__ for an interval attribute like `Sale_Price`:
 
-### Skewness {.unnumbered}
+```{r fig=T, fig.align='center', fig.cap = 'Distribution of Interval Variable Sale_Price', id='fig:histogram'}
+ggplot(data = ames) +
+  geom_histogram(mapping = aes(x = Sale_Price/1000)) + 
+  labs(x = "Sales Price (Thousands $)")
+```
+From this initial inspection, we can conclude that most of the houses sell for less than $200,000 and there are a number of expensive anomalies. There are a number of more concrete ways that we can describe and quantify a statistical distribution; statistics that describe the _location, spread, and shape_ of the data.
 
-### Kurtosis {.unnumbered}
+### Location {-}
+
+The _location_ of a distribution refers to the x-axis of a histogram like that in Figure \@ref(fig:histogram). Where is most of the data located? The sample __mean__, __median__, and __mode__ are the most common statistics of location, but __percentiles__ and the __interquartile range__ can also be seen in this light. 
+
+
+We define each of these terms below for a variable $\mathbf{x}$ having n observations with values $\{x_i\}_{i=1}^n$, sorted in order of magnitude such that $x_1 \leq x_2 \leq \dots \leq x_n$:
+
+<ul>
+<li>  Mean: The __average__ of the observations, $\frac{1}{n}\sum_{i=1}^n x_i$
+<li>  Median: The "middle value" of the data. Formally, when $n$ is odd, the median is the observation value, $x_m = x_{\frac{(n+1)}{2}}$ for which $x_i < x_m$ for 50% of the observations (excluding $x_m$). When $n$ is even, $x_m$ is the average of $x_\frac{n}{2}$ and $x_{(\frac{n}{2}+1)}$. The median is also known as the $2^{nd}$ __quartile__.
+<li>  Mode: The most commonly occurring value in the data. Most commonly used to describe nominal attributes.
+<li>  Percentiles: The 99 intermediate values of the data which divide the observations into 100 equally-sized groups. The $r^{th}$ percentile of the data, $P_r$  is the number for which $r\%$ of the data is less than $P_r$.
+<li>  Quartiles: The quartiles of a variable are the $25^{th}$, $50^{th}$, and $75^{th}$  percentiles. They are denoted as $Q_1$ ($1^{st}$ quartile), $Q_2$ ($2^{nd}$ quartile = median), and $Q_3$ ($3^{rd}$ quartile) respectively.
+</ul>
+
+##### Illustrative Example {-} 
+Suppose the following table contains the heights of 10 students randomly sampled from NC State's campus. Compute the mean, median, mode and quartiles of this variable.
+
+<table style="width:auto; margin-left: auto; margin-right: auto;" >
+<tr><td style="text-align:center"> height 
+<td style="text-align:center"> 60
+<td style="text-align:center"> 62
+<td style="text-align:center"> 63
+<td style="text-align:center"> 65
+<td style="text-align:center"> 67
+<td style="text-align:center"> 67
+<td style="text-align:center"> 67
+<td style="text-align:center"> 68
+<td style="text-align:center"> 68
+<td style="text-align:center"> 69
+</table>
+
+##### Solution: {-}
+
+<ul>
+<li> The mean is `(60+62+63+65+67+67+67+68+68+69)/10` = 65.6.
+<li> The median (second quartile) is `(67+67)/2` = 67.
+<li> The mode is 67.
+<li> The first quartile is `(62+63)/2` = 62.5
+<li> The third quartile is `(68+68)/2` = 68
+</ul>
+
+### Spread {-}
+
+Once we have an understanding of where the bulk of the data is located, we move on to describing the spread (the dispersion or variation) of the data. __Range__, __interquartile range__, __variance__, and __standard deviation__ are all statistics that describe spread.
+
+<ul> 
+<li> Range: The difference between the maximum and minimum data values.
+<li> Interquartile range (IQR): The difference between the $25^{th} and 75^{th} percentiles.
+<li> Sample variance: The sum of squared differences between each data point and the mean, divided by (n-1). $\frac{1}{n-1}\sum_{i=1}^n (x_i-\bar{x})^2$
+<li> Standard deviation: The square root of the sample variance. 
+
+One should note that standard deviation is more frequently reported than variance because it shares the same units as the original data, and because of the guidance provided by the empirical rule described in \@ref(normal). If we're exploring something like `Sale_Price`, which has the unit "dollars", then the variance would be measured in "square-dollars", which hampers the intuition. Standard deviation, on the other hand, would share the unit "dollars", aiding our fundamental understanding. 
+
+##### Illustrative Example {-} 
+Let's again use the table of heights, this time computing the range, IQR, sample variance and standard deviation.
+
+<table style="width:auto; margin-left: auto; margin-right: auto;" >
+<tr><td style="text-align:center"> height 
+<td style="text-align:center"> 60
+<td style="text-align:center"> 62
+<td style="text-align:center"> 63
+<td style="text-align:center"> 65
+<td style="text-align:center"> 67
+<td style="text-align:center"> 67
+<td style="text-align:center"> 67
+<td style="text-align:center"> 68
+<td style="text-align:center"> 68
+<td style="text-align:center"> 69
+</table>
+
+##### Solution: {-}
+
+<ul>`(60+62+63+65+67+67+67+68+68+69)/10` 
+<li> The range `69-60` = 9.
+<li> The IQR is `68 - 62.5` = 5.5.
+<li> The variance is `((60-65.6)^2+(62-65.6)^2+(63-65.6)^2+(65-65.6)^2+(67-65.6)^2+(67-65.6)^2+(67-65.6)^2+(68-65.6)^2+(68-65.6)^2+(69-65.6)^2)/9` = 8.933
+<li> The standard deviation is `sqrt(8.933)` = 2.989
+</ul>
+
+### Shape {-}
+
+### Summary Functions {}
+
+There are many ways to obtain all of the statistics described in the preceding sections, below we highlight 3:
+
+<ol>
+<li> The `Hmisc` package:
+```{r eval=F}
+install.packages('Hmisc')
+```
+```{r results='hide'}
+library(Hmisc)
+```
+
+```{r} 
+Hmisc::describe(ames)
+```
+
+<li> The tidyverse `summarise` function
+```{r} 
+ames %>%
+  group_by(`House_Style`) %>%
+  summarise(mean = mean(Sale_Price), 
+            sd = sd(Sale_Price), 
+            max = max(Sale_Price), 
+            min = min(Sale_Price))
+```
+<li> The base R `summary` function
+```{r} 
+summary(ames$Sale_Price)
+```
+
+## Normal Distribution {normal}
+
+### Skewness {-}
+
+### Kurtosis {-}
 
 ## Confidence Intervals
 

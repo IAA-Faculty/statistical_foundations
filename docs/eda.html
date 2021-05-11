@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1.6 Hypothesis Testing | Statistical Foundations</title>
-  <meta name="description" content="1.6 Hypothesis Testing | Statistical Foundations" />
+  <title>Chapter 1 Exploratory Data Analysis (EDA) | Statistical Foundations</title>
+  <meta name="description" content="Chapter 1 Exploratory Data Analysis (EDA) | Statistical Foundations" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1.6 Hypothesis Testing | Statistical Foundations" />
+  <meta property="og:title" content="Chapter 1 Exploratory Data Analysis (EDA) | Statistical Foundations" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="IAA-Faculty/statistical_foundations" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1.6 Hypothesis Testing | Statistical Foundations" />
+  <meta name="twitter:title" content="Chapter 1 Exploratory Data Analysis (EDA) | Statistical Foundations" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="confidence-intervals.html"/>
-<link rel="next" href="two-sample-t-tests.html"/>
+<link rel="prev" href="index.html"/>
+<link rel="next" href="vartypes.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -235,16 +235,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="hypothesis-testing" class="section level2" number="1.6">
-<h2><span class="header-section-number">1.6</span> Hypothesis Testing</h2>
+<div id="eda" class="section level1" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Exploratory Data Analysis (EDA)</h1>
+The crucial first step to any data science problem is exploratory data analysis (EDA). Before you attempt to run any models, or jump towards any formal statistical analysis, you must <strong><em>explore your data</em></strong>. Many unexpected frustrations arise when exploratory analysis is overlooked; knowing your data is critical to your ability to make necessary assumptions about it. This preliminary analysis will help inform our decisions for data manipulation, give us a base-level understanding of our variables and the relationships between them, and help determine which statistical analyses might be appropriate for the questions we are trying to answer. Some of the questions we aim to answer through exploratory analysis are:
+<ul>
+<li>
+What kind of variables to you have?
+<ul>
+<li>
+Continuous
+<li>
+Nominal
+<li>
+Ordinal
+</ul>
+<li>
+How are the attributes stored?
+<ul>
+<li>
+Strings
+<li>
+Integers
+<li>
+Floats/Numeric
+<li>
+Dates
+</ul>
+<li>
+What do their distributions look like?
+<ul>
+<li>
+Center/Location
+<li>
+Spread
+<li>
+Shape
+</ul>
+<li>
+Are there any anomolies?
+<ul>
+<li>
+Outliers
+<li>
+Leverage points
+<li>
+Missing values
+<li>
+Low-frequency categories
+</ul>
+</ul>
+<p>We will maintain an example data set throughout this text to demonstrate the various tools and techniques being discussed. It is a real-estate data set that contains the <code>sale_price</code> and physical attributes of nearly 3,000 homes in Ames, Iowa in the early 2000s. To access this data, we first install the <code>AmesHousing</code> package, add it to our library and create the nicely formatted data with the <code>make_ames()</code> function.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="eda.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;AmesHousing&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="eda.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AmesHousing)</span>
+<span id="cb2-2"><a href="eda.html#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="eda.html#cb2-3" aria-hidden="true" tabindex="-1"></a>ames <span class="ot">&lt;-</span> <span class="fu">make_ames</span>() </span>
+<span id="cb2-4"><a href="eda.html#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ames)</span></code></pre></div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="confidence-intervals.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="two-sample-t-tests.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="vartypes.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

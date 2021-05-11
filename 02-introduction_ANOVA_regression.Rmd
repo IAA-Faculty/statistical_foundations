@@ -1,4 +1,4 @@
-# Introduction to ANOVA and Linear Regression
+# Introduction to ANOVA and Linear Regression {#slr}
 
 ## Explanation vs. Prediction
 
@@ -10,4 +10,26 @@
 
 ## Pearson Correlation
 
-## Simple Linear Regression
+## Simple Linear Regression 
+
+Some sample data:
+```
+set.seed(42)
+data <- data.frame(y = c(rnorm(10,2), rnorm(10,1),rnorm(10,0)),
+                x = rep(c("A", "B", "C"), each = 10))
+head(data)
+```
+
+The mean of each group:
+```
+(group.means = tapply(data$y, data$x, mean))
+```
+The grand mean:
+```
+mean(group.means)
+```
+To specify reference coding: 
+```
+lm(a ~ b, x, contrasts = list(b = contr.sum))
+```
+Note that the parameter estimates reflect differences from the grand mean. 
