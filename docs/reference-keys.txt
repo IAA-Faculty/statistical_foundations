@@ -1,8 +1,13 @@
 tab:onehot
 tab:refcoding
 tab:effcoding
-fig:unnamed-chunk-8
-fig:unnamed-chunk-10
+fig:barchart
+fig:histogram
+fig:skewdiagram
+fig:bimodal
+fig:kurtosis
+fig:qqplot
+fig:qqplotKurt
 eda
 vartypes
 nominal-variables
@@ -10,8 +15,7 @@ interval-variables
 ordinal-variables
 honest-assessment
 distributions
-summary-functions
-normal-distribution-normal
+normal-distribution
 confidence-intervals
 hypothesis-testing
 two-sample-t-tests
