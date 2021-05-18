@@ -8,6 +8,10 @@
 
 ### Forward {.unnumbered}
 
+```{r prompt=TRUE, eval=FALSE}
+  2+2
+```
+
 ### Backward {.unnumbered}
 
 ### Stepwise {.unnumbered}
