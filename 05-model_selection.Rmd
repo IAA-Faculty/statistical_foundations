@@ -2,6 +2,10 @@
 
 ## Stepwise Selection
 
+```{r prompt=TRUE, eval=FALSE}
+  1 + 1
+```
+
 ### Forward {.unnumbered}
 
 ### Backward {.unnumbered}
