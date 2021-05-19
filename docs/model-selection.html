@@ -243,13 +243,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In this Chapter, we will focus on two techniques for automatic variable selection: stepwise procedures and LASSO/Ridge. Within the stepwise procedures, we will focus on forward, backward and stepwise searches using several different selection criteria. We will end this section discussing important considerations in use of p-values when dealing with large data sets.</p>
 <div id="selection-criteria" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> Selection Criteria</h2>
+<p>when trying to find the best model, we can use different criteria to choose. For exmaple, you have already seen <span class="math inline">\(R^{2}\)</span> (the larger value of <span class="math inline">\(R^{2}\)</span> the better the model). However, when comparing models, the adjusted <span class="math display">\[R^{2}\]</span> is better due to the fact that <span class="math inline">\(R^{2}\)</span> can potentially increase even when adding noise. The adjusted <span class="math inline">\(R^{2}\)</span> can be thought of as <span class="math inline">\(R^{2}\)</span> with penalty (for every additional variable added to the model, we add a higher penalty). This allows us to weigh the contribution of adding new variables against the added complexity of more variables in the model. There are other selection criteria that are also used in selecting the “best model” (or variable selection). As you will notice, these selection criteria also have a penalty to take into account the addition of variables. We wil focus on the two most common ones….AIC and BIC (or also referred to as SBC).</p>
+<p>The AIC, or Akaike information criterion, was developed by statistician Hirotugu Akaike back in the 1970’s and is defined by
+<span class="math display">\[ AIC = -2log(Likelihood) + 2p.  \]</span> In this case, the “penalty” is 2p, where p is the number of parameters in the model.</p>
+<p>BIC, also known as the Bayesian Information Criterion (also called SBC or Schwarz Bayesian Information) was first developed by Gideon E. Schwarz and is defined by
+<span class="math display">\[BIC = nlog(SSE/n) + plog(n). \]</span> In this case, the “penalty” is plog(n), where p is the number of parameters in the model and n is the sample size.</p>
+<p>Notice that both penalties are multiplied by p. Keep these quantities (2 for AIC and log(n) for BIC) in your mind for later…you will be seeing them again.</p>
 </div>
 <div id="stepwise-selection" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Stepwise Selection</h2>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="model-selection.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span>   <span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div>
+<p>We will talk about three different algorithms in the stepwise selection search: forward, backward and stepwise. Each of these algorithms either add or take away one variable at a time based on a given criterion until this criterion can no longer be met. At which point the algorithm stops.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="model-selection.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(AmesHousing)</span>
+<span id="cb1-2"><a href="model-selection.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="model-selection.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(car)</span>
+<span id="cb1-4"><a href="model-selection.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(DescTools)</span>
+<span id="cb1-5"><a href="model-selection.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(corrplot)</span>
+<span id="cb1-6"><a href="model-selection.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(glmnet)</span>
+<span id="cb1-7"><a href="model-selection.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(leaps)</span></code></pre></div>
 <div id="forward" class="section level3 unnumbered">
 <h3>Forward</h3>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="model-selection.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span>   <span class="dv">2</span><span class="sc">+</span><span class="dv">2</span></span></code></pre></div>
+<p>For forward selection, we start with a null model (only the intercept) and adds one variable at a time until no other variables can be added based on a given criterion. The algorithm is as follows</p>
+<ol start="0" style="list-style-type: decimal">
+<li>Start with a null model</li>
+<li>Create p simple linear regressions
+Loop starts here</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>See which linear regression is best (based on criterion)</li>
+<li>is this regression better than the regression in the previous step? If yes, keep this variable. If no, algorithm stops.</li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="model-selection.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># k = 2 for AIC selection</span></span>
+<span id="cb2-2"><a href="model-selection.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> for.model <span class="ot">&lt;-</span> <span class="fu">step</span>(empty.model,</span>
+<span id="cb2-3"><a href="model-selection.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                   <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
+<span id="cb2-4"><a href="model-selection.html#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                                <span class="at">upper =</span> full.model),</span>
+<span id="cb2-5"><a href="model-selection.html#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                   <span class="at">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="at">k =</span> <span class="dv">2</span>) </span>
+<span id="cb2-6"><a href="model-selection.html#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># k = log(n) for BIC selection</span></span>
+<span id="cb2-7"><a href="model-selection.html#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> for.model2 <span class="ot">&lt;-</span> <span class="fu">step</span>(empty.model,</span>
+<span id="cb2-8"><a href="model-selection.html#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                    <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
+<span id="cb2-9"><a href="model-selection.html#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                                <span class="at">upper =</span> full.model),</span>
+<span id="cb2-10"><a href="model-selection.html#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                    <span class="at">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="at">k =</span> <span class="fu">log</span>(<span class="fu">nrow</span>(train_sel))) <span class="co"># k = qchisq(alpha, 1, lower.tail = FALSE) for p-value with alpha selection</span></span>
+<span id="cb2-11"><a href="model-selection.html#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> alpha.f<span class="ot">=</span><span class="fl">0.05</span></span>
+<span id="cb2-12"><a href="model-selection.html#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> for.model3 <span class="ot">&lt;-</span> <span class="fu">step</span>(empty.model,</span>
+<span id="cb2-13"><a href="model-selection.html#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                    <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
+<span id="cb2-14"><a href="model-selection.html#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                                 <span class="at">upper =</span> full.model),</span>
+<span id="cb2-15"><a href="model-selection.html#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                    <span class="at">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="at">k =</span> <span class="fu">qchisq</span>(alpha.f, <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)) </span></code></pre></div>
 </div>
 <div id="backward" class="section level3 unnumbered">
 <h3>Backward</h3>
