@@ -64,7 +64,7 @@ dim(test)
 <!-- </ol> -->
 <!-- It's important to note that _even with the same seed_, these two methods will not produce the same result as the randomization contained within them is fundamentally different.  -->
 
-## Exploratory Data Analysis (Part 2)
+## Bivariate EDA
 
 As stated in Chapter \@ref(intro-stat), exploratory data analysis is the foundation of any successful data science project. As we move on to the discussion of modeling, we begin to explore _bivariate_ relationships in our data. In doing so, we will often explore the input variables' relationships with the target. __Such exploration should only be done on the training data; we should never let insights from the validation or training data inform our decisions about modeling.__
 
