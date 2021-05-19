@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 1 Exploratory Data Analysis (EDA) | Statistical Foundations</title>
   <meta name="description" content="Chapter 1 Exploratory Data Analysis (EDA) | Statistical Foundations" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 1 Exploratory Data Analysis (EDA) | Statistical Foundations" />
   <meta property="og:type" content="book" />
@@ -31,7 +31,7 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="slr.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -49,12 +49,15 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -114,6 +117,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -185,14 +189,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5" data-path="model-selection.html"><a href="model-selection.html"><i class="fa fa-check"></i><b>5</b> Model Selection</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="model-selection.html"><a href="model-selection.html#stepwise-selection"><i class="fa fa-check"></i><b>5.1</b> Stepwise Selection</a>
+<li class="chapter" data-level="5.1" data-path="model-selection.html"><a href="model-selection.html#selection-criteria"><i class="fa fa-check"></i><b>5.1</b> Selection Criteria</a></li>
+<li class="chapter" data-level="5.2" data-path="model-selection.html"><a href="model-selection.html#stepwise-selection"><i class="fa fa-check"></i><b>5.2</b> Stepwise Selection</a>
 <ul>
 <li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#forward"><i class="fa fa-check"></i>Forward</a></li>
 <li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#backward"><i class="fa fa-check"></i>Backward</a></li>
 <li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#stepwise"><i class="fa fa-check"></i>Stepwise</a></li>
 <li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#lasso"><i class="fa fa-check"></i>LASSO</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="model-selection.html"><a href="model-selection.html#selection-criteria"><i class="fa fa-check"></i><b>5.2</b> Selection Criteria</a></li>
 <li class="chapter" data-level="5.3" data-path="model-selection.html"><a href="model-selection.html#significance-levels"><i class="fa fa-check"></i><b>5.3</b> Significance Levels</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="diagnostics.html"><a href="diagnostics.html"><i class="fa fa-check"></i><b>6</b> Diagnostics</a>
@@ -978,7 +982,6 @@ Figure 1.4: Example of a Bimodal Distribution
 <span id="cb23-4"><a href="eda.html#cb23-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">sd</span>(Sale_Price), </span>
 <span id="cb23-5"><a href="eda.html#cb23-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">max =</span> <span class="fu">max</span>(Sale_Price), </span>
 <span id="cb23-6"><a href="eda.html#cb23-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">min =</span> <span class="fu">min</span>(Sale_Price))</span></code></pre></div>
-<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code>## # A tibble: 8 x 5
 ##   House_Style         mean      sd    max    min
 ##   &lt;fct&gt;              &lt;dbl&gt;   &lt;dbl&gt;  &lt;int&gt;  &lt;int&gt;
@@ -992,7 +995,7 @@ Figure 1.4: Example of a Bimodal Distribution
 ## 8 Two_Story        206990.  85350. 755000  40000</code></pre>
 <li>
 <p>The base R <code>summary</code> function, which can work on the entire dataset or an individual variable</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="eda.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ames<span class="sc">$</span>Sale_Price)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="eda.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ames<span class="sc">$</span>Sale_Price)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   12789  129500  160000  180796  213500  755000</code></pre>
 </div>
@@ -1052,9 +1055,9 @@ Normal Probability Plots (QQ-plots)
 <h4>Normal probability plots (QQ Plots)</h4>
 <p>A <strong>normal probability plot</strong> graphs the sorted data values against the values that one would expect if the same number of observations came from a theoretical normal distribution. The resulting image would look close to a straight line if the data was generated by a normal distribution. Strong deviations from a straight line indicate that the data distribution is not normal.</p>
 <p>Figure <a href="eda.html#fig:qqplot">1.6</a> shows a QQ plot for <code>Sale_Price</code>, and we can conclude that the variable is not normally distributed.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="eda.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ames, <span class="fu">aes</span>(<span class="at">sample =</span> Sale_Price<span class="sc">/</span><span class="dv">1000</span>)) <span class="sc">+</span></span>
-<span id="cb28-2"><a href="eda.html#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
-<span id="cb28-3"><a href="eda.html#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="eda.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ames, <span class="fu">aes</span>(<span class="at">sample =</span> Sale_Price<span class="sc">/</span><span class="dv">1000</span>)) <span class="sc">+</span></span>
+<span id="cb27-2"><a href="eda.html#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
+<span id="cb27-3"><a href="eda.html#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:qqplot"></span>
 <img src="bookdownproj_files/figure-html/qqplot-1.png" alt="QQ-Plot: Quantiles of Sale_Price vs. quantiles of a theoretical normal distribution with same mean and standard deviation. Conclusion: Sale_Price is _not_ normally distributed." width="672" />
 <p class="caption">
@@ -1062,11 +1065,11 @@ Figure 1.6: QQ-Plot: Quantiles of Sale_Price vs. quantiles of a theoretical nor
 </p>
 </div>
 <p>There are two main patterns that we expect to find when examining QQ-plots. One is quadratic shape, as seen in Figure <a href="eda.html#fig:qqplot">1.6</a>. This pattern indicates a deviation from normality due to skewness to the data. The other is an S-shape (or cubic shape), as seen in Figure <a href="eda.html#fig:qqplotKurt">1.7</a>. This pattern indicates deviation from normality due to kurtosis.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="eda.html#cb29-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">j1 =</span> <span class="fu">rlaplace</span>(<span class="dv">10000</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
-<span id="cb29-2"><a href="eda.html#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="eda.html#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="at">sample=</span>j1)) <span class="sc">+</span></span>
-<span id="cb29-4"><a href="eda.html#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
-<span id="cb29-5"><a href="eda.html#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="eda.html#cb28-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">j1 =</span> <span class="fu">rlaplace</span>(<span class="dv">10000</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb28-2"><a href="eda.html#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="eda.html#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="at">sample=</span>j1)) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="eda.html#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
+<span id="cb28-5"><a href="eda.html#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:qqplotKurt"></span>
 <img src="bookdownproj_files/figure-html/qqplotKurt-1.png" alt="QQ-Plot: Quantiles of the Laplace distribution vs. quantiles of a theoretical normal distribution with same mean and standard deviation. Conclusion: Sale_Price is _not_ normally distributed." width="672" />
 <p class="caption">
@@ -1116,6 +1119,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {

@@ -1,26 +1,50 @@
 # Model Selection
 
-When creating a multiple linear regression model, you could be given a large data set containing variables that are informative and uninformative in predicting the response.  With many explanatory variables, the questions becomes "Which variables should I keep in my model?".  It can become extremely time consuming to try to choose the best variables by hand, and the use of automatic procedures can greatly assist in obtaining subsets in which to focus your attention.  
+When creating a multiple linear regression model, your goal is to find the best model possible.  However, within the data, there most likely exists variables that are informative and ones that are uninformative in predicting the response.  With many explanatory variables, it could be extremely time consuming to try all potential models by hand, and the use of automatic procedures can greatly assist in obtaining subsets of variables in which to focus your attention.  
 
-CAUTION: you should NEVER just use the final model outputted from an automatic procedure!  Always double check the variables (look at those included and those not included).  Use content knowledge, common sense, diagnostics, etc to decide on your final model.
+CAUTION: you should NEVER just use the final model created from an automatic procedure!  Always double check the variables (look at those included and those not included).  Use content knowledge, common sense, diagnostics, etc to decide on your final model.
 
-In this Chapter, we will focus on two techniques for automated variable selection: stepwise procedures and LASSO/Ridge. Within the stepwise procedures, we will focus on forward, backward and stepwise searches using several different selection criteria.  We will end this section discussing important considerations in use of p-values when dealing with large data sets.
+In this Chapter, we will focus on two techniques for automatic variable selection: stepwise procedures and LASSO/Ridge. Within the stepwise procedures, we will focus on forward, backward and stepwise searches using several different selection criteria.  We will end this section discussing important considerations in use of p-values when dealing with large data sets.
 
 
 ## Selection Criteria
 
+There are a number of different
 
 ## Stepwise Selection
 
-```{r prompt=TRUE, eval=FALSE}
-  1 + 1
+
+```{r libraries, prompt=TRUE, eval=FALSE}
+library(AmesHousing)
+library(tidyverse)
+library(car)
+library(DescTools)
+library(corrplot)
+library(glmnet)
+library(leaps)
 ```
 
 ### Forward {.unnumbered}
 
-```{r prompt=TRUE, eval=FALSE}
-  2+2
+```{r forward, prompt=TRUE, eval=FALSE}
+# k = 2 for AIC selection
+for.model <- step(empty.model,
+                  scope = list(lower = empty.model,
+                               upper = full.model),
+                  direction = "forward", k = 2) 
+# k = log(n) for BIC selection
+for.model2 <- step(empty.model,
+                   scope = list(lower = empty.model,
+                               upper = full.model),
+                   direction = "forward", k = log(nrow(train_sel))) # k = qchisq(alpha, 1, lower.tail = FALSE) for p-value with alpha selection
+alpha.f=0.05
+for.model3 <- step(empty.model,
+                   scope = list(lower = empty.model,
+                                upper = full.model),
+                   direction = "forward", k = qchisq(alpha.f, 1, lower.tail = FALSE)) 
+
 ```
+
 
 ### Backward {.unnumbered}
 

@@ -37,8 +37,8 @@ regularized-regression
 modeling-scoring
 model-metrics
 model-selection
-stepwise-selection
 selection-criteria
+stepwise-selection
 significance-levels
 diagnostics
 examining-residuals

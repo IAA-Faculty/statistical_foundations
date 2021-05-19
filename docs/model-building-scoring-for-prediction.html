@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Model Building &amp; Scoring for Prediction | Statistical Foundations</title>
   <meta name="description" content="Chapter 4 Model Building &amp; Scoring for Prediction | Statistical Foundations" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Model Building &amp; Scoring for Prediction | Statistical Foundations" />
   <meta property="og:type" content="book" />
@@ -31,7 +31,7 @@
   
 <link rel="prev" href="complex-anova-and-multiple-linear-regression.html"/>
 <link rel="next" href="model-selection.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -49,12 +49,15 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -114,6 +117,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -185,14 +189,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5" data-path="model-selection.html"><a href="model-selection.html"><i class="fa fa-check"></i><b>5</b> Model Selection</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="model-selection.html"><a href="model-selection.html#stepwise-selection"><i class="fa fa-check"></i><b>5.1</b> Stepwise Selection</a>
+<li class="chapter" data-level="5.1" data-path="model-selection.html"><a href="model-selection.html#selection-criteria"><i class="fa fa-check"></i><b>5.1</b> Selection Criteria</a></li>
+<li class="chapter" data-level="5.2" data-path="model-selection.html"><a href="model-selection.html#stepwise-selection"><i class="fa fa-check"></i><b>5.2</b> Stepwise Selection</a>
 <ul>
 <li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#forward"><i class="fa fa-check"></i>Forward</a></li>
 <li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#backward"><i class="fa fa-check"></i>Backward</a></li>
 <li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#stepwise"><i class="fa fa-check"></i>Stepwise</a></li>
 <li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#lasso"><i class="fa fa-check"></i>LASSO</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="model-selection.html"><a href="model-selection.html#selection-criteria"><i class="fa fa-check"></i><b>5.2</b> Selection Criteria</a></li>
 <li class="chapter" data-level="5.3" data-path="model-selection.html"><a href="model-selection.html#significance-levels"><i class="fa fa-check"></i><b>5.3</b> Significance Levels</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="diagnostics.html"><a href="diagnostics.html"><i class="fa fa-check"></i><b>6</b> Diagnostics</a>
@@ -277,6 +281,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
