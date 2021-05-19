@@ -189,14 +189,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5" data-path="model-selection.html"><a href="model-selection.html"><i class="fa fa-check"></i><b>5</b> Model Selection</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="model-selection.html"><a href="model-selection.html#stepwise-selection"><i class="fa fa-check"></i><b>5.1</b> Stepwise Selection</a>
+<li class="chapter" data-level="5.1" data-path="model-selection.html"><a href="model-selection.html#selection-criteria"><i class="fa fa-check"></i><b>5.1</b> Selection Criteria</a></li>
+<li class="chapter" data-level="5.2" data-path="model-selection.html"><a href="model-selection.html#stepwise-selection"><i class="fa fa-check"></i><b>5.2</b> Stepwise Selection</a>
 <ul>
 <li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#forward"><i class="fa fa-check"></i>Forward</a></li>
 <li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#backward"><i class="fa fa-check"></i>Backward</a></li>
 <li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#stepwise"><i class="fa fa-check"></i>Stepwise</a></li>
 <li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#lasso"><i class="fa fa-check"></i>LASSO</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="model-selection.html"><a href="model-selection.html#selection-criteria"><i class="fa fa-check"></i><b>5.2</b> Selection Criteria</a></li>
 <li class="chapter" data-level="5.3" data-path="model-selection.html"><a href="model-selection.html#significance-levels"><i class="fa fa-check"></i><b>5.3</b> Significance Levels</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="diagnostics.html"><a href="diagnostics.html"><i class="fa fa-check"></i><b>6</b> Diagnostics</a>
@@ -238,8 +238,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="model-selection" class="section level1" number="5">
 <h1><span class="header-section-number">Chapter 5</span> Model Selection</h1>
-<div id="stepwise-selection" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> Stepwise Selection</h2>
+<p>When creating a multiple linear regression model, you could be given a large data set containing variables that are informative and uninformative in predicting the response. With many explanatory variables, the questions becomes “Which variables should I keep in my model?”. It can become extremely time consuming to try to choose the best variables by hand, and the use of automatic procedures can greatly assist in obtaining subsets in which to focus your attention.</p>
+<p>CAUTION: you should NEVER just use the final model outputted from an automatic procedure! Always double check the variables (look at those included and those not included). Use content knowledge, common sense, diagnostics, etc to decide on your final model.</p>
+<p>In this Chapter, we will focus on two techniques for automated variable selection: stepwise procedures and LASSO/Ridge. Within the stepwise procedures, we will focus on forward, backward and stepwise searches using several different selection criteria. We will end this section discussing important considerations in use of p-values when dealing with large data sets.</p>
+<div id="selection-criteria" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Selection Criteria</h2>
+</div>
+<div id="stepwise-selection" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Stepwise Selection</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="model-selection.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span>   <span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div>
 <div id="forward" class="section level3 unnumbered">
 <h3>Forward</h3>
@@ -254,9 +260,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="lasso" class="section level3 unnumbered">
 <h3>LASSO</h3>
 </div>
-</div>
-<div id="selection-criteria" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Selection Criteria</h2>
 </div>
 <div id="significance-levels" class="section level2" number="5.3">
 <h2><span class="header-section-number">5.3</span> Significance Levels</h2>
