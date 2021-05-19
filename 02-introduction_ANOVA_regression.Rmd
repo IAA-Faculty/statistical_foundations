@@ -1,35 +1,392 @@
 # Introduction to ANOVA and Linear Regression {#slr}
 
-## Explanation vs. Prediction
+```{r echo=F}
+library(AmesHousing)
+ames=make_ordinal_ames()
+```
+In this chapter, we introduce one of the most commonly used tools in data science: the linear model. We'll start with some basic terminology. A __linear model__ is an equation that typically takes the form 
+\begin{equation}
+\mathbf{y} = \beta_0 + \beta_1\mathbf{x_1} + \dots + \beta_k\mathbf{x_k} + \boldsymbol \epsilon 
+(\#eq:linmod)
+\end{equation}
 
-## Exploratory Data Analysis
+The left-hand side of this equation, $\mathbf{y}$ is equivalently called the __target__, __response__, or __dependent__ variable. The right-hand side is a linear combination of the columns $\{\mathbf{x_i}\}_{i=1}^{k}$ which are commonly referred to as __explanatory__, __input__, __predictor__, or __independent__ variables. 
 
-## One-Way ANOVA
+## Prediction vs. Explanation {#evp}
 
-## ANOVA Post-hoc Testing
+The purpose of a linear model like Equation \@ref(eq:linmod) is generally two-fold: 
+<ol>
+<li> The model is __predictive__ in that it can estimate the value of $y$ for a given combination of the $x$ attributes.
+<li> The model is __explanatory__ in that it can estimate how $y$ changes for a unit increase in a given $x$ attribute, holding all else constant (via the slope parameters $\beta$).
 
-## Pearson Correlation
+However, it's common for _one_ of these purposes to be more aligned with the specific goals of your project, and it is common to approach the building of such a model differently for each purpose. 
+
+In predictive modeling, you are most interested in how much error your model has on _holdout data_, that is, validation or test data. This is a notion that we introduce next in Section \@ref(trainvalidtest). If good predictions are all you want from your model, you are unlikely to care if the model satisfies all the assumptions necessary for hypothesis testing; and you are unlikely to care how many variables (including polynomial and interaction terms) are included in the final model.
+
+In explanatory modeling, you foremost want a model that is simple to interpret and doesn't have too many input variables. It's common to avoid many polynomial and interaction terms for explanatory models. It's also imperative that the model fit the statistical assumptions required for inference (hypothesis testing). While the error rates on holdout data will still be useful reporting metrics for explanatory models, it will be more important to craft the model to fit assumptions and ease of interpretation. 
+
+## Honest Assessment {#trainvalidtest}
+
+When performing predictive or explanatory modeling, we _always_ divide our data into subsets for training, validation, and/or final testing. Because models are prone to discovering small, spurious patterns on the data that is used to create them (the _training data_), we set aside the _validation_ and _testing data_ to get a clear view of how they might perform on new data that they've never seen before.  This is a concept that will be revisited several times throughout this text, highlighting its importance to honest assessment of models. 
+
+There is no single right answer for how this division should occur for every data set - the answer depends on a multitude of factors that are beyond the scope of our present discussion. Generally speaking, one expects to keep about 70% of the data for model training purposes, and the remaining 30% for validation and testing. These proportions may change depending on the amount and of data available. If one has millions of observations, they can often get away with a much smaller proportion of training data to reduce computation time and increase confidence in validation. If one has substantially fewer observations, it may be necessary to increase the training proportion in order to build a sound model - trading validation confidence for proper training. 
+
+Below we demonstrate one technique for separating the data into just two subsets: training and test. These two subsets will suffice for our analyses in this text. We'll use 70% of our data for the training set and the remainder for testing. 
+
+Since we are taking a random sample, each time you run this functions you will get a different result. This can be difficult for team members who wish to keep their analyses in sync. To avoid that variation of results, we can provide a "seed" to the internal random number generation process, which ensures that the randomly generated output is the same to all who use that seed. 
+
+The following code demonstrates sampling via the `tidyverse`. This method requires the use of an id variable. If your data set has a unique identifier built in, you may omit the first line of code (after `set.seed()`) and use that unique identifier in the third line.
+
+```{r  message=FALSE}
+library(tidyverse)
+
+set.seed(123)
+
+ames <- ames %>% mutate(id = row_number())
+
+train <- ames %>% sample_frac(0.7)
+
+test <- anti_join(ames, train, by = 'id')
+
+dim(train)
+dim(test)
+```
+<!-- <li> Sampling via old-fashioned local indexing. This method creates a logical vector (containing the values `TRUE` or `FALSE`) that indicates the training set observations. The opposite vector, `!train_obs` then indicates the test set. The benefit of this method is the storage of this vector that permanently identifies which observations were placed in the training set.  -->
+<!-- ```{r eval=F} -->
+<!-- set.seed(1234) -->
+<!-- train_obs = sample(c(T,F), nrow(ames),replace=T, prob = c(70,30)) -->
+<!-- train = ames[train_obs, ] -->
+<!-- test = ames[!train_obs, ] -->
+
+<!-- dim(train) -->
+<!-- dim(test) -->
+<!-- ``` -->
+<!-- </ol> -->
+<!-- It's important to note that _even with the same seed_, these two methods will not produce the same result as the randomization contained within them is fundamentally different.  -->
+
+## Exploratory Data Analysis (Part 2)
+
+As stated in Chapter \@ref(intro-stat), exploratory data analysis is the foundation of any successful data science project. As we move on to the discussion of modeling, we begin to explore _bivariate_ relationships in our data. In doing so, we will often explore the input variables' relationships with the target. __Such exploration should only be done on the training data; we should never let insights from the validation or training data inform our decisions about modeling.__
+
+Bivariate exploratory analysis is often used to assess relationships between two variables. An __association__ or __relationship__ exists when the expected value of one variable changes at different levels of the other variable. A __linear relationship__ between two continuous variables can be inferred when the general shape of a scatter plot of the two variables is a straight line. 
+
+### Continuous-Continuous Associations
+
+Let's conduct a preliminary assessment of the relationship between the size of the house in square feet (via `Gr_Liv_Area`) and the `Sale_Price` by creating a scatter plot. Note that we call this a preliminary assessment because we should not declare a statistical relationship without a formal hypothesis test (see Section \@ref(cor)). 
+
+```{r label='scatterplot',fig.align='center',fig.cap='Scatter plot demonstrating a positive linear relationship'} 
+ggplot(data = train) + 
+  geom_point(mapping = aes(x = Gr_Liv_Area, y = Sale_Price/1000)) +
+  labs(y = "Sales Price (Thousands $)", x = "Greater Living Area (Sqft)")
+```
+
+
+###  Continuous-Categorical Associations
+
+We'll also revisit the plots that we created in Section \@ref(eda), this time being careful to use only our training data since our goal is eventually to use a linear model to predict `Sale_Price`.
+
+We start by exploring the relationship between the external quality rating of the home (via the ordinal variable `Exter_Qual` and the `Sale_Price`. From this frequency histogram, we immediately see that much fewer of the homes have a rating of `Excellent` versus the other tiers, a fact that makes it difficult to compare the distributions.  To normalize that quantity and compare the raw probability densities, we can change our axes to density (which is analogous to percentage) and employ a kernel density estimator with the `geom_density` plot as shown in Figure \@ref(fig:overhistogramdensitykernel). We can then clearly see that as the exterior quality of the home "goes up" (in the ordinal sense, not in the linear sense), the sale price of the home also increases.
+
+```{r label='overhistogram',fig.align='center',fig.cap='Histogram: Frequency of Sale_Price for varying qualities of home exterior'} 
+ggplot(train,aes(x=Sale_Price/1000, fill=Exter_Qual)) + 
+  geom_histogram(alpha=0.2, position="identity") + 
+  labs(x = "Sales Price (Thousands $)") 
+
+
+```
+
+
+
+```{r label='overhistogramdensitykernel',fig.align='center',fig.cap='Histogram: Density of Sale_Price for varying qualities of home exterior'} 
+ggplot(ames,aes(x=Sale_Price/1000, fill=Exter_Qual)) + 
+  geom_density(alpha=0.2, position="identity") + 
+  labs(x = "Sales Price (Thousands $)")
+    
+  
+    
+```
+
+To further explore the location and spread of the data, we can create box-plots for each group using the following code:
+
+```{r label='multiboxplot',fig.align='center',fig.cap='Box Plots of Sale_Price for each level of Exter_Qual'}
+ggplot(data = train, aes(y = Sale_Price/1000, x = `Exter_Qual`, fill = `Exter_Qual`)) +
+  geom_boxplot() + 
+  labs(y = "Sales Price (Thousands $)", x = "Exterior Quality Category") +
+  stat_summary(fun = mean, geom = "point", shape = 20, size = 5, color = "red", fill = "red") +
+  scale_fill_brewer(palette="Blues") + theme_classic() + coord_flip()
+```  
+Notice that we've highlighted the mean on each box-plot for the purposes of comparison. We now have a hypothesis that we may want to formally test. After all, it is not good practice to look at Figures \@ref(fig:overhistogramdensitykernel) and \@ref(fig:multiboxplot) and _declare_ that a statistical difference exists. While we do, over time, get a feel for which visually apparent relationships turn out to be statistically significant, it's _imperative_ that we conduct formal testing before declaring such insights to a colleague or stakeholder. 
+
+If we want to test whether the `Sale_Price` is different for the different values of `Exter_Qual`, we have to reach for the multi-group alternative to the 2-sample t-test. This is called __Analysis of Variance__, or __ANOVA__ for short. 
+
+## One-Way ANOVA {#oneway}
+
+__One-way ANOVA__ aims to determine whether there is a difference in the mean of a continuous attribute across levels of a categorical attribute. Sound like a two-sample t-test? Indeed, it's the extension of that test to more than two groups. Performing ANOVA with a binary input variable is mathematically identical to the two-sample t-test, as are it's __assumptions__:
+
+<ol>
+<li> The observations are independent
+<li> The model residuals are normally distributed
+<li> The variances for each group are equal 
+</ol>
+
+While ANOVA typically refers to a single hypothesis test, it is truly a linear model with dummy variable inputs. Let \(x_a\), \(x_b\), and \(x_c\) be 3 reference-coded dummy variables for an attribute with 4 levels: `a`, `b`, `c`, and `d`. Note that we only have 3 dummy variables because one gets left out for the reference level, here `d`. ANOVA will create the following linear model:
+
+\begin{equation}
+y=\beta_0 + \beta_ax_a+\beta_bx_b+\beta_cx_c + \epsilon (\#eq:anova1) 
+\end{equation}
+
+Now this model is especially easy to digest because $x_a$, $x_b$ and $x_c$ are binary indicator variables that sum to 1 for each observation. That means if $x_a = 1$ for a given observation then we know that $x_b$ and $x_c$ must be 0.  The following facts can be easily derived for _reference-level coding_ (they will change for effects-level coding) due to the fact that linear models are designed to predict the conditional expectation of y given x, $E[y|x]$. Indeed, for this situation where there 4 levels of our categorical input, the ANOVA _model_ will produce up to 4 distinct predictions. The prediction for each group is merely the group mean! 
+<ul>
+<li> $\beta_0$ represents the mean of reference group, group `d`. 
+<li> $\beta_a, \beta_b, \beta_c$ all represent the _difference_ in the respective group means compared to the reference level. Positive values thus reflect a group mean that is higher than the reference group, and negative values reflect a group mean lower than the reference group. 
+<li> $\epsilon$ is called the __residual__. It is the error between the prediction and the actual response value.  
+</ul>
+
+A _one-way_ ANOVA model only contains a single input variable of interest. Equation \@ref(eq:anova1), while it has 3 dummy variable inputs, only contains a single nominal attribute. In \@ref(chapter3), we will add more inputs to the equation via two-way ANOVA and multivariate regression models. 
+
+ANOVA is used to test the following hypothesis:
+$$H_0: \beta_a=\beta_b=\beta_c = 0 \quad\text{(i.e. all group means are equal)}$$
+$$H_0: \beta_a\neq0\mbox{ or }\beta_b\neq0 \mbox{ or } \beta_c \neq 0 \quad\text{(i.e. at least one is different)}$$
+Both the `lm()` function and the `aov()` function will provide the p-values to test the hypothesis above, the only difference between the two functions is that `lm()` will also provide the user with the coefficient of determinination, $R^2$, which tells you how much of the variation in $y$ is accounted for by your categorical input. 
+
+```{r }
+
+ames_lm <- lm(Sale_Price ~ Exter_Qual, data = train)
+
+anova(ames_lm)
+summary(ames_lm)
+
+# ames_aov <- aov(Sale_Price ~ Exter_Qual, data = train) # Same thing with aov() function instead
+# summary(ames_aov) # R-squared not reported here. 
+
+```
+The p-value for the ANOVA hypothesis that all the groups have the same mean sale price is incredibly small, at $2.2\times10^{-16}$. This means it is extraordinarily improbable that we would have observed these differences in means, or a more extreme difference, if the population group means were equal. Thus, we reject our null hypothesis and conclude that there is an association between the exterior quality of a home and the price of the home. 
+
+We note, based on the $R^2$ statistics, that the exterior quality rating can account for almost half the variation in sales price! Adjusted $R^2$ is a statistic that takes into account the number of variables in the model. The difference between $R^2$ and adjusted $R^2$ will be more thoroughly discussed in Chapter \@ref(chapter3).
+
+We can also confirm what we know about the predictions from ANOVA, that there are only $k$ unique predictions from an ANOVA with $k$ groups (the predictions being the group means), using the `predict` function.
+
+```{r}
+train$pred_anova <- predict(ames_lm, data = train)
+
+train$resid_anova <- resid(ames_lm, data = train)
+
+(model_output = train %>% select(Sale_Price, pred_anova, resid_anova))
+```
+
+
+
+### Testing Assumptions
+
+We can use the default plots from the `lm()` function to check the normality assumption.
+
+```{r label='anovaplots',fig.align='center',fig.cap='Of the 4 default plots from lm(), we are presently interested in the top-right QQ plot that tests our assumption of normally distributed residuals.'}
+
+par(mfrow=c(2,2))
+plot(ames_lm)
+par(mfrow=c(1,1))
+
+```
+In the top-right plot in Figure \@ref(fig:anovaplots) we verify again the _approximate_ normality of sale price.  To test for the third assumption of equal variances, we opt for a formal test like Levene's (which depends on normality and can be found in the `car` package) or Fligner's (which does not depend on normality and exists in the `stats` package). In both cases, the null hypothesis is equal variances:
+$$H_0: \sigma_a^2 =\sigma_b^2 =\sigma_c^2 \quad  \text{i.e., the groups have equal variance}$$
+$$H_a: \text{at least one group's variance is different}$$
+
+```{r message=F}
+#install.packages('car')
+#install.packages('stats')
+library(car)
+library(stats)
+
+leveneTest(Sale_Price ~ Exter_Qual, data = train) # Most popular, but depends on Normality
+
+fligner.test(Sale_Price ~ Exter_Qual, data = train) # DOES NOT depend on Normality
+
+```
+And in both cases, we're forced to reject the null hypothesis of equal variances. A non-parametric version of the ANOVA test, the Kruskal-Wallis test, is more suitable to this particular case. Non-parametric tests do not have the same _statistical power_ to detect differences between groups. __Statistical power__ is the probability of detecting an effect, if there is a true effect present to detect. We should opt for these tests in situations where our data is ordinal or otherwise violates the assumptions of normality or equal variances in ways that cannot be fixed by logarithmic or other similar transformation. 
+
+### Kruskal-Wallis {#kruskal}
+
+The Kruskal-Wallis test, proposed in 1952, is equivalent to a parametric one-way ANOVA where the data values have been replaced with their ranks (i.e. largest value = 1, second largest value = 2, etc.). When the data _is not_ normally distributed but _is_ identically distributed (having the same shape and variance), the Kruskal-Wallis test can be considered a test for differences in medians. If those identical distributions are also symmetric, then Kruskal-Wallis can be interpretted as testing for a difference in medians. When the data is not identically distributed, or when the distributions are not symmetric, Kruskal-Wallis is a test of __dominance__ between distributions. __Distributional dominance__ is the notion that one group's distribution is located at larger values than another, probabilistically speaking.  Formally, a random variable A has dominance over random variable B if $P(A\geq ) \geq P(B\geq x)$ for all $x$, and for some $x$, $P(A> ) \geq P(B> x)$.
+
+We summarize this information in the following table:
+
+<table style="width:auto; margin-left: auto; margin-right: auto;">
+<tr> <td> Conditions <td> Interpretation of Significant <br> Kruskal-Wallis Test 
+<tr> <td> Group distributions are identical in shape,<br> variance, and symmetric <td> Difference in means 
+<tr> <td> Group distributions are identical in shape,<br> variance, but not symmetric <td> Difference in medians 
+<tr> <td> Group distributions are identical in shape,<br> variance, but not symmetric <td> Difference in location. <br> (distributional dominance) </tr>
+</table>
+
+## ANOVA Post-hoc Testing {#posthoc}
+
+After performing an ANOVA and learning that there is a difference between the groups of data, our next natural question ought to be _which groups of data are different, and how?_ In order to explore this question, we must first consider the notion of __experimentwise error__. When conducting multiple hypothesis tests simultaneously, the experimentwise error rate is the proportion of time you expect to make an error in at least one test.
+
+Let's suppose we are comparing grocery spending on 4 different credit card rewards programs. If we'd like to compare the rewards programs pairwise, that entails 6 different hypothesis tests (each is a two-sample t-test). If we keep a confidence level of $\alpha = 0.05$ and subsequently view "being wrong in one test" as a random event happening with probability $p=0.05$ then our probability of being wrong _in at least_ one test out of 6 could be as great as 0.26! 
+
+To control this experiment-wise error rate, we must lower our confidence thresholds to account for it. Alternatively, we can view this as an adjustment of our p-values higher while keeping our confidence threshold fixed as usual. This is typically the approach taken, as we prefer to fix our confidence thresholds in accordance with previous literature or industry standards. There are many methods of adjustment that have been proposed over the years for this purpose. Here, we consider two popular methods: Tukey's test for pairwise comparisons and Dunnett's test for control group comparisons. If the reader finds themselves in a situation that doesn't fit the presciption of either of these methods, we suggest looking next at the modified Bonferroni correction or the notion of false discovery rates proposed by Benjamini and Hochberg in 1995. 
+
+### Tukey-Kramer {#tukey}
+
+If our objective is to compare each group to every other group then Tukey's test of honest significant differences, also known as the Tukey-Kramer test is probably the most widely-available and popular corrections in practice. However, it should be noted that Tukey's test _should not_ be used if one does not plan to make all pairwise comparisons. If only a subset of comparisons are of interest to the user (like comparisons only to a control group) then one should opt for the Dunnett or a modified Bonferroni correction. 
+
+To employ Tukey's HSD in R, we must use the `aov()` function to create our ANOVA object rather than the `lm()` function. The output of the test shows the difference in means and the p-value for testing the null hypothesis that the means are equal (i.e. that the differences are equal to 0). 
+
+```{r label='tukey', fig.align='center', fig.cap = 'Confidence intervals for mean differences adjusted via Tukey-Kramer'}
+ames_aov <- aov(Sale_Price ~ Exter_Qual, data = train)
+tukey.ames <- TukeyHSD(ames_aov)
+print(tukey.ames)
+
+plot(tukey.ames, las = 1)
+```
+The p-values in this table have been adjusted higher to account for the possible experimentwise error rate. For every pairwise comparison shown, we reject the null hypothesis and conclude that the mean sales price of the homes is different for each level of `Exter_Qual`. Furthermore, Figure \@ref(fig:tukey) shows us experiment-wise (family-wise) adjusted confidence intervals for the differences in means for each pair. 
+
+### Dunnett's Test {#dunnett}
+
+If the plan is to make fewer comparisons, specifically just $k-1$ comparisons where $k$ is the number of groups in your data (indicating you plan to compare all the groups to one specific group, usually the control group), then Dunnett's test would be preferrable to the Tukey-Kramer test. If all pairwise comparisons are not made, the Tukey-Kramer test is overly conservative, creating a confidence level that is much lower than specified by the user. Dunnett's test factors in fewer comparisons and thus should not be used for tests of all pairwise comparisons. 
+
+To use Dunnett's test, we must install the `DescTools` package. The control group to which all other groups will be compared is designated by the `control=` option. 
+
+```{r message=F}
+#install.packages('DescTools')
+library(DescTools)
+DunnettTest(x = train$Sale_Price, g = train$Exter_Qual, control = 'Typical')
+
+```
+In the output from Dunnett's test, we notice the p-value comparing `Fair` to `Typical` exterior qualities is lower than it was in the Tukey-Kramer test. This is consistent with our expectations for a test that isn't controlling for as many comparisons; it makes a smaller upward adjustment of p-values to satisfy a given experiment-wise error rate.
+
+
+## Pearson Correlation {#cor}
+
+  ANOVA is used to formally test the relationship between a categorical variable and a continuous variable. To formally test the (linear) relationship between two continuous attributes, we introduce __Pearson correlation__, commonly referred to as simply __correlation__. Correlation is a number between -1 and 1 which measures the strength of a linear relationship between two continuous attributes.
+
+  Negative values of correlation indicate a _negative linear relationship_, meaning that as one of the variables increases, the other tends to decrease. Similarly, positive values of correlation indicate a _positive linear relationship_ meaning that as one of the variables increases, the other tends to increase. Absolute values of correlation equal to 1 indicate a perfect linear relationship.  For example, if our data had a column for "mile time in minutes" and a column for "mile time in seconds", these two columns would have a correlation of 1 due to the fact that there are 60 seconds in a minute. A correlation value near 0 indicates that the variables have no linear relationship.
+  
+  It's important to emphasize that Pearson correlation is only designed to detect _linear_ associations between variables. Even when a correlation between two variables is 0, the two variables may still have a very clear association, whether it be quadratic, cyclical, or some other nonlinear pattern of association. Figure \@ref(fig:correlation) illustrates all of these statements. On top of each scatter plot, the correlation coefficient is shown. The middle row of this figure aims to illustrate that a perfect correlation has nothing to do with the _magnitude_ or _slope_ of the relationship. In the center image, middle row, we note that the correlation is undefined for any pair that includes a constant variable. In that image, the value of $y$ is constant across the sample. Equation \@ref(eq:correlation) makes this mathematically clear.
+
+```{r label='correlation', fig.align='center', fig.cap = 'Examples of relationships and their associated correlations', echo=F, out.width="100%"}
+knitr::include_graphics("img/correlation.png")
+```
+
+The population correlation parameter is denoted $\rho$ and estimated by the sample correlation, denoted as $r$. The formula for the sample correlation between columns of data $\mathbf{x}$ and $\mathbf{y}$ is
+
+\begin{equation}
+r = \frac{\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{x})}{\sqrt{\sum_{i=1}^n (x_i-\bar{x})^2\sum_{i=1}^n(y_i-\bar{x})^2}}.
+(\#eq:correlation)
+\end{equation}
+
+Note that with _centered_ variable vectors $\mathbf{x_c}$ and $\mathbf{y_c}$ this formula becomes much cleaner with linear algebra notation:
+
+\begin{equation}
+r = \frac{\mathbf{x_c}^T\mathbf{y_c}}{\|\mathbf{x_c}\|\|\mathbf{y_c}\|}.
+(\#eq:veccorrelation)
+\end{equation}
+
+It is interesting to note that Equation \@ref(eq:veccorrelation) is identical to the formula for the cosine of the angle between to vectors. While this geometrical relationship does not benefit our intuition^[The n-dimensional vectors \mathbf{x_c} and \mathbf{y_c} live in the vast _sample space_ where a single point/vector is one possible sample of n objects; this space can be difficult to grasp mentally], it is noteworthy nonetheless. 
+ 
+Pearson's correlation can be calculated in R with the built in `cor()` function, with the two continuous variables as input:
+
+```{r}
+cor(train$Gr_Liv_Area,train$Sale_Price)
+```
+
+### Statistical Test {#testcor}
+
+To test the statistical significance of correlation, we use a t-test with the null hypothesis that the correlation is equal to 0:
+$$H_0: \rho = 0$$
+$$H_a: \rho \neq 0$$
+If we can reject the null hypothesis, then we declare a significant linear association between the two variables. The `cor.test()` function in R will perform the test:
+
+```{r}
+cor.test(train$Gr_Liv_Area,train$Sale_Price)
+```
+
+We conclude that `Gr_Liv_Area` has a linear association with Sale_Price. 
+
+It must be noted that this t-test for Pearson's correlation is not free from assumptions. In fact, there are 4 assumptions that must be met, and they are detailed in Section \@ref(#slrassumptions). 
+
+### Anomalous Observations
+
+One final nuance that is important to note is the effect of anomalous observations on correlation. In Figure \@ref(fig:nocor) we display 30 random 2-dimensional data points $(x,y)$ with no linear relationship. 
+
+```{r  fig=T, fig.align='center', fig.cap = 'The variables x and y have no correlation', label='nocor'}
+set.seed(11)
+x <- rnorm(30)
+y <- rnorm(30)
+plot(x,y)
+```
+
+The correlation is not exactly zero (we wouldn't expect perfection from random data) but it is very close at 0.002.
+```{r}
+cor.test(x,y)
+```
+Next, we'll add a single anomalous observation to our data and see how it affects both the correlation value and the correlation test.
+
+```{r}
+x[31] = 4
+y[31] = 50
+cor.test(x,y)
+```
+The correlation jumps to 0.73 from 0.002 and is declared strongly significant! Figure \@ref(fig:extremenocor) illustrates the new data. This simple example shows why exploratory data analysis is so important! If we don't explore our data and detect anomalous observations, we might improperly declare relationships are significant when they are driven by a single observation or a small handful of observations.
+
+```{r fig=T, fig.align='center', fig.cap = 'A single anomalous observation creates strong correlation (0.73) where there previously was none', label='extremenocor'}
+plot(x,y)
+```
+
 
 ## Simple Linear Regression 
 
-Some sample data:
-```
-set.seed(42)
-data <- data.frame(y = c(rnorm(10,2), rnorm(10,1),rnorm(10,0)),
-                x = rep(c("A", "B", "C"), each = 10))
-head(data)
+After learning that two variables share a linear relationship, the next question is natural: _what is that relationship?_ How should we expect one variable to change as the other increases? Simple linear regression answers this question by creating a linear equation that best represents the relationship in the sense that it minimizes the squared error between the observed data and the model predictions (i.e. the sum of the squared residuals). The simple linear regression equation is typically written
+\begin{equation}
+y=\beta_0 + \beta_1x + \epsilon
+(\#eq:slr)
+\end{equation}
+where $\beta_0$, the __intercept__, gives the expected value of $y$ when $x=0$ and $\beta_1$, the __slope__ gives the expected change in $y$ for a one-unit increase in $x$. The __residual__, $\epsilon$ is the error between our predicted value, $\hat{y}=\beta_0 + \beta_1x$ and our actual value $y$. 
+
+As discussed in Section \@ref(evp), a simple linear regression serves two purposes:
+<ol>
+<li> to predict the expected value of $y$ for each value of $x$ and 
+<li> to explain _how_ $y$ is expected to change for a unit change in $x$. 
+</ol>
+
+### Assumptions of Linear Regression {#slrassumptions}
+
+Linear regression, in particular the hypothesis tests that are generally performed as part of linear regression, has 4 assumptions:
+
+<ol> 
+<li> The expected value of $y$ is linear in $x$ (proper model specification).
+<li> The random errors are independent.
+<li> The random errors are normally distributed.
+<li> The random errors have equal variance (heteroskedasticity).
+</ol>
+
+It must now be noted that these assumptions are also in effect for the test of Pearson's correlation in Section \@ref(testcor), because the tests in simple linear regression are mathematically equivalent to that test. When these assumptions are not met, another approach to testing the significance of a linear relationship should be considered. The most common non-parametric approach to testing for an association between two continuous variables is Spearman's correlation. Spearman's correlation does not limit its findings to linear relationships; any monotonic relationship (one that is always increasing or always decreasing) will cause Spearman's correlation to be significant. Similar to the approach taken by Kruskal-Wallis, Spearman's correlation replaces the data with its ranks and computes Pearson's correlation on the ranks. The same `cor` and `cor.test()` functions can be used; simply specify the `method='spearman'` option. 
+
+```{r}
+cor.test(train$Gr_Liv_Area,train$Sale_Price, method = 'spearman')
 ```
 
-The mean of each group:
+### Testing for Association
+
+The statistical test of correlation is mathematically equivalent to testing the hypothesis that the slope parameter in Equation \@ref(eq:slr) is zero. This t-test is part of the output from any linear regression function, like `lm()` which we saw in Section \@ref(oneway). Let's confirm this using the example from the Section \@ref(testcor) where we investigate the relationship between `Gr_Liv_Area` and `Sale_Price`. Again, the t-test in the output tests the following hypothesis:
+$$H_0: \beta_1=0$$
+$$H_a: \beta_1 \neq 0$$
+The first thing we will do after creating the linear model is check our assumption using the default plots from `lm()` . From these four plots we will be most interested in the first two.
+
+In the top left plot, we are visually checking for heteroskedasticity. We'd like to see the variability of the points remain constant from left to right on this chart, indicating that the errors have constant variance for each value of y. We do not want to see any fan shapes in this chart. Unfortunately, we do see just that: the variability of the errors is much smaller for smaller values of Sale Price than it is for larger values of Sale Price. 
+
+In the top right plot, we are visually checking for normality of errors. We'd like to see the QQ-plot indicate normality with all the points roughly following the line. Unfortunately, we do not see that here. The errors do not appear to be normally distributed. 
+
+```{r fig=T, fig.align='center', fig.cap = 'The variables x and y have no correlation', label='slrplots'}
+slr <- lm(Sale_Price ~ Gr_Liv_Area, data=train)
+par(mfrow=c(2,2))
+plot(slr)
+par(mfrow=c(1,1))
 ```
-(group.means = tapply(data$y, data$x, mean))
+Despite the violation of assumptions, let's continue examining the output from this regression in order to practice our interpretation of it. 
+```{r}
+summary(slr)
 ```
-The grand mean:
-```
-mean(group.means)
-```
-To specify reference coding: 
-```
-lm(a ~ b, x, contrasts = list(b = contr.sum))
-```
-Note that the parameter estimates reflect differences from the grand mean. 
+The first thing we're likely to examine in the coefficient table is the p-value for `Gr_Liv_Area`. It is strongly significant (in fact, it's the same t-value and p-value as we saw for the `cor.test` as these tests are mathematically equivalent), indicating that there is an association between the size of the home and the sale price. Furthermore, the _parameter estimate_ is 115.5 indicating that we'd expect the price of a home to increase by \$115.5 for every additional square foot of living space. Because of the linearity of the model, we can extend this slope estimate to any unit change in $x$. For example, it might be difficult to think in terms of single square feet when comparing houses, so we might prefer to use a 100 square-foot change and report our conclusion as follows: For each additional 100 square feet of living area, we expect the house price to increase by \$11,550. 
+
+
+
