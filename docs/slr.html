@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="intro-stat.html"/>
-<link rel="next" href="complex-anova-and-multiple-linear-regression.html"/>
+<link rel="next" href="mlr.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -49,6 +49,13 @@
 
 
 
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -193,12 +200,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.7.2" data-path="slr.html"><a href="slr.html#testing-for-association"><i class="fa fa-check"></i><b>2.7.2</b> Testing for Association</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html"><i class="fa fa-check"></i><b>3</b> Complex ANOVA and Multiple Linear Regression</a>
+<li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Complex ANOVA and Multiple Linear Regression</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#two-way-anova"><i class="fa fa-check"></i><b>3.1</b> Two-Way ANOVA</a></li>
-<li class="chapter" data-level="3.2" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#two-way-anova-with-interactions"><i class="fa fa-check"></i><b>3.2</b> Two-Way ANOVA with Interactions</a></li>
-<li class="chapter" data-level="3.3" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#randomized-block-design"><i class="fa fa-check"></i><b>3.3</b> Randomized Block Design</a></li>
-<li class="chapter" data-level="3.4" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>3.4</b> Multiple Linear Regression</a></li>
+<li class="chapter" data-level="3.1" data-path="mlr.html"><a href="mlr.html#two-way-anova"><i class="fa fa-check"></i><b>3.1</b> Two-Way ANOVA</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="mlr.html"><a href="mlr.html#exploration"><i class="fa fa-check"></i><b>3.1.1</b> Exploration</a></li>
+<li class="chapter" data-level="3.1.2" data-path="mlr.html"><a href="mlr.html#model"><i class="fa fa-check"></i><b>3.1.2</b> Model</a></li>
+<li class="chapter" data-level="3.1.3" data-path="mlr.html"><a href="mlr.html#post-hoc-testing"><i class="fa fa-check"></i><b>3.1.3</b> Post-Hoc Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="mlr.html"><a href="mlr.html#two-way-anova-with-interactions"><i class="fa fa-check"></i><b>3.2</b> Two-Way ANOVA with Interactions</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="mlr.html"><a href="mlr.html#post-hoc-testing-1"><i class="fa fa-check"></i><b>3.2.1</b> Post-Hoc Testing</a></li>
+<li class="chapter" data-level="3.2.2" data-path="mlr.html"><a href="mlr.html#assumptions"><i class="fa fa-check"></i><b>3.2.2</b> Assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="mlr.html"><a href="mlr.html#randomized-block-design"><i class="fa fa-check"></i><b>3.3</b> Randomized Block Design</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="mlr.html"><a href="mlr.html#garlic-bulb-weight-example"><i class="fa fa-check"></i><b>3.3.1</b> Garlic Bulb Weight Example</a></li>
+<li class="chapter" data-level="3.3.2" data-path="mlr.html"><a href="mlr.html#assumptions-1"><i class="fa fa-check"></i><b>3.3.2</b> Assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="mlr.html"><a href="mlr.html#multiple-linear-regression"><i class="fa fa-check"></i><b>3.4</b> Multiple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="mlr.html"><a href="mlr.html#model-structure"><i class="fa fa-check"></i><b>3.4.1</b> Model Structure</a></li>
+<li class="chapter" data-level="3.4.2" data-path="mlr.html"><a href="mlr.html#global-local-inference"><i class="fa fa-check"></i><b>3.4.2</b> Global &amp; Local Inference</a></li>
+<li class="chapter" data-level="3.4.3" data-path="mlr.html"><a href="mlr.html#assumptions-2"><i class="fa fa-check"></i><b>3.4.3</b> Assumptions</a></li>
+<li class="chapter" data-level="3.4.4" data-path="mlr.html"><a href="mlr.html#multiple-coefficients-of-determination"><i class="fa fa-check"></i><b>3.4.4</b> Multiple Coefficients of Determination</a></li>
+<li class="chapter" data-level="3.4.5" data-path="mlr.html"><a href="mlr.html#categorical-predictor-variables"><i class="fa fa-check"></i><b>3.4.5</b> Categorical Predictor Variables</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html"><i class="fa fa-check"></i><b>4</b> Model Building &amp; Scoring for Prediction</a>
 <ul>
@@ -390,7 +417,7 @@ Now this model is especially easy to digest because <span class="math inline">\(
 <span class="math inline">\(\epsilon\)</span> is called the <strong>residual</strong>. It is the error between the prediction and the actual response value.<br />
 
 </ul>
-<p>A <em>one-way</em> ANOVA model only contains a single input variable of interest. Equation <a href="slr.html#eq:anova1">(2.2)</a>, while it has 3 dummy variable inputs, only contains a single nominal attribute. In <a href="#chapter3"><strong>??</strong></a>, we will add more inputs to the equation via two-way ANOVA and multivariate regression models.</p>
+<p>A <em>one-way</em> ANOVA model only contains a single input variable of interest. Equation <a href="slr.html#eq:anova1">(2.2)</a>, while it has 3 dummy variable inputs, only contains a single nominal attribute. In <a href="mlr.html#mlr">3</a>, we will add more inputs to the equation via two-way ANOVA and multivariate regression models.</p>
 <p>ANOVA is used to test the following hypothesis:
 <span class="math display">\[H_0: \beta_a=\beta_b=\beta_c = 0 \quad\text{(i.e. all group means are equal)}\]</span>
 <span class="math display">\[H_0: \beta_a\neq0\mbox{ or }\beta_b\neq0 \mbox{ or } \beta_c \neq 0 \quad\text{(i.e. at least one is different)}\]</span>
@@ -430,7 +457,7 @@ Both the <code>lm()</code> function and the <code>aov()</code> function will pro
 <div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="slr.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ames_aov &lt;- aov(Sale_Price ~ Exter_Qual, data = train) # Same thing with aov() function instead</span></span>
 <span id="cb74-2"><a href="slr.html#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(ames_aov) # R-squared not reported here. </span></span></code></pre></div>
 <p>The p-value for the ANOVA hypothesis that all the groups have the same mean sale price is incredibly small, at <span class="math inline">\(2.2\times10^{-16}\)</span>. This means it is extraordinarily improbable that we would have observed these differences in means, or a more extreme difference, if the population group means were equal. Thus, we reject our null hypothesis and conclude that there is an association between the exterior quality of a home and the price of the home.</p>
-<p>We note, based on the <span class="math inline">\(R^2\)</span> statistics, that the exterior quality rating can account for almost half the variation in sales price! Adjusted <span class="math inline">\(R^2\)</span> is a statistic that takes into account the number of variables in the model. The difference between <span class="math inline">\(R^2\)</span> and adjusted <span class="math inline">\(R^2\)</span> will be more thoroughly discussed in Chapter <a href="#chapter3"><strong>??</strong></a>.</p>
+<p>We note, based on the <span class="math inline">\(R^2\)</span> statistics, that the exterior quality rating can account for almost half the variation in sales price! Adjusted <span class="math inline">\(R^2\)</span> is a statistic that takes into account the number of variables in the model. The difference between <span class="math inline">\(R^2\)</span> and adjusted <span class="math inline">\(R^2\)</span> will be more thoroughly discussed in Chapter <a href="mlr.html#mlr">3</a>.</p>
 <p>We can also confirm what we know about the predictions from ANOVA, that there are only <span class="math inline">\(k\)</span> unique predictions from an ANOVA with <span class="math inline">\(k\)</span> groups (the predictions being the group means), using the <code>predict</code> function.</p>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="slr.html#cb75-1" aria-hidden="true" tabindex="-1"></a>train<span class="sc">$</span>pred_anova <span class="ot">&lt;-</span> <span class="fu">predict</span>(ames_lm, <span class="at">data =</span> train)</span>
 <span id="cb75-2"><a href="slr.html#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -606,7 +633,7 @@ If we can reject the null hypothesis, then we declare a significant linear assoc
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
-## data:  train$Gr_Liv_Area and train$Sale_Price
+## data:  x and y
 ## t = 44.185, df = 2049, p-value &lt; 2.2e-16
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
@@ -698,12 +725,11 @@ The random errors have equal variance (heteroskedasticity).
 </ol>
 <p>It must now be noted that these assumptions are also in effect for the test of Pearson’s correlation in Section <a href="slr.html#testcor">2.6.1</a>, because the tests in simple linear regression are mathematically equivalent to that test. When these assumptions are not met, another approach to testing the significance of a linear relationship should be considered. The most common non-parametric approach to testing for an association between two continuous variables is Spearman’s correlation. Spearman’s correlation does not limit its findings to linear relationships; any monotonic relationship (one that is always increasing or always decreasing) will cause Spearman’s correlation to be significant. Similar to the approach taken by Kruskal-Wallis, Spearman’s correlation replaces the data with its ranks and computes Pearson’s correlation on the ranks. The same <code>cor</code> and <code>cor.test()</code> functions can be used; simply specify the <code>method='spearman'</code> option.</p>
 <div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="slr.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(train<span class="sc">$</span>Gr_Liv_Area,train<span class="sc">$</span>Sale_Price, <span class="at">method =</span> <span class="st">&#39;spearman&#39;</span>)</span></code></pre></div>
-<pre><code>## Warning in cor.test.default(train$Gr_Liv_Area, train$Sale_Price, method =
-## &quot;spearman&quot;): Cannot compute exact p-value with ties</code></pre>
+<pre><code>## Warning in cor.test.default(x, y, ...): Cannot compute exact p-value with ties</code></pre>
 <pre><code>## 
 ##  Spearman&#39;s rank correlation rho
 ## 
-## data:  train$Gr_Liv_Area and train$Sale_Price
+## data:  x and y
 ## S = 408364087, p-value &lt; 2.2e-16
 ## alternative hypothesis: true rho is not equal to 0
 ## sample estimates:
@@ -765,7 +791,7 @@ Figure 2.10: The variables x and y have no correlation
         </div>
       </div>
 <a href="intro-stat.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="complex-anova-and-multiple-linear-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="mlr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

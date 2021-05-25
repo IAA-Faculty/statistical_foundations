@@ -1,5 +1,15 @@
 # Introduction to Statistics {#intro-stat}
-
+```{r echo=F, message=F}
+#install.packages('mosaic')
+library(AmesHousing)
+library(tidyverse)
+library(car)
+library(DescTools)
+library(corrplot)
+library(mosaic)
+library(modelr)
+library(plotly)
+```
  
 This first chapter will review some basic statistical concepts that we assume the reader has seen previously. We will demonstrate how to implement these concepts in R along the way.
 
@@ -191,7 +201,7 @@ An interval variable is a _quantity of interest_ on which the mathematical opera
 
 __Ordinal variables__ are attributes that are qualitative in nature but have some natural ordering. _Level of education_ is a common example, with a level of 'PhD' indicating _more_ education than 'Bachelors' but lacking a numerical framework to quantify _how much more_. The treatment of ordinal variables will depend on the application. Survey responses on a Likert scale are also ordinal - a response of 4="somewhat agree" on a 1-to-5 scale of agreement cannot reliably be said to be twice as enthusiastic as a response of 2="somewhat disagree". These are not interval measurements, though they are often treated as such in a trade-off for computational efficiency. 
 
-__Ordinal variables will either be given some numeric value and treated as interval variables or they will be treated as categorical variables and dummy variables will be created. The choice of solution is up to the analyst.__ When numeric values are assigned to ordinal variables, the possibilities are many. For example, consider _level of education_. The simplest ordinal treatment for such an attribute might be something like:
+__Ordinal variables will either be given some numeric value and treated as interval variables or they will be treated as categorical variables and dummy variables will be created. The choice of solution is up to the analyst.__ When numeric values are assigned to ordinal variables, the possibilities are many. For example, consider _level of education_. The simplest ordinal treatment for such an attribute might be something like Table \@ref(tab:educationint).
 
 <table>
 <tr> <td> Level of Education <td> Numeric Value
@@ -203,12 +213,31 @@ __Ordinal variables will either be given some numeric value and treated as inter
 <tr> <td> Masters <td> 6
 <tr> <td> PhD <td> 7
 </table>
+<caption> (\#tab:educationint) One potential approach to scaling the ordinal attribute level of education </caption>
 
 While numeric values have been assigned and this data _could_ be used like an interval attribute, it's important to realize that the notion of a "one-unit increase" is qualitative in nature rather than quantitative. However, if we're interested in learning whether there is a _linear_ type of relationship between education and another attribute (meaning as education level increases, the value of another attribute increases or decreases), this would be the path to get us there. However we're making an assumption in this model that the difference between a H.S. Diploma and an Associates degree (a difference of "1 unit") is the same as the difference between a Master's degree and a PhD (also a difference of "1 unit"). These types of assumptions can be flawed, and it is often desirable to develop an alternative system of measurement based either on domain expertise or the target variable of interest. This is the notion behind __optimal scaling__ and __target-level encoding__.
 
 ##### Optimal Scaling {-}
 
+The primary idea behind optimal scaling is to transform an ordinal attribute into an interval one in a way that doesn't restrict the numeric values to simply the integers $1,2,3, \dots$. It's reasonable for a data scientist to use domain expertise to develop an alternative scheme. 
 
+For example, if analyzing movie theater concessions with ordinal drink sizes {small, medium, large}, one is not restricted to the numeric valuation of 1=small, 2=medium, and 3=large just because it's an ordinal variable with 3 levels. Perhaps it would make more sense to use the drink size in fluid ounces to represent the ordinality. If the small drink is 12 ounces, the medium is 20 ounces, and the large is 48 ounces, then using those values as the numerical representation would be every bit as (if not more) reasonable than using the standard integers 1, 2, and 3. 
+
+If we re-consider the ordinal attribute level of education, we might decide to represent the approximate years of post-secondary  schooling required to obtain a given level. This might lead us to something like the attribute values in Table \@ref(tab:educationscaled).
+
+<table>
+<tr> <td> Level of Education <td> Numeric Value
+<tr> <td> No H.S. Diploma <td> -1
+<tr> <td> H.S. Diploma or GED <td> 0
+<tr> <td> Associate's or Certificate <td> 2
+<tr> <td> Bachelor's <td> 4
+<tr> <td> Graduate Certificate <td> 5
+<tr> <td> Master's <td> 6
+<tr> <td> PhD <td> 8
+</table>
+<caption> (\#tab:educationscaled) One potential approach to scaling the ordinal attribute level of education </caption>
+
+If we were modeling the effect of education on something like salary, it seems reasonable to assume that the jumps between levels should not have equal distance like they did in \@ref(tab:educationint). It seems reasonable to assume that one would experience a larger salary lift from Associate's to Bachelor's degree than they would from No H.S. Diploma to GED. 
 
 ##### Target-level Encoding {-}
 

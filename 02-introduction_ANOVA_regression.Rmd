@@ -142,7 +142,7 @@ Now this model is especially easy to digest because $x_a$, $x_b$ and $x_c$ are b
 <li> $\epsilon$ is called the __residual__. It is the error between the prediction and the actual response value.  
 </ul>
 
-A _one-way_ ANOVA model only contains a single input variable of interest. Equation \@ref(eq:anova1), while it has 3 dummy variable inputs, only contains a single nominal attribute. In \@ref(chapter3), we will add more inputs to the equation via two-way ANOVA and multivariate regression models. 
+A _one-way_ ANOVA model only contains a single input variable of interest. Equation \@ref(eq:anova1), while it has 3 dummy variable inputs, only contains a single nominal attribute. In \@ref(mlr), we will add more inputs to the equation via two-way ANOVA and multivariate regression models. 
 
 ANOVA is used to test the following hypothesis:
 $$H_0: \beta_a=\beta_b=\beta_c = 0 \quad\text{(i.e. all group means are equal)}$$
@@ -162,7 +162,7 @@ summary(ames_lm)
 ```
 The p-value for the ANOVA hypothesis that all the groups have the same mean sale price is incredibly small, at $2.2\times10^{-16}$. This means it is extraordinarily improbable that we would have observed these differences in means, or a more extreme difference, if the population group means were equal. Thus, we reject our null hypothesis and conclude that there is an association between the exterior quality of a home and the price of the home. 
 
-We note, based on the $R^2$ statistics, that the exterior quality rating can account for almost half the variation in sales price! Adjusted $R^2$ is a statistic that takes into account the number of variables in the model. The difference between $R^2$ and adjusted $R^2$ will be more thoroughly discussed in Chapter \@ref(chapter3).
+We note, based on the $R^2$ statistics, that the exterior quality rating can account for almost half the variation in sales price! Adjusted $R^2$ is a statistic that takes into account the number of variables in the model. The difference between $R^2$ and adjusted $R^2$ will be more thoroughly discussed in Chapter \@ref(mlr).
 
 We can also confirm what we know about the predictions from ANOVA, that there are only $k$ unique predictions from an ANOVA with $k$ groups (the predictions being the group means), using the `predict` function.
 
