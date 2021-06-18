@@ -1,6 +1,37 @@
+---
+output:
+  word_document: default
+  html_document: default
+---
 # Introduction to Statistics {#intro-stat}
-```{r echo=F, message=F}
-#install.packages('mosaic')
+
+The following packages will be used in this textbook. Below we install and add the packages to our libraries so that any version issues can be dealt with at the beginning of the course. Sometimes packages require that you update to the latest version of R; if you see an error that indicates that situation, download the latest version of R from [CRAN](https://cran.r-project.org) and install it. 
+
+```{r eval=F, message=F}
+install.packages('AmesHousing')
+install.packages('tidyverse')
+install.packages('car')
+install.packages('DescTools')
+install.packages('corrplot')
+install.packages('mosaic')
+install.packages('modelr')
+install.packages('plotly')
+install.packages('ggplot2')
+install.packages('Hmisc')
+install.packages('onehot')
+install.packages('jmuOutlier')
+install.packages('leaps')
+install.packages('glmnet')
+install.packages('nortest')
+install.packages('lmtest')
+install.packages('InformationValue')
+install.packages('gmodels')
+install.packages('vcdExtra')
+install.packages('TSA')
+install.packages('carData')
+install.packages('epiDisplay')
+```
+```{r message=F}
 library(AmesHousing)
 library(tidyverse)
 library(car)
@@ -9,6 +40,20 @@ library(corrplot)
 library(mosaic)
 library(modelr)
 library(plotly)
+library(ggplot2)
+library(Hmisc)
+library(onehot)
+library(jmuOutlier)
+library(leaps)
+library(glmnet)
+library(nortest)
+library(lmtest)
+library(InformationValue)
+library(gmodels)
+library(vcdExtra)
+library(TSA)
+library(carData)
+library(epiDisplay)
 ```
  
 This first chapter will review some basic statistical concepts that we assume the reader has seen previously. We will demonstrate how to implement these concepts in R along the way.
@@ -136,7 +181,7 @@ set.seed(41)
 data <- data.frame(y = c(rnorm(10,2), rnorm(10,1),rnorm(10,0)),
                 x1 = factor(rep(c("A", "B", "C"), each = 10)),
                 x2 = factor(rep(c("Z", "X", "Y","W","V","U"), each = 5)))
-View(data)
+print(data)
 ```
 Unlike reference and effects coding, which are typically specified within the `lm()` function as we will see in Chapter \@ref(slr), one-hot encoding is most quickly achieved through use of the `onehot` package in R, which first creates an "encoder" to do the job quickly. 
 
@@ -237,11 +282,11 @@ If we re-consider the ordinal attribute level of education, we might decide to r
 </table>
 <caption> (\#tab:educationscaled) One potential approach to scaling the ordinal attribute level of education </caption>
 
-If we were modeling the effect of education on something like salary, it seems reasonable to assume that the jumps between levels should not have equal distance like they did in \@ref(tab:educationint). It seems reasonable to assume that one would experience a larger salary lift from Associate's to Bachelor's degree than they would from No H.S. Diploma to GED. 
+If we were modeling the effect of education on something like salary, it seems reasonable to assume that the jumps between levels should not have equal distance like they did in \@ref(tab:educationint). It seems reasonable to assume that one would experience a larger salary lift from Associate's to Bachelor's degree than they would from No H.S. Diploma to GED. The most common way to determine the numeric values for categories is to use information from the response variable. This is commonly referred to as __target level encoding__.
 
-##### Target-level Encoding {-}
+##### Target Level Encoding {-}
 
-
+The values in Table \@ref(tab:educationscaled) might have struck the reader as logical but arbitrary. To be more scientific about the determination of those numeric values, one might wish to use information from the response variable to obtain a more precise expected change in salary for each level increase in education. At first hearing this, one might question the validity of the technique; isn't the goal to _predict_ salary? This line of thought is natural, but there are no concerns here. As long as we have training data (and we must if we're creating a regression model!), we can simply create a look-up table that matches each level of education to the average or median salary obtained for that level. These values can be used just as readily as the arbitrary levels created in Table \@ref(tab:educationscaled) to encode the ordinal attribute!
 
 ### Distributions {#dist}
 
@@ -380,9 +425,6 @@ There are many ways to obtain all of the statistics described in the preceding s
 
 <ol>
 <li> The `describe` function from the `Hmisc` package which can work on the entire dataset or a subset of columns.
-```{r eval=F}
-install.packages('Hmisc')
-```
 ```{r message=FALSE}
 library(Hmisc)
 
@@ -391,12 +433,8 @@ Hmisc::describe(ames$Sale_Price)
 
 <li> The tidyverse `summarise` function, in this case obtaining statistics for each `Exter_Qual` separately.
 ```{r} 
-ames %>%
-  group_by(`Exter_Qual`) %>%
-  summarise(mean = mean(Sale_Price), 
-            sd = sd(Sale_Price), 
-            max = max(Sale_Price), 
-            min = min(Sale_Price))
+library(tidyverse)
+ames %>% group_by(Exter_Qual) %>% dplyr::summarise(average = mean(Sale_Price), st.dev = sd(Sale_Price), maximum = max(Sale_Price), minimum = min(Sale_Price))
 ```
 <li> The base R `summary` function, which can work on the entire dataset or an individual variable
 ```{r} 
@@ -592,7 +630,7 @@ results <- t.test(ames$Sale_Price, conf.level = 0.95)
 
 A confidence interval can help us test a hypothesis about the population mean. A __hypothesis__ is merely a statement that we wish to investigate scientifically through the process of statistical inference. In Section \@ref(ci) we proposed some potential hypotheses in the form of questions: If the sample average gas mileage is 21.1, is it possible that the population mean is 21.2? How about 42? The statistical __hypothesis test__ can help us answer these questions.
 
-To conduct a hypothesis test, we make an initial assumption. This initial assumption is called the __null hypothesis__ and typically denoted as $H_0$. We then analyze the data and determine whether out observations are likely, given our assumption of the null hypothesis. If we determine that our observed data was unlikely _enough_ (beyond some threshold of confidence that we set before hand - or beyond a "reasonable doubt" in the justice system) then we _reject_ our initial assumption in favor of the opposite statement, known as the __alternative hypothesis__ denoted $H_a$. The confidence threshold or __confidence level__ that we use to determine how much evidence is required to reject the null hypothesis is a proportion, $\alpha$, which specifies how often we're willing to incorrectly reject the null hypothesis. Remember, in applied statistics there are no proofs. Every decision we make comes with some degree of uncertainty. $\alpha$ quantifies our allowance for that uncertainty. In statistical textbooks of years past, $\alpha = 0.05$ was the norm. Later in this text we will propose much smaller values for $\alpha$ depending on your sample size. 
+To conduct a hypothesis test, we make an initial assumption. This initial assumption is called the __null hypothesis__ and typically denoted as $H_0$. We then analyze the data and determine whether our observations are likely, given our assumption of the null hypothesis. If we determine that our observed data was unlikely _enough_ (beyond some threshold of confidence that we set before hand - or beyond a "reasonable doubt" in the justice system) then we _reject_ our initial assumption in favor of the opposite statement, known as the __alternative hypothesis__ denoted $H_a$. The confidence threshold or __confidence level__ that we use to determine how much evidence is required to reject the null hypothesis is a proportion, $\alpha$, which specifies how often we're willing to incorrectly reject the null hypothesis. Remember, in applied statistics there are no proofs. Every decision we make comes with some degree of uncertainty. $\alpha$ quantifies our allowance for that uncertainty. In statistical textbooks of years past, $\alpha = 0.05$ was the norm. Later in this text we will propose much smaller values for $\alpha$ depending on your sample size. 
 
 In order to quantify how unlikely it was that we observed a statistic as extreme or more extreme than we did, we calculate a __p-value__. The p-value is the area under the __null distribution__ that represents the probability that we observed something as extreme or more extreme than we did (assuming the truth of the null hypothesis). If our p-value is less than our confidence level, $\alpha$, we have enough evidence to reject the null hypothesis in favor of the alternative. 
 
@@ -684,7 +722,7 @@ The nice thing about a simulation study like the one above is that it allows the
  
 ### One-Sample T-Test {#onesample}
 
-If we want to test whether the mean of continuous variable is equal to hypothesized value, we can use the `t.test()` function. The following code tests whether the average sale price of homes from Ames, Iowa over the data time period is \$175,000. For now, we'll use the classic $\alpha=0.05$ as our confidence level. If we have enough evidence to reject this null hypothesis, we will conclude that the mean sale price is either lower or higher for a two-tailed test (the default):
+If we want to test whether the mean of continuous variable is equal to hypothesized value, we can use the `t.test()` function. The following code tests whether the average sale price of homes from Ames, Iowa over the data time period is \$178,000. For now, we'll use the classic $\alpha=0.05$ as our confidence level. If we have enough evidence to reject this null hypothesis, we will conclude that the mean sale price is either lower or higher for a two-tailed test (the default):
 
 
 ```{r}
@@ -717,19 +755,28 @@ The $1^{st}$ assumption is not easily checked unless the data is generated over 
 
 ### Testing Normality of Groups {#testnorm}
 
-The t-test is robust to deviations from normality, thus we can test the normality assumption either graphically or through formal statistical tests. The best graphical test of normality is a QQ-Plot, though histograms are often used as well. For formal tests of normality, we most often use the Shapiro-Wilk test, although many such formal tests exist, each with their own advantages. All of these tests have the null hypothesis of normality:
+The t-test is robust to deviations from normality, thus we can test the normality assumption either graphically or through formal statistical tests. The best graphical test of normality is a QQ-Plot, though histograms are often used as well. We saw in Figures \@ref(fig:qqplot) and \@ref(fig:histogram) that the distribution of `Sale_Price` was not perfectly normal, however the deviations from normality were not egregious. In Figure \@ref(fig:qqplotcentralair) we again examine the normality of Sale Price, this time for each value of `Central_Air`:
+
+```{r label='qqplotcentralair',fig.align='center',fig.cap="QQ-Plot: Quantiles of Sale_Price vs. quantiles of a theoretical normal distribution with same mean and standard deviation, for each level of Central_Air. Conclusion: Sale_Price is _not_ normally distributed for Central_Air='Yes' and is _more_ normally distributed for Central_Air = 'No'."}
+ggplot(data = ames, aes(sample = Sale_Price, color = Central_Air)) +
+     stat_qq() +
+     stat_qq_line()
+```
+
+
+For formal tests of normality, we most often use the Shapiro-Wilk test, although many such formal tests exist, each with their own advantages. All of these tests have the null hypothesis of normality:
 $$H_0: \text{ the data is normally distributed}$$
 $$H_a: \text{ the data is NOT normally distributed}$$
-
-We saw in Figures \@ref(fig:qqplot) and \@ref(fig:histogram) that the distribution of `Sale_Price` was not perfectly normal, however the deviations from normality were not egregious. We can also conduct a formal test as follows:
+We conduct formal tests as follows:
 
 ```{r}
-shapiro.test(ames$Sale_Price)
+shapiro.test(ames$Sale_Price[ames$Central_Air=='Y'])
+shapiro.test(ames$Sale_Price[ames$Central_Air=='N'])
 ```
-The formal test rejects the null hypothesis of normality and confirms what we saw in our visual analysis.
+The formal test rejects the null hypotheses of normality and confirms what we saw in our visual analysis.
 
-While this attribute is, indeed, NOT normally distributed, it is important to note that the t-test is robust to deviations from normality, provided the underlying distribution is unimodal, relatively symmetric and not _severely_ skewed/kurtotic.  
-For the purposes of illustration, we will proceed in this example under the assumption of normality, though a non-parametric approach will also be demonstrated to confirm our analysis in Section \@ref(wilcoxon).
+While this attribute is, indeed, NOT normally distributed, it is important to note that __the t-test is robust to deviations from normality, provided the underlying distribution is unimodal, relatively symmetric and not _severely_ skewed/kurtotic. __ 
+For the sake of illustration, we will proceed in this example under the assumption of normality, though a non-parametric approach will also be demonstrated to confirm our analysis in Section \@ref(wilcoxon).
 
 ### Testing Equality of Variances {#ftest}
 
@@ -762,9 +809,20 @@ Our final conclusion from the t-test is the _rejection of the null hypothesis_ a
 
 As we pointed out in Section \@ref(testnorm), the distribution of `Sale_Price` was not precisely normal. The most principled way to proceed in this case would be with a non-parametric test. The Mann-Whitney-Wilcoxon test is not identical to the t-test in its null and alternative hypotheses, but it aims to answer the same question about an association between the binary attribute and the continuous attribute.
 
-The null and alternative hypotheses for this test are as follows:
-$$H_0: \text{ the distributions of the two groups are equal }  $$
-$$H_a: \text{ the distributions of the two groups are NOT equal }   $$
+The null and alternative hypotheses for this test are typically defined as follows, so long as the _is_ identically distributed (having the same _shape_ and variance):
+$$H_0: \text{ the medians of the two groups are equal }  $$
+$$H_a: \text{ the medians of the two groups are NOT equal }   $$
+If those identical distributions are also symmetric, then Mann-Whitney-Wilcoxon can be interpretted as testing for a difference in means. When the data is not identically distributed, or when the distributions are not symmetric, Mann-Whitney-Wilcoxon is a test of __dominance__ between distributions. __Distributional dominance__ is the notion that one group's distribution is located at larger values than another, probabilistically speaking.  Formally, a random variable A has dominance over random variable B if $P(A\geq ) \geq P(B\geq x)$ for all $x$, and for some $x$, $P(A> ) \geq P(B> x)$.
+
+We summarize this information in the following table:
+
+<table style="width:auto; margin-left: auto; margin-right: auto;">
+<tr> <td> Conditions <td> Interpretation of Significant <br> Mann-Whitney-Wilcoxon Test 
+<tr> <td> Group distributions are identical in shape,<br> variance, and symmetric <td> Difference in means 
+<tr> <td> Group distributions are identical in shape,<br> variance, but not symmetric <td> Difference in medians 
+<tr> <td> Group distributions are identical in shape,<br> variance, but not symmetric <td> Difference in location. <br> (distributional dominance) </tr>
+</table>
+
 To perform this test, we use the `wilcox.test()` function, whose inputs are identical to the `t.test()` function.
 
 ```{r}

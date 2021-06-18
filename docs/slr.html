@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Introduction to ANOVA and Linear Regression | Statistical Foundations</title>
   <meta name="description" content="Chapter 2 Introduction to ANOVA and Linear Regression | Statistical Foundations" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Introduction to ANOVA and Linear Regression | Statistical Foundations" />
   <meta property="og:type" content="book" />
@@ -31,8 +31,7 @@
   
 <link rel="prev" href="intro-stat.html"/>
 <link rel="next" href="mlr.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.5.1/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,36 +48,37 @@
 
 
 
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.4/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.57.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -87,9 +87,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -122,6 +122,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -139,16 +140,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="./img/iaaicon.png" alt="IAA"  class="center"</li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
-<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#structure-of-the-book"><i class="fa fa-check"></i>Structure of the book</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-the-authors"><i class="fa fa-check"></i>About the Authors</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="intro-stat.html"><a href="intro-stat.html"><i class="fa fa-check"></i><b>1</b> Introduction to Statistics</a>
-<ul>
-<li class="chapter" data-level="1.1" data-path="intro-stat.html"><a href="intro-stat.html#eda"><i class="fa fa-check"></i><b>1.1</b> Exploratory Data Analysis (EDA)</a>
-<ul>
+<li class="chapter" data-level="1" data-path="intro-stat.html"><a href="intro-stat.html"><i class="fa fa-check"></i><b>1</b> Introduction to Statistics</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro-stat.html"><a href="intro-stat.html#eda"><i class="fa fa-check"></i><b>1.1</b> Exploratory Data Analysis (EDA)</a><ul>
 <li class="chapter" data-level="1.1.1" data-path="intro-stat.html"><a href="intro-stat.html#vartypes"><i class="fa fa-check"></i><b>1.1.1</b> Types of Variables</a></li>
 <li class="chapter" data-level="1.1.2" data-path="intro-stat.html"><a href="intro-stat.html#dist"><i class="fa fa-check"></i><b>1.1.2</b> Distributions</a></li>
 <li class="chapter" data-level="1.1.3" data-path="intro-stat.html"><a href="intro-stat.html#normal"><i class="fa fa-check"></i><b>1.1.3</b> The Normal Distribution</a></li>
@@ -158,68 +156,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="intro-stat.html"><a href="intro-stat.html#pointest"><i class="fa fa-check"></i><b>1.2</b> Point Estimates</a></li>
 <li class="chapter" data-level="1.3" data-path="intro-stat.html"><a href="intro-stat.html#ci"><i class="fa fa-check"></i><b>1.3</b> Confidence Intervals</a></li>
-<li class="chapter" data-level="1.4" data-path="intro-stat.html"><a href="intro-stat.html#hypotest"><i class="fa fa-check"></i><b>1.4</b> Hypothesis Testing</a>
-<ul>
+<li class="chapter" data-level="1.4" data-path="intro-stat.html"><a href="intro-stat.html#hypotest"><i class="fa fa-check"></i><b>1.4</b> Hypothesis Testing</a><ul>
 <li class="chapter" data-level="1.4.1" data-path="intro-stat.html"><a href="intro-stat.html#onesample"><i class="fa fa-check"></i><b>1.4.1</b> One-Sample T-Test</a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="intro-stat.html"><a href="intro-stat.html#two-sample-t-tests"><i class="fa fa-check"></i><b>1.5</b> Two-Sample t-tests</a>
-<ul>
+<li class="chapter" data-level="1.5" data-path="intro-stat.html"><a href="intro-stat.html#two-sample-t-tests"><i class="fa fa-check"></i><b>1.5</b> Two-Sample t-tests</a><ul>
 <li class="chapter" data-level="1.5.1" data-path="intro-stat.html"><a href="intro-stat.html#testnorm"><i class="fa fa-check"></i><b>1.5.1</b> Testing Normality of Groups</a></li>
 <li class="chapter" data-level="1.5.2" data-path="intro-stat.html"><a href="intro-stat.html#ftest"><i class="fa fa-check"></i><b>1.5.2</b> Testing Equality of Variances</a></li>
 <li class="chapter" data-level="1.5.3" data-path="intro-stat.html"><a href="intro-stat.html#tsttest"><i class="fa fa-check"></i><b>1.5.3</b> Testing Equality of Means</a></li>
 <li class="chapter" data-level="1.5.4" data-path="intro-stat.html"><a href="intro-stat.html#wilcoxon"><i class="fa fa-check"></i><b>1.5.4</b> Mann-Whitney-Wilcoxon Test</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="slr.html"><a href="slr.html"><i class="fa fa-check"></i><b>2</b> Introduction to ANOVA and Linear Regression</a>
-<ul>
+<li class="chapter" data-level="2" data-path="slr.html"><a href="slr.html"><i class="fa fa-check"></i><b>2</b> Introduction to ANOVA and Linear Regression</a><ul>
 <li class="chapter" data-level="2.1" data-path="slr.html"><a href="slr.html#evp"><i class="fa fa-check"></i><b>2.1</b> Prediction vs. Explanation</a></li>
 <li class="chapter" data-level="2.2" data-path="slr.html"><a href="slr.html#trainvalidtest"><i class="fa fa-check"></i><b>2.2</b> Honest Assessment</a></li>
-<li class="chapter" data-level="2.3" data-path="slr.html"><a href="slr.html#bivariate-eda"><i class="fa fa-check"></i><b>2.3</b> Bivariate EDA</a>
-<ul>
+<li class="chapter" data-level="2.3" data-path="slr.html"><a href="slr.html#bivariate-eda"><i class="fa fa-check"></i><b>2.3</b> Bivariate EDA</a><ul>
 <li class="chapter" data-level="2.3.1" data-path="slr.html"><a href="slr.html#continuous-continuous-associations"><i class="fa fa-check"></i><b>2.3.1</b> Continuous-Continuous Associations</a></li>
 <li class="chapter" data-level="2.3.2" data-path="slr.html"><a href="slr.html#continuous-categorical-associations"><i class="fa fa-check"></i><b>2.3.2</b> Continuous-Categorical Associations</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="slr.html"><a href="slr.html#oneway"><i class="fa fa-check"></i><b>2.4</b> One-Way ANOVA</a>
-<ul>
+<li class="chapter" data-level="2.4" data-path="slr.html"><a href="slr.html#oneway"><i class="fa fa-check"></i><b>2.4</b> One-Way ANOVA</a><ul>
 <li class="chapter" data-level="2.4.1" data-path="slr.html"><a href="slr.html#testing-assumptions"><i class="fa fa-check"></i><b>2.4.1</b> Testing Assumptions</a></li>
 <li class="chapter" data-level="2.4.2" data-path="slr.html"><a href="slr.html#kruskal"><i class="fa fa-check"></i><b>2.4.2</b> Kruskal-Wallis</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="slr.html"><a href="slr.html#posthoc"><i class="fa fa-check"></i><b>2.5</b> ANOVA Post-hoc Testing</a>
-<ul>
+<li class="chapter" data-level="2.5" data-path="slr.html"><a href="slr.html#posthoc"><i class="fa fa-check"></i><b>2.5</b> ANOVA Post-hoc Testing</a><ul>
 <li class="chapter" data-level="2.5.1" data-path="slr.html"><a href="slr.html#tukey"><i class="fa fa-check"></i><b>2.5.1</b> Tukey-Kramer</a></li>
 <li class="chapter" data-level="2.5.2" data-path="slr.html"><a href="slr.html#dunnett"><i class="fa fa-check"></i><b>2.5.2</b> Dunnett’s Test</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="slr.html"><a href="slr.html#cor"><i class="fa fa-check"></i><b>2.6</b> Pearson Correlation</a>
-<ul>
+<li class="chapter" data-level="2.6" data-path="slr.html"><a href="slr.html#cor"><i class="fa fa-check"></i><b>2.6</b> Pearson Correlation</a><ul>
 <li class="chapter" data-level="2.6.1" data-path="slr.html"><a href="slr.html#testcor"><i class="fa fa-check"></i><b>2.6.1</b> Statistical Test</a></li>
-<li class="chapter" data-level="2.6.2" data-path="slr.html"><a href="slr.html#anomalous-observations"><i class="fa fa-check"></i><b>2.6.2</b> Anomalous Observations</a></li>
+<li class="chapter" data-level="2.6.2" data-path="slr.html"><a href="slr.html#effect-of-anomalous-observations"><i class="fa fa-check"></i><b>2.6.2</b> Effect of Anomalous Observations</a></li>
+<li class="chapter" data-level="2.6.3" data-path="slr.html"><a href="slr.html#the-correlation-matrix"><i class="fa fa-check"></i><b>2.6.3</b> The Correlation Matrix</a></li>
 </ul></li>
-<li class="chapter" data-level="2.7" data-path="slr.html"><a href="slr.html#simple-linear-regression"><i class="fa fa-check"></i><b>2.7</b> Simple Linear Regression</a>
-<ul>
+<li class="chapter" data-level="2.7" data-path="slr.html"><a href="slr.html#simple-linear-regression"><i class="fa fa-check"></i><b>2.7</b> Simple Linear Regression</a><ul>
 <li class="chapter" data-level="2.7.1" data-path="slr.html"><a href="slr.html#slrassumptions"><i class="fa fa-check"></i><b>2.7.1</b> Assumptions of Linear Regression</a></li>
 <li class="chapter" data-level="2.7.2" data-path="slr.html"><a href="slr.html#testing-for-association"><i class="fa fa-check"></i><b>2.7.2</b> Testing for Association</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Complex ANOVA and Multiple Linear Regression</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="mlr.html"><a href="mlr.html#two-way-anova"><i class="fa fa-check"></i><b>3.1</b> Two-Way ANOVA</a>
-<ul>
+<li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Complex ANOVA and Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="3.1" data-path="mlr.html"><a href="mlr.html#two-way-anova"><i class="fa fa-check"></i><b>3.1</b> Two-Way ANOVA</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="mlr.html"><a href="mlr.html#exploration"><i class="fa fa-check"></i><b>3.1.1</b> Exploration</a></li>
 <li class="chapter" data-level="3.1.2" data-path="mlr.html"><a href="mlr.html#model"><i class="fa fa-check"></i><b>3.1.2</b> Model</a></li>
 <li class="chapter" data-level="3.1.3" data-path="mlr.html"><a href="mlr.html#post-hoc-testing"><i class="fa fa-check"></i><b>3.1.3</b> Post-Hoc Testing</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="mlr.html"><a href="mlr.html#two-way-anova-with-interactions"><i class="fa fa-check"></i><b>3.2</b> Two-Way ANOVA with Interactions</a>
-<ul>
+<li class="chapter" data-level="3.2" data-path="mlr.html"><a href="mlr.html#two-way-anova-with-interactions"><i class="fa fa-check"></i><b>3.2</b> Two-Way ANOVA with Interactions</a><ul>
 <li class="chapter" data-level="3.2.1" data-path="mlr.html"><a href="mlr.html#post-hoc-testing-1"><i class="fa fa-check"></i><b>3.2.1</b> Post-Hoc Testing</a></li>
 <li class="chapter" data-level="3.2.2" data-path="mlr.html"><a href="mlr.html#assumptions"><i class="fa fa-check"></i><b>3.2.2</b> Assumptions</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="mlr.html"><a href="mlr.html#randomized-block-design"><i class="fa fa-check"></i><b>3.3</b> Randomized Block Design</a>
-<ul>
+<li class="chapter" data-level="3.3" data-path="mlr.html"><a href="mlr.html#randomized-block-design"><i class="fa fa-check"></i><b>3.3</b> Randomized Block Design</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="mlr.html"><a href="mlr.html#garlic-bulb-weight-example"><i class="fa fa-check"></i><b>3.3.1</b> Garlic Bulb Weight Example</a></li>
 <li class="chapter" data-level="3.3.2" data-path="mlr.html"><a href="mlr.html#assumptions-1"><i class="fa fa-check"></i><b>3.3.2</b> Assumptions</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="mlr.html"><a href="mlr.html#multiple-linear-regression"><i class="fa fa-check"></i><b>3.4</b> Multiple Linear Regression</a>
-<ul>
+<li class="chapter" data-level="3.4" data-path="mlr.html"><a href="mlr.html#multiple-linear-regression"><i class="fa fa-check"></i><b>3.4</b> Multiple Linear Regression</a><ul>
 <li class="chapter" data-level="3.4.1" data-path="mlr.html"><a href="mlr.html#model-structure"><i class="fa fa-check"></i><b>3.4.1</b> Model Structure</a></li>
 <li class="chapter" data-level="3.4.2" data-path="mlr.html"><a href="mlr.html#global-local-inference"><i class="fa fa-check"></i><b>3.4.2</b> Global &amp; Local Inference</a></li>
 <li class="chapter" data-level="3.4.3" data-path="mlr.html"><a href="mlr.html#assumptions-2"><i class="fa fa-check"></i><b>3.4.3</b> Assumptions</a></li>
@@ -227,42 +213,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4.5" data-path="mlr.html"><a href="mlr.html#categorical-predictor-variables"><i class="fa fa-check"></i><b>3.4.5</b> Categorical Predictor Variables</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html"><i class="fa fa-check"></i><b>4</b> Model Building &amp; Scoring for Prediction</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#model-complexity"><i class="fa fa-check"></i><b>4.1</b> Model Complexity</a></li>
-<li class="chapter" data-level="4.2" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#regularized-regression"><i class="fa fa-check"></i><b>4.2</b> Regularized Regression</a></li>
-<li class="chapter" data-level="4.3" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#modeling-scoring"><i class="fa fa-check"></i><b>4.3</b> Modeling Scoring</a></li>
-<li class="chapter" data-level="4.4" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#model-metrics"><i class="fa fa-check"></i><b>4.4</b> Model Metrics</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="model-selection.html"><a href="model-selection.html"><i class="fa fa-check"></i><b>5</b> Model Selection</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="model-selection.html"><a href="model-selection.html#selection-criteria"><i class="fa fa-check"></i><b>5.1</b> Selection Criteria</a></li>
-<li class="chapter" data-level="5.2" data-path="model-selection.html"><a href="model-selection.html#stepwise-selection"><i class="fa fa-check"></i><b>5.2</b> Stepwise Selection</a>
-<ul>
+<li class="chapter" data-level="4" data-path="model-selection.html"><a href="model-selection.html"><i class="fa fa-check"></i><b>4</b> Model Selection</a><ul>
+<li class="chapter" data-level="4.1" data-path="model-selection.html"><a href="model-selection.html#selection-criteria"><i class="fa fa-check"></i><b>4.1</b> Selection Criteria</a></li>
+<li class="chapter" data-level="4.2" data-path="model-selection.html"><a href="model-selection.html#stepwise-selection"><i class="fa fa-check"></i><b>4.2</b> Stepwise Selection</a><ul>
 <li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#forward"><i class="fa fa-check"></i>Forward</a></li>
 <li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#backward"><i class="fa fa-check"></i>Backward</a></li>
 <li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#stepwise"><i class="fa fa-check"></i>Stepwise</a></li>
-<li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#lasso"><i class="fa fa-check"></i>LASSO</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="model-selection.html"><a href="model-selection.html#significance-levels"><i class="fa fa-check"></i><b>5.3</b> Significance Levels</a></li>
+<li class="chapter" data-level="4.3" data-path="model-selection.html"><a href="model-selection.html#significance-levels"><i class="fa fa-check"></i><b>4.3</b> Significance Levels</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="diagnostics.html"><a href="diagnostics.html"><i class="fa fa-check"></i><b>6</b> Diagnostics</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="diagnostics.html"><a href="diagnostics.html#examining-residuals"><i class="fa fa-check"></i><b>6.1</b> Examining Residuals</a></li>
-<li class="chapter" data-level="6.2" data-path="diagnostics.html"><a href="diagnostics.html#misspecified-model"><i class="fa fa-check"></i><b>6.2</b> Misspecified Model</a></li>
-<li class="chapter" data-level="6.3" data-path="diagnostics.html"><a href="diagnostics.html#constant-variance"><i class="fa fa-check"></i><b>6.3</b> Constant Variance</a></li>
-<li class="chapter" data-level="6.4" data-path="diagnostics.html"><a href="diagnostics.html#normality"><i class="fa fa-check"></i><b>6.4</b> Normality</a></li>
-<li class="chapter" data-level="6.5" data-path="diagnostics.html"><a href="diagnostics.html#correlated-errors"><i class="fa fa-check"></i><b>6.5</b> Correlated Errors</a></li>
-<li class="chapter" data-level="6.6" data-path="diagnostics.html"><a href="diagnostics.html#influential-observations-and-outliers"><i class="fa fa-check"></i><b>6.6</b> Influential Observations and Outliers</a></li>
-<li class="chapter" data-level="6.7" data-path="diagnostics.html"><a href="diagnostics.html#multicollinearity"><i class="fa fa-check"></i><b>6.7</b> Multicollinearity</a></li>
+<li class="chapter" data-level="5" data-path="diagnostics.html"><a href="diagnostics.html"><i class="fa fa-check"></i><b>5</b> Diagnostics</a><ul>
+<li class="chapter" data-level="5.1" data-path="diagnostics.html"><a href="diagnostics.html#examining-residuals"><i class="fa fa-check"></i><b>5.1</b> Examining Residuals</a></li>
+<li class="chapter" data-level="5.2" data-path="diagnostics.html"><a href="diagnostics.html#misspecified-model"><i class="fa fa-check"></i><b>5.2</b> Misspecified Model</a></li>
+<li class="chapter" data-level="5.3" data-path="diagnostics.html"><a href="diagnostics.html#constant-variance"><i class="fa fa-check"></i><b>5.3</b> Constant Variance</a></li>
+<li class="chapter" data-level="5.4" data-path="diagnostics.html"><a href="diagnostics.html#normality"><i class="fa fa-check"></i><b>5.4</b> Normality</a></li>
+<li class="chapter" data-level="5.5" data-path="diagnostics.html"><a href="diagnostics.html#correlated-errors"><i class="fa fa-check"></i><b>5.5</b> Correlated Errors</a></li>
+<li class="chapter" data-level="5.6" data-path="diagnostics.html"><a href="diagnostics.html#influential-observations-and-outliers"><i class="fa fa-check"></i><b>5.6</b> Influential Observations and Outliers</a></li>
+<li class="chapter" data-level="5.7" data-path="diagnostics.html"><a href="diagnostics.html#multicollinearity"><i class="fa fa-check"></i><b>5.7</b> Multicollinearity</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html"><i class="fa fa-check"></i><b>7</b> Categorical Data Analysis</a>
-<ul>
+<li class="chapter" data-level="6" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html"><i class="fa fa-check"></i><b>6</b> Model Building &amp; Scoring for Prediction</a><ul>
+<li class="chapter" data-level="6.1" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#regularized-regression"><i class="fa fa-check"></i><b>6.1</b> Regularized Regression</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#penalties-in-models"><i class="fa fa-check"></i><b>6.1.1</b> Penalties in Models</a></li>
+<li class="chapter" data-level="6.1.2" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#ridge-regression"><i class="fa fa-check"></i><b>6.1.2</b> Ridge Regression</a></li>
+<li class="chapter" data-level="6.1.3" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#lasso"><i class="fa fa-check"></i><b>6.1.3</b> LASSO</a></li>
+<li class="chapter" data-level="6.1.4" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#elastic-net"><i class="fa fa-check"></i><b>6.1.4</b> Elastic Net</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#optimizing-penalties"><i class="fa fa-check"></i><b>6.2</b> Optimizing Penalties</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#cross-validation"><i class="fa fa-check"></i><b>6.2.1</b> Cross-Validation</a></li>
+<li class="chapter" data-level="6.2.2" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#cv-in-regularized-regression"><i class="fa fa-check"></i><b>6.2.2</b> CV in Regularized Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#model-comparisons"><i class="fa fa-check"></i><b>6.3</b> Model Comparisons</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#test-dataset-comparison"><i class="fa fa-check"></i><b>6.3.1</b> Test Dataset Comparison</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html"><i class="fa fa-check"></i><b>7</b> Categorical Data Analysis</a><ul>
 <li class="chapter" data-level="7.1" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#describing-categorical-data"><i class="fa fa-check"></i><b>7.1</b> Describing Categorical Data</a></li>
 <li class="chapter" data-level="7.2" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#tests-of-association"><i class="fa fa-check"></i><b>7.2</b> Tests of Association</a></li>
 <li class="chapter" data-level="7.3" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#measures-of-association"><i class="fa fa-check"></i><b>7.3</b> Measures of Association</a></li>
-<li class="chapter" data-level="7.4" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#introduction-to-logistic-regression"><i class="fa fa-check"></i><b>7.4</b> Introduction to Logistic Regression</a></li>
-<li class="chapter" data-level="7.5" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#adding-categorical-variables-and-interactions"><i class="fa fa-check"></i><b>7.5</b> Adding Categorical Variables and Interactions</a></li>
+<li class="chapter" data-level="7.4" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#introduction-to-logistic-regression"><i class="fa fa-check"></i><b>7.4</b> Introduction to Logistic Regression</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#linear-probability-model"><i class="fa fa-check"></i><b>7.4.1</b> Linear Probability Model</a></li>
+<li class="chapter" data-level="7.4.2" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#binary-logistic-regression"><i class="fa fa-check"></i><b>7.4.2</b> Binary Logistic Regression</a></li>
+<li class="chapter" data-level="7.4.3" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#adding-categorical-variables"><i class="fa fa-check"></i><b>7.4.3</b> Adding Categorical Variables</a></li>
+<li class="chapter" data-level="7.4.4" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#model-assessment"><i class="fa fa-check"></i><b>7.4.4</b> Model Assessment</a></li>
+<li class="chapter" data-level="7.4.5" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#variable-selection-and-regularized-regression"><i class="fa fa-check"></i><b>7.4.5</b> Variable Selection and Regularized Regression</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -283,7 +277,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="slr" class="section level1" number="2">
+<div id="slr" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> Introduction to ANOVA and Linear Regression</h1>
 <p>In this chapter, we introduce one of the most commonly used tools in data science: the linear model. We’ll start with some basic terminology. A <strong>linear model</strong> is an equation that typically takes the form
 <span class="math display" id="eq:linmod">\[\begin{equation}
@@ -291,7 +285,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 \tag{2.1}
 \end{equation}\]</span></p>
 <p>The left-hand side of this equation, <span class="math inline">\(\mathbf{y}\)</span> is equivalently called the <strong>target</strong>, <strong>response</strong>, or <strong>dependent</strong> variable. The right-hand side is a linear combination of the columns <span class="math inline">\(\{\mathbf{x_i}\}_{i=1}^{k}\)</span> which are commonly referred to as <strong>explanatory</strong>, <strong>input</strong>, <strong>predictor</strong>, or <strong>independent</strong> variables.</p>
-<div id="evp" class="section level2" number="2.1">
+<div id="evp" class="section level2">
 <h2><span class="header-section-number">2.1</span> Prediction vs. Explanation</h2>
 The purpose of a linear model like Equation <a href="slr.html#eq:linmod">(2.1)</a> is generally two-fold:
 <ol>
@@ -303,26 +297,26 @@ The model is <strong>predictive</strong> in that it can estimate the value of <s
 <p>In predictive modeling, you are most interested in how much error your model has on <em>holdout data</em>, that is, validation or test data. This is a notion that we introduce next in Section <a href="slr.html#trainvalidtest">2.2</a>. If good predictions are all you want from your model, you are unlikely to care if the model satisfies all the assumptions necessary for hypothesis testing; and you are unlikely to care how many variables (including polynomial and interaction terms) are included in the final model.</p>
 <p>In explanatory modeling, you foremost want a model that is simple to interpret and doesn’t have too many input variables. It’s common to avoid many polynomial and interaction terms for explanatory models. It’s also imperative that the model fit the statistical assumptions required for inference (hypothesis testing). While the error rates on holdout data will still be useful reporting metrics for explanatory models, it will be more important to craft the model to fit assumptions and ease of interpretation.</p>
 </div>
-<div id="trainvalidtest" class="section level2" number="2.2">
+<div id="trainvalidtest" class="section level2">
 <h2><span class="header-section-number">2.2</span> Honest Assessment</h2>
 <p>When performing predictive or explanatory modeling, we <em>always</em> divide our data into subsets for training, validation, and/or final testing. Because models are prone to discovering small, spurious patterns on the data that is used to create them (the <em>training data</em>), we set aside the <em>validation</em> and <em>testing data</em> to get a clear view of how they might perform on new data that they’ve never seen before. This is a concept that will be revisited several times throughout this text, highlighting its importance to honest assessment of models.</p>
 <p>There is no single right answer for how this division should occur for every data set - the answer depends on a multitude of factors that are beyond the scope of our present discussion. Generally speaking, one expects to keep about 70% of the data for model training purposes, and the remaining 30% for validation and testing. These proportions may change depending on the amount and of data available. If one has millions of observations, they can often get away with a much smaller proportion of training data to reduce computation time and increase confidence in validation. If one has substantially fewer observations, it may be necessary to increase the training proportion in order to build a sound model - trading validation confidence for proper training.</p>
 <p>Below we demonstrate one technique for separating the data into just two subsets: training and test. These two subsets will suffice for our analyses in this text. We’ll use 70% of our data for the training set and the remainder for testing.</p>
 <p>Since we are taking a random sample, each time you run this functions you will get a different result. This can be difficult for team members who wish to keep their analyses in sync. To avoid that variation of results, we can provide a “seed” to the internal random number generation process, which ensures that the randomly generated output is the same to all who use that seed.</p>
 <p>The following code demonstrates sampling via the <code>tidyverse</code>. This method requires the use of an id variable. If your data set has a unique identifier built in, you may omit the first line of code (after <code>set.seed()</code>) and use that unique identifier in the third line.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="slr.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb61-2"><a href="slr.html#cb61-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-3"><a href="slr.html#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb61-4"><a href="slr.html#cb61-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-5"><a href="slr.html#cb61-5" aria-hidden="true" tabindex="-1"></a>ames <span class="ot">&lt;-</span> ames <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">row_number</span>())</span>
-<span id="cb61-6"><a href="slr.html#cb61-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-7"><a href="slr.html#cb61-7" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> ames <span class="sc">%&gt;%</span> <span class="fu">sample_frac</span>(<span class="fl">0.7</span>)</span>
-<span id="cb61-8"><a href="slr.html#cb61-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-9"><a href="slr.html#cb61-9" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">anti_join</span>(ames, train, <span class="at">by =</span> <span class="st">&#39;id&#39;</span>)</span>
-<span id="cb61-10"><a href="slr.html#cb61-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-11"><a href="slr.html#cb61-11" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(train)</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb65-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb65-3" data-line-number="3"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb65-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb65-5" data-line-number="5">ames &lt;-<span class="st"> </span>ames <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">row_number</span>())</a>
+<a class="sourceLine" id="cb65-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb65-7" data-line-number="7">train &lt;-<span class="st"> </span>ames <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="fl">0.7</span>)</a>
+<a class="sourceLine" id="cb65-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb65-9" data-line-number="9">test &lt;-<span class="st"> </span><span class="kw">anti_join</span>(ames, train, <span class="dt">by =</span> <span class="st">&#39;id&#39;</span>)</a>
+<a class="sourceLine" id="cb65-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb65-11" data-line-number="11"><span class="kw">dim</span>(train)</a></code></pre></div>
 <pre><code>## [1] 2051   82</code></pre>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="slr.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(test)</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1"><span class="kw">dim</span>(test)</a></code></pre></div>
 <pre><code>## [1] 879  82</code></pre>
 <!-- <li> Sampling via old-fashioned local indexing. This method creates a logical vector (containing the values `TRUE` or `FALSE`) that indicates the training set observations. The opposite vector, `!train_obs` then indicates the test set. The benefit of this method is the storage of this vector that permanently identifies which observations were placed in the training set.  -->
 <!-- ```{r eval=F} -->
@@ -336,16 +330,16 @@ The model is <strong>predictive</strong> in that it can estimate the value of <s
 <!-- </ol> -->
 <!-- It's important to note that _even with the same seed_, these two methods will not produce the same result as the randomization contained within them is fundamentally different.  -->
 </div>
-<div id="bivariate-eda" class="section level2" number="2.3">
+<div id="bivariate-eda" class="section level2">
 <h2><span class="header-section-number">2.3</span> Bivariate EDA</h2>
 <p>As stated in Chapter <a href="intro-stat.html#intro-stat">1</a>, exploratory data analysis is the foundation of any successful data science project. As we move on to the discussion of modeling, we begin to explore <em>bivariate</em> relationships in our data. In doing so, we will often explore the input variables’ relationships with the target. <strong>Such exploration should only be done on the training data; we should never let insights from the validation or training data inform our decisions about modeling.</strong></p>
 <p>Bivariate exploratory analysis is often used to assess relationships between two variables. An <strong>association</strong> or <strong>relationship</strong> exists when the expected value of one variable changes at different levels of the other variable. A <strong>linear relationship</strong> between two continuous variables can be inferred when the general shape of a scatter plot of the two variables is a straight line.</p>
-<div id="continuous-continuous-associations" class="section level3" number="2.3.1">
+<div id="continuous-continuous-associations" class="section level3">
 <h3><span class="header-section-number">2.3.1</span> Continuous-Continuous Associations</h3>
 <p>Let’s conduct a preliminary assessment of the relationship between the size of the house in square feet (via <code>Gr_Liv_Area</code>) and the <code>Sale_Price</code> by creating a scatter plot. Note that we call this a preliminary assessment because we should not declare a statistical relationship without a formal hypothesis test (see Section <a href="slr.html#cor">2.6</a>).</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="slr.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train) <span class="sc">+</span> </span>
-<span id="cb65-2"><a href="slr.html#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Gr_Liv_Area, <span class="at">y =</span> Sale_Price<span class="sc">/</span><span class="dv">1000</span>)) <span class="sc">+</span></span>
-<span id="cb65-3"><a href="slr.html#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Greater Living Area (Sqft)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> train) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb69-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Gr_Liv_Area, <span class="dt">y =</span> Sale_Price<span class="op">/</span><span class="dv">1000</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb69-3" data-line-number="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Greater Living Area (Sqft)&quot;</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:scatterplot"></span>
 <img src="bookdownproj_files/figure-html/scatterplot-1.png" alt="Scatter plot demonstrating a positive linear relationship" width="672" />
 <p class="caption">
@@ -353,13 +347,21 @@ Figure 2.1: Scatter plot demonstrating a positive linear relationship
 </p>
 </div>
 </div>
-<div id="continuous-categorical-associations" class="section level3" number="2.3.2">
+<div id="continuous-categorical-associations" class="section level3">
 <h3><span class="header-section-number">2.3.2</span> Continuous-Categorical Associations</h3>
 <p>We’ll also revisit the plots that we created in Section <a href="intro-stat.html#eda">1.1</a>, this time being careful to use only our training data since our goal is eventually to use a linear model to predict <code>Sale_Price</code>.</p>
-<p>We start by exploring the relationship between the external quality rating of the home (via the ordinal variable <code>Exter_Qual</code> and the <code>Sale_Price</code>. From this frequency histogram, we immediately see that much fewer of the homes have a rating of <code>Excellent</code> versus the other tiers, a fact that makes it difficult to compare the distributions. To normalize that quantity and compare the raw probability densities, we can change our axes to density (which is analogous to percentage) and employ a kernel density estimator with the <code>geom_density</code> plot as shown in Figure <a href="slr.html#fig:overhistogramdensitykernel">2.3</a>. We can then clearly see that as the exterior quality of the home “goes up” (in the ordinal sense, not in the linear sense), the sale price of the home also increases.</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="slr.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train,<span class="fu">aes</span>(<span class="at">x=</span>Sale_Price<span class="sc">/</span><span class="dv">1000</span>, <span class="at">fill=</span>Exter_Qual)) <span class="sc">+</span> </span>
-<span id="cb66-2"><a href="slr.html#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">alpha=</span><span class="fl">0.2</span>, <span class="at">position=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb66-3"><a href="slr.html#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>) </span></code></pre></div>
+<p>We start by exploring the relationship between the external quality rating of the home (via the ordinal variable <code>Exter_Qual</code> and the <code>Sale_Price</code>).</p>
+<p>The simplest graphic we may wish to create is a bar chart that shows the average sale price of homes with each value of exterior quality:</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1"><span class="kw">ggplot</span>(train) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb70-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Exter_Qual,<span class="dt">y=</span> Sale_Price), </a>
+<a class="sourceLine" id="cb70-3" data-line-number="3">           <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>, <span class="dt">stat =</span> <span class="st">&quot;summary&quot;</span>, <span class="dt">fun =</span> <span class="st">&quot;mean&quot;</span>) <span class="op">+</span><span class="st">                                      </span><span class="co"># Modify formatting of axis</span></a>
+<a class="sourceLine" id="cb70-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) <span class="kw">format</span>(x, <span class="dt">scientific =</span> <span class="ot">FALSE</span>))</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-30-1.png" width="672" />
+This gives us the idea that there may be an association between these two attributes, but it can be tricky to rely solely on this graph without exploring the overall distribution in sale price for each group. While this chart is great for the purposes of <em>reporting</em> (once we’ve verified the relationship), it’s not the best one for exploratory analysis. The next two charts allow us to have much more information on one graphic.</p>
+<p>The frequency histogram in Figure <a href="slr.html#fig:overhistogram">2.2</a> allows us to see that much fewer of the homes have a rating of <code>Excellent</code> versus the other tiers, a fact that makes it difficult to compare the distributions. To normalize that quantity and compare the raw probability densities, we can change our axes to density (which is analogous to percentage) and employ a kernel density estimator with the <code>geom_density</code> plot as shown in Figure <a href="slr.html#fig:overhistogramdensitykernel">2.3</a>. We can then clearly see that as the exterior quality of the home “goes up” (in the ordinal sense, not in the linear sense), the sale price of the home also increases.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1"><span class="kw">ggplot</span>(train,<span class="kw">aes</span>(<span class="dt">x=</span>Sale_Price<span class="op">/</span><span class="dv">1000</span>, <span class="dt">fill=</span>Exter_Qual)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb71-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">alpha=</span><span class="fl">0.2</span>, <span class="dt">position=</span><span class="st">&quot;identity&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb71-3" data-line-number="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>) </a></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:overhistogram"></span>
 <img src="bookdownproj_files/figure-html/overhistogram-1.png" alt="Histogram: Frequency of Sale_Price for varying qualities of home exterior" width="672" />
@@ -367,9 +369,9 @@ Figure 2.1: Scatter plot demonstrating a positive linear relationship
 Figure 2.2: Histogram: Frequency of Sale_Price for varying qualities of home exterior
 </p>
 </div>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="slr.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ames,<span class="fu">aes</span>(<span class="at">x=</span>Sale_Price<span class="sc">/</span><span class="dv">1000</span>, <span class="at">fill=</span>Exter_Qual)) <span class="sc">+</span> </span>
-<span id="cb68-2"><a href="slr.html#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha=</span><span class="fl">0.2</span>, <span class="at">position=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb68-3"><a href="slr.html#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1"><span class="kw">ggplot</span>(ames,<span class="kw">aes</span>(<span class="dt">x=</span>Sale_Price<span class="op">/</span><span class="dv">1000</span>, <span class="dt">fill=</span>Exter_Qual)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb73-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">alpha=</span><span class="fl">0.2</span>, <span class="dt">position=</span><span class="st">&quot;identity&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb73-3" data-line-number="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:overhistogramdensitykernel"></span>
 <img src="bookdownproj_files/figure-html/overhistogramdensitykernel-1.png" alt="Histogram: Density of Sale_Price for varying qualities of home exterior" width="672" />
 <p class="caption">
@@ -377,11 +379,11 @@ Figure 2.3: Histogram: Density of Sale_Price for varying qualities of home exter
 </p>
 </div>
 <p>To further explore the location and spread of the data, we can create box-plots for each group using the following code:</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="slr.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train, <span class="fu">aes</span>(<span class="at">y =</span> Sale_Price<span class="sc">/</span><span class="dv">1000</span>, <span class="at">x =</span> <span class="st">`</span><span class="at">Exter_Qual</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Exter_Qual</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb69-2"><a href="slr.html#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
-<span id="cb69-3"><a href="slr.html#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Exterior Quality Category&quot;</span>) <span class="sc">+</span></span>
-<span id="cb69-4"><a href="slr.html#cb69-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">shape =</span> <span class="dv">20</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb69-5"><a href="slr.html#cb69-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette=</span><span class="st">&quot;Blues&quot;</span>) <span class="sc">+</span> <span class="fu">theme_classic</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> train, <span class="kw">aes</span>(<span class="dt">y =</span> Sale_Price<span class="op">/</span><span class="dv">1000</span>, <span class="dt">x =</span> <span class="st">`</span><span class="dt">Exter_Qual</span><span class="st">`</span>, <span class="dt">fill =</span> <span class="st">`</span><span class="dt">Exter_Qual</span><span class="st">`</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb74-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb74-3" data-line-number="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Exterior Quality Category&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb74-4" data-line-number="4"><span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun =</span> mean, <span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="dt">shape =</span> <span class="dv">20</span>, <span class="dt">size =</span> <span class="dv">5</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb74-5" data-line-number="5"><span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette=</span><span class="st">&quot;Blues&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:multiboxplot"></span>
 <img src="bookdownproj_files/figure-html/multiboxplot-1.png" alt="Box Plots of Sale_Price for each level of Exter_Qual" width="672" />
 <p class="caption">
@@ -392,7 +394,7 @@ Figure 2.4: Box Plots of Sale_Price for each level of Exter_Qual
 <p>If we want to test whether the <code>Sale_Price</code> is different for the different values of <code>Exter_Qual</code>, we have to reach for the multi-group alternative to the 2-sample t-test. This is called <strong>Analysis of Variance</strong>, or <strong>ANOVA</strong> for short.</p>
 </div>
 </div>
-<div id="oneway" class="section level2" number="2.4">
+<div id="oneway" class="section level2">
 <h2><span class="header-section-number">2.4</span> One-Way ANOVA</h2>
 <p><strong>One-way ANOVA</strong> aims to determine whether there is a difference in the mean of a continuous attribute across levels of a categorical attribute. Sound like a two-sample t-test? Indeed, it’s the extension of that test to more than two groups. Performing ANOVA with a binary input variable is mathematically identical to the two-sample t-test, as are it’s <strong>assumptions</strong>:</p>
 <ol>
@@ -422,9 +424,9 @@ Now this model is especially easy to digest because <span class="math inline">\(
 <span class="math display">\[H_0: \beta_a=\beta_b=\beta_c = 0 \quad\text{(i.e. all group means are equal)}\]</span>
 <span class="math display">\[H_0: \beta_a\neq0\mbox{ or }\beta_b\neq0 \mbox{ or } \beta_c \neq 0 \quad\text{(i.e. at least one is different)}\]</span>
 Both the <code>lm()</code> function and the <code>aov()</code> function will provide the p-values to test the hypothesis above, the only difference between the two functions is that <code>lm()</code> will also provide the user with the coefficient of determinination, <span class="math inline">\(R^2\)</span>, which tells you how much of the variation in <span class="math inline">\(y\)</span> is accounted for by your categorical input.</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="slr.html#cb70-1" aria-hidden="true" tabindex="-1"></a>ames_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> Exter_Qual, <span class="at">data =</span> train)</span>
-<span id="cb70-2"><a href="slr.html#cb70-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb70-3"><a href="slr.html#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(ames_lm)</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1">ames_lm &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>Exter_Qual, <span class="dt">data =</span> train)</a>
+<a class="sourceLine" id="cb75-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb75-3" data-line-number="3"><span class="kw">anova</span>(ames_lm)</a></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Sale_Price
@@ -433,7 +435,7 @@ Both the <code>lm()</code> function and the <code>aov()</code> function will pro
 ## Residuals  2047 6.5054e+12 3.1780e+09                      
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="slr.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ames_lm)</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1"><span class="kw">summary</span>(ames_lm)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Sale_Price ~ Exter_Qual, data = train)
@@ -454,16 +456,16 @@ Both the <code>lm()</code> function and the <code>aov()</code> function will pro
 ## Residual standard error: 56370 on 2047 degrees of freedom
 ## Multiple R-squared:  0.507,  Adjusted R-squared:  0.5063 
 ## F-statistic: 701.8 on 3 and 2047 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="slr.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ames_aov &lt;- aov(Sale_Price ~ Exter_Qual, data = train) # Same thing with aov() function instead</span></span>
-<span id="cb74-2"><a href="slr.html#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(ames_aov) # R-squared not reported here. </span></span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1"><span class="co"># ames_aov &lt;- aov(Sale_Price ~ Exter_Qual, data = train) # Same thing with aov() function instead</span></a>
+<a class="sourceLine" id="cb79-2" data-line-number="2"><span class="co"># summary(ames_aov) # R-squared not reported here. </span></a></code></pre></div>
 <p>The p-value for the ANOVA hypothesis that all the groups have the same mean sale price is incredibly small, at <span class="math inline">\(2.2\times10^{-16}\)</span>. This means it is extraordinarily improbable that we would have observed these differences in means, or a more extreme difference, if the population group means were equal. Thus, we reject our null hypothesis and conclude that there is an association between the exterior quality of a home and the price of the home.</p>
 <p>We note, based on the <span class="math inline">\(R^2\)</span> statistics, that the exterior quality rating can account for almost half the variation in sales price! Adjusted <span class="math inline">\(R^2\)</span> is a statistic that takes into account the number of variables in the model. The difference between <span class="math inline">\(R^2\)</span> and adjusted <span class="math inline">\(R^2\)</span> will be more thoroughly discussed in Chapter <a href="mlr.html#mlr">3</a>.</p>
 <p>We can also confirm what we know about the predictions from ANOVA, that there are only <span class="math inline">\(k\)</span> unique predictions from an ANOVA with <span class="math inline">\(k\)</span> groups (the predictions being the group means), using the <code>predict</code> function.</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="slr.html#cb75-1" aria-hidden="true" tabindex="-1"></a>train<span class="sc">$</span>pred_anova <span class="ot">&lt;-</span> <span class="fu">predict</span>(ames_lm, <span class="at">data =</span> train)</span>
-<span id="cb75-2"><a href="slr.html#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-3"><a href="slr.html#cb75-3" aria-hidden="true" tabindex="-1"></a>train<span class="sc">$</span>resid_anova <span class="ot">&lt;-</span> <span class="fu">resid</span>(ames_lm, <span class="at">data =</span> train)</span>
-<span id="cb75-4"><a href="slr.html#cb75-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-5"><a href="slr.html#cb75-5" aria-hidden="true" tabindex="-1"></a>(<span class="at">model_output =</span> train <span class="sc">%&gt;%</span> <span class="fu">select</span>(Sale_Price, pred_anova, resid_anova))</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1">train<span class="op">$</span>pred_anova &lt;-<span class="st"> </span><span class="kw">predict</span>(ames_lm, <span class="dt">data =</span> train)</a>
+<a class="sourceLine" id="cb80-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb80-3" data-line-number="3">train<span class="op">$</span>resid_anova &lt;-<span class="st"> </span><span class="kw">resid</span>(ames_lm, <span class="dt">data =</span> train)</a>
+<a class="sourceLine" id="cb80-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb80-5" data-line-number="5">(<span class="dt">model_output =</span> train <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(Sale_Price, pred_anova, resid_anova))</a></code></pre></div>
 <pre><code>## # A tibble: 2,051 x 3
 ##    Sale_Price pred_anova resid_anova
 ##         &lt;int&gt;      &lt;dbl&gt;       &lt;dbl&gt;
@@ -478,34 +480,34 @@ Both the <code>lm()</code> function and the <code>aov()</code> function will pro
 ##  9      94000    142107.     -48107.
 ## 10     111250    142107.     -30857.
 ## # … with 2,041 more rows</code></pre>
-<div id="testing-assumptions" class="section level3" number="2.4.1">
+<div id="testing-assumptions" class="section level3">
 <h3><span class="header-section-number">2.4.1</span> Testing Assumptions</h3>
 <p>We can use the default plots from the <code>lm()</code> function to check the normality assumption.</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="slr.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb77-2"><a href="slr.html#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ames_lm)</span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb82-2" data-line-number="2"><span class="kw">plot</span>(ames_lm)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:anovaplots"></span>
 <img src="bookdownproj_files/figure-html/anovaplots-1.png" alt="Of the 4 default plots from lm(), we are presently interested in the top-right QQ plot that tests our assumption of normally distributed residuals." width="672" />
 <p class="caption">
 Figure 2.5: Of the 4 default plots from lm(), we are presently interested in the top-right QQ plot that tests our assumption of normally distributed residuals.
 </p>
 </div>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="slr.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</a></code></pre></div>
 <p>In the top-right plot in Figure <a href="slr.html#fig:anovaplots">2.5</a> we verify again the <em>approximate</em> normality of sale price. To test for the third assumption of equal variances, we opt for a formal test like Levene’s (which depends on normality and can be found in the <code>car</code> package) or Fligner’s (which does not depend on normality and exists in the <code>stats</code> package). In both cases, the null hypothesis is equal variances:
 <span class="math display">\[H_0: \sigma_a^2 =\sigma_b^2 =\sigma_c^2 \quad  \text{i.e., the groups have equal variance}\]</span>
 <span class="math display">\[H_a: \text{at least one group&#39;s variance is different}\]</span></p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="slr.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&#39;car&#39;)</span></span>
-<span id="cb79-2"><a href="slr.html#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&#39;stats&#39;)</span></span>
-<span id="cb79-3"><a href="slr.html#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb79-4"><a href="slr.html#cb79-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
-<span id="cb79-5"><a href="slr.html#cb79-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-6"><a href="slr.html#cb79-6" aria-hidden="true" tabindex="-1"></a><span class="fu">leveneTest</span>(Sale_Price <span class="sc">~</span> Exter_Qual, <span class="at">data =</span> train) <span class="co"># Most popular, but depends on Normality</span></span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="co">#install.packages(&#39;car&#39;)</span></a>
+<a class="sourceLine" id="cb84-2" data-line-number="2"><span class="co">#install.packages(&#39;stats&#39;)</span></a>
+<a class="sourceLine" id="cb84-3" data-line-number="3"><span class="kw">library</span>(car)</a>
+<a class="sourceLine" id="cb84-4" data-line-number="4"><span class="kw">library</span>(stats)</a>
+<a class="sourceLine" id="cb84-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb84-6" data-line-number="6"><span class="kw">leveneTest</span>(Sale_Price <span class="op">~</span><span class="st"> </span>Exter_Qual, <span class="dt">data =</span> train) <span class="co"># Most popular, but depends on Normality</span></a></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
 ##         Df F value    Pr(&gt;F)    
 ## group    3  76.879 &lt; 2.2e-16 ***
 ##       2047                      
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="slr.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fligner.test</span>(Sale_Price <span class="sc">~</span> Exter_Qual, <span class="at">data =</span> train) <span class="co"># DOES NOT depend on Normality</span></span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="kw">fligner.test</span>(Sale_Price <span class="op">~</span><span class="st"> </span>Exter_Qual, <span class="dt">data =</span> train) <span class="co"># DOES NOT depend on Normality</span></a></code></pre></div>
 <pre><code>## 
 ##  Fligner-Killeen test of homogeneity of variances
 ## 
@@ -513,9 +515,9 @@ Figure 2.5: Of the 4 default plots from lm(), we are presently interested in the
 ## Fligner-Killeen:med chi-squared = 206.26, df = 3, p-value &lt; 2.2e-16</code></pre>
 <p>And in both cases, we’re forced to reject the null hypothesis of equal variances. A non-parametric version of the ANOVA test, the Kruskal-Wallis test, is more suitable to this particular case. Non-parametric tests do not have the same <em>statistical power</em> to detect differences between groups. <strong>Statistical power</strong> is the probability of detecting an effect, if there is a true effect present to detect. We should opt for these tests in situations where our data is ordinal or otherwise violates the assumptions of normality or equal variances in ways that cannot be fixed by logarithmic or other similar transformation.</p>
 </div>
-<div id="kruskal" class="section level3" number="2.4.2">
+<div id="kruskal" class="section level3">
 <h3><span class="header-section-number">2.4.2</span> Kruskal-Wallis</h3>
-<p>The Kruskal-Wallis test, proposed in 1952, is equivalent to a parametric one-way ANOVA where the data values have been replaced with their ranks (i.e. largest value = 1, second largest value = 2, etc.). When the data <em>is not</em> normally distributed but <em>is</em> identically distributed (having the same shape and variance), the Kruskal-Wallis test can be considered a test for differences in medians. If those identical distributions are also symmetric, then Kruskal-Wallis can be interpretted as testing for a difference in medians. When the data is not identically distributed, or when the distributions are not symmetric, Kruskal-Wallis is a test of <strong>dominance</strong> between distributions. <strong>Distributional dominance</strong> is the notion that one group’s distribution is located at larger values than another, probabilistically speaking. Formally, a random variable A has dominance over random variable B if <span class="math inline">\(P(A\geq ) \geq P(B\geq x)\)</span> for all <span class="math inline">\(x\)</span>, and for some <span class="math inline">\(x\)</span>, <span class="math inline">\(P(A&gt; ) \geq P(B&gt; x)\)</span>.</p>
+<p>The Kruskal-Wallis test, proposed in 1952, is equivalent to a parametric one-way ANOVA where the data values have been replaced with their ranks (i.e. largest value = 1, second largest value = 2, etc.). When the data <em>is not</em> normally distributed but <em>is</em> identically distributed (having the same shape and variance), the Kruskal-Wallis test can be considered a test for differences in medians. If those identical distributions are also symmetric, then Kruskal-Wallis can be interpretted as testing for a difference in means. When the data is not identically distributed, or when the distributions are not symmetric, Kruskal-Wallis is a test of <strong>dominance</strong> between distributions. <strong>Distributional dominance</strong> is the notion that one group’s distribution is located at larger values than another, probabilistically speaking. Formally, a random variable A has dominance over random variable B if <span class="math inline">\(P(A\geq x) \geq P(B\geq x)\)</span> for all <span class="math inline">\(x\)</span>, and for some <span class="math inline">\(x\)</span>, <span class="math inline">\(P(A&gt; x) &gt; P(B&gt; x)\)</span>.</p>
 <p>We summarize this information in the following table:</p>
 <table style="width:auto; margin-left: auto; margin-right: auto;">
 <tr>
@@ -540,20 +542,28 @@ Group distributions are identical in shape,<br> variance, but not symmetric
 Difference in location. <br> (distributional dominance)
 </tr>
 </table>
+<p>Implementing the Kruskal-Wallis test in R is simple:</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="kw">kruskal.test</span>(Sale_Price <span class="op">~</span><span class="st"> </span>Exter_Qual, <span class="dt">data =</span> train)</a></code></pre></div>
+<pre><code>## 
+##  Kruskal-Wallis rank sum test
+## 
+## data:  Sale_Price by Exter_Qual
+## Kruskal-Wallis chi-squared = 975.98, df = 3, p-value &lt; 2.2e-16</code></pre>
+<p>Our conclusion would be that the distribution of sale price is different across different levels of exterior quality.</p>
 </div>
 </div>
-<div id="posthoc" class="section level2" number="2.5">
+<div id="posthoc" class="section level2">
 <h2><span class="header-section-number">2.5</span> ANOVA Post-hoc Testing</h2>
 <p>After performing an ANOVA and learning that there is a difference between the groups of data, our next natural question ought to be <em>which groups of data are different, and how?</em> In order to explore this question, we must first consider the notion of <strong>experimentwise error</strong>. When conducting multiple hypothesis tests simultaneously, the experimentwise error rate is the proportion of time you expect to make an error in at least one test.</p>
 <p>Let’s suppose we are comparing grocery spending on 4 different credit card rewards programs. If we’d like to compare the rewards programs pairwise, that entails 6 different hypothesis tests (each is a two-sample t-test). If we keep a confidence level of <span class="math inline">\(\alpha = 0.05\)</span> and subsequently view “being wrong in one test” as a random event happening with probability <span class="math inline">\(p=0.05\)</span> then our probability of being wrong <em>in at least</em> one test out of 6 could be as great as 0.26!</p>
 <p>To control this experiment-wise error rate, we must lower our confidence thresholds to account for it. Alternatively, we can view this as an adjustment of our p-values higher while keeping our confidence threshold fixed as usual. This is typically the approach taken, as we prefer to fix our confidence thresholds in accordance with previous literature or industry standards. There are many methods of adjustment that have been proposed over the years for this purpose. Here, we consider two popular methods: Tukey’s test for pairwise comparisons and Dunnett’s test for control group comparisons. If the reader finds themselves in a situation that doesn’t fit the presciption of either of these methods, we suggest looking next at the modified Bonferroni correction or the notion of false discovery rates proposed by Benjamini and Hochberg in 1995.</p>
-<div id="tukey" class="section level3" number="2.5.1">
+<div id="tukey" class="section level3">
 <h3><span class="header-section-number">2.5.1</span> Tukey-Kramer</h3>
 <p>If our objective is to compare each group to every other group then Tukey’s test of honest significant differences, also known as the Tukey-Kramer test is probably the most widely-available and popular corrections in practice. However, it should be noted that Tukey’s test <em>should not</em> be used if one does not plan to make all pairwise comparisons. If only a subset of comparisons are of interest to the user (like comparisons only to a control group) then one should opt for the Dunnett or a modified Bonferroni correction.</p>
 <p>To employ Tukey’s HSD in R, we must use the <code>aov()</code> function to create our ANOVA object rather than the <code>lm()</code> function. The output of the test shows the difference in means and the p-value for testing the null hypothesis that the means are equal (i.e. that the differences are equal to 0).</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="slr.html#cb83-1" aria-hidden="true" tabindex="-1"></a>ames_aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(Sale_Price <span class="sc">~</span> Exter_Qual, <span class="at">data =</span> train)</span>
-<span id="cb83-2"><a href="slr.html#cb83-2" aria-hidden="true" tabindex="-1"></a>tukey.ames <span class="ot">&lt;-</span> <span class="fu">TukeyHSD</span>(ames_aov)</span>
-<span id="cb83-3"><a href="slr.html#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tukey.ames)</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1">ames_aov &lt;-<span class="st"> </span><span class="kw">aov</span>(Sale_Price <span class="op">~</span><span class="st"> </span>Exter_Qual, <span class="dt">data =</span> train)</a>
+<a class="sourceLine" id="cb90-2" data-line-number="2">tukey.ames &lt;-<span class="st"> </span><span class="kw">TukeyHSD</span>(ames_aov)</a>
+<a class="sourceLine" id="cb90-3" data-line-number="3"><span class="kw">print</span>(tukey.ames)</a></code></pre></div>
 <pre><code>##   Tukey multiple comparisons of means
 ##     95% family-wise confidence level
 ## 
@@ -567,22 +577,23 @@ Difference in location. <br> (distributional dominance)
 ## Good-Typical       86802.34  79910.03  93694.64 0e+00
 ## Excellent-Typical 233796.87 216886.62 250707.12 0e+00
 ## Excellent-Good    146994.54 129666.98 164322.10 0e+00</code></pre>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="slr.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tukey.ames, <span class="at">las =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">10</span>,<span class="dv">4</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb92-2" data-line-number="2"><span class="kw">plot</span>(tukey.ames, <span class="dt">las =</span> <span class="dv">1</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tukey"></span>
 <img src="bookdownproj_files/figure-html/tukey-1.png" alt="Confidence intervals for mean differences adjusted via Tukey-Kramer" width="672" />
 <p class="caption">
 Figure 2.6: Confidence intervals for mean differences adjusted via Tukey-Kramer
 </p>
 </div>
-<p>The p-values in this table have been adjusted higher to account for the possible experimentwise error rate. For every pairwise comparison shown, we reject the null hypothesis and conclude that the mean sales price of the homes is different for each level of <code>Exter_Qual</code>. Furthermore, Figure <a href="slr.html#fig:tukey">2.6</a> shows us experiment-wise (family-wise) adjusted confidence intervals for the differences in means for each pair.</p>
+<p>The p-values in this table have been adjusted higher to account for the possible experimentwise error rate. For every pairwise comparison shown, we reject the null hypothesis and conclude that the mean sales price of the homes is different for each level of <code>Exter_Qual</code>. Furthermore, Figure <a href="slr.html#fig:tukey">2.6</a> shows us experiment-wise (family-wise) adjusted confidence intervals for the differences in means for each pair. The plot option <code>las=1</code> guides the axis labels. Type <code>?par</code> for a list of plot options for base R, including an explanation of <code>las</code>.</p>
 </div>
-<div id="dunnett" class="section level3" number="2.5.2">
+<div id="dunnett" class="section level3">
 <h3><span class="header-section-number">2.5.2</span> Dunnett’s Test</h3>
 <p>If the plan is to make fewer comparisons, specifically just <span class="math inline">\(k-1\)</span> comparisons where <span class="math inline">\(k\)</span> is the number of groups in your data (indicating you plan to compare all the groups to one specific group, usually the control group), then Dunnett’s test would be preferrable to the Tukey-Kramer test. If all pairwise comparisons are not made, the Tukey-Kramer test is overly conservative, creating a confidence level that is much lower than specified by the user. Dunnett’s test factors in fewer comparisons and thus should not be used for tests of all pairwise comparisons.</p>
 <p>To use Dunnett’s test, we must install the <code>DescTools</code> package. The control group to which all other groups will be compared is designated by the <code>control=</code> option.</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="slr.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&#39;DescTools&#39;)</span></span>
-<span id="cb86-2"><a href="slr.html#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DescTools)</span>
-<span id="cb86-3"><a href="slr.html#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="fu">DunnettTest</span>(<span class="at">x =</span> train<span class="sc">$</span>Sale_Price, <span class="at">g =</span> train<span class="sc">$</span>Exter_Qual, <span class="at">control =</span> <span class="st">&#39;Typical&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1"><span class="co">#install.packages(&#39;DescTools&#39;)</span></a>
+<a class="sourceLine" id="cb93-2" data-line-number="2"><span class="kw">library</span>(DescTools)</a>
+<a class="sourceLine" id="cb93-3" data-line-number="3"><span class="kw">DunnettTest</span>(<span class="dt">x =</span> train<span class="op">$</span>Sale_Price, <span class="dt">g =</span> train<span class="op">$</span>Exter_Qual, <span class="dt">control =</span> <span class="st">&#39;Typical&#39;</span>)</a></code></pre></div>
 <pre><code>## 
 ##   Dunnett&#39;s test for comparing several treatments with a control :  
 ##     95% family-wise confidence level
@@ -598,7 +609,7 @@ Figure 2.6: Confidence intervals for mean differences adjusted via Tukey-Kramer
 <p>In the output from Dunnett’s test, we notice the p-value comparing <code>Fair</code> to <code>Typical</code> exterior qualities is lower than it was in the Tukey-Kramer test. This is consistent with our expectations for a test that isn’t controlling for as many comparisons; it makes a smaller upward adjustment of p-values to satisfy a given experiment-wise error rate.</p>
 </div>
 </div>
-<div id="cor" class="section level2" number="2.6">
+<div id="cor" class="section level2">
 <h2><span class="header-section-number">2.6</span> Pearson Correlation</h2>
 <p>ANOVA is used to formally test the relationship between a categorical variable and a continuous variable. To formally test the (linear) relationship between two continuous attributes, we introduce <strong>Pearson correlation</strong>, commonly referred to as simply <strong>correlation</strong>. Correlation is a number between -1 and 1 which measures the strength of a linear relationship between two continuous attributes.</p>
 <p>Negative values of correlation indicate a <em>negative linear relationship</em>, meaning that as one of the variables increases, the other tends to decrease. Similarly, positive values of correlation indicate a <em>positive linear relationship</em> meaning that as one of the variables increases, the other tends to increase. Absolute values of correlation equal to 1 indicate a perfect linear relationship. For example, if our data had a column for “mile time in minutes” and a column for “mile time in seconds”, these two columns would have a correlation of 1 due to the fact that there are 60 seconds in a minute. A correlation value near 0 indicates that the variables have no linear relationship.</p>
@@ -621,15 +632,15 @@ r = \frac{\mathbf{x_c}^T\mathbf{y_c}}{\|\mathbf{x_c}\|\|\mathbf{y_c}\|}.
 \end{equation}\]</span></p>
 <p>It is interesting to note that Equation <a href="slr.html#eq:veccorrelation">(2.4)</a> is identical to the formula for the cosine of the angle between to vectors. While this geometrical relationship does not benefit our intuition<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, it is noteworthy nonetheless.</p>
 <p>Pearson’s correlation can be calculated in R with the built in <code>cor()</code> function, with the two continuous variables as input:</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="slr.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(train<span class="sc">$</span>Gr_Liv_Area,train<span class="sc">$</span>Sale_Price)</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1"><span class="kw">cor</span>(train<span class="op">$</span>Gr_Liv_Area,train<span class="op">$</span>Sale_Price)</a></code></pre></div>
 <pre><code>## [1] 0.698509</code></pre>
-<div id="testcor" class="section level3" number="2.6.1">
+<div id="testcor" class="section level3">
 <h3><span class="header-section-number">2.6.1</span> Statistical Test</h3>
 <p>To test the statistical significance of correlation, we use a t-test with the null hypothesis that the correlation is equal to 0:
 <span class="math display">\[H_0: \rho = 0\]</span>
 <span class="math display">\[H_a: \rho \neq 0\]</span>
 If we can reject the null hypothesis, then we declare a significant linear association between the two variables. The <code>cor.test()</code> function in R will perform the test:</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="slr.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(train<span class="sc">$</span>Gr_Liv_Area,train<span class="sc">$</span>Sale_Price)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1"><span class="kw">cor.test</span>(train<span class="op">$</span>Gr_Liv_Area,train<span class="op">$</span>Sale_Price)</a></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -642,15 +653,15 @@ If we can reject the null hypothesis, then we declare a significant linear assoc
 ##      cor 
 ## 0.698509</code></pre>
 <p>We conclude that <code>Gr_Liv_Area</code> has a linear association with Sale_Price.</p>
-<p>It must be noted that this t-test for Pearson’s correlation is not free from assumptions. In fact, there are 4 assumptions that must be met, and they are detailed in Section @ref(#slrassumptions).</p>
+<p>It must be noted that this t-test for Pearson’s correlation is not free from assumptions. In fact, there are 4 assumptions that must be met, and they are detailed in Section <a href="slr.html#slrassumptions">2.7.1</a>.</p>
 </div>
-<div id="anomalous-observations" class="section level3" number="2.6.2">
-<h3><span class="header-section-number">2.6.2</span> Anomalous Observations</h3>
+<div id="effect-of-anomalous-observations" class="section level3">
+<h3><span class="header-section-number">2.6.2</span> Effect of Anomalous Observations</h3>
 <p>One final nuance that is important to note is the effect of anomalous observations on correlation. In Figure <a href="slr.html#fig:nocor">2.8</a> we display 30 random 2-dimensional data points <span class="math inline">\((x,y)\)</span> with no linear relationship.</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="slr.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">11</span>)</span>
-<span id="cb92-2"><a href="slr.html#cb92-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>)</span>
-<span id="cb92-3"><a href="slr.html#cb92-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>)</span>
-<span id="cb92-4"><a href="slr.html#cb92-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y)</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">11</span>)</a>
+<a class="sourceLine" id="cb99-2" data-line-number="2">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">30</span>)</a>
+<a class="sourceLine" id="cb99-3" data-line-number="3">y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">30</span>)</a>
+<a class="sourceLine" id="cb99-4" data-line-number="4"><span class="kw">plot</span>(x,y)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:nocor"></span>
 <img src="bookdownproj_files/figure-html/nocor-1.png" alt="The variables x and y have no correlation" width="672" />
 <p class="caption">
@@ -658,7 +669,7 @@ Figure 2.8: The variables x and y have no correlation
 </p>
 </div>
 <p>The correlation is not exactly zero (we wouldn’t expect perfection from random data) but it is very close at 0.002.</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="slr.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(x,y)</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" data-line-number="1"><span class="kw">cor.test</span>(x,y)</a></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -671,9 +682,9 @@ Figure 2.8: The variables x and y have no correlation
 ##         cor 
 ## 0.002276214</code></pre>
 <p>Next, we’ll add a single anomalous observation to our data and see how it affects both the correlation value and the correlation test.</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="slr.html#cb95-1" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">31</span>] <span class="ot">=</span> <span class="dv">4</span></span>
-<span id="cb95-2"><a href="slr.html#cb95-2" aria-hidden="true" tabindex="-1"></a>y[<span class="dv">31</span>] <span class="ot">=</span> <span class="dv">50</span></span>
-<span id="cb95-3"><a href="slr.html#cb95-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(x,y)</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" data-line-number="1">x[<span class="dv">31</span>] =<span class="st"> </span><span class="dv">4</span></a>
+<a class="sourceLine" id="cb102-2" data-line-number="2">y[<span class="dv">31</span>] =<span class="st"> </span><span class="dv">50</span></a>
+<a class="sourceLine" id="cb102-3" data-line-number="3"><span class="kw">cor.test</span>(x,y)</a></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -686,7 +697,7 @@ Figure 2.8: The variables x and y have no correlation
 ##       cor 
 ## 0.7330043</code></pre>
 <p>The correlation jumps to 0.73 from 0.002 and is declared strongly significant! Figure <a href="slr.html#fig:extremenocor">2.9</a> illustrates the new data. This simple example shows why exploratory data analysis is so important! If we don’t explore our data and detect anomalous observations, we might improperly declare relationships are significant when they are driven by a single observation or a small handful of observations.</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="slr.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y)</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" data-line-number="1"><span class="kw">plot</span>(x,y)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:extremenocor"></span>
 <img src="bookdownproj_files/figure-html/extremenocor-1.png" alt="A single anomalous observation creates strong correlation (0.73) where there previously was none" width="672" />
 <p class="caption">
@@ -694,15 +705,29 @@ Figure 2.9: A single anomalous observation creates strong correlation (0.73) whe
 </p>
 </div>
 </div>
+<div id="the-correlation-matrix" class="section level3">
+<h3><span class="header-section-number">2.6.3</span> The Correlation Matrix</h3>
+<p>It’s common to consider and calculate all pairwise correlations between variables in a dataset. If many attributes share a high degree of mutual correlation, this can cause problems for regression as will be discussed in Chapter <a href="diagnostics.html#diagnostics">5</a>. The pairwise correlations are generally arranged in an array called the <strong>correlation matrix</strong>, where the <span class="math inline">\((i,j)^{th}\)</span> entry is the correlation between the <span class="math inline">\(i^{th}\)</span> variable and <span class="math inline">\(j^{th}\)</span> variable in your list. To compute the correlation matrix, we again use the <code>cor()</code> function.</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" data-line-number="1"><span class="kw">cor</span>(train[, <span class="kw">c</span>(<span class="st">&#39;Year_Built&#39;</span>,<span class="st">&#39;Total_Bsmt_SF&#39;</span>,<span class="st">&#39;First_Flr_SF&#39;</span>,<span class="st">&#39;Gr_Liv_Area&#39;</span>,<span class="st">&#39;Sale_Price&#39;</span>)])</a></code></pre></div>
+<pre><code>##               Year_Built Total_Bsmt_SF First_Flr_SF Gr_Liv_Area Sale_Price
+## Year_Built     1.0000000     0.4037104    0.3095407   0.2454325  0.5668889
+## Total_Bsmt_SF  0.4037104     1.0000000    0.8120419   0.4643838  0.6276502
+## First_Flr_SF   0.3095407     0.8120419    1.0000000   0.5707205  0.6085229
+## Gr_Liv_Area    0.2454325     0.4643838    0.5707205   1.0000000  0.6985090
+## Sale_Price     0.5668889     0.6276502    0.6085229   0.6985090  1.0000000</code></pre>
+<p>Not surprisingly, we see strong positive correlation between the square footage of the basement and that of the first floor, and also between all of the area variables and the sale price. As demonstrated by Figures <a href="slr.html#fig:correlation">2.7</a> and <a href="slr.html#fig:extremenocor">2.9</a>, raw correlation values can be misleading and it’s unwise to calculate them without a scatter plot for context. The <code>pairs()</code> function in base R provides a simple matrix of scatterplots for this purpose.</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" data-line-number="1"><span class="kw">pairs</span>(train[, <span class="kw">c</span>(<span class="st">&#39;Year_Built&#39;</span>,<span class="st">&#39;Total_Bsmt_SF&#39;</span>,<span class="st">&#39;First_Flr_SF&#39;</span>,<span class="st">&#39;Gr_Liv_Area&#39;</span>,<span class="st">&#39;Sale_Price&#39;</span>)])</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 </div>
-<div id="simple-linear-regression" class="section level2" number="2.7">
+</div>
+<div id="simple-linear-regression" class="section level2">
 <h2><span class="header-section-number">2.7</span> Simple Linear Regression</h2>
-<p>After learning that two variables share a linear relationship, the next question is natural: <em>what is that relationship?</em> How should we expect one variable to change as the other increases? Simple linear regression answers this question by creating a linear equation that best represents the relationship in the sense that it minimizes the squared error between the observed data and the model predictions (i.e. the sum of the squared residuals). The simple linear regression equation is typically written
+<p>After learning that two variables share a linear relationship, the next question is natural: <em>what is that relationship?</em> How much should we expect one variable to change as the other changes by a single unit? Simple linear regression answers this question by creating a linear equation that best represents the relationship in the sense that it minimizes the squared error between the observed data and the model predictions (i.e. the sum of the squared residuals). The simple linear regression equation is typically written
 <span class="math display" id="eq:slr">\[\begin{equation}
-y=\beta_0 + \beta_1x + \epsilon
+y=\beta_0 + \beta_1x + \varepsilon
 \tag{2.5}
 \end{equation}\]</span>
-where <span class="math inline">\(\beta_0\)</span>, the <strong>intercept</strong>, gives the expected value of <span class="math inline">\(y\)</span> when <span class="math inline">\(x=0\)</span> and <span class="math inline">\(\beta_1\)</span>, the <strong>slope</strong> gives the expected change in <span class="math inline">\(y\)</span> for a one-unit increase in <span class="math inline">\(x\)</span>. The <strong>residual</strong>, <span class="math inline">\(\epsilon\)</span> is the error between our predicted value, <span class="math inline">\(\hat{y}=\beta_0 + \beta_1x\)</span> and our actual value <span class="math inline">\(y\)</span>.</p>
+where <span class="math inline">\(\beta_0\)</span>, the <strong>intercept</strong>, gives the expected value of <span class="math inline">\(y\)</span> when <span class="math inline">\(x=0\)</span> and <span class="math inline">\(\beta_1\)</span>, the <strong>slope</strong> gives the expected change in <span class="math inline">\(y\)</span> for a one-unit increase in <span class="math inline">\(x\)</span>. The <strong>residual</strong>, <span class="math inline">\(\varepsilon\)</span> is the error between our predicted value, <span class="math inline">\(\hat{y}=\beta_0 + \beta_1x\)</span> and our actual value <span class="math inline">\(y\)</span>. Ordinary Least Squares seeks to minimize the sum of squared residuals, or sum of squared error. That objective is known as a <strong>loss function</strong>. The sum of squared error (SSE) or equivalently the mean squared error (MSE) loss functions are by far the most popular loss functions for continuous prediction problems. In regression, it is this loss function that provides us with the theory that ensures our predictions are the (conditional) <em>expected values</em> of <span class="math inline">\(y\)</span>, given the input data <span class="math inline">\(x\)</span> (<span class="math inline">\(E(y|x)\)</span>). We should note that SSE is not the <em>only</em> loss function at our disposal. Minimizing the <em>mean absolute error</em> (MAE) is common in situations with a highly skewed response variable (squaring very large errors gives those observations in the tail too much influence on the regression as we will later discuss). Using MAE to drive our loss function gives us predictions that are conditional <em>medians</em> of the response, given the input data.</p>
 As discussed in Section <a href="slr.html#evp">2.1</a>, a simple linear regression serves two purposes:
 <ol>
 <li>
@@ -710,7 +735,7 @@ to predict the expected value of <span class="math inline">\(y\)</span> for each
 <li>
 to explain <em>how</em> <span class="math inline">\(y\)</span> is expected to change for a unit change in <span class="math inline">\(x\)</span>.
 </ol>
-<div id="slrassumptions" class="section level3" number="2.7.1">
+<div id="slrassumptions" class="section level3">
 <h3><span class="header-section-number">2.7.1</span> Assumptions of Linear Regression</h3>
 <p>Linear regression, in particular the hypothesis tests that are generally performed as part of linear regression, has 4 assumptions:</p>
 <ol>
@@ -721,10 +746,10 @@ The random errors are independent.
 <li>
 The random errors are normally distributed.
 <li>
-The random errors have equal variance (heteroskedasticity).
+The random errors have equal variance (homoskedasticity).
 </ol>
 <p>It must now be noted that these assumptions are also in effect for the test of Pearson’s correlation in Section <a href="slr.html#testcor">2.6.1</a>, because the tests in simple linear regression are mathematically equivalent to that test. When these assumptions are not met, another approach to testing the significance of a linear relationship should be considered. The most common non-parametric approach to testing for an association between two continuous variables is Spearman’s correlation. Spearman’s correlation does not limit its findings to linear relationships; any monotonic relationship (one that is always increasing or always decreasing) will cause Spearman’s correlation to be significant. Similar to the approach taken by Kruskal-Wallis, Spearman’s correlation replaces the data with its ranks and computes Pearson’s correlation on the ranks. The same <code>cor</code> and <code>cor.test()</code> functions can be used; simply specify the <code>method='spearman'</code> option.</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="slr.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(train<span class="sc">$</span>Gr_Liv_Area,train<span class="sc">$</span>Sale_Price, <span class="at">method =</span> <span class="st">&#39;spearman&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" data-line-number="1"><span class="kw">cor.test</span>(train<span class="op">$</span>Gr_Liv_Area,train<span class="op">$</span>Sale_Price, <span class="dt">method =</span> <span class="st">&#39;spearman&#39;</span>)</a></code></pre></div>
 <pre><code>## Warning in cor.test.default(x, y, ...): Cannot compute exact p-value with ties</code></pre>
 <pre><code>## 
 ##  Spearman&#39;s rank correlation rho
@@ -736,26 +761,26 @@ The random errors have equal variance (heteroskedasticity).
 ##       rho 
 ## 0.7160107</code></pre>
 </div>
-<div id="testing-for-association" class="section level3" number="2.7.2">
+<div id="testing-for-association" class="section level3">
 <h3><span class="header-section-number">2.7.2</span> Testing for Association</h3>
 <p>The statistical test of correlation is mathematically equivalent to testing the hypothesis that the slope parameter in Equation <a href="slr.html#eq:slr">(2.5)</a> is zero. This t-test is part of the output from any linear regression function, like <code>lm()</code> which we saw in Section <a href="slr.html#oneway">2.4</a>. Let’s confirm this using the example from the Section <a href="slr.html#testcor">2.6.1</a> where we investigate the relationship between <code>Gr_Liv_Area</code> and <code>Sale_Price</code>. Again, the t-test in the output tests the following hypothesis:
 <span class="math display">\[H_0: \beta_1=0\]</span>
 <span class="math display">\[H_a: \beta_1 \neq 0\]</span>
 The first thing we will do after creating the linear model is check our assumption using the default plots from <code>lm()</code> . From these four plots we will be most interested in the first two.</p>
-<p>In the top left plot, we are visually checking for heteroskedasticity. We’d like to see the variability of the points remain constant from left to right on this chart, indicating that the errors have constant variance for each value of y. We do not want to see any fan shapes in this chart. Unfortunately, we do see just that: the variability of the errors is much smaller for smaller values of Sale Price than it is for larger values of Sale Price.</p>
+<p>In the top left plot, we are visually checking for homoskedasticity. We’d like to see the variability of the points remain constant from left to right on this chart, indicating that the errors have constant variance for each value of y. We do not want to see any fan shapes in this chart. Unfortunately, we do see just that: the variability of the errors is much smaller for smaller values of Sale Price than it is for larger values of Sale Price.</p>
 <p>In the top right plot, we are visually checking for normality of errors. We’d like to see the QQ-plot indicate normality with all the points roughly following the line. Unfortunately, we do not see that here. The errors do not appear to be normally distributed.</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="slr.html#cb101-1" aria-hidden="true" tabindex="-1"></a>slr <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> Gr_Liv_Area, <span class="at">data=</span>train)</span>
-<span id="cb101-2"><a href="slr.html#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb101-3"><a href="slr.html#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(slr)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" data-line-number="1">slr &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>Gr_Liv_Area, <span class="dt">data=</span>train)</a>
+<a class="sourceLine" id="cb111-2" data-line-number="2"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb111-3" data-line-number="3"><span class="kw">plot</span>(slr)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:slrplots"></span>
 <img src="bookdownproj_files/figure-html/slrplots-1.png" alt="The variables x and y have no correlation" width="672" />
 <p class="caption">
 Figure 2.10: The variables x and y have no correlation
 </p>
 </div>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="slr.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</a></code></pre></div>
 <p>Despite the violation of assumptions, let’s continue examining the output from this regression in order to practice our interpretation of it.</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="slr.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(slr)</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" data-line-number="1"><span class="kw">summary</span>(slr)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Sale_Price ~ Gr_Liv_Area, data = train)
@@ -782,7 +807,7 @@ Figure 2.10: The variables x and y have no correlation
 <div class="footnotes">
 <hr />
 <ol start="1">
-<li id="fn1"><p>The n-dimensional vectors  and  live in the vast <em>sample space</em> where a single point/vector is one possible sample of n objects; this space can be difficult to grasp mentally<a href="slr.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>The n-dimensional “variable vectors”  and  live in the vast <em>sample space</em> where the <span class="math inline">\(i^{th}\)</span> axis represents the <span class="math inline">\(i^th\)</span> observation in your dataset. In this space, a single point/vector is one possible set of sample values of n observations; this space can be difficult to grasp mentally<a href="slr.html#fnref1" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -814,6 +839,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {

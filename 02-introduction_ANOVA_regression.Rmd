@@ -85,7 +85,19 @@ ggplot(data = train) +
 
 We'll also revisit the plots that we created in Section \@ref(eda), this time being careful to use only our training data since our goal is eventually to use a linear model to predict `Sale_Price`.
 
-We start by exploring the relationship between the external quality rating of the home (via the ordinal variable `Exter_Qual` and the `Sale_Price`. From this frequency histogram, we immediately see that much fewer of the homes have a rating of `Excellent` versus the other tiers, a fact that makes it difficult to compare the distributions.  To normalize that quantity and compare the raw probability densities, we can change our axes to density (which is analogous to percentage) and employ a kernel density estimator with the `geom_density` plot as shown in Figure \@ref(fig:overhistogramdensitykernel). We can then clearly see that as the exterior quality of the home "goes up" (in the ordinal sense, not in the linear sense), the sale price of the home also increases.
+We start by exploring the relationship between the external quality rating of the home (via the ordinal variable `Exter_Qual` and the `Sale_Price`).
+
+The simplest graphic we may wish to create is a bar chart that shows the average sale price of homes with each value of exterior quality:
+
+```{r}
+ggplot(train) + 
+  geom_bar(aes(x=Exter_Qual,y= Sale_Price), 
+           position = "dodge", stat = "summary", fun = "mean") +                                      # Modify formatting of axis
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE))
+```
+This gives us the idea that there may be an association between these two attributes, but it can be tricky to rely solely on this graph without exploring the overall distribution in sale price for each group. While this chart is great for the purposes of _reporting_ (once we've verified the relationship), it's not the best one for exploratory analysis. The next two charts allow us to have much more information on one graphic. 
+
+The frequency histogram in Figure \@ref(fig:overhistogram) allows us to see that much fewer of the homes have a rating of `Excellent` versus the other tiers, a fact that makes it difficult to compare the distributions.  To normalize that quantity and compare the raw probability densities, we can change our axes to density (which is analogous to percentage) and employ a kernel density estimator with the `geom_density` plot as shown in Figure \@ref(fig:overhistogramdensitykernel). We can then clearly see that as the exterior quality of the home "goes up" (in the ordinal sense, not in the linear sense), the sale price of the home also increases.
 
 ```{r label='overhistogram',fig.align='center',fig.cap='Histogram: Frequency of Sale_Price for varying qualities of home exterior'} 
 ggplot(train,aes(x=Sale_Price/1000, fill=Exter_Qual)) + 
@@ -171,7 +183,7 @@ train$pred_anova <- predict(ames_lm, data = train)
 
 train$resid_anova <- resid(ames_lm, data = train)
 
-(model_output = train %>% select(Sale_Price, pred_anova, resid_anova))
+(model_output = train %>% dplyr::select(Sale_Price, pred_anova, resid_anova))
 ```
 
 
@@ -206,7 +218,7 @@ And in both cases, we're forced to reject the null hypothesis of equal variances
 
 ### Kruskal-Wallis {#kruskal}
 
-The Kruskal-Wallis test, proposed in 1952, is equivalent to a parametric one-way ANOVA where the data values have been replaced with their ranks (i.e. largest value = 1, second largest value = 2, etc.). When the data _is not_ normally distributed but _is_ identically distributed (having the same shape and variance), the Kruskal-Wallis test can be considered a test for differences in medians. If those identical distributions are also symmetric, then Kruskal-Wallis can be interpretted as testing for a difference in medians. When the data is not identically distributed, or when the distributions are not symmetric, Kruskal-Wallis is a test of __dominance__ between distributions. __Distributional dominance__ is the notion that one group's distribution is located at larger values than another, probabilistically speaking.  Formally, a random variable A has dominance over random variable B if $P(A\geq ) \geq P(B\geq x)$ for all $x$, and for some $x$, $P(A> ) \geq P(B> x)$.
+The Kruskal-Wallis test, proposed in 1952, is equivalent to a parametric one-way ANOVA where the data values have been replaced with their ranks (i.e. largest value = 1, second largest value = 2, etc.). When the data _is not_ normally distributed but _is_ identically distributed (having the same shape and variance), the Kruskal-Wallis test can be considered a test for differences in medians. If those identical distributions are also symmetric, then Kruskal-Wallis can be interpretted as testing for a difference in means. When the data is not identically distributed, or when the distributions are not symmetric, Kruskal-Wallis is a test of __dominance__ between distributions. __Distributional dominance__ is the notion that one group's distribution is located at larger values than another, probabilistically speaking.  Formally, a random variable A has dominance over random variable B if $P(A\geq x) \geq P(B\geq x)$ for all $x$, and for some $x$, $P(A> x) > P(B> x)$.
 
 We summarize this information in the following table:
 
@@ -216,6 +228,14 @@ We summarize this information in the following table:
 <tr> <td> Group distributions are identical in shape,<br> variance, but not symmetric <td> Difference in medians 
 <tr> <td> Group distributions are identical in shape,<br> variance, but not symmetric <td> Difference in location. <br> (distributional dominance) </tr>
 </table>
+
+Implementing the Kruskal-Wallis test in R is simple:
+
+```{r}
+kruskal.test(Sale_Price ~ Exter_Qual, data = train)
+```
+Our conclusion would be that the distribution of sale price is different across different levels of exterior quality. 
+
 
 ## ANOVA Post-hoc Testing {#posthoc}
 
@@ -236,9 +256,10 @@ ames_aov <- aov(Sale_Price ~ Exter_Qual, data = train)
 tukey.ames <- TukeyHSD(ames_aov)
 print(tukey.ames)
 
+par(mar=c(4,10,4,2))
 plot(tukey.ames, las = 1)
 ```
-The p-values in this table have been adjusted higher to account for the possible experimentwise error rate. For every pairwise comparison shown, we reject the null hypothesis and conclude that the mean sales price of the homes is different for each level of `Exter_Qual`. Furthermore, Figure \@ref(fig:tukey) shows us experiment-wise (family-wise) adjusted confidence intervals for the differences in means for each pair. 
+The p-values in this table have been adjusted higher to account for the possible experimentwise error rate. For every pairwise comparison shown, we reject the null hypothesis and conclude that the mean sales price of the homes is different for each level of `Exter_Qual`. Furthermore, Figure \@ref(fig:tukey) shows us experiment-wise (family-wise) adjusted confidence intervals for the differences in means for each pair.  The plot option `las=1` guides the axis labels. Type `?par` for a list of plot options for base R, including an explanation of `las`. 
 
 ### Dunnett's Test {#dunnett}
 
@@ -250,7 +271,6 @@ To use Dunnett's test, we must install the `DescTools` package. The control grou
 #install.packages('DescTools')
 library(DescTools)
 DunnettTest(x = train$Sale_Price, g = train$Exter_Qual, control = 'Typical')
-
 ```
 In the output from Dunnett's test, we notice the p-value comparing `Fair` to `Typical` exterior qualities is lower than it was in the Tukey-Kramer test. This is consistent with our expectations for a test that isn't controlling for as many comparisons; it makes a smaller upward adjustment of p-values to satisfy a given experiment-wise error rate.
 
@@ -281,7 +301,7 @@ r = \frac{\mathbf{x_c}^T\mathbf{y_c}}{\|\mathbf{x_c}\|\|\mathbf{y_c}\|}.
 (\#eq:veccorrelation)
 \end{equation}
 
-It is interesting to note that Equation \@ref(eq:veccorrelation) is identical to the formula for the cosine of the angle between to vectors. While this geometrical relationship does not benefit our intuition^[The n-dimensional vectors \mathbf{x_c} and \mathbf{y_c} live in the vast _sample space_ where a single point/vector is one possible sample of n objects; this space can be difficult to grasp mentally], it is noteworthy nonetheless. 
+It is interesting to note that Equation \@ref(eq:veccorrelation) is identical to the formula for the cosine of the angle between to vectors. While this geometrical relationship does not benefit our intuition^[The n-dimensional "variable vectors" \mathbf{x_c} and \mathbf{y_c} live in the vast _sample space_ where the $i^{th}$ axis represents the $i^th$ observation in your dataset. In this space, a single point/vector is one possible set of sample values of n observations; this space can be difficult to grasp mentally], it is noteworthy nonetheless. 
  
 Pearson's correlation can be calculated in R with the built in `cor()` function, with the two continuous variables as input:
 
@@ -302,9 +322,9 @@ cor.test(train$Gr_Liv_Area,train$Sale_Price)
 
 We conclude that `Gr_Liv_Area` has a linear association with Sale_Price. 
 
-It must be noted that this t-test for Pearson's correlation is not free from assumptions. In fact, there are 4 assumptions that must be met, and they are detailed in Section \@ref(#slrassumptions). 
+It must be noted that this t-test for Pearson's correlation is not free from assumptions. In fact, there are 4 assumptions that must be met, and they are detailed in Section \@ref(slrassumptions). 
 
-### Anomalous Observations
+### Effect of Anomalous Observations
 
 One final nuance that is important to note is the effect of anomalous observations on correlation. In Figure \@ref(fig:nocor) we display 30 random 2-dimensional data points $(x,y)$ with no linear relationship. 
 
@@ -332,15 +352,29 @@ The correlation jumps to 0.73 from 0.002 and is declared strongly significant! F
 plot(x,y)
 ```
 
+### The Correlation Matrix
+
+It's common to consider and calculate all pairwise correlations between variables in a dataset. If many attributes share a high degree of mutual correlation, this can cause problems for regression as will be discussed in Chapter \@ref(diagnostics). The pairwise correlations are generally arranged in an array called the __correlation matrix__, where the $(i,j)^{th}$ entry is the correlation between the $i^{th}$ variable and $j^{th}$ variable in your list. To compute the correlation matrix, we again use the `cor()` function.
+
+```{r}
+cor(train[, c('Year_Built','Total_Bsmt_SF','First_Flr_SF','Gr_Liv_Area','Sale_Price')])
+```
+
+Not surprisingly, we see strong positive correlation between the square footage of the basement and that of the first floor, and also between all of the area variables and the sale price. As demonstrated by Figures \@ref(fig:correlation) and \@ref(fig:extremenocor), raw correlation values can be misleading and it's unwise to calculate them without a scatter plot for context. The `pairs()` function in base R provides a simple matrix of scatterplots for this purpose.
+
+```{r}
+pairs(train[, c('Year_Built','Total_Bsmt_SF','First_Flr_SF','Gr_Liv_Area','Sale_Price')])
+```
+
 
 ## Simple Linear Regression 
 
-After learning that two variables share a linear relationship, the next question is natural: _what is that relationship?_ How should we expect one variable to change as the other increases? Simple linear regression answers this question by creating a linear equation that best represents the relationship in the sense that it minimizes the squared error between the observed data and the model predictions (i.e. the sum of the squared residuals). The simple linear regression equation is typically written
+After learning that two variables share a linear relationship, the next question is natural: _what is that relationship?_ How much should we expect one variable to change as the other changes by a single unit? Simple linear regression answers this question by creating a linear equation that best represents the relationship in the sense that it minimizes the squared error between the observed data and the model predictions (i.e. the sum of the squared residuals). The simple linear regression equation is typically written
 \begin{equation}
-y=\beta_0 + \beta_1x + \epsilon
+y=\beta_0 + \beta_1x + \varepsilon
 (\#eq:slr)
 \end{equation}
-where $\beta_0$, the __intercept__, gives the expected value of $y$ when $x=0$ and $\beta_1$, the __slope__ gives the expected change in $y$ for a one-unit increase in $x$. The __residual__, $\epsilon$ is the error between our predicted value, $\hat{y}=\beta_0 + \beta_1x$ and our actual value $y$. 
+where $\beta_0$, the __intercept__, gives the expected value of $y$ when $x=0$ and $\beta_1$, the __slope__ gives the expected change in $y$ for a one-unit increase in $x$. The __residual__, $\varepsilon$ is the error between our predicted value, $\hat{y}=\beta_0 + \beta_1x$ and our actual value $y$. Ordinary Least Squares seeks to minimize the sum of squared residuals, or sum of squared error. That objective is known as a __loss function__. The sum of squared error (SSE) or equivalently the mean squared error (MSE) loss functions are by far the most popular loss functions for continuous prediction problems. In regression, it is this loss function that provides us with the theory that ensures our predictions are the (conditional) _expected values_ of $y$, given the input data $x$ ($E(y|x)$). We should note that SSE is not the _only_ loss function at our disposal. Minimizing the _mean absolute error_ (MAE) is common in situations with a highly skewed response variable (squaring very large errors gives those observations in the tail too much influence on the regression as we will later discuss). Using MAE to drive our loss function gives us predictions that are conditional _medians_ of the response, given the input data. 
 
 As discussed in Section \@ref(evp), a simple linear regression serves two purposes:
 <ol>
@@ -356,7 +390,7 @@ Linear regression, in particular the hypothesis tests that are generally perform
 <li> The expected value of $y$ is linear in $x$ (proper model specification).
 <li> The random errors are independent.
 <li> The random errors are normally distributed.
-<li> The random errors have equal variance (heteroskedasticity).
+<li> The random errors have equal variance (homoskedasticity).
 </ol>
 
 It must now be noted that these assumptions are also in effect for the test of Pearson's correlation in Section \@ref(testcor), because the tests in simple linear regression are mathematically equivalent to that test. When these assumptions are not met, another approach to testing the significance of a linear relationship should be considered. The most common non-parametric approach to testing for an association between two continuous variables is Spearman's correlation. Spearman's correlation does not limit its findings to linear relationships; any monotonic relationship (one that is always increasing or always decreasing) will cause Spearman's correlation to be significant. Similar to the approach taken by Kruskal-Wallis, Spearman's correlation replaces the data with its ranks and computes Pearson's correlation on the ranks. The same `cor` and `cor.test()` functions can be used; simply specify the `method='spearman'` option. 
@@ -372,7 +406,7 @@ $$H_0: \beta_1=0$$
 $$H_a: \beta_1 \neq 0$$
 The first thing we will do after creating the linear model is check our assumption using the default plots from `lm()` . From these four plots we will be most interested in the first two.
 
-In the top left plot, we are visually checking for heteroskedasticity. We'd like to see the variability of the points remain constant from left to right on this chart, indicating that the errors have constant variance for each value of y. We do not want to see any fan shapes in this chart. Unfortunately, we do see just that: the variability of the errors is much smaller for smaller values of Sale Price than it is for larger values of Sale Price. 
+In the top left plot, we are visually checking for homoskedasticity. We'd like to see the variability of the points remain constant from left to right on this chart, indicating that the errors have constant variance for each value of y. We do not want to see any fan shapes in this chart. Unfortunately, we do see just that: the variability of the errors is much smaller for smaller values of Sale Price than it is for larger values of Sale Price. 
 
 In the top right plot, we are visually checking for normality of errors. We'd like to see the QQ-plot indicate normality with all the points roughly following the line. Unfortunately, we do not see that here. The errors do not appear to be normally distributed. 
 

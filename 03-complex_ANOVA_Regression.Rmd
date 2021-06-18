@@ -31,7 +31,7 @@ This Chapter aims to answer the following questions:
 </ul>
 
 ## Two-Way ANOVA
-Section \@ref(slr) details the One-Way ANOVA model using a single categorical predictor variable with $k$ levels to predict our continuous target variable. Now we will generalize this model to include $n$ categorical variables that each have different numbers of levels ($k_1, k_2, ..., k_n$).
+Section \@ref(oneway) details the One-Way ANOVA model using a single categorical predictor variable with $k$ levels to predict our continuous target variable. Now we will generalize this model to include $n$ categorical variables that each have different numbers of levels ($k_1, k_2, ..., k_n$).
 
 ### Exploration
 Let's use the basic example of two categorical predictor variables in a Two-Way ANOVA. Previously, we talked about using heating quality as a factor to explain and predict sale price of homes in Ames, Iowa. Now, we also consider whether the home has central air. Although similar in nature, these two factors potentially provide important, unique pieces of information about the home. Similar to previous data science problems, let us first explore our variables and their potential relationships.
@@ -41,7 +41,7 @@ Now that we have two variables that we will use to explain and predict sale pric
 ```{r}
 train %>% 
   group_by(Heating_QC, Central_Air) %>%
-  summarise(mean = mean(Sale_Price), 
+  dplyr::summarise(mean = mean(Sale_Price), 
             sd = sd(Sale_Price), 
             max = max(Sale_Price), 
             min = min(Sale_Price))
@@ -55,7 +55,7 @@ We also see these relationships in the bar chart in Figure \@ref(fig:twomeans).
 ```{r fig=T, fig.align='center', fig.cap = 'Distribution of Variables Heating_QC and Central_Air', label='twomeans'}
 CA_heat <- train %>% 
   group_by(Heating_QC, Central_Air) %>%
-  summarise(mean = mean(Sale_Price), 
+  dplyr::summarise(mean = mean(Sale_Price), 
             sd = sd(Sale_Price), 
             max = max(Sale_Price), 
             min = min(Sale_Price))

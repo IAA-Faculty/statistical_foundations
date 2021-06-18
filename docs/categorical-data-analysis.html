@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Categorical Data Analysis | Statistical Foundations</title>
   <meta name="description" content="Chapter 7 Categorical Data Analysis | Statistical Foundations" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Categorical Data Analysis | Statistical Foundations" />
   <meta property="og:type" content="book" />
@@ -29,10 +29,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="diagnostics.html"/>
+<link rel="prev" href="model-building-scoring-for-prediction.html"/>
 
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.5.1/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,36 +48,37 @@
 
 
 
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.4/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.57.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -87,9 +87,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -122,6 +122,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -139,16 +140,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="./img/iaaicon.png" alt="IAA"  class="center"</li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
-<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#structure-of-the-book"><i class="fa fa-check"></i>Structure of the book</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-the-authors"><i class="fa fa-check"></i>About the Authors</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="intro-stat.html"><a href="intro-stat.html"><i class="fa fa-check"></i><b>1</b> Introduction to Statistics</a>
-<ul>
-<li class="chapter" data-level="1.1" data-path="intro-stat.html"><a href="intro-stat.html#eda"><i class="fa fa-check"></i><b>1.1</b> Exploratory Data Analysis (EDA)</a>
-<ul>
+<li class="chapter" data-level="1" data-path="intro-stat.html"><a href="intro-stat.html"><i class="fa fa-check"></i><b>1</b> Introduction to Statistics</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro-stat.html"><a href="intro-stat.html#eda"><i class="fa fa-check"></i><b>1.1</b> Exploratory Data Analysis (EDA)</a><ul>
 <li class="chapter" data-level="1.1.1" data-path="intro-stat.html"><a href="intro-stat.html#vartypes"><i class="fa fa-check"></i><b>1.1.1</b> Types of Variables</a></li>
 <li class="chapter" data-level="1.1.2" data-path="intro-stat.html"><a href="intro-stat.html#dist"><i class="fa fa-check"></i><b>1.1.2</b> Distributions</a></li>
 <li class="chapter" data-level="1.1.3" data-path="intro-stat.html"><a href="intro-stat.html#normal"><i class="fa fa-check"></i><b>1.1.3</b> The Normal Distribution</a></li>
@@ -158,68 +156,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="intro-stat.html"><a href="intro-stat.html#pointest"><i class="fa fa-check"></i><b>1.2</b> Point Estimates</a></li>
 <li class="chapter" data-level="1.3" data-path="intro-stat.html"><a href="intro-stat.html#ci"><i class="fa fa-check"></i><b>1.3</b> Confidence Intervals</a></li>
-<li class="chapter" data-level="1.4" data-path="intro-stat.html"><a href="intro-stat.html#hypotest"><i class="fa fa-check"></i><b>1.4</b> Hypothesis Testing</a>
-<ul>
+<li class="chapter" data-level="1.4" data-path="intro-stat.html"><a href="intro-stat.html#hypotest"><i class="fa fa-check"></i><b>1.4</b> Hypothesis Testing</a><ul>
 <li class="chapter" data-level="1.4.1" data-path="intro-stat.html"><a href="intro-stat.html#onesample"><i class="fa fa-check"></i><b>1.4.1</b> One-Sample T-Test</a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="intro-stat.html"><a href="intro-stat.html#two-sample-t-tests"><i class="fa fa-check"></i><b>1.5</b> Two-Sample t-tests</a>
-<ul>
+<li class="chapter" data-level="1.5" data-path="intro-stat.html"><a href="intro-stat.html#two-sample-t-tests"><i class="fa fa-check"></i><b>1.5</b> Two-Sample t-tests</a><ul>
 <li class="chapter" data-level="1.5.1" data-path="intro-stat.html"><a href="intro-stat.html#testnorm"><i class="fa fa-check"></i><b>1.5.1</b> Testing Normality of Groups</a></li>
 <li class="chapter" data-level="1.5.2" data-path="intro-stat.html"><a href="intro-stat.html#ftest"><i class="fa fa-check"></i><b>1.5.2</b> Testing Equality of Variances</a></li>
 <li class="chapter" data-level="1.5.3" data-path="intro-stat.html"><a href="intro-stat.html#tsttest"><i class="fa fa-check"></i><b>1.5.3</b> Testing Equality of Means</a></li>
 <li class="chapter" data-level="1.5.4" data-path="intro-stat.html"><a href="intro-stat.html#wilcoxon"><i class="fa fa-check"></i><b>1.5.4</b> Mann-Whitney-Wilcoxon Test</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="slr.html"><a href="slr.html"><i class="fa fa-check"></i><b>2</b> Introduction to ANOVA and Linear Regression</a>
-<ul>
+<li class="chapter" data-level="2" data-path="slr.html"><a href="slr.html"><i class="fa fa-check"></i><b>2</b> Introduction to ANOVA and Linear Regression</a><ul>
 <li class="chapter" data-level="2.1" data-path="slr.html"><a href="slr.html#evp"><i class="fa fa-check"></i><b>2.1</b> Prediction vs. Explanation</a></li>
 <li class="chapter" data-level="2.2" data-path="slr.html"><a href="slr.html#trainvalidtest"><i class="fa fa-check"></i><b>2.2</b> Honest Assessment</a></li>
-<li class="chapter" data-level="2.3" data-path="slr.html"><a href="slr.html#bivariate-eda"><i class="fa fa-check"></i><b>2.3</b> Bivariate EDA</a>
-<ul>
+<li class="chapter" data-level="2.3" data-path="slr.html"><a href="slr.html#bivariate-eda"><i class="fa fa-check"></i><b>2.3</b> Bivariate EDA</a><ul>
 <li class="chapter" data-level="2.3.1" data-path="slr.html"><a href="slr.html#continuous-continuous-associations"><i class="fa fa-check"></i><b>2.3.1</b> Continuous-Continuous Associations</a></li>
 <li class="chapter" data-level="2.3.2" data-path="slr.html"><a href="slr.html#continuous-categorical-associations"><i class="fa fa-check"></i><b>2.3.2</b> Continuous-Categorical Associations</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="slr.html"><a href="slr.html#oneway"><i class="fa fa-check"></i><b>2.4</b> One-Way ANOVA</a>
-<ul>
+<li class="chapter" data-level="2.4" data-path="slr.html"><a href="slr.html#oneway"><i class="fa fa-check"></i><b>2.4</b> One-Way ANOVA</a><ul>
 <li class="chapter" data-level="2.4.1" data-path="slr.html"><a href="slr.html#testing-assumptions"><i class="fa fa-check"></i><b>2.4.1</b> Testing Assumptions</a></li>
 <li class="chapter" data-level="2.4.2" data-path="slr.html"><a href="slr.html#kruskal"><i class="fa fa-check"></i><b>2.4.2</b> Kruskal-Wallis</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="slr.html"><a href="slr.html#posthoc"><i class="fa fa-check"></i><b>2.5</b> ANOVA Post-hoc Testing</a>
-<ul>
+<li class="chapter" data-level="2.5" data-path="slr.html"><a href="slr.html#posthoc"><i class="fa fa-check"></i><b>2.5</b> ANOVA Post-hoc Testing</a><ul>
 <li class="chapter" data-level="2.5.1" data-path="slr.html"><a href="slr.html#tukey"><i class="fa fa-check"></i><b>2.5.1</b> Tukey-Kramer</a></li>
 <li class="chapter" data-level="2.5.2" data-path="slr.html"><a href="slr.html#dunnett"><i class="fa fa-check"></i><b>2.5.2</b> Dunnett’s Test</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="slr.html"><a href="slr.html#cor"><i class="fa fa-check"></i><b>2.6</b> Pearson Correlation</a>
-<ul>
+<li class="chapter" data-level="2.6" data-path="slr.html"><a href="slr.html#cor"><i class="fa fa-check"></i><b>2.6</b> Pearson Correlation</a><ul>
 <li class="chapter" data-level="2.6.1" data-path="slr.html"><a href="slr.html#testcor"><i class="fa fa-check"></i><b>2.6.1</b> Statistical Test</a></li>
-<li class="chapter" data-level="2.6.2" data-path="slr.html"><a href="slr.html#anomalous-observations"><i class="fa fa-check"></i><b>2.6.2</b> Anomalous Observations</a></li>
+<li class="chapter" data-level="2.6.2" data-path="slr.html"><a href="slr.html#effect-of-anomalous-observations"><i class="fa fa-check"></i><b>2.6.2</b> Effect of Anomalous Observations</a></li>
+<li class="chapter" data-level="2.6.3" data-path="slr.html"><a href="slr.html#the-correlation-matrix"><i class="fa fa-check"></i><b>2.6.3</b> The Correlation Matrix</a></li>
 </ul></li>
-<li class="chapter" data-level="2.7" data-path="slr.html"><a href="slr.html#simple-linear-regression"><i class="fa fa-check"></i><b>2.7</b> Simple Linear Regression</a>
-<ul>
+<li class="chapter" data-level="2.7" data-path="slr.html"><a href="slr.html#simple-linear-regression"><i class="fa fa-check"></i><b>2.7</b> Simple Linear Regression</a><ul>
 <li class="chapter" data-level="2.7.1" data-path="slr.html"><a href="slr.html#slrassumptions"><i class="fa fa-check"></i><b>2.7.1</b> Assumptions of Linear Regression</a></li>
 <li class="chapter" data-level="2.7.2" data-path="slr.html"><a href="slr.html#testing-for-association"><i class="fa fa-check"></i><b>2.7.2</b> Testing for Association</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Complex ANOVA and Multiple Linear Regression</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="mlr.html"><a href="mlr.html#two-way-anova"><i class="fa fa-check"></i><b>3.1</b> Two-Way ANOVA</a>
-<ul>
+<li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Complex ANOVA and Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="3.1" data-path="mlr.html"><a href="mlr.html#two-way-anova"><i class="fa fa-check"></i><b>3.1</b> Two-Way ANOVA</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="mlr.html"><a href="mlr.html#exploration"><i class="fa fa-check"></i><b>3.1.1</b> Exploration</a></li>
 <li class="chapter" data-level="3.1.2" data-path="mlr.html"><a href="mlr.html#model"><i class="fa fa-check"></i><b>3.1.2</b> Model</a></li>
 <li class="chapter" data-level="3.1.3" data-path="mlr.html"><a href="mlr.html#post-hoc-testing"><i class="fa fa-check"></i><b>3.1.3</b> Post-Hoc Testing</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="mlr.html"><a href="mlr.html#two-way-anova-with-interactions"><i class="fa fa-check"></i><b>3.2</b> Two-Way ANOVA with Interactions</a>
-<ul>
+<li class="chapter" data-level="3.2" data-path="mlr.html"><a href="mlr.html#two-way-anova-with-interactions"><i class="fa fa-check"></i><b>3.2</b> Two-Way ANOVA with Interactions</a><ul>
 <li class="chapter" data-level="3.2.1" data-path="mlr.html"><a href="mlr.html#post-hoc-testing-1"><i class="fa fa-check"></i><b>3.2.1</b> Post-Hoc Testing</a></li>
 <li class="chapter" data-level="3.2.2" data-path="mlr.html"><a href="mlr.html#assumptions"><i class="fa fa-check"></i><b>3.2.2</b> Assumptions</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="mlr.html"><a href="mlr.html#randomized-block-design"><i class="fa fa-check"></i><b>3.3</b> Randomized Block Design</a>
-<ul>
+<li class="chapter" data-level="3.3" data-path="mlr.html"><a href="mlr.html#randomized-block-design"><i class="fa fa-check"></i><b>3.3</b> Randomized Block Design</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="mlr.html"><a href="mlr.html#garlic-bulb-weight-example"><i class="fa fa-check"></i><b>3.3.1</b> Garlic Bulb Weight Example</a></li>
 <li class="chapter" data-level="3.3.2" data-path="mlr.html"><a href="mlr.html#assumptions-1"><i class="fa fa-check"></i><b>3.3.2</b> Assumptions</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="mlr.html"><a href="mlr.html#multiple-linear-regression"><i class="fa fa-check"></i><b>3.4</b> Multiple Linear Regression</a>
-<ul>
+<li class="chapter" data-level="3.4" data-path="mlr.html"><a href="mlr.html#multiple-linear-regression"><i class="fa fa-check"></i><b>3.4</b> Multiple Linear Regression</a><ul>
 <li class="chapter" data-level="3.4.1" data-path="mlr.html"><a href="mlr.html#model-structure"><i class="fa fa-check"></i><b>3.4.1</b> Model Structure</a></li>
 <li class="chapter" data-level="3.4.2" data-path="mlr.html"><a href="mlr.html#global-local-inference"><i class="fa fa-check"></i><b>3.4.2</b> Global &amp; Local Inference</a></li>
 <li class="chapter" data-level="3.4.3" data-path="mlr.html"><a href="mlr.html#assumptions-2"><i class="fa fa-check"></i><b>3.4.3</b> Assumptions</a></li>
@@ -227,42 +213,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4.5" data-path="mlr.html"><a href="mlr.html#categorical-predictor-variables"><i class="fa fa-check"></i><b>3.4.5</b> Categorical Predictor Variables</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html"><i class="fa fa-check"></i><b>4</b> Model Building &amp; Scoring for Prediction</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#model-complexity"><i class="fa fa-check"></i><b>4.1</b> Model Complexity</a></li>
-<li class="chapter" data-level="4.2" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#regularized-regression"><i class="fa fa-check"></i><b>4.2</b> Regularized Regression</a></li>
-<li class="chapter" data-level="4.3" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#modeling-scoring"><i class="fa fa-check"></i><b>4.3</b> Modeling Scoring</a></li>
-<li class="chapter" data-level="4.4" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#model-metrics"><i class="fa fa-check"></i><b>4.4</b> Model Metrics</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="model-selection.html"><a href="model-selection.html"><i class="fa fa-check"></i><b>5</b> Model Selection</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="model-selection.html"><a href="model-selection.html#selection-criteria"><i class="fa fa-check"></i><b>5.1</b> Selection Criteria</a></li>
-<li class="chapter" data-level="5.2" data-path="model-selection.html"><a href="model-selection.html#stepwise-selection"><i class="fa fa-check"></i><b>5.2</b> Stepwise Selection</a>
-<ul>
+<li class="chapter" data-level="4" data-path="model-selection.html"><a href="model-selection.html"><i class="fa fa-check"></i><b>4</b> Model Selection</a><ul>
+<li class="chapter" data-level="4.1" data-path="model-selection.html"><a href="model-selection.html#selection-criteria"><i class="fa fa-check"></i><b>4.1</b> Selection Criteria</a></li>
+<li class="chapter" data-level="4.2" data-path="model-selection.html"><a href="model-selection.html#stepwise-selection"><i class="fa fa-check"></i><b>4.2</b> Stepwise Selection</a><ul>
 <li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#forward"><i class="fa fa-check"></i>Forward</a></li>
 <li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#backward"><i class="fa fa-check"></i>Backward</a></li>
 <li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#stepwise"><i class="fa fa-check"></i>Stepwise</a></li>
-<li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#lasso"><i class="fa fa-check"></i>LASSO</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="model-selection.html"><a href="model-selection.html#significance-levels"><i class="fa fa-check"></i><b>5.3</b> Significance Levels</a></li>
+<li class="chapter" data-level="4.3" data-path="model-selection.html"><a href="model-selection.html#significance-levels"><i class="fa fa-check"></i><b>4.3</b> Significance Levels</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="diagnostics.html"><a href="diagnostics.html"><i class="fa fa-check"></i><b>6</b> Diagnostics</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="diagnostics.html"><a href="diagnostics.html#examining-residuals"><i class="fa fa-check"></i><b>6.1</b> Examining Residuals</a></li>
-<li class="chapter" data-level="6.2" data-path="diagnostics.html"><a href="diagnostics.html#misspecified-model"><i class="fa fa-check"></i><b>6.2</b> Misspecified Model</a></li>
-<li class="chapter" data-level="6.3" data-path="diagnostics.html"><a href="diagnostics.html#constant-variance"><i class="fa fa-check"></i><b>6.3</b> Constant Variance</a></li>
-<li class="chapter" data-level="6.4" data-path="diagnostics.html"><a href="diagnostics.html#normality"><i class="fa fa-check"></i><b>6.4</b> Normality</a></li>
-<li class="chapter" data-level="6.5" data-path="diagnostics.html"><a href="diagnostics.html#correlated-errors"><i class="fa fa-check"></i><b>6.5</b> Correlated Errors</a></li>
-<li class="chapter" data-level="6.6" data-path="diagnostics.html"><a href="diagnostics.html#influential-observations-and-outliers"><i class="fa fa-check"></i><b>6.6</b> Influential Observations and Outliers</a></li>
-<li class="chapter" data-level="6.7" data-path="diagnostics.html"><a href="diagnostics.html#multicollinearity"><i class="fa fa-check"></i><b>6.7</b> Multicollinearity</a></li>
+<li class="chapter" data-level="5" data-path="diagnostics.html"><a href="diagnostics.html"><i class="fa fa-check"></i><b>5</b> Diagnostics</a><ul>
+<li class="chapter" data-level="5.1" data-path="diagnostics.html"><a href="diagnostics.html#examining-residuals"><i class="fa fa-check"></i><b>5.1</b> Examining Residuals</a></li>
+<li class="chapter" data-level="5.2" data-path="diagnostics.html"><a href="diagnostics.html#misspecified-model"><i class="fa fa-check"></i><b>5.2</b> Misspecified Model</a></li>
+<li class="chapter" data-level="5.3" data-path="diagnostics.html"><a href="diagnostics.html#constant-variance"><i class="fa fa-check"></i><b>5.3</b> Constant Variance</a></li>
+<li class="chapter" data-level="5.4" data-path="diagnostics.html"><a href="diagnostics.html#normality"><i class="fa fa-check"></i><b>5.4</b> Normality</a></li>
+<li class="chapter" data-level="5.5" data-path="diagnostics.html"><a href="diagnostics.html#correlated-errors"><i class="fa fa-check"></i><b>5.5</b> Correlated Errors</a></li>
+<li class="chapter" data-level="5.6" data-path="diagnostics.html"><a href="diagnostics.html#influential-observations-and-outliers"><i class="fa fa-check"></i><b>5.6</b> Influential Observations and Outliers</a></li>
+<li class="chapter" data-level="5.7" data-path="diagnostics.html"><a href="diagnostics.html#multicollinearity"><i class="fa fa-check"></i><b>5.7</b> Multicollinearity</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html"><i class="fa fa-check"></i><b>7</b> Categorical Data Analysis</a>
-<ul>
+<li class="chapter" data-level="6" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html"><i class="fa fa-check"></i><b>6</b> Model Building &amp; Scoring for Prediction</a><ul>
+<li class="chapter" data-level="6.1" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#regularized-regression"><i class="fa fa-check"></i><b>6.1</b> Regularized Regression</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#penalties-in-models"><i class="fa fa-check"></i><b>6.1.1</b> Penalties in Models</a></li>
+<li class="chapter" data-level="6.1.2" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#ridge-regression"><i class="fa fa-check"></i><b>6.1.2</b> Ridge Regression</a></li>
+<li class="chapter" data-level="6.1.3" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#lasso"><i class="fa fa-check"></i><b>6.1.3</b> LASSO</a></li>
+<li class="chapter" data-level="6.1.4" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#elastic-net"><i class="fa fa-check"></i><b>6.1.4</b> Elastic Net</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#optimizing-penalties"><i class="fa fa-check"></i><b>6.2</b> Optimizing Penalties</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#cross-validation"><i class="fa fa-check"></i><b>6.2.1</b> Cross-Validation</a></li>
+<li class="chapter" data-level="6.2.2" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#cv-in-regularized-regression"><i class="fa fa-check"></i><b>6.2.2</b> CV in Regularized Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#model-comparisons"><i class="fa fa-check"></i><b>6.3</b> Model Comparisons</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#test-dataset-comparison"><i class="fa fa-check"></i><b>6.3.1</b> Test Dataset Comparison</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html"><i class="fa fa-check"></i><b>7</b> Categorical Data Analysis</a><ul>
 <li class="chapter" data-level="7.1" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#describing-categorical-data"><i class="fa fa-check"></i><b>7.1</b> Describing Categorical Data</a></li>
 <li class="chapter" data-level="7.2" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#tests-of-association"><i class="fa fa-check"></i><b>7.2</b> Tests of Association</a></li>
 <li class="chapter" data-level="7.3" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#measures-of-association"><i class="fa fa-check"></i><b>7.3</b> Measures of Association</a></li>
-<li class="chapter" data-level="7.4" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#introduction-to-logistic-regression"><i class="fa fa-check"></i><b>7.4</b> Introduction to Logistic Regression</a></li>
-<li class="chapter" data-level="7.5" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#adding-categorical-variables-and-interactions"><i class="fa fa-check"></i><b>7.5</b> Adding Categorical Variables and Interactions</a></li>
+<li class="chapter" data-level="7.4" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#introduction-to-logistic-regression"><i class="fa fa-check"></i><b>7.4</b> Introduction to Logistic Regression</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#linear-probability-model"><i class="fa fa-check"></i><b>7.4.1</b> Linear Probability Model</a></li>
+<li class="chapter" data-level="7.4.2" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#binary-logistic-regression"><i class="fa fa-check"></i><b>7.4.2</b> Binary Logistic Regression</a></li>
+<li class="chapter" data-level="7.4.3" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#adding-categorical-variables"><i class="fa fa-check"></i><b>7.4.3</b> Adding Categorical Variables</a></li>
+<li class="chapter" data-level="7.4.4" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#model-assessment"><i class="fa fa-check"></i><b>7.4.4</b> Model Assessment</a></li>
+<li class="chapter" data-level="7.4.5" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#variable-selection-and-regularized-regression"><i class="fa fa-check"></i><b>7.4.5</b> Variable Selection and Regularized Regression</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -283,23 +277,797 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="categorical-data-analysis" class="section level1" number="7">
+<div id="categorical-data-analysis" class="section level1">
 <h1><span class="header-section-number">Chapter 7</span> Categorical Data Analysis</h1>
-<div id="describing-categorical-data" class="section level2" number="7.1">
+<p>Everything analysis covered so far has used a continuous variable as a target variable of interest. What if our target variable was categorical instead of continuous? Our analysis must change to adjust.</p>
+This Chapter aims to answer the following questions:
+<ul>
+<li>
+How do you explore categorical variables?
+<ul>
+<li>
+Nominal vs. Ordinal
+<li>
+Tests of Association
+<li>
+Measures of Association
+</ul>
+<li>
+How do you model a categorical target variable?
+<ul>
+<li>
+Logistic Regression
+<li>
+Interpreting Logistic Regression
+<li>
+Assessing Logistic Regression
+</ul>
+</ul>
+<div id="describing-categorical-data" class="section level2">
 <h2><span class="header-section-number">7.1</span> Describing Categorical Data</h2>
+<p>Similar to Chapter <a href="intro-stat.html#eda">1.1</a>, we need to first explore our data before building any models to try and explain/predict our categorical target variable. With categorical variables, we can look at the distribution of the categories as well as see if this distribution has any association with other variables. For this analysis we are going to still use our Ames housing data. Imagine you worked for a real estate agency and got a bonus check if you sold a house above $175,000 in value. Let’s create this variable in our data:</p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" data-line-number="1">train &lt;-<span class="st"> </span>train <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb211-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Bonus =</span> <span class="kw">ifelse</span>(Sale_Price <span class="op">&gt;</span><span class="st"> </span><span class="dv">175000</span>, <span class="dv">1</span>, <span class="dv">0</span>))</a></code></pre></div>
+<p>You are interested in what variables might be associated with obtaining a higher chance of getting a bonus (selling a house above $175,000). An association exists between two categorical variables if the distribution of one variable changes when the value of the other categorical changes. If there is no association, the distribution of the first variable is the same regardless of the value of the other variable. For example, if we wanted to know if obtaining a bonus on selling a house in Ames, Iowa was associated with whether the house had central air we could look at the distribution of bonus eligible houses. If we observe that 42% of homes with central air are bonus eligible and 42% of homes without central air are bonus eligible, then it appears that central air has no bearing on whether the home is bonus eligible. However, if instead we observe that only 5% of homes without central air are bonus eligible, but 45% of home with central air are bonus eligible, then it appears that having central air might be related to a home being bonus eligible.</p>
+<p>To understand the distribution of categorical variables we need to look at frequency tables. A frequency table shows the number of observations that occur in certain categories or intervals. A one way frequency table examines all the categories of one variable. These are easily visualized with bar charts.</p>
+<p>Let’s look at the distribution of both bonus eligibility and central air using the <code>table</code> function. The <code>ggplot</code> function with the <code>geom_bar</code> function allows us to view our data in a bar chart.</p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" data-line-number="1"><span class="kw">table</span>(train<span class="op">$</span>Bonus)</a></code></pre></div>
+<pre><code>## 
+##    0    1 
+## 1211  840</code></pre>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> train) <span class="op">+</span></a>
+<a class="sourceLine" id="cb214-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Bonus))</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" data-line-number="1"><span class="kw">table</span>(train<span class="op">$</span>Central_Air)</a></code></pre></div>
+<pre><code>## 
+##    N    Y 
+##  147 1904</code></pre>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> train) <span class="op">+</span></a>
+<a class="sourceLine" id="cb217-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Central_Air))</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
+<p>Frequency tables show single variables, but if we want to explore two variables together we look at <strong>cross-tabulation</strong> tables. A cross-tabulation table shows the number of observations for each combination of the row and column variables.</p>
+<p>Let’s again examine bonus eligibility, but this time across levels of central air. Again, we can use the <code>table</code> function. The <code>prop.table</code> function allows us to compare two variables in terms of proportions instead of frequencies.</p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" data-line-number="1"><span class="kw">table</span>(train<span class="op">$</span>Central_Air, train<span class="op">$</span>Bonus)</a></code></pre></div>
+<pre><code>##    
+##        0    1
+##   N  142    5
+##   Y 1069  835</code></pre>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" data-line-number="1"><span class="kw">prop.table</span>(<span class="kw">table</span>(train<span class="op">$</span>Central_Air, train<span class="op">$</span>Bonus))</a></code></pre></div>
+<pre><code>##    
+##               0           1
+##   N 0.069234520 0.002437835
+##   Y 0.521209166 0.407118479</code></pre>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> train) <span class="op">+</span></a>
+<a class="sourceLine" id="cb222-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Bonus, <span class="dt">fill =</span> Central_Air))</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
+<p>From the above output we can see that 140 homes have no central air with only 5 of them being bonus eligible. However, there are 1909 homes that have central air with 851 of them being bonus eligible. For an even more detailed breakdown we can use the <code>CrossTable</code> function.</p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" data-line-number="1"><span class="kw">library</span>(gmodels)</a>
+<a class="sourceLine" id="cb223-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb223-3" data-line-number="3"><span class="kw">CrossTable</span>(train<span class="op">$</span>Central_Air, train<span class="op">$</span>Bonus)</a></code></pre></div>
+<pre><code>## 
+##  
+##    Cell Contents
+## |-------------------------|
+## |                       N |
+## | Chi-square contribution |
+## |           N / Row Total |
+## |           N / Col Total |
+## |         N / Table Total |
+## |-------------------------|
+## 
+##  
+## Total Observations in Table:  2051 
+## 
+##  
+##                   | train$Bonus 
+## train$Central_Air |         0 |         1 | Row Total | 
+## ------------------|-----------|-----------|-----------|
+##                 N |       142 |         5 |       147 | 
+##                   |    35.112 |    50.620 |           | 
+##                   |     0.966 |     0.034 |     0.072 | 
+##                   |     0.117 |     0.006 |           | 
+##                   |     0.069 |     0.002 |           | 
+## ------------------|-----------|-----------|-----------|
+##                 Y |      1069 |       835 |      1904 | 
+##                   |     2.711 |     3.908 |           | 
+##                   |     0.561 |     0.439 |     0.928 | 
+##                   |     0.883 |     0.994 |           | 
+##                   |     0.521 |     0.407 |           | 
+## ------------------|-----------|-----------|-----------|
+##      Column Total |      1211 |       840 |      2051 | 
+##                   |     0.590 |     0.410 |           | 
+## ------------------|-----------|-----------|-----------|
+## 
+## </code></pre>
+<p>The advantage of the <code>CrossTable</code> function is that we can easily get not only the frequencies, but the cell, row, and column proportions. For example, the third number in each cell gives us the row proportion. For homes without central air, 96.4% of them are not bonus eligible, while 3.6% of them are. For homes with central air, 55.4% of the homes are not bonus eligible, while 44.6% of them are. This would appear that the distribution of bonus eligible homes changes across levels of central air - a relationship between the two variables. This expected relationship needs to be tested statistically for verification.</p>
 </div>
-<div id="tests-of-association" class="section level2" number="7.2">
+<div id="tests-of-association" class="section level2">
 <h2><span class="header-section-number">7.2</span> Tests of Association</h2>
+<p>Much like in Chapter <a href="slr.html#slr">2</a> we have statistical tests to evaluate relationships between two categorical variables. The null hypothesis for these statistical tests is that the two variables have no association - the distribution of one variable does not change across levels of another variable. The alternative hypothesis is an association between the two variables - the distribution of one variable changes across levels of another variable.</p>
+<p>These statistical tests follow a <span class="math inline">\(\chi^2\)</span>-distribution. The <span class="math inline">\(\chi^2\)</span>-distribution is a distribution that has the following characteristics:
+- Bounded below by 0
+- Right-skewed
+- One set of degrees of freedom</p>
+<p>A plot of a variety of <span class="math inline">\(\chi^2\)</span>-distributions is shown here:</p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+<p>Two common <span class="math inline">\(\chi^2\)</span> tests are the Pearson and Likelihood Ratio <span class="math inline">\(\chi^2\)</span> tests. They compare the observed count of observations in each cell of a cross-tabulation table between two variables to their expected count <strong>if</strong> there was no relationship. The expected cell count applies the overall distribution of one variable across all the levels of the other variable. For example, overall 58% of all homes are not bonus eligible. <strong>If</strong> that were to apply to every level of central air, then the 140 homes without central air would be expected to have 81.2 ($ = 140 0.58<span class="math inline">\() of them would be bonus eligible while 58.8 (\)</span> = 140 0.42$) of them would not be bonus eligible. We actually observe 135 and 5 homes for each of these categories respectively. The further the observed data is from the expected data, the more evidence we have that there is a relationship between the two variables.</p>
+<p>The test statistic for the Pearson <span class="math inline">\(\chi^2\)</span> test is the following:</p>
+<p><span class="math display">\[
+\chi^2_P = \sum_{i=1}^R \sum_{j=1}^C \frac{(Obs_{i,j} - Exp_{i,j})^2}{Exp_{i,j}}
+\]</span>
+From the equation above, the closer that the observed count of each cross-tabulation table cell to the expected count, the smaller the test statistic. As with all previous hypothesis tests, the smaller the test statistic, the larger the p-value, implying less evidence for the alternative hypothesis.</p>
+<p>Let’s examine the relationship between central air and bonus eligibility using the <code>chisq.test</code> function.</p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" data-line-number="1"><span class="kw">chisq.test</span>(<span class="kw">table</span>(train<span class="op">$</span>Central_Air, train<span class="op">$</span>Bonus))</a></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+## 
+## data:  table(train$Central_Air, train$Bonus)
+## X-squared = 90.686, df = 1, p-value &lt; 2.2e-16</code></pre>
+<p>The above results shows an extremely small p-value that is below any reasonable significance level. This implies that we have statistical evidence for a relationship between having central air and bonus eligibility of homes. The p-value comes from a <span class="math inline">\(\chi^2\)</span>-distribution with degrees of freedom that equal the product of the number of rows minus one and the number of columns minus one.</p>
+<p>Another common test is the Likelihood Ratio test. The test statistic for this is the following:</p>
+<p><span class="math display">\[
+\chi^2_L = 2 \times \sum_{i=1}^R \sum_{j=1}^C Obs_{i,j} \times \log(\frac{Obs_{i,j}}{Exp_{i,j}})
+\]</span></p>
+<p>The p-value comes from a <span class="math inline">\(\chi^2\)</span>-distribution with degrees of freedom that equal the product of the number of rows minus one and the number of columns minus one. Both of the above tests have a sample size requirement. The sample size requirement is 80% or more of the cells in the cross-tabulation table need <strong>expected</strong> count larger
+than 5.</p>
+<p>For smaller sample sizes, this might be hard to meet. In those situations, we can use a more computationally expensive test called Fisher’s exact test. This test calculates every possible permutation of the data being evaluated to calculate the p-value without any distributional assumptions. To perform this test we can use the <code>fisher.test</code> function.</p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" data-line-number="1"><span class="kw">fisher.test</span>(<span class="kw">table</span>(train<span class="op">$</span>Central_Air, train<span class="op">$</span>Bonus))</a></code></pre></div>
+<pre><code>## 
+##  Fisher&#39;s Exact Test for Count Data
+## 
+## data:  table(train$Central_Air, train$Bonus)
+## p-value &lt; 2.2e-16
+## alternative hypothesis: true odds ratio is not equal to 1
+## 95 percent confidence interval:
+##   9.213525 69.646380
+## sample estimates:
+## odds ratio 
+##   22.16545</code></pre>
+<p>We see the same results as with the Pearson test because the assumptions were met for sample size.</p>
+<p>Both the Pearson and Likelihood Ratio <span class="math inline">\(\chi^2\)</span> tests can handle any type of categorical variable either ordinal, nominal, or both. However, ordinal variables provide us extra information since the order of the categories actually matters compared to nominal. We can test for even more with ordinal variables against other ordinal variables whether two ordinal variables have a <strong>linear relationship</strong> as compared to just a general one. An ordinal test for association is the Mantel-Haenszel <span class="math inline">\(\chi^2\)</span> test. The test statistic for the Mantel-Haenszel <span class="math inline">\(\chi^2\)</span> test is the following:</p>
+<p><span class="math display">\[
+\chi^2_{MH} = (n-1)r^2
+\]</span>
+where <span class="math inline">\(r^2\)</span> is the Pearson correlation between the column and row variables. This test follows a <span class="math inline">\(\chi^2\)</span>-distribution with only one degree of freedom.</p>
+<p>Since both the central air and bonus eligibility variables are binary, they are ordinal. Since they are both ordinal, we should use the Mantel-Haenszel <span class="math inline">\(\chi^2\)</span> test with the <code>CMHtest</code> function. In the main output table, the first row is the Mantel-Haenszel <span class="math inline">\(\chi^2\)</span> test.</p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" data-line-number="1"><span class="kw">library</span>(vcdExtra)</a>
+<a class="sourceLine" id="cb229-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb229-3" data-line-number="3"><span class="kw">CMHtest</span>(<span class="kw">table</span>(train<span class="op">$</span>Central_Air, train<span class="op">$</span>Bonus))<span class="op">$</span>table[<span class="dv">1</span>,]</a></code></pre></div>
+<pre><code>##        Chisq           Df         Prob 
+## 9.230619e+01 1.000000e+00 7.425180e-22</code></pre>
+<p>From here we can see another extremely small p-value as we saw in earlier, more general <span class="math inline">\(chi^2\)</span> tests.</p>
 </div>
-<div id="measures-of-association" class="section level2" number="7.3">
+<div id="measures-of-association" class="section level2">
 <h2><span class="header-section-number">7.3</span> Measures of Association</h2>
+<p>Tests of association are best designed for just that, testing the existence of an association between two categorical variables. However, just like we saw in Chapter <a href="intro-stat.html#eda">1.1</a>, hypothesis tests are impacted by sample size. When we have the same sample size, tests of association can rank significance of variables with p-values. However, when sample sizes are not the same between two tests, the tests of association are not best for comparing the strength of an association. In those scenarios, we have measures of strength of association that can be compared across any sample size.</p>
+<p>Measures of association were not designed to test if an association exists, as that is what statistical testing is for. They are designed to measure the strength of association. There are dozens of these measures. Three of the most common are the following:
+- Odds Ratios (only for comparing two binary variables)
+- Cramer’s V (able to compare nominal variables with any number of categories)
+- Spearman’s Correlation (able to compare ordinal variables with any number of categories)</p>
+<p>An <strong>odds ratio</strong> indicates how much more likely, with respect to <strong>odds</strong>, a certain event occurs in one group relative to its occurrence in another group. The odds of an event occurring is <em>not</em> the same as the probability that an event occurs. The odds of an event occurring is the probability the event occurs divided by the probability that event does not occur.</p>
+<p><span class="math display">\[
+Odds = \frac{p}{1-p}
+\]</span></p>
+<p>Let’s again examine the cross-tabulation table between central air and bonus eligibility.</p>
+<pre><code>## 
+##  
+##    Cell Contents
+## |-------------------------|
+## |                       N |
+## | Chi-square contribution |
+## |           N / Row Total |
+## |           N / Col Total |
+## |         N / Table Total |
+## |-------------------------|
+## 
+##  
+## Total Observations in Table:  2051 
+## 
+##  
+##                   | train$Bonus 
+## train$Central_Air |         0 |         1 | Row Total | 
+## ------------------|-----------|-----------|-----------|
+##                 N |       142 |         5 |       147 | 
+##                   |    35.112 |    50.620 |           | 
+##                   |     0.966 |     0.034 |     0.072 | 
+##                   |     0.117 |     0.006 |           | 
+##                   |     0.069 |     0.002 |           | 
+## ------------------|-----------|-----------|-----------|
+##                 Y |      1069 |       835 |      1904 | 
+##                   |     2.711 |     3.908 |           | 
+##                   |     0.561 |     0.439 |     0.928 | 
+##                   |     0.883 |     0.994 |           | 
+##                   |     0.521 |     0.407 |           | 
+## ------------------|-----------|-----------|-----------|
+##      Column Total |      1211 |       840 |      2051 | 
+##                   |     0.590 |     0.410 |           | 
+## ------------------|-----------|-----------|-----------|
+## 
+## </code></pre>
+<p>Let’s look at the row without central air. The probability that a home without central air is not bonus eligible is 96.4%. That implies that the odds of not being bonus eligible in homes without central air is 26.78 (= 0.964/0.036). For homes with central air, the odds of not being bonus eligible are 1.24 (= 0.554/0.446). The odds ratio between these two would be approximately 21.7 (= 26.7778/1.2422). In other words, homes without central air are 21.7 times more likely (in terms of odds) to not be bonus eligible as compared to homes with central air. This relationship is intuitive based on the numbers we have seen. Without going into details, it can also be shown that homes with central air are 21.7 times as likely (in terms of odds) to be bonus eligible.</p>
+<p>We can use the <code>OddsRatio</code> function to get these same results.</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" data-line-number="1"><span class="kw">library</span>(DescTools)</a>
+<a class="sourceLine" id="cb232-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb232-3" data-line-number="3"><span class="kw">OddsRatio</span>(<span class="kw">table</span>(train<span class="op">$</span>Central_Air, train<span class="op">$</span>Bonus))</a></code></pre></div>
+<pre><code>## [1] 22.18335</code></pre>
+<p><strong>Cramer’s V</strong> is another measure of strength of association. Cramer’s V is calculated as follows:</p>
+<p><span class="math display">\[
+V = \sqrt{\frac{\chi^2_P/n}{\min(Rows-1, Columns-1)}}
+\]</span></p>
+<p>Cramer’s V is bounded between 0 and 1 for every comparison other than two binary variables. For two binary variables being compared the bounds are -1 to 1. The idea is still the same for both. The further the value is from 0, the stronger the relationship. Unfortunately, unlike <span class="math inline">\(R^2\)</span>, Cramer’s V has no interpretative value. It can only be used for comparison.</p>
+<p>We use the <code>assocstats</code> function to get the Cramer’s V value. This function also provides the Pearson and Likelihood Ratio <span class="math inline">\(\chi^2\)</span> tests as well.</p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1"><span class="kw">assocstats</span>(<span class="kw">table</span>(train<span class="op">$</span>Central_Air, train<span class="op">$</span>Bonus))</a></code></pre></div>
+<pre><code>##                      X^2 df P(&gt; X^2)
+## Likelihood Ratio 121.499  1        0
+## Pearson           92.351  1        0
+## 
+## Phi-Coefficient   : 0.212 
+## Contingency Coeff.: 0.208 
+## Cramer&#39;s V        : 0.212</code></pre>
+<p>Lastly, we have Spearman’s correlation. Much like the Mantel-Haenszel test of association was specifically designed for comparing two ordinal variables, Spearman correlation measures the strength of association between two ordinal variables. Spearman is not limited to only categorical data analysis as it was also seen back in Chapter <a href="#diag"><strong>??</strong></a> with detecting heteroskedasticity. Remember, Spearman correlation is a correlation on the ranks of the observations as compared to the actual values of the observations.</p>
+<p>The <code>cor.test</code> function that gave us Pearson’s correlation also provides Spearman’s correlation.</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" data-line-number="1"><span class="kw">cor.test</span>(<span class="dt">x =</span> <span class="kw">as.numeric</span>(<span class="kw">ordered</span>(train<span class="op">$</span>Central_Air)), </a>
+<a class="sourceLine" id="cb236-2" data-line-number="2">         <span class="dt">y =</span> <span class="kw">as.numeric</span>(<span class="kw">ordered</span>(train<span class="op">$</span>Bonus)), </a>
+<a class="sourceLine" id="cb236-3" data-line-number="3">         <span class="dt">method =</span> <span class="st">&quot;spearman&quot;</span>)</a></code></pre></div>
+<pre><code>## Warning in cor.test.default(x, y, ...): Cannot compute exact p-value with ties</code></pre>
+<pre><code>## 
+##  Spearman&#39;s rank correlation rho
+## 
+## data:  x and y
+## S = 1132826666, p-value &lt; 2.2e-16
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##       rho 
+## 0.2121966</code></pre>
+<p>As previously mentioned, these are only a few of the dozens of different measures of association that exist. However, they are the most used ones.</p>
 </div>
-<div id="introduction-to-logistic-regression" class="section level2" number="7.4">
+<div id="introduction-to-logistic-regression" class="section level2">
 <h2><span class="header-section-number">7.4</span> Introduction to Logistic Regression</h2>
+<p>After exploring the categorical target variable, we can move on to modeling the categorical target variable. Logistic regression is a fundamental statistical analysis for data science and analytics. It part of a class of modeling techniques known as classification models since they are trying to predict categorical target variables. This target variable can be binary, ordinal, or even nominal in its structure. The primary focus will be binary logistic regression. It is the most common type of logistic regression, and sets up the foundation for both ordinal and nominal logistic regression.</p>
+<p>Ordinary least squares regression is not the best approach to modeling categorical target variables. Mathematically, it can be shown that with a binary target variable coded as 0 and 1, an OLS linear regression model will produce the <strong>linear probability model</strong>.</p>
+<div id="linear-probability-model" class="section level3">
+<h3><span class="header-section-number">7.4.1</span> Linear Probability Model</h3>
+<p>The linear probability model is not as widely used since probabilities do not tend to follow the properties of linearity in relation to their predictors. Also, the linear probability model possibly produces predictions outside of the bounds of 0 and 1 (where probabilities should be!). For completeness sake however, here is the linear probability model using the <code>lm</code> function to try and predict bonus eligibility.</p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" data-line-number="1">lp.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Bonus <span class="op">~</span><span class="st"> </span>Gr_Liv_Area, <span class="dt">data =</span> train)</a>
+<a class="sourceLine" id="cb239-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb239-3" data-line-number="3"><span class="kw">with</span>(train, <span class="kw">plot</span>(<span class="dt">x =</span> Gr_Liv_Area, <span class="dt">y =</span> Bonus,</a>
+<a class="sourceLine" id="cb239-4" data-line-number="4">               <span class="dt">main =</span> <span class="st">&#39;OLS Regression?&#39;</span>,</a>
+<a class="sourceLine" id="cb239-5" data-line-number="5">               <span class="dt">xlab =</span> <span class="st">&#39;Greater Living Area (Sqft)&#39;</span>,</a>
+<a class="sourceLine" id="cb239-6" data-line-number="6">               <span class="dt">ylab =</span> <span class="st">&#39;Bonus Eligibility&#39;</span>))</a>
+<a class="sourceLine" id="cb239-7" data-line-number="7"><span class="kw">abline</span>(lp.model)</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
+<p>Even though it doesn’t appear to really look like our data, let’s fit this linear probability model anyway for completeness sake.</p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" data-line-number="1">lp.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Bonus <span class="op">~</span><span class="st"> </span>Gr_Liv_Area, <span class="dt">data =</span> train)</a>
+<a class="sourceLine" id="cb240-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb240-3" data-line-number="3"><span class="kw">summary</span>(lp.model)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Bonus ~ Gr_Liv_Area, data = train)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.70766 -0.29160 -0.09983  0.39432  0.86198 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -4.149e-01  2.776e-02  -14.94   &lt;2e-16 ***
+## Gr_Liv_Area  5.534e-04  1.765e-05   31.36   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.4044 on 2049 degrees of freedom
+## Multiple R-squared:  0.3243, Adjusted R-squared:  0.324 
+## F-statistic: 983.6 on 1 and 2049 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" data-line-number="1"><span class="kw">qqnorm</span>(<span class="kw">rstandard</span>(lp.model),</a>
+<a class="sourceLine" id="cb242-2" data-line-number="2">       <span class="dt">ylab =</span> <span class="st">&quot;Standardized Residuals&quot;</span>,</a>
+<a class="sourceLine" id="cb242-3" data-line-number="3">       <span class="dt">xlab =</span> <span class="st">&quot;Normal Scores&quot;</span>,</a>
+<a class="sourceLine" id="cb242-4" data-line-number="4">       <span class="dt">main =</span> <span class="st">&quot;QQ-Plot of Residuals&quot;</span>)</a>
+<a class="sourceLine" id="cb242-5" data-line-number="5"><span class="kw">qqline</span>(<span class="kw">rstandard</span>(lp.model))</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">predict</span>(lp.model), <span class="kw">resid</span>(lp.model), </a>
+<a class="sourceLine" id="cb243-2" data-line-number="2">     <span class="dt">ylab=</span><span class="st">&quot;Residuals&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Predicted Values&quot;</span>, </a>
+<a class="sourceLine" id="cb243-3" data-line-number="3">     <span class="dt">main=</span><span class="st">&quot;Residuals of Linear Probability Model&quot;</span>) </a>
+<a class="sourceLine" id="cb243-4" data-line-number="4"><span class="kw">abline</span>(<span class="dv">0</span>, <span class="dv">0</span>) </a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-92-2.png" width="672" /></p>
+<p>As we can see from the charts above, the assumptions of ordinary least squares don’t really hold in this situation. Therefore, we should be careful interpreting the results of the model. Maybe a better model won’t have these problems?</p>
 </div>
-<div id="adding-categorical-variables-and-interactions" class="section level2" number="7.5">
-<h2><span class="header-section-number">7.5</span> Adding Categorical Variables and Interactions</h2>
+<div id="binary-logistic-regression" class="section level3">
+<h3><span class="header-section-number">7.4.2</span> Binary Logistic Regression</h3>
+<p>Due to the limitations of the linear probability model, people typically just use the binary logistic regression model. The logistic regression model does not have the limitations of the linear probability model. The outcome of the logistic regression model is the probability of getting a 1 in a binary variable. That probability is calculated as follows:</p>
+<p><span class="math display">\[
+p_i = \frac{1}{1+e^{-(\beta_0 + \beta_1x_{1,i} + \cdots + \beta_k x_{k,i})}}
+\]</span></p>
+<p>This function has the desired properties for predicting probabilities. The predicted probability from the above equation will always be between 0 and 1. The parameter estimates do not enter the function linearly (this is a non-linear regression model), and the rate of change of the probability varies as the predictor variables vary as seen in Figure <a href="categorical-data-analysis.html#fig:logistic">7.1</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:logistic"></span>
+<img src="img/logistic.png" alt="Example of a Bimodal Distribution" width="50%" />
+<p class="caption">
+Figure 7.1: Example of a Bimodal Distribution
+</p>
+</div>
+<p>To create a linear model, a <strong>link function</strong> is applied to the probabilities. The specific link function for logistic regression is called the <strong>logit</strong> function.</p>
+<p><span class="math display">\[
+logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta_k x_{k,i}
+\]</span></p>
+<p>The relationship between the predictor variables and the logits are linear in nature as the logits themselves are unbounded. This structure looks much more like our linear regression model structure. However, logistic regression does not use OLS to estimate the coefficients in our model. OLS requires residuals which the logistic regression model does not provide. The target variable is binary in nature, but the predictions are probabilities. Therefore, we cannot calculate a traditional residual. Instead, logistic regression uses maximum likelihood estimation. This is not covered here.</p>
+<p>There are two main assumptions for logistic regression:
+1. Independence of observations
+2. Linearity of the logit</p>
+<p>The first assumption of independence is the same as we had for linear regression. The second assumption implies that the logistic function transformation (the logit) actually makes a linear relationship with our predictor variables. This assumption can be tested, but will not be covered in this brief introduction to logistic regression.</p>
+<p>Let’s build a logistic regression model. We will use the <code>glm</code> function to do this. The <code>glm</code> function has a similar structure to the <code>lm</code> function. The main difference is the <code>family = binomial(link = &quot;logit&quot;)</code> option to specify that we are uses a logistic regression model. Again, there are many different link functions, but only the logistic link function (the logit) is being used here.</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" data-line-number="1">ames_logit &lt;-<span class="st"> </span><span class="kw">glm</span>(Bonus <span class="op">~</span><span class="st"> </span>Gr_Liv_Area, </a>
+<a class="sourceLine" id="cb244-2" data-line-number="2">                   <span class="dt">data =</span> train, <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>))</a>
+<a class="sourceLine" id="cb244-3" data-line-number="3"><span class="kw">summary</span>(ames_logit)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Bonus ~ Gr_Liv_Area, family = binomial(link = &quot;logit&quot;), 
+##     data = train)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -5.5796  -0.6942  -0.3647   0.8060   2.1857  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -6.1348858  0.2757473  -22.25   &lt;2e-16 ***
+## Gr_Liv_Area  0.0038463  0.0001799   21.38   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2775.8  on 2050  degrees of freedom
+## Residual deviance: 1926.4  on 2049  degrees of freedom
+## AIC: 1930.4
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>Let’s examine the above output. Scanning down the output, you can see the actual logistic regression equation for the variable <code>Gr_Liv_Area</code>. Here we can see that it appears to be a significant variable at predicting bonus eligibility. However, the coefficient reported does not have the same usable interpretation as in linear regression. An increase of one unit of greater living area square footage is linearly related to the logit <strong>not</strong> the probability of bonus eligibility. We can transform this coefficient to make it more interpretable. A single unit increase in greater living area square footage <strong>does</strong> have a <span class="math inline">\(100 \times (e^\hat{\beta}-1)\%\)</span> increase in the average <strong>odds</strong> of bonus eligibility. We can use a combination of the <code>exp</code> and <code>coef</code> functions to obtain this number.</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" data-line-number="1"><span class="dv">100</span><span class="op">*</span>(<span class="kw">exp</span>(<span class="kw">cbind</span>(<span class="kw">coef</span>(ames_logit), <span class="kw">confint</span>(ames_logit)))<span class="op">-</span><span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>##                               2.5 %      97.5 %
+## (Intercept) -99.7834027 -99.8755103 -99.6328865
+## Gr_Liv_Area   0.3853699   0.3508132   0.4216532</code></pre>
+<p>In other words, every additional square foot in greater living area in the home leads to an average increase in odds of 0.385% to be bonus eligible.</p>
+</div>
+<div id="adding-categorical-variables" class="section level3">
+<h3><span class="header-section-number">7.4.3</span> Adding Categorical Variables</h3>
+<p>Similar to linear regression as we learned in Chapter <a href="mlr.html#mlr">3</a>, logistic regression can have both continuous and categorical predictors for our categorical target variable. Let’s add both central air as well as number of fireplaces to our logistic regression model.</p>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb249-1" data-line-number="1">ames_logit2 &lt;-<span class="st"> </span><span class="kw">glm</span>(Bonus <span class="op">~</span><span class="st"> </span>Gr_Liv_Area <span class="op">+</span><span class="st"> </span>Central_Air <span class="op">+</span><span class="st"> </span><span class="kw">factor</span>(Fireplaces), </a>
+<a class="sourceLine" id="cb249-2" data-line-number="2">                  <span class="dt">data =</span> train, <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>))</a>
+<a class="sourceLine" id="cb249-3" data-line-number="3"><span class="kw">summary</span>(ames_logit2)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Bonus ~ Gr_Liv_Area + Central_Air + factor(Fireplaces), 
+##     family = binomial(link = &quot;logit&quot;), data = train)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -5.4340  -0.6467  -0.2822   0.6610   2.8866  
+## 
+## Coefficients:
+##                       Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)         -9.970e+00  6.549e-01 -15.223  &lt; 2e-16 ***
+## Gr_Liv_Area          3.759e-03  2.031e-04  18.506  &lt; 2e-16 ***
+## Central_AirY         3.564e+00  5.310e-01   6.711 1.93e-11 ***
+## factor(Fireplaces)1  9.822e-01  1.253e-01   7.837 4.60e-15 ***
+## factor(Fireplaces)2  6.734e-01  2.406e-01   2.799  0.00513 ** 
+## factor(Fireplaces)3 -3.993e-02  8.711e-01  -0.046  0.96344    
+## factor(Fireplaces)4  9.025e+00  3.247e+02   0.028  0.97783    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2775.8  on 2050  degrees of freedom
+## Residual deviance: 1746.2  on 2044  degrees of freedom
+## AIC: 1760.2
+## 
+## Number of Fisher Scoring iterations: 11</code></pre>
+<p>Just like with linear regression, categorical predictor variables are a comparison between two categories. Again, the coefficients from the logistic regression model need to be transformed to be interpreted.</p>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" data-line-number="1"><span class="dv">100</span><span class="op">*</span>(<span class="kw">exp</span>(<span class="kw">cbind</span>(<span class="kw">coef</span>(ames_logit2), <span class="kw">confint</span>(ames_logit2)))<span class="op">-</span><span class="dv">1</span>)</a></code></pre></div>
+<pre><code>##                                          2.5 %        97.5 %
+## (Intercept)         -9.999532e+01  -99.9988238   -99.9843742
+## Gr_Liv_Area          3.766413e-01    0.3376191     0.4175879
+## Central_AirY         3.429115e+03 1264.8396217 11177.2021480
+## factor(Fireplaces)1  1.670410e+02  108.9856565   241.6360910
+## factor(Fireplaces)2  9.607987e+01   22.4764491   214.9571145
+## factor(Fireplaces)3 -3.914247e+00  -81.9507819   497.4825425
+## factor(Fireplaces)4  8.308750e+05 -100.0000000            NA</code></pre>
+<p>Let’s use the first fireplace variable as an example. A home with one fireplace has, on average, 167.04% higher odds of being bonus eligible as compared to a home with zero fireplaces.</p>
+</div>
+<div id="model-assessment" class="section level3">
+<h3><span class="header-section-number">7.4.4</span> Model Assessment</h3>
+<p>There are dozens of different ways to evaluate a logistic regression model. We will cover one popular way here - concordance. Counting the number of <strong>concordant</strong>, <strong>discordant</strong>, and <strong>tied</strong> pairs is a way to to assess how well the model fits the data.</p>
+<p>To find concordant, discordant, and tied pairs, we must compare all of the 0’s in the target variable to all of the 1’s. For our example, we will compare every pair of homes where one home is bonus eligible and one is not (every 0 and 1 pair). A <strong>concordant</strong> pair is a 0 and 1 pair where the bonus eligible home (the 1 in our model) has a higher predicted probability than the non-bonus eligible home (the 0 in our model) - our model successfully ordered these two observations by probability. It does not matter what the actual predicted probability values are as long as the bonus eligible home has a higher predicted probability than the non-bonus eligible home. A <strong>discordant</strong> pair is a 0 and 1 pair where the bonus eligible home (the 1 in our model) has a lower predicted probability than the non-bonus eligible home (the 0 in our model) - our model unsuccessfully ordered the homes. It does not matter what the actual predicted probability values are as long as the bonus eligible home has a lower predicted probability than the non-bonus eligible home. A <strong>tied</strong> pair is a 0 and 1 pair where the bonus eligible home has the same predicted probability as the non-bonus eligible home - the model is confused and sees these two different things as the same. In general, you want a high percentage of concordant pairs and low percentages of discordant and tied pairs.</p>
+<p>We can use the <code>Concordance</code> function to obtain these values on our predictions from the <code>predict</code> function.</p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" data-line-number="1"><span class="kw">library</span>(InformationValue)</a>
+<a class="sourceLine" id="cb253-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb253-3" data-line-number="3"><span class="kw">Concordance</span>(train<span class="op">$</span>Bonus, <span class="kw">predict</span>(ames_logit, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>))</a></code></pre></div>
+<pre><code>## $Concordance
+## [1] 0.862933
+## 
+## $Discordance
+## [1] 0.137067
+## 
+## $Tied
+## [1] -5.551115e-17
+## 
+## $Pairs
+## [1] 1017240</code></pre>
+<p>From the above output we have a concordance of 86.3% for our model. There is no good or bad value as this can only be compared with another model to see which is better. Let’s compare this to our model with the categorical variables.</p>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb255-1" data-line-number="1"><span class="kw">Concordance</span>(train<span class="op">$</span>Bonus, <span class="kw">predict</span>(ames_logit2, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>))</a></code></pre></div>
+<pre><code>## $Concordance
+## [1] 0.8839182
+## 
+## $Discordance
+## [1] 0.1160818
+## 
+## $Tied
+## [1] 4.163336e-17
+## 
+## $Pairs
+## [1] 1017240</code></pre>
+<p>We can see that the model with categorical predictors added to it has a higher concordance at 88.4%. That implies that our model is correctly able to rank our observations 88.4% of the time. This is <strong>NOT</strong> the same thing as saying our model is 88.4% accurate. Accuracy (which is not covered here) deals with a prediction being correct or incorrect. Concordance is only measuring how often we are able to predict 1’s with higher probability than 0’s - again, correctly ranking the observations.</p>
+</div>
+<div id="variable-selection-and-regularized-regression" class="section level3">
+<h3><span class="header-section-number">7.4.5</span> Variable Selection and Regularized Regression</h3>
+<p>As with linear regression in Chapters <a href="#sel"><strong>??</strong></a> and <a href="#reg"><strong>??</strong></a>, logistic regression uses the same approaches to doing variable selection. In fact, the same function are used as well. Let’s use the <code>step</code> function to apply a forward and backward selection to the logistic regression model.</p>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb257-1" data-line-number="1">train_sel_log &lt;-<span class="st"> </span>train <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb257-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Bonus, </a>
+<a class="sourceLine" id="cb257-3" data-line-number="3">         Lot_Area,</a>
+<a class="sourceLine" id="cb257-4" data-line-number="4">         Street,</a>
+<a class="sourceLine" id="cb257-5" data-line-number="5">         Bldg_Type,</a>
+<a class="sourceLine" id="cb257-6" data-line-number="6">         House_Style,</a>
+<a class="sourceLine" id="cb257-7" data-line-number="7">         Overall_Qual,</a>
+<a class="sourceLine" id="cb257-8" data-line-number="8">         Roof_Style,</a>
+<a class="sourceLine" id="cb257-9" data-line-number="9">         Central_Air,</a>
+<a class="sourceLine" id="cb257-10" data-line-number="10">         First_Flr_SF,</a>
+<a class="sourceLine" id="cb257-11" data-line-number="11">         Second_Flr_SF,</a>
+<a class="sourceLine" id="cb257-12" data-line-number="12">         Full_Bath,</a>
+<a class="sourceLine" id="cb257-13" data-line-number="13">         Half_Bath,</a>
+<a class="sourceLine" id="cb257-14" data-line-number="14">         Fireplaces,</a>
+<a class="sourceLine" id="cb257-15" data-line-number="15">         Garage_Area,</a>
+<a class="sourceLine" id="cb257-16" data-line-number="16">         Gr_Liv_Area, </a>
+<a class="sourceLine" id="cb257-17" data-line-number="17">         TotRms_AbvGrd) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb257-18" data-line-number="18"><span class="st">  </span><span class="kw">replace</span>(<span class="kw">is.na</span>(.), <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb257-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb257-20" data-line-number="20">full.model &lt;-<span class="st"> </span><span class="kw">glm</span>(Bonus <span class="op">~</span><span class="st"> </span>. , <span class="dt">data =</span> train_sel_log)</a>
+<a class="sourceLine" id="cb257-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb257-22" data-line-number="22">empty.model &lt;-<span class="st"> </span><span class="kw">glm</span>(Bonus <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> train_sel_log)</a></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb258-1" data-line-number="1">for.model &lt;-<span class="st"> </span><span class="kw">step</span>(empty.model,</a>
+<a class="sourceLine" id="cb258-2" data-line-number="2">                  <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> <span class="kw">formula</span>(empty.model),</a>
+<a class="sourceLine" id="cb258-3" data-line-number="3">                               <span class="dt">upper =</span> <span class="kw">formula</span>(full.model)),</a>
+<a class="sourceLine" id="cb258-4" data-line-number="4">                  <span class="dt">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="dt">k =</span> <span class="kw">log</span>(<span class="kw">dim</span>(train_sel_log)[<span class="dv">1</span>]))</a></code></pre></div>
+<pre><code>## Start:  AIC=2918.59
+## Bonus ~ 1
+## 
+##                 Df Deviance    AIC
+## + Overall_Qual   9   234.74 1453.0
+## + Full_Bath      1   320.51 2030.8
+## + Gr_Liv_Area    1   335.11 2122.1
+## + Garage_Area    1   367.62 2312.0
+## + First_Flr_SF   1   396.15 2465.3
+## + Fireplaces     1   415.26 2561.9
+## + TotRms_AbvGrd  1   422.53 2597.6
+## + House_Style    7   444.22 2745.9
+## + Half_Bath      1   459.40 2769.1
+## + Second_Flr_SF  1   461.26 2777.4
+## + Central_Air    1   473.64 2831.7
+## + Lot_Area       1   478.42 2852.3
+## + Bldg_Type      4   477.21 2870.0
+## &lt;none&gt;               495.97 2918.6
+## + Street         1   495.86 2925.8
+## + Roof_Style     5   491.40 2937.7
+## 
+## Step:  AIC=1452.99
+## Bonus ~ Overall_Qual
+## 
+##                 Df Deviance    AIC
+## + Full_Bath      1   203.87 1171.4
+## + Gr_Liv_Area    1   208.62 1218.7
+## + First_Flr_SF   1   218.70 1315.5
+## + Garage_Area    1   223.10 1356.3
+## + TotRms_AbvGrd  1   223.12 1356.5
+## + Fireplaces     1   223.33 1358.5
+## + Lot_Area       1   225.07 1374.3
+## + Bldg_Type      4   227.31 1417.6
+## + Second_Flr_SF  1   230.98 1427.5
+## + Half_Bath      1   231.81 1434.8
+## + Central_Air    1   233.55 1450.2
+## &lt;none&gt;               234.74 1453.0
+## + Street         1   234.30 1456.8
+## + House_Style    7   230.28 1467.1
+## + Roof_Style     5   234.18 1486.2
+## 
+## Step:  AIC=1171.42
+## Bonus ~ Overall_Qual + Full_Bath
+## 
+##                 Df Deviance    AIC
+## + Fireplaces     1   193.70 1074.1
+## + First_Flr_SF   1   195.11 1089.0
+## + Gr_Liv_Area    1   196.26 1101.0
+## + Lot_Area       1   197.22 1111.0
+## + Bldg_Type      4   195.24 1113.2
+## + Garage_Area    1   197.63 1115.3
+## + Half_Bath      1   201.31 1153.1
+## + TotRms_AbvGrd  1   202.51 1165.3
+## + Central_Air    1   202.61 1166.4
+## &lt;none&gt;               203.87 1171.4
+## + Street         1   203.38 1174.2
+## + Second_Flr_SF  1   203.85 1178.9
+## + House_Style    7   201.34 1199.2
+## + Roof_Style     5   203.40 1204.8
+## 
+## Step:  AIC=1074.14
+## Bonus ~ Overall_Qual + Full_Bath + Fireplaces
+## 
+##                 Df Deviance    AIC
+## + Garage_Area    1   188.96 1030.9
+## + First_Flr_SF   1   189.34 1035.0
+## + Bldg_Type      4   187.45 1037.3
+## + Lot_Area       1   190.10 1043.3
+## + Gr_Liv_Area    1   190.64 1049.1
+## + Half_Bath      1   192.04 1064.0
+## &lt;none&gt;               193.70 1074.1
+## + Central_Air    1   193.02 1074.5
+## + Street         1   193.35 1078.0
+## + TotRms_AbvGrd  1   193.42 1078.7
+## + Second_Flr_SF  1   193.69 1081.7
+## + House_Style    7   190.38 1092.0
+## + Roof_Style     5   193.16 1106.5
+## 
+## Step:  AIC=1030.9
+## Bonus ~ Overall_Qual + Full_Bath + Fireplaces + Garage_Area
+## 
+##                 Df Deviance    AIC
+## + Bldg_Type      4   183.72 1003.8
+## + First_Flr_SF   1   186.24 1008.8
+## + Lot_Area       1   186.46 1011.2
+## + Gr_Liv_Area    1   186.87 1015.7
+## + Half_Bath      1   187.55 1023.2
+## &lt;none&gt;               188.96 1030.9
+## + Street         1   188.68 1035.5
+## + Central_Air    1   188.76 1036.3
+## + TotRms_AbvGrd  1   188.78 1036.6
+## + Second_Flr_SF  1   188.96 1038.5
+## + House_Style    7   186.42 1056.5
+## + Roof_Style     5   188.20 1060.8
+## 
+## Step:  AIC=1003.78
+## Bonus ~ Overall_Qual + Full_Bath + Fireplaces + Garage_Area + 
+##     Bldg_Type
+## 
+##                 Df Deviance     AIC
+## + First_Flr_SF   1   181.17  982.68
+## + Half_Bath      1   181.99  991.99
+## + Gr_Liv_Area    1   182.00  992.09
+## + Lot_Area       1   182.09  993.12
+## &lt;none&gt;               183.72 1003.78
+## + Street         1   183.36 1007.35
+## + Central_Air    1   183.60 1009.98
+## + TotRms_AbvGrd  1   183.66 1010.71
+## + Second_Flr_SF  1   183.72 1011.35
+## + House_Style    7   180.41 1019.87
+## + Roof_Style     5   182.90 1032.69
+## 
+## Step:  AIC=982.68
+## Bonus ~ Overall_Qual + Full_Bath + Fireplaces + Garage_Area + 
+##     Bldg_Type + First_Flr_SF
+## 
+##                 Df Deviance     AIC
+## + Half_Bath      1   177.46  947.94
+## + Second_Flr_SF  1   180.10  978.18
+## + Lot_Area       1   180.24  979.73
+## + Gr_Liv_Area    1   180.28  980.18
+## &lt;none&gt;               181.17  982.68
+## + Street         1   180.77  985.80
+## + House_Style    7   176.95  987.73
+## + Central_Air    1   181.06  989.10
+## + TotRms_AbvGrd  1   181.16  990.19
+## + Roof_Style     5   179.76 1004.77
+## 
+## Step:  AIC=947.94
+## Bonus ~ Overall_Qual + Full_Bath + Fireplaces + Garage_Area + 
+##     Bldg_Type + First_Flr_SF + Half_Bath
+## 
+##                 Df Deviance    AIC
+## + Lot_Area       1   176.75 947.31
+## &lt;none&gt;               177.46 947.94
+## + TotRms_AbvGrd  1   177.03 950.49
+## + Street         1   177.09 951.18
+## + Central_Air    1   177.43 955.17
+## + Gr_Liv_Area    1   177.46 955.45
+## + Second_Flr_SF  1   177.46 955.56
+## + Roof_Style     5   175.95 968.54
+## + House_Style    7   174.78 970.01
+## 
+## Step:  AIC=947.31
+## Bonus ~ Overall_Qual + Full_Bath + Fireplaces + Garage_Area + 
+##     Bldg_Type + First_Flr_SF + Half_Bath + Lot_Area
+## 
+##                 Df Deviance    AIC
+## &lt;none&gt;               176.75 947.31
+## + TotRms_AbvGrd  1   176.32 949.96
+## + Street         1   176.54 952.49
+## + Central_Air    1   176.72 954.56
+## + Gr_Liv_Area    1   176.73 954.71
+## + Second_Flr_SF  1   176.75 954.89
+## + Roof_Style     5   175.25 968.01
+## + House_Style    7   174.09 969.62</code></pre>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb260-1" data-line-number="1">back.model &lt;-<span class="st"> </span><span class="kw">step</span>(full.model,</a>
+<a class="sourceLine" id="cb260-2" data-line-number="2">                   <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> <span class="kw">formula</span>(empty.model),</a>
+<a class="sourceLine" id="cb260-3" data-line-number="3">                                <span class="dt">upper =</span> <span class="kw">formula</span>(full.model)),</a>
+<a class="sourceLine" id="cb260-4" data-line-number="4">                   <span class="dt">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="dt">k =</span> <span class="kw">log</span>(<span class="kw">dim</span>(train_sel_log)[<span class="dv">1</span>]))</a></code></pre></div>
+<pre><code>## Start:  AIC=1016.59
+## Bonus ~ Lot_Area + Street + Bldg_Type + House_Style + Overall_Qual + 
+##     Roof_Style + Central_Air + First_Flr_SF + Second_Flr_SF + 
+##     Full_Bath + Half_Bath + Fireplaces + Garage_Area + Gr_Liv_Area + 
+##     TotRms_AbvGrd
+## 
+##                 Df Deviance     AIC
+## - House_Style    7   174.31  995.05
+## - Roof_Style     5   173.24  997.67
+## - Gr_Liv_Area    1   171.63 1009.07
+## - Central_Air    1   171.64 1009.12
+## - Second_Flr_SF  1   171.71 1009.95
+## - First_Flr_SF   1   171.84 1011.48
+## - Street         1   171.89 1012.09
+## - TotRms_AbvGrd  1   171.94 1012.72
+## - Lot_Area       1   172.08 1014.43
+## &lt;none&gt;               171.62 1016.59
+## - Garage_Area    1   172.50 1019.38
+## - Half_Bath      1   173.37 1029.70
+## - Fireplaces     1   173.90 1035.95
+## - Bldg_Type      4   177.07 1050.13
+## - Full_Bath      1   187.25 1187.64
+## - Overall_Qual   9   217.74 1436.04
+## 
+## Step:  AIC=995.05
+## Bonus ~ Lot_Area + Street + Bldg_Type + Overall_Qual + Roof_Style + 
+##     Central_Air + First_Flr_SF + Second_Flr_SF + Full_Bath + 
+##     Half_Bath + Fireplaces + Garage_Area + Gr_Liv_Area + TotRms_AbvGrd
+## 
+##                 Df Deviance     AIC
+## - Roof_Style     5   175.81  974.50
+## - Central_Air    1   174.35  987.91
+## - Gr_Liv_Area    1   174.43  988.84
+## - Second_Flr_SF  1   174.49  989.53
+## - Street         1   174.53  989.99
+## - TotRms_AbvGrd  1   174.74  992.45
+## - Lot_Area       1   174.80  993.19
+## - First_Flr_SF   1   174.89  994.22
+## &lt;none&gt;               174.31  995.05
+## - Garage_Area    1   175.57 1002.23
+## - Fireplaces     1   176.38 1011.68
+## - Half_Bath      1   176.86 1017.24
+## - Bldg_Type      4   179.33 1022.77
+## - Full_Bath      1   191.76 1183.08
+## - Overall_Qual   9   222.96 1431.28
+## 
+## Step:  AIC=974.5
+## Bonus ~ Lot_Area + Street + Bldg_Type + Overall_Qual + Central_Air + 
+##     First_Flr_SF + Second_Flr_SF + Full_Bath + Half_Bath + Fireplaces + 
+##     Garage_Area + Gr_Liv_Area + TotRms_AbvGrd
+## 
+##                 Df Deviance     AIC
+## - Central_Air    1   175.85  967.29
+## - Gr_Liv_Area    1   175.91  968.02
+## - Second_Flr_SF  1   175.97  968.79
+## - Street         1   176.01  969.19
+## - TotRms_AbvGrd  1   176.30  972.55
+## - Lot_Area       1   176.31  972.65
+## - First_Flr_SF   1   176.31  972.66
+## &lt;none&gt;               175.81  974.50
+## - Garage_Area    1   177.04  981.15
+## - Fireplaces     1   177.86  990.64
+## - Half_Bath      1   178.19  994.42
+## - Bldg_Type      4   180.75 1000.81
+## - Full_Bath      1   193.59 1164.44
+## - Overall_Qual   9   224.35 1405.92
+## 
+## Step:  AIC=967.29
+## Bonus ~ Lot_Area + Street + Bldg_Type + Overall_Qual + First_Flr_SF + 
+##     Second_Flr_SF + Full_Bath + Half_Bath + Fireplaces + Garage_Area + 
+##     Gr_Liv_Area + TotRms_AbvGrd
+## 
+##                 Df Deviance     AIC
+## - Gr_Liv_Area    1   175.95  960.84
+## - Second_Flr_SF  1   176.01  961.59
+## - Street         1   176.03  961.83
+## - TotRms_AbvGrd  1   176.34  965.38
+## - First_Flr_SF   1   176.35  965.52
+## - Lot_Area       1   176.35  965.52
+## &lt;none&gt;               175.85  967.29
+## - Garage_Area    1   177.19  975.25
+## - Fireplaces     1   177.95  984.00
+## - Half_Bath      1   178.34  988.55
+## - Bldg_Type      4   180.88  994.63
+## - Full_Bath      1   193.82 1159.28
+## - Overall_Qual   9   224.36 1398.33
+## 
+## Step:  AIC=960.84
+## Bonus ~ Lot_Area + Street + Bldg_Type + Overall_Qual + First_Flr_SF + 
+##     Second_Flr_SF + Full_Bath + Half_Bath + Fireplaces + Garage_Area + 
+##     TotRms_AbvGrd
+## 
+##                 Df Deviance     AIC
+## - Street         1   176.13  955.40
+## - Second_Flr_SF  1   176.14  955.45
+## - Lot_Area       1   176.44  959.00
+## - TotRms_AbvGrd  1   176.54  960.09
+## &lt;none&gt;               175.95  960.84
+## - Garage_Area    1   177.32  969.16
+## - Fireplaces     1   178.04  977.46
+## - Half_Bath      1   178.50  982.75
+## - Bldg_Type      4   180.94  987.72
+## - First_Flr_SF   1   179.15  990.17
+## - Full_Bath      1   193.95 1153.02
+## - Overall_Qual   9   224.57 1392.65
+## 
+## Step:  AIC=955.4
+## Bonus ~ Lot_Area + Bldg_Type + Overall_Qual + First_Flr_SF + 
+##     Second_Flr_SF + Full_Bath + Half_Bath + Fireplaces + Garage_Area + 
+##     TotRms_AbvGrd
+## 
+##                 Df Deviance     AIC
+## - Second_Flr_SF  1   176.32  949.96
+## - TotRms_AbvGrd  1   176.75  954.89
+## - Lot_Area       1   176.78  955.30
+## &lt;none&gt;               176.13  955.40
+## - Garage_Area    1   177.53  963.91
+## - Fireplaces     1   178.25  972.22
+## - Half_Bath      1   178.71  977.53
+## - Bldg_Type      4   181.03  981.12
+## - First_Flr_SF   1   179.28  984.03
+## - Full_Bath      1   194.12 1147.16
+## - Overall_Qual   9   224.74 1386.53
+## 
+## Step:  AIC=949.96
+## Bonus ~ Lot_Area + Bldg_Type + Overall_Qual + First_Flr_SF + 
+##     Full_Bath + Half_Bath + Fireplaces + Garage_Area + TotRms_AbvGrd
+## 
+##                 Df Deviance     AIC
+## - TotRms_AbvGrd  1   176.75  947.31
+## &lt;none&gt;               176.32  949.96
+## - Lot_Area       1   177.03  950.49
+## - Garage_Area    1   177.78  959.22
+## - Fireplaces     1   178.72  970.00
+## - Bldg_Type      4   181.35  977.15
+## - Half_Bath      1   180.23  987.27
+## - First_Flr_SF   1   180.28  987.88
+## - Full_Bath      1   198.37 1183.99
+## - Overall_Qual   9   225.34 1384.40
+## 
+## Step:  AIC=947.31
+## Bonus ~ Lot_Area + Bldg_Type + Overall_Qual + First_Flr_SF + 
+##     Full_Bath + Half_Bath + Fireplaces + Garage_Area
+## 
+##                Df Deviance     AIC
+## &lt;none&gt;              176.75  947.31
+## - Lot_Area      1   177.46  947.94
+## - Garage_Area   1   178.30  957.58
+## - Fireplaces    1   178.97  965.27
+## - Bldg_Type     4   181.72  973.64
+## - Half_Bath     1   180.24  979.73
+## - First_Flr_SF  1   180.34  980.88
+## - Full_Bath     1   199.82 1191.34
+## - Overall_Qual  9   225.73 1380.31</code></pre>
+<p>In the above two approaches we used the BIC selection criteria. Here both forward and backward selection actually picked the same model. Let’s check the concordance of this model.</p>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb262-1" data-line-number="1"><span class="kw">Concordance</span>(train<span class="op">$</span>Bonus, <span class="kw">predict</span>(back.model, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>))</a></code></pre></div>
+<pre><code>## $Concordance
+## [1] 0.9612668
+## 
+## $Discordance
+## [1] 0.03873324
+## 
+## $Tied
+## [1] -2.081668e-17
+## 
+## $Pairs
+## [1] 1017240</code></pre>
+<p>Not surprisingly, this model outperforms the previous model that we had with a concordance of 96.1%.</p>
+<p>Although not covered in detail here, regularized regression can also be applied to logistic regression to get a different view. This might be helpful with the multicollinearity present in these predictor variables. Again, we can use the <code>glmnet</code> function with the addition of a <code>family = &quot;binomial&quot;</code> option.</p>
 
+</div>
 </div>
 </div>
 
@@ -313,7 +1081,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="diagnostics.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="model-building-scoring-for-prediction.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
@@ -337,6 +1105,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
