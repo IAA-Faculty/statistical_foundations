@@ -1,5 +1,5 @@
 # Complex ANOVA and Multiple Linear Regression {#mlr}
-In in Chapter \@ref(slr) we were introduced to the One-Way ANOVA and simple linear regression models. These models only contained a single variable - categorical for ANOVA and continuous for simple linear regression - to explain and predict our target variable. Rarely do we believe that only a single variable will suffice in predicting a variable of interest. Here in this Chapter we will generalize these models to the $n$-Way ANOVA and multiple linear regression models. These models contain multiple sets of variables to explain and predict our target variable.
+In Chapter \@ref(slr) we were introduced to the One-Way ANOVA and simple linear regression models. These models only contained a single variable - categorical for ANOVA and continuous for simple linear regression - to explain and predict our target variable. Rarely do we believe that only a single variable will suffice in predicting a variable of interest. Here in this Chapter we will generalize these models to the $n$-Way ANOVA and multiple linear regression models. These models contain multiple sets of variables to explain and predict our target variable.
 
 This Chapter aims to answer the following questions:
 <ul>
@@ -69,7 +69,7 @@ ggplot(data = CA_heat, aes(x = Heating_QC, y = mean/1000, fill = Central_Air)) +
 As before, visually looking at bar charts and mean calculations only goes so far. We need to statistically be sure of any differences that exist between average sale price in categories.
 
 ### Model
-We are going to do this with the same approach as in the One-Way ANOVA of Chapter \@ref(slr), just with more variables as shown in the following equation:
+We are going to do this with the same approach as in the One-Way ANOVA of Section \@ref(oneway), just with more variables as shown in the following equation:
 
 $$
 Y_{ijk} = \mu + \alpha_i + \beta_j + \varepsilon_{ijk}
@@ -166,14 +166,14 @@ We can see that both of these results are significant at the 0.05 level. However
 ### Assumptions
 The assumptions for the $n$-Way ANOVA are the same as with the One-Way ANOVA - independence of observations, normality for each category of variable, and equal variances. With the inclusion of two or more variables ($n$-Way ANOVA with $n > 1$), these assumptions can be harder to evaluate and test. These assumptions are then applied to the residuals of the model. 
 
-For equal variances, we can still apply the Levene Test for equal variances using the same ```leveneTest``` function as in Chapter \@ref(slr).
+For equal variances, we can still apply the Levene Test for equal variances using the same ```leveneTest``` function as in Section \@ref(oneway).
 
 ```{r}
 leveneTest(Sale_Price ~ Heating_QC*Central_Air, data = train)
 ```
 From this test, we can see that we **do not** meet our assumption of equal variance. 
 
-Let's explore the normality assumption. Again, we will assume this normality on the random error component, $\varepsilon_{ijk}$, of the ANOVA model. More details are found for diagnostic testing using the error component in Chapter \@ref(diag). We can check normality using the same approaches of the QQ-plot or statistical testing as in Chapter \@ref(eda). Here we will use the ```plot``` function on the ```aov``` object. Specifically, we want the second plot which is why we have a ```2``` in the ```plot``` function option. We then use the ```shapiro.test``` function on the error component. The estimate of the error component is calculated using the ```residuals``` function.
+Let's explore the normality assumption. Again, we will assume this normality on the random error component, $\varepsilon_{ijk}$, of the ANOVA model. More details are found for diagnostic testing using the error component in Chapter \@ref(diag). We can check normality using the same approaches of the QQ-plot or statistical testing as in Section \@ref(graphdist). Here we will use the ```plot``` function on the ```aov``` object. Specifically, we want the second plot which is why we have a ```2``` in the ```plot``` function option. We then use the ```shapiro.test``` function on the error component. The estimate of the error component is calculated using the ```residuals``` function.
 
 ```{r}
 plot(ames_aov_int, 2)

@@ -6,15 +6,19 @@ site: bookdown::bookdown_site
 github-repo: IAA-Faculty/statistical_foundations
 ---
 
-# Preface {.unnumbered}
+# About {-}
 
-### Structure of the book {.unnumbered}
+### Authors {-}
 
-The book is broken down into small sections that aim to demonstrate a single concept at a time. Chapter \@ref(introduction) introduces the basic components of R, and how you can assign values to variables. This book is a work in progress. Submit any issues  [here](https://https://github.com/IAA-Faculty/statistical_foundations/issues). Please check back for frequent updates. 
+Aric Labarr, Phd - Institute for Advanced Analytics @ NC State\
+Shaina Race, PhD - Institute for Advanced Analytics @ NC State\
+Susan Simmons, PhD - Institute for Advanced Analytics @ NC State\
 
-### About the Authors {.unnumbered}
+### Structure of the book {-}
+
+The book is broken down into small sections that aim to demonstrate a single concept at a time. The companion text, [Data Manipulation Techniques with R](https://andreavillanes.github.io/R_Data_Manipulation_Techniques/) introduces the foundations of programming in R. This book is a work in progress. Submit any issues  [here](https://https://github.com/IAA-Faculty/statistical_foundations/issues). Please check back frequently for updates. 
 
 
 ### Acknowledgements {.unnumbered}
 
-The author would like to thank the members of the faculty and the TAs at the Institute who provided feedback on this work.
+The authors would like to thank the members of the faculty and the TAs at the Institute for Advanced Analytics for providing feedback on this work.

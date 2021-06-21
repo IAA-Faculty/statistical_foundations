@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Model Selection | Statistical Foundations</title>
+  <meta name="description" content="Chapter 4 Model Selection | Statistical Foundations" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Model Selection | Statistical Foundations" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="IAA-Faculty/statistical_foundations" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Model Selection | Statistical Foundations" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="mlr.html"/>
+<link rel="next" href="diag.html"/>
+<script src="libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.57.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a style="font-weight:bold, text-align:center" href="https://github.com/IAA-Faculty/statistical_foundations/">Statistical Foundations</a>
+<img src="./img/iaaicon.png" alt="IAA"  class="center"</li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#authors"><i class="fa fa-check"></i>Authors</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#structure-of-the-book"><i class="fa fa-check"></i>Structure of the book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="intro-stat.html"><a href="intro-stat.html"><i class="fa fa-check"></i><b>1</b> Introduction to Statistics</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro-stat.html"><a href="intro-stat.html#eda"><i class="fa fa-check"></i><b>1.1</b> Exploratory Data Analysis (EDA)</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="intro-stat.html"><a href="intro-stat.html#vartypes"><i class="fa fa-check"></i><b>1.1.1</b> Types of Variables</a></li>
+<li class="chapter" data-level="1.1.2" data-path="intro-stat.html"><a href="intro-stat.html#dist"><i class="fa fa-check"></i><b>1.1.2</b> Distributions</a></li>
+<li class="chapter" data-level="1.1.3" data-path="intro-stat.html"><a href="intro-stat.html#normal"><i class="fa fa-check"></i><b>1.1.3</b> The Normal Distribution</a></li>
+<li class="chapter" data-level="1.1.4" data-path="intro-stat.html"><a href="intro-stat.html#skew"><i class="fa fa-check"></i><b>1.1.4</b> Skewness</a></li>
+<li class="chapter" data-level="1.1.5" data-path="intro-stat.html"><a href="intro-stat.html#kurt"><i class="fa fa-check"></i><b>1.1.5</b> Kurtosis</a></li>
+<li class="chapter" data-level="1.1.6" data-path="intro-stat.html"><a href="intro-stat.html#graphdist"><i class="fa fa-check"></i><b>1.1.6</b> Graphical Displays of Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="intro-stat.html"><a href="intro-stat.html#pointest"><i class="fa fa-check"></i><b>1.2</b> Point Estimates</a></li>
+<li class="chapter" data-level="1.3" data-path="intro-stat.html"><a href="intro-stat.html#ci"><i class="fa fa-check"></i><b>1.3</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="1.4" data-path="intro-stat.html"><a href="intro-stat.html#hypotest"><i class="fa fa-check"></i><b>1.4</b> Hypothesis Testing</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="intro-stat.html"><a href="intro-stat.html#onesample"><i class="fa fa-check"></i><b>1.4.1</b> One-Sample T-Test</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="intro-stat.html"><a href="intro-stat.html#two-sample-t-tests"><i class="fa fa-check"></i><b>1.5</b> Two-Sample t-tests</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="intro-stat.html"><a href="intro-stat.html#testnorm"><i class="fa fa-check"></i><b>1.5.1</b> Testing Normality of Groups</a></li>
+<li class="chapter" data-level="1.5.2" data-path="intro-stat.html"><a href="intro-stat.html#ftest"><i class="fa fa-check"></i><b>1.5.2</b> Testing Equality of Variances</a></li>
+<li class="chapter" data-level="1.5.3" data-path="intro-stat.html"><a href="intro-stat.html#tsttest"><i class="fa fa-check"></i><b>1.5.3</b> Testing Equality of Means</a></li>
+<li class="chapter" data-level="1.5.4" data-path="intro-stat.html"><a href="intro-stat.html#wilcoxon"><i class="fa fa-check"></i><b>1.5.4</b> Mann-Whitney-Wilcoxon Test</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="slr.html"><a href="slr.html"><i class="fa fa-check"></i><b>2</b> Introduction to ANOVA and Linear Regression</a><ul>
+<li class="chapter" data-level="2.1" data-path="slr.html"><a href="slr.html#evp"><i class="fa fa-check"></i><b>2.1</b> Prediction vs. Explanation</a></li>
+<li class="chapter" data-level="2.2" data-path="slr.html"><a href="slr.html#trainvalidtest"><i class="fa fa-check"></i><b>2.2</b> Honest Assessment</a></li>
+<li class="chapter" data-level="2.3" data-path="slr.html"><a href="slr.html#bivariate-eda"><i class="fa fa-check"></i><b>2.3</b> Bivariate EDA</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="slr.html"><a href="slr.html#continuous-continuous-associations"><i class="fa fa-check"></i><b>2.3.1</b> Continuous-Continuous Associations</a></li>
+<li class="chapter" data-level="2.3.2" data-path="slr.html"><a href="slr.html#continuous-categorical-associations"><i class="fa fa-check"></i><b>2.3.2</b> Continuous-Categorical Associations</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="slr.html"><a href="slr.html#oneway"><i class="fa fa-check"></i><b>2.4</b> One-Way ANOVA</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="slr.html"><a href="slr.html#testing-assumptions"><i class="fa fa-check"></i><b>2.4.1</b> Testing Assumptions</a></li>
+<li class="chapter" data-level="2.4.2" data-path="slr.html"><a href="slr.html#kruskal"><i class="fa fa-check"></i><b>2.4.2</b> Kruskal-Wallis</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="slr.html"><a href="slr.html#posthoc"><i class="fa fa-check"></i><b>2.5</b> ANOVA Post-hoc Testing</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="slr.html"><a href="slr.html#tukey"><i class="fa fa-check"></i><b>2.5.1</b> Tukey-Kramer</a></li>
+<li class="chapter" data-level="2.5.2" data-path="slr.html"><a href="slr.html#dunnett"><i class="fa fa-check"></i><b>2.5.2</b> Dunnett’s Test</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="slr.html"><a href="slr.html#cor"><i class="fa fa-check"></i><b>2.6</b> Pearson Correlation</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="slr.html"><a href="slr.html#testcor"><i class="fa fa-check"></i><b>2.6.1</b> Statistical Test</a></li>
+<li class="chapter" data-level="2.6.2" data-path="slr.html"><a href="slr.html#effect-of-anomalous-observations"><i class="fa fa-check"></i><b>2.6.2</b> Effect of Anomalous Observations</a></li>
+<li class="chapter" data-level="2.6.3" data-path="slr.html"><a href="slr.html#the-correlation-matrix"><i class="fa fa-check"></i><b>2.6.3</b> The Correlation Matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="slr.html"><a href="slr.html#simple-linear-regression"><i class="fa fa-check"></i><b>2.7</b> Simple Linear Regression</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="slr.html"><a href="slr.html#slrassumptions"><i class="fa fa-check"></i><b>2.7.1</b> Assumptions of Linear Regression</a></li>
+<li class="chapter" data-level="2.7.2" data-path="slr.html"><a href="slr.html#testing-for-association"><i class="fa fa-check"></i><b>2.7.2</b> Testing for Association</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Complex ANOVA and Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="3.1" data-path="mlr.html"><a href="mlr.html#two-way-anova"><i class="fa fa-check"></i><b>3.1</b> Two-Way ANOVA</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="mlr.html"><a href="mlr.html#exploration"><i class="fa fa-check"></i><b>3.1.1</b> Exploration</a></li>
+<li class="chapter" data-level="3.1.2" data-path="mlr.html"><a href="mlr.html#model"><i class="fa fa-check"></i><b>3.1.2</b> Model</a></li>
+<li class="chapter" data-level="3.1.3" data-path="mlr.html"><a href="mlr.html#post-hoc-testing"><i class="fa fa-check"></i><b>3.1.3</b> Post-Hoc Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="mlr.html"><a href="mlr.html#two-way-anova-with-interactions"><i class="fa fa-check"></i><b>3.2</b> Two-Way ANOVA with Interactions</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="mlr.html"><a href="mlr.html#post-hoc-testing-1"><i class="fa fa-check"></i><b>3.2.1</b> Post-Hoc Testing</a></li>
+<li class="chapter" data-level="3.2.2" data-path="mlr.html"><a href="mlr.html#assumptions"><i class="fa fa-check"></i><b>3.2.2</b> Assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="mlr.html"><a href="mlr.html#randomized-block-design"><i class="fa fa-check"></i><b>3.3</b> Randomized Block Design</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="mlr.html"><a href="mlr.html#garlic-bulb-weight-example"><i class="fa fa-check"></i><b>3.3.1</b> Garlic Bulb Weight Example</a></li>
+<li class="chapter" data-level="3.3.2" data-path="mlr.html"><a href="mlr.html#assumptions-1"><i class="fa fa-check"></i><b>3.3.2</b> Assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="mlr.html"><a href="mlr.html#multiple-linear-regression"><i class="fa fa-check"></i><b>3.4</b> Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="mlr.html"><a href="mlr.html#model-structure"><i class="fa fa-check"></i><b>3.4.1</b> Model Structure</a></li>
+<li class="chapter" data-level="3.4.2" data-path="mlr.html"><a href="mlr.html#global-local-inference"><i class="fa fa-check"></i><b>3.4.2</b> Global &amp; Local Inference</a></li>
+<li class="chapter" data-level="3.4.3" data-path="mlr.html"><a href="mlr.html#assumptions-2"><i class="fa fa-check"></i><b>3.4.3</b> Assumptions</a></li>
+<li class="chapter" data-level="3.4.4" data-path="mlr.html"><a href="mlr.html#multiple-coefficients-of-determination"><i class="fa fa-check"></i><b>3.4.4</b> Multiple Coefficients of Determination</a></li>
+<li class="chapter" data-level="3.4.5" data-path="mlr.html"><a href="mlr.html#categorical-predictor-variables"><i class="fa fa-check"></i><b>3.4.5</b> Categorical Predictor Variables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="sel.html"><a href="sel.html"><i class="fa fa-check"></i><b>4</b> Model Selection</a><ul>
+<li class="chapter" data-level="4.1" data-path="sel.html"><a href="sel.html#selection-criteria"><i class="fa fa-check"></i><b>4.1</b> Selection Criteria</a></li>
+<li class="chapter" data-level="4.2" data-path="sel.html"><a href="sel.html#stepwise-selection"><i class="fa fa-check"></i><b>4.2</b> Stepwise Selection</a><ul>
+<li class="chapter" data-level="" data-path="sel.html"><a href="sel.html#forward"><i class="fa fa-check"></i>Forward</a></li>
+<li class="chapter" data-level="" data-path="sel.html"><a href="sel.html#backward"><i class="fa fa-check"></i>Backward</a></li>
+<li class="chapter" data-level="" data-path="sel.html"><a href="sel.html#stepwise"><i class="fa fa-check"></i>Stepwise</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="sel.html"><a href="sel.html#significance-levels"><i class="fa fa-check"></i><b>4.3</b> Significance Levels</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="diag.html"><a href="diag.html"><i class="fa fa-check"></i><b>5</b> Diagnostics</a><ul>
+<li class="chapter" data-level="5.1" data-path="diag.html"><a href="diag.html#examining-residuals"><i class="fa fa-check"></i><b>5.1</b> Examining Residuals</a></li>
+<li class="chapter" data-level="5.2" data-path="diag.html"><a href="diag.html#misspecified-model"><i class="fa fa-check"></i><b>5.2</b> Misspecified Model</a></li>
+<li class="chapter" data-level="5.3" data-path="diag.html"><a href="diag.html#constant-variance"><i class="fa fa-check"></i><b>5.3</b> Constant Variance</a></li>
+<li class="chapter" data-level="5.4" data-path="diag.html"><a href="diag.html#normality"><i class="fa fa-check"></i><b>5.4</b> Normality</a></li>
+<li class="chapter" data-level="5.5" data-path="diag.html"><a href="diag.html#correlated-errors"><i class="fa fa-check"></i><b>5.5</b> Correlated Errors</a></li>
+<li class="chapter" data-level="5.6" data-path="diag.html"><a href="diag.html#influential-observations-and-outliers"><i class="fa fa-check"></i><b>5.6</b> Influential Observations and Outliers</a></li>
+<li class="chapter" data-level="5.7" data-path="diag.html"><a href="diag.html#multicollinearity"><i class="fa fa-check"></i><b>5.7</b> Multicollinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html"><i class="fa fa-check"></i><b>6</b> Model Building &amp; Scoring for Prediction</a><ul>
+<li class="chapter" data-level="6.1" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#regularized-regression"><i class="fa fa-check"></i><b>6.1</b> Regularized Regression</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#penalties-in-models"><i class="fa fa-check"></i><b>6.1.1</b> Penalties in Models</a></li>
+<li class="chapter" data-level="6.1.2" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#ridge-regression"><i class="fa fa-check"></i><b>6.1.2</b> Ridge Regression</a></li>
+<li class="chapter" data-level="6.1.3" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#lasso"><i class="fa fa-check"></i><b>6.1.3</b> LASSO</a></li>
+<li class="chapter" data-level="6.1.4" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#elastic-net"><i class="fa fa-check"></i><b>6.1.4</b> Elastic Net</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#optimizing-penalties"><i class="fa fa-check"></i><b>6.2</b> Optimizing Penalties</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#cross-validation"><i class="fa fa-check"></i><b>6.2.1</b> Cross-Validation</a></li>
+<li class="chapter" data-level="6.2.2" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#cv-in-regularized-regression"><i class="fa fa-check"></i><b>6.2.2</b> CV in Regularized Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#model-comparisons"><i class="fa fa-check"></i><b>6.3</b> Model Comparisons</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#test-dataset-comparison"><i class="fa fa-check"></i><b>6.3.1</b> Test Dataset Comparison</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html"><i class="fa fa-check"></i><b>7</b> Categorical Data Analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#describing-categorical-data"><i class="fa fa-check"></i><b>7.1</b> Describing Categorical Data</a></li>
+<li class="chapter" data-level="7.2" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#tests-of-association"><i class="fa fa-check"></i><b>7.2</b> Tests of Association</a></li>
+<li class="chapter" data-level="7.3" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#measures-of-association"><i class="fa fa-check"></i><b>7.3</b> Measures of Association</a></li>
+<li class="chapter" data-level="7.4" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#introduction-to-logistic-regression"><i class="fa fa-check"></i><b>7.4</b> Introduction to Logistic Regression</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#linear-probability-model"><i class="fa fa-check"></i><b>7.4.1</b> Linear Probability Model</a></li>
+<li class="chapter" data-level="7.4.2" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#binary-logistic-regression"><i class="fa fa-check"></i><b>7.4.2</b> Binary Logistic Regression</a></li>
+<li class="chapter" data-level="7.4.3" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#adding-categorical-variables"><i class="fa fa-check"></i><b>7.4.3</b> Adding Categorical Variables</a></li>
+<li class="chapter" data-level="7.4.4" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#model-assessment"><i class="fa fa-check"></i><b>7.4.4</b> Model Assessment</a></li>
+<li class="chapter" data-level="7.4.5" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#variable-selection-and-regularized-regression"><i class="fa fa-check"></i><b>7.4.5</b> Variable Selection and Regularized Regression</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical Foundations</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="sel" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Model Selection</h1>
+<p>This section will dive into some basic foundations in model selection, or finding the best model for a data set. In most data sets, there will most likely be variables that are informative and ones that are uninformative in predicting the response. With many explanatory variables, it could be extremely time consuming to try all potential models by hand, and the use of automatic procedures can greatly assist in obtaining subsets of variables in which to focus your attention.</p>
+<p>CAUTION: you should NEVER just use the final model created from an automatic procedure! <em>Always</em> explore your data (both automatically selected <em>and</em> excluded variables), and use domain knowledge, diagnostics, and critical thought to decide on your final model.</p>
+<p>We will focus on two techniques for automatic variable selection: stepwise procedures and LASSO. Within the stepwise procedures, we will discuss forward, backward and stepwise searches using several different selection criteria. We will end this section discussing important considerations in use of p-values when dealing with large data sets.</p>
+<div id="selection-criteria" class="section level2">
+<h2><span class="header-section-number">4.1</span> Selection Criteria</h2>
+<p>When trying to find the best model, there are many selection criteria at our disposal. For example, you have already been introduced to <span class="math inline">\(R^{2}\)</span> (the larger value of <span class="math inline">\(R^{2}\)</span> the better the model). However, when comparing multivariate models, the adjusted <span class="math inline">\(R^{2}\)</span> is better due to the fact that <span class="math inline">\(R^{2}\)</span> can potentially increase even when adding noise. The adjusted <span class="math inline">\(R^{2}\)</span> can be thought of as <span class="math inline">\(R^{2}\)</span> with penalty (for every additional variable added to the model, we add a penalty). This allows us to weigh the contribution of adding new variables against the added complexity of more variables in the model. There are other selection criteria that are also used in selecting the “best model” (or variable selection). As you will notice, these selection criteria also have a penalty to take into account the addition of variables. We will use two of the most common ones: AIC and BIC (or also referred to as SBC).</p>
+<p>The AIC, or <strong>Akaike information criterion</strong>, was developed by statistician Hirotugu Akaike in the 1970’s and is defined by
+<span class="math display">\[ AIC = -2log(Likelihood) + 2p.  \]</span> In this case, “Likelihood” is the likelihood of the data and <span class="math inline">\(2p\)</span> is the “penalty”, where <span class="math inline">\(p\)</span> is the number of parameters in the model. A smaller AIC indicates a better model.</p>
+<p>BIC, also known as the Bayesian Information Criterion (also called SBC or Schwarz Bayesian Information) was first developed by Gideon E. Schwarz, also back in the 1970’s and is defined by
+<span class="math display">\[BIC = -2log(Likelihood) + plog(n). \]</span> In this case, “Likelihood” is the likelihood of the data and plog(n) is the “penalty”, where p is the number of parameters in the model and n is the sample size. A smaller BIC indicates a better model. Notice that both penalties have a common term of p in them (this will be important to remember when we start discussing the R code).</p>
+</div>
+<div id="stepwise-selection" class="section level2">
+<h2><span class="header-section-number">4.2</span> Stepwise Selection</h2>
+<p>The three different algorithms in the stepwise selection search are forward, backward and stepwise. Each of these algorithms either add or take away one variable at a time based on a given criterion until this criterion can no longer be met. At which point the algorithm stops.</p>
+<div id="forward" class="section level3 unnumbered">
+<h3>Forward</h3>
+<p>For forward selection, we start with a null model (only the intercept) and add one variable at a time until no other variables can be added based on a given criterion. The algorithm is as follows:</p>
+<ol start="0" style="list-style-type: decimal">
+<li>Start with a null model, this is the base model<br />
+
+<ol style="list-style-type: decimal">
+<li>For each variable not in model, create a linear regression model with the base model plus this variable<br />
+</li>
+<li>See which linear regression is best (based on criterion)<br />
+</li>
+<li>Is this regression better than the base model?<br />
+
+<ol style="list-style-type: lower-alpha">
+<li>Yes, then continue on to step 4<br />
+</li>
+<li>No, exit the algorithm with the base model as the chosen model<br />
+</li>
+</ol></li>
+<li>The base model is now the previous base model plus the variable selected in step 3. Using this as your new base model, go back to step 1 and continue.<br />
+</li>
+</ol></li>
+</ol>
+<p>To do forward selection in R, you will use the step function. The “empty model” should be used as your initial model (which is just the intercept). For the scope of the model, you need to put the “smallest model” (just the intercept) to the “largest model” (full model). The direction is forward. The penalty can be controlled by defining “k”. Using a value of 2 for “k” will use the AIC criterion (remember AIC penalty was <span class="math inline">\(2p\)</span>) and using <span class="math inline">\(log(n)\)</span> for “k” will use the BIC criterion (remember BIC penalty was plog(n)). If you do not specify anything for “k”, the default is AIC. You can also define “k” as the upper <span class="math inline">\(\alpha\)</span>-quantile of a <span class="math inline">\(\chi^{2}\)</span> distribution with one degree of freedom, which will use p-value for its selection of variables. In this case, the best “model” is the one with the lowest p-value for the new variable. In order to enter the model, the p-value of this variable will need to be lower than the “cut-off” for the p-values (<span class="math inline">\(\alpha\)</span>), which means that the criterion to enter the model would be that the variable has a p-value smaller than <span class="math inline">\(\alpha\)</span>.</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" data-line-number="1"><span class="co"># Create full model and empty model</span></a>
+<a class="sourceLine" id="cb160-2" data-line-number="2">full.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>. , <span class="dt">data =</span> train_sel)</a>
+<a class="sourceLine" id="cb160-3" data-line-number="3">empty.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> train_sel)</a>
+<a class="sourceLine" id="cb160-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb160-5" data-line-number="5"><span class="co"># k = 2 for AIC selection</span></a>
+<a class="sourceLine" id="cb160-6" data-line-number="6">for.model &lt;-<span class="st"> </span><span class="kw">step</span>(empty.model,</a>
+<a class="sourceLine" id="cb160-7" data-line-number="7">                  <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
+<a class="sourceLine" id="cb160-8" data-line-number="8">                               <span class="dt">upper =</span> full.model),</a>
+<a class="sourceLine" id="cb160-9" data-line-number="9">                  <span class="dt">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="dt">k =</span> <span class="dv">2</span>) </a></code></pre></div>
+<p>Below is edited output with comments to lead you through the forward selection. Notice that the above code has k=2, which means we are using AIC as our selection criterion. The first information R provides is for the initial model, which is <span class="math display">\[Y_{i}=\beta_{0} + \varepsilon_{i}.\]</span> The “empty model” has an AIC of 46,323.64 (in order for ANY variable to be added, that model must be better, or in other words have a smaller AIC than this initial model).</p>
+<pre><code>Start:  AIC=46323.64
+Sale_Price ~ 1</code></pre>
+<p>R then displays all simple linear regressions with their corresponding AIC values. Notice that R put the information in ascending AIC values (so, best simple linear regression is 43,817 which is indeed smaller than 46,323.64). You will also see a line with a blank for the variable (this is the current “base model”). This is the “base model”. In this first step, it is just the intercept. Therefore, we will add the variable Overall_Qual.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="center">Df</th>
+<th align="right">Sum of Sq</th>
+<th align="center">RSS</th>
+<th align="right">AIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">+Overall_Qual</td>
+<td align="center">9</td>
+<td align="right">9.3437e+12</td>
+<td align="center">3.8531e+12</td>
+<td align="right">43817</td>
+</tr>
+<tr class="even">
+<td align="left">+Gr_Liv_Area</td>
+<td align="center">1</td>
+<td align="right">6.4389e+12</td>
+<td align="center">6.7578e+12</td>
+<td align="right">44953</td>
+</tr>
+<tr class="odd">
+<td align="left">+Garage_Area</td>
+<td align="center">1</td>
+<td align="right">5.3561e+12</td>
+<td align="center">7.8407e+12</td>
+<td align="right">45258</td>
+</tr>
+<tr class="even">
+<td align="left">+First_Flr_SF</td>
+<td align="center">1</td>
+<td align="right">4.8867e+12</td>
+<td align="center">8.3100e+12</td>
+<td align="right">45377</td>
+</tr>
+<tr class="odd">
+<td align="left">+Full_Bath</td>
+<td align="center">1</td>
+<td align="right">3.7827e+12</td>
+<td align="center">9.4141e+12</td>
+<td align="right">45633</td>
+</tr>
+<tr class="even">
+<td align="left">+TotRms_AbvGrd</td>
+<td align="center">1</td>
+<td align="right">3.2304e+12</td>
+<td align="center">9.9663e+12</td>
+<td align="right">45750</td>
+</tr>
+<tr class="odd">
+<td align="left">+Fireplaces</td>
+<td align="center">1</td>
+<td align="right">2.9715e+12</td>
+<td align="center">1.0225e+13</td>
+<td align="right">45802</td>
+</tr>
+<tr class="even">
+<td align="left">+Half_Bath</td>
+<td align="center">1</td>
+<td align="right">1.1209e+12</td>
+<td align="center">1.2076e+13</td>
+<td align="right">46144</td>
+</tr>
+<tr class="odd">
+<td align="left">+Roof_Style</td>
+<td align="center">5</td>
+<td align="right">1.0724e+12</td>
+<td align="center">1.2124e+13</td>
+<td align="right">46160</td>
+</tr>
+<tr class="even">
+<td align="left">+Central_Air</td>
+<td align="center">1</td>
+<td align="right">9.6147e+11</td>
+<td align="center">1.2235e+13</td>
+<td align="right">46170</td>
+</tr>
+<tr class="odd">
+<td align="left">+House_Style</td>
+<td align="center">7</td>
+<td align="right">1.0245e+12</td>
+<td align="center">1.2172e+13</td>
+<td align="right">46172</td>
+</tr>
+<tr class="even">
+<td align="left">+Second_Flr_SF</td>
+<td align="center">1</td>
+<td align="right">9.4611e+11</td>
+<td align="center">1.2251e+13</td>
+<td align="right">46173</td>
+</tr>
+<tr class="odd">
+<td align="left">+Lot_Area</td>
+<td align="center">1</td>
+<td align="right">9.0332e+11</td>
+<td align="center">1.2293e+13</td>
+<td align="right">46180</td>
+</tr>
+<tr class="even">
+<td align="left">+Bldg_Type</td>
+<td align="center">4</td>
+<td align="right">4.6434e+11</td>
+<td align="center">1.2732e+13</td>
+<td align="right">46258</td>
+</tr>
+<tr class="odd">
+<td align="left">+Street</td>
+<td align="center">1</td>
+<td align="right">3.1752e+10</td>
+<td align="center">1.3165e+13</td>
+<td align="right">46321</td>
+</tr>
+<tr class="even">
+<td align="left"><none></td>
+<td align="center"></td>
+<td align="right">1.3197e+13</td>
+<td align="center">46324</td>
+<td align="right"></td>
+</tr>
+</tbody>
+</table>
+<p>Now, R shows you the new “base model”, which includes Overall_Qual (and of course the intercept is still included) and the new AIC value to beat 43816.66).</p>
+<pre><code>Step:  AIC=43816.66
+Sale_Price ~ Overall_Qual</code></pre>
+<p>Using this as our base model, we now try adding each of the remaining variables in separate regression models, output is shown below:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="center">Df</th>
+<th align="right">Sum of Sq</th>
+<th align="center">RSS</th>
+<th align="right">AIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">+Gr_Liv_Area</td>
+<td align="center">1</td>
+<td align="right">9.8905e+11</td>
+<td align="center">2.8640e+12</td>
+<td align="right">43210</td>
+</tr>
+<tr class="even">
+<td align="left">+First_Flr_SF</td>
+<td align="center">1</td>
+<td align="right">5.2665e+11</td>
+<td align="center">3.3264e+12</td>
+<td align="right">43517</td>
+</tr>
+<tr class="odd">
+<td align="left">+Garage_Area</td>
+<td align="center">1</td>
+<td align="right">4.6644e+11</td>
+<td align="center">3.3866e+12</td>
+<td align="right">43554</td>
+</tr>
+<tr class="even">
+<td align="left">+TotRms_AbvGrd</td>
+<td align="center">1</td>
+<td align="right">4.6123e+11</td>
+<td align="center">3.3918e+12</td>
+<td align="right">43557</td>
+</tr>
+<tr class="odd">
+<td align="left">+Full_Bath</td>
+<td align="center">1</td>
+<td align="right">4.1206e+11</td>
+<td align="center">3.4410e+12</td>
+<td align="right">43587</td>
+</tr>
+<tr class="even">
+<td align="left">+Fireplaces</td>
+<td align="center">1</td>
+<td align="right">4.0551e+11</td>
+<td align="center">3.4476e+12</td>
+<td align="right">43591</td>
+</tr>
+<tr class="odd">
+<td align="left">+Lot_Area</td>
+<td align="center">1</td>
+<td align="right">3.8148e+11</td>
+<td align="center">3.4716e+12</td>
+<td align="right">43605</td>
+</tr>
+<tr class="even">
+<td align="left">+Bldg_Type</td>
+<td align="center">4</td>
+<td align="right">2.3715e+11</td>
+<td align="center">3.6159e+12</td>
+<td align="right">43694</td>
+</tr>
+<tr class="odd">
+<td align="left">+Second_Flr_SF</td>
+<td align="center">1</td>
+<td align="right">1.7555e+11</td>
+<td align="center">3.6775e+12</td>
+<td align="right">43723</td>
+</tr>
+<tr class="even">
+<td align="left">+Half_Bath</td>
+<td align="center">1</td>
+<td align="right">1.3948e+11</td>
+<td align="center">3.7136e+12</td>
+<td align="right">43743</td>
+</tr>
+<tr class="odd">
+<td align="left">+Central_Air</td>
+<td align="center">1</td>
+<td align="right">9.1322e+10</td>
+<td align="center">3.7617e+12</td>
+<td align="right">43769</td>
+</tr>
+<tr class="even">
+<td align="left">+House_Style</td>
+<td align="center">7</td>
+<td align="right">6.1815e+10</td>
+<td align="center">3.7912e+12</td>
+<td align="right">43797</td>
+</tr>
+<tr class="odd">
+<td align="left">+Roof_Style</td>
+<td align="center">5</td>
+<td align="right">5.1448e+10</td>
+<td align="center">3.8016e+12</td>
+<td align="right">43799</td>
+</tr>
+<tr class="even">
+<td align="left"><none></td>
+<td align="center"></td>
+<td align="right"></td>
+<td align="center">3.8531e+12</td>
+<td align="right">43817</td>
+</tr>
+<tr class="odd">
+<td align="left">+Street</td>
+<td align="center">1</td>
+<td align="right">1.9573e+06</td>
+<td align="center">3.8531e+12</td>
+<td align="right">43819</td>
+</tr>
+</tbody>
+</table>
+<p>Best model includes Gr_Liv_Area (in addition to the intercept and Overall_Qual). The AIC is 43210, which beats the previous one of 43817. So, we will add Gr_Liv_Area to the model. Our new base model includes the intercept, Overall_Qual and Gr_Liv_Area with an AIC of 43210.</p>
+<pre><code>Step:  AIC=43210.24
+Sale_Price ~ Overall_Qual + Gr_Liv_Area</code></pre>
+<p>We continue in this fashion until adding a new variable does NOT decrease the AIC. The last step is shown below:</p>
+<pre><code>Step:  AIC=42676.1
+Sale_Price ~ Overall_Qual + Gr_Liv_Area + House_Style + Garage_Area + Bldg_Type + Fireplaces 
+        + Full_Bath + Half_Bath + Lot_Area + Roof_Style + Central_Air + Second_Flr_SF 
+        + TotRms_AbvGrd + First_Flr_SF</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="center">Df</th>
+<th align="right">Sum of Sq</th>
+<th align="center">RSS</th>
+<th align="right">AIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><none></td>
+<td align="center"></td>
+<td align="right"></td>
+<td align="center">2.1542e+12</td>
+<td align="right">42676</td>
+</tr>
+<tr class="even">
+<td align="left">+Street</td>
+<td align="center">1</td>
+<td align="right">1.028e+09</td>
+<td align="center">2.1532e+12</td>
+<td align="right">42677</td>
+</tr>
+</tbody>
+</table>
+<p>Notice that the previous step had a model with the intercept, Overall_Qual, Gr_Liv_Area, House_Style, Garage_Area,
+Bldg_Type, Fireplaces, Full_Bath, Half_Bath, Lot_Area, Roof_Style, Central_Air, Second_Flr_SF, TotRms_AbvGrd, and First_Flr_SF (as illustrated by the above formula). The AIC for this model is 42676.1. There is only one variable left that could be added (Street). However, when we add street to the model, the AIC now becomes 42677 (in other words AIC increases, which is a worse model). The algorithm stops here.</p>
+<p>The code below illustrates how to do forward selection with BIC and p-values. In the output from R, it still says “AIC”, but now these values are calculated by using the BIC formula or the corresponding “k” values for p-values (take a look at the values R has for the “AIC” column and you will see that it has changed!).</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" data-line-number="1"><span class="co"># k = log(n) for BIC selection</span></a>
+<a class="sourceLine" id="cb165-2" data-line-number="2">for.model2 &lt;-<span class="st"> </span><span class="kw">step</span>(empty.model,</a>
+<a class="sourceLine" id="cb165-3" data-line-number="3">                   <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
+<a class="sourceLine" id="cb165-4" data-line-number="4">                               <span class="dt">upper =</span> full.model),</a>
+<a class="sourceLine" id="cb165-5" data-line-number="5">                   <span class="dt">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="dt">k =</span> <span class="kw">log</span>(<span class="kw">nrow</span>(train_sel))) <span class="co"># k = qchisq(alpha, 1, lower.tail = FALSE) for p-value with alpha selection</span></a>
+<a class="sourceLine" id="cb165-6" data-line-number="6">alpha.f=<span class="fl">0.05</span></a>
+<a class="sourceLine" id="cb165-7" data-line-number="7">for.model3 &lt;-<span class="st"> </span><span class="kw">step</span>(empty.model,</a>
+<a class="sourceLine" id="cb165-8" data-line-number="8">                   <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
+<a class="sourceLine" id="cb165-9" data-line-number="9">                                <span class="dt">upper =</span> full.model),</a>
+<a class="sourceLine" id="cb165-10" data-line-number="10">                   <span class="dt">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="dt">k =</span> <span class="kw">qchisq</span>(alpha.f, <span class="dv">1</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)) </a></code></pre></div>
+</div>
+<div id="backward" class="section level3 unnumbered">
+<h3>Backward</h3>
+<p>Backward elimination starts with the “base” model as the full model (i.e. all variables are contained within the model). We remove only one variable and we do this for each variable in the model. We want to see if the any of the models improve over the “base model” (in other words, is the model better with that one variable removed based on a given criterion?). If this new model (with that one variable removed) is better than the previous model, then we remove that variable and this new model now becomes the base model. We are looking for the best improvement, therefore we look at the model that would be the best over the base model. The algorithm continues in this fashion until no other variables can be removed, based on the chosen criterion.</p>
+<ol start="0" style="list-style-type: decimal">
+<li>Start with full model with all predictor variables in it, this is the base model and calculate the criterion on this model<br />
+
+<ol style="list-style-type: decimal">
+<li>Create models such that each model has exactly one predictor variable removed from it and calculate the criterion for each model<br />
+</li>
+<li>In step 1, find the best model based on the criterion<br />
+</li>
+<li>Is this regression model better than the base model?<br />
+
+<ol style="list-style-type: lower-alpha">
+<li>Yes, then continue on to step 4<br />
+</li>
+<li>No, exit the algorithm with the base model as the chosen model<br />
+</li>
+</ol></li>
+<li>The base model is now the model with the variable removed. Using this as your new base model, go back to step 1 and continue.<br />
+</li>
+</ol></li>
+</ol>
+<p>To do backward elimination in R, you will use the step function. The “full model” should be used as your initial model (which is the model with all the predictor variables in it). For the scope of the model, you need to put the “smallest model” (just the intercept) to the “largest model” (full model). The direction is backward. The penalty (which indicates the criteria) can be controlled by defining “k”. As discussed before, a value of 2 will use the AIC criterion, a value of <span class="math inline">\(log(n)\)</span> will produce the BIC penalty, and finally the upper <span class="math inline">\(\alpha\)</span>-quantile of a <span class="math inline">\(\chi^{2}\)</span> distribution with one degree of freedom will use p-value for its removal of variables.</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" data-line-number="1"><span class="co"># Create full model and empty model</span></a>
+<a class="sourceLine" id="cb166-2" data-line-number="2">full.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>. , <span class="dt">data =</span> train_sel)</a>
+<a class="sourceLine" id="cb166-3" data-line-number="3">empty.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> train_sel)</a>
+<a class="sourceLine" id="cb166-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb166-5" data-line-number="5"><span class="co"># k = 2 for AIC selection</span></a>
+<a class="sourceLine" id="cb166-6" data-line-number="6">back.model &lt;-<span class="st"> </span><span class="kw">step</span>(full.model,</a>
+<a class="sourceLine" id="cb166-7" data-line-number="7">                  <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
+<a class="sourceLine" id="cb166-8" data-line-number="8">                               <span class="dt">upper =</span> full.model),</a>
+<a class="sourceLine" id="cb166-9" data-line-number="9">                  <span class="dt">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="dt">k =</span> <span class="dv">2</span>) </a></code></pre></div>
+<p>Below is edited output with comments to lead you through the backward elimination. Notice that the above code has k=2, which means we are using AIC as our selection criterion. The first information R provides is for the initial model, which is <span class="math display">\[Y_{i}=\beta_{0} + \beta_{1}x_{i,1}+\beta_{2}x_{i,2}+\beta_{3}x_{i,3}+\beta_{4}x_{i,4}+\beta_{5}x_{i,5}+\beta_{6}x_{i,6}+\beta_{i,7}x_{7}+\beta_{8}x_{i,8}+\beta_{9}x_{i,9}+\beta_{10}x_{i,10}+\beta_{11}x_{i,11}+\beta_{12}x_{i,12}+\beta_{13}x_{i,13}+\beta_{14}x_{i,14}+\beta_{15}x_{i,15}+\varepsilon_{i}.\]</span> The “full model” has an AIC of 42,677.12 (in order for ANY variable to be removed, that model must be better, or in other words have a smaller AIC than this initial model).</p>
+<p>R then displays linear regression models with one variable removed and their corresponding AIC values. For example, if we remove Street (just that one variable), the AIC of that model will be 42675. Notice that R put the information in ascending AIC values (so, best linear regression is at the top with an AIC value of 42,675 which is indeed smaller than 42,677.12, so Street will be removed). You will also see a line with <none>. This is the “base model”, or in this case the full model.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="center">Df</th>
+<th align="right">Sum of Sq</th>
+<th align="center">RSS</th>
+<th align="right">AIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">- Gr_Liv_Area</td>
+<td align="center">1</td>
+<td align="right">4.9138e+08</td>
+<td align="center">2.1537e+12</td>
+<td align="right">42676</td>
+</tr>
+<tr class="even">
+<td align="left">- Street</td>
+<td align="center">1</td>
+<td align="right">1.0280e+09</td>
+<td align="center">2.1542e+12</td>
+<td align="right">42676</td>
+</tr>
+<tr class="odd">
+<td align="left"><none></td>
+<td align="center"></td>
+<td align="right"></td>
+<td align="center">2.1532e+12</td>
+<td align="right">42677</td>
+</tr>
+<tr class="even">
+<td align="left">- First_Flr_SF</td>
+<td align="center">1</td>
+<td align="right">3.1548e+09</td>
+<td align="center">2.1563e+12</td>
+<td align="right">42678</td>
+</tr>
+<tr class="odd">
+<td align="left">- TotRms_AbvGrd</td>
+<td align="center">1</td>
+<td align="right">3.4112e+09</td>
+<td align="center">2.1566e+12</td>
+<td align="right">42678</td>
+</tr>
+<tr class="even">
+<td align="left">- Second_Flr_SF</td>
+<td align="center">1</td>
+<td align="right">6.4939e+09</td>
+<td align="center">2.1597e+12</td>
+<td align="right">42681</td>
+</tr>
+<tr class="odd">
+<td align="left">- Central_Air</td>
+<td align="center">1</td>
+<td align="right">1.6533e+10</td>
+<td align="center">2.1697e+12</td>
+<td align="right">42691</td>
+</tr>
+<tr class="even">
+<td align="left">- Roof_Style</td>
+<td align="center">5</td>
+<td align="right">2.8786e+10</td>
+<td align="center">2.1820e+12</td>
+<td align="right">42694</td>
+</tr>
+<tr class="odd">
+<td align="left">- Half_Bath</td>
+<td align="center">1</td>
+<td align="right">3.5009e+10</td>
+<td align="center">2.1882e+12</td>
+<td align="right">42708</td>
+</tr>
+<tr class="even">
+<td align="left">- Lot_Area</td>
+<td align="center">1</td>
+<td align="right">3.5997e+10</td>
+<td align="center">2.1892e+12</td>
+<td align="right">42709</td>
+</tr>
+<tr class="odd">
+<td align="left">- Fireplaces</td>
+<td align="center">1</td>
+<td align="right">3.6853e+10</td>
+<td align="center">2.1900e+12</td>
+<td align="right">42710</td>
+</tr>
+<tr class="even">
+<td align="left">- House_Style</td>
+<td align="center">7</td>
+<td align="right">7.0980e+10</td>
+<td align="center">2.2241e+12</td>
+<td align="right">42730</td>
+</tr>
+<tr class="odd">
+<td align="left">- Garage_Area</td>
+<td align="center">1</td>
+<td align="right">6.4143e+10</td>
+<td align="center">2.2173e+12</td>
+<td align="right">42735</td>
+</tr>
+<tr class="even">
+<td align="left">- Bldg_Type</td>
+<td align="center">4</td>
+<td align="right">7.1274e+10</td>
+<td align="center">2.2244e+12</td>
+<td align="right">42736</td>
+</tr>
+<tr class="odd">
+<td align="left">- Full_Bath</td>
+<td align="center">1</td>
+<td align="right">6.8198e+10</td>
+<td align="center">2.2214e+12</td>
+<td align="right">42739</td>
+</tr>
+<tr class="even">
+<td align="left">- Overall_Qual</td>
+<td align="center">9</td>
+<td align="right">1.7183e+12</td>
+<td align="center">3.8715e+12</td>
+<td align="right">43862</td>
+</tr>
+</tbody>
+</table>
+<p>Once Street is removed, the new “base model” (without this variable) has an AIC value of 42,674.6. This is now the new value to beat. Repeating this process with removing the other variables one at a time, we see the output:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="center">Df</th>
+<th align="right">Sum of Sq</th>
+<th align="center">RSS</th>
+<th align="right">AIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><none></td>
+<td align="center"></td>
+<td align="right"></td>
+<td align="center">2.1547e+12</td>
+<td align="right">42675</td>
+</tr>
+<tr class="even">
+<td align="left">- TotRms_AbvGrd</td>
+<td align="center">1</td>
+<td align="right">2.9784e+09</td>
+<td align="center">2.1577e+12</td>
+<td align="right">42675</td>
+</tr>
+<tr class="odd">
+<td align="left">- Central_Air</td>
+<td align="center">1</td>
+<td align="right">1.7247e+10</td>
+<td align="center">2.1720e+12</td>
+<td align="right">42689</td>
+</tr>
+<tr class="even">
+<td align="left">- Roof_Style</td>
+<td align="center">5</td>
+<td align="right">2.8560e+10</td>
+<td align="center">2.1833e+12</td>
+<td align="right">42692</td>
+</tr>
+<tr class="odd">
+<td align="left">- Half_Bath</td>
+<td align="center">1</td>
+<td align="right">3.4751e+10</td>
+<td align="center">2.1895e+12</td>
+<td align="right">42705</td>
+</tr>
+<tr class="even">
+<td align="left">- Lot_Area</td>
+<td align="center">1</td>
+<td align="right">3.5041e+10</td>
+<td align="center">2.1898e+12</td>
+<td align="right">42706</td>
+</tr>
+<tr class="odd">
+<td align="left">- Fireplaces</td>
+<td align="center">1</td>
+<td align="right">3.6680e+10</td>
+<td align="center">2.1914e+12</td>
+<td align="right">42707</td>
+</tr>
+<tr class="even">
+<td align="left">- House_Style</td>
+<td align="center">7</td>
+<td align="right">7.3149e+10</td>
+<td align="center">2.2279e+12</td>
+<td align="right">42729</td>
+</tr>
+<tr class="odd">
+<td align="left">- Garage_Area</td>
+<td align="center">1</td>
+<td align="right">6.3520e+10</td>
+<td align="center">2.2182e+12</td>
+<td align="right">42732</td>
+</tr>
+<tr class="even">
+<td align="left">- Bldg_Type</td>
+<td align="center">4</td>
+<td align="right">7.3044e+10</td>
+<td align="center">2.2278e+12</td>
+<td align="right">42735</td>
+</tr>
+<tr class="odd">
+<td align="left">- Full_Bath</td>
+<td align="center">1</td>
+<td align="right">6.8973e+10</td>
+<td align="center">2.2237e+12</td>
+<td align="right">42737</td>
+</tr>
+<tr class="even">
+<td align="left">- Second_Flr_SF</td>
+<td align="center">1</td>
+<td align="right">1.2513e+11</td>
+<td align="center">2.2798e+12</td>
+<td align="right">42788</td>
+</tr>
+<tr class="odd">
+<td align="left">- First_Flr_SF</td>
+<td align="center">1</td>
+<td align="right">1.4221e+11</td>
+<td align="center">2.2969e+12</td>
+<td align="right">42804</td>
+</tr>
+<tr class="even">
+<td align="left">- Overall_Qual</td>
+<td align="center">9</td>
+<td align="right">1.7202e+12</td>
+<td align="center">3.8749e+12</td>
+<td align="right">43860</td>
+</tr>
+</tbody>
+</table>
+<p>Notice that none of the removal of variables is better than the “base model” based on the AIC (best one is TotRms_AbvGrd and that has an AIC of 42675, which is not better than the base model). Since none of the removals improve the model, the algorithm stops here with all variables in the model except Street. Therefore, the final model is:</p>
+<pre><code>Step:  AIC=42674.6
+Sale_Price ~ Lot_Area + Bldg_Type + House_Style + Overall_Qual + 
+    Roof_Style + Central_Air + First_Flr_SF + Second_Flr_SF + 
+    Full_Bath + Half_Bath + Fireplaces + Garage_Area + TotRms_AbvGrd</code></pre>
+<p>The code below illustrates how to do backward elimination with BIC and p-values.</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1"><span class="co"># k = log(n) for BIC selection</span></a>
+<a class="sourceLine" id="cb168-2" data-line-number="2">back.model2 &lt;-<span class="st"> </span><span class="kw">step</span>(full.model,</a>
+<a class="sourceLine" id="cb168-3" data-line-number="3">                   <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
+<a class="sourceLine" id="cb168-4" data-line-number="4">                               <span class="dt">upper =</span> full.model),</a>
+<a class="sourceLine" id="cb168-5" data-line-number="5">                   <span class="dt">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="dt">k =</span> <span class="kw">log</span>(<span class="kw">nrow</span>(train_sel))) <span class="co"># k = qchisq(alpha, 1, lower.tail = FALSE) for p-value with alpha selection</span></a>
+<a class="sourceLine" id="cb168-6" data-line-number="6">alpha.f=<span class="fl">0.05</span></a>
+<a class="sourceLine" id="cb168-7" data-line-number="7">back.model3 &lt;-<span class="st"> </span><span class="kw">step</span>(full.model,</a>
+<a class="sourceLine" id="cb168-8" data-line-number="8">                   <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
+<a class="sourceLine" id="cb168-9" data-line-number="9">                                <span class="dt">upper =</span> full.model),</a>
+<a class="sourceLine" id="cb168-10" data-line-number="10">                   <span class="dt">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="dt">k =</span> <span class="kw">qchisq</span>(alpha.f, <span class="dv">1</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)) </a></code></pre></div>
+</div>
+<div id="stepwise" class="section level3 unnumbered">
+<h3>Stepwise</h3>
+<p>Stepwise selection is a combination of both of these methods. We will start with the “base model” as the empty model (i.e. just the intercept) and will add variables (as in forward selection). However, as we add new variables, we will also check that the variables in the model are still contributing (in other words, we check to see if the model would be better if we drop one of the variables in the model. Keep in mind that this algorithm is similar to forward selection and backward elimination in that only one variable may either enter or be removed at each step. The algorithm stops when no more variables can be added to nor taken away from the model (in other words, the current “base model” is better than adding any single variable or taking away any single variable). The addition and removal of variables is again based upon the criteria specified. See the algorithm below:</p>
+<ol start="0" style="list-style-type: decimal">
+<li>Start with empty model with only the intercept in it, this is the base model and calculate the criterion on this model<br />
+
+<ol style="list-style-type: decimal">
+<li>For each variable not in model, create a linear regression model with the base model plus this variable; create additional models with the base model taking away one variable at a time<br />
+</li>
+<li>See which linear regression is best (based on criterion)<br />
+</li>
+<li>Is this regression better than the base model?<br />
+
+<ol style="list-style-type: lower-alpha">
+<li>Yes, then continue on to step 4<br />
+</li>
+<li>No, exit the algorithm with the base model as the chosen model<br />
+</li>
+</ol></li>
+<li>The base model is now the best model selected in step 3. Using this as your new base model, go back to step 1 and continue.<br />
+</li>
+</ol></li>
+</ol>
+<p>To do stepwise selection in R, you will use the step function. The “empty model” should be used as your initial model. For the scope of the model, you need to put the “smallest model” (just the intercept) to the “largest model” (full model). The direction is both. The penalty (which indicates the criteria) can be controlled by defining “k”. As discussed before, a value of 2 will use the AIC criterion, a value of <span class="math inline">\(log(n)\)</span> will produce the BIC penalty, and finally the upper <span class="math inline">\(\alpha\)</span>-quantile of a <span class="math inline">\(\chi^{2}\)</span> distribution with one degree of freedom will use p-value for its removal of variables.</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1"><span class="co"># Create full model and empty model</span></a>
+<a class="sourceLine" id="cb169-2" data-line-number="2">full.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>. , <span class="dt">data =</span> train_sel)</a>
+<a class="sourceLine" id="cb169-3" data-line-number="3">empty.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> train_sel)</a>
+<a class="sourceLine" id="cb169-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb169-5" data-line-number="5"><span class="co"># k = 2 for AIC selection</span></a>
+<a class="sourceLine" id="cb169-6" data-line-number="6">step.model &lt;-<span class="st"> </span><span class="kw">step</span>(empty.model,</a>
+<a class="sourceLine" id="cb169-7" data-line-number="7">                  <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
+<a class="sourceLine" id="cb169-8" data-line-number="8">                               <span class="dt">upper =</span> full.model),</a>
+<a class="sourceLine" id="cb169-9" data-line-number="9">                  <span class="dt">direction =</span> <span class="st">&quot;both&quot;</span>, <span class="dt">k =</span> <span class="dv">2</span>) </a></code></pre></div>
+<p>As you can see, the initial base model is just the intercept (AIC=46,323.64). From this initial model, all simple linear regressions are created and the AIC is observed.</p>
+<pre><code>Start:  AIC=46323.64
+Sale_Price ~ 1</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="center">Df</th>
+<th align="right">Sum of Sq</th>
+<th align="center">RSS</th>
+<th align="right">AIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">+ Overall_Qual</td>
+<td align="center">9</td>
+<td align="right">9.3437e+12</td>
+<td align="center">3.8531e+12</td>
+<td align="right">43817</td>
+</tr>
+<tr class="even">
+<td align="left">+ Gr_Liv_Area</td>
+<td align="center">1</td>
+<td align="right">6.4389e+12</td>
+<td align="center">6.7578e+12</td>
+<td align="right">44953</td>
+</tr>
+<tr class="odd">
+<td align="left">+ Garage_Area</td>
+<td align="center">1</td>
+<td align="right">5.3561e+12</td>
+<td align="center">7.8407e+12</td>
+<td align="right">45258</td>
+</tr>
+<tr class="even">
+<td align="left">+ First_Flr_SF</td>
+<td align="center">1</td>
+<td align="right">4.8867e+12</td>
+<td align="center">8.3100e+12</td>
+<td align="right">45377</td>
+</tr>
+<tr class="odd">
+<td align="left">+ Full_Bath</td>
+<td align="center">1</td>
+<td align="right">3.7827e+12</td>
+<td align="center">9.4141e+12</td>
+<td align="right">45633</td>
+</tr>
+<tr class="even">
+<td align="left">+ TotRms_AbvGrd</td>
+<td align="center">1</td>
+<td align="right">3.2304e+12</td>
+<td align="center">9.9663e+12</td>
+<td align="right">45750</td>
+</tr>
+<tr class="odd">
+<td align="left">+ Fireplaces</td>
+<td align="center">1</td>
+<td align="right">2.9715e+12</td>
+<td align="center">1.0225e+13</td>
+<td align="right">45802</td>
+</tr>
+<tr class="even">
+<td align="left">+ Half_Bath</td>
+<td align="center">1</td>
+<td align="right">1.1209e+12</td>
+<td align="center">1.2076e+13</td>
+<td align="right">46144</td>
+</tr>
+<tr class="odd">
+<td align="left">+ Roof_Style</td>
+<td align="center">5</td>
+<td align="right">1.0724e+12</td>
+<td align="center">1.2124e+13</td>
+<td align="right">46160</td>
+</tr>
+<tr class="even">
+<td align="left">+ Central_Air</td>
+<td align="center">1</td>
+<td align="right">9.6147e+11</td>
+<td align="center">1.2235e+13</td>
+<td align="right">46170</td>
+</tr>
+<tr class="odd">
+<td align="left">+ House_Style</td>
+<td align="center">7</td>
+<td align="right">1.0245e+12</td>
+<td align="center">1.2172e+13</td>
+<td align="right">46172</td>
+</tr>
+<tr class="even">
+<td align="left">+ Second_Flr_SF</td>
+<td align="center">1</td>
+<td align="right">9.4611e+11</td>
+<td align="center">1.2251e+13</td>
+<td align="right">46173</td>
+</tr>
+<tr class="odd">
+<td align="left">+ Lot_Area</td>
+<td align="center">1</td>
+<td align="right">9.0332e+11</td>
+<td align="center">1.2293e+13</td>
+<td align="right">46180</td>
+</tr>
+<tr class="even">
+<td align="left">+ Bldg_Type</td>
+<td align="center">4</td>
+<td align="right">4.6434e+11</td>
+<td align="center">1.2732e+13</td>
+<td align="right">46258</td>
+</tr>
+<tr class="odd">
+<td align="left">+ Street</td>
+<td align="center">1</td>
+<td align="right">3.1752e+10</td>
+<td align="center">1.3165e+13</td>
+<td align="right">46321</td>
+</tr>
+<tr class="even">
+<td align="left"><none></td>
+<td align="center"></td>
+<td align="right"></td>
+<td align="center">1.3197e+13</td>
+<td align="right">46324</td>
+</tr>
+</tbody>
+</table>
+<p>As you can see from the above output, the “best” model is the one containing Overall_Qual. Therefore, the new base model is the one containing just this variable.  </p>
+<p>Using this as the new base model, we look at adding each of the individual variables to this model (see output below), as well as taking away the variables in the model (in this case, just Overall_Qual). From the output, you can see a “+” for when a variable is being added and a “-” for when a variable is being taken away.</p>
+<pre><code>Step:  AIC=43816.66
+Sale_Price ~ Overall_Qual</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="center">Df</th>
+<th align="right">Sum of Sq</th>
+<th align="center">RSS</th>
+<th align="right">AIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">+ Gr_Liv_Area</td>
+<td align="center">1</td>
+<td align="right">9.8905e+11</td>
+<td align="center">2.8640e+12</td>
+<td align="right">43210</td>
+</tr>
+<tr class="even">
+<td align="left">+ First_Flr_SF</td>
+<td align="center">1</td>
+<td align="right">5.2665e+11</td>
+<td align="center">3.3264e+12</td>
+<td align="right">43517</td>
+</tr>
+<tr class="odd">
+<td align="left">+ Garage_Area</td>
+<td align="center">1</td>
+<td align="right">4.6644e+11</td>
+<td align="center">3.3866e+12</td>
+<td align="right">43554</td>
+</tr>
+<tr class="even">
+<td align="left">+ TotRms_AbvGrd</td>
+<td align="center">1</td>
+<td align="right">4.6123e+11</td>
+<td align="center">3.3918e+12</td>
+<td align="right">43557</td>
+</tr>
+<tr class="odd">
+<td align="left">+ Full_Bath</td>
+<td align="center">1</td>
+<td align="right">4.1206e+11</td>
+<td align="center">3.4410e+12</td>
+<td align="right">43587</td>
+</tr>
+<tr class="even">
+<td align="left">+ Fireplaces</td>
+<td align="center">1</td>
+<td align="right">4.0551e+11</td>
+<td align="center">3.4476e+12</td>
+<td align="right">43591</td>
+</tr>
+<tr class="odd">
+<td align="left">+ Lot_Area</td>
+<td align="center">1</td>
+<td align="right">3.8148e+11</td>
+<td align="center">3.4716e+12</td>
+<td align="right">43605</td>
+</tr>
+<tr class="even">
+<td align="left">+ Bldg_Type</td>
+<td align="center">4</td>
+<td align="right">2.3715e+11</td>
+<td align="center">3.6159e+12</td>
+<td align="right">43694</td>
+</tr>
+<tr class="odd">
+<td align="left">+ Second_Flr_SF</td>
+<td align="center">1</td>
+<td align="right">1.7555e+11</td>
+<td align="center">3.6775e+12</td>
+<td align="right">43723</td>
+</tr>
+<tr class="even">
+<td align="left">+ Half_Bath</td>
+<td align="center">1</td>
+<td align="right">1.3948e+11</td>
+<td align="center">3.7136e+12</td>
+<td align="right">43743</td>
+</tr>
+<tr class="odd">
+<td align="left">+ Central_Air</td>
+<td align="center">1</td>
+<td align="right">9.1322e+10</td>
+<td align="center">3.7617e+12</td>
+<td align="right">43769</td>
+</tr>
+<tr class="even">
+<td align="left">+ House_Style</td>
+<td align="center">7</td>
+<td align="right">6.1815e+10</td>
+<td align="center">3.7912e+12</td>
+<td align="right">43797</td>
+</tr>
+<tr class="odd">
+<td align="left">+ Roof_Style</td>
+<td align="center">5</td>
+<td align="right">5.1448e+10</td>
+<td align="center">3.8016e+12</td>
+<td align="right">43799</td>
+</tr>
+<tr class="even">
+<td align="left"><none></td>
+<td align="center"></td>
+<td align="right"></td>
+<td align="center">3.8531e+12</td>
+<td align="right">43817</td>
+</tr>
+<tr class="odd">
+<td align="left">+ Street</td>
+<td align="center">1</td>
+<td align="right">1.9573e+06</td>
+<td align="center">3.8531e+12</td>
+<td align="right">43819</td>
+</tr>
+<tr class="even">
+<td align="left">- Overall_Qual</td>
+<td align="center">9</td>
+<td align="right">9.3437e+12</td>
+<td align="center">1.3197e+13</td>
+<td align="right">46324</td>
+</tr>
+</tbody>
+</table>
+<p>The best model is now the one adding <code>Gr_Liv_Area</code> to the old base model that just included <code>Overall_Qual</code>. This becomes the new base model and the algorithm continues below..</p>
+<pre><code>Step:  AIC=43210.24
+Sale_Price ~ Overall_Qual + Gr_Liv_Area</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="center">Df</th>
+<th align="right">Sum of Sq</th>
+<th align="center">RSS</th>
+<th align="right">AIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">+ House_Style</td>
+<td align="center">7</td>
+<td align="right">2.5351e+11</td>
+<td align="center">2.6105e+12</td>
+<td align="right">43034</td>
+</tr>
+<tr class="even">
+<td align="left">+ Garage_Area</td>
+<td align="center">1</td>
+<td align="right">2.1638e+11</td>
+<td align="center">2.6476e+12</td>
+<td align="right">43051</td>
+</tr>
+<tr class="odd">
+<td align="left">+ Lot_Area</td>
+<td align="center">1</td>
+<td align="right">1.3097e+11</td>
+<td align="center">2.7330e+12</td>
+<td align="right">43116</td>
+</tr>
+<tr class="even">
+<td align="left">+ First_Flr_SF</td>
+<td align="center">1</td>
+<td align="right">1.2210e+11</td>
+<td align="center">2.7419e+12</td>
+<td align="right">43123</td>
+</tr>
+<tr class="odd">
+<td align="left">+ Fireplaces</td>
+<td align="center">1</td>
+<td align="right">1.1069e+11</td>
+<td align="center">2.7533e+12</td>
+<td align="right">43131</td>
+</tr>
+<tr class="even">
+<td align="left">+ Central_Air</td>
+<td align="center">1</td>
+<td align="right">1.1050e+11</td>
+<td align="center">2.7535e+12</td>
+<td align="right">43132</td>
+</tr>
+<tr class="odd">
+<td align="left">+ Second_Flr_SF</td>
+<td align="center">1</td>
+<td align="right">1.0207e+11</td>
+<td align="center">2.7619e+12</td>
+<td align="right">43138</td>
+</tr>
+<tr class="even">
+<td align="left">+ Bldg_Type</td>
+<td align="center">4</td>
+<td align="right">1.0299e+11</td>
+<td align="center">2.7610e+12</td>
+<td align="right">43143</td>
+</tr>
+<tr class="odd">
+<td align="left">+ Roof_Style</td>
+<td align="center">5</td>
+<td align="right">6.0726e+10</td>
+<td align="center">2.8033e+12</td>
+<td align="right">43176</td>
+</tr>
+<tr class="even">
+<td align="left">+ Full_Bath</td>
+<td align="center">1</td>
+<td align="right">3.2970e+10</td>
+<td align="center">2.8310e+12</td>
+<td align="right">43188</td>
+</tr>
+<tr class="odd">
+<td align="left">+ TotRms_AbvGrd</td>
+<td align="center">1</td>
+<td align="right">2.4688e+10</td>
+<td align="center">2.8393e+12</td>
+<td align="right">43194</td>
+</tr>
+<tr class="even">
+<td align="left"><none></td>
+<td align="center"></td>
+<td align="right"></td>
+<td align="center">2.8640e+12</td>
+<td align="right">43210</td>
+</tr>
+<tr class="odd">
+<td align="left">+ Half_Bath</td>
+<td align="center">1</td>
+<td align="right">4.0261e+07</td>
+<td align="center">2.8640e+12</td>
+<td align="right">43212</td>
+</tr>
+<tr class="even">
+<td align="left">+ Street</td>
+<td align="center">1</td>
+<td align="right">2.2632e+07</td>
+<td align="center">2.8640e+12</td>
+<td align="right">43212</td>
+</tr>
+<tr class="odd">
+<td align="left">- Gr_Liv_Area</td>
+<td align="center">1</td>
+<td align="right">9.8905e+11</td>
+<td align="center">3.8531e+12</td>
+<td align="right">43817</td>
+</tr>
+<tr class="even">
+<td align="left">- Overall_Qual</td>
+<td align="center">9</td>
+<td align="right">3.8938e+12</td>
+<td align="center">6.7578e+12</td>
+<td align="right">44953</td>
+</tr>
+</tbody>
+</table>
+<p>Skipping ahead to the final step, we see that the base model includes the variables Overall_Qual, House_Style, Garage_Area, Bldg_Type, Fireplaces, Full_Bath, Half_Bath, Lot_Area, Roof_Style, Central_Air, Second_Flr_SF, TotRms_AbvGrd and First_Flr_SF. Looking at the output below, this is the “best model” (no other model, either inputting one more variable nor removing one variable can beat it based on this criteria).</p>
+<pre><code>Step:  AIC=42674.6
+Sale_Price ~ Overall_Qual + House_Style + Garage_Area + Bldg_Type + 
+    Fireplaces + Full_Bath + Half_Bath + Lot_Area + Roof_Style + 
+    Central_Air + Second_Flr_SF + TotRms_AbvGrd + First_Flr_SF</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="center">Df</th>
+<th align="right">Sum of Sq</th>
+<th align="center">RSS</th>
+<th align="right">AIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><none></td>
+<td align="center"></td>
+<td align="right"></td>
+<td align="center">2.1547e+12</td>
+<td align="right">42675</td>
+</tr>
+<tr class="even">
+<td align="left">- TotRms_AbvGrd</td>
+<td align="center">1</td>
+<td align="right">2.9784e+09</td>
+<td align="center">2.1577e+12</td>
+<td align="right">42675</td>
+</tr>
+<tr class="odd">
+<td align="left">+ Street</td>
+<td align="center">1</td>
+<td align="right">1.0581e+09</td>
+<td align="center">2.1537e+12</td>
+<td align="right">42676</td>
+</tr>
+<tr class="even">
+<td align="left">+ Gr_Liv_Area</td>
+<td align="center">1</td>
+<td align="right">5.2156e+08</td>
+<td align="center">2.1542e+12</td>
+<td align="right">42676</td>
+</tr>
+<tr class="odd">
+<td align="left">- Central_Air</td>
+<td align="center">1</td>
+<td align="right">1.7247e+10</td>
+<td align="center">2.1720e+12</td>
+<td align="right">42689</td>
+</tr>
+<tr class="even">
+<td align="left">- Roof_Style</td>
+<td align="center">5</td>
+<td align="right">2.8560e+10</td>
+<td align="center">2.1833e+12</td>
+<td align="right">42692</td>
+</tr>
+<tr class="odd">
+<td align="left">- Half_Bath</td>
+<td align="center">1</td>
+<td align="right">3.4751e+10</td>
+<td align="center">2.1895e+12</td>
+<td align="right">42705</td>
+</tr>
+<tr class="even">
+<td align="left">- Lot_Area</td>
+<td align="center">1</td>
+<td align="right">3.5041e+10</td>
+<td align="center">2.1898e+12</td>
+<td align="right">42706</td>
+</tr>
+<tr class="odd">
+<td align="left">- Fireplaces</td>
+<td align="center">1</td>
+<td align="right">3.6680e+10</td>
+<td align="center">2.1914e+12</td>
+<td align="right">42707</td>
+</tr>
+<tr class="even">
+<td align="left">- House_Style</td>
+<td align="center">7</td>
+<td align="right">7.3149e+10</td>
+<td align="center">2.2279e+12</td>
+<td align="right">42729</td>
+</tr>
+<tr class="odd">
+<td align="left">- Garage_Area</td>
+<td align="center">1</td>
+<td align="right">6.3520e+10</td>
+<td align="center">2.2182e+12</td>
+<td align="right">42732</td>
+</tr>
+<tr class="even">
+<td align="left">- Bldg_Type</td>
+<td align="center">4</td>
+<td align="right">7.3044e+10</td>
+<td align="center">2.2278e+12</td>
+<td align="right">42735</td>
+</tr>
+<tr class="odd">
+<td align="left">- Full_Bath</td>
+<td align="center">1</td>
+<td align="right">6.8973e+10</td>
+<td align="center">2.2237e+12</td>
+<td align="right">42737</td>
+</tr>
+<tr class="even">
+<td align="left">- Second_Flr_SF</td>
+<td align="center">1</td>
+<td align="right">1.2513e+11</td>
+<td align="center">2.2798e+12</td>
+<td align="right">42788</td>
+</tr>
+<tr class="odd">
+<td align="left">- First_Flr_SF</td>
+<td align="center">1</td>
+<td align="right">1.4221e+11</td>
+<td align="center">2.2969e+12</td>
+<td align="right">42804</td>
+</tr>
+<tr class="even">
+<td align="left">- Overall_Qual</td>
+<td align="center">9</td>
+<td align="right">1.7202e+12</td>
+<td align="center">3.8749e+12</td>
+<td align="right">43860</td>
+</tr>
+</tbody>
+</table>
+<p>As you can see from the above stepwise procedures of forward, backward and stepwise, the algorithms attempt to find the “best model” by either adding one variable or taking away one variable at at a time. There is no guarantee that these algorithms will find the best model, but they do provide some guidance in terms of potential significance variables and can provide assistance when the number of variables under consideration is very large. As a caution though, you should always do further investigation once you have found models through these algorithms. These algorithms can give the same models or different models as their final selection based on the algorithm selected and the criteria used.</p>
+</div>
+</div>
+<div id="significance-levels" class="section level2">
+<h2><span class="header-section-number">4.3</span> Significance Levels</h2>
+<p>If you are going to use the “p-value” method, you need to be aware of some considerations due to sample size. The larger the sample size, the smaller the p-values will be and the more likely it is that you will end up seeing many “significant” p-values due to the relationship between p-values (not necessarily because that variable was informative). The paper by Raftery on the Moodle page sums up the problem nicely and provides at least some guidance in terms of potential alpha-levels to use for different sample sizes. A summary of the table is provided below.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Evidence</th>
+<th align="right">30</th>
+<th align="right">50</th>
+<th align="right">100</th>
+<th align="right">1000</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Weak</td>
+<td align="right">0.076</td>
+<td align="right">0.53</td>
+<td align="right">0.032</td>
+<td align="right">0.009</td>
+</tr>
+<tr class="even">
+<td align="left">Fair</td>
+<td align="right">0.028</td>
+<td align="right">0.019</td>
+<td align="right">0.010</td>
+<td align="right">0.003</td>
+</tr>
+<tr class="odd">
+<td align="left">Strong</td>
+<td align="right">0.005</td>
+<td align="right">0.003</td>
+<td align="right">0.001</td>
+<td align="right">0.0003</td>
+</tr>
+<tr class="even">
+<td align="left">Very Strong</td>
+<td align="right">0.001</td>
+<td align="right">0.0005</td>
+<td align="right">0.0001</td>
+<td align="right">0.00004</td>
+</tr>
+</tbody>
+</table>
+<p>You can quickly see that for even sample sizes of 1000, one should consider the value of alpha that is used to determine significance. One thing that most researchers agree on is that considerations need to be taken for larger sample size. However, what those considerations should be and exactly how to do that is not agreed upon. You should consider your sample size when you are determining what level of significance you want to choose for your analysis (also take into account which is worse….a type I error or a type II error). There is no quick answer to this question and each decision will depend on the analysis being conducted.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="mlr.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="diag.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/IAA-Faculty/statistical_foundations.git/edit/master/04-model_selection.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/IAA-Faculty/statistical_foundations.git/blob/master/04-model_selection.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"toc": null
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

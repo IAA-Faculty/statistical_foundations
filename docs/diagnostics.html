@@ -141,8 +141,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#authors"><i class="fa fa-check"></i>Authors</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#structure-of-the-book"><i class="fa fa-check"></i>Structure of the book</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-the-authors"><i class="fa fa-check"></i>About the Authors</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="intro-stat.html"><a href="intro-stat.html"><i class="fa fa-check"></i><b>1</b> Introduction to Statistics</a><ul>
@@ -284,30 +284,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: decimal">
 <li>The mean of the Y’s is accurately modeled by a linear function of the X’s.<br />
 </li>
-<li>The random error term, <span class="math inline">\(\epsilon\)</span>, is assumed to have a normal distribution with a mean of zero.<br />
+<li>The random error term, <span class="math inline">\(\varepsilon\)</span>, is assumed to have a normal distribution with a mean of zero.<br />
 </li>
-<li>The random error term, <span class="math inline">\(\epsilon\)</span>, is assumed to have a constant variance, <span class="math inline">\(\sigma^{2}\)</span>.<br />
+<li>The random error term, <span class="math inline">\(\varepsilon\)</span>, is assumed to have a constant variance, <span class="math inline">\(\sigma^{2}\)</span>.<br />
 </li>
-<li><p>The errors are independent.<br />
-</p></li>
-<li><p>No perfect collinearity.<br />
-</p></li>
+<li>The errors are independent.<br />
+</li>
+<li>No perfect collinearity.<br />
+</li>
 </ol>
 <p>Before starting on investigating the assumptions, it is always good to take a look at your data (if it is not too large). The <code>pairs</code> command in R allows you to look at all scatterplots between the variables in a data set.</p>
 <p>To illustrate this, we will use the Salaries data set in the package carData in R that has 397 observations of salaries for professors. The explanatory variables include:</p>
 <ul>
 <li>
-rank: a factor with levels AssocProf, AsstProf, Prof
+<em>rank</em>: a factor with levels AssocProf, AsstProf, Prof
 <li>
-discipline: a factor with levels A (“theoretical” departments) or B (“applied” departments)
+<em>discipline</em>: a factor with levels A (“theoretical” departments) or B (“applied” departments)
 <li>
-yrs.since.phd: years since PhD
+<em>yrs.since.phd</em>: years since PhD
 <li>
-yrs.service: years of service
+<em>yrs.service</em>: years of service
 <li>
-sex: a factor with levels Female and Male
+<em>sex</em>: a factor with levels Female and Male
 <li>
-salary: nine-month salary, in dollars
+<em>salary</em>: nine-month salary, in dollars
 </ul>
 <p>Using this data set, let’s take a look at the relationship between each of the variables.</p>
 <div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1"><span class="kw">pairs</span>(Salaries)</a></code></pre></div>
@@ -315,19 +315,34 @@ salary: nine-month salary, in dollars
 If there are not too many variables, this plot is a nice way to see all the relationships in the data set. The variables are listed along the diagonal and each off diagonal plot is a scatterplot of the variables represented by that row and column. For example, the first row of plots have rank on the y-axis. The first column of plots have rank along the x-axis.</p>
 <div id="examining-residuals" class="section level2">
 <h2><span class="header-section-number">5.1</span> Examining Residuals</h2>
-<p>As you can see from the above list of assumptions that most of them involve the error term which is estimated by the residuals. We will be using the residuals for many of these diagnostics. One of the most useful plot is referred as the residual plot. This plot will have the residuals along the y-axis and either the predicted values or individual x-values along the x-axis. The residual plot below illustrates the linear model created by using the above data set (with all of the explanatory variables). This model plots the residuals along the y-axis and the predicted values along the x-axis.</p>
+<p>As you can see from the above list of assumptions that most of them involve the error term which is estimated by the residuals. We will be using the residuals for many of these diagnostics. One of the most useful plot is referred as the residual plot. This plot will have the residuals along the y-axis and either the predicted values or individual x-values along the x-axis. Figure (fig:sal_resid) is an example using the residuals from a linear model predicting salary using all of the explanatory variables.</p>
 <div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1">lm.model=<span class="kw">lm</span>(salary<span class="op">~</span>.,<span class="dt">data=</span>Salaries)</a>
 <a class="sourceLine" id="cb169-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb169-3" data-line-number="3"><span class="kw">ggplot</span>(lm.model,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">fitted</span>(lm.model),<span class="dt">y=</span><span class="kw">resid</span>(lm.model)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;blue&quot;</span>)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Residual Plot for Salaries data&quot;</span>,<span class="dt">x=</span><span class="st">&quot;Predicted Values&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Residuals&quot;</span>)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/sal_resid-1.png" width="672" /></p>
+<a class="sourceLine" id="cb169-3" data-line-number="3"><span class="kw">ggplot</span>(lm.model,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">fitted</span>(lm.model),<span class="dt">y=</span><span class="kw">resid</span>(lm.model)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;blue&quot;</span>)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Predicted Values&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Residuals&quot;</span>)</a></code></pre></div>
+<div class="figure">
+<img src="bookdownproj_files/figure-html/sal_resid-1.png" alt="Residuals vs. Predicted Values for Salary Model" width="672" />
+<p class="caption">
+(#fig:sal_resid)Residuals vs. Predicted Values for Salary Model
+</p>
+</div>
 </div>
 <div id="misspecified-model" class="section level2">
 <h2><span class="header-section-number">5.2</span> Misspecified Model</h2>
-<p>One of the assumptions assumes that the mean of the Y’s is accurately modeled by a linear function of the X’s. If this is true, then we would expect our residual plots to illustrate a random pattern (in other words, all of the “signal” was correctly captured in the model and there is just noise left over).</p>
-<p><img src="bookdownproj_files/figure-html/correct_spec-1.png" width="672" /></p>
-<p>Looking at the above plot, we see that there is no pattern. If you did see some type of pattern in this residual plot, it would indicate that you are missing something and need to do some more modeling. For example, a quadratic shape or curvilinear pattern to the residuals would indicate that at one of our input variables has a nonlinear relationship to the response and transformations should be made to that input accordingly. For example, a residual scatter plot like Figure <a href="#fig:quadpattern"><strong>??</strong></a> would prompt us to consider a quadratic term.</p>
-<p><img src="bookdownproj_files/figure-html/quadpattern-1.png" width="672" />
-If your model has more than one x, it is easier to see if an individual x has a quadratic relationship with the response when looking at residuals versus each of the x-variables.</p>
+<p>One of the assumptions assumes that the expected value of the response is accurately modeled by a linear function of the explanatory variables. If this is true, then we would expect our residual plots to be random scatter (in other words, all of the “signal” was correctly captured in the model and there is just noise left over).</p>
+<div class="figure">
+<img src="bookdownproj_files/figure-html/correct_spec-1.png" alt="Ideal residual plot showing residual values randomly distributed with equal variance" width="672" />
+<p class="caption">
+(#fig:correct_spec)Ideal residual plot showing residual values randomly distributed with equal variance
+</p>
+</div>
+<p>Looking at the plot in Figure @ref(fig:correct_spec), we see that there is no pattern. If you did see some type of pattern in this residual plot, it would indicate that you are missing something and need to do some more modeling. For example, a quadratic shape or curvilinear pattern to the residuals would indicate that one of our input variables has a nonlinear relationship to the response and transformations should be made to that input accordingly. For example, a residual scatter plot like Figure <a href="diagnostics.html#fig:quadpattern">5.1</a> would prompt us to consider a quadratic term.</p>
+<div class="figure"><span id="fig:quadpattern"></span>
+<img src="bookdownproj_files/figure-html/quadpattern-1.png" alt="Residual plot indicating that a quadratic term is required" width="672" />
+<p class="caption">
+Figure 5.1: Residual plot indicating that a quadratic term is required
+</p>
+</div>
+<p>If your model has more than one x, it is easier to see if an individual input variable has a quadratic relationship with the response when looking at plots like Figure <a href="diagnostics.html#fig:quadpattern">5.1</a> where the input variable is on the x-axis.</p>
 <p><strong>Example</strong></p>
 <p>Let’s take a look at an example of where a quadratic linear regression is needed. This example is studying the effect of a chemical additive on paper strength. The response variable is the amount of force required to break the paper (strength) and the explanatory variable is the amount of chemical additive (amount).</p>
 <div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" data-line-number="1"> amount=<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>)</a>
@@ -355,7 +370,7 @@ If your model has more than one x, it is easier to see if an individual x has a 
 <div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" data-line-number="1"> <span class="kw">ggplot</span>(lm.quad,<span class="kw">aes</span>(<span class="dt">x=</span>amount,<span class="dt">y=</span><span class="kw">resid</span>(lm.quad)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;blue&quot;</span>,<span class="dt">size=</span><span class="dv">3</span>)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Residual plot&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Amount&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Residuals&quot;</span>)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/quad_example-1.png" width="672" /></p>
 <p>The above fitted model is
-<span class="math display">\[\hat{Y}_{i} = 2.5 + 0.1x_{i}\]</span>.
+<span class="math display">\[\hat{Y}_{i} = 2.5 + 0.1x_{i}.\]</span>
 However, after looking at the residual plot and noticing the quadratic shape, we realize that a we need a higher order term for amount.</p>
 <div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" data-line-number="1">lm.quad=<span class="kw">lm</span>(strength<span class="op">~</span>amount <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(amount<span class="op">^</span><span class="dv">2</span>))</a>
 <a class="sourceLine" id="cb173-2" data-line-number="2"><span class="co">##OR</span></a>
@@ -384,7 +399,7 @@ However, after looking at the residual plot and noticing the quadratic shape, we
 <div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" data-line-number="1"><span class="kw">ggplot</span>(lm.quad,<span class="kw">aes</span>(<span class="dt">x=</span>amount,<span class="dt">y=</span><span class="kw">resid</span>(lm.quad)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;orange&quot;</span>,<span class="dt">size=</span><span class="dv">2</span>)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Residual plot&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Amount&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Residuals&quot;</span>)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/quad_example2-1.png" width="672" />
 The second order polynomial model is
-<span class="math display">\[\hat{Y}_{i} = 2.8 + 0.6x_{i}-0.3x^{2}_{i}\]</span>.
+<span class="math display">\[\hat{Y}_{i} = 2.8 + 0.6x_{i}-0.3x^{2}_{i}.\]</span>
 If you think there might potentially still be some signal, you could try a third degree polynomial:</p>
 <div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" data-line-number="1">lm.quad=<span class="kw">lm</span>(strength<span class="op">~</span><span class="kw">poly</span>(amount,<span class="dv">3</span>))</a>
 <a class="sourceLine" id="cb176-2" data-line-number="2"></a>
@@ -412,23 +427,38 @@ If you think there might potentially still be some signal, you could try a third
 <div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" data-line-number="1"><span class="kw">ggplot</span>(lm.quad,<span class="kw">aes</span>(<span class="dt">x=</span>amount,<span class="dt">y=</span><span class="kw">resid</span>(lm.quad)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;orange&quot;</span>,<span class="dt">size=</span><span class="dv">2</span>)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Residual plot&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Amount&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Residuals&quot;</span>)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/quad_example3-1.png" width="672" />
 The new regression equation is now
-<span class="math display">\[\hat{Y}_{i} = 2.81 + 0.63x_{i}-0.28x^{2}_{i}-0.24x^{3}_{i}\]</span>.</p>
-<p>In wrapping up the misspecified model, if a linear model does not look appropriate (there is a pattern in the residual plot), then you can try the following remedies:
-1. Fit a polynomial or more complex regression model.<br />
-2. Transform the dependent and/or independent variables to obtain linearity.<br />
-3. Fit a nonlinear regression model, if appropriate (will need to decide shape of nonlinear model).<br />
-4. Fit a nonparametric regression model (for example splines or a LOESS regression).<br />
-</p>
+<span class="math display">\[\hat{Y}_{i} = 2.81 + 0.63x_{i}-0.28x^{2}_{i}-0.24x^{3}_{i}.\]</span></p>
+<p>In wrapping up the misspecified model, if a linear model does not look appropriate (there is a pattern in the residual plot), then you can try the following remedies:</p>
+<ol style="list-style-type: decimal">
+<li>Fit a polynomial or more complex regression model.<br />
+</li>
+<li>Transform the dependent and/or independent variables to obtain linearity.<br />
+</li>
+<li>Fit a nonlinear regression model, if appropriate (will need to decide shape of nonlinear model).<br />
+</li>
+<li>Fit a nonparametric regression model (for example splines or a LOESS regression).<br />
+</li>
+</ol>
 </div>
 <div id="constant-variance" class="section level2">
 <h2><span class="header-section-number">5.3</span> Constant Variance</h2>
 <p>Another assumption for linear regression is that the variance is constant about the line. Looking at the graph below, you see that the variation about the line is constant across the line (notice the bands that have been drawn around the line).</p>
-<p><img src="bookdownproj_files/figure-html/const_var-1.png" width="672" />
-However, an example of where this is not true is shown in the graph below.</p>
-<p><img src="bookdownproj_files/figure-html/nonconst_var-1.png" width="672" /></p>
+<div class="figure" style="text-align: center">
+<img src="bookdownproj_files/figure-html/const_var-1.png" alt="Residual Plot Showing Non-Constant Variance" width="672" />
+<p class="caption">
+(#fig:const_var)Residual Plot Showing Non-Constant Variance
+</p>
+</div>
+<p>However, an example of where this is not true is shown in the graph below.</p>
+<div class="figure" style="text-align: center">
+<img src="bookdownproj_files/figure-html/nonconst_var-1.png" alt="Residual Plot Showing Non-Constant Variance" width="672" />
+<p class="caption">
+(#fig:nonconst_var)Residual Plot Showing Non-Constant Variance
+</p>
+</div>
 <p>Notice how the variability increases as the predicted values increase (the bands get wider). This is referred to as heteroskedasticity in the variance, which violates the constant variance assumption (homoskedasticity). The homoskedastic assumption is about the regression line, so it is best to look at the plot of residuals versus predicted values (not individual x-values). There are a few tests for this assumption, but have a number of problems with them. Best way to evaluate this assumption is by visualizing the residual plot and make a judgement call. If the variance appears to be heteroskadastic, any inferences under the traditional assumptions will be incorrect. In other words, hypothesis tests and confidence intervals based on the t, F, and <span class="math inline">\(\chi^{2}\)</span> distributions will not be valid.</p>
 <p><strong>Example</strong></p>
-<p>The following fictious salary data set is from <em>Applied Statistics with R</em> (online textbook <a href="https://daviddalpiaz.github.io/appliedstats/index.html" class="uri">https://daviddalpiaz.github.io/appliedstats/index.html</a>). The explanatory variable is number of years employment and the response variable is annual salary.</p>
+<p>The following fictious salary data set is from the online textbook <a href="https://daviddalpiaz.github.io/appliedstats/index.html"><em>Applied Statistics with R</em></a>. The explanatory variable is number of years employment and the response variable is annual salary.</p>
 <div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" data-line-number="1">years=<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">11</span>,<span class="dv">11</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="dv">13</span>,<span class="dv">13</span>,<span class="dv">13</span>,<span class="dv">13</span>,<span class="dv">14</span>,<span class="dv">14</span>,<span class="dv">14</span>,<span class="dv">14</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">18</span>,<span class="dv">18</span>,<span class="dv">18</span>,<span class="dv">18</span>,<span class="dv">19</span>,<span class="dv">19</span>,<span class="dv">19</span>,<span class="dv">19</span>,<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">21</span>,<span class="dv">21</span>,<span class="dv">21</span>,<span class="dv">21</span>,<span class="dv">22</span>,<span class="dv">22</span>,<span class="dv">22</span>,<span class="dv">22</span>,<span class="dv">23</span>,<span class="dv">23</span>,<span class="dv">23</span>,<span class="dv">23</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">25</span>,<span class="dv">25</span>,<span class="dv">25</span>)</a>
 <a class="sourceLine" id="cb179-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb179-3" data-line-number="3">salary=<span class="kw">c</span>(<span class="dv">41504</span>,<span class="dv">32619</span>,<span class="dv">44322</span>,<span class="dv">40038</span>,<span class="dv">46147</span>,<span class="dv">38447</span>,<span class="dv">38163</span>,<span class="dv">42104</span>,<span class="dv">25597</span>,<span class="dv">39599</span>,<span class="dv">55698</span>,<span class="dv">47220</span>,<span class="dv">65929</span>,<span class="dv">55794</span>,<span class="dv">45959</span>,<span class="dv">52460</span>,<span class="dv">60308</span>,<span class="dv">61458</span>,<span class="dv">56951</span>,<span class="dv">56174</span>,<span class="dv">59363</span>,<span class="dv">57642</span>,<span class="dv">69792</span>,<span class="dv">59321</span>,<span class="dv">66379</span>,<span class="dv">64282</span>,<span class="dv">48901</span>,<span class="dv">100711</span>,<span class="dv">59324</span>,<span class="dv">54752</span>,<span class="dv">73619</span>,<span class="dv">65382</span>,<span class="dv">58823</span>,<span class="dv">65717</span>,<span class="dv">92816</span>,<span class="dv">72550</span>,<span class="dv">71365</span>,<span class="dv">88888</span>,<span class="dv">62969</span>,<span class="dv">45298</span>,<span class="dv">111292</span>,<span class="dv">91491</span>,<span class="dv">106345</span>,<span class="dv">99009</span>,<span class="dv">73981</span>,<span class="dv">72547</span>,<span class="dv">74991</span>,<span class="dv">139249</span>,<span class="dv">119948</span>,<span class="dv">128962</span>,<span class="dv">98112</span>,<span class="dv">97159</span>,<span class="dv">125246</span>,<span class="dv">89694</span>,<span class="dv">73333</span>,<span class="dv">108710</span>,<span class="dv">97567</span>,<span class="dv">90359</span>,<span class="dv">119806</span>,<span class="dv">101343</span>,<span class="dv">147406</span>,<span class="dv">153020</span>,<span class="dv">143200</span>,<span class="dv">97327</span>,<span class="dv">184807</span>,<span class="dv">146263</span>,<span class="dv">127925</span>,<span class="dv">159785</span>,<span class="dv">174822</span>,<span class="dv">177610</span>,<span class="dv">210984</span>,<span class="dv">160044</span>,<span class="dv">137044</span>,<span class="dv">182996</span>,<span class="dv">184183</span>,<span class="dv">168666</span>,<span class="dv">121350</span>,<span class="dv">193627</span>,<span class="dv">142611</span>,<span class="dv">170131</span>,<span class="dv">134140</span>,<span class="dv">129446</span>,<span class="dv">201469</span>,<span class="dv">202104</span>,<span class="dv">220556</span>,<span class="dv">166419</span>,<span class="dv">149044</span>,<span class="dv">247017</span>,<span class="dv">247730</span>,<span class="dv">252917</span>,<span class="dv">235517</span>,<span class="dv">241276</span>,<span class="dv">197229</span>,<span class="dv">175879</span>,<span class="dv">253682</span>,<span class="dv">262578</span>,<span class="dv">207715</span>,<span class="dv">221179</span>,<span class="dv">212028</span>,<span class="dv">312549</span>)</a>
@@ -436,9 +466,19 @@ However, an example of where this is not true is shown in the graph below.</p>
 <a class="sourceLine" id="cb179-5" data-line-number="5">lm.var=<span class="kw">lm</span>(salary<span class="op">~</span>years)</a>
 <a class="sourceLine" id="cb179-6" data-line-number="6"></a>
 <a class="sourceLine" id="cb179-7" data-line-number="7"><span class="kw">ggplot</span>(lm.var,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">fitted</span>(lm.var),<span class="dt">y=</span><span class="kw">resid</span>(lm.var)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;blue&quot;</span>)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Residual Plot&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Predicted Values&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Residuals&quot;</span>)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/var_example-1.png" width="672" />
-As you can see from the residual plot, the graph exhibits a fan-shape and the variance is increasing as the predicted values get larger. We can apply a logarithmic transform to try to stabilize the variance.</p>
-<p><img src="bookdownproj_files/figure-html/correct_exam-1.png" width="672" /></p>
+<div class="figure" style="text-align: center">
+<img src="bookdownproj_files/figure-html/var_example-1.png" alt="Residuals With Heteroskedasticity" width="672" />
+<p class="caption">
+(#fig:var_example)Residuals With Heteroskedasticity
+</p>
+</div>
+<p>As you can see from the residual plot, the graph exhibits a fan-shape and the variance is increasing as the predicted values get larger. We can apply a logarithmic transform to try to stabilize the variance.</p>
+<div class="figure" style="text-align: center">
+<img src="bookdownproj_files/figure-html/correct_exam-1.png" alt="Residual Plot Showing Stabilized Variance after Log Transform" width="672" />
+<p class="caption">
+(#fig:correct_exam)Residual Plot Showing Stabilized Variance after Log Transform
+</p>
+</div>
 <p>The log transform stabilized the variance and produces a better residual plot.</p>
 <p>If the assumption of Homoskadicity of variance is violated, there are a few remedies you can try:
 1. Use Weighted Least Squares (WLS) or iteratively reweighted least squares (IRLS).<br />
@@ -451,7 +491,12 @@ As you can see from the residual plot, the graph exhibits a fan-shape and the va
 <p>Another assumption is that the residuals are normally distributed. We can test this assumption through use of visual aids or formal hypothesis tests. visual aids include a histogram of the residuals or Q-Q plot of residuals. A few tests of normality of residuals, include (but not limited to) Shapiro-Wilk, Anderson-Darling, Kolmogorov-Smirnov tests. In addition to the base R package, you should also install and library the nortest package.</p>
 <p><strong>Visualization</strong></p>
 <p>To visually inspect whether or not the residuals are normally distributed, we can either graph the historgram of residuals or create a Q-Q plot of the residuals. In the histogram, we are looking for a bell-shaped curve and in the Q-Q plot, we are looking for a straight line.</p>
-<p><img src="bookdownproj_files/figure-html/normal_vis-1.png" width="672" /><img src="bookdownproj_files/figure-html/normal_vis-2.png" width="672" /></p>
+<div class="figure" style="text-align: center">
+<img src="bookdownproj_files/figure-html/normal_vis-1.png" alt="Histogram and Q-Q Plot of Residuals" width="672" />
+<p class="caption">
+(#fig:normal_vis)Histogram and Q-Q Plot of Residuals
+</p>
+</div>
 <p><strong>Formal Hypothesis tests</strong></p>
 <p>You can also run a formal hypothesis test. The hypotheses are  <span class="math inline">\(H_{0}:\)</span> Residuals are normally distributed<br />
 <span class="math inline">\(H_{A}:\)</span> Residuals are not normally distributed.<br />
@@ -505,21 +550,35 @@ The output from the graph clearly incates that <span class="math inline">\(\lamb
 <div id="correlated-errors" class="section level2">
 <h2><span class="header-section-number">5.5</span> Correlated Errors</h2>
 <p>Another important assumption is that the observations are independent. There are a couple of ways in which we assess this assumtpion:<br />
-1. Experimental design or collection of data<br />
-2. Explore residual plots<br />
 </p>
+<ol style="list-style-type: decimal">
+<li>Experimental design or collection of data<br />
+</li>
+<li>Explore residual plots<br />
+</li>
+</ol>
 <p>Depending on how the data was collected or the experimental design, there could be potential correlation in the observations. For example, if the data collected information on multiple family members (included husband and wife and kids). Or if multiple observations were collected on the same subject. There are various models that exists that can account for this dependence (longitudinal analysis, hierarchical models, etc). However, this type of analysis will be covered later throughout the year. There is no diagnostic measures to indicate this correlation structure. Your best way of knowing it is there is to know the experimental design or collection of data. 
 We will focus our attention on a form of dependence that is evident from residual plots, which is autocorrelation. This happens when ordered observations are dependent on prior observations. One of the most common instances of this correlation structure is through data that is collected over time, also referred to as time series. You will learn more about time series data in the Fall semester, but for now, let’s explore how recognize if it is an issue in the analysis. To diagnose autocorrelation in data, you can<br />
-1. Visually inspect the plot of residuals by time<br />
-2. Conduct a Durbin-Watson test<br />
-In visually inspecting a plot of residuals across time, you would expect to see a type of cyclical pattern if autocorrelation exists (see plot below).</p>
+</p>
+<ol style="list-style-type: decimal">
+<li>Visually inspect the plot of residuals by time<br />
+</li>
+<li>Conduct a Durbin-Watson test<br />
+</li>
+</ol>
+<p>In visually inspecting a plot of residuals across time, you would expect to see a type of cyclical pattern if autocorrelation exists as it does in Figure (fig:autoplot).</p>
 <div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">49205</span>)</a>
 <a class="sourceLine" id="cb185-2" data-line-number="2">error1=<span class="kw">rnorm</span>(<span class="dv">50</span>)</a>
 <a class="sourceLine" id="cb185-3" data-line-number="3">x=<span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">50</span>)</a>
 <a class="sourceLine" id="cb185-4" data-line-number="4">y=<span class="kw">sin</span>(<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>x<span class="op">/</span><span class="dv">12</span>)<span class="op">+</span>error1</a>
 <a class="sourceLine" id="cb185-5" data-line-number="5">temp=<span class="kw">data.frame</span>(<span class="kw">cbind</span>(x,y))</a>
-<a class="sourceLine" id="cb185-6" data-line-number="6"><span class="kw">ggplot</span>(temp,<span class="kw">aes</span>(<span class="dt">x=</span>x,<span class="dt">y=</span>y))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;blue&quot;</span>)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Residuals by Time&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Time&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Residuals&quot;</span>)<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span><span class="kw">sin</span>(<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>x<span class="op">/</span><span class="dv">12</span>), <span class="dt">size =</span> <span class="dv">1</span>)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/auto_plot-1.png" width="672" /></p>
+<a class="sourceLine" id="cb185-6" data-line-number="6"><span class="kw">ggplot</span>(temp,<span class="kw">aes</span>(<span class="dt">x=</span>x,<span class="dt">y=</span>y))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;blue&quot;</span>)<span class="op">+</span><span class="kw">labs</span>( <span class="dt">x=</span><span class="st">&quot;Time&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Residuals&quot;</span>)<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span><span class="kw">sin</span>(<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>x<span class="op">/</span><span class="dv">12</span>), <span class="dt">size =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:autoplot"></span>
+<img src="bookdownproj_files/figure-html/autoplot-1.png" alt="Residuals vs Time: Autocorrelation Present" width="672" />
+<p class="caption">
+Figure 5.2: Residuals vs Time: Autocorrelation Present
+</p>
+</div>
 <p>In using the Durbin-Watson test, the hypotheses are:<br />
 <span class="math inline">\(H_{0}:\)</span> No residual correlation<br />
 <span class="math inline">\(H_{A}:\)</span> Residual Correlation<br />
@@ -545,8 +604,10 @@ The following data set illustrates this test using the Google data set in the TS
 </div>
 <div id="influential-observations-and-outliers" class="section level2">
 <h2><span class="header-section-number">5.6</span> Influential Observations and Outliers</h2>
-<p>Influential points and outliers play a large role in the estimation of the model and its prediction. Influential points are usually those points on the edges of the x-values and can greatly impact the slopes in the regression equation. Outliers tend to be those values that do not follow the trend of the data and are generally found by large deviations in the y direction. For multiple linear regression, outliers are found by using residuals. These can be standardize residuals or studentized residuals. Influential points can be discovered by Cook’s D, dffits, dfbetas or Hat values.<br />
-<em>Outliers</em><br />
+<p>Influential points and outliers play a large role in the estimation of the model and its prediction. Influential points are usually those points on the edges of the x-values and can greatly impact the slopes in the regression equation. Outliers tend to be those values that do not follow the trend of the data and are generally found by large deviations in the y direction. For multiple linear regression, outliers are found by using residuals. These can be standardize residuals or studentized residuals. Influential points can be discovered by Cook’s D, dffits, dfbetas or Hat values. These points are important to identify and recognize their influence on the regression, however, it does NOT mean that these points should be removed. Removal of data should be taken very seriously. We would obviously want to omit any observations made in error, due to typos or reporting inaccuracies, but we do not remove data points just because they are outside the scope of our expectations. We have many tools at our disposal for modeling with such observations, and we should always develop a deep understanding of the application-specific risks and rewards associated with data removal.<br />
+</p>
+<p>In the this section we will cover the following statistics to help us detect outliers and influential observations respectively.</p>
+<p><em>Outliers</em><br />
 rstandard<br />
 rstudent<br />
 <em>Influential observations</em><br />
@@ -555,6 +616,77 @@ dfbetas<br />
 cooks.distance<br />
 hatvalues<br />
 </p>
+<p><em>Outliers</em><br />
+In using residuals to detect outliers, we first need to “standardize” them, or divide by their standard errors. In this sense, we can think of these “standardized” residuals as an approximate z-score. Therefore, we look for residuals greater in magnitude than 3 as potential outliers. R calculates two different types of standardized residuals: 1. internally studentized residuals and 2. externally studentized residuals. Internally studentized residuals are definied as
+<span class="math display">\[ r_{i}=\frac{e_{i}}{\hat\sigma\sqrt{1-H_{ii}}},\]</span>
+where <span class="math inline">\(\hat\sigma\)</span> is the square root of the MSE and <span class="math inline">\(H_{ii}\)</span> is from the diagonal of the hat matrix (hat matrix will be discussed in influential observations). In R, these are denoted by rstandard. Externally studentized residuals are definied as
+<span class="math display">\[ t_{i}=\frac{e_{i}}{\hat\sigma_{(i)}\sqrt{1-H_{ii}}},\]</span>
+where <span class="math inline">\(\hat\sigma_{(i)}\)</span> is the square root of the MSE calculated when observation <em>i</em> is deleted and <span class="math inline">\(H_{ii}\)</span> is from the diagonal of the hat matrix. The externally studentized residuals follow a t-distribution with n-k-2, where k is the number of explanatory variables(notice that this has one less degree of freedome than the usual error in regression which is due to the one deleted observation). The R code to obtain externally studentized residuals is rstudent.</p>
+<p><em>Influential observations</em><br />
+Influential observations are observations that can dramatically change the model’s estimates. It is important to identify and understand these where these observations are. There are a number of different measures to aid in identifying influential observations, which will be discussed below.<br />
+Cook’s distance, also referred to as Cook’s D, measures the difference in the regression estimates when the <span class="math inline">\(i^{th}\)</span> observation is left out. A rough rule of thumb used as a cutoff is if <span class="math inline">\(D_{i}\)</span> is greater than <span class="math inline">\(\frac{4}{n-p-1}\)</span>.<br />
+Dffits calculates the difference of fitted values for each point in the regression versus the fit of the regression line for that point if it was removed. Large values of dffits indicate that the point is influential in the calculation of the estimated regression line. As a general rule of thumb, a cutoff of <span class="math inline">\(2\sqrt{(p+1)/n}\)</span> is used to identify potential influential points.<br />
+Dfbetas follows the same idea as dffits. The difference in the estimated betas is calculated for each observation (observation included in the estimated beta and observation NOT included in estimating the beta). This is done for each individual observation and each estimated beta. For small data sets, a value greater than 1 is suspect of an influential observation. For large data sets, the cutoff is <span class="math inline">\(\frac{2}{\sqrt{n}}\)</span>.<br />
+The hat values <span class="math inline">\(H_{ii}\)</span> are the diagonal values of <span class="math display">\[\boldsymbol{X(X^{T}X)^{-1.}X^{T}}.\]</span> Hat values can identify high leverage points in a regression. A general rule of thumb are hat values greater than <span class="math inline">\(\frac{2(p+1)}{n}\)</span>.</p>
+<p><strong>Example</strong>
+We will use the Scottish hill races as an example to illustrate how to calculate and visualize these values. The Scottish hill races include the following variables:<br />
+Time: Record time to complete course<br />
+Distance: Distance in the course<br />
+Climb: Vertical climb in the course<br />
+</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb188-1" data-line-number="1">url =<span class="st"> &#39;http://www.statsci.org/data/general/hills.txt&#39;</span> </a>
+<a class="sourceLine" id="cb188-2" data-line-number="2">races.table =<span class="st"> </span><span class="kw">read.table</span>(url, <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">sep=</span><span class="st">&#39;</span><span class="ch">\t</span><span class="st">&#39;</span>)</a>
+<a class="sourceLine" id="cb188-3" data-line-number="3">n.index=<span class="kw">seq</span>(<span class="dv">1</span>,<span class="kw">nrow</span>(races.table))</a>
+<a class="sourceLine" id="cb188-4" data-line-number="4">races.table=<span class="kw">cbind</span>(races.table,n.index)</a>
+<a class="sourceLine" id="cb188-5" data-line-number="5">lm.model=<span class="kw">lm</span>(Time<span class="op">~</span>Distance<span class="op">+</span>Climb,<span class="dt">data=</span>races.table)</a>
+<a class="sourceLine" id="cb188-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb188-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb188-8" data-line-number="8"><span class="co">##Plots of outliers</span></a>
+<a class="sourceLine" id="cb188-9" data-line-number="9">a =<span class="st"> </span><span class="kw">ggplot</span>(lm.model,<span class="kw">aes</span>(<span class="dt">x=</span>n.index,<span class="dt">y=</span><span class="kw">rstandard</span>(lm.model)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;orange&quot;</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span><span class="op">-</span><span class="dv">3</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span><span class="dv">3</span>)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Internal Studentized Residuals&quot;</span>,<span class="dt">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Residuals&quot;</span>)</a>
+<a class="sourceLine" id="cb188-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb188-11" data-line-number="11">b =<span class="st"> </span><span class="kw">ggplot</span>(lm.model,<span class="kw">aes</span>(<span class="dt">x=</span>n.index,<span class="dt">y=</span><span class="kw">rstudent</span>(lm.model)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;orange&quot;</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span><span class="op">-</span><span class="dv">3</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span><span class="dv">3</span>)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;External Studentized Residuals&quot;</span>,<span class="dt">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Residuals&quot;</span>)</a>
+<a class="sourceLine" id="cb188-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb188-13" data-line-number="13"><span class="co">##Influential points</span></a>
+<a class="sourceLine" id="cb188-14" data-line-number="14">c =<span class="st"> </span><span class="kw">ggplot</span>(lm.model,<span class="kw">aes</span>(<span class="dt">x=</span>n.index,<span class="dt">y=</span><span class="kw">rstandard</span>(lm.model)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;orange&quot;</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span><span class="op">-</span><span class="dv">3</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span><span class="dv">3</span>)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Internal Studentized Residuals&quot;</span>,<span class="dt">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Residuals&quot;</span>)</a>
+<a class="sourceLine" id="cb188-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb188-16" data-line-number="16"><span class="co">##Cook&#39;s D</span></a>
+<a class="sourceLine" id="cb188-17" data-line-number="17">D.cut=<span class="dv">4</span><span class="op">/</span>(<span class="kw">nrow</span>(races.table)<span class="op">-</span><span class="dv">3-1</span>)</a>
+<a class="sourceLine" id="cb188-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb188-19" data-line-number="19">d =<span class="kw">ggplot</span>(lm.model,<span class="kw">aes</span>(<span class="dt">x=</span>n.index,<span class="dt">y=</span><span class="kw">cooks.distance</span>(lm.model)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;orange&quot;</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span>D.cut)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Cook&#39;s D&quot;</span>,<span class="dt">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Cook&#39;s Distance&quot;</span>)</a>
+<a class="sourceLine" id="cb188-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb188-21" data-line-number="21"><span class="co">##Dffit</span></a>
+<a class="sourceLine" id="cb188-22" data-line-number="22">df.cut=<span class="dv">2</span><span class="op">*</span>(<span class="kw">sqrt</span>((<span class="dv">3</span><span class="op">+</span><span class="dv">1</span>)<span class="op">/</span><span class="kw">nrow</span>(races.table)))</a>
+<a class="sourceLine" id="cb188-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb188-24" data-line-number="24">e =<span class="kw">ggplot</span>(lm.model,<span class="kw">aes</span>(<span class="dt">x=</span>n.index,<span class="dt">y=</span><span class="kw">dffits</span>(lm.model)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;orange&quot;</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span>df.cut)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span><span class="op">-</span>df.cut)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;DFFITS&quot;</span>,<span class="dt">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="dt">y=</span><span class="st">&quot;DFFITS&quot;</span>)</a>
+<a class="sourceLine" id="cb188-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb188-26" data-line-number="26">db.cut=<span class="dv">2</span><span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">nrow</span>(races.table))</a>
+<a class="sourceLine" id="cb188-27" data-line-number="27"></a>
+<a class="sourceLine" id="cb188-28" data-line-number="28"></a>
+<a class="sourceLine" id="cb188-29" data-line-number="29">f =<span class="kw">ggplot</span>(lm.model,<span class="kw">aes</span>(<span class="dt">x=</span>n.index,<span class="dt">y=</span><span class="kw">dfbetas</span>(lm.model)[,<span class="st">&#39;Climb&#39;</span>]))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;orange&quot;</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span>db.cut)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span><span class="op">-</span>db.cut)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;DFBETA for Climb&quot;</span>,<span class="dt">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="dt">y=</span><span class="st">&quot;DFBETAS&quot;</span>)</a>
+<a class="sourceLine" id="cb188-30" data-line-number="30"></a>
+<a class="sourceLine" id="cb188-31" data-line-number="31">g =<span class="kw">ggplot</span>(lm.model,<span class="kw">aes</span>(<span class="dt">x=</span>n.index,<span class="dt">y=</span><span class="kw">dfbetas</span>(lm.model)[,<span class="st">&#39;Distance&#39;</span>]))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;orange&quot;</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span>db.cut)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span><span class="op">-</span>db.cut)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;DFBETA for Distance&quot;</span>,<span class="dt">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="dt">y=</span><span class="st">&quot;DFBETAS&quot;</span>)</a>
+<a class="sourceLine" id="cb188-32" data-line-number="32"></a>
+<a class="sourceLine" id="cb188-33" data-line-number="33"><span class="co">##Hat</span></a>
+<a class="sourceLine" id="cb188-34" data-line-number="34">hat.cut=<span class="dv">2</span><span class="op">*</span>(<span class="dv">3</span><span class="op">+</span><span class="dv">1</span>)<span class="op">/</span><span class="kw">nrow</span>(races.table)</a>
+<a class="sourceLine" id="cb188-35" data-line-number="35"></a>
+<a class="sourceLine" id="cb188-36" data-line-number="36">h =<span class="st"> </span><span class="kw">ggplot</span>(lm.model,<span class="kw">aes</span>(<span class="dt">x=</span>n.index,<span class="dt">y=</span><span class="kw">hatvalues</span>(lm.model)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;orange&quot;</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span>hat.cut)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Hat values&quot;</span>,<span class="dt">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Hat Values&quot;</span>)</a>
+<a class="sourceLine" id="cb188-37" data-line-number="37"></a>
+<a class="sourceLine" id="cb188-38" data-line-number="38"><span class="kw">grid.arrange</span>(a,b,c,d,e,f,g,<span class="dt">ncol=</span><span class="dv">2</span>)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:influence"></span>
+<img src="bookdownproj_files/figure-html/influence-1.png" alt="Plots for Exploring Outliers and Influential Points" width="672" />
+<p class="caption">
+Figure 5.3: Plots for Exploring Outliers and Influential Points
+</p>
+</div>
+<p>Figure <a href="#influence"><strong>??</strong></a> shows a number of useful graphics that help us explore outliers and influential points.</p>
+<p>A good graph to explore is looking at the external studentized residuals versus the hat values. An observation that is high leverage AND an outlier is one that needs to be explored.</p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" data-line-number="1"><span class="kw">ggplot</span>(lm.model,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">hatvalues</span>(lm.model),<span class="dt">y=</span><span class="kw">rstudent</span>(lm.model))) <span class="op">+</span><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;orange&quot;</span>)<span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Hat values&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Residuals&quot;</span>)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:influenceresid"></span>
+<img src="bookdownproj_files/figure-html/influenceresid-1.png" alt="Influential and Outlier Observations" width="672" />
+<p class="caption">
+Figure 5.4: Influential and Outlier Observations
+</p>
+</div>
 </div>
 <div id="multicollinearity" class="section level2">
 <h2><span class="header-section-number">5.7</span> Multicollinearity</h2>
@@ -583,7 +715,7 @@ vs: Engine (0 = V-shaped, 1 = straight)<br />
 am: Transmission (0 = automatic, 1 = manual)<br />
 gear: Number of forward gears<br />
 </p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb188-1" data-line-number="1"><span class="kw">cor</span>(mtcars)</a></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" data-line-number="1"><span class="kw">cor</span>(mtcars)</a></code></pre></div>
 <pre><code>##             mpg        cyl       disp         hp        drat         wt
 ## mpg   1.0000000 -0.8521620 -0.8475514 -0.7761684  0.68117191 -0.8676594
 ## cyl  -0.8521620  1.0000000  0.9020329  0.8324475 -0.69993811  0.7824958
@@ -608,15 +740,15 @@ gear: Number of forward gears<br />
 ## am   -0.22986086  0.1683451  1.00000000  0.7940588  0.05753435
 ## gear -0.21268223  0.2060233  0.79405876  1.0000000  0.27407284
 ## carb -0.65624923 -0.5696071  0.05753435  0.2740728  1.00000000</code></pre>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" data-line-number="1">lm.model=<span class="kw">lm</span>(mpg<span class="op">~</span>.,<span class="dt">data=</span>mtcars)</a>
-<a class="sourceLine" id="cb190-2" data-line-number="2"><span class="kw">vif</span>(lm.model)</a></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" data-line-number="1">lm.model=<span class="kw">lm</span>(mpg<span class="op">~</span>.,<span class="dt">data=</span>mtcars)</a>
+<a class="sourceLine" id="cb192-2" data-line-number="2"><span class="kw">vif</span>(lm.model)</a></code></pre></div>
 <pre><code>##       cyl      disp        hp      drat        wt      qsec        vs        am 
 ## 15.373833 21.620241  9.832037  3.374620 15.164887  7.527958  4.965873  4.648487 
 ##      gear      carb 
 ##  5.357452  7.908747</code></pre>
-<p>From the correlation output and VIF output, it is clear to see that multicollinearity is an issue. To deal with multicollinearity, we can<br />
+<p>From the correlation output and VIF output, it is clear to see that multicollinearity is an issue. To deal with multicollinearity, we can do either of the following:
 1. Remove one or more variables that are co-linearly related to another variable(s).<br />
-2. Create new transformed variables (can add variables; create ratio of variables, etc).<br />
+2. Create new transformed variables (take linear combinations of variables; create ratio of variables, etc).<br />
 </p>
 
 </div>

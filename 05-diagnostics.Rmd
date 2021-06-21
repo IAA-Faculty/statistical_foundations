@@ -1,14 +1,13 @@
-# Diagnostics
+# Diagnostics {#diag}
 
 In this Chapter, we will take a look at each of the assumptions in a linear model.  We will discuss what tools you will use to assess these assumptions, how to diagnose if the assumptions are met, some common problems often encountered when these assumptions do not hold and finally some remedies to fix these common issues.  You will notice that a variety of data sets are used throughout this Chapter. This is to help visualize and test for various assumptions and how to identify when these assumptions are not met.
 
 In multiple linear regression, the assumptions are as follows:
 
   1. The mean of the Y's is accurately modeled by a linear function of the X's.\
-  2. The random error term, $\epsilon$, is assumed to have a normal distribution with a mean of zero.\
-  3. The random error term, $\epsilon$, is assumed to have a constant variance, $\sigma^{2}$. \
+  2. The random error term, $\varepsilon$, is assumed to have a normal distribution with a mean of zero.\
+  3. The random error term, $\varepsilon$, is assumed to have a constant variance, $\sigma^{2}$. \
   4. The errors are independent. \
-
   5. No perfect collinearity. \
   
 Before starting on investigating the assumptions, it is always good to take a look at your data (if it is not too large).  The `pairs` command in R allows you to look at all scatterplots between the variables in a data set.  
@@ -16,17 +15,17 @@ Before starting on investigating the assumptions, it is always good to take a lo
 To illustrate this, we will use the Salaries data set in the package carData in R that has 397 observations of salaries for professors.  The explanatory variables include:
 
 <ul> 
-<li> rank: a factor with levels AssocProf, AsstProf, Prof
-<li> discipline: a factor with levels A (“theoretical” departments) or B (“applied” departments)
-<li> yrs.since.phd: years since PhD
-<li> yrs.service: years of service
-<li> sex: a factor with levels Female and Male
-<li> salary: nine-month salary, in dollars
+<li> _rank_: a factor with levels AssocProf, AsstProf, Prof
+<li> _discipline_: a factor with levels A (“theoretical” departments) or B (“applied” departments)
+<li> _yrs.since.phd_: years since PhD
+<li> _yrs.service_: years of service
+<li> _sex_: a factor with levels Female and Male
+<li> _salary_: nine-month salary, in dollars
 </ul>
-Using this data set, let's take a look at the relationship between each of the variables.
+Using this data set, let's take a look at the relationship between each pair of variables in Figure \@ref(fig:pairsex).
 
 
-```{r pairs_ex, prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
+```{r fig=T, label='pairsex', fig.align='center',fig.cap='Matrix of Scatter Plots for the Salaries Data', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
 
 pairs(Salaries)
 
@@ -35,61 +34,61 @@ If there are not too many variables, this plot is a nice way to see all the rela
 
 ## Examining Residuals
 
-As you can see from the above list of assumptions that most of them involve the error term which is estimated by the residuals.  We will be using the residuals for many of these diagnostics.  One of the most useful plot is referred as the residual plot.  This plot will have the residuals along the y-axis and either the predicted values or individual x-values along the x-axis.  The residual plot below illustrates the linear model created by using the above data set (with all of the explanatory variables). This model plots the residuals along the y-axis and the predicted values along the x-axis. 
+As you can see from the above list of assumptions that most of them involve the error term which is estimated by the residuals.  We will be using the residuals for many of these diagnostics.  One of the most useful plot is referred as the residual plot.  This plot will have the residuals along the y-axis and either the predicted values or individual x-values along the x-axis.  Figure \ref@(fig:salresid) is an example using the residuals from a linear model predicting salary using all of the explanatory variables. 
 
-```{r sal_resid, prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
+```{r label='salresid', fig=T, prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE, fig.cap = 'Residuals vs. Predicted Values for Salary Model'}
 
 lm.model=lm(salary~.,data=Salaries)
 
-ggplot(lm.model,aes(x=fitted(lm.model),y=resid(lm.model)))+geom_point(color="blue")+labs(title="Residual Plot for Salaries data",x="Predicted Values",y="Residuals")
+ggplot(lm.model,aes(x=fitted(lm.model),y=resid(lm.model)))+geom_point(color="blue")+labs(x="Predicted Values",y="Residuals")
 
 ```
 
 ## Misspecified Model
 
-One of the assumptions assumes that the mean of the Y's is accurately modeled by a linear function of the X's.  If this is true, then we would expect our residual plots to illustrate a random pattern (in other words, all of the "signal" was correctly captured in the model and there is just noise left over).
+One of the assumptions assumes that the expected value of the response is accurately modeled by a linear function of the explanatory variables.  If this is true, then we would expect our residual plots to be random scatter (in other words, all of the "signal" was correctly captured in the model and there is just noise left over).
 
-```{r correct_spec, prompt=FALSE, eval=TRUE, message = FALSE, echo=FALSE}
+```{r label='correctspec', prompt=FALSE, eval=TRUE, message = FALSE, echo=FALSE, fig.cap = 'Ideal residual plot showing residual values randomly distributed with equal variance'}
 
 y=rnorm(1000,0,4)
 x=seq(1,1000)
 temp=data.frame(cbind(x,y))
 
-ggplot(temp,aes(x=x,y=y))+geom_point(color="orange")+labs(title="Good Residual Plot",x="Predicted Values",y="Residuals")
+ggplot(temp,aes(x=x,y=y))+geom_point(color="orange")+labs(x="Predicted Values",y="Residuals")
 
 ```
 
-Looking at the above plot, we see that there is no pattern.  If you did see some type of pattern in this residual plot, it would indicate that you are missing something and need to do some more modeling.  For example, a quadratic shape or curvilinear pattern to the residuals would indicate that at one of our input variables has a nonlinear relationship to the response and transformations should be made to that input accordingly. For example, a residual scatter plot like Figure \@ref(fig:quadpattern) would prompt us to consider a quadratic term. 
+Looking at the plot in Figure \@ref(fig:correctspec), we see that there is no pattern.  If you did see some type of pattern in this residual plot, it would indicate that you are missing something and need to do some more modeling.  For example, a quadratic shape or curvilinear pattern to the residuals would indicate that one of our input variables has a nonlinear relationship to the response and transformations should be made to that input accordingly. For example, a residual scatter plot like Figure \@ref(fig:quadpattern) would prompt us to consider a quadratic term. 
 
-```{r fig=T, label='quadpattern', prompt=FALSE, eval=TRUE, message = FALSE, echo=FALSE}
+```{r fig=T, fig.align='center', fig.cap = 'Residual plot indicating that a quadratic term is required', label='quadpattern', prompt=FALSE, eval=TRUE, message = FALSE, echo=FALSE }
 x=seq(1,1000)
 y=2-0.00001*(x-500)^2+rnorm(1000)
 temp=data.frame(cbind(x,y))
-ggplot(temp,aes(x=x,y=y))+geom_point(color="blue")+labs(title="Quadratic needed",x="X",y="Residuals")
+ggplot(temp,aes(x=x,y=y))+geom_point(color="blue")+labs(x="X",y="Residuals")
 ```
-If your model has more than one x, it is easier to see if an individual x has a quadratic relationship with the response when looking at residuals versus each of the x-variables.  
+If your model has more than one x, it is easier to see if an individual input variable has a quadratic relationship with the response when looking at plots like Figure \@ref(fig:quadpattern) where the input variable is on the x-axis. 
 
 **Example**
 
 Let's take a look at an example of where a quadratic linear regression is needed. This example is studying the effect of a chemical additive on paper strength.  The response variable is the amount of force required to break the paper (strength) and the explanatory variable is the amount of chemical additive (amount).
 
 
-```{r quad_example, prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
+```{r fig=T, fig.align='center', fig.cap = 'Residual Plot Showing a Quadratic Relationship', label='quadexample1', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
 
  amount=c(1,1,1,2,2,2,2,2,3,3,3,3,4,4,4,4,4,5,5,5,5,5)
  strength=c(2.4,2.6,2.7,2.5,2.6,2.6,2.7,2.8,2.8,2.8,3.0,3.0,3.0,2.9,2.9,3.0,3.1,2.9,2.9,3.0,2.9,2.8)
  lm.quad=lm(strength~amount)
  summary(lm.quad)
- ggplot(lm.quad,aes(x=amount,y=resid(lm.quad)))+geom_point(color="blue",size=3)+labs(title="Residual plot", x="Amount", y="Residuals")
+ ggplot(lm.quad,aes(x=amount,y=resid(lm.quad)))+geom_point(color="blue",size=3)+labs( x="Amount", y="Residuals")
 
 ```
 
 The above fitted model is 
-$$\hat{Y}_{i} = 2.5 + 0.1x_{i}$$.
-However, after looking at the residual plot and noticing the quadratic shape, we realize that a we need a higher order term for amount.
+$$\hat{Y}_{i} = 2.5 + 0.1x_{i}.$$
+However, after looking at the residual plot and noticing the quadratic shape, we realize that we need a higher order term for amount.
 
 
-```{r quad_example2, prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
+```{r fig=T, fig.align='center', fig.cap = 'New Residual Plot after Fitting a Quadratic Term', label='quadexample2', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
 
 lm.quad=lm(strength~amount + I(amount^2))
 ##OR
@@ -100,34 +99,35 @@ ggplot(lm.quad,aes(x=amount,y=resid(lm.quad)))+geom_point(color="orange",size=2)
 
 ```
 The second order polynomial model is 
-$$\hat{Y}_{i} = 2.8 + 0.6x_{i}-0.3x^{2}_{i}$$.
-If you think there might potentially still be some signal, you could try a third degree polynomial:
+$$\hat{Y}_{i} = 2.8 + 0.6x_{i}-0.3x^{2}_{i}$$
+and the residuals from this model are shown in Figure \@ref(fig:quadexample2). If you think there might still be some pattern in Figure \@ref(fig:quadexample2), you could try a third degree polynomial:
 
 
-```{r quad_example3, prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
+```{r fig=T, fig.align='center', fig.cap = 'New Residual Plot after Fitting a Cubic Term', label='quadexample3', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
 
 
 lm.quad=lm(strength~poly(amount,3))
 
 summary(lm.quad)
-ggplot(lm.quad,aes(x=amount,y=resid(lm.quad)))+geom_point(color="orange",size=2)+labs(title="Residual plot", x="Amount", y="Residuals")
+ggplot(lm.quad,aes(x=amount,y=resid(lm.quad)))+geom_point(color="orange",size=2)+labs(x="Amount", y="Residuals")
 
 ```
 The new regression equation is now
-$$\hat{Y}_{i} = 2.81 + 0.63x_{i}-0.28x^{2}_{i}-0.24x^{3}_{i}$$.
+$$\hat{Y}_{i} = 2.81 + 0.63x_{i}-0.28x^{2}_{i}-0.24x^{3}_{i}.$$
 
 In wrapping up the misspecified model, if a linear model does not look appropriate (there is a pattern in the residual plot), then you can try the following remedies:
+
   1. Fit a polynomial or more complex regression model.\
   2. Transform the dependent and/or independent variables to obtain linearity.\
-  3. Fit a nonlinear regression model, if appropriate (will need to decide shape of nonlinear model).\
+  3. Fit a nonlinear regression model, if appropriate (will need to decide the shape of a nonlinear model).\
   4. Fit a nonparametric regression model (for example splines or a LOESS regression).\
 
 
 ## Constant Variance
 
-Another assumption for linear regression is that the variance is constant about the line.  Looking at the graph below, you see that the variation about the line is constant across the line (notice the bands that have been drawn around the line).
+Another assumption for linear regression is that the variance is constant about the line.  Looking at Figure \@ref(fig:constvar), you see that the variation about the line is constant across the line (notice the bands that have been drawn around the line).
 
-```{r const_var, prompt=FALSE, eval=TRUE, message = FALSE, echo=FALSE}
+```{r fig=T, fig.align='center',fig.cap ='Residual Plot Showing Non-Constant Variance', label='constvar', prompt=FALSE, eval=TRUE, message = FALSE, echo=FALSE}
 
 
 x=seq(1,50)
@@ -141,11 +141,10 @@ ggplot(temp,aes(x=x,y=y,color = "orange")) +
      geom_line( aes(y = 0), size = 1,show.legend = FALSE)+labs(title = "Constant Variance", x="Predicted Values", y="Residuals" )
 
 ```
-However, an example of where this is not true is shown in the graph below.
 
-```{r nonconst_var, prompt=FALSE, eval=TRUE, message = FALSE, echo=FALSE}
+However, an example of where this is not true is shown in Figure \@ref(fig:nonconstvar).
 
-
+```{r fig=T, fig.align='center',fig.cap = 'Residual Plot Showing Non-Constant Variance', label='nonconstvar', prompt=FALSE, eval=TRUE, message = FALSE, echo=FALSE}
 x=seq(1,50)
 y=vector(length=50)
 lwr=vector(length=50)
@@ -160,7 +159,7 @@ colnames(temp)=c("x","y","fit","lwr","upr")
 ggplot(temp,aes(x=x,y=y,color = "blue")) +
      geom_point(show.legend = FALSE,color="blue") +
      geom_ribbon(aes(ymin = lwr, ymax = upr, fill="blue", alpha=0.05,color = "blue"),show.legend = FALSE,fill="blue",color="blue") +
-     geom_line(aes(y = 0,color="blue"), color="blue",size = 1,show.legend = FALSE)+labs(title = "Non-Constant Variance", x="Predicted Values", y="Residuals" )
+     geom_line(aes(y = 0,color="blue"), color="blue",size = 1,show.legend = FALSE)+labs( x="Predicted Values", y="Residuals" )
 
 ```
  
@@ -168,9 +167,9 @@ Notice how the variability increases as the predicted values increase (the bands
 
 **Example**
 
-The following fictious salary data set is from *Applied Statistics with R* (online textbook https://daviddalpiaz.github.io/appliedstats/index.html).  The explanatory variable is number of years employment and the response variable is annual salary.
+The following fictious salary data set is from the online textbook [_Applied Statistics with R_](https://daviddalpiaz.github.io/appliedstats/index.html).  The explanatory variable is number of years employment and the response variable is annual salary.
 
-```{r var_example, prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
+```{r fig=T, fig.align='center',fig.cap = 'Residuals With Heteroskedasticity',label='varexample', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
 years=c(1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,9,10,10,10,10,11,11,11,11,12,12,12,12,13,13,13,13,14,14,14,14,15,15,15,15,16,16,16,16,17,17,17,17,17,18,18,18,18,19,19,19,19,20,20,20,20,21,21,21,21,22,22,22,22,23,23,23,23,24,24,24,24,25,25,25)
 
 salary=c(41504,32619,44322,40038,46147,38447,38163,42104,25597,39599,55698,47220,65929,55794,45959,52460,60308,61458,56951,56174,59363,57642,69792,59321,66379,64282,48901,100711,59324,54752,73619,65382,58823,65717,92816,72550,71365,88888,62969,45298,111292,91491,106345,99009,73981,72547,74991,139249,119948,128962,98112,97159,125246,89694,73333,108710,97567,90359,119806,101343,147406,153020,143200,97327,184807,146263,127925,159785,174822,177610,210984,160044,137044,182996,184183,168666,121350,193627,142611,170131,134140,129446,201469,202104,220556,166419,149044,247017,247730,252917,235517,241276,197229,175879,253682,262578,207715,221179,212028,312549)
@@ -180,14 +179,14 @@ lm.var=lm(salary~years)
 ggplot(lm.var,aes(x=fitted(lm.var),y=resid(lm.var)))+geom_point(color="blue")+labs(title="Residual Plot", x="Predicted Values",y="Residuals")
 
 ```
-As you can see from the residual plot, the graph exhibits a fan-shape and the variance is increasing as the predicted values get larger.  We can apply a logarithmic transform to try to stabilize the variance.
+As you can see from the residual plot in Figure \@ref(fig:varexample), the graph exhibits a fan-shape and the variance is increasing as the predicted values get larger.  We can apply a logarithmic transform to try to stabilize the variance, the result of which is shown in Figure \@ref(fig:correctexam).
 
-```{r correct_exam, prompt=FALSE, eval=TRUE, message = FALSE, echo=FALSE}
+```{r fig=T, fig.align='center',fig.cap ='Residual Plot Showing Stabilized Variance after Log Transform', label='correctexam', prompt=FALSE, eval=TRUE, message = FALSE, echo=FALSE}
 
 
 lm.var=lm(log(salary)~years)
 
-ggplot(lm.var,aes(x=fitted(lm.var),y=resid(lm.var)))+geom_point(color="orange")+labs(title="Residual Plot", x="Predicted Values",y="Residuals")
+ggplot(lm.var,aes(x=fitted(lm.var),y=resid(lm.var)))+geom_point(color="orange")+labs( x="Predicted Values",y="Residuals")
 
 ```
 
@@ -207,17 +206,18 @@ Another assumption is that the residuals are normally distributed.  We can test 
 
 To visually inspect whether or not the residuals are normally distributed, we can either graph the historgram of residuals or create a Q-Q plot of the residuals. In the histogram, we are looking for a bell-shaped curve and in the Q-Q plot, we are looking for a straight line.
 
-```{r normal_vis, prompt=FALSE, eval=TRUE, message = FALSE, echo=FALSE}
-
+```{r fig=T,fig.align='center',label ='normalvis',fig.cap = 'Histogram and Q-Q Plot of Residuals', prompt=FALSE, eval=TRUE, message = FALSE, echo=FALSE}
 
 x=rnorm(1000,0,4)
-qplot(x, geom="histogram",main = "Histogram of Residuals", 
+h=qplot(x, geom="histogram", 
       xlab = "Age",  
       fill=I("orange"))
+xdf=data.frame(x)
+q=ggplot(data = xdf, aes(sample = x)) +
+  stat_qq() +
+  stat_qq_line()
 
-qqnorm(x)
-qqline(x)
-
+grid.arrange(h,q,ncol=2)
 ```
 
 **Formal Hypothesis tests**
@@ -276,16 +276,19 @@ In conclusion, to deal with data that is NOT normally distributed, we can either
 
 ## Correlated Errors
 Another important assumption is that the observations are independent.  There are a couple of ways in which we assess this assumtpion:\
+
 1. Experimental design or collection of data\
 2. Explore residual plots\
 
 Depending on how the data was collected or the experimental design, there could be potential correlation in the observations.  For example, if the data collected information on multiple family members (included husband and wife and kids).  Or if multiple observations were collected on the same subject.  There are various models that exists that can account for this dependence (longitudinal analysis, hierarchical models, etc).  However, this type of analysis will be covered later throughout the year.  There is no diagnostic measures to indicate this correlation structure.  Your best way of knowing it is there is to know the experimental design or collection of data.\  
 We will focus our attention on a form of dependence that is evident from residual plots, which is autocorrelation.  This happens when ordered observations are dependent on prior observations.  One of the most common instances of this correlation structure is through data that is collected over time, also referred to as time series.  You will learn more about time series data in the Fall semester, but for now, let's explore how recognize if it is an issue in the analysis.  To diagnose autocorrelation in data, you can \
+
 1. Visually inspect the plot of residuals by time\
 2. Conduct a Durbin-Watson test\
-In visually inspecting a plot of residuals across time, you would expect to see a type of cyclical pattern if autocorrelation exists (see plot below).
 
-```{r auto_plot, prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
+In visually inspecting a plot of residuals across time, you would expect to see a type of cyclical pattern if autocorrelation exists as it does in Figure \ref@(fig:autoplot).
+
+```{r  fig=T, fig.align='center',fig.cap = 'Residuals vs Time: Autocorrelation Present',label='autoplot', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
 
 
 set.seed(49205)
@@ -293,7 +296,7 @@ error1=rnorm(50)
 x=seq(1,50)
 y=sin(2*pi*x/12)+error1
 temp=data.frame(cbind(x,y))
-ggplot(temp,aes(x=x,y=y))+geom_point(color="blue")+labs(title="Residuals by Time", x="Time",y="Residuals")+geom_smooth(method = "lm",formula = y ~ sin(2*pi*x/12), size = 1)
+ggplot(temp,aes(x=x,y=y))+geom_point(color="blue")+labs( x="Time",y="Residuals")+geom_smooth(method = "lm",formula = y ~ sin(2*pi*x/12), size = 1)
 
 ```
 
@@ -324,7 +327,10 @@ If your data has significant autocorrelation, then the error terms will not be c
 
 ## Influential Observations and Outliers
 
-Influential points and outliers play a large role in the estimation of the model and its prediction.  Influential points are usually those points on the edges of the x-values and can greatly impact the slopes in the regression equation.  Outliers tend to be those values that do not follow the trend of the data and are generally found by large deviations in the y direction.  For multiple linear regression, outliers are found by using residuals. These can be standardize residuals or studentized residuals.  Influential points can be discovered by Cook's D, dffits, dfbetas or Hat values.\
+Influential points and outliers play a large role in the estimation of the model and its prediction.  Influential points are usually those points on the edges of the x-values and can greatly impact the slopes in the regression equation.  Outliers tend to be those values that do not follow the trend of the data and are generally found by large deviations in the y direction.  For multiple linear regression, outliers are found by using residuals. These can be standardize residuals or studentized residuals.  Influential points can be discovered by Cook's D, dffits, dfbetas or Hat values.  These points are important to identify and recognize their influence on the regression, however, it does NOT mean that these points should be removed. Removal of data should be taken very seriously. We would obviously want to omit any observations made in error, due to typos or reporting inaccuracies, but we do not remove data points just because they are outside the scope of our expectations. We have many tools at our disposal for modeling with such observations, and we should always develop a deep understanding of the application-specific risks and rewards associated with data removal. \
+
+In the this section we will cover the following statistics to help us detect outliers and influential observations respectively. 
+
 *Outliers*\
 rstandard\
 rstudent\
@@ -333,6 +339,80 @@ dffits\
 dfbetas\
 cooks.distance\
 hatvalues\
+
+
+
+*Outliers*\
+In using residuals to detect outliers, we first need to "standardize" them, or divide by their standard errors.  In this sense, we can think of these "standardized" residuals as an approximate z-score.  Therefore, we look for residuals greater in magnitude than 3 as potential outliers.  R calculates two different types of standardized residuals: 1. internally studentized residuals and 2. externally studentized residuals.  Internally studentized residuals are definied as
+$$ r_{i}=\frac{e_{i}}{\hat\sigma\sqrt{1-H_{ii}}},$$
+where $\hat\sigma$ is the square root of the MSE and $H_{ii}$ is from the diagonal of the hat matrix (hat matrix will be discussed in influential observations).  In R, these are denoted by rstandard.  Externally studentized residuals are definied as
+$$ t_{i}=\frac{e_{i}}{\hat\sigma_{(i)}\sqrt{1-H_{ii}}},$$
+where $\hat\sigma_{(i)}$ is the square root of the MSE calculated when observation *i* is deleted and $H_{ii}$ is from the diagonal of the hat matrix.  The externally studentized residuals follow a t-distribution with n-k-2, where k is the number of explanatory variables(notice that this has one less degree of freedome than the usual error in regression which is due to the one deleted observation).  The R code to obtain externally studentized residuals is rstudent.
+
+*Influential observations*\
+Influential observations are observations that can dramatically change the model's estimates.  It is important to identify and understand these where these observations are.  There are a number of different measures to aid in identifying influential observations, which will be discussed below.\
+Cook's distance, also referred to as Cook's D, measures the difference in the regression estimates when the $i^{th}$ observation is left out.  A rough rule of thumb used as a cutoff is if $D_{i}$  is greater than $\frac{4}{n-p-1}$. \
+Dffits calculates the difference of fitted values for each point in the regression versus the fit of the regression line for that point if it was removed.  Large values of dffits indicate that the point is influential in the calculation of the estimated regression line. As a general rule of thumb, a cutoff of $2\sqrt{(p+1)/n}$ is used to identify potential influential points.\
+Dfbetas follows the same idea as dffits.  The difference in the estimated betas is calculated for each observation (observation included in the estimated beta and observation NOT included in estimating the beta).  This is done for each individual observation and each estimated beta. For small data sets, a value greater than 1 is suspect of an influential observation.  For large data sets, the cutoff is $\frac{2}{\sqrt{n}}$.\
+The hat values $H_{ii}$ are the diagonal values of $$\boldsymbol{X(X^{T}X)^{-1.}X^{T}}.$$  Hat values can identify high leverage points in a regression.  A general rule of thumb are hat values greater than $\frac{2(p+1)}{n}$.
+
+**Example**
+We will use the Scottish hill races as an example to illustrate how to calculate and visualize these values.  The Scottish hill races include the following variables:\
+Time:	Record time to complete course\
+Distance:	Distance in the course\
+Climb:	Vertical climb in the course\
+
+```{r fig=T, fig.align='center',fig.cap = 'Plots for Exploring Outliers and Influential Points',label='influence', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
+
+
+url = 'http://www.statsci.org/data/general/hills.txt' 
+races.table = read.table(url, header=TRUE, sep='\t')
+n.index=seq(1,nrow(races.table))
+races.table=cbind(races.table,n.index)
+lm.model=lm(Time~Distance+Climb,data=races.table)
+
+
+##Plots of outliers
+a = ggplot(lm.model,aes(x=n.index,y=rstandard(lm.model)))+geom_point(color="orange")+geom_line(y=-3)+geom_line(y=3)+labs(title = "Internal Studentized Residuals",x="Observation",y="Residuals")
+
+b = ggplot(lm.model,aes(x=n.index,y=rstudent(lm.model)))+geom_point(color="orange")+geom_line(y=-3)+geom_line(y=3)+labs(title = "External Studentized Residuals",x="Observation",y="Residuals")
+
+##Influential points
+c = ggplot(lm.model,aes(x=n.index,y=rstandard(lm.model)))+geom_point(color="orange")+geom_line(y=-3)+geom_line(y=3)+labs(title = "Internal Studentized Residuals",x="Observation",y="Residuals")
+
+##Cook's D
+D.cut=4/(nrow(races.table)-3-1)
+
+d =ggplot(lm.model,aes(x=n.index,y=cooks.distance(lm.model)))+geom_point(color="orange")+geom_line(y=D.cut)+labs(title = "Cook's D",x="Observation",y="Cook's Distance")
+
+##Dffit
+df.cut=2*(sqrt((3+1)/nrow(races.table)))
+
+e =ggplot(lm.model,aes(x=n.index,y=dffits(lm.model)))+geom_point(color="orange")+geom_line(y=df.cut)+geom_line(y=-df.cut)+labs(title = "DFFITS",x="Observation",y="DFFITS")
+
+db.cut=2/sqrt(nrow(races.table))
+
+
+f =ggplot(lm.model,aes(x=n.index,y=dfbetas(lm.model)[,'Climb']))+geom_point(color="orange")+geom_line(y=db.cut)+geom_line(y=-db.cut)+labs(title = "DFBETA for Climb",x="Observation",y="DFBETAS")
+
+g =ggplot(lm.model,aes(x=n.index,y=dfbetas(lm.model)[,'Distance']))+geom_point(color="orange")+geom_line(y=db.cut)+geom_line(y=-db.cut)+labs(title = "DFBETA for Distance",x="Observation",y="DFBETAS")
+
+##Hat
+hat.cut=2*(3+1)/nrow(races.table)
+
+h = ggplot(lm.model,aes(x=n.index,y=hatvalues(lm.model)))+geom_point(color="orange")+geom_line(y=hat.cut)+labs(title = "Hat values",x="Observation",y="Hat Values")
+
+grid.arrange(a,b,c,d,e,f,g,ncol=2)
+```
+
+Figure \@ref(influence) shows a number of useful graphics that help us explore outliers and influential points. 
+
+A good graph to explore is looking at the external studentized residuals versus the hat values.  An observation that is high leverage AND an outlier is one that needs to be explored.
+
+```{r fig=T, fig.align='center',fig.cap = 'Influential and Outlier Observations',label='influenceresid', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
+ggplot(lm.model,aes(x=hatvalues(lm.model),y=rstudent(lm.model))) +  geom_point(color="orange")+ labs(x="Hat values",y="Residuals")
+```
+
 
 ## Multicollinearity
 
@@ -371,6 +451,6 @@ lm.model=lm(mpg~.,data=mtcars)
 vif(lm.model)
 ```
 
-From the correlation output and VIF output, it is clear to see that multicollinearity is an issue.  To deal with multicollinearity, we can\
+From the correlation output and VIF output, it is clear to see that multicollinearity is an issue.  To deal with multicollinearity, we can do either of the following:
 1.  Remove one or more variables that are co-linearly related to another variable(s).\
-2.  Create new transformed variables (can add variables; create ratio of variables, etc).\
+2.  Create new transformed variables (take linear combinations of variables; create ratio of variables, etc).\

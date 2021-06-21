@@ -1,7 +1,7 @@
 # Model Building & Scoring for Prediction
-Chapters \@ref(slr) and \@ref(mlr) only scratch the surface of model building. Linear regression is a great initial approach to take to model building. In fact, in the realm of statistical models, linear regression (calculated by ordinary least squares) is the **best linear unbiased estimator**. The two key pieces to that previous statement are "best" and "unbiased." 
+In the preceding chapters, we have only scratched the surface of model building. Linear regression is a great initial approach to model building. In fact, in the realm of statistical models, linear regression (calculated by ordinary least squares) is the **best linear unbiased estimator**. The two key pieces to that previous statement are "best" and "unbiased." 
 
-What does it mean to be **unbiased**? Each of the sample coefficients ($\hat{\beta}$'s) in the regression model are estimates of the true coefficients. Just like the statistics back in Chapter \@ref(eda), these sample coefficients have sampling distributions - specifically, normally distributed sampling distributions. The mean of the sampling distribution of $\hat{\beta}_j$ is the true (known) coefficient $\beta_j$. This means the coefficient is unbiased.
+What does it mean to be **unbiased**? Each of the sample coefficients ($\hat{\beta}$'s) in the regression model are estimates of the true coefficients. Just like the statistics back in Chapter \@ref(intro-stat), these sample coefficients have sampling distributions - specifically, normally distributed sampling distributions. The mean of the sampling distribution of $\hat{\beta}_j$ is the true (known) coefficient $\beta_j$. This means the coefficient is unbiased.
 
 What does it mean to be **best**? *IF* the assumptions of ordinary least squares are met fully, then the sampling distributions of the coefficients in the model have the **minimum** variance of all unbiased estimators. 
 
@@ -38,7 +38,7 @@ Another potential problem for linear regression is when we have more variables t
 Regularized (or penalized or shrinkage) regression techniques potentially alleviate these problems. Regularized regression puts constraints on the estimated coefficients in our model and *shrink* these estimates to zero. This helps reduce the variation in the coefficients (improving the variance of the model), but at the cost of biasing the coefficients. The specific constraints that are put on the regression inform the three common approaches - **ridge regression**, **LASSO**, and **elastic nets**.
 
 ### Penalties in Models
-In ordinary least squares linear regression, we minimize the sum of the squared residuals (or errors) as laid out in Chapter @\ref(slr). 
+In ordinary least squares linear regression, we minimize the sum of the squared residuals (or errors) as laid out in Chapter \@ref(slr). 
 
 $$
 min(\sum_{i=1}^n(y_i - \hat{y}_i)^2) = min(SSE)
@@ -270,7 +270,7 @@ The variable describing the overall quality of the home is the driving factor of
 A similar approach can be taken for CV with ridge regression using the same structure of code. That will not be covered here. Elastic nets are more complicated in that they have multiple parameters to optimize. For that approach, an optimization grid will need to be structured to evaluate different $\lambda$ values across different $\alpha$ values. A loop can be set up to run the ```cv.glmnet``` function across many different values of $\alpha$. That will not be covered in detail here. 
 
 ## Model Comparisons
-Now we have multiple models built for our dataset. To help evaluate which model is better, we will use the test dataset as described in Chapter @\ref(eda). 
+Now we have multiple models built for our dataset. To help evaluate which model is better, we will use the test dataset as described in Chapter @\ref(slr). 
 
 The models we have built are nothing but formulas. All we have to do is put the test dataset in the formula to predict/score the test data. We **do not** rerun the algorithm as the goal is **not** to fit the test dataset, but to just score it. We need to make sure that we have the same structure to the test dataset that we do with the training dataset. Any variable transformations, new variable creations, and missing value imputations done on the training dataset must be done on the test dataset in the same way. 
 ### Model Metrics

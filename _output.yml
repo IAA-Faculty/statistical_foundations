@@ -6,7 +6,7 @@ bookdown::gitbook:
       toc:
       collapse: section
       before: |
-        <li><a style="font-weight:bold" href="https://github.com/IAA-Faculty/statistical_foundations/">Statistical Foundations</a>
+        <li><a style="font-weight:bold, text-align:center" href="https://github.com/IAA-Faculty/statistical_foundations/">Statistical Foundations</a>
         <img src="./img/iaaicon.png" alt="IAA"  class="center"</li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>

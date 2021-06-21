@@ -1,18 +1,17 @@
-# Model Selection
+# Model Selection {#sel}
 
 This section will dive into some basic foundations in model selection, or finding the best model for a data set.  In most data sets, there will most likely be variables that are informative and ones that are uninformative in predicting the response.  With many explanatory variables, it could be extremely time consuming to try all potential models by hand, and the use of automatic procedures can greatly assist in obtaining subsets of variables in which to focus your attention.  
 
-CAUTION: you should NEVER just use the final model created from an automatic procedure!  Always double check the variables (look at those included and those not included).  Use content knowledge, common sense, diagnostics, etc to decide on your final model.
+CAUTION: you should NEVER just use the final model created from an automatic procedure!  _Always_ explore your data (both automatically selected _and_ excluded variables), and use domain knowledge, diagnostics, and critical thought to decide on your final model.
 
 We will focus on two techniques for automatic variable selection: stepwise procedures and LASSO. Within the stepwise procedures, we will discuss forward, backward and stepwise searches using several different selection criteria.  We will end this section discussing important considerations in use of p-values when dealing with large data sets.
 
-
 ## Selection Criteria
 
-when trying to find the best model, we can use different criteria to choose.  For exmaple, you have already seen $R^{2}$ (the larger value of $R^{2}$ the better the model).  However, when comparing models, the adjusted $R^{2}$ is better due to the fact that $R^{2}$ can potentially increase even when adding noise.  The adjusted $R^{2}$ can be thought of as $R^{2}$ with penalty (for every additional variable added to the model, we add a higher penalty).  This allows us to weigh the contribution of adding new variables against the added complexity of more variables in the model.  There are other selection criteria that are also used in selecting the "best model" (or variable selection).  As you will notice, these selection criteria also have a penalty to take into account the addition of variables.  We will use two of the most common ones....AIC and BIC (or also referred to as SBC).
+When trying to find the best model, there are many selection criteria at our disposal.  For example, you have already been introduced to $R^{2}$ (the larger value of $R^{2}$ the better the model).  However, when comparing multivariate models, the adjusted $R^{2}$ is better due to the fact that $R^{2}$ can potentially increase even when adding noise.  The adjusted $R^{2}$ can be thought of as $R^{2}$ with penalty (for every additional variable added to the model, we add a penalty).  This allows us to weigh the contribution of adding new variables against the added complexity of more variables in the model.  There are other selection criteria that are also used in selecting the "best model" (or variable selection).  As you will notice, these selection criteria also have a penalty to take into account the addition of variables.  We will use two of the most common ones: AIC and BIC (or also referred to as SBC).
 
-The AIC, or Akaike information criterion, was developed by statistician Hirotugu Akaike back in the 1970's and is defined by 
-$$ AIC = -2log(Likelihood) + 2p.  $$  In this case, "Likelihood" is the likelihood of the data and 2p is the "penalty", where p is the number of parameters in the model.  A smaller AIC indicates a better model.
+The AIC, or __Akaike information criterion__, was developed by statistician Hirotugu Akaike in the 1970's and is defined by 
+$$ AIC = -2log(Likelihood) + 2p.  $$  In this case, "Likelihood" is the likelihood of the data and $2p$ is the "penalty", where $p$ is the number of parameters in the model.  A smaller AIC indicates a better model.
 
 BIC, also known as the Bayesian Information Criterion (also called SBC or Schwarz Bayesian Information) was first developed by Gideon E. Schwarz, also back in the 1970's and is defined by
 $$BIC = -2log(Likelihood) + plog(n). $$ In this case, "Likelihood" is the likelihood of the data and plog(n) is the "penalty", where p is the number of parameters in the model and n is the sample size.  A smaller BIC indicates a better model.  Notice that both penalties have a common term of p in them (this will be important to remember when we start discussing the R code). 
@@ -69,14 +68,16 @@ for.model <- step(empty.model,
                   direction = "forward", k = 2) 
 
 ```
-Below is edited output with comments to lead you through the forward selection.  Notice that the above code has k=2, which means we are using AIC as our selection criterion.  The first information R provides is for the initial model, which is  $$Y_{i}=\beta_{0} + \epsilon_{i}.$$ The "empty model" has an AIC of 46,323.64 (in order for ANY variable to be added, that model must be better, or in other words have a smaller AIC than this initial model).
+Below is edited output with comments to lead you through the forward selection.  Notice that the above code has k=2, which means we are using AIC as our selection criterion.  The first information R provides is for the initial model, which is  $$Y_{i}=\beta_{0} + \varepsilon_{i}.$$ The "empty model" has an AIC of 46,323.64 (in order for ANY variable to be added, that model must be better, or in other words have a smaller AIC than this initial model).
 
-`Start:  AIC=46323.64
-Sale_Price ~ 1`
+```
+Start:  AIC=46323.64
+Sale_Price ~ 1
+```
 
 R then displays all simple linear regressions with their corresponding AIC values.  Notice that R put the information in ascending AIC values (so, best simple linear regression is 43,817 which is indeed smaller than 46,323.64).  You will also see a line with a blank for the variable (this is the current "base model").  This is the "base model".  In this first step, it is just the intercept.  Therefore, we will add the variable Overall_Qual.
 
-`
+
 |               | Df  | Sum of Sq | RSS      | AIC    |
 | :-----------  | :-: | --------: | :------: |------: |
 | +Overall_Qual |  9  |9.3437e+12 |3.8531e+12| 43817  |
@@ -95,11 +96,13 @@ R then displays all simple linear regressions with their corresponding AIC value
 | +Bldg_Type    |  4  |4.6434e+11 |1.2732e+13| 46258  |
 | +Street       |  1  |3.1752e+10 |1.3165e+13| 46321  |
 | <none>        |                 |1.3197e+13| 46324  |
-`
+
 Now, R shows you the new "base model", which includes Overall_Qual (and of course the intercept is still included) and the new AIC value to beat 43816.66).
 
-`Step:  AIC=43816.66
-Sale_Price ~ Overall_Qual`
+```
+Step:  AIC=43816.66
+Sale_Price ~ Overall_Qual
+```
 
 Using this as our base model, we now try adding each of the remaining variables in separate regression models, output is shown below:
 
@@ -122,27 +125,32 @@ Using this as our base model, we now try adding each of the remaining variables 
 | <none>        |     |           | 3.8531e+12| 43817  |
 | +Street       | 1   |1.9573e+06 | 3.8531e+12| 43819  |
 
+
 Best model includes Gr_Liv_Area (in addition to the intercept and Overall_Qual).  The AIC is 43210, which beats the previous one of 43817.  So, we will add Gr_Liv_Area to the model.  Our new base model includes the intercept, Overall_Qual and Gr_Liv_Area with an AIC of 43210.
 
+```
 Step:  AIC=43210.24
 Sale_Price ~ Overall_Qual + Gr_Liv_Area
+```
 
 We continue in this fashion until adding a new variable does NOT decrease the AIC.  The last step is shown below:
-
-Step:  AIC=42676.1\
-Sale_Price ~ Overall_Qual + Gr_Liv_Area + House_Style + Garage_Area + Bldg_Type + Fireplaces + Full_Bath + Half_Bath + Lot_Area + 
-Roof_Style + Central_Air + Second_Flr_SF + TotRms_AbvGrd + 
-First_Flr_SF\
+```
+Step:  AIC=42676.1
+Sale_Price ~ Overall_Qual + Gr_Liv_Area + House_Style + Garage_Area + Bldg_Type + Fireplaces 
+        + Full_Bath + Half_Bath + Lot_Area + Roof_Style + Central_Air + Second_Flr_SF 
+        + TotRms_AbvGrd + First_Flr_SF
+```
 
 |               | Df  | Sum of Sq | RSS       | AIC    |
 | :-----------  | :-: | --------: | :-------: |------: |
 | <none>        |     |           | 2.1542e+12| 42676  |
 | +Street       |1    | 1.028e+09 | 2.1532e+12| 42677  |
 
+
 Notice that the previous step had a model with the intercept, Overall_Qual, Gr_Liv_Area, House_Style, Garage_Area, 
 Bldg_Type, Fireplaces, Full_Bath, Half_Bath, Lot_Area, Roof_Style, Central_Air, Second_Flr_SF, TotRms_AbvGrd, and First_Flr_SF (as illustrated by the above formula).  The AIC for this model is 42676.1.  There is only one variable left that could be added (Street).  However, when we add street to the model, the AIC now becomes 42677 (in other words AIC increases, which is a worse model).  The algorithm stops here.
 
-The code below illustrates how to do forward selection with BIC and p-values.  In the output from R, it still says "AIC", but now these values are calculated by using the BIC formula or the corresponding "k" values for p-values (take a look at the values R has for the "AIC" column and you will see that it has changed!.
+The code below illustrates how to do forward selection with BIC and p-values.  In the output from R, it still says "AIC", but now these values are calculated by using the BIC formula or the corresponding "k" values for p-values (take a look at the values R has for the "AIC" column and you will see that it has changed!).
 
 
 ```{r other forward options, prompt=FALSE, eval=FALSE}
@@ -187,9 +195,11 @@ back.model <- step(full.model,
                   direction = "backward", k = 2) 
 
 ```
-Below is edited output with comments to lead you through the backward elimination.  Notice that the above code has k=2, which means we are using AIC as our selection criterion.  The first information R provides is for the initial model, which is  $$Y_{i}=\beta_{0} + \beta_{1}x_{i,1}+\beta_{2}x_{i,2}+\beta_{3}x_{i,3}+\beta_{4}x_{i,4}+\beta_{5}x_{i,5}+\beta_{6}x_{i,6}+\beta_{i,7}x_{7}+\beta_{8}x_{i,8}+\beta_{9}x_{i,9}+\beta_{10}x_{i,10}+\beta_{11}x_{i,11}+\beta_{12}x_{i,12}+\beta_{13}x_{i,13}+\beta_{14}x_{i,14}+\beta_{15}x_{i,15}+\epsilon_{i}.$$ The "full model" has an AIC of 42,677.12 (in order for ANY variable to be removed, that model must be better, or in other words have a smaller AIC than this initial model).
+
+Below is edited output with comments to lead you through the backward elimination.  Notice that the above code has k=2, which means we are using AIC as our selection criterion.  The first information R provides is for the initial model, which is  $$Y_{i}=\beta_{0} + \beta_{1}x_{i,1}+\beta_{2}x_{i,2}+\beta_{3}x_{i,3}+\beta_{4}x_{i,4}+\beta_{5}x_{i,5}+\beta_{6}x_{i,6}+\beta_{i,7}x_{7}+\beta_{8}x_{i,8}+\beta_{9}x_{i,9}+\beta_{10}x_{i,10}+\beta_{11}x_{i,11}+\beta_{12}x_{i,12}+\beta_{13}x_{i,13}+\beta_{14}x_{i,14}+\beta_{15}x_{i,15}+\varepsilon_{i}.$$ The "full model" has an AIC of 42,677.12 (in order for ANY variable to be removed, that model must be better, or in other words have a smaller AIC than this initial model).
 
 R then displays linear regression models with one variable removed and their corresponding AIC values.  For example, if we remove Street (just that one variable), the AIC of that model will be 42675. Notice that R put the information in ascending AIC values (so, best linear regression is at the top with an AIC value of 42,675 which is indeed smaller than 42,677.12, so Street will be removed).  You will also see a line with <none>.  This is the "base model", or in this case the full model.  
+
 
 |               | Df  | Sum of Sq | RSS       | AIC      |
 | :-----------  | :-: | --------: | :-------: |------:   |
@@ -210,11 +220,13 @@ R then displays linear regression models with one variable removed and their cor
 |- Full_Bath    |  1  |6.8198e+10 |2.2214e+12 |42739     |
 |- Overall_Qual |  9  |1.7183e+12 |3.8715e+12 |43862     |
 
+
 Once Street is removed, the new "base model" (without this variable) has an AIC value of 42,674.6.  This is now the new value to beat.  Repeating this process with removing the other variables one at a time, we see the output:
+
 
 |               | Df | Sum of Sq | RSS       | AIC      |
 | :-----------  | :-:| --------: | :-------: |------:   |
-|<none>                          |2.1547e+12 |42675     |
+|<none>         |    |           |2.1547e+12 |42675     |
 |- TotRms_AbvGrd| 1  |2.9784e+09 |2.1577e+12 |42675     |
 |- Central_Air  | 1  |1.7247e+10 |2.1720e+12 |42689     |
 |- Roof_Style   | 5  |2.8560e+10 |2.1833e+12 |42692     |
@@ -229,12 +241,15 @@ Once Street is removed, the new "base model" (without this variable) has an AIC 
 |- First_Flr_SF | 1  |1.4221e+11 |2.2969e+12 |42804     |
 |- Overall_Qual | 9  |1.7202e+12 |3.8749e+12 |43860     |
 
+
 Notice that none of the removal of variables is better than the "base model" based on the AIC (best one is TotRms_AbvGrd and that has an AIC of 42675, which is not better than the base model).  Since none of the removals improve the model, the algorithm stops here with all variables in the model except Street.  Therefore, the final model is:
 
+```
 Step:  AIC=42674.6
 Sale_Price ~ Lot_Area + Bldg_Type + House_Style + Overall_Qual + 
     Roof_Style + Central_Air + First_Flr_SF + Second_Flr_SF + 
     Full_Bath + Half_Bath + Fireplaces + Garage_Area + TotRms_AbvGrd
+```
 
 The code below illustrates how to do backward elimination with BIC and p-values.  
 
@@ -287,9 +302,10 @@ step.model <- step(empty.model,
 
 As you can see, the initial base model is just the intercept (AIC=46,323.64).  From this initial model, all simple linear regressions are created and the AIC is observed.
 
+```
 Start:  AIC=46323.64
 Sale_Price ~ 1
-
+```
 |               | Df | Sum of Sq | RSS       | AIC      |
 | :-----------  | :-:| --------: | :-------: |------:   |
 |+ Overall_Qual | 9  |9.3437e+12 | 3.8531e+12| 43817    |
@@ -309,13 +325,15 @@ Sale_Price ~ 1
 |+ Street       | 1  |3.1752e+10 | 1.3165e+13| 46321    |
 |<none>         |    |           | 1.3197e+13| 46324    |
 
+
 As you can see from the above output, the "best" model is the one containing Overall_Qual.  Therefore, the new base model is the one containing just this variable. \ 
 
 Using this as the new base model, we look at adding each of the individual variables to this model (see output below), as well as taking away the variables in the model (in this case, just Overall_Qual).  From the output, you can see a "+" for when a variable is being added and a "-" for when a variable is being taken away.
 
+```
 Step:  AIC=43816.66
 Sale_Price ~ Overall_Qual
-
+```
 |               | Df | Sum of Sq | RSS       | AIC      |
 | :-----------  | :-:| --------: | :-------: |------:   |
 |+ Gr_Liv_Area  |  1 |9.8905e+11 |2.8640e+12 |43210     |
@@ -335,11 +353,13 @@ Sale_Price ~ Overall_Qual
 |+ Street       |  1 |1.9573e+06 |3.8531e+12 |43819     |
 |- Overall_Qual |  9 |9.3437e+12 |1.3197e+13 |46324     |
 
-The best model is now the one adding Gr_Liv_Area to the old base model that just included Overall_Qual.  This becomes the new base model and the algorithm continues below..
 
+The best model is now the one adding `Gr_Liv_Area` to the old base model that just included `Overall_Qual`.  This becomes the new base model and the algorithm continues below..
+
+```
 Step:  AIC=43210.24
 Sale_Price ~ Overall_Qual + Gr_Liv_Area
-
+```
 |               | Df | Sum of Sq | RSS       | AIC      |
 | :-----------  | :-:| --------: | :-------: |------:   |
 |+ House_Style  |  7 |2.5351e+11 |2.6105e+12 |43034     |
@@ -359,18 +379,20 @@ Sale_Price ~ Overall_Qual + Gr_Liv_Area
 |- Gr_Liv_Area  |  1 |9.8905e+11 |3.8531e+12 |43817     |
 |- Overall_Qual |  9 |3.8938e+12 |6.7578e+12 |44953     |
 
+
 Skipping ahead to the final step, we see that the base model includes the variables Overall_Qual, House_Style, Garage_Area, Bldg_Type, Fireplaces, Full_Bath, Half_Bath, Lot_Area, Roof_Style, Central_Air, Second_Flr_SF, TotRms_AbvGrd and First_Flr_SF.  Looking at the output below, this is the "best model" (no other model, either inputting one more variable nor removing one variable can beat it based on this criteria).
 
 
-
+```
 Step:  AIC=42674.6
 Sale_Price ~ Overall_Qual + House_Style + Garage_Area + Bldg_Type + 
     Fireplaces + Full_Bath + Half_Bath + Lot_Area + Roof_Style + 
     Central_Air + Second_Flr_SF + TotRms_AbvGrd + First_Flr_SF
+```
 
 |                | Df | Sum of Sq | RSS       | AIC      |
 | :-----------   | :-:| --------: | :-------: |------:   |
-|<none>          |                | 2.1547e+12| 42675    |
+|<none>          |    |           | 2.1547e+12| 42675    |
 |- TotRms_AbvGrd | 1  |2.9784e+09 | 2.1577e+12| 42675    |
 |+ Street        | 1  |1.0581e+09 | 2.1537e+12| 42676    |
 |+ Gr_Liv_Area   | 1  |5.2156e+08 | 2.1542e+12| 42676    |
@@ -386,7 +408,7 @@ Sale_Price ~ Overall_Qual + House_Style + Garage_Area + Bldg_Type +
 |- Second_Flr_SF | 1  |1.2513e+11 | 2.2798e+12| 42788    |
 |- First_Flr_SF  | 1  |1.4221e+11 | 2.2969e+12| 42804    |
 |- Overall_Qual  | 9  |1.7202e+12 | 3.8749e+12| 43860    |
-|
+
 
 As you can see from the above stepwise procedures of forward, backward and stepwise, the algorithms attempt to find the "best model" by either adding one variable or taking away one variable at at a time.  There is no guarantee that these algorithms will find the best model, but they do provide some guidance in terms of potential significance variables and can provide assistance when the number of variables under consideration is very large.  As a caution though, you should always do further investigation once you have found models through these algorithms.  These algorithms can give the same models or different models as their final selection based on the algorithm selected and the criteria used.
 

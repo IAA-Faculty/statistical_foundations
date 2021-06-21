@@ -322,7 +322,7 @@ Concordance(train$Bonus, predict(ames_logit2, type = "response"))
 We can see that the model with categorical predictors added to it has a higher concordance at 88.4%. That implies that our model is correctly able to rank our observations 88.4% of the time. This is **NOT** the same thing as saying our model is 88.4% accurate. Accuracy (which is not covered here) deals with a prediction being correct or incorrect. Concordance is only measuring how often we are able to predict 1's with higher probability than 0's - again, correctly ranking the observations.
 
 ### Variable Selection and Regularized Regression
-As with linear regression in Chapters \@ref(sel) and \@ref(reg), logistic regression uses the same approaches to doing variable selection. In fact, the same function are used as well. Let's use the ```step``` function to apply a forward and backward selection to the logistic regression model.
+As with linear regression in Chapters \@ref(sel) and \@ref(mlr), logistic regression uses the same approaches to doing variable selection. In fact, the same function are used as well. Let's use the ```step``` function to apply a forward and backward selection to the logistic regression model.
 
 ```{r}
 train_sel_log <- train %>% 

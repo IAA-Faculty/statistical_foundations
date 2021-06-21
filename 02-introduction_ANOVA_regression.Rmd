@@ -6,7 +6,7 @@ ames=make_ordinal_ames()
 ```
 In this chapter, we introduce one of the most commonly used tools in data science: the linear model. We'll start with some basic terminology. A __linear model__ is an equation that typically takes the form 
 \begin{equation}
-\mathbf{y} = \beta_0 + \beta_1\mathbf{x_1} + \dots + \beta_k\mathbf{x_k} + \boldsymbol \epsilon 
+\mathbf{y} = \beta_0 + \beta_1\mathbf{x_1} + \dots + \beta_k\mathbf{x_k} + \boldsymbol \varepsilon 
 (\#eq:linmod)
 \end{equation}
 
@@ -87,14 +87,15 @@ We'll also revisit the plots that we created in Section \@ref(eda), this time be
 
 We start by exploring the relationship between the external quality rating of the home (via the ordinal variable `Exter_Qual` and the `Sale_Price`).
 
-The simplest graphic we may wish to create is a bar chart that shows the average sale price of homes with each value of exterior quality:
+The simplest graphic we may wish to create is a bar chart like Figure \@ref(fig:barsale) that shows the average sale price of homes with each value of exterior quality.
 
-```{r}
+```{r fig=T, fig.align='center', fig.cap='Bar Chart Comparing Average Sale Price of Homes with each Level of Exterior Quality', label='barsale'}
 ggplot(train) + 
   geom_bar(aes(x=Exter_Qual,y= Sale_Price), 
-           position = "dodge", stat = "summary", fun = "mean") +                                      # Modify formatting of axis
-  scale_y_continuous(labels = function(x) format(x, scientific = FALSE))
+           position = "dodge", stat = "summary", fun = "mean") +                                      
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) # Modify formatting of axis
 ```
+
 This gives us the idea that there may be an association between these two attributes, but it can be tricky to rely solely on this graph without exploring the overall distribution in sale price for each group. While this chart is great for the purposes of _reporting_ (once we've verified the relationship), it's not the best one for exploratory analysis. The next two charts allow us to have much more information on one graphic. 
 
 The frequency histogram in Figure \@ref(fig:overhistogram) allows us to see that much fewer of the homes have a rating of `Excellent` versus the other tiers, a fact that makes it difficult to compare the distributions.  To normalize that quantity and compare the raw probability densities, we can change our axes to density (which is analogous to percentage) and employ a kernel density estimator with the `geom_density` plot as shown in Figure \@ref(fig:overhistogramdensitykernel). We can then clearly see that as the exterior quality of the home "goes up" (in the ordinal sense, not in the linear sense), the sale price of the home also increases.
@@ -144,14 +145,14 @@ __One-way ANOVA__ aims to determine whether there is a difference in the mean of
 While ANOVA typically refers to a single hypothesis test, it is truly a linear model with dummy variable inputs. Let \(x_a\), \(x_b\), and \(x_c\) be 3 reference-coded dummy variables for an attribute with 4 levels: `a`, `b`, `c`, and `d`. Note that we only have 3 dummy variables because one gets left out for the reference level, here `d`. ANOVA will create the following linear model:
 
 \begin{equation}
-y=\beta_0 + \beta_ax_a+\beta_bx_b+\beta_cx_c + \epsilon (\#eq:anova1) 
+y=\beta_0 + \beta_ax_a+\beta_bx_b+\beta_cx_c + \varepsilon (\#eq:anova1) 
 \end{equation}
 
 Now this model is especially easy to digest because $x_a$, $x_b$ and $x_c$ are binary indicator variables that sum to 1 for each observation. That means if $x_a = 1$ for a given observation then we know that $x_b$ and $x_c$ must be 0.  The following facts can be easily derived for _reference-level coding_ (they will change for effects-level coding) due to the fact that linear models are designed to predict the conditional expectation of y given x, $E[y|x]$. Indeed, for this situation where there 4 levels of our categorical input, the ANOVA _model_ will produce up to 4 distinct predictions. The prediction for each group is merely the group mean! 
 <ul>
 <li> $\beta_0$ represents the mean of reference group, group `d`. 
 <li> $\beta_a, \beta_b, \beta_c$ all represent the _difference_ in the respective group means compared to the reference level. Positive values thus reflect a group mean that is higher than the reference group, and negative values reflect a group mean lower than the reference group. 
-<li> $\epsilon$ is called the __residual__. It is the error between the prediction and the actual response value.  
+<li> $\varepsilon$ is called the __residual__. It is the error between the prediction and the actual response value.  
 </ul>
 
 A _one-way_ ANOVA model only contains a single input variable of interest. Equation \@ref(eq:anova1), while it has 3 dummy variable inputs, only contains a single nominal attribute. In \@ref(mlr), we will add more inputs to the equation via two-way ANOVA and multivariate regression models. 
@@ -204,8 +205,6 @@ $$H_0: \sigma_a^2 =\sigma_b^2 =\sigma_c^2 \quad  \text{i.e., the groups have equ
 $$H_a: \text{at least one group's variance is different}$$
 
 ```{r message=F}
-#install.packages('car')
-#install.packages('stats')
 library(car)
 library(stats)
 
@@ -265,10 +264,9 @@ The p-values in this table have been adjusted higher to account for the possible
 
 If the plan is to make fewer comparisons, specifically just $k-1$ comparisons where $k$ is the number of groups in your data (indicating you plan to compare all the groups to one specific group, usually the control group), then Dunnett's test would be preferrable to the Tukey-Kramer test. If all pairwise comparisons are not made, the Tukey-Kramer test is overly conservative, creating a confidence level that is much lower than specified by the user. Dunnett's test factors in fewer comparisons and thus should not be used for tests of all pairwise comparisons. 
 
-To use Dunnett's test, we must install the `DescTools` package. The control group to which all other groups will be compared is designated by the `control=` option. 
+To use Dunnett's test, we must add the `DescTools` package to our library. The control group to which all other groups will be compared is designated by the `control=` option. 
 
 ```{r message=F}
-#install.packages('DescTools')
 library(DescTools)
 DunnettTest(x = train$Sale_Price, g = train$Exter_Qual, control = 'Typical')
 ```
@@ -374,13 +372,16 @@ After learning that two variables share a linear relationship, the next question
 y=\beta_0 + \beta_1x + \varepsilon
 (\#eq:slr)
 \end{equation}
-where $\beta_0$, the __intercept__, gives the expected value of $y$ when $x=0$ and $\beta_1$, the __slope__ gives the expected change in $y$ for a one-unit increase in $x$. The __residual__, $\varepsilon$ is the error between our predicted value, $\hat{y}=\beta_0 + \beta_1x$ and our actual value $y$. Ordinary Least Squares seeks to minimize the sum of squared residuals, or sum of squared error. That objective is known as a __loss function__. The sum of squared error (SSE) or equivalently the mean squared error (MSE) loss functions are by far the most popular loss functions for continuous prediction problems. In regression, it is this loss function that provides us with the theory that ensures our predictions are the (conditional) _expected values_ of $y$, given the input data $x$ ($E(y|x)$). We should note that SSE is not the _only_ loss function at our disposal. Minimizing the _mean absolute error_ (MAE) is common in situations with a highly skewed response variable (squaring very large errors gives those observations in the tail too much influence on the regression as we will later discuss). Using MAE to drive our loss function gives us predictions that are conditional _medians_ of the response, given the input data. 
+where $\beta_0$, the __intercept__, gives the expected value of $y$ when $x=0$ and $\beta_1$, the __slope__ gives the expected change in $y$ for a one-unit increase in $x$. The __residual__, $\varepsilon$ is the error between our predicted value, $\hat{y}=\beta_0 + \beta_1x$ and our actual value $y$. _Ordinary Least Squares seeks to minimize the sum of squared residuals, or sum of squared error_. That objective is known as a __loss function__. The sum of squared error (SSE) or equivalently the mean squared error (MSE) loss functions are by far the most popular loss functions for continuous prediction problems. In regression, it is this loss function that provides us with the theory that ensures our predictions are the (conditional) _expected values_ of $y$, given the input data $x$ ($E(y|x)$). 
 
-As discussed in Section \@ref(evp), a simple linear regression serves two purposes:
+We should note that SSE is not the _only_ loss function at our disposal. Minimizing the _mean absolute error_ (MAE) is common in situations with a highly skewed response variable (squaring very large errors gives those observations in the tail too much influence on the regression as we will later discuss). Using MAE to drive our loss function gives us predictions that are conditional _medians_ of the response, given the input data. Other loss functions, like Huber's M function, are also used to handle problems with influential observations as discussed in Chapter \@ref(diag).
+
+As we mentioned in Section \@ref(evp), a simple linear regression serves two purposes:
 <ol>
 <li> to predict the expected value of $y$ for each value of $x$ and 
 <li> to explain _how_ $y$ is expected to change for a unit change in $x$. 
 </ol>
+In order to accurately use a regression for the second purpose, however, we must first meet some strict assumptions with our data. 
 
 ### Assumptions of Linear Regression {#slrassumptions}
 

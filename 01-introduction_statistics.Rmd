@@ -30,6 +30,7 @@ install.packages('vcdExtra')
 install.packages('TSA')
 install.packages('carData')
 install.packages('epiDisplay')
+install.packages('gridExtra')
 ```
 ```{r message=F}
 library(AmesHousing)
@@ -54,6 +55,7 @@ library(vcdExtra)
 library(TSA)
 library(carData)
 library(epiDisplay)
+library(gridExtra)
 ```
  
 This first chapter will review some basic statistical concepts that we assume the reader has seen previously. We will demonstrate how to implement these concepts in R along the way.
@@ -122,11 +124,8 @@ The crucial first step to any data science problem is exploratory data analysis 
 </ul>
 </ul>
 
- We will maintain an example data set throughout this text to demonstrate the various tools and techniques being discussed. It is a real-estate data set that contains the `sale_price` and physical attributes of nearly 3,000 homes in Ames, Iowa in the early 2000s. To access this data, we first install the `AmesHousing` package, add it to our library and create the nicely formatted data with the `make_ordinal_ames()` function. 
+ We will maintain an example data set throughout this text to demonstrate the various tools and techniques being discussed. It is a real-estate data set that contains the `sale_price` and physical attributes of nearly 3,000 homes in Ames, Iowa in the early 2000s. To access this data, we first add the `AmesHousing` package to our library and create the nicely formatted data with the `make_ordinal_ames()` function. 
 
-```{r eval=F}
-install.packages("AmesHousing")
-```
 
 ```{r results='hide', message=FALSE}
 library(AmesHousing)
@@ -156,7 +155,7 @@ A __nominal__ or __categorical variable__ is a _quality of interest_ whose value
 
 In modeling, nominal attributes are commonly transformed into __dummy variables__. Dummy variables are binary columns that indicate the presence or absence of a quality. There is more than one way to create dummy variables, and the treatment will be different depending on what type of model you are using. Linear regression models will use either __reference-level__ or __effects coding__, whereas other machine learning models are more likely to use one-hot encoding or a variation thereof. 
 
-##### One-hot encoding {-}
+__One-hot encoding__
 
 For machine learning applications, it is common to create a binary dummy column for each level of your categorical variable. This is the most intuitive representation of categorical information, answering indicative questions for each level of the variable: _"is it blue?"_, _"is it red?"_ etc. The table below gives an example of some data, the original nominal variable (color) and the one-hot encoded color information. 
 
@@ -186,10 +185,6 @@ print(data)
 Unlike reference and effects coding, which are typically specified within the `lm()` function as we will see in Chapter \@ref(slr), one-hot encoding is most quickly achieved through use of the `onehot` package in R, which first creates an "encoder" to do the job quickly. 
 
 The speed of this function has been tested against both the base R `model.matrix()` function and the `dummyVars()` function in the `caret` package and is _substantially_ faster than either. 
-
-```{r eval=F}
-install.packages("onehot")
-```
 ```{r message=FALSE}
 library(onehot)
 
@@ -198,7 +193,7 @@ dummies = predict(encoder,data)
 head(dummies)
 ```
 
-##### Reference-level coding {-}
+__Reference-level coding __
 
 Reference-level coding is similar to one-hot encoding except one of the levels of the attribute, called the __reference level__, is omitted. Notice that the 4 dummy columns from Table \@ref(tab:onehot) collectively form a linearly dependent set; that is, if you know the values of 3 of the 4 dummy variables you can determine the $4^{th}$ with complete certainty. This would be a problem for linear regression, where we assume our input attributes are not linearly dependent as we will discuss in Chapter \@ref(slr).  
 
@@ -219,7 +214,7 @@ Table \@ref(tab:refcoding) transforms the one-hot encoding from Table \@ref(tab:
 </table>
 <caption> (\#tab:refcoding) Reference-level dummy variable coding for the categorical attribute _color_ and the reference level of "blue" </caption>
 
-##### Effects coding {-}
+__Effects coding__
 
 Effects coding is useful for obtaining a more general comparative interpretation when you have approximately equal sample sizes across each level of your categorical attribute. Effects coding is designed to allow the user to compare each level to _all_ the other levels. More specifically the mean of each level is compared to the __overall mean__ of your data. However, the comparison is actually to the so-called _grand mean_, which is the mean of the means of each group. When sample sizes are equal, the grand mean and the overall sample mean are equivalent. When sample sizes are _not_ equal, the parameter estimates for effects coding should not be used for interpretation or explanation. 
 
@@ -262,7 +257,7 @@ __Ordinal variables will either be given some numeric value and treated as inter
 
 While numeric values have been assigned and this data _could_ be used like an interval attribute, it's important to realize that the notion of a "one-unit increase" is qualitative in nature rather than quantitative. However, if we're interested in learning whether there is a _linear_ type of relationship between education and another attribute (meaning as education level increases, the value of another attribute increases or decreases), this would be the path to get us there. However we're making an assumption in this model that the difference between a H.S. Diploma and an Associates degree (a difference of "1 unit") is the same as the difference between a Master's degree and a PhD (also a difference of "1 unit"). These types of assumptions can be flawed, and it is often desirable to develop an alternative system of measurement based either on domain expertise or the target variable of interest. This is the notion behind __optimal scaling__ and __target-level encoding__.
 
-##### Optimal Scaling {-}
+__Optimal Scaling__
 
 The primary idea behind optimal scaling is to transform an ordinal attribute into an interval one in a way that doesn't restrict the numeric values to simply the integers $1,2,3, \dots$. It's reasonable for a data scientist to use domain expertise to develop an alternative scheme. 
 
@@ -284,7 +279,7 @@ If we re-consider the ordinal attribute level of education, we might decide to r
 
 If we were modeling the effect of education on something like salary, it seems reasonable to assume that the jumps between levels should not have equal distance like they did in \@ref(tab:educationint). It seems reasonable to assume that one would experience a larger salary lift from Associate's to Bachelor's degree than they would from No H.S. Diploma to GED. The most common way to determine the numeric values for categories is to use information from the response variable. This is commonly referred to as __target level encoding__.
 
-##### Target Level Encoding {-}
+__Target Level Encoding__
 
 The values in Table \@ref(tab:educationscaled) might have struck the reader as logical but arbitrary. To be more scientific about the determination of those numeric values, one might wish to use information from the response variable to obtain a more precise expected change in salary for each level increase in education. At first hearing this, one might question the validity of the technique; isn't the goal to _predict_ salary? This line of thought is natural, but there are no concerns here. As long as we have training data (and we must if we're creating a regression model!), we can simply create a look-up table that matches each level of education to the average or median salary obtained for that level. These values can be used just as readily as the arbitrary levels created in Table \@ref(tab:educationscaled) to encode the ordinal attribute!
 
@@ -292,12 +287,7 @@ The values in Table \@ref(tab:educationscaled) might have struck the reader as l
 
 After reviewing the types and formats of the data inputs, we move on to some basic __univariate__ (one variable at a time) analysis. We start by describing the distribution of values that each variable takes on. For nominal variables, this amounts to frequency tables and bar charts of how often each level of the variable appears in the data set.
 
-We'll begin by exploring one of our nominal features, `Heating_QC` which categorizes the quality and condition of a home's heating system. To create plots in R, we will use the popular `ggplot2` library. At the same time, we will load the `tidyverse` library which we will use often in this text. 
-
-```{r eval=F}
-install.packages("ggplot2")
-install.packages("tidyverse")
-```
+We'll begin by exploring one of our nominal features, `Heating_QC` which categorizes the quality and condition of a home's heating system. To create plots in R, we will use the popular `ggplot2` library. At the same time, we will load the `tidyverse` library which we will use in the next chunk of code. 
 
 ```{r message=F,fig=T, fig.align='center', fig.cap = 'Distribution of Nominal Variable Heating_QC', label='barchart'}
 library(ggplot2)
@@ -337,8 +327,9 @@ We define each of these terms below for a variable $\mathbf{x}$ having n observa
 <li>  Quartiles: The quartiles of a variable are the $25^{th}$, $50^{th}$, and $75^{th}$  percentiles. They are denoted as $Q_1$ ($1^{st}$ quartile), $Q_2$ ($2^{nd}$ quartile = median), and $Q_3$ ($3^{rd}$ quartile) respectively.
 </ul>
 
-###### Illustrative Example {-} 
-Suppose the following table contains the heights of 10 students randomly sampled from NC State's campus. Compute the mean, median, mode and quartiles of this variable.
+__Example__
+
+The following table contains the heights of 10 students randomly sampled from NC State's campus. Compute the mean, median, mode and quartiles of this variable.
 
 <table style="width:auto; margin-left: auto; margin-right: auto;" >
 <tr><td style="text-align:center"> height 
@@ -354,7 +345,7 @@ Suppose the following table contains the heights of 10 students randomly sampled
 <td style="text-align:center"> 69
 </table>
 
-###### Solution: {-}
+__Solution:__
 
 <ul>
 <li> The mean is `(60+62+63+65+67+67+67+68+68+69)/10` = 65.6.
@@ -376,8 +367,8 @@ Once we have an understanding of where the bulk of the data is located, we move 
 
 One should note that standard deviation is more frequently reported than variance because it shares the same units as the original data, and because of the guidance provided by the empirical rule. If we're exploring something like `Sale_Price`, which has the unit "dollars", then the variance would be measured in "square-dollars", which hampers the intuition. Standard deviation, on the other hand, would share the unit "dollars", aiding our fundamental understanding. 
 
-###### Illustrative Example {-} 
-Let's again use the table of heights, this time computing the range, IQR, sample variance and standard deviation.
+__Example __
+Let's again use the table of heights from the previous example, this time computing the range, IQR, sample variance and standard deviation.
 
 <table style="width:auto; margin-left: auto; margin-right: auto;" >
 <tr><td style="text-align:center"> height 
@@ -393,7 +384,7 @@ Let's again use the table of heights, this time computing the range, IQR, sample
 <td style="text-align:center"> 69
 </table>
 
-###### Solution: {-}
+__Solution:__
 
 <ul>
 <li> The range `69-60` = 9.

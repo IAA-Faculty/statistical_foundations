@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="mlr.html"/>
-<link rel="next" href="diagnostics.html"/>
+<link rel="next" href="diag.html"/>
 <script src="libs/jquery-3.5.1/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -141,8 +141,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#authors"><i class="fa fa-check"></i>Authors</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#structure-of-the-book"><i class="fa fa-check"></i>Structure of the book</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-the-authors"><i class="fa fa-check"></i>About the Authors</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="intro-stat.html"><a href="intro-stat.html"><i class="fa fa-check"></i><b>1</b> Introduction to Statistics</a><ul>
@@ -222,14 +222,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="model-selection.html"><a href="model-selection.html#significance-levels"><i class="fa fa-check"></i><b>4.3</b> Significance Levels</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="diagnostics.html"><a href="diagnostics.html"><i class="fa fa-check"></i><b>5</b> Diagnostics</a><ul>
-<li class="chapter" data-level="5.1" data-path="diagnostics.html"><a href="diagnostics.html#examining-residuals"><i class="fa fa-check"></i><b>5.1</b> Examining Residuals</a></li>
-<li class="chapter" data-level="5.2" data-path="diagnostics.html"><a href="diagnostics.html#misspecified-model"><i class="fa fa-check"></i><b>5.2</b> Misspecified Model</a></li>
-<li class="chapter" data-level="5.3" data-path="diagnostics.html"><a href="diagnostics.html#constant-variance"><i class="fa fa-check"></i><b>5.3</b> Constant Variance</a></li>
-<li class="chapter" data-level="5.4" data-path="diagnostics.html"><a href="diagnostics.html#normality"><i class="fa fa-check"></i><b>5.4</b> Normality</a></li>
-<li class="chapter" data-level="5.5" data-path="diagnostics.html"><a href="diagnostics.html#correlated-errors"><i class="fa fa-check"></i><b>5.5</b> Correlated Errors</a></li>
-<li class="chapter" data-level="5.6" data-path="diagnostics.html"><a href="diagnostics.html#influential-observations-and-outliers"><i class="fa fa-check"></i><b>5.6</b> Influential Observations and Outliers</a></li>
-<li class="chapter" data-level="5.7" data-path="diagnostics.html"><a href="diagnostics.html#multicollinearity"><i class="fa fa-check"></i><b>5.7</b> Multicollinearity</a></li>
+<li class="chapter" data-level="5" data-path="diag.html"><a href="diag.html"><i class="fa fa-check"></i><b>5</b> Diagnostics</a><ul>
+<li class="chapter" data-level="5.1" data-path="diag.html"><a href="diag.html#examining-residuals"><i class="fa fa-check"></i><b>5.1</b> Examining Residuals</a></li>
+<li class="chapter" data-level="5.2" data-path="diag.html"><a href="diag.html#misspecified-model"><i class="fa fa-check"></i><b>5.2</b> Misspecified Model</a></li>
+<li class="chapter" data-level="5.3" data-path="diag.html"><a href="diag.html#constant-variance"><i class="fa fa-check"></i><b>5.3</b> Constant Variance</a></li>
+<li class="chapter" data-level="5.4" data-path="diag.html"><a href="diag.html#normality"><i class="fa fa-check"></i><b>5.4</b> Normality</a></li>
+<li class="chapter" data-level="5.5" data-path="diag.html"><a href="diag.html#correlated-errors"><i class="fa fa-check"></i><b>5.5</b> Correlated Errors</a></li>
+<li class="chapter" data-level="5.6" data-path="diag.html"><a href="diag.html#influential-observations-and-outliers"><i class="fa fa-check"></i><b>5.6</b> Influential Observations and Outliers</a></li>
+<li class="chapter" data-level="5.7" data-path="diag.html"><a href="diag.html#multicollinearity"><i class="fa fa-check"></i><b>5.7</b> Multicollinearity</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html"><i class="fa fa-check"></i><b>6</b> Model Building &amp; Scoring for Prediction</a><ul>
 <li class="chapter" data-level="6.1" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#regularized-regression"><i class="fa fa-check"></i><b>6.1</b> Regularized Regression</a><ul>
@@ -280,13 +280,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="model-selection" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Model Selection</h1>
 <p>This section will dive into some basic foundations in model selection, or finding the best model for a data set. In most data sets, there will most likely be variables that are informative and ones that are uninformative in predicting the response. With many explanatory variables, it could be extremely time consuming to try all potential models by hand, and the use of automatic procedures can greatly assist in obtaining subsets of variables in which to focus your attention.</p>
-<p>CAUTION: you should NEVER just use the final model created from an automatic procedure! Always double check the variables (look at those included and those not included). Use content knowledge, common sense, diagnostics, etc to decide on your final model.</p>
+<p>CAUTION: you should NEVER just use the final model created from an automatic procedure! <em>Always</em> explore your data (both automatically selected <em>and</em> excluded variables), and use domain knowledge, diagnostics, and critical thought to decide on your final model.</p>
 <p>We will focus on two techniques for automatic variable selection: stepwise procedures and LASSO. Within the stepwise procedures, we will discuss forward, backward and stepwise searches using several different selection criteria. We will end this section discussing important considerations in use of p-values when dealing with large data sets.</p>
 <div id="selection-criteria" class="section level2">
 <h2><span class="header-section-number">4.1</span> Selection Criteria</h2>
-<p>when trying to find the best model, we can use different criteria to choose. For exmaple, you have already seen <span class="math inline">\(R^{2}\)</span> (the larger value of <span class="math inline">\(R^{2}\)</span> the better the model). However, when comparing models, the adjusted <span class="math inline">\(R^{2}\)</span> is better due to the fact that <span class="math inline">\(R^{2}\)</span> can potentially increase even when adding noise. The adjusted <span class="math inline">\(R^{2}\)</span> can be thought of as <span class="math inline">\(R^{2}\)</span> with penalty (for every additional variable added to the model, we add a higher penalty). This allows us to weigh the contribution of adding new variables against the added complexity of more variables in the model. There are other selection criteria that are also used in selecting the “best model” (or variable selection). As you will notice, these selection criteria also have a penalty to take into account the addition of variables. We will use two of the most common ones….AIC and BIC (or also referred to as SBC).</p>
-<p>The AIC, or Akaike information criterion, was developed by statistician Hirotugu Akaike back in the 1970’s and is defined by
-<span class="math display">\[ AIC = -2log(Likelihood) + 2p.  \]</span> In this case, “Likelihood” is the likelihood of the data and 2p is the “penalty”, where p is the number of parameters in the model. A smaller AIC indicates a better model.</p>
+<p>When trying to find the best model, there are many selection criteria at our disposal. For example, you have already been introduced to <span class="math inline">\(R^{2}\)</span> (the larger value of <span class="math inline">\(R^{2}\)</span> the better the model). However, when comparing multivariate models, the adjusted <span class="math inline">\(R^{2}\)</span> is better due to the fact that <span class="math inline">\(R^{2}\)</span> can potentially increase even when adding noise. The adjusted <span class="math inline">\(R^{2}\)</span> can be thought of as <span class="math inline">\(R^{2}\)</span> with penalty (for every additional variable added to the model, we add a penalty). This allows us to weigh the contribution of adding new variables against the added complexity of more variables in the model. There are other selection criteria that are also used in selecting the “best model” (or variable selection). As you will notice, these selection criteria also have a penalty to take into account the addition of variables. We will use two of the most common ones: AIC and BIC (or also referred to as SBC).</p>
+<p>The AIC, or <strong>Akaike information criterion</strong>, was developed by statistician Hirotugu Akaike in the 1970’s and is defined by
+<span class="math display">\[ AIC = -2log(Likelihood) + 2p.  \]</span> In this case, “Likelihood” is the likelihood of the data and <span class="math inline">\(2p\)</span> is the “penalty”, where <span class="math inline">\(p\)</span> is the number of parameters in the model. A smaller AIC indicates a better model.</p>
 <p>BIC, also known as the Bayesian Information Criterion (also called SBC or Schwarz Bayesian Information) was first developed by Gideon E. Schwarz, also back in the 1970’s and is defined by
 <span class="math display">\[BIC = -2log(Likelihood) + plog(n). \]</span> In this case, “Likelihood” is the likelihood of the data and plog(n) is the “penalty”, where p is the number of parameters in the model and n is the sample size. A smaller BIC indicates a better model. Notice that both penalties have a common term of p in them (this will be important to remember when we start discussing the R code).</p>
 </div>
@@ -326,12 +326,138 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb163-7" data-line-number="7">                  <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
 <a class="sourceLine" id="cb163-8" data-line-number="8">                               <span class="dt">upper =</span> full.model),</a>
 <a class="sourceLine" id="cb163-9" data-line-number="9">                  <span class="dt">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="dt">k =</span> <span class="dv">2</span>) </a></code></pre></div>
-<p>Below is edited output with comments to lead you through the forward selection. Notice that the above code has k=2, which means we are using AIC as our selection criterion. The first information R provides is for the initial model, which is <span class="math display">\[Y_{i}=\beta_{0} + \epsilon_{i}.\]</span> The “empty model” has an AIC of 46,323.64 (in order for ANY variable to be added, that model must be better, or in other words have a smaller AIC than this initial model).</p>
-<p><code>Start:  AIC=46323.64 Sale_Price ~ 1</code></p>
+<p>Below is edited output with comments to lead you through the forward selection. Notice that the above code has k=2, which means we are using AIC as our selection criterion. The first information R provides is for the initial model, which is <span class="math display">\[Y_{i}=\beta_{0} + \varepsilon_{i}.\]</span> The “empty model” has an AIC of 46,323.64 (in order for ANY variable to be added, that model must be better, or in other words have a smaller AIC than this initial model).</p>
+<pre><code>Start:  AIC=46323.64
+Sale_Price ~ 1</code></pre>
 <p>R then displays all simple linear regressions with their corresponding AIC values. Notice that R put the information in ascending AIC values (so, best simple linear regression is 43,817 which is indeed smaller than 46,323.64). You will also see a line with a blank for the variable (this is the current “base model”). This is the “base model”. In this first step, it is just the intercept. Therefore, we will add the variable Overall_Qual.</p>
-<p><code>|               | Df  | Sum of Sq | RSS      | AIC    | | :-----------  | :-: | --------: | :------: |------: | | +Overall_Qual |  9  |9.3437e+12 |3.8531e+12| 43817  | | +Gr_Liv_Area  |  1  |6.4389e+12 |6.7578e+12| 44953  | | +Garage_Area  |  1  |5.3561e+12 |7.8407e+12| 45258  | | +First_Flr_SF |  1  |4.8867e+12 |8.3100e+12| 45377  | | +Full_Bath    |  1  |3.7827e+12 |9.4141e+12| 45633  | | +TotRms_AbvGrd|  1  |3.2304e+12 |9.9663e+12| 45750  | | +Fireplaces   |  1  |2.9715e+12 |1.0225e+13| 45802  | | +Half_Bath    |  1  |1.1209e+12 |1.2076e+13| 46144  | | +Roof_Style   |  5  |1.0724e+12 |1.2124e+13| 46160  | | +Central_Air  |  1  |9.6147e+11 |1.2235e+13| 46170  | | +House_Style  |  7  |1.0245e+12 |1.2172e+13| 46172  | | +Second_Flr_SF|  1  |9.4611e+11 |1.2251e+13| 46173  | | +Lot_Area     |  1  |9.0332e+11 |1.2293e+13| 46180  | | +Bldg_Type    |  4  |4.6434e+11 |1.2732e+13| 46258  | | +Street       |  1  |3.1752e+10 |1.3165e+13| 46321  | | &lt;none&gt;        |                 |1.3197e+13| 46324  |</code>
-Now, R shows you the new “base model”, which includes Overall_Qual (and of course the intercept is still included) and the new AIC value to beat 43816.66).</p>
-<p><code>Step:  AIC=43816.66 Sale_Price ~ Overall_Qual</code></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="center">Df</th>
+<th align="right">Sum of Sq</th>
+<th align="center">RSS</th>
+<th align="right">AIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">+Overall_Qual</td>
+<td align="center">9</td>
+<td align="right">9.3437e+12</td>
+<td align="center">3.8531e+12</td>
+<td align="right">43817</td>
+</tr>
+<tr class="even">
+<td align="left">+Gr_Liv_Area</td>
+<td align="center">1</td>
+<td align="right">6.4389e+12</td>
+<td align="center">6.7578e+12</td>
+<td align="right">44953</td>
+</tr>
+<tr class="odd">
+<td align="left">+Garage_Area</td>
+<td align="center">1</td>
+<td align="right">5.3561e+12</td>
+<td align="center">7.8407e+12</td>
+<td align="right">45258</td>
+</tr>
+<tr class="even">
+<td align="left">+First_Flr_SF</td>
+<td align="center">1</td>
+<td align="right">4.8867e+12</td>
+<td align="center">8.3100e+12</td>
+<td align="right">45377</td>
+</tr>
+<tr class="odd">
+<td align="left">+Full_Bath</td>
+<td align="center">1</td>
+<td align="right">3.7827e+12</td>
+<td align="center">9.4141e+12</td>
+<td align="right">45633</td>
+</tr>
+<tr class="even">
+<td align="left">+TotRms_AbvGrd</td>
+<td align="center">1</td>
+<td align="right">3.2304e+12</td>
+<td align="center">9.9663e+12</td>
+<td align="right">45750</td>
+</tr>
+<tr class="odd">
+<td align="left">+Fireplaces</td>
+<td align="center">1</td>
+<td align="right">2.9715e+12</td>
+<td align="center">1.0225e+13</td>
+<td align="right">45802</td>
+</tr>
+<tr class="even">
+<td align="left">+Half_Bath</td>
+<td align="center">1</td>
+<td align="right">1.1209e+12</td>
+<td align="center">1.2076e+13</td>
+<td align="right">46144</td>
+</tr>
+<tr class="odd">
+<td align="left">+Roof_Style</td>
+<td align="center">5</td>
+<td align="right">1.0724e+12</td>
+<td align="center">1.2124e+13</td>
+<td align="right">46160</td>
+</tr>
+<tr class="even">
+<td align="left">+Central_Air</td>
+<td align="center">1</td>
+<td align="right">9.6147e+11</td>
+<td align="center">1.2235e+13</td>
+<td align="right">46170</td>
+</tr>
+<tr class="odd">
+<td align="left">+House_Style</td>
+<td align="center">7</td>
+<td align="right">1.0245e+12</td>
+<td align="center">1.2172e+13</td>
+<td align="right">46172</td>
+</tr>
+<tr class="even">
+<td align="left">+Second_Flr_SF</td>
+<td align="center">1</td>
+<td align="right">9.4611e+11</td>
+<td align="center">1.2251e+13</td>
+<td align="right">46173</td>
+</tr>
+<tr class="odd">
+<td align="left">+Lot_Area</td>
+<td align="center">1</td>
+<td align="right">9.0332e+11</td>
+<td align="center">1.2293e+13</td>
+<td align="right">46180</td>
+</tr>
+<tr class="even">
+<td align="left">+Bldg_Type</td>
+<td align="center">4</td>
+<td align="right">4.6434e+11</td>
+<td align="center">1.2732e+13</td>
+<td align="right">46258</td>
+</tr>
+<tr class="odd">
+<td align="left">+Street</td>
+<td align="center">1</td>
+<td align="right">3.1752e+10</td>
+<td align="center">1.3165e+13</td>
+<td align="right">46321</td>
+</tr>
+<tr class="even">
+<td align="left"><none></td>
+<td align="center"></td>
+<td align="right">1.3197e+13</td>
+<td align="center">46324</td>
+<td align="right"></td>
+</tr>
+</tbody>
+</table>
+<p>Now, R shows you the new “base model”, which includes Overall_Qual (and of course the intercept is still included) and the new AIC value to beat 43816.66).</p>
+<pre><code>Step:  AIC=43816.66
+Sale_Price ~ Overall_Qual</code></pre>
 <p>Using this as our base model, we now try adding each of the remaining variables in separate regression models, output is shown below:</p>
 <table>
 <thead>
@@ -452,14 +578,13 @@ Now, R shows you the new “base model”, which includes Overall_Qual (and of c
 </tbody>
 </table>
 <p>Best model includes Gr_Liv_Area (in addition to the intercept and Overall_Qual). The AIC is 43210, which beats the previous one of 43817. So, we will add Gr_Liv_Area to the model. Our new base model includes the intercept, Overall_Qual and Gr_Liv_Area with an AIC of 43210.</p>
-<p>Step: AIC=43210.24
-Sale_Price ~ Overall_Qual + Gr_Liv_Area</p>
+<pre><code>Step:  AIC=43210.24
+Sale_Price ~ Overall_Qual + Gr_Liv_Area</code></pre>
 <p>We continue in this fashion until adding a new variable does NOT decrease the AIC. The last step is shown below:</p>
-<p>Step: AIC=42676.1<br />
-Sale_Price ~ Overall_Qual + Gr_Liv_Area + House_Style + Garage_Area + Bldg_Type + Fireplaces + Full_Bath + Half_Bath + Lot_Area +
-Roof_Style + Central_Air + Second_Flr_SF + TotRms_AbvGrd +
-First_Flr_SF<br />
-</p>
+<pre><code>Step:  AIC=42676.1
+Sale_Price ~ Overall_Qual + Gr_Liv_Area + House_Style + Garage_Area + Bldg_Type + Fireplaces 
+        + Full_Bath + Half_Bath + Lot_Area + Roof_Style + Central_Air + Second_Flr_SF 
+        + TotRms_AbvGrd + First_Flr_SF</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -489,17 +614,17 @@ First_Flr_SF<br />
 </table>
 <p>Notice that the previous step had a model with the intercept, Overall_Qual, Gr_Liv_Area, House_Style, Garage_Area,
 Bldg_Type, Fireplaces, Full_Bath, Half_Bath, Lot_Area, Roof_Style, Central_Air, Second_Flr_SF, TotRms_AbvGrd, and First_Flr_SF (as illustrated by the above formula). The AIC for this model is 42676.1. There is only one variable left that could be added (Street). However, when we add street to the model, the AIC now becomes 42677 (in other words AIC increases, which is a worse model). The algorithm stops here.</p>
-<p>The code below illustrates how to do forward selection with BIC and p-values. In the output from R, it still says “AIC”, but now these values are calculated by using the BIC formula or the corresponding “k” values for p-values (take a look at the values R has for the “AIC” column and you will see that it has changed!.</p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" data-line-number="1"><span class="co"># k = log(n) for BIC selection</span></a>
-<a class="sourceLine" id="cb164-2" data-line-number="2">for.model2 &lt;-<span class="st"> </span><span class="kw">step</span>(empty.model,</a>
-<a class="sourceLine" id="cb164-3" data-line-number="3">                   <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
-<a class="sourceLine" id="cb164-4" data-line-number="4">                               <span class="dt">upper =</span> full.model),</a>
-<a class="sourceLine" id="cb164-5" data-line-number="5">                   <span class="dt">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="dt">k =</span> <span class="kw">log</span>(<span class="kw">nrow</span>(train_sel))) <span class="co"># k = qchisq(alpha, 1, lower.tail = FALSE) for p-value with alpha selection</span></a>
-<a class="sourceLine" id="cb164-6" data-line-number="6">alpha.f=<span class="fl">0.05</span></a>
-<a class="sourceLine" id="cb164-7" data-line-number="7">for.model3 &lt;-<span class="st"> </span><span class="kw">step</span>(empty.model,</a>
-<a class="sourceLine" id="cb164-8" data-line-number="8">                   <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
-<a class="sourceLine" id="cb164-9" data-line-number="9">                                <span class="dt">upper =</span> full.model),</a>
-<a class="sourceLine" id="cb164-10" data-line-number="10">                   <span class="dt">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="dt">k =</span> <span class="kw">qchisq</span>(alpha.f, <span class="dv">1</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)) </a></code></pre></div>
+<p>The code below illustrates how to do forward selection with BIC and p-values. In the output from R, it still says “AIC”, but now these values are calculated by using the BIC formula or the corresponding “k” values for p-values (take a look at the values R has for the “AIC” column and you will see that it has changed!).</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1"><span class="co"># k = log(n) for BIC selection</span></a>
+<a class="sourceLine" id="cb168-2" data-line-number="2">for.model2 &lt;-<span class="st"> </span><span class="kw">step</span>(empty.model,</a>
+<a class="sourceLine" id="cb168-3" data-line-number="3">                   <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
+<a class="sourceLine" id="cb168-4" data-line-number="4">                               <span class="dt">upper =</span> full.model),</a>
+<a class="sourceLine" id="cb168-5" data-line-number="5">                   <span class="dt">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="dt">k =</span> <span class="kw">log</span>(<span class="kw">nrow</span>(train_sel))) <span class="co"># k = qchisq(alpha, 1, lower.tail = FALSE) for p-value with alpha selection</span></a>
+<a class="sourceLine" id="cb168-6" data-line-number="6">alpha.f=<span class="fl">0.05</span></a>
+<a class="sourceLine" id="cb168-7" data-line-number="7">for.model3 &lt;-<span class="st"> </span><span class="kw">step</span>(empty.model,</a>
+<a class="sourceLine" id="cb168-8" data-line-number="8">                   <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
+<a class="sourceLine" id="cb168-9" data-line-number="9">                                <span class="dt">upper =</span> full.model),</a>
+<a class="sourceLine" id="cb168-10" data-line-number="10">                   <span class="dt">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="dt">k =</span> <span class="kw">qchisq</span>(alpha.f, <span class="dv">1</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)) </a></code></pre></div>
 </div>
 <div id="backward" class="section level3 unnumbered">
 <h3>Backward</h3>
@@ -525,16 +650,16 @@ Bldg_Type, Fireplaces, Full_Bath, Half_Bath, Lot_Area, Roof_Style, Central_Air, 
 </ol></li>
 </ol>
 <p>To do backward elimination in R, you will use the step function. The “full model” should be used as your initial model (which is the model with all the predictor variables in it). For the scope of the model, you need to put the “smallest model” (just the intercept) to the “largest model” (full model). The direction is backward. The penalty (which indicates the criteria) can be controlled by defining “k”. As discussed before, a value of 2 will use the AIC criterion, a value of <span class="math inline">\(log(n)\)</span> will produce the BIC penalty, and finally the upper <span class="math inline">\(\alpha\)</span>-quantile of a <span class="math inline">\(\chi^{2}\)</span> distribution with one degree of freedom will use p-value for its removal of variables.</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" data-line-number="1"><span class="co"># Create full model and empty model</span></a>
-<a class="sourceLine" id="cb165-2" data-line-number="2">full.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>. , <span class="dt">data =</span> train_sel)</a>
-<a class="sourceLine" id="cb165-3" data-line-number="3">empty.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> train_sel)</a>
-<a class="sourceLine" id="cb165-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb165-5" data-line-number="5"><span class="co"># k = 2 for AIC selection</span></a>
-<a class="sourceLine" id="cb165-6" data-line-number="6">back.model &lt;-<span class="st"> </span><span class="kw">step</span>(full.model,</a>
-<a class="sourceLine" id="cb165-7" data-line-number="7">                  <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
-<a class="sourceLine" id="cb165-8" data-line-number="8">                               <span class="dt">upper =</span> full.model),</a>
-<a class="sourceLine" id="cb165-9" data-line-number="9">                  <span class="dt">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="dt">k =</span> <span class="dv">2</span>) </a></code></pre></div>
-<p>Below is edited output with comments to lead you through the backward elimination. Notice that the above code has k=2, which means we are using AIC as our selection criterion. The first information R provides is for the initial model, which is <span class="math display">\[Y_{i}=\beta_{0} + \beta_{1}x_{i,1}+\beta_{2}x_{i,2}+\beta_{3}x_{i,3}+\beta_{4}x_{i,4}+\beta_{5}x_{i,5}+\beta_{6}x_{i,6}+\beta_{i,7}x_{7}+\beta_{8}x_{i,8}+\beta_{9}x_{i,9}+\beta_{10}x_{i,10}+\beta_{11}x_{i,11}+\beta_{12}x_{i,12}+\beta_{13}x_{i,13}+\beta_{14}x_{i,14}+\beta_{15}x_{i,15}+\epsilon_{i}.\]</span> The “full model” has an AIC of 42,677.12 (in order for ANY variable to be removed, that model must be better, or in other words have a smaller AIC than this initial model).</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1"><span class="co"># Create full model and empty model</span></a>
+<a class="sourceLine" id="cb169-2" data-line-number="2">full.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>. , <span class="dt">data =</span> train_sel)</a>
+<a class="sourceLine" id="cb169-3" data-line-number="3">empty.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> train_sel)</a>
+<a class="sourceLine" id="cb169-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb169-5" data-line-number="5"><span class="co"># k = 2 for AIC selection</span></a>
+<a class="sourceLine" id="cb169-6" data-line-number="6">back.model &lt;-<span class="st"> </span><span class="kw">step</span>(full.model,</a>
+<a class="sourceLine" id="cb169-7" data-line-number="7">                  <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
+<a class="sourceLine" id="cb169-8" data-line-number="8">                               <span class="dt">upper =</span> full.model),</a>
+<a class="sourceLine" id="cb169-9" data-line-number="9">                  <span class="dt">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="dt">k =</span> <span class="dv">2</span>) </a></code></pre></div>
+<p>Below is edited output with comments to lead you through the backward elimination. Notice that the above code has k=2, which means we are using AIC as our selection criterion. The first information R provides is for the initial model, which is <span class="math display">\[Y_{i}=\beta_{0} + \beta_{1}x_{i,1}+\beta_{2}x_{i,2}+\beta_{3}x_{i,3}+\beta_{4}x_{i,4}+\beta_{5}x_{i,5}+\beta_{6}x_{i,6}+\beta_{i,7}x_{7}+\beta_{8}x_{i,8}+\beta_{9}x_{i,9}+\beta_{10}x_{i,10}+\beta_{11}x_{i,11}+\beta_{12}x_{i,12}+\beta_{13}x_{i,13}+\beta_{14}x_{i,14}+\beta_{15}x_{i,15}+\varepsilon_{i}.\]</span> The “full model” has an AIC of 42,677.12 (in order for ANY variable to be removed, that model must be better, or in other words have a smaller AIC than this initial model).</p>
 <p>R then displays linear regression models with one variable removed and their corresponding AIC values. For example, if we remove Street (just that one variable), the AIC of that model will be 42675. Notice that R put the information in ascending AIC values (so, best linear regression is at the top with an AIC value of 42,675 which is indeed smaller than 42,677.12, so Street will be removed). You will also see a line with <none>. This is the “base model”, or in this case the full model.</p>
 <table>
 <thead>
@@ -675,10 +800,10 @@ Bldg_Type, Fireplaces, Full_Bath, Half_Bath, Lot_Area, Roof_Style, Central_Air, 
 <tbody>
 <tr class="odd">
 <td align="left"><none></td>
-<td align="center">2.1547e+12</td>
-<td align="right">42675</td>
 <td align="center"></td>
 <td align="right"></td>
+<td align="center">2.1547e+12</td>
+<td align="right">42675</td>
 </tr>
 <tr class="even">
 <td align="left">- TotRms_AbvGrd</td>
@@ -774,21 +899,21 @@ Bldg_Type, Fireplaces, Full_Bath, Half_Bath, Lot_Area, Roof_Style, Central_Air, 
 </tbody>
 </table>
 <p>Notice that none of the removal of variables is better than the “base model” based on the AIC (best one is TotRms_AbvGrd and that has an AIC of 42675, which is not better than the base model). Since none of the removals improve the model, the algorithm stops here with all variables in the model except Street. Therefore, the final model is:</p>
-<p>Step: AIC=42674.6
-Sale_Price ~ Lot_Area + Bldg_Type + House_Style + Overall_Qual +
-Roof_Style + Central_Air + First_Flr_SF + Second_Flr_SF +
-Full_Bath + Half_Bath + Fireplaces + Garage_Area + TotRms_AbvGrd</p>
+<pre><code>Step:  AIC=42674.6
+Sale_Price ~ Lot_Area + Bldg_Type + House_Style + Overall_Qual + 
+    Roof_Style + Central_Air + First_Flr_SF + Second_Flr_SF + 
+    Full_Bath + Half_Bath + Fireplaces + Garage_Area + TotRms_AbvGrd</code></pre>
 <p>The code below illustrates how to do backward elimination with BIC and p-values.</p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" data-line-number="1"><span class="co"># k = log(n) for BIC selection</span></a>
-<a class="sourceLine" id="cb166-2" data-line-number="2">back.model2 &lt;-<span class="st"> </span><span class="kw">step</span>(full.model,</a>
-<a class="sourceLine" id="cb166-3" data-line-number="3">                   <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
-<a class="sourceLine" id="cb166-4" data-line-number="4">                               <span class="dt">upper =</span> full.model),</a>
-<a class="sourceLine" id="cb166-5" data-line-number="5">                   <span class="dt">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="dt">k =</span> <span class="kw">log</span>(<span class="kw">nrow</span>(train_sel))) <span class="co"># k = qchisq(alpha, 1, lower.tail = FALSE) for p-value with alpha selection</span></a>
-<a class="sourceLine" id="cb166-6" data-line-number="6">alpha.f=<span class="fl">0.05</span></a>
-<a class="sourceLine" id="cb166-7" data-line-number="7">back.model3 &lt;-<span class="st"> </span><span class="kw">step</span>(full.model,</a>
-<a class="sourceLine" id="cb166-8" data-line-number="8">                   <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
-<a class="sourceLine" id="cb166-9" data-line-number="9">                                <span class="dt">upper =</span> full.model),</a>
-<a class="sourceLine" id="cb166-10" data-line-number="10">                   <span class="dt">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="dt">k =</span> <span class="kw">qchisq</span>(alpha.f, <span class="dv">1</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)) </a></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" data-line-number="1"><span class="co"># k = log(n) for BIC selection</span></a>
+<a class="sourceLine" id="cb171-2" data-line-number="2">back.model2 &lt;-<span class="st"> </span><span class="kw">step</span>(full.model,</a>
+<a class="sourceLine" id="cb171-3" data-line-number="3">                   <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
+<a class="sourceLine" id="cb171-4" data-line-number="4">                               <span class="dt">upper =</span> full.model),</a>
+<a class="sourceLine" id="cb171-5" data-line-number="5">                   <span class="dt">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="dt">k =</span> <span class="kw">log</span>(<span class="kw">nrow</span>(train_sel))) <span class="co"># k = qchisq(alpha, 1, lower.tail = FALSE) for p-value with alpha selection</span></a>
+<a class="sourceLine" id="cb171-6" data-line-number="6">alpha.f=<span class="fl">0.05</span></a>
+<a class="sourceLine" id="cb171-7" data-line-number="7">back.model3 &lt;-<span class="st"> </span><span class="kw">step</span>(full.model,</a>
+<a class="sourceLine" id="cb171-8" data-line-number="8">                   <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
+<a class="sourceLine" id="cb171-9" data-line-number="9">                                <span class="dt">upper =</span> full.model),</a>
+<a class="sourceLine" id="cb171-10" data-line-number="10">                   <span class="dt">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="dt">k =</span> <span class="kw">qchisq</span>(alpha.f, <span class="dv">1</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)) </a></code></pre></div>
 </div>
 <div id="stepwise" class="section level3 unnumbered">
 <h3>Stepwise</h3>
@@ -814,18 +939,18 @@ Full_Bath + Half_Bath + Fireplaces + Garage_Area + TotRms_AbvGrd</p>
 </ol></li>
 </ol>
 <p>To do stepwise selection in R, you will use the step function. The “empty model” should be used as your initial model. For the scope of the model, you need to put the “smallest model” (just the intercept) to the “largest model” (full model). The direction is both. The penalty (which indicates the criteria) can be controlled by defining “k”. As discussed before, a value of 2 will use the AIC criterion, a value of <span class="math inline">\(log(n)\)</span> will produce the BIC penalty, and finally the upper <span class="math inline">\(\alpha\)</span>-quantile of a <span class="math inline">\(\chi^{2}\)</span> distribution with one degree of freedom will use p-value for its removal of variables.</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" data-line-number="1"><span class="co"># Create full model and empty model</span></a>
-<a class="sourceLine" id="cb167-2" data-line-number="2">full.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>. , <span class="dt">data =</span> train_sel)</a>
-<a class="sourceLine" id="cb167-3" data-line-number="3">empty.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> train_sel)</a>
-<a class="sourceLine" id="cb167-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb167-5" data-line-number="5"><span class="co"># k = 2 for AIC selection</span></a>
-<a class="sourceLine" id="cb167-6" data-line-number="6">step.model &lt;-<span class="st"> </span><span class="kw">step</span>(empty.model,</a>
-<a class="sourceLine" id="cb167-7" data-line-number="7">                  <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
-<a class="sourceLine" id="cb167-8" data-line-number="8">                               <span class="dt">upper =</span> full.model),</a>
-<a class="sourceLine" id="cb167-9" data-line-number="9">                  <span class="dt">direction =</span> <span class="st">&quot;both&quot;</span>, <span class="dt">k =</span> <span class="dv">2</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" data-line-number="1"><span class="co"># Create full model and empty model</span></a>
+<a class="sourceLine" id="cb172-2" data-line-number="2">full.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>. , <span class="dt">data =</span> train_sel)</a>
+<a class="sourceLine" id="cb172-3" data-line-number="3">empty.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> train_sel)</a>
+<a class="sourceLine" id="cb172-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb172-5" data-line-number="5"><span class="co"># k = 2 for AIC selection</span></a>
+<a class="sourceLine" id="cb172-6" data-line-number="6">step.model &lt;-<span class="st"> </span><span class="kw">step</span>(empty.model,</a>
+<a class="sourceLine" id="cb172-7" data-line-number="7">                  <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
+<a class="sourceLine" id="cb172-8" data-line-number="8">                               <span class="dt">upper =</span> full.model),</a>
+<a class="sourceLine" id="cb172-9" data-line-number="9">                  <span class="dt">direction =</span> <span class="st">&quot;both&quot;</span>, <span class="dt">k =</span> <span class="dv">2</span>) </a></code></pre></div>
 <p>As you can see, the initial base model is just the intercept (AIC=46,323.64). From this initial model, all simple linear regressions are created and the AIC is observed.</p>
-<p>Start: AIC=46323.64
-Sale_Price ~ 1</p>
+<pre><code>Start:  AIC=46323.64
+Sale_Price ~ 1</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -953,8 +1078,8 @@ Sale_Price ~ 1</p>
 </table>
 <p>As you can see from the above output, the “best” model is the one containing Overall_Qual. Therefore, the new base model is the one containing just this variable.  </p>
 <p>Using this as the new base model, we look at adding each of the individual variables to this model (see output below), as well as taking away the variables in the model (in this case, just Overall_Qual). From the output, you can see a “+” for when a variable is being added and a “-” for when a variable is being taken away.</p>
-<p>Step: AIC=43816.66
-Sale_Price ~ Overall_Qual</p>
+<pre><code>Step:  AIC=43816.66
+Sale_Price ~ Overall_Qual</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -1080,9 +1205,9 @@ Sale_Price ~ Overall_Qual</p>
 </tr>
 </tbody>
 </table>
-<p>The best model is now the one adding Gr_Liv_Area to the old base model that just included Overall_Qual. This becomes the new base model and the algorithm continues below..</p>
-<p>Step: AIC=43210.24
-Sale_Price ~ Overall_Qual + Gr_Liv_Area</p>
+<p>The best model is now the one adding <code>Gr_Liv_Area</code> to the old base model that just included <code>Overall_Qual</code>. This becomes the new base model and the algorithm continues below..</p>
+<pre><code>Step:  AIC=43210.24
+Sale_Price ~ Overall_Qual + Gr_Liv_Area</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -1209,10 +1334,10 @@ Sale_Price ~ Overall_Qual + Gr_Liv_Area</p>
 </tbody>
 </table>
 <p>Skipping ahead to the final step, we see that the base model includes the variables Overall_Qual, House_Style, Garage_Area, Bldg_Type, Fireplaces, Full_Bath, Half_Bath, Lot_Area, Roof_Style, Central_Air, Second_Flr_SF, TotRms_AbvGrd and First_Flr_SF. Looking at the output below, this is the “best model” (no other model, either inputting one more variable nor removing one variable can beat it based on this criteria).</p>
-<p>Step: AIC=42674.6
-Sale_Price ~ Overall_Qual + House_Style + Garage_Area + Bldg_Type +
-Fireplaces + Full_Bath + Half_Bath + Lot_Area + Roof_Style +
-Central_Air + Second_Flr_SF + TotRms_AbvGrd + First_Flr_SF</p>
+<pre><code>Step:  AIC=42674.6
+Sale_Price ~ Overall_Qual + House_Style + Garage_Area + Bldg_Type + 
+    Fireplaces + Full_Bath + Half_Bath + Lot_Area + Roof_Style + 
+    Central_Air + Second_Flr_SF + TotRms_AbvGrd + First_Flr_SF</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -1227,9 +1352,9 @@ Central_Air + Second_Flr_SF + TotRms_AbvGrd + First_Flr_SF</p>
 <tr class="odd">
 <td align="left"><none></td>
 <td align="center"></td>
-<td align="right">2.1547e+12</td>
-<td align="center">42675</td>
 <td align="right"></td>
+<td align="center">2.1547e+12</td>
+<td align="right">42675</td>
 </tr>
 <tr class="even">
 <td align="left">- TotRms_AbvGrd</td>
@@ -1336,13 +1461,6 @@ Central_Air + Second_Flr_SF + TotRms_AbvGrd + First_Flr_SF</p>
 <td align="center">3.8749e+12</td>
 <td align="right">43860</td>
 </tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="center"></td>
-<td align="right"></td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
 </tbody>
 </table>
 <p>As you can see from the above stepwise procedures of forward, backward and stepwise, the algorithms attempt to find the “best model” by either adding one variable or taking away one variable at at a time. There is no guarantee that these algorithms will find the best model, but they do provide some guidance in terms of potential significance variables and can provide assistance when the number of variables under consideration is very large. As a caution though, you should always do further investigation once you have found models through these algorithms. These algorithms can give the same models or different models as their final selection based on the algorithm selected and the criteria used.</p>
@@ -1402,7 +1520,7 @@ Central_Air + Second_Flr_SF + TotRms_AbvGrd + First_Flr_SF</p>
         </div>
       </div>
 <a href="mlr.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="diagnostics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="diag.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
