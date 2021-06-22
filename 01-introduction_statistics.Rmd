@@ -487,9 +487,9 @@ There are three types of plots for examining the distribution of your data value
 
 #### Histograms {-}
 
-A histogram shows the shape of a univariate distribution. Each bar in the histogram represents a group of values (a _bin_). The height of the bar represents the either the frequency of or the percent of values in the bin. The width and number of bins is determined automatically, but the user can adjust them to see more or less detail in the histogram. 
+A histogram shows the shape of a univariate distribution. Each bar in the histogram represents a group of values (a _bin_). The height of the bar represents the either the frequency of or the percent of values in the bin. The width and number of bins is determined automatically, but the user can adjust them to see more or less detail in the histogram. Figure \@ref(fig:histogram) demonstrated a histogram of sale price. In our next example, in Figure \@ref(fig:overhistogramAC) , we'll complicate that example by showing _two_ distributions of sale price, one for each level of the binary variable `Central_Air`, overlaid on the same axes.
 
-Figure \@ref(fig:overhistogramAC) shows two histograms overlaid on the same axes. We can immediately see that there are many more houses that have central air than do not in this data. It appears as though the two distributions have different locations, with the pink distribution centered at a larger sale price. To normalize that quantity and compare the raw probability densitites, we can change our axes to density (which is analogous to percentage) as in Figure \@ref(fig:overhistogramdensityAC).
+We can immediately see that there are many more houses that have central air than do not in this data. It appears as though the two distributions have different locations, with the pink distribution centered at a larger sale price. To normalize that quantity and compare the raw probability densitites, we can change our axes to density (which is analogous to percentage) as in Figure \@ref(fig:overhistogramdensityAC).
 
 ```{r label='overhistogramAC',fig.align='center',fig.cap='Histogram: Frequency of Sale_Price for Each value of Central_Air'} 
 ggplot(ames,aes(x=Sale_Price/1000)) + 
@@ -499,7 +499,7 @@ ggplot(ames,aes(x=Sale_Price/1000)) +
 
 
 ```
-```{r label='overhistogramdensityAC',fig.align='center',fig.cap='Histogram: Frequency of Sale_Price for varying qualities of home exterior'} 
+```{r label='overhistogramdensityAC',fig.align='center',fig.cap='Histogram: Density of Sale_Price for varying qualities of  Central_Air'} 
 ggplot(ames,aes(x=Sale_Price/1000)) + 
     geom_histogram(data=subset(ames,Central_Air == 'Y'),aes(y=..density..,fill=Central_Air), alpha = 0.2) +
     geom_histogram(data=subset(ames,Central_Air == 'N'),aes(y=..density..,fill=Central_Air), alpha = 0.2) +
@@ -509,7 +509,7 @@ ggplot(ames,aes(x=Sale_Price/1000)) +
 ```
 To ease our differentiation of the histograms even further, we might employ a __kernel density estimator__  with the `geom_density` plot as shown in Figure \@ref(fig:overhistogramdensitykernelAC). This is an appealing alternative to the histogram for continuous data that is assumed to originate from some smooth underlying distribution. 
 
-```{r label='overhistogramdensitykernelAC',fig.align='center',fig.cap='Histogram: Density of Sale_Price for varying qualities of home exterior'} 
+```{r label='overhistogramdensitykernelAC',fig.align='center',fig.cap='Histogram: Density of Sale_Price for varying qualities ofCentral_Air'} 
 ggplot(ames,aes(x=Sale_Price/1000)) + 
     geom_density(data=subset(ames,Central_Air == 'Y'),aes(fill=Central_Air), alpha = 0.2) +
     geom_density(data=subset(ames,Central_Air == 'N'),aes(fill=Central_Air), alpha = 0.2) +
