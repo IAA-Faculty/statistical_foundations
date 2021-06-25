@@ -1,5 +1,5 @@
 # Complex ANOVA and Multiple Linear Regression {#mlr}
-In Chapter \@ref(slr) we were introduced to the One-Way ANOVA and simple linear regression models. These models only contained a single variable - categorical for ANOVA and continuous for simple linear regression - to explain and predict our target variable. Rarely do we believe that only a single variable will suffice in predicting a variable of interest. Here in this Chapter we will generalize these models to the $n$-Way ANOVA and multiple linear regression models. These models contain multiple sets of variables to explain and predict our target variable.
+In in Chapter \@ref(slr) we were introduced to the One-Way ANOVA and simple linear regression models. These models only contained a single variable - categorical for ANOVA and continuous for simple linear regression - to explain and predict our target variable. Rarely do we believe that only a single variable will suffice in predicting a variable of interest. Here in this Chapter we will generalize these models to the $n$-Way ANOVA and multiple linear regression models. These models contain multiple sets of variables to explain and predict our target variable.
 
 This Chapter aims to answer the following questions:
 <ul>
@@ -31,7 +31,7 @@ This Chapter aims to answer the following questions:
 </ul>
 
 ## Two-Way ANOVA
-Section \@ref(oneway) details the One-Way ANOVA model using a single categorical predictor variable with $k$ levels to predict our continuous target variable. Now we will generalize this model to include $n$ categorical variables that each have different numbers of levels ($k_1, k_2, ..., k_n$).
+Section \@ref(slr) details the One-Way ANOVA model using a single categorical predictor variable with $k$ levels to predict our continuous target variable. Now we will generalize this model to include $n$ categorical variables that each have different numbers of levels ($k_1, k_2, ..., k_n$).
 
 ### Exploration
 Let's use the basic example of two categorical predictor variables in a Two-Way ANOVA. Previously, we talked about using heating quality as a factor to explain and predict sale price of homes in Ames, Iowa. Now, we also consider whether the home has central air. Although similar in nature, these two factors potentially provide important, unique pieces of information about the home. Similar to previous data science problems, let us first explore our variables and their potential relationships.
@@ -69,7 +69,7 @@ ggplot(data = CA_heat, aes(x = Heating_QC, y = mean/1000, fill = Central_Air)) +
 As before, visually looking at bar charts and mean calculations only goes so far. We need to statistically be sure of any differences that exist between average sale price in categories.
 
 ### Model
-We are going to do this with the same approach as in the One-Way ANOVA of Section \@ref(oneway), just with more variables as shown in the following equation:
+We are going to do this with the same approach as in the One-Way ANOVA of Chapter \@ref(slr), just with more variables as shown in the following equation:
 
 $$
 Y_{ijk} = \mu + \alpha_i + \beta_j + \varepsilon_{ijk}
@@ -96,10 +96,11 @@ print(tukey.ames2)
 
 plot(tukey.ames2, las = 1)
 ```
+
 Starting with the variable for central air, we can see there is a statistical difference between the two categories. This is the exact same result as the overall F test for the variable since there are only two categories. For the heating quality variable, we can see some categories are different from each other, while others are not. Noticeably, the combination of poor with fair, good, and typical categories are **not** statistically different. Notice also the different widths of these confidence intervals do to the different combinations of sample sizes for the categories being tested.
 
 ## Two-Way ANOVA with Interactions
-What if the relationship between a predictor and target variable changed depending on the value of another predictor variable? For our example, we would say that the average difference in sales price between having central air and not having central changed depending on what level of heating quality the home had. In the bar chart in Figure \@ref(fig:twomeans), an interaction effect is displayed when the differences between the two bars within each heating category is different across heating category. If the difference, was the same, then there is no interaction present. In other words, no matter the heating quality rating of the home, the average difference in sales price between having central air and not having central air is the same.
+What if the relationship between a predictor and target variable changed depending on the value of another predictor variable? For our example, we would say that the average difference in sales price between having central air and not having central changed depending on what level of heating quality the home had. In the bar chart in Figure \@ref(fig:twomeans), a potential interaction effect is displayed when the differences between the two bars within each heating category is different across heating category. If the difference, was the same, then there is no interaction present. In other words, no matter the heating quality rating of the home, the average difference in sales price between having central air and not having central air is the same.
 
 This interaction model is represented as follows:
 
@@ -134,7 +135,7 @@ ames_aov_int <- aov(Sale_Price ~ Heating_QC*Central_Air, data = train)
 
 summary(ames_aov_int)
 ```
-As seen by the output above, the interaction effect between heating quality and central air is significant at the 0.05 level. Again, this implies that the average difference in sale price of the home between having central air and not differs depending on which category of heating quality the home belongs to. If our interaction was **not** significant (say a 0.02 significance level instead) then we would remove the interaction term from our model and rerun the analysis.
+As seen by the output above, the interaction effect between heating quality and central air is **not** significant at the 0.05 level. Again, this implies that the average difference in sale price of the home between having central air and not does not differ depending on which category of heating quality the home belongs to. If our interaction was significant (say a 0.02 p-value instead) then we would keep it in our model, but here we would remove the interaction term from our model and rerun the analysis.
 
 ### Post-Hoc Testing
 Post-hoc tests are also available for interaction models as well to determine where the statistical differences exist in all the combinations of possible categories. We evaluate these post-hoc tests using the same ```TukeyHSD``` function and its corresponding ```plot``` element.
@@ -148,7 +149,7 @@ plot(tukey.ames_int, las = 1)
 
 In the giant table above as well as the confidence interval plots, you are able to inspect which combination of categories are statistically different.
 
-With interactions present in ANOVA models, post-hoc tests might get overwhelming in trying to find where differences exist. To help guide the exploration of post-hoc tests with interactions, we can do **slicing**. Slicing is when you perform One-Way ANOVA on subsets of data within categories of other variables. For example, to help discover differences in the interaction between central air and heating quality, we could subset the data into two groups - homes with central air and homes without. Within these two groups we perform One-Way ANOVA across heating quality to find where differences might exist within subgroups.
+With interactions present in ANOVA models, post-hoc tests might get overwhelming in trying to find where differences exist. To help guide the exploration of post-hoc tests with interactions, we can do **slicing**. Slicing is when you perform One-Way ANOVA on subsets of data within categories of other variables. Even though the interaction in our model was not significant, let's imagine that it was for the sake of example. For example, to help discover differences in the interaction between central air and heating quality, we could subset the data into two groups - homes with central air and homes without. Within these two groups we perform One-Way ANOVA across heating quality to find where differences might exist within subgroups.
 
 This can easily be done with the ```group_by``` function to subset the data. The ```nest``` and ```mutate``` functions are also used to applied the ```aov``` function to each subgroup. Here we run a One-Way ANOVA for heating quality within each subset of central air being present or not.
 
@@ -161,19 +162,19 @@ CA_aov <- train %>%
 CA_aov
 print(CA_aov$aov)
 ```
-We can see that both of these results are significant at the 0.05 level. However, if our significance level was 0.02 instead, only the first One-Way ANOVA would be significant. This implies that there are statistical differences in average sale price across heating quality within homes that have central air, but not in homes that do not (again at the 0.02 level). 
+We can see that both of these results are significant at the 0.05 level. This implies that there are statistical differences in average sale price across heating quality within homes that have central air as well as those that don't have central air. 
 
 ### Assumptions
 The assumptions for the $n$-Way ANOVA are the same as with the One-Way ANOVA - independence of observations, normality for each category of variable, and equal variances. With the inclusion of two or more variables ($n$-Way ANOVA with $n > 1$), these assumptions can be harder to evaluate and test. These assumptions are then applied to the residuals of the model. 
 
-For equal variances, we can still apply the Levene Test for equal variances using the same ```leveneTest``` function as in Section \@ref(oneway).
+For equal variances, we can still apply the Levene Test for equal variances using the same ```leveneTest``` function as in Chapter \@ref(slr).
 
 ```{r}
 leveneTest(Sale_Price ~ Heating_QC*Central_Air, data = train)
 ```
 From this test, we can see that we **do not** meet our assumption of equal variance. 
 
-Let's explore the normality assumption. Again, we will assume this normality on the random error component, $\varepsilon_{ijk}$, of the ANOVA model. More details are found for diagnostic testing using the error component in Chapter \@ref(diag). We can check normality using the same approaches of the QQ-plot or statistical testing as in Section \@ref(graphdist). Here we will use the ```plot``` function on the ```aov``` object. Specifically, we want the second plot which is why we have a ```2``` in the ```plot``` function option. We then use the ```shapiro.test``` function on the error component. The estimate of the error component is calculated using the ```residuals``` function.
+Let's explore the normality assumption. Again, we will assume this normality on the random error component, $\varepsilon_{ijk}$, of the ANOVA model. More details are found for diagnostic testing using the error component in Chapter \@ref(diag). We can check normality using the same approaches of the QQ-plot or statistical testing as in Chapter \@ref(eda). Here we will use the ```plot``` function on the ```aov``` object. Specifically, we want the second plot which is why we have a ```2``` in the ```plot``` function option. We then use the ```shapiro.test``` function on the error component. The estimate of the error component is calculated using the ```residuals``` function.
 
 ```{r}
 plot(ames_aov_int, 2)
@@ -392,6 +393,7 @@ At the bottom of the above output is the result of the global F-test. Since the 
 
 ### Assumptions
 The **main** assumptions for the multiple linear regression model are the same as with the simple linear regression model:
+
 1. The expected value of $y$ is linear in the $x$'s (proper model specification).
 2. The random errors are independent.
 3. The random errors are normally distributed.
@@ -437,7 +439,7 @@ One downside of this new metric is that the $R^2_a$ loses its interpretation. Si
 summary(ames_lm2)
 ```
 
-From this output we can say that the combination of ```Gr_Liv_Area``` and ```TotRmsAbvGrd``` account for 50.95% of the variation in ```Sale_Price```. Now let's add a random variable to the model. This random variable will take random values from a normal distribution with mean of 0 and standard deviation of 1 and has no impact on the target variable.
+From this output we can say that the combination of ```Gr_Liv_Area``` and ```TotRmsAbvGrd``` account for 50.24% of the variation in ```Sale_Price```. Now let's add a random variable to the model. This random variable will take random values from a normal distribution with mean of 0 and standard deviation of 1 and has no impact on the target variable.
 
 ```{r}
 set.seed(1234)
@@ -446,7 +448,7 @@ ames_lm3 <- lm(Sale_Price ~ Gr_Liv_Area + TotRms_AbvGrd + rnorm(length(Sale_Pric
 summary(ames_lm3)
 ```
 
-Notice that the $R^2$ of this model actually increased to 0.5097 from 0.5095. However, the $R^2_a$ value dropped from 0.5091 to 0.5089 since the addition of this new variable did not provide enough predictive power to outweigh the penalty of adding it.
+Notice that the $R^2$ of this model actually increased to 0.5028 from 0.5024. However, the $R^2_a$ value stayed approximately the same at 0.502 since the addition of this new variable did not provide enough predictive power to outweigh the penalty of adding it.
 
 ### Categorical Predictor Variables
 As mentioned in Chapter \@ref(eda), there are two types of variables typically used in modeling:
@@ -519,4 +521,5 @@ ames_lm4 <- lm(Sale_Price ~ Gr_Liv_Area + TotRms_AbvGrd + Central_Air, data = tr
 summary(ames_lm4)
 ```
 
-With these results we estimate the average difference in sales price between homes with central air and without central air to be \$56,672.41.
+
+With these results we estimate the average difference in sales price between homes with central air and without central air to be \$54,513.08.

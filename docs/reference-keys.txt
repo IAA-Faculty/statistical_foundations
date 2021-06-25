@@ -8,6 +8,7 @@ fig:histogram
 fig:skewdiagram
 fig:bimodal
 fig:kurtosis
+fig:histwithkernal
 fig:overhistogramAC
 fig:overhistogramdensityAC
 fig:overhistogramdensitykernelAC
@@ -120,7 +121,6 @@ normality
 correlated-errors
 influential-observations-and-outliers
 multicollinearity
-model-building-scoring-for-prediction
 regularized-regression
 penalties-in-models
 ridge-regression
@@ -130,8 +130,9 @@ optimizing-penalties
 cross-validation
 cv-in-regularized-regression
 model-comparisons
+model-metrics
 test-dataset-comparison
-categorical-data-analysis
+cat
 describing-categorical-data
 tests-of-association
 measures-of-association

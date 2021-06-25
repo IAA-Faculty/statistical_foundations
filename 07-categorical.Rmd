@@ -1,4 +1,4 @@
-# Categorical Data Analysis
+# Categorical Data Analysis {#cat}
 Everything analysis covered so far has used a continuous variable as a target variable of interest. What if our target variable was categorical instead of continuous? Our analysis must change to adjust. 
 
 This Chapter aims to answer the following questions:
@@ -25,7 +25,7 @@ train <- train %>%
   mutate(Bonus = ifelse(Sale_Price > 175000, 1, 0))
 ```
 
-You are interested in what variables might be associated with obtaining a higher chance of getting a bonus (selling a house above \$175,000). An association exists between two categorical variables if the distribution of one variable changes when the value of the other categorical changes. If there is no association, the distribution of the first variable is the same regardless of the value of the other variable. For example, if we wanted to know if obtaining a bonus on selling a house in Ames, Iowa was associated with whether the house had central air we could look at the distribution of bonus eligible houses. If we observe that 42% of homes with central air are bonus eligible and 42% of homes without central air are bonus eligible, then it appears that central air has no bearing on whether the home is bonus eligible. However, if instead we observe that only 5% of homes without central air are bonus eligible, but 45% of home with central air are bonus eligible, then it appears that having central air might be related to a home being bonus eligible.
+You are interested in what variables might be associated with obtaining a higher chance of getting a bonus (selling a house above \$175,000). An association exists between two categorical variables if the distribution of one variable changes when the value of the other categorical changes. If there is no association, the distribution of the first variable is the same regardless of the value of the other variable. For example, if we wanted to know if obtaining a bonus on selling a house in Ames, Iowa was associated with whether the house had central air we could look at the distribution of bonus eligible houses. If we observe that 42% of homes with central air are bonus eligible and 42% of homes without central air are bonus eligible, then it appears that central air has no bearing on whether the home is bonus eligible. However, if instead we observe that only 3% of homes without central air are bonus eligible, but 44% of home with central air are bonus eligible, then it appears that having central air might be related to a home being bonus eligible.
 
 To understand the distribution of categorical variables we need to look at frequency tables. A frequency table shows the number of observations that occur in certain categories or intervals. A one way frequency table examines all the categories of one variable. These are easily visualized with bar charts.
 
@@ -58,7 +58,7 @@ ggplot(data = train) +
   geom_bar(mapping = aes(x = Bonus, fill = Central_Air))
 ```
 
-From the above output we can see that 140 homes have no central air with only 5 of them being bonus eligible. However, there are 1909 homes that have central air with 851 of them being bonus eligible. For an even more detailed breakdown we can use the ```CrossTable``` function.
+From the above output we can see that 147 homes have no central air with only 5 of them being bonus eligible. However, there are 1904 homes that have central air with 835 of them being bonus eligible. For an even more detailed breakdown we can use the ```CrossTable``` function.
 
 ```{r}
 library(gmodels)
@@ -66,15 +66,17 @@ library(gmodels)
 CrossTable(train$Central_Air, train$Bonus)
 ```
 
-The advantage of the ```CrossTable``` function is that we can easily get not only the frequencies, but the cell, row, and column proportions. For example, the third number in each cell gives us the row proportion. For homes without central air, 96.4% of them are not bonus eligible, while 3.6% of them are. For homes with central air, 55.4% of the homes are not bonus eligible, while 44.6% of them are. This would appear that the distribution of bonus eligible homes changes across levels of central air - a relationship between the two variables. This expected relationship needs to be tested statistically for verification.
+The advantage of the ```CrossTable``` function is that we can easily get not only the frequencies, but the cell, row, and column proportions. For example, the third number in each cell gives us the row proportion. For homes without central air, 96.6% of them are not bonus eligible, while 3.4% of them are. For homes with central air, 56.1% of the homes are not bonus eligible, while 43.9% of them are. This would appear that the distribution of bonus eligible homes changes across levels of central air - a relationship between the two variables. This expected relationship needs to be tested statistically for verification.
 
 ## Tests of Association
 Much like in Chapter \@ref(slr) we have statistical tests to evaluate relationships between two categorical variables. The null hypothesis for these statistical tests is that the two variables have no association - the distribution of one variable does not change across levels of another variable. The alternative hypothesis is an association between the two variables - the distribution of one variable changes across levels of another variable.
 
 These statistical tests follow a $\chi^2$-distribution. The $\chi^2$-distribution is a distribution that has the following characteristics:
-- Bounded below by 0
-- Right-skewed
-- One set of degrees of freedom
+  <ul> 
+    <li> Bounded below by 0
+    <li> Right-skewed
+    <li> One set of degrees of freedom
+  </ul>
 
 A plot of a variety of $\chi^2$-distributions is shown here:
 
@@ -94,7 +96,7 @@ ggplot() +
   xlim(0,15) + ylim(0,1) +theme_minimal()
 ```
 
-Two common $\chi^2$ tests are the Pearson and Likelihood Ratio $\chi^2$ tests. They compare the observed count of observations in each cell of a cross-tabulation table between two variables to their expected count **if** there was no relationship. The expected cell count applies the overall distribution of one variable across all the levels of the other variable. For example, overall 58% of all homes are not bonus eligible. **If** that were to apply to every level of central air, then the 140 homes without central air would be expected to have 81.2 ($ = 140 \times 0.58$) of them would be bonus eligible while 58.8 ($ = 140 \times 0.42$) of them would not be bonus eligible. We actually observe 135 and 5 homes for each of these categories respectively. The further the observed data is from the expected data, the more evidence we have that there is a relationship between the two variables.
+Two common $\chi^2$ tests are the Pearson and Likelihood Ratio $\chi^2$ tests. They compare the observed count of observations in each cell of a cross-tabulation table between two variables to their expected count **if** there was no relationship. The expected cell count applies the overall distribution of one variable across all the levels of the other variable. For example, overall 59% of all homes are not bonus eligible. **If** that were to apply to every level of central air, then the 140 homes without central air would be expected to have 86.73 ( $ = 147 \times 0.59 $ ) of them would be bonus eligible while 60.27 ( $ = 147 \times 0.41$ ) of them would not be bonus eligible. We actually observe 142 and 5 homes for each of these categories respectively. The further the observed data is from the expected data, the more evidence we have that there is a relationship between the two variables.
 
 The test statistic for the Pearson $\chi^2$ test is the following:
 
@@ -143,7 +145,7 @@ library(vcdExtra)
 CMHtest(table(train$Central_Air, train$Bonus))$table[1,]
 ```
 
-From here we can see another extremely small p-value as we saw in earlier, more general $chi^2$ tests. 
+From here we can see another extremely small p-value as we saw in earlier, more general $\chi^2$ tests. 
 
 ## Measures of Association
 Tests of association are best designed for just that, testing the existence of an association between two categorical variables. However, just like we saw in Chapter \@ref(eda), hypothesis tests are impacted by sample size. When we have the same sample size, tests of association can rank significance of variables with p-values. However, when sample sizes are not the same between two tests, the tests of association are not best for comparing the strength of an association. In those scenarios, we have measures of strength of association that can be compared across any sample size. 
@@ -165,7 +167,7 @@ Let's again examine the cross-tabulation table between central air and bonus eli
 CrossTable(train$Central_Air, train$Bonus)
 ```
 
-Let's look at the row without central air. The probability that a home without central air is not bonus eligible is 96.4%. That implies that the odds of not being bonus eligible in homes without central air is 26.78 (= 0.964/0.036). For homes with central air, the odds of not being bonus eligible are 1.24 (= 0.554/0.446). The odds ratio between these two would be approximately 21.7 (= 26.7778/1.2422). In other words, homes without central air are 21.7 times more likely (in terms of odds) to not be bonus eligible as compared to homes with central air. This relationship is intuitive based on the numbers we have seen. Without going into details, it can also be shown that homes with central air are 21.7 times as likely (in terms of odds) to be bonus eligible.
+Let's look at the row without central air. The probability that a home without central air is not bonus eligible is 96.6%. That implies that the odds of not being bonus eligible in homes without central air is 28.41 (= 0.966/0.034). For homes with central air, the odds of not being bonus eligible are 1.28 (= 0.561/0.439). The odds ratio between these two would be approximately 22.2 (= 28.41/1.28). In other words, homes without central air are 22.2 times more likely (in terms of odds) to not be bonus eligible as compared to homes with central air. This relationship is intuitive based on the numbers we have seen. Without going into details, it can also be shown that homes with central air are 22.2 times as likely (in terms of odds) to be bonus eligible.
 
 We can use the ```OddsRatio``` function to get these same results.
 
@@ -193,7 +195,7 @@ Lastly, we have Spearman's correlation. Much like the Mantel-Haenszel test of as
 
 The ```cor.test``` function that gave us Pearson's correlation also provides Spearman's correlation. 
 
-```{r}
+```{r, warning=FALSE}
 cor.test(x = as.numeric(ordered(train$Central_Air)), 
          y = as.numeric(ordered(train$Bonus)), 
          method = "spearman")
@@ -249,7 +251,7 @@ $$
 
 This function has the desired properties for predicting probabilities. The predicted probability from the above equation will always be between 0 and 1. The parameter estimates do not enter the function linearly (this is a non-linear regression model), and the rate of change of the probability varies as the predictor variables vary as seen in Figure \@ref(fig:logistic).
 
-```{r label='logistic', fig.align='center', fig.cap = 'Example of a Bimodal Distribution', echo=F, out.width="50%"}
+```{r label='logistic', fig.align='center', fig.cap = 'Example of a Logistic Curve', echo=F, out.width="50%"}
 knitr::include_graphics("img/logistic.png")
 ```
 
@@ -262,6 +264,7 @@ $$
 The relationship between the predictor variables and the logits are linear in nature as the logits themselves are unbounded. This structure looks much more like our linear regression model structure. However, logistic regression does not use OLS to estimate the coefficients in our model. OLS requires residuals which the logistic regression model does not provide. The target variable is binary in nature, but the predictions are probabilities. Therefore, we cannot calculate a traditional residual. Instead, logistic regression uses maximum likelihood estimation. This is not covered here.
 
 There are two main assumptions for logistic regression:
+
 1. Independence of observations
 2. Linearity of the logit
 
@@ -322,7 +325,7 @@ Concordance(train$Bonus, predict(ames_logit2, type = "response"))
 We can see that the model with categorical predictors added to it has a higher concordance at 88.4%. That implies that our model is correctly able to rank our observations 88.4% of the time. This is **NOT** the same thing as saying our model is 88.4% accurate. Accuracy (which is not covered here) deals with a prediction being correct or incorrect. Concordance is only measuring how often we are able to predict 1's with higher probability than 0's - again, correctly ranking the observations.
 
 ### Variable Selection and Regularized Regression
-As with linear regression in Chapters \@ref(sel) and \@ref(mlr), logistic regression uses the same approaches to doing variable selection. In fact, the same function are used as well. Let's use the ```step``` function to apply a forward and backward selection to the logistic regression model.
+As with linear regression in Chapters \@ref(reg) and \@ref(sel), logistic regression uses the same approaches to doing variable selection. In fact, the same function are used as well. Let's use the ```step``` function to apply a forward and backward selection to the logistic regression model.
 
 ```{r}
 train_sel_log <- train %>% 
@@ -372,4 +375,3 @@ Concordance(train$Bonus, predict(back.model, type = "response"))
 Not surprisingly, this model outperforms the previous model that we had with a concordance of 96.1%. 
 
 Although not covered in detail here, regularized regression can also be applied to logistic regression to get a different view. This might be helpful with the multicollinearity present in these predictor variables. Again, we can use the ```glmnet``` function with the addition of a ```family = "binomial"``` option. 
-

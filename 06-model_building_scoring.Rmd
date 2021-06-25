@@ -1,4 +1,8 @@
-# Model Building & Scoring for Prediction
+# Model Building & Scoring for Prediction {#model}
+Chapters \@ref(slr) and \@ref(mlr) only scratch the surface of model building. Linear regression is a great initial approach to take to model building. In fact, in the realm of statistical models, linear regression (calculated by ordinary least squares) is the **best linear unbiased estimator**. The two key pieces to that previous statement are "best" and "unbiased." 
+
+What does it mean to be **unbiased**? Each of the sample coefficients ($\hat{\beta}$'s) in the regression model are estimates of the true coefficients. Just like the statistics back in Chapter \@ref(eda), these sample coefficients have sampling distributions - specifically, normally distributed sampling distributions. The mean of the sampling distribution of $\hat{\beta}_j$ is the true (known) coefficient $\beta_j$. This means the coefficient is unbiased.
+
 In the preceding chapters, we have only scratched the surface of model building. Linear regression is a great initial approach to model building. In fact, in the realm of statistical models, linear regression (calculated by ordinary least squares) is the **best linear unbiased estimator**. The two key pieces to that previous statement are "best" and "unbiased." 
 
 What does it mean to be **unbiased**? Each of the sample coefficients ($\hat{\beta}$'s) in the regression model are estimates of the true coefficients. Just like the statistics back in Chapter \@ref(intro-stat), these sample coefficients have sampling distributions - specifically, normally distributed sampling distributions. The mean of the sampling distribution of $\hat{\beta}_j$ is the true (known) coefficient $\beta_j$. This means the coefficient is unbiased.
@@ -38,6 +42,8 @@ Another potential problem for linear regression is when we have more variables t
 Regularized (or penalized or shrinkage) regression techniques potentially alleviate these problems. Regularized regression puts constraints on the estimated coefficients in our model and *shrink* these estimates to zero. This helps reduce the variation in the coefficients (improving the variance of the model), but at the cost of biasing the coefficients. The specific constraints that are put on the regression inform the three common approaches - **ridge regression**, **LASSO**, and **elastic nets**.
 
 ### Penalties in Models
+In ordinary least squares linear regression, we minimize the sum of the squared residuals (or errors) as laid out in Chapter @\ref(slr). 
+
 In ordinary least squares linear regression, we minimize the sum of the squared residuals (or errors) as laid out in Chapter \@ref(slr). 
 
 $$
@@ -126,7 +132,7 @@ plot(ames_ridge, xvar = "lambda")
 
 The ```glmnet``` function automatically standardizes the variables before fitting the regression model. This is important so that all of the variables are on the same scale before adjustments are made to the estimated coefficients. Even with this standardization we can see the large coefficient values for some of the variables. The top of the plot lists how many variables are in the model at each value of penalty. This will never change for ridge regression, but does for LASSO. 
 
-What $lambda$ term is best? That will be discussed in the optimizing section below, but let's discuss other possible penalties first.
+What $\lambda$ term is best? That will be discussed in the optimizing section below, but let's discuss other possible penalties first.
 
 ### LASSO
 **Least absolute shrinkage and selection operator** (LASSO) regression adds what is commonly referred to as an "$L_1$" penalty:
@@ -169,7 +175,7 @@ plot(ames_lasso, xvar = "lambda")
 
 The ```glmnet``` function automatically standardizes the variables before fitting the regression model. This is important so that all of the variables are on the same scale before adjustments are made to the estimated coefficients. Even with this standardization we can see the large coefficient values for some of the variables. The top of the plot lists how many variables are in the model at each value of penalty. Notice as the penalty increases, the number of variables decreases as variables are forced to zero. 
 
-What $lambda$ term is best? That will be discussed in the optimizing section below, but let's discuss the last possible penalty first - the combination of both ridge and LASSO.
+What $\lambda$ term is best? That will be discussed in the optimizing section below, but let's discuss the last possible penalty first - the combination of both ridge and LASSO.
 
 ### Elastic Net
 Which approach is better, ridge or LASSO? Both have advantages and disadvantages. LASSO performs variable selection while ridge keeps all variables in the model. However, reducing the number of variables might impact minimum error. Also, if you have two correlated variables, which one LASSO chooses to zero out is relatively arbitrary to the context of the problem. 
@@ -198,7 +204,7 @@ plot(ames_en, xvar = "lambda")
 
 The ```glmnet``` function automatically standardizes the variables before fitting the regression model. This is important so that all of the variables are on the same scale before adjustments are made to the estimated coefficients. Even with this standardization we can see the large coefficient values for some of the variables. The top of the plot lists how many variables are in the model at each value of penalty. Notice as the penalty increases, the number of variables decreases as variables are forced to zero using the LASSO piece of the elastic net penalty. 
 
-What $lambda$ term is best? What is the proper balance between ridge and LASSO penalties when building an elastic net? That will be discussed in the following section.
+What $\lambda$ term is best? What is the proper balance between ridge and LASSO penalties when building an elastic net? That will be discussed in the following section.
 
 ## Optimizing Penalties
 No matter the approach listed above, a penatly term $\lambda$ needs to be picked. However, we do not want to get caught overfitting our training data by minimizing the variance so much that it is not generalizable to the overall pattern and other similar data. Take the following plot:
@@ -242,7 +248,7 @@ ames_lasso_cv$lambda.min
 ames_lasso_cv$lambda.1se
 ```
 
-The above plot shows the results from our cross-validation. Here the models are evaluated based on their **mean-squared error** (MSE). The MSE is defined as $\frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_i)^2$. The $\lambda$ value that minimizes the MSE is 555.064 (with a $\log(\lambda)$ = 6.32). This is highlighted by the first, vertical dashed line. The second vertical dashed line is the largest $\lambda$ value that is one standard error above the minimum value. This value is especially useful in LASSO regressions. The largest $\lambda$ within one standard error would provide approximately the same MSE, but with a further reduction in the number of variables. Notice that to go from the first line to the second, the change in MSE is very small, but the reduction of variables is from around 25 variables to 7 variables. 
+The above plot shows the results from our cross-validation. Here the models are evaluated based on their **mean-squared error** (MSE). The MSE is defined as $\frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_i)^2$. The $\lambda$ value that minimizes the MSE is 49.69435 (with a $\log(\lambda)$ = 3.91). This is highlighted by the first, vertical dashed line. The second vertical dashed line is the largest $\lambda$ value that is one standard error above the minimum value. This value is especially useful in LASSO regressions. The largest $\lambda$ within one standard error would provide approximately the same MSE, but with a further reduction in the number of variables. Notice that to go from the first line to the second, the change in MSE is very small, but the reduction of variables is from 36 variables to around 12 variables. 
 
 Let's look at the impact on the coefficients under this penalty using the ```glmnet``` function as before.
 
@@ -254,7 +260,7 @@ abline(v = log(ames_lasso_cv$lambda.min), col = "black", lty = "dashed")
 
 To investigate which variables are important at a $\lambda$ value, we can view the coefficients using the ```coef``` function. They are ranked here:
 
-```{r}
+```{r, warning=FALSE}
 coef(ames_lasso, s = ames_lasso_cv$lambda.1se) %>%
   broom::tidy() %>%
   filter(row != "(Intercept)") %>%
@@ -270,9 +276,10 @@ The variable describing the overall quality of the home is the driving factor of
 A similar approach can be taken for CV with ridge regression using the same structure of code. That will not be covered here. Elastic nets are more complicated in that they have multiple parameters to optimize. For that approach, an optimization grid will need to be structured to evaluate different $\lambda$ values across different $\alpha$ values. A loop can be set up to run the ```cv.glmnet``` function across many different values of $\alpha$. That will not be covered in detail here. 
 
 ## Model Comparisons
-Now we have multiple models built for our dataset. To help evaluate which model is better, we will use the test dataset as described in Chapter @\ref(slr). 
+Now we have multiple models built for our dataset. To help evaluate which model is better, we will use the test dataset as described in Chapter \@ref(slr). 
 
-The models we have built are nothing but formulas. All we have to do is put the test dataset in the formula to predict/score the test data. We **do not** rerun the algorithm as the goal is **not** to fit the test dataset, but to just score it. We need to make sure that we have the same structure to the test dataset that we do with the training dataset. Any variable transformations, new variable creations, and missing value imputations done on the training dataset must be done on the test dataset in the same way. 
+The models we have built are nothing but formulas. All we have to do is put the test dataset in the formula to predict/score the test data. We **do not** rerun the algorithm as the goal is **not** to fit the test dataset, but to just score it. We need to make sure that we have the same structure to the test dataset that we do with the training dataset. Any variable transformations, new variable creations, and missing value imputations done on the training dataset must be done on the test dataset in the same way.
+
 ### Model Metrics
 Once the predicted values are obtained from each model we need to evaluate good these predictions are. There are many different metrics to evaluate models depending on what type of target variable that you have. Some common metrics for continuous target variables are the square root of the mean squared error (RMSE), the mean absolute error (MAE), and mean absolute percentage error (MAPE). 
 
@@ -298,7 +305,7 @@ $$
 The MAPE gives the average absolute *percentage* difference between our predictions and the actual values. This metric is very interpretable and not dependent on the scale of the data. However, it is not symmetric like the MAE.
 
 ### Test Dataset Comparison
-The final model we had from Chapter @\ref(diag) had the variables . From this model we can use the ```predict``` function with the ```newdata = ``` option to use score the ```test``` dataset. 
+The final model we had from Chapter \@ref(diag) had the variables . From this model we can use the ```predict``` function with the ```newdata = ``` option to use score the ```test``` dataset. 
 
 ```{r}
 test$pred_lm <- predict(ames_lm, newdata = test)
@@ -317,16 +324,16 @@ head(test_reg$pred_lasso)
 Now we need to calculate the MAE and MAPE for each model for comparison.
 
 ```{r}
-test <- test %>%
+test %>%
   mutate(lm_APE = 100*abs((Sale_Price - pred_lm)/Sale_Price)) %>%
   dplyr::summarise(MAPE_lm = mean(lm_APE))
 
-test_reg <- test_reg %>%
+test_reg %>%
   mutate(lasso_APE = 100*abs((Sale_Price - pred_lasso)/Sale_Price)) %>%
   dplyr::summarise(MAPE_lasso = mean(lasso_APE))
 
 ```
 
-From the above results, the linear regression from OLS has a lower MAE and MAPE. 
+From the above results, the linear regression from OLS has a lower MAPE. 
 
 Once we have scored models with the test dataset, we should **not** go back to try and rebuild any models. We will use the model with the lowest MAE or MAPE. This number is also the number that we report on how well our model performs. No metrics on the training dataset should be reported for the performance of the model.

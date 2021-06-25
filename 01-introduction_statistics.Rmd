@@ -487,11 +487,20 @@ There are three types of plots for examining the distribution of your data value
 
 #### Histograms {-}
 
-A histogram shows the shape of a univariate distribution. Each bar in the histogram represents a group of values (a _bin_). The height of the bar represents the either the frequency of or the percent of values in the bin. The width and number of bins is determined automatically, but the user can adjust them to see more or less detail in the histogram. Figure \@ref(fig:histogram) demonstrated a histogram of sale price. In our next example, in Figure \@ref(fig:overhistogramAC) , we'll complicate that example by showing _two_ distributions of sale price, one for each level of the binary variable `Central_Air`, overlaid on the same axes.
+A histogram shows the shape of a univariate distribution. Each bar in the histogram represents a group of values (a _bin_). The height of the bar represents the either the frequency of or the percent of values in the bin. The width and number of bins is determined automatically, but the user can adjust them to see more or less detail in the histogram. Figure \@ref(fig:histogram) demonstrated a histogram of sale price. Sometimes it's nice to overlay a continuous approximation to the underlying distribution using a _kernal density estimator_  with the `geom_density` plot, demonstrated in Figure \@ref(fig:histwithkernal).
 
-We can immediately see that there are many more houses that have central air than do not in this data. It appears as though the two distributions have different locations, with the pink distribution centered at a larger sale price. To normalize that quantity and compare the raw probability densitites, we can change our axes to density (which is analogous to percentage) as in Figure \@ref(fig:overhistogramdensityAC).
+```{r label='histwithkernal',fig.align='center',fig.cap='Histogram of Sale_Price with kernal density estimator', message=F} 
+ggplot(ames,aes(x=Sale_Price/1000)) + 
+    geom_histogram(aes(y=..density..), alpha=0.5) + geom_density( alpha = 0.2) +
+    labs(x = "Sales Price (Thousands $)")  
 
-```{r label='overhistogramAC',fig.align='center',fig.cap='Histogram: Frequency of Sale_Price for Each value of Central_Air'} 
+```
+
+In our next example, Figure \@ref(fig:overhistogramAC), we'll complicate the previous example by showing _two_ distributions of sale price, one for each level of the binary variable `Central_Air`, overlaid on the same axes.
+
+We can immediately see that there are many more houses that have central air than do not in this data. It appears as though the two distributions have different locations, with the pink distribution centered at a larger sale price. To normalize that quantity and compare the raw probability densitites, we can change our axes to density as in Figure \@ref(fig:overhistogramdensityAC).
+
+```{r label='overhistogramAC',fig.align='center',fig.cap='Histogram: Frequency of Sale_Price for Each value of Central_Air', message=F} 
 ggplot(ames,aes(x=Sale_Price/1000)) + 
     geom_histogram(data=subset(ames,Central_Air == 'Y'),aes(fill=Central_Air), alpha = 0.2) +
     geom_histogram(data=subset(ames,Central_Air == 'N'),aes(fill=Central_Air), alpha  = 0.2) +
@@ -507,9 +516,9 @@ ggplot(ames,aes(x=Sale_Price/1000)) +
 
 
 ```
-To ease our differentiation of the histograms even further, we might employ a __kernel density estimator__  with the `geom_density` plot as shown in Figure \@ref(fig:overhistogramdensitykernelAC). This is an appealing alternative to the histogram for continuous data that is assumed to originate from some smooth underlying distribution. 
+To ease our differentiation of the histograms even further, we again employ a kernel density estimator as shown in Figure \@ref(fig:overhistogramdensitykernelAC). This is an appealing alternative to the histogram for continuous data that is assumed to originate from some smooth underlying distribution. 
 
-```{r label='overhistogramdensitykernelAC',fig.align='center',fig.cap='Histogram: Density of Sale_Price for varying qualities ofCentral_Air'} 
+```{r label='overhistogramdensitykernelAC',fig.align='center',fig.cap='Histogram: Density of Sale_Price for varying qualities of Central_Air', message=F} 
 ggplot(ames,aes(x=Sale_Price/1000)) + 
     geom_density(data=subset(ames,Central_Air == 'Y'),aes(fill=Central_Air), alpha = 0.2) +
     geom_density(data=subset(ames,Central_Air == 'N'),aes(fill=Central_Air), alpha = 0.2) +
@@ -524,7 +533,7 @@ A __normal probability plot__ graphs the sorted data values against the values t
 
 Figure \@ref(fig:qqplot) shows a QQ plot for `Sale_Price`, and we can conclude that the variable is not normally distributed. 
 
-```{r label='qqplot',fig.align='center',fig.cap='QQ-Plot: Quantiles of Sale_Price vs. quantiles of a theoretical normal distribution with same mean and standard deviation. Conclusion: Sale_Price is _not_ normally distributed.'}
+```{r label='qqplot',fig.align='center',fig.cap='QQ-Plot: Quantiles of Sale_Price vs. quantiles of a theoretical normal distribution with same mean and standard deviation. Conclusion: Sale_Price is _not_ normally distributed due to a problem with skew.'}
 ggplot(data = ames, aes(sample = Sale_Price/1000)) +
   stat_qq() +
   stat_qq_line()
@@ -534,7 +543,7 @@ There are two main patterns that we expect to find when examining QQ-plots:
 <li> A quadratic shape, as seen in Figure \@ref(fig:qqplot). This pattern indicates a deviation from normality due to skewness to the data. 
 <li> An S-shape (or cubic shape), as seen in Figure \@ref(fig:qqplotKurt). This pattern indicates deviation from normality due to kurtosis.
 </ol>
-```{r label='qqplotKurt',fig.align='center',fig.cap='QQ-Plot: Quantiles of the Laplace distribution vs. quantiles of a theoretical normal distribution with same mean and standard deviation. Conclusion: Sale_Price is _not_ normally distributed.'}
+```{r label='qqplotKurt',fig.align='center',fig.cap='QQ-Plot: Quantiles of the Laplace distribution vs. quantiles of a theoretical normal distribution with same mean and standard deviation. Conclusion: Data is _not_ normally distributed, due to a problem with kurtosis.'}
 df <- data.frame(j1 = rlaplace(10000,0,1))
 
 ggplot(data = df, aes(sample=j1)) +
