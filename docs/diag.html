@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Diagnostics | Statistical Foundations</title>
   <meta name="description" content="Chapter 5 Diagnostics | Statistical Foundations" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Diagnostics | Statistical Foundations" />
   <meta property="og:type" content="book" />
@@ -31,7 +31,8 @@
   
 <link rel="prev" href="sel.html"/>
 <link rel="next" href="model.html"/>
-<script src="libs/jquery-3.5.1/jquery.min.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -48,37 +49,36 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <script src="libs/plotly-binding-4.9.4.1/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-1.57.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -87,9 +87,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -122,7 +122,6 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -140,13 +139,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="./img/iaaicon.png" alt="IAA"  class="center"</li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a>
+<ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#authors"><i class="fa fa-check"></i>Authors</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#structure-of-the-book"><i class="fa fa-check"></i>Structure of the book</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="intro-stat.html"><a href="intro-stat.html"><i class="fa fa-check"></i><b>1</b> Introduction to Statistics</a><ul>
-<li class="chapter" data-level="1.1" data-path="intro-stat.html"><a href="intro-stat.html#eda"><i class="fa fa-check"></i><b>1.1</b> Exploratory Data Analysis (EDA)</a><ul>
+<li class="chapter" data-level="1" data-path="intro-stat.html"><a href="intro-stat.html"><i class="fa fa-check"></i><b>1</b> Introduction to Statistics</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="intro-stat.html"><a href="intro-stat.html#eda"><i class="fa fa-check"></i><b>1.1</b> Exploratory Data Analysis (EDA)</a>
+<ul>
 <li class="chapter" data-level="1.1.1" data-path="intro-stat.html"><a href="intro-stat.html#vartypes"><i class="fa fa-check"></i><b>1.1.1</b> Types of Variables</a></li>
 <li class="chapter" data-level="1.1.2" data-path="intro-stat.html"><a href="intro-stat.html#dist"><i class="fa fa-check"></i><b>1.1.2</b> Distributions</a></li>
 <li class="chapter" data-level="1.1.3" data-path="intro-stat.html"><a href="intro-stat.html#normal"><i class="fa fa-check"></i><b>1.1.3</b> The Normal Distribution</a></li>
@@ -156,56 +158,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="intro-stat.html"><a href="intro-stat.html#pointest"><i class="fa fa-check"></i><b>1.2</b> Point Estimates</a></li>
 <li class="chapter" data-level="1.3" data-path="intro-stat.html"><a href="intro-stat.html#ci"><i class="fa fa-check"></i><b>1.3</b> Confidence Intervals</a></li>
-<li class="chapter" data-level="1.4" data-path="intro-stat.html"><a href="intro-stat.html#hypotest"><i class="fa fa-check"></i><b>1.4</b> Hypothesis Testing</a><ul>
+<li class="chapter" data-level="1.4" data-path="intro-stat.html"><a href="intro-stat.html#hypotest"><i class="fa fa-check"></i><b>1.4</b> Hypothesis Testing</a>
+<ul>
 <li class="chapter" data-level="1.4.1" data-path="intro-stat.html"><a href="intro-stat.html#onesample"><i class="fa fa-check"></i><b>1.4.1</b> One-Sample T-Test</a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="intro-stat.html"><a href="intro-stat.html#two-sample-t-tests"><i class="fa fa-check"></i><b>1.5</b> Two-Sample t-tests</a><ul>
+<li class="chapter" data-level="1.5" data-path="intro-stat.html"><a href="intro-stat.html#two-sample-t-tests"><i class="fa fa-check"></i><b>1.5</b> Two-Sample t-tests</a>
+<ul>
 <li class="chapter" data-level="1.5.1" data-path="intro-stat.html"><a href="intro-stat.html#testnorm"><i class="fa fa-check"></i><b>1.5.1</b> Testing Normality of Groups</a></li>
 <li class="chapter" data-level="1.5.2" data-path="intro-stat.html"><a href="intro-stat.html#ftest"><i class="fa fa-check"></i><b>1.5.2</b> Testing Equality of Variances</a></li>
 <li class="chapter" data-level="1.5.3" data-path="intro-stat.html"><a href="intro-stat.html#tsttest"><i class="fa fa-check"></i><b>1.5.3</b> Testing Equality of Means</a></li>
 <li class="chapter" data-level="1.5.4" data-path="intro-stat.html"><a href="intro-stat.html#wilcoxon"><i class="fa fa-check"></i><b>1.5.4</b> Mann-Whitney-Wilcoxon Test</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="slr.html"><a href="slr.html"><i class="fa fa-check"></i><b>2</b> Introduction to ANOVA and Linear Regression</a><ul>
+<li class="chapter" data-level="2" data-path="slr.html"><a href="slr.html"><i class="fa fa-check"></i><b>2</b> Introduction to ANOVA and Linear Regression</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="slr.html"><a href="slr.html#evp"><i class="fa fa-check"></i><b>2.1</b> Prediction vs. Explanation</a></li>
 <li class="chapter" data-level="2.2" data-path="slr.html"><a href="slr.html#trainvalidtest"><i class="fa fa-check"></i><b>2.2</b> Honest Assessment</a></li>
-<li class="chapter" data-level="2.3" data-path="slr.html"><a href="slr.html#bivariate-eda"><i class="fa fa-check"></i><b>2.3</b> Bivariate EDA</a><ul>
+<li class="chapter" data-level="2.3" data-path="slr.html"><a href="slr.html#bivariate-eda"><i class="fa fa-check"></i><b>2.3</b> Bivariate EDA</a>
+<ul>
 <li class="chapter" data-level="2.3.1" data-path="slr.html"><a href="slr.html#continuous-continuous-associations"><i class="fa fa-check"></i><b>2.3.1</b> Continuous-Continuous Associations</a></li>
 <li class="chapter" data-level="2.3.2" data-path="slr.html"><a href="slr.html#continuous-categorical-associations"><i class="fa fa-check"></i><b>2.3.2</b> Continuous-Categorical Associations</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="slr.html"><a href="slr.html#oneway"><i class="fa fa-check"></i><b>2.4</b> One-Way ANOVA</a><ul>
+<li class="chapter" data-level="2.4" data-path="slr.html"><a href="slr.html#oneway"><i class="fa fa-check"></i><b>2.4</b> One-Way ANOVA</a>
+<ul>
 <li class="chapter" data-level="2.4.1" data-path="slr.html"><a href="slr.html#testing-assumptions"><i class="fa fa-check"></i><b>2.4.1</b> Testing Assumptions</a></li>
 <li class="chapter" data-level="2.4.2" data-path="slr.html"><a href="slr.html#kruskal"><i class="fa fa-check"></i><b>2.4.2</b> Kruskal-Wallis</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="slr.html"><a href="slr.html#posthoc"><i class="fa fa-check"></i><b>2.5</b> ANOVA Post-hoc Testing</a><ul>
+<li class="chapter" data-level="2.5" data-path="slr.html"><a href="slr.html#posthoc"><i class="fa fa-check"></i><b>2.5</b> ANOVA Post-hoc Testing</a>
+<ul>
 <li class="chapter" data-level="2.5.1" data-path="slr.html"><a href="slr.html#tukey"><i class="fa fa-check"></i><b>2.5.1</b> Tukey-Kramer</a></li>
 <li class="chapter" data-level="2.5.2" data-path="slr.html"><a href="slr.html#dunnett"><i class="fa fa-check"></i><b>2.5.2</b> Dunnett’s Test</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="slr.html"><a href="slr.html#cor"><i class="fa fa-check"></i><b>2.6</b> Pearson Correlation</a><ul>
+<li class="chapter" data-level="2.6" data-path="slr.html"><a href="slr.html#cor"><i class="fa fa-check"></i><b>2.6</b> Pearson Correlation</a>
+<ul>
 <li class="chapter" data-level="2.6.1" data-path="slr.html"><a href="slr.html#testcor"><i class="fa fa-check"></i><b>2.6.1</b> Statistical Test</a></li>
 <li class="chapter" data-level="2.6.2" data-path="slr.html"><a href="slr.html#effect-of-anomalous-observations"><i class="fa fa-check"></i><b>2.6.2</b> Effect of Anomalous Observations</a></li>
 <li class="chapter" data-level="2.6.3" data-path="slr.html"><a href="slr.html#the-correlation-matrix"><i class="fa fa-check"></i><b>2.6.3</b> The Correlation Matrix</a></li>
 </ul></li>
-<li class="chapter" data-level="2.7" data-path="slr.html"><a href="slr.html#simple-linear-regression"><i class="fa fa-check"></i><b>2.7</b> Simple Linear Regression</a><ul>
+<li class="chapter" data-level="2.7" data-path="slr.html"><a href="slr.html#simple-linear-regression"><i class="fa fa-check"></i><b>2.7</b> Simple Linear Regression</a>
+<ul>
 <li class="chapter" data-level="2.7.1" data-path="slr.html"><a href="slr.html#slrassumptions"><i class="fa fa-check"></i><b>2.7.1</b> Assumptions of Linear Regression</a></li>
 <li class="chapter" data-level="2.7.2" data-path="slr.html"><a href="slr.html#testing-for-association"><i class="fa fa-check"></i><b>2.7.2</b> Testing for Association</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Complex ANOVA and Multiple Linear Regression</a><ul>
-<li class="chapter" data-level="3.1" data-path="mlr.html"><a href="mlr.html#two-way-anova"><i class="fa fa-check"></i><b>3.1</b> Two-Way ANOVA</a><ul>
+<li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Complex ANOVA and Multiple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="mlr.html"><a href="mlr.html#two-way-anova"><i class="fa fa-check"></i><b>3.1</b> Two-Way ANOVA</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="mlr.html"><a href="mlr.html#exploration"><i class="fa fa-check"></i><b>3.1.1</b> Exploration</a></li>
 <li class="chapter" data-level="3.1.2" data-path="mlr.html"><a href="mlr.html#model"><i class="fa fa-check"></i><b>3.1.2</b> Model</a></li>
 <li class="chapter" data-level="3.1.3" data-path="mlr.html"><a href="mlr.html#post-hoc-testing"><i class="fa fa-check"></i><b>3.1.3</b> Post-Hoc Testing</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="mlr.html"><a href="mlr.html#two-way-anova-with-interactions"><i class="fa fa-check"></i><b>3.2</b> Two-Way ANOVA with Interactions</a><ul>
+<li class="chapter" data-level="3.2" data-path="mlr.html"><a href="mlr.html#two-way-anova-with-interactions"><i class="fa fa-check"></i><b>3.2</b> Two-Way ANOVA with Interactions</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="mlr.html"><a href="mlr.html#post-hoc-testing-1"><i class="fa fa-check"></i><b>3.2.1</b> Post-Hoc Testing</a></li>
 <li class="chapter" data-level="3.2.2" data-path="mlr.html"><a href="mlr.html#assumptions"><i class="fa fa-check"></i><b>3.2.2</b> Assumptions</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="mlr.html"><a href="mlr.html#randomized-block-design"><i class="fa fa-check"></i><b>3.3</b> Randomized Block Design</a><ul>
+<li class="chapter" data-level="3.3" data-path="mlr.html"><a href="mlr.html#randomized-block-design"><i class="fa fa-check"></i><b>3.3</b> Randomized Block Design</a>
+<ul>
 <li class="chapter" data-level="3.3.1" data-path="mlr.html"><a href="mlr.html#garlic-bulb-weight-example"><i class="fa fa-check"></i><b>3.3.1</b> Garlic Bulb Weight Example</a></li>
 <li class="chapter" data-level="3.3.2" data-path="mlr.html"><a href="mlr.html#assumptions-1"><i class="fa fa-check"></i><b>3.3.2</b> Assumptions</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="mlr.html"><a href="mlr.html#multiple-linear-regression"><i class="fa fa-check"></i><b>3.4</b> Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="3.4" data-path="mlr.html"><a href="mlr.html#multiple-linear-regression"><i class="fa fa-check"></i><b>3.4</b> Multiple Linear Regression</a>
+<ul>
 <li class="chapter" data-level="3.4.1" data-path="mlr.html"><a href="mlr.html#model-structure"><i class="fa fa-check"></i><b>3.4.1</b> Model Structure</a></li>
 <li class="chapter" data-level="3.4.2" data-path="mlr.html"><a href="mlr.html#global-local-inference"><i class="fa fa-check"></i><b>3.4.2</b> Global &amp; Local Inference</a></li>
 <li class="chapter" data-level="3.4.3" data-path="mlr.html"><a href="mlr.html#assumptions-2"><i class="fa fa-check"></i><b>3.4.3</b> Assumptions</a></li>
@@ -213,16 +228,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4.5" data-path="mlr.html"><a href="mlr.html#categorical-predictor-variables"><i class="fa fa-check"></i><b>3.4.5</b> Categorical Predictor Variables</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="sel.html"><a href="sel.html"><i class="fa fa-check"></i><b>4</b> Model Selection</a><ul>
+<li class="chapter" data-level="4" data-path="sel.html"><a href="sel.html"><i class="fa fa-check"></i><b>4</b> Model Selection</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="sel.html"><a href="sel.html#selection-criteria"><i class="fa fa-check"></i><b>4.1</b> Selection Criteria</a></li>
-<li class="chapter" data-level="4.2" data-path="sel.html"><a href="sel.html#stepwise-selection"><i class="fa fa-check"></i><b>4.2</b> Stepwise Selection</a><ul>
+<li class="chapter" data-level="4.2" data-path="sel.html"><a href="sel.html#stepwise-selection"><i class="fa fa-check"></i><b>4.2</b> Stepwise Selection</a>
+<ul>
 <li class="chapter" data-level="" data-path="sel.html"><a href="sel.html#forward"><i class="fa fa-check"></i>Forward</a></li>
 <li class="chapter" data-level="" data-path="sel.html"><a href="sel.html#backward"><i class="fa fa-check"></i>Backward</a></li>
 <li class="chapter" data-level="" data-path="sel.html"><a href="sel.html#stepwise"><i class="fa fa-check"></i>Stepwise</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="sel.html"><a href="sel.html#significance-levels"><i class="fa fa-check"></i><b>4.3</b> Significance Levels</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="diag.html"><a href="diag.html"><i class="fa fa-check"></i><b>5</b> Diagnostics</a><ul>
+<li class="chapter" data-level="5" data-path="diag.html"><a href="diag.html"><i class="fa fa-check"></i><b>5</b> Diagnostics</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="diag.html"><a href="diag.html#examining-residuals"><i class="fa fa-check"></i><b>5.1</b> Examining Residuals</a></li>
 <li class="chapter" data-level="5.2" data-path="diag.html"><a href="diag.html#misspecified-model"><i class="fa fa-check"></i><b>5.2</b> Misspecified Model</a></li>
 <li class="chapter" data-level="5.3" data-path="diag.html"><a href="diag.html#constant-variance"><i class="fa fa-check"></i><b>5.3</b> Constant Variance</a></li>
@@ -231,27 +249,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.6" data-path="diag.html"><a href="diag.html#influential-observations-and-outliers"><i class="fa fa-check"></i><b>5.6</b> Influential Observations and Outliers</a></li>
 <li class="chapter" data-level="5.7" data-path="diag.html"><a href="diag.html#multicollinearity"><i class="fa fa-check"></i><b>5.7</b> Multicollinearity</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="mlr.html"><a href="mlr.html#model"><i class="fa fa-check"></i><b>6</b> Model Building &amp; Scoring for Prediction</a><ul>
-<li class="chapter" data-level="6.1" data-path="model.html"><a href="model.html"><i class="fa fa-check"></i><b>6.1</b> Regularized Regression</a><ul>
+<li class="chapter" data-level="6" data-path="mlr.html"><a href="mlr.html#model"><i class="fa fa-check"></i><b>6</b> Model Building &amp; Scoring for Prediction</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="model.html"><a href="model.html"><i class="fa fa-check"></i><b>6.1</b> Regularized Regression</a>
+<ul>
 <li class="chapter" data-level="6.1.1" data-path="model.html"><a href="model.html#penalties-in-models"><i class="fa fa-check"></i><b>6.1.1</b> Penalties in Models</a></li>
 <li class="chapter" data-level="6.1.2" data-path="model.html"><a href="model.html#ridge-regression"><i class="fa fa-check"></i><b>6.1.2</b> Ridge Regression</a></li>
 <li class="chapter" data-level="6.1.3" data-path="model.html"><a href="model.html#lasso"><i class="fa fa-check"></i><b>6.1.3</b> LASSO</a></li>
 <li class="chapter" data-level="6.1.4" data-path="model.html"><a href="model.html#elastic-net"><i class="fa fa-check"></i><b>6.1.4</b> Elastic Net</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="model.html"><a href="model.html#optimizing-penalties"><i class="fa fa-check"></i><b>6.2</b> Optimizing Penalties</a><ul>
+<li class="chapter" data-level="6.2" data-path="model.html"><a href="model.html#optimizing-penalties"><i class="fa fa-check"></i><b>6.2</b> Optimizing Penalties</a>
+<ul>
 <li class="chapter" data-level="6.2.1" data-path="model.html"><a href="model.html#cross-validation"><i class="fa fa-check"></i><b>6.2.1</b> Cross-Validation</a></li>
 <li class="chapter" data-level="6.2.2" data-path="model.html"><a href="model.html#cv-in-regularized-regression"><i class="fa fa-check"></i><b>6.2.2</b> CV in Regularized Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="model.html"><a href="model.html#model-comparisons"><i class="fa fa-check"></i><b>6.3</b> Model Comparisons</a><ul>
+<li class="chapter" data-level="6.3" data-path="model.html"><a href="model.html#model-comparisons"><i class="fa fa-check"></i><b>6.3</b> Model Comparisons</a>
+<ul>
 <li class="chapter" data-level="6.3.1" data-path="model.html"><a href="model.html#model-metrics"><i class="fa fa-check"></i><b>6.3.1</b> Model Metrics</a></li>
 <li class="chapter" data-level="6.3.2" data-path="model.html"><a href="model.html#test-dataset-comparison"><i class="fa fa-check"></i><b>6.3.2</b> Test Dataset Comparison</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="cat.html"><a href="cat.html"><i class="fa fa-check"></i><b>7</b> Categorical Data Analysis</a><ul>
+<li class="chapter" data-level="7" data-path="cat.html"><a href="cat.html"><i class="fa fa-check"></i><b>7</b> Categorical Data Analysis</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="cat.html"><a href="cat.html#describing-categorical-data"><i class="fa fa-check"></i><b>7.1</b> Describing Categorical Data</a></li>
 <li class="chapter" data-level="7.2" data-path="cat.html"><a href="cat.html#tests-of-association"><i class="fa fa-check"></i><b>7.2</b> Tests of Association</a></li>
 <li class="chapter" data-level="7.3" data-path="cat.html"><a href="cat.html#measures-of-association"><i class="fa fa-check"></i><b>7.3</b> Measures of Association</a></li>
-<li class="chapter" data-level="7.4" data-path="cat.html"><a href="cat.html#introduction-to-logistic-regression"><i class="fa fa-check"></i><b>7.4</b> Introduction to Logistic Regression</a><ul>
+<li class="chapter" data-level="7.4" data-path="cat.html"><a href="cat.html#introduction-to-logistic-regression"><i class="fa fa-check"></i><b>7.4</b> Introduction to Logistic Regression</a>
+<ul>
 <li class="chapter" data-level="7.4.1" data-path="cat.html"><a href="cat.html#linear-probability-model"><i class="fa fa-check"></i><b>7.4.1</b> Linear Probability Model</a></li>
 <li class="chapter" data-level="7.4.2" data-path="cat.html"><a href="cat.html#binary-logistic-regression"><i class="fa fa-check"></i><b>7.4.2</b> Binary Logistic Regression</a></li>
 <li class="chapter" data-level="7.4.3" data-path="cat.html"><a href="cat.html#adding-categorical-variables"><i class="fa fa-check"></i><b>7.4.3</b> Adding Categorical Variables</a></li>
@@ -278,7 +302,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="diag" class="section level1">
+<div id="diag" class="section level1" number="5">
 <h1><span class="header-section-number">Chapter 5</span> Diagnostics</h1>
 <p>In this Chapter, we will take a look at each of the assumptions in a linear model. We will discuss what tools you will use to assess these assumptions, how to diagnose if the assumptions are met, some common problems often encountered when these assumptions do not hold and finally some remedies to fix these common issues. You will notice that a variety of data sets are used throughout this Chapter. This is to help visualize and test for various assumptions and how to identify when these assumptions are not met.</p>
 <p>In multiple linear regression, the assumptions are as follows:</p>
@@ -311,7 +335,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <em>salary</em>: nine-month salary, in dollars
 </ul>
 <p>Using this data set, let’s take a look at the relationship between each pair of variables in Figure <a href="diag.html#fig:pairsex">5.1</a>.</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" data-line-number="1"><span class="kw">pairs</span>(Salaries)</a></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="diag.html#cb175-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(Salaries)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:pairsex"></span>
 <img src="bookdownproj_files/figure-html/pairsex-1.png" alt="Matrix of Scatter Plots for the Salaries Data" width="672" />
 <p class="caption">
@@ -319,12 +343,12 @@ Figure 5.1: Matrix of Scatter Plots for the Salaries Data
 </p>
 </div>
 <p>If there are not too many variables, this plot is a nice way to see all the relationships in the data set. The variables are listed along the diagonal and each off diagonal plot is a scatterplot of the variables represented by that row and column. For example, the first row of plots have rank on the y-axis. The first column of plots have rank along the x-axis.</p>
-<div id="examining-residuals" class="section level2">
+<div id="examining-residuals" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> Examining Residuals</h2>
 <p>As you can see from the above list of assumptions that most of them involve the error term which is estimated by the residuals. We will be using the residuals for many of these diagnostics. One of the most useful plot is referred as the residual plot. This plot will have the residuals along the y-axis and either the predicted values or individual x-values along the x-axis. Figure (fig:salresid) is an example using the residuals from a linear model predicting salary using all of the explanatory variables.</p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" data-line-number="1">lm.model=<span class="kw">lm</span>(salary<span class="op">~</span>.,<span class="dt">data=</span>Salaries)</a>
-<a class="sourceLine" id="cb175-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb175-3" data-line-number="3"><span class="kw">ggplot</span>(lm.model,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">fitted</span>(lm.model),<span class="dt">y=</span><span class="kw">resid</span>(lm.model)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;blue&quot;</span>)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Predicted Values&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Residuals&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="diag.html#cb176-1" aria-hidden="true" tabindex="-1"></a>lm.model<span class="ot">=</span><span class="fu">lm</span>(salary<span class="sc">~</span>.,<span class="at">data=</span>Salaries)</span>
+<span id="cb176-2"><a href="diag.html#cb176-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb176-3"><a href="diag.html#cb176-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">fitted</span>(lm.model),<span class="at">y=</span><span class="fu">resid</span>(lm.model)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;blue&quot;</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Predicted Values&quot;</span>,<span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span></code></pre></div>
 <div class="figure"><span id="fig:salresid"></span>
 <img src="bookdownproj_files/figure-html/salresid-1.png" alt="Residuals vs. Predicted Values for Salary Model" width="672" />
 <p class="caption">
@@ -332,7 +356,7 @@ Figure 5.2: Residuals vs. Predicted Values for Salary Model
 </p>
 </div>
 </div>
-<div id="misspecified-model" class="section level2">
+<div id="misspecified-model" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Misspecified Model</h2>
 <p>One of the assumptions assumes that the expected value of the response is accurately modeled by a linear function of the explanatory variables. If this is true, then we would expect our residual plots to be random scatter (in other words, all of the “signal” was correctly captured in the model and there is just noise left over).</p>
 <div class="figure"><span id="fig:correctspec"></span>
@@ -351,10 +375,10 @@ Figure 5.4: Residual plot indicating that a quadratic term is required
 <p>If your model has more than one x, it is easier to see if an individual input variable has a quadratic relationship with the response when looking at plots like Figure <a href="diag.html#fig:quadpattern">5.4</a> where the input variable is on the x-axis.</p>
 <p><strong>Example</strong></p>
 <p>Let’s take a look at an example of where a quadratic linear regression is needed. This example is studying the effect of a chemical additive on paper strength. The response variable is the amount of force required to break the paper (strength) and the explanatory variable is the amount of chemical additive (amount).</p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" data-line-number="1"> amount=<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb176-2" data-line-number="2"> strength=<span class="kw">c</span>(<span class="fl">2.4</span>,<span class="fl">2.6</span>,<span class="fl">2.7</span>,<span class="fl">2.5</span>,<span class="fl">2.6</span>,<span class="fl">2.6</span>,<span class="fl">2.7</span>,<span class="fl">2.8</span>,<span class="fl">2.8</span>,<span class="fl">2.8</span>,<span class="fl">3.0</span>,<span class="fl">3.0</span>,<span class="fl">3.0</span>,<span class="fl">2.9</span>,<span class="fl">2.9</span>,<span class="fl">3.0</span>,<span class="fl">3.1</span>,<span class="fl">2.9</span>,<span class="fl">2.9</span>,<span class="fl">3.0</span>,<span class="fl">2.9</span>,<span class="fl">2.8</span>)</a>
-<a class="sourceLine" id="cb176-3" data-line-number="3"> lm.quad=<span class="kw">lm</span>(strength<span class="op">~</span>amount)</a>
-<a class="sourceLine" id="cb176-4" data-line-number="4"> <span class="kw">summary</span>(lm.quad)</a></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="diag.html#cb177-1" aria-hidden="true" tabindex="-1"></a> amount<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>)</span>
+<span id="cb177-2"><a href="diag.html#cb177-2" aria-hidden="true" tabindex="-1"></a> strength<span class="ot">=</span><span class="fu">c</span>(<span class="fl">2.4</span>,<span class="fl">2.6</span>,<span class="fl">2.7</span>,<span class="fl">2.5</span>,<span class="fl">2.6</span>,<span class="fl">2.6</span>,<span class="fl">2.7</span>,<span class="fl">2.8</span>,<span class="fl">2.8</span>,<span class="fl">2.8</span>,<span class="fl">3.0</span>,<span class="fl">3.0</span>,<span class="fl">3.0</span>,<span class="fl">2.9</span>,<span class="fl">2.9</span>,<span class="fl">3.0</span>,<span class="fl">3.1</span>,<span class="fl">2.9</span>,<span class="fl">2.9</span>,<span class="fl">3.0</span>,<span class="fl">2.9</span>,<span class="fl">2.8</span>)</span>
+<span id="cb177-3"><a href="diag.html#cb177-3" aria-hidden="true" tabindex="-1"></a> lm.quad<span class="ot">=</span><span class="fu">lm</span>(strength<span class="sc">~</span>amount)</span>
+<span id="cb177-4"><a href="diag.html#cb177-4" aria-hidden="true" tabindex="-1"></a> <span class="fu">summary</span>(lm.quad)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = strength ~ amount)
@@ -373,7 +397,7 @@ Figure 5.4: Residual plot indicating that a quadratic term is required
 ## Residual standard error: 0.1283 on 20 degrees of freedom
 ## Multiple R-squared:  0.5462, Adjusted R-squared:  0.5236 
 ## F-statistic: 24.08 on 1 and 20 DF,  p-value: 8.518e-05</code></pre>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" data-line-number="1"> <span class="kw">ggplot</span>(lm.quad,<span class="kw">aes</span>(<span class="dt">x=</span>amount,<span class="dt">y=</span><span class="kw">resid</span>(lm.quad)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;blue&quot;</span>,<span class="dt">size=</span><span class="dv">3</span>)<span class="op">+</span><span class="kw">labs</span>( <span class="dt">x=</span><span class="st">&quot;Amount&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Residuals&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="diag.html#cb179-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(lm.quad,<span class="fu">aes</span>(<span class="at">x=</span>amount,<span class="at">y=</span><span class="fu">resid</span>(lm.quad)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;blue&quot;</span>,<span class="at">size=</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">labs</span>( <span class="at">x=</span><span class="st">&quot;Amount&quot;</span>, <span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:quadexample1"></span>
 <img src="bookdownproj_files/figure-html/quadexample1-1.png" alt="Residual Plot Showing a Quadratic Relationship" width="672" />
 <p class="caption">
@@ -383,11 +407,11 @@ Figure 5.5: Residual Plot Showing a Quadratic Relationship
 <p>The above fitted model is
 <span class="math display">\[\hat{Y}_{i} = 2.5 + 0.1x_{i}.\]</span>
 However, after looking at the residual plot and noticing the quadratic shape, we realize that we need a higher order term for amount.</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" data-line-number="1">lm.quad=<span class="kw">lm</span>(strength<span class="op">~</span>amount <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(amount<span class="op">^</span><span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb179-2" data-line-number="2"><span class="co">##OR</span></a>
-<a class="sourceLine" id="cb179-3" data-line-number="3">lm.quad=<span class="kw">lm</span>(strength<span class="op">~</span><span class="kw">poly</span>(amount,<span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb179-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb179-5" data-line-number="5"><span class="kw">summary</span>(lm.quad)</a></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="diag.html#cb180-1" aria-hidden="true" tabindex="-1"></a>lm.quad<span class="ot">=</span><span class="fu">lm</span>(strength<span class="sc">~</span>amount <span class="sc">+</span> <span class="fu">I</span>(amount<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb180-2"><a href="diag.html#cb180-2" aria-hidden="true" tabindex="-1"></a><span class="do">##OR</span></span>
+<span id="cb180-3"><a href="diag.html#cb180-3" aria-hidden="true" tabindex="-1"></a>lm.quad<span class="ot">=</span><span class="fu">lm</span>(strength<span class="sc">~</span><span class="fu">poly</span>(amount,<span class="dv">2</span>))</span>
+<span id="cb180-4"><a href="diag.html#cb180-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb180-5"><a href="diag.html#cb180-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.quad)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = strength ~ poly(amount, 2))
@@ -407,7 +431,7 @@ However, after looking at the residual plot and noticing the quadratic shape, we
 ## Residual standard error: 0.115 on 19 degrees of freedom
 ## Multiple R-squared:  0.6537, Adjusted R-squared:  0.6173 
 ## F-statistic: 17.93 on 2 and 19 DF,  p-value: 4.212e-05</code></pre>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" data-line-number="1"><span class="kw">ggplot</span>(lm.quad,<span class="kw">aes</span>(<span class="dt">x=</span>amount,<span class="dt">y=</span><span class="kw">resid</span>(lm.quad)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;orange&quot;</span>,<span class="dt">size=</span><span class="dv">2</span>)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Residual plot&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Amount&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Residuals&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="diag.html#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lm.quad,<span class="fu">aes</span>(<span class="at">x=</span>amount,<span class="at">y=</span><span class="fu">resid</span>(lm.quad)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>,<span class="at">size=</span><span class="dv">2</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Residual plot&quot;</span>, <span class="at">x=</span><span class="st">&quot;Amount&quot;</span>, <span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:quadexample2"></span>
 <img src="bookdownproj_files/figure-html/quadexample2-1.png" alt="New Residual Plot after Fitting a Quadratic Term" width="672" />
 <p class="caption">
@@ -417,9 +441,9 @@ Figure 5.6: New Residual Plot after Fitting a Quadratic Term
 <p>The second order polynomial model is
 <span class="math display">\[\hat{Y}_{i} = 2.8 + 0.6x_{i}-0.3x^{2}_{i}\]</span>
 and the residuals from this model are shown in Figure <a href="diag.html#fig:quadexample2">5.6</a>. If you think there might still be some pattern in Figure <a href="diag.html#fig:quadexample2">5.6</a>, you could try a third degree polynomial:</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" data-line-number="1">lm.quad=<span class="kw">lm</span>(strength<span class="op">~</span><span class="kw">poly</span>(amount,<span class="dv">3</span>))</a>
-<a class="sourceLine" id="cb182-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb182-3" data-line-number="3"><span class="kw">summary</span>(lm.quad)</a></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="diag.html#cb183-1" aria-hidden="true" tabindex="-1"></a>lm.quad<span class="ot">=</span><span class="fu">lm</span>(strength<span class="sc">~</span><span class="fu">poly</span>(amount,<span class="dv">3</span>))</span>
+<span id="cb183-2"><a href="diag.html#cb183-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb183-3"><a href="diag.html#cb183-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.quad)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = strength ~ poly(amount, 3))
@@ -440,7 +464,7 @@ and the residuals from this model are shown in Figure <a href="diag.html#fig:qua
 ## Residual standard error: 0.1044 on 18 degrees of freedom
 ## Multiple R-squared:  0.7299, Adjusted R-squared:  0.6849 
 ## F-statistic: 16.22 on 3 and 18 DF,  p-value: 2.344e-05</code></pre>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" data-line-number="1"><span class="kw">ggplot</span>(lm.quad,<span class="kw">aes</span>(<span class="dt">x=</span>amount,<span class="dt">y=</span><span class="kw">resid</span>(lm.quad)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;orange&quot;</span>,<span class="dt">size=</span><span class="dv">2</span>)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Amount&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Residuals&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="diag.html#cb185-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lm.quad,<span class="fu">aes</span>(<span class="at">x=</span>amount,<span class="at">y=</span><span class="fu">resid</span>(lm.quad)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>,<span class="at">size=</span><span class="dv">2</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Amount&quot;</span>, <span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:quadexample3"></span>
 <img src="bookdownproj_files/figure-html/quadexample3-1.png" alt="New Residual Plot after Fitting a Cubic Term" width="672" />
 <p class="caption">
@@ -461,7 +485,7 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
 </li>
 </ol>
 </div>
-<div id="constant-variance" class="section level2">
+<div id="constant-variance" class="section level2" number="5.3">
 <h2><span class="header-section-number">5.3</span> Constant Variance</h2>
 <p>Another assumption for linear regression is that the variance is constant about the line. Looking at Figure <a href="diag.html#fig:constvar">5.8</a>, you see that the variation about the line is constant across the line (notice the bands that have been drawn around the line).</p>
 <div class="figure" style="text-align: center"><span id="fig:constvar"></span>
@@ -480,13 +504,13 @@ Figure 5.9: Residual Plot Showing Non-Constant Variance
 <p>Notice how the variability increases as the predicted values increase (the bands get wider). This is referred to as heteroskedasticity in the variance, which violates the constant variance assumption (homoskedasticity). The homoskedastic assumption is about the regression line, so it is best to look at the plot of residuals versus predicted values (not individual x-values). There are a few tests for this assumption, but have a number of problems with them. Best way to evaluate this assumption is by visualizing the residual plot and make a judgement call. If the variance appears to be heteroskadastic, any inferences under the traditional assumptions will be incorrect. In other words, hypothesis tests and confidence intervals based on the t, F, and <span class="math inline">\(\chi^{2}\)</span> distributions will not be valid.</p>
 <p><strong>Example</strong></p>
 <p>The following fictious salary data set is from the online textbook <a href="https://daviddalpiaz.github.io/appliedstats/index.html"><em>Applied Statistics with R</em></a>. The explanatory variable is number of years employment and the response variable is annual salary.</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" data-line-number="1">years=<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">11</span>,<span class="dv">11</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="dv">13</span>,<span class="dv">13</span>,<span class="dv">13</span>,<span class="dv">13</span>,<span class="dv">14</span>,<span class="dv">14</span>,<span class="dv">14</span>,<span class="dv">14</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">18</span>,<span class="dv">18</span>,<span class="dv">18</span>,<span class="dv">18</span>,<span class="dv">19</span>,<span class="dv">19</span>,<span class="dv">19</span>,<span class="dv">19</span>,<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">21</span>,<span class="dv">21</span>,<span class="dv">21</span>,<span class="dv">21</span>,<span class="dv">22</span>,<span class="dv">22</span>,<span class="dv">22</span>,<span class="dv">22</span>,<span class="dv">23</span>,<span class="dv">23</span>,<span class="dv">23</span>,<span class="dv">23</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">25</span>,<span class="dv">25</span>,<span class="dv">25</span>)</a>
-<a class="sourceLine" id="cb185-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb185-3" data-line-number="3">salary=<span class="kw">c</span>(<span class="dv">41504</span>,<span class="dv">32619</span>,<span class="dv">44322</span>,<span class="dv">40038</span>,<span class="dv">46147</span>,<span class="dv">38447</span>,<span class="dv">38163</span>,<span class="dv">42104</span>,<span class="dv">25597</span>,<span class="dv">39599</span>,<span class="dv">55698</span>,<span class="dv">47220</span>,<span class="dv">65929</span>,<span class="dv">55794</span>,<span class="dv">45959</span>,<span class="dv">52460</span>,<span class="dv">60308</span>,<span class="dv">61458</span>,<span class="dv">56951</span>,<span class="dv">56174</span>,<span class="dv">59363</span>,<span class="dv">57642</span>,<span class="dv">69792</span>,<span class="dv">59321</span>,<span class="dv">66379</span>,<span class="dv">64282</span>,<span class="dv">48901</span>,<span class="dv">100711</span>,<span class="dv">59324</span>,<span class="dv">54752</span>,<span class="dv">73619</span>,<span class="dv">65382</span>,<span class="dv">58823</span>,<span class="dv">65717</span>,<span class="dv">92816</span>,<span class="dv">72550</span>,<span class="dv">71365</span>,<span class="dv">88888</span>,<span class="dv">62969</span>,<span class="dv">45298</span>,<span class="dv">111292</span>,<span class="dv">91491</span>,<span class="dv">106345</span>,<span class="dv">99009</span>,<span class="dv">73981</span>,<span class="dv">72547</span>,<span class="dv">74991</span>,<span class="dv">139249</span>,<span class="dv">119948</span>,<span class="dv">128962</span>,<span class="dv">98112</span>,<span class="dv">97159</span>,<span class="dv">125246</span>,<span class="dv">89694</span>,<span class="dv">73333</span>,<span class="dv">108710</span>,<span class="dv">97567</span>,<span class="dv">90359</span>,<span class="dv">119806</span>,<span class="dv">101343</span>,<span class="dv">147406</span>,<span class="dv">153020</span>,<span class="dv">143200</span>,<span class="dv">97327</span>,<span class="dv">184807</span>,<span class="dv">146263</span>,<span class="dv">127925</span>,<span class="dv">159785</span>,<span class="dv">174822</span>,<span class="dv">177610</span>,<span class="dv">210984</span>,<span class="dv">160044</span>,<span class="dv">137044</span>,<span class="dv">182996</span>,<span class="dv">184183</span>,<span class="dv">168666</span>,<span class="dv">121350</span>,<span class="dv">193627</span>,<span class="dv">142611</span>,<span class="dv">170131</span>,<span class="dv">134140</span>,<span class="dv">129446</span>,<span class="dv">201469</span>,<span class="dv">202104</span>,<span class="dv">220556</span>,<span class="dv">166419</span>,<span class="dv">149044</span>,<span class="dv">247017</span>,<span class="dv">247730</span>,<span class="dv">252917</span>,<span class="dv">235517</span>,<span class="dv">241276</span>,<span class="dv">197229</span>,<span class="dv">175879</span>,<span class="dv">253682</span>,<span class="dv">262578</span>,<span class="dv">207715</span>,<span class="dv">221179</span>,<span class="dv">212028</span>,<span class="dv">312549</span>)</a>
-<a class="sourceLine" id="cb185-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb185-5" data-line-number="5">lm.var=<span class="kw">lm</span>(salary<span class="op">~</span>years)</a>
-<a class="sourceLine" id="cb185-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb185-7" data-line-number="7"><span class="kw">ggplot</span>(lm.var,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">fitted</span>(lm.var),<span class="dt">y=</span><span class="kw">resid</span>(lm.var)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;blue&quot;</span>)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Residual Plot&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Predicted Values&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Residuals&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="diag.html#cb186-1" aria-hidden="true" tabindex="-1"></a>years<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">11</span>,<span class="dv">11</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="dv">13</span>,<span class="dv">13</span>,<span class="dv">13</span>,<span class="dv">13</span>,<span class="dv">14</span>,<span class="dv">14</span>,<span class="dv">14</span>,<span class="dv">14</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">18</span>,<span class="dv">18</span>,<span class="dv">18</span>,<span class="dv">18</span>,<span class="dv">19</span>,<span class="dv">19</span>,<span class="dv">19</span>,<span class="dv">19</span>,<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">21</span>,<span class="dv">21</span>,<span class="dv">21</span>,<span class="dv">21</span>,<span class="dv">22</span>,<span class="dv">22</span>,<span class="dv">22</span>,<span class="dv">22</span>,<span class="dv">23</span>,<span class="dv">23</span>,<span class="dv">23</span>,<span class="dv">23</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">25</span>,<span class="dv">25</span>,<span class="dv">25</span>)</span>
+<span id="cb186-2"><a href="diag.html#cb186-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb186-3"><a href="diag.html#cb186-3" aria-hidden="true" tabindex="-1"></a>salary<span class="ot">=</span><span class="fu">c</span>(<span class="dv">41504</span>,<span class="dv">32619</span>,<span class="dv">44322</span>,<span class="dv">40038</span>,<span class="dv">46147</span>,<span class="dv">38447</span>,<span class="dv">38163</span>,<span class="dv">42104</span>,<span class="dv">25597</span>,<span class="dv">39599</span>,<span class="dv">55698</span>,<span class="dv">47220</span>,<span class="dv">65929</span>,<span class="dv">55794</span>,<span class="dv">45959</span>,<span class="dv">52460</span>,<span class="dv">60308</span>,<span class="dv">61458</span>,<span class="dv">56951</span>,<span class="dv">56174</span>,<span class="dv">59363</span>,<span class="dv">57642</span>,<span class="dv">69792</span>,<span class="dv">59321</span>,<span class="dv">66379</span>,<span class="dv">64282</span>,<span class="dv">48901</span>,<span class="dv">100711</span>,<span class="dv">59324</span>,<span class="dv">54752</span>,<span class="dv">73619</span>,<span class="dv">65382</span>,<span class="dv">58823</span>,<span class="dv">65717</span>,<span class="dv">92816</span>,<span class="dv">72550</span>,<span class="dv">71365</span>,<span class="dv">88888</span>,<span class="dv">62969</span>,<span class="dv">45298</span>,<span class="dv">111292</span>,<span class="dv">91491</span>,<span class="dv">106345</span>,<span class="dv">99009</span>,<span class="dv">73981</span>,<span class="dv">72547</span>,<span class="dv">74991</span>,<span class="dv">139249</span>,<span class="dv">119948</span>,<span class="dv">128962</span>,<span class="dv">98112</span>,<span class="dv">97159</span>,<span class="dv">125246</span>,<span class="dv">89694</span>,<span class="dv">73333</span>,<span class="dv">108710</span>,<span class="dv">97567</span>,<span class="dv">90359</span>,<span class="dv">119806</span>,<span class="dv">101343</span>,<span class="dv">147406</span>,<span class="dv">153020</span>,<span class="dv">143200</span>,<span class="dv">97327</span>,<span class="dv">184807</span>,<span class="dv">146263</span>,<span class="dv">127925</span>,<span class="dv">159785</span>,<span class="dv">174822</span>,<span class="dv">177610</span>,<span class="dv">210984</span>,<span class="dv">160044</span>,<span class="dv">137044</span>,<span class="dv">182996</span>,<span class="dv">184183</span>,<span class="dv">168666</span>,<span class="dv">121350</span>,<span class="dv">193627</span>,<span class="dv">142611</span>,<span class="dv">170131</span>,<span class="dv">134140</span>,<span class="dv">129446</span>,<span class="dv">201469</span>,<span class="dv">202104</span>,<span class="dv">220556</span>,<span class="dv">166419</span>,<span class="dv">149044</span>,<span class="dv">247017</span>,<span class="dv">247730</span>,<span class="dv">252917</span>,<span class="dv">235517</span>,<span class="dv">241276</span>,<span class="dv">197229</span>,<span class="dv">175879</span>,<span class="dv">253682</span>,<span class="dv">262578</span>,<span class="dv">207715</span>,<span class="dv">221179</span>,<span class="dv">212028</span>,<span class="dv">312549</span>)</span>
+<span id="cb186-4"><a href="diag.html#cb186-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb186-5"><a href="diag.html#cb186-5" aria-hidden="true" tabindex="-1"></a>lm.var<span class="ot">=</span><span class="fu">lm</span>(salary<span class="sc">~</span>years)</span>
+<span id="cb186-6"><a href="diag.html#cb186-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb186-7"><a href="diag.html#cb186-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lm.var,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">fitted</span>(lm.var),<span class="at">y=</span><span class="fu">resid</span>(lm.var)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;blue&quot;</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Residual Plot&quot;</span>, <span class="at">x=</span><span class="st">&quot;Predicted Values&quot;</span>,<span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:varexample"></span>
 <img src="bookdownproj_files/figure-html/varexample-1.png" alt="Residuals With Heteroskedasticity" width="672" />
 <p class="caption">
@@ -507,7 +531,7 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
 3. Use a different distribution (for example if the response is count data, use Poisson distribution).<br />
 </p>
 </div>
-<div id="normality" class="section level2">
+<div id="normality" class="section level2" number="5.4">
 <h2><span class="header-section-number">5.4</span> Normality</h2>
 <p>Another assumption is that the residuals are normally distributed. We can test this assumption through use of visual aids or formal hypothesis tests. visual aids include a histogram of the residuals or Q-Q plot of residuals. A few tests of normality of residuals, include (but not limited to) Shapiro-Wilk, Anderson-Darling, Kolmogorov-Smirnov tests. In addition to the base R package, you should also install and library the nortest package.</p>
 <p><strong>Visualization</strong></p>
@@ -530,15 +554,15 @@ Figure 5.12: Histogram and Q-Q Plot of Residuals
 </li>
 </ol>
 <p>With large samples, you will most likely end up rejecting these hypothesis tests (using corrected significance levels is recommended). Keep in mind that you can also get different result from different tests. It is up to you to make the decision on whether or not you are comfortable in the assumption for normality holding in different situations.</p>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">55402</span>)</a>
-<a class="sourceLine" id="cb186-2" data-line-number="2">x=<span class="kw">rnorm</span>(<span class="dv">1000</span>,<span class="dv">0</span>,<span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb186-3" data-line-number="3"><span class="kw">ad.test</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="diag.html#cb187-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">55402</span>)</span>
+<span id="cb187-2"><a href="diag.html#cb187-2" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="dv">0</span>,<span class="dv">4</span>)</span>
+<span id="cb187-3"><a href="diag.html#cb187-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ad.test</span>(x)</span></code></pre></div>
 <pre><code>## 
 ##  Anderson-Darling normality test
 ## 
 ## data:  x
 ## A = 0.30275, p-value = 0.5742</code></pre>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb188-1" data-line-number="1"><span class="kw">shapiro.test</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="diag.html#cb189-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(x)</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -558,9 +582,9 @@ log(y) &amp; if \lambda = 0
 <p>$$
 <strong>Example</strong></p>
 <p>Using the residuls from the originally salary data, we can take a look at the box-cox transformation.</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" data-line-number="1">lm.var=<span class="kw">lm</span>(salary<span class="op">~</span>years)</a>
-<a class="sourceLine" id="cb190-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb190-3" data-line-number="3"><span class="kw">boxcox</span>(lm.var)</a></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="diag.html#cb191-1" aria-hidden="true" tabindex="-1"></a>lm.var<span class="ot">=</span><span class="fu">lm</span>(salary<span class="sc">~</span>years)</span>
+<span id="cb191-2"><a href="diag.html#cb191-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb191-3"><a href="diag.html#cb191-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boxcox</span>(lm.var)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/boxcox-1.png" width="672" />
 The output from the graph clearly incates that <span class="math inline">\(\lambda\)</span> should be 0, which indicates a log transform.</p>
 <p>In conclusion, to deal with data that is NOT normally distributed, we can either<br />
@@ -568,7 +592,7 @@ The output from the graph clearly incates that <span class="math inline">\(\lamb
 2. Transform either response or predictor variables or both to obtain normality in the residuals.<br />
 </p>
 </div>
-<div id="correlated-errors" class="section level2">
+<div id="correlated-errors" class="section level2" number="5.5">
 <h2><span class="header-section-number">5.5</span> Correlated Errors</h2>
 <p>Another important assumption is that the observations are independent. There are a couple of ways in which we assess this assumtpion:<br />
 </p>
@@ -588,12 +612,12 @@ We will focus our attention on a form of dependence that is evident from residua
 </li>
 </ol>
 <p>In visually inspecting a plot of residuals across time, you would expect to see a type of cyclical pattern if autocorrelation exists as it does in Figure (fig:autoplot).</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">49205</span>)</a>
-<a class="sourceLine" id="cb191-2" data-line-number="2">error1=<span class="kw">rnorm</span>(<span class="dv">50</span>)</a>
-<a class="sourceLine" id="cb191-3" data-line-number="3">x=<span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">50</span>)</a>
-<a class="sourceLine" id="cb191-4" data-line-number="4">y=<span class="kw">sin</span>(<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>x<span class="op">/</span><span class="dv">12</span>)<span class="op">+</span>error1</a>
-<a class="sourceLine" id="cb191-5" data-line-number="5">temp=<span class="kw">data.frame</span>(<span class="kw">cbind</span>(x,y))</a>
-<a class="sourceLine" id="cb191-6" data-line-number="6"><span class="kw">ggplot</span>(temp,<span class="kw">aes</span>(<span class="dt">x=</span>x,<span class="dt">y=</span>y))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;blue&quot;</span>)<span class="op">+</span><span class="kw">labs</span>( <span class="dt">x=</span><span class="st">&quot;Time&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Residuals&quot;</span>)<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span><span class="kw">sin</span>(<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>x<span class="op">/</span><span class="dv">12</span>), <span class="dt">size =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="diag.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">49205</span>)</span>
+<span id="cb192-2"><a href="diag.html#cb192-2" aria-hidden="true" tabindex="-1"></a>error1<span class="ot">=</span><span class="fu">rnorm</span>(<span class="dv">50</span>)</span>
+<span id="cb192-3"><a href="diag.html#cb192-3" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">50</span>)</span>
+<span id="cb192-4"><a href="diag.html#cb192-4" aria-hidden="true" tabindex="-1"></a>y<span class="ot">=</span><span class="fu">sin</span>(<span class="dv">2</span><span class="sc">*</span>pi<span class="sc">*</span>x<span class="sc">/</span><span class="dv">12</span>)<span class="sc">+</span>error1</span>
+<span id="cb192-5"><a href="diag.html#cb192-5" aria-hidden="true" tabindex="-1"></a>temp<span class="ot">=</span><span class="fu">data.frame</span>(<span class="fu">cbind</span>(x,y))</span>
+<span id="cb192-6"><a href="diag.html#cb192-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temp,<span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">y=</span>y))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;blue&quot;</span>)<span class="sc">+</span><span class="fu">labs</span>( <span class="at">x=</span><span class="st">&quot;Time&quot;</span>,<span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)<span class="sc">+</span><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="at">formula =</span> y <span class="sc">~</span> <span class="fu">sin</span>(<span class="dv">2</span><span class="sc">*</span>pi<span class="sc">*</span>x<span class="sc">/</span><span class="dv">12</span>), <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:autoplot"></span>
 <img src="bookdownproj_files/figure-html/autoplot-1.png" alt="Residuals vs Time: Autocorrelation Present" width="672" />
 <p class="caption">
@@ -610,10 +634,10 @@ where e represents the error terms, or residuals. The statistic <em>d</em> range
 </p>
 <p><strong>Example</strong>
 The following data set illustrates this test using the Google data set in the TSA package (returns of Google stock from 08/20/04 - 09/13/06).</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" data-line-number="1"><span class="kw">data</span>(google)</a>
-<a class="sourceLine" id="cb192-2" data-line-number="2">x=<span class="kw">seq</span>(<span class="dv">1</span>,<span class="kw">length</span>(google))</a>
-<a class="sourceLine" id="cb192-3" data-line-number="3">lm.model=<span class="kw">lm</span>(google<span class="op">~</span>x)</a>
-<a class="sourceLine" id="cb192-4" data-line-number="4"><span class="kw">dwtest</span>(lm.model,<span class="dt">alternative=</span><span class="st">&quot;greater&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="diag.html#cb193-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(google)</span>
+<span id="cb193-2"><a href="diag.html#cb193-2" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="fu">length</span>(google))</span>
+<span id="cb193-3"><a href="diag.html#cb193-3" aria-hidden="true" tabindex="-1"></a>lm.model<span class="ot">=</span><span class="fu">lm</span>(google<span class="sc">~</span>x)</span>
+<span id="cb193-4"><a href="diag.html#cb193-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dwtest</span>(lm.model,<span class="at">alternative=</span><span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Durbin-Watson test
 ## 
@@ -623,7 +647,7 @@ The following data set illustrates this test using the Google data set in the TS
 <p>In running this test, you either need to have the data sorted by the correct date (it assumes the observations are correctly ordered by time). If they are not, there is an order.by option in which you can use. For this example, the p-value is 0.0321, which if we use an <span class="math inline">\(\alpha\)</span> of 0.05, we would reject the null hypothesis and conclude there appears to be significant positive autocorrelation.</p>
 <p>If your data has significant autocorrelation, then the error terms will not be correct. We will discuss in the Fall semester how to model time series data appropriately.</p>
 </div>
-<div id="influential-observations-and-outliers" class="section level2">
+<div id="influential-observations-and-outliers" class="section level2" number="5.6">
 <h2><span class="header-section-number">5.6</span> Influential Observations and Outliers</h2>
 <p>Influential points and outliers play a large role in the estimation of the model and its prediction. Influential points are usually those points on the edges of the x-values and can greatly impact the slopes in the regression equation. Outliers tend to be those values that do not follow the trend of the data and are generally found by large deviations in the y direction. For multiple linear regression, outliers are found by using residuals. These can be standardize residuals or studentized residuals. Influential points can be discovered by Cook’s D, dffits, dfbetas or Hat values. These points are important to identify and recognize their influence on the regression, however, it does NOT mean that these points should be removed. Removal of data should be taken very seriously. We would obviously want to omit any observations made in error, due to typos or reporting inaccuracies, but we do not remove data points just because they are outside the scope of our expectations. We have many tools at our disposal for modeling with such observations, and we should always develop a deep understanding of the application-specific risks and rewards associated with data removal.<br />
 </p>
@@ -655,44 +679,44 @@ Time: Record time to complete course<br />
 Distance: Distance in the course<br />
 Climb: Vertical climb in the course<br />
 </p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" data-line-number="1">url =<span class="st"> &#39;http://www.statsci.org/data/general/hills.txt&#39;</span> </a>
-<a class="sourceLine" id="cb194-2" data-line-number="2">races.table =<span class="st"> </span><span class="kw">read.table</span>(url, <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">sep=</span><span class="st">&#39;</span><span class="ch">\t</span><span class="st">&#39;</span>)</a>
-<a class="sourceLine" id="cb194-3" data-line-number="3">n.index=<span class="kw">seq</span>(<span class="dv">1</span>,<span class="kw">nrow</span>(races.table))</a>
-<a class="sourceLine" id="cb194-4" data-line-number="4">races.table=<span class="kw">cbind</span>(races.table,n.index)</a>
-<a class="sourceLine" id="cb194-5" data-line-number="5">lm.model=<span class="kw">lm</span>(Time<span class="op">~</span>Distance<span class="op">+</span>Climb,<span class="dt">data=</span>races.table)</a>
-<a class="sourceLine" id="cb194-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb194-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb194-8" data-line-number="8"><span class="co">##Plots of outliers</span></a>
-<a class="sourceLine" id="cb194-9" data-line-number="9">a =<span class="st"> </span><span class="kw">ggplot</span>(lm.model,<span class="kw">aes</span>(<span class="dt">x=</span>n.index,<span class="dt">y=</span><span class="kw">rstandard</span>(lm.model)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;orange&quot;</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span><span class="op">-</span><span class="dv">3</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span><span class="dv">3</span>)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Internal Studentized Residuals&quot;</span>,<span class="dt">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Residuals&quot;</span>)</a>
-<a class="sourceLine" id="cb194-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb194-11" data-line-number="11">b =<span class="st"> </span><span class="kw">ggplot</span>(lm.model,<span class="kw">aes</span>(<span class="dt">x=</span>n.index,<span class="dt">y=</span><span class="kw">rstudent</span>(lm.model)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;orange&quot;</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span><span class="op">-</span><span class="dv">3</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span><span class="dv">3</span>)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;External Studentized Residuals&quot;</span>,<span class="dt">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Residuals&quot;</span>)</a>
-<a class="sourceLine" id="cb194-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb194-13" data-line-number="13"><span class="co">##Influential points</span></a>
-<a class="sourceLine" id="cb194-14" data-line-number="14">c =<span class="st"> </span><span class="kw">ggplot</span>(lm.model,<span class="kw">aes</span>(<span class="dt">x=</span>n.index,<span class="dt">y=</span><span class="kw">rstandard</span>(lm.model)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;orange&quot;</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span><span class="op">-</span><span class="dv">3</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span><span class="dv">3</span>)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Internal Studentized Residuals&quot;</span>,<span class="dt">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Residuals&quot;</span>)</a>
-<a class="sourceLine" id="cb194-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb194-16" data-line-number="16"><span class="co">##Cook&#39;s D</span></a>
-<a class="sourceLine" id="cb194-17" data-line-number="17">D.cut=<span class="dv">4</span><span class="op">/</span>(<span class="kw">nrow</span>(races.table)<span class="op">-</span><span class="dv">3-1</span>)</a>
-<a class="sourceLine" id="cb194-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb194-19" data-line-number="19">d =<span class="kw">ggplot</span>(lm.model,<span class="kw">aes</span>(<span class="dt">x=</span>n.index,<span class="dt">y=</span><span class="kw">cooks.distance</span>(lm.model)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;orange&quot;</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span>D.cut)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Cook&#39;s D&quot;</span>,<span class="dt">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Cook&#39;s Distance&quot;</span>)</a>
-<a class="sourceLine" id="cb194-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb194-21" data-line-number="21"><span class="co">##Dffit</span></a>
-<a class="sourceLine" id="cb194-22" data-line-number="22">df.cut=<span class="dv">2</span><span class="op">*</span>(<span class="kw">sqrt</span>((<span class="dv">3</span><span class="op">+</span><span class="dv">1</span>)<span class="op">/</span><span class="kw">nrow</span>(races.table)))</a>
-<a class="sourceLine" id="cb194-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb194-24" data-line-number="24">e =<span class="kw">ggplot</span>(lm.model,<span class="kw">aes</span>(<span class="dt">x=</span>n.index,<span class="dt">y=</span><span class="kw">dffits</span>(lm.model)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;orange&quot;</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span>df.cut)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span><span class="op">-</span>df.cut)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;DFFITS&quot;</span>,<span class="dt">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="dt">y=</span><span class="st">&quot;DFFITS&quot;</span>)</a>
-<a class="sourceLine" id="cb194-25" data-line-number="25"></a>
-<a class="sourceLine" id="cb194-26" data-line-number="26">db.cut=<span class="dv">2</span><span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">nrow</span>(races.table))</a>
-<a class="sourceLine" id="cb194-27" data-line-number="27"></a>
-<a class="sourceLine" id="cb194-28" data-line-number="28"></a>
-<a class="sourceLine" id="cb194-29" data-line-number="29">f =<span class="kw">ggplot</span>(lm.model,<span class="kw">aes</span>(<span class="dt">x=</span>n.index,<span class="dt">y=</span><span class="kw">dfbetas</span>(lm.model)[,<span class="st">&#39;Climb&#39;</span>]))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;orange&quot;</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span>db.cut)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span><span class="op">-</span>db.cut)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;DFBETA for Climb&quot;</span>,<span class="dt">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="dt">y=</span><span class="st">&quot;DFBETAS&quot;</span>)</a>
-<a class="sourceLine" id="cb194-30" data-line-number="30"></a>
-<a class="sourceLine" id="cb194-31" data-line-number="31">g =<span class="kw">ggplot</span>(lm.model,<span class="kw">aes</span>(<span class="dt">x=</span>n.index,<span class="dt">y=</span><span class="kw">dfbetas</span>(lm.model)[,<span class="st">&#39;Distance&#39;</span>]))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;orange&quot;</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span>db.cut)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span><span class="op">-</span>db.cut)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;DFBETA for Distance&quot;</span>,<span class="dt">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="dt">y=</span><span class="st">&quot;DFBETAS&quot;</span>)</a>
-<a class="sourceLine" id="cb194-32" data-line-number="32"></a>
-<a class="sourceLine" id="cb194-33" data-line-number="33"><span class="co">##Hat</span></a>
-<a class="sourceLine" id="cb194-34" data-line-number="34">hat.cut=<span class="dv">2</span><span class="op">*</span>(<span class="dv">3</span><span class="op">+</span><span class="dv">1</span>)<span class="op">/</span><span class="kw">nrow</span>(races.table)</a>
-<a class="sourceLine" id="cb194-35" data-line-number="35"></a>
-<a class="sourceLine" id="cb194-36" data-line-number="36">h =<span class="st"> </span><span class="kw">ggplot</span>(lm.model,<span class="kw">aes</span>(<span class="dt">x=</span>n.index,<span class="dt">y=</span><span class="kw">hatvalues</span>(lm.model)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;orange&quot;</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">y=</span>hat.cut)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Hat values&quot;</span>,<span class="dt">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Hat Values&quot;</span>)</a>
-<a class="sourceLine" id="cb194-37" data-line-number="37"></a>
-<a class="sourceLine" id="cb194-38" data-line-number="38"><span class="kw">grid.arrange</span>(a,b,c,d,e,f,g,<span class="dt">ncol=</span><span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="diag.html#cb195-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">=</span> <span class="st">&#39;http://www.statsci.org/data/general/hills.txt&#39;</span> </span>
+<span id="cb195-2"><a href="diag.html#cb195-2" aria-hidden="true" tabindex="-1"></a>races.table <span class="ot">=</span> <span class="fu">read.table</span>(url, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>)</span>
+<span id="cb195-3"><a href="diag.html#cb195-3" aria-hidden="true" tabindex="-1"></a>n.index<span class="ot">=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="fu">nrow</span>(races.table))</span>
+<span id="cb195-4"><a href="diag.html#cb195-4" aria-hidden="true" tabindex="-1"></a>races.table<span class="ot">=</span><span class="fu">cbind</span>(races.table,n.index)</span>
+<span id="cb195-5"><a href="diag.html#cb195-5" aria-hidden="true" tabindex="-1"></a>lm.model<span class="ot">=</span><span class="fu">lm</span>(Time<span class="sc">~</span>Distance<span class="sc">+</span>Climb,<span class="at">data=</span>races.table)</span>
+<span id="cb195-6"><a href="diag.html#cb195-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-7"><a href="diag.html#cb195-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-8"><a href="diag.html#cb195-8" aria-hidden="true" tabindex="-1"></a><span class="do">##Plots of outliers</span></span>
+<span id="cb195-9"><a href="diag.html#cb195-9" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">rstandard</span>(lm.model)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="sc">-</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Internal Studentized Residuals&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span>
+<span id="cb195-10"><a href="diag.html#cb195-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-11"><a href="diag.html#cb195-11" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">rstudent</span>(lm.model)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="sc">-</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;External Studentized Residuals&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span>
+<span id="cb195-12"><a href="diag.html#cb195-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-13"><a href="diag.html#cb195-13" aria-hidden="true" tabindex="-1"></a><span class="do">##Influential points</span></span>
+<span id="cb195-14"><a href="diag.html#cb195-14" aria-hidden="true" tabindex="-1"></a>c <span class="ot">=</span> <span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">rstandard</span>(lm.model)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="sc">-</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Internal Studentized Residuals&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span>
+<span id="cb195-15"><a href="diag.html#cb195-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-16"><a href="diag.html#cb195-16" aria-hidden="true" tabindex="-1"></a><span class="do">##Cook&#39;s D</span></span>
+<span id="cb195-17"><a href="diag.html#cb195-17" aria-hidden="true" tabindex="-1"></a>D.cut<span class="ot">=</span><span class="dv">4</span><span class="sc">/</span>(<span class="fu">nrow</span>(races.table)<span class="sc">-</span><span class="dv">3-1</span>)</span>
+<span id="cb195-18"><a href="diag.html#cb195-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-19"><a href="diag.html#cb195-19" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span><span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">cooks.distance</span>(lm.model)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span>D.cut)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Cook&#39;s D&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;Cook&#39;s Distance&quot;</span>)</span>
+<span id="cb195-20"><a href="diag.html#cb195-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-21"><a href="diag.html#cb195-21" aria-hidden="true" tabindex="-1"></a><span class="do">##Dffit</span></span>
+<span id="cb195-22"><a href="diag.html#cb195-22" aria-hidden="true" tabindex="-1"></a>df.cut<span class="ot">=</span><span class="dv">2</span><span class="sc">*</span>(<span class="fu">sqrt</span>((<span class="dv">3</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">/</span><span class="fu">nrow</span>(races.table)))</span>
+<span id="cb195-23"><a href="diag.html#cb195-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-24"><a href="diag.html#cb195-24" aria-hidden="true" tabindex="-1"></a>e <span class="ot">=</span><span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">dffits</span>(lm.model)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span>df.cut)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="sc">-</span>df.cut)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;DFFITS&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;DFFITS&quot;</span>)</span>
+<span id="cb195-25"><a href="diag.html#cb195-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-26"><a href="diag.html#cb195-26" aria-hidden="true" tabindex="-1"></a>db.cut<span class="ot">=</span><span class="dv">2</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">nrow</span>(races.table))</span>
+<span id="cb195-27"><a href="diag.html#cb195-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-28"><a href="diag.html#cb195-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-29"><a href="diag.html#cb195-29" aria-hidden="true" tabindex="-1"></a>f <span class="ot">=</span><span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">dfbetas</span>(lm.model)[,<span class="st">&#39;Climb&#39;</span>]))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span>db.cut)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="sc">-</span>db.cut)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;DFBETA for Climb&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;DFBETAS&quot;</span>)</span>
+<span id="cb195-30"><a href="diag.html#cb195-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-31"><a href="diag.html#cb195-31" aria-hidden="true" tabindex="-1"></a>g <span class="ot">=</span><span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">dfbetas</span>(lm.model)[,<span class="st">&#39;Distance&#39;</span>]))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span>db.cut)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="sc">-</span>db.cut)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;DFBETA for Distance&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;DFBETAS&quot;</span>)</span>
+<span id="cb195-32"><a href="diag.html#cb195-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-33"><a href="diag.html#cb195-33" aria-hidden="true" tabindex="-1"></a><span class="do">##Hat</span></span>
+<span id="cb195-34"><a href="diag.html#cb195-34" aria-hidden="true" tabindex="-1"></a>hat.cut<span class="ot">=</span><span class="dv">2</span><span class="sc">*</span>(<span class="dv">3</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">/</span><span class="fu">nrow</span>(races.table)</span>
+<span id="cb195-35"><a href="diag.html#cb195-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-36"><a href="diag.html#cb195-36" aria-hidden="true" tabindex="-1"></a>h <span class="ot">=</span> <span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">hatvalues</span>(lm.model)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span>hat.cut)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Hat values&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;Hat Values&quot;</span>)</span>
+<span id="cb195-37"><a href="diag.html#cb195-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-38"><a href="diag.html#cb195-38" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(a,b,c,d,e,f,g,<span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:influence"></span>
 <img src="bookdownproj_files/figure-html/influence-1.png" alt="Plots for Exploring Outliers and Influential Points" width="672" />
 <p class="caption">
@@ -701,7 +725,7 @@ Figure 5.14: Plots for Exploring Outliers and Influential Points
 </div>
 <p>Figure <a href="#influence"><strong>??</strong></a> shows a number of useful graphics that help us explore outliers and influential points.</p>
 <p>A good graph to explore is looking at the external studentized residuals versus the hat values. An observation that is high leverage AND an outlier is one that needs to be explored.</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" data-line-number="1"><span class="kw">ggplot</span>(lm.model,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">hatvalues</span>(lm.model),<span class="dt">y=</span><span class="kw">rstudent</span>(lm.model))) <span class="op">+</span><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;orange&quot;</span>)<span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Hat values&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Residuals&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="diag.html#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">hatvalues</span>(lm.model),<span class="at">y=</span><span class="fu">rstudent</span>(lm.model))) <span class="sc">+</span>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Hat values&quot;</span>,<span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:influenceresid"></span>
 <img src="bookdownproj_files/figure-html/influenceresid-1.png" alt="Influential and Outlier Observations" width="672" />
 <p class="caption">
@@ -709,7 +733,7 @@ Figure 5.15: Influential and Outlier Observations
 </p>
 </div>
 </div>
-<div id="multicollinearity" class="section level2">
+<div id="multicollinearity" class="section level2" number="5.7">
 <h2><span class="header-section-number">5.7</span> Multicollinearity</h2>
 <p>Multicollinearity occurs when one or more predictor variables are linearly related to each others and will create many issues with the regression. The parameter estimates will not be stable and the standard errors will be inflated (making it more difficult to find significant explantory variables). The two most common ways to identify multicollinearity is by looking at the correlation among the predictor variables and calculating the variance inflation factor.<br />
 </p>
@@ -736,7 +760,7 @@ vs: Engine (0 = V-shaped, 1 = straight)<br />
 am: Transmission (0 = automatic, 1 = manual)<br />
 gear: Number of forward gears<br />
 </p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" data-line-number="1"><span class="kw">cor</span>(mtcars)</a></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="diag.html#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mtcars)</span></code></pre></div>
 <pre><code>##             mpg        cyl       disp         hp        drat         wt
 ## mpg   1.0000000 -0.8521620 -0.8475514 -0.7761684  0.68117191 -0.8676594
 ## cyl  -0.8521620  1.0000000  0.9020329  0.8324475 -0.69993811  0.7824958
@@ -761,8 +785,8 @@ gear: Number of forward gears<br />
 ## am   -0.22986086  0.1683451  1.00000000  0.7940588  0.05753435
 ## gear -0.21268223  0.2060233  0.79405876  1.0000000  0.27407284
 ## carb -0.65624923 -0.5696071  0.05753435  0.2740728  1.00000000</code></pre>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" data-line-number="1">lm.model=<span class="kw">lm</span>(mpg<span class="op">~</span>.,<span class="dt">data=</span>mtcars)</a>
-<a class="sourceLine" id="cb198-2" data-line-number="2"><span class="kw">vif</span>(lm.model)</a></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="diag.html#cb199-1" aria-hidden="true" tabindex="-1"></a>lm.model<span class="ot">=</span><span class="fu">lm</span>(mpg<span class="sc">~</span>.,<span class="at">data=</span>mtcars)</span>
+<span id="cb199-2"><a href="diag.html#cb199-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(lm.model)</span></code></pre></div>
 <pre><code>##       cyl      disp        hp      drat        wt      qsec        vs        am 
 ## 15.373833 21.620241  9.832037  3.374620 15.164887  7.527958  4.965873  4.648487 
 ##      gear      carb 
@@ -803,7 +827,6 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {

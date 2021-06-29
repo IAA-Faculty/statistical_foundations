@@ -812,7 +812,7 @@ As we pointed out in Section \@ref(testnorm), the distribution of `Sale_Price` w
 The null and alternative hypotheses for this test are typically defined as follows, so long as the _is_ identically distributed (having the same _shape_ and variance):
 $$H_0: \text{ the medians of the two groups are equal }  $$
 $$H_a: \text{ the medians of the two groups are NOT equal }   $$
-If those identical distributions are also symmetric, then Mann-Whitney-Wilcoxon can be interpretted as testing for a difference in means. When the data is not identically distributed, or when the distributions are not symmetric, Mann-Whitney-Wilcoxon is a test of __dominance__ between distributions. __Distributional dominance__ is the notion that one group's distribution is located at larger values than another, probabilistically speaking.  Formally, a random variable A has dominance over random variable B if $P(A\geq ) \geq P(B\geq x)$ for all $x$, and for some $x$, $P(A> ) \geq P(B> x)$.
+If those identical distributions are also symmetric, then Mann-Whitney-Wilcoxon can be interpretted as testing for a difference in means. When the data is not identically distributed, or when the distributions are not symmetric, Mann-Whitney-Wilcoxon is a test of __dominance__ between distributions. __Distributional dominance__ is the notion that one group's distribution is located at larger values than another, probabilistically speaking.  Formally, a random variable A has dominance over random variable B if $P(A x) \geq P(B\geq x)$ for all $x$, and for some $x$, $P(A\geq x) > P(B\geq x)$.
 
 We summarize this information in the following table:
 

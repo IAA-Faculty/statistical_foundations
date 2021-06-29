@@ -334,6 +334,6 @@ test_reg %>%
 
 ```
 
-From the above results, the linear regression from OLS has a lower MAPE. 
+From the above results, the linear regression from LASSO has a lower MAPE. 
 
 Once we have scored models with the test dataset, we should **not** go back to try and rebuild any models. We will use the model with the lowest MAE or MAPE. This number is also the number that we report on how well our model performs. No metrics on the training dataset should be reported for the performance of the model.
