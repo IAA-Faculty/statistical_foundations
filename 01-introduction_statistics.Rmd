@@ -57,6 +57,8 @@ library(carData)
 library(epiDisplay)
 library(gridExtra)
 ```
+In this first chapter, you will learn:
+1. Exploratory Data Analysis (EDA)
 
 
 This first chapter will review some basic statistical concepts that we assume the reader has seen previously. We will demonstrate how to implement these concepts in R along the way.
