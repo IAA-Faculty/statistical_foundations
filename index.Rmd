@@ -11,7 +11,6 @@ github-repo: IAA-Faculty/statistical_foundations
 ### Authors {-}
 
 Aric Labarr, Phd - Institute for Advanced Analytics @ NC State\
-Shaina Race, PhD - Institute for Advanced Analytics @ NC State\
 Susan Simmons, PhD - Institute for Advanced Analytics @ NC State\
 
 ### Structure of the book {-}
