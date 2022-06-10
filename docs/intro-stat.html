@@ -50,6 +50,13 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -619,13 +626,20 @@ Other
 <span id="cb6-3"><a href="intro-stat.html#cb6-3" aria-hidden="true" tabindex="-1"></a>encoder  <span class="ot">=</span> <span class="fu">onehot</span>(data)</span>
 <span id="cb6-4"><a href="intro-stat.html#cb6-4" aria-hidden="true" tabindex="-1"></a>dummies <span class="ot">=</span> <span class="fu">predict</span>(encoder,data)</span>
 <span id="cb6-5"><a href="intro-stat.html#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dummies)</span></code></pre></div>
-<pre><code>##             y x1=A x1=B x1=C x2=U x2=V x2=W x2=X x2=Y x2=Z
-## [1,] 1.205632    1    0    0    0    0    0    0    0    1
-## [2,] 2.197258    1    0    0    0    0    0    0    0    1
-## [3,] 3.001704    1    0    0    0    0    0    0    0    1
-## [4,] 3.288825    1    0    0    0    0    0    0    0    1
-## [5,] 2.905753    1    0    0    0    0    0    0    0    1
-## [6,] 2.493667    1    0    0    0    0    0    1    0    0</code></pre>
+<pre><code>##             y x1=A x1=B x1=C x2=U x2=V x2=W x2=X
+## [1,] 1.205632    1    0    0    0    0    0    0
+## [2,] 2.197258    1    0    0    0    0    0    0
+## [3,] 3.001704    1    0    0    0    0    0    0
+## [4,] 3.288825    1    0    0    0    0    0    0
+## [5,] 2.905753    1    0    0    0    0    0    0
+## [6,] 2.493667    1    0    0    0    0    0    1
+##      x2=Y x2=Z
+## [1,]    0    1
+## [2,]    0    1
+## [3,]    0    1
+## [4,]    0    1
+## [5,]    0    1
+## [6,]    0    0</code></pre>
 <p><strong>Reference-level coding </strong></p>
 <p>Reference-level coding is similar to one-hot encoding except one of the levels of the attribute, called the <strong>reference level</strong>, is omitted. Notice that the 4 dummy columns from Table <a href="intro-stat.html#tab:onehot">1.1</a> collectively form a linearly dependent set; that is, if you know the values of 3 of the 4 dummy variables you can determine the <span class="math inline">\(4^{th}\)</span> with complete certainty. This would be a problem for linear regression, where we assume our input attributes are not linearly dependent as we will discuss in Chapter <a href="slr.html#slr">2</a>.</p>
 <p>A reference level of the attribute is often specified by the user to be a particular level worthy of comparison (a baseline), as the regression output will be interpreted in a way that compares each non-reference level to the reference level. If a reference level is not specified by the user, one will be picked by the software by default either using the order in which the levels were encountered in the data, or their alphabetical ordering. Users should check the documentation of the associated function to understand what to expect.</p>
@@ -1134,12 +1148,15 @@ Figure 1.4: Example of a Bimodal Distribution
 <span id="cb13-2"><a href="intro-stat.html#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="intro-stat.html#cb13-3" aria-hidden="true" tabindex="-1"></a>Hmisc<span class="sc">::</span><span class="fu">describe</span>(ames<span class="sc">$</span>Sale_Price)</span></code></pre></div>
 <pre><code>## ames$Sale_Price 
-##        n  missing distinct     Info     Mean      Gmd      .05      .10 
-##     2930        0     1032        1   180796    81960    87500   105450 
-##      .25      .50      .75      .90      .95 
-##   129500   160000   213500   281242   335000 
+##        n  missing distinct     Info     Mean 
+##     2930        0     1032        1   180796 
+##      Gmd      .05      .10      .25      .50 
+##    81960    87500   105450   129500   160000 
+##      .75      .90      .95 
+##   213500   281242   335000 
 ## 
-## lowest :  12789  13100  34900  35000  35311, highest: 611657 615000 625000 745000 755000</code></pre>
+## lowest :  12789  13100  34900  35000  35311
+## highest: 611657 615000 625000 745000 755000</code></pre>
 <li>
 <p>The tidyverse <code>summarise</code> function, in this case obtaining statistics for each <code>Exter_Qual</code> separately.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="intro-stat.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -1237,8 +1254,10 @@ Figure 1.7: Histogram: Frequency of Sale_Price for Each value of Central_Air
 <span id="cb21-2"><a href="intro-stat.html#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">data=</span><span class="fu">subset</span>(ames,Central_Air <span class="sc">==</span> <span class="st">&#39;Y&#39;</span>),<span class="fu">aes</span>(<span class="at">y=</span>..density..,<span class="at">fill=</span>Central_Air), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
 <span id="cb21-3"><a href="intro-stat.html#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">data=</span><span class="fu">subset</span>(ames,Central_Air <span class="sc">==</span> <span class="st">&#39;N&#39;</span>),<span class="fu">aes</span>(<span class="at">y=</span>..density..,<span class="at">fill=</span>Central_Air), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
 <span id="cb21-4"><a href="intro-stat.html#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>) </span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value
+## with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value
+## with `binwidth`.</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:overhistogramdensityAC"></span>
 <img src="bookdownproj_files/figure-html/overhistogramdensityAC-1.png" alt="Histogram: Density of Sale_Price for varying qualities of  Central_Air" width="672" />
 <p class="caption">
@@ -1378,8 +1397,10 @@ This will be the subject of interest in the next two sections.</p>
 ## [1] 0.95</code></pre>
 <p>To learn the labels of the various pieces of output, you can list them with the <code>ls()</code> function, or by saving the output as an object (below, <code>results</code> is the object that stores the output) and exploring it in your environment (upper right panel in RStudio):</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="intro-stat.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>(<span class="fu">t.test</span>(ames<span class="sc">$</span>Sale_Price, <span class="at">conf.level =</span> <span class="fl">0.95</span>))</span></code></pre></div>
-<pre><code>##  [1] &quot;alternative&quot; &quot;conf.int&quot;    &quot;data.name&quot;   &quot;estimate&quot;    &quot;method&quot;     
-##  [6] &quot;null.value&quot;  &quot;p.value&quot;     &quot;parameter&quot;   &quot;statistic&quot;   &quot;stderr&quot;</code></pre>
+<pre><code>##  [1] &quot;alternative&quot; &quot;conf.int&quot;    &quot;data.name&quot;  
+##  [4] &quot;estimate&quot;    &quot;method&quot;      &quot;null.value&quot; 
+##  [7] &quot;p.value&quot;     &quot;parameter&quot;   &quot;statistic&quot;  
+## [10] &quot;stderr&quot;</code></pre>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="intro-stat.html#cb34-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(ames<span class="sc">$</span>Sale_Price, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 </div>
 <div id="hypotest" class="section level2 hasAnchor" number="1.4">
@@ -1445,7 +1466,8 @@ Figure 1.16: Null Distribution: Number of heads for fair coin tossed 100 times
 <span id="cb45-2"><a href="intro-stat.html#cb45-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">alternative =</span> <span class="fu">c</span>(<span class="st">&quot;two.sided&quot;</span>),</span>
 <span id="cb45-3"><a href="intro-stat.html#cb45-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">conf.level =</span> <span class="fl">0.99</span>)</span></code></pre></div>
 <pre><code>## 
-##  1-sample proportions test with continuity correction
+##  1-sample proportions test with continuity
+##  correction
 ## 
 ## data:  65 out of 100
 ## X-squared = 8.41, df = 1, p-value = 0.003732
@@ -1553,7 +1575,8 @@ For the sake of illustration, we will proceed in this example under the assumpti
 ##  F test to compare two variances
 ## 
 ## data:  Sale_Price by Central_Air
-## F = 0.2258, num df = 195, denom df = 2733, p-value &lt; 2.2e-16
+## F = 0.2258, num df = 195, denom df = 2733,
+## p-value &lt; 2.2e-16
 ## alternative hypothesis: true ratio of variances is not equal to 1
 ## 95 percent confidence interval:
 ##  0.1854873 0.2800271
@@ -1615,7 +1638,8 @@ Difference in location. <br> (distributional dominance)
 <p>To perform this test, we use the <code>wilcox.test()</code> function, whose inputs are identical to the <code>t.test()</code> function.</p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="intro-stat.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(Sale_Price <span class="sc">~</span> Central_Air, <span class="at">data =</span> ames)</span></code></pre></div>
 <pre><code>## 
-##  Wilcoxon rank sum test with continuity correction
+##  Wilcoxon rank sum test with continuity
+##  correction
 ## 
 ## data:  Sale_Price by Central_Air
 ## W = 63164, p-value &lt; 2.2e-16

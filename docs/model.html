@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Model Building &amp; Scoring for Prediction | Statistical Foundations</title>
   <meta name="description" content="Chapter 6 Model Building &amp; Scoring for Prediction | Statistical Foundations" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Model Building &amp; Scoring for Prediction | Statistical Foundations" />
   <meta property="og:type" content="book" />
-  
   
   
   <meta name="github-repo" content="IAA-Faculty/statistical_foundations" />
@@ -31,8 +30,8 @@
   
 <link rel="prev" href="diag.html"/>
 <link rel="next" href="cat.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -48,20 +47,23 @@
 
 
 
-
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.4.1/plotly.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.57.1/plotly-latest.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -121,6 +123,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -302,8 +305,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="model" class="section level1" number="6">
-<h1><span class="header-section-number">Chapter 6</span> Model Building &amp; Scoring for Prediction</h1>
+<div id="model" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Model Building &amp; Scoring for Prediction<a href="mlr.html#model" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Chapters <a href="slr.html#slr">2</a> and <a href="mlr.html#mlr">3</a> only scratch the surface of model building. Linear regression is a great initial approach to take to model building. In fact, in the realm of statistical models, linear regression (calculated by ordinary least squares) is the <strong>best linear unbiased estimator</strong>. The two key pieces to that previous statement are “best” and “unbiased.”</p>
 <p>What does it mean to be <strong>unbiased</strong>? Each of the sample coefficients (<span class="math inline">\(\hat{\beta}\)</span>’s) in the regression model are estimates of the true coefficients. Just like the statistics back in Chapter <a href="intro-stat.html#eda">1.1</a>, these sample coefficients have sampling distributions - specifically, normally distributed sampling distributions. The mean of the sampling distribution of <span class="math inline">\(\hat{\beta}_j\)</span> is the true (known) coefficient <span class="math inline">\(\beta_j\)</span>. This means the coefficient is unbiased.</p>
 <p>In the preceding chapters, we have only scratched the surface of model building. Linear regression is a great initial approach to model building. In fact, in the realm of statistical models, linear regression (calculated by ordinary least squares) is the <strong>best linear unbiased estimator</strong>. The two key pieces to that previous statement are “best” and “unbiased.”</p>
@@ -345,13 +348,13 @@ Model Scoring
 Test Dataset Comparison
 </ul>
 </ul>
-<div id="regularized-regression" class="section level2" number="6.1">
-<h2><span class="header-section-number">6.1</span> Regularized Regression</h2>
+<div id="regularized-regression" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Regularized Regression<a href="model.html#regularized-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>As the number of variables in a linear regression model increase, the chances of having a model that meets all of the assumptions starts to diminish. Multicollinearity can pose a large problem with bigger regression models. As previously seen in Chapter <a href="diag.html#diag">5</a>, the coefficients of a linear regression vary widely in the presence of multicollinearity. These variations lead to overfitting of a regression model. <strong>Overfitting</strong> occurs when a dataset predicts the training data it was built off of really well, but does not generalize to the test dataset or the population in general. More formally, these models have higher variance than desired. In those scenarios, moving out of the realm of unbiased estimates may provide a lower variance in the model, even though the model is no longer unbiased as described above. We wouldn’t want to be too biased, but some small degree of bias might improve the model’s fit overall.</p>
 <p>Another potential problem for linear regression is when we have more variables than observations in our dataset. This is a common problem in the space of genetic modeling. In this scenario, the ordinary least squares approach leads to multiple solutions instead of just one. Unfortunately, most of these infinite solutions overfit the problem at hand anyway.</p>
 <p>Regularized (or penalized or shrinkage) regression techniques potentially alleviate these problems. Regularized regression puts constraints on the estimated coefficients in our model and <em>shrink</em> these estimates to zero. This helps reduce the variation in the coefficients (improving the variance of the model), but at the cost of biasing the coefficients. The specific constraints that are put on the regression inform the three common approaches - <strong>ridge regression</strong>, <strong>LASSO</strong>, and <strong>elastic nets</strong>.</p>
-<div id="penalties-in-models" class="section level3" number="6.1.1">
-<h3><span class="header-section-number">6.1.1</span> Penalties in Models</h3>
+<div id="penalties-in-models" class="section level3 hasAnchor" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> Penalties in Models<a href="model.html#penalties-in-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In ordinary least squares linear regression, we minimize the sum of the squared residuals (or errors) as laid out in Chapter @(slr).</p>
 <p>In ordinary least squares linear regression, we minimize the sum of the squared residuals (or errors) as laid out in Chapter <a href="slr.html#slr">2</a>.</p>
 <p><span class="math display">\[
@@ -363,15 +366,37 @@ min(\sum_{i=1}^n(y_i - \hat{y}_i)^2 + Penalty) = min(SSE + Penalty)
 \]</span></p>
 <p>As mentioned above, the penalties we choose constrain the estimated coefficients in our model and shrink these estimates to zero. Different penalties have different effects on the estimated coefficients. Two common approaches to adding penalties are the ridge and LASSO approaches. The elastic net approach is a combination of these two. Let’s explore each of these in further detail!</p>
 </div>
-<div id="ridge-regression" class="section level3" number="6.1.2">
-<h3><span class="header-section-number">6.1.2</span> Ridge Regression</h3>
+<div id="ridge-regression" class="section level3 hasAnchor" number="6.1.2">
+<h3><span class="header-section-number">6.1.2</span> Ridge Regression<a href="model.html#ridge-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Ridge regression adds what is commonly referred to as an “<span class="math inline">\(L_2\)</span>” penalty:</p>
 <p><span class="math display">\[
 min(\sum_{i=1}^n(y_i - \hat{y}_i)^2 + \lambda \sum_{j=1}^p \hat{\beta}^2_j) = min(SSE + \lambda \sum_{j=1}^p \hat{\beta}^2_j)
 \]</span></p>
 <p>This penalty is controlled by the <strong>tuning parameter</strong> <span class="math inline">\(\lambda\)</span>. If <span class="math inline">\(\lambda = 0\)</span>, then we have typical OLS linear regression. However, as <span class="math inline">\(\lambda \rightarrow \infty\)</span>, the coefficients in the model shrink to zero. This makes intuitive sense. Since the estimated coefficients, <span class="math inline">\(\hat{\beta}_j\)</span>’s, are the only thing changing to minimize this equation, then as <span class="math inline">\(\lambda \rightarrow \infty\)</span>, the equation is best minimized by forcing the coefficients to be smaller and smaller. We will see how to optimize this penalty term in a later section.</p>
 <p>Let’s build a regularized regression for our Ames dataset. To build a ridge regression we need separate data matrices for our predictors and our target variable. First, we isolate out the variables we are interested in using the <code>select</code> function. From there the <code>model.matrix</code> function will create any categorical dummy variables needed. We also isolate the target variable into its own vector.</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="model.html#cb201-1" aria-hidden="true" tabindex="-1"></a>train_reg <span class="ot">&lt;-</span> train <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="model.html#cb200-1" aria-hidden="true" tabindex="-1"></a>train_reg <span class="ot">&lt;-</span> train <span class="sc">%&gt;%</span> </span>
+<span id="cb200-2"><a href="model.html#cb200-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Sale_Price, </span>
+<span id="cb200-3"><a href="model.html#cb200-3" aria-hidden="true" tabindex="-1"></a>         Lot_Area,</span>
+<span id="cb200-4"><a href="model.html#cb200-4" aria-hidden="true" tabindex="-1"></a>         Street,</span>
+<span id="cb200-5"><a href="model.html#cb200-5" aria-hidden="true" tabindex="-1"></a>         Bldg_Type,</span>
+<span id="cb200-6"><a href="model.html#cb200-6" aria-hidden="true" tabindex="-1"></a>         House_Style,</span>
+<span id="cb200-7"><a href="model.html#cb200-7" aria-hidden="true" tabindex="-1"></a>         Overall_Qual,</span>
+<span id="cb200-8"><a href="model.html#cb200-8" aria-hidden="true" tabindex="-1"></a>         Roof_Style,</span>
+<span id="cb200-9"><a href="model.html#cb200-9" aria-hidden="true" tabindex="-1"></a>         Central_Air,</span>
+<span id="cb200-10"><a href="model.html#cb200-10" aria-hidden="true" tabindex="-1"></a>         First_Flr_SF,</span>
+<span id="cb200-11"><a href="model.html#cb200-11" aria-hidden="true" tabindex="-1"></a>         Second_Flr_SF,</span>
+<span id="cb200-12"><a href="model.html#cb200-12" aria-hidden="true" tabindex="-1"></a>         Full_Bath,</span>
+<span id="cb200-13"><a href="model.html#cb200-13" aria-hidden="true" tabindex="-1"></a>         Half_Bath,</span>
+<span id="cb200-14"><a href="model.html#cb200-14" aria-hidden="true" tabindex="-1"></a>         Fireplaces,</span>
+<span id="cb200-15"><a href="model.html#cb200-15" aria-hidden="true" tabindex="-1"></a>         Garage_Area,</span>
+<span id="cb200-16"><a href="model.html#cb200-16" aria-hidden="true" tabindex="-1"></a>         Gr_Liv_Area, </span>
+<span id="cb200-17"><a href="model.html#cb200-17" aria-hidden="true" tabindex="-1"></a>         TotRms_AbvGrd) <span class="sc">%&gt;%</span></span>
+<span id="cb200-18"><a href="model.html#cb200-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace</span>(<span class="fu">is.na</span>(.), <span class="dv">0</span>)</span>
+<span id="cb200-19"><a href="model.html#cb200-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb200-20"><a href="model.html#cb200-20" aria-hidden="true" tabindex="-1"></a>train_x <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> train_reg)[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb200-21"><a href="model.html#cb200-21" aria-hidden="true" tabindex="-1"></a>train_y <span class="ot">&lt;-</span> train_reg<span class="sc">$</span>Sale_Price</span></code></pre></div>
+<p>We will want to do the same thing for the test dataset as well.</p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="model.html#cb201-1" aria-hidden="true" tabindex="-1"></a>test_reg <span class="ot">&lt;-</span> test <span class="sc">%&gt;%</span> </span>
 <span id="cb201-2"><a href="model.html#cb201-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Sale_Price, </span>
 <span id="cb201-3"><a href="model.html#cb201-3" aria-hidden="true" tabindex="-1"></a>         Lot_Area,</span>
 <span id="cb201-4"><a href="model.html#cb201-4" aria-hidden="true" tabindex="-1"></a>         Street,</span>
@@ -390,42 +415,20 @@ min(\sum_{i=1}^n(y_i - \hat{y}_i)^2 + \lambda \sum_{j=1}^p \hat{\beta}^2_j) = mi
 <span id="cb201-17"><a href="model.html#cb201-17" aria-hidden="true" tabindex="-1"></a>         TotRms_AbvGrd) <span class="sc">%&gt;%</span></span>
 <span id="cb201-18"><a href="model.html#cb201-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace</span>(<span class="fu">is.na</span>(.), <span class="dv">0</span>)</span>
 <span id="cb201-19"><a href="model.html#cb201-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb201-20"><a href="model.html#cb201-20" aria-hidden="true" tabindex="-1"></a>train_x <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> train_reg)[, <span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb201-21"><a href="model.html#cb201-21" aria-hidden="true" tabindex="-1"></a>train_y <span class="ot">&lt;-</span> train_reg<span class="sc">$</span>Sale_Price</span></code></pre></div>
-<p>We will want to do the same thing for the test dataset as well.</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="model.html#cb202-1" aria-hidden="true" tabindex="-1"></a>test_reg <span class="ot">&lt;-</span> test <span class="sc">%&gt;%</span> </span>
-<span id="cb202-2"><a href="model.html#cb202-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Sale_Price, </span>
-<span id="cb202-3"><a href="model.html#cb202-3" aria-hidden="true" tabindex="-1"></a>         Lot_Area,</span>
-<span id="cb202-4"><a href="model.html#cb202-4" aria-hidden="true" tabindex="-1"></a>         Street,</span>
-<span id="cb202-5"><a href="model.html#cb202-5" aria-hidden="true" tabindex="-1"></a>         Bldg_Type,</span>
-<span id="cb202-6"><a href="model.html#cb202-6" aria-hidden="true" tabindex="-1"></a>         House_Style,</span>
-<span id="cb202-7"><a href="model.html#cb202-7" aria-hidden="true" tabindex="-1"></a>         Overall_Qual,</span>
-<span id="cb202-8"><a href="model.html#cb202-8" aria-hidden="true" tabindex="-1"></a>         Roof_Style,</span>
-<span id="cb202-9"><a href="model.html#cb202-9" aria-hidden="true" tabindex="-1"></a>         Central_Air,</span>
-<span id="cb202-10"><a href="model.html#cb202-10" aria-hidden="true" tabindex="-1"></a>         First_Flr_SF,</span>
-<span id="cb202-11"><a href="model.html#cb202-11" aria-hidden="true" tabindex="-1"></a>         Second_Flr_SF,</span>
-<span id="cb202-12"><a href="model.html#cb202-12" aria-hidden="true" tabindex="-1"></a>         Full_Bath,</span>
-<span id="cb202-13"><a href="model.html#cb202-13" aria-hidden="true" tabindex="-1"></a>         Half_Bath,</span>
-<span id="cb202-14"><a href="model.html#cb202-14" aria-hidden="true" tabindex="-1"></a>         Fireplaces,</span>
-<span id="cb202-15"><a href="model.html#cb202-15" aria-hidden="true" tabindex="-1"></a>         Garage_Area,</span>
-<span id="cb202-16"><a href="model.html#cb202-16" aria-hidden="true" tabindex="-1"></a>         Gr_Liv_Area, </span>
-<span id="cb202-17"><a href="model.html#cb202-17" aria-hidden="true" tabindex="-1"></a>         TotRms_AbvGrd) <span class="sc">%&gt;%</span></span>
-<span id="cb202-18"><a href="model.html#cb202-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace</span>(<span class="fu">is.na</span>(.), <span class="dv">0</span>)</span>
-<span id="cb202-19"><a href="model.html#cb202-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb202-20"><a href="model.html#cb202-20" aria-hidden="true" tabindex="-1"></a>test_x <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> test_reg)[, <span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb202-21"><a href="model.html#cb202-21" aria-hidden="true" tabindex="-1"></a>test_y <span class="ot">&lt;-</span> test_reg<span class="sc">$</span>Sale_Price</span></code></pre></div>
+<span id="cb201-20"><a href="model.html#cb201-20" aria-hidden="true" tabindex="-1"></a>test_x <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> test_reg)[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb201-21"><a href="model.html#cb201-21" aria-hidden="true" tabindex="-1"></a>test_y <span class="ot">&lt;-</span> test_reg<span class="sc">$</span>Sale_Price</span></code></pre></div>
 <p>From there we use the <code>glmnet</code> function with the <code>x =</code> option where we specify the predictor model matrix and the <code>y =</code> option where we specify the target variable. The <code>alpha = 0</code> option specifies that a ridge regression will be used as defined in more detail below in the elastic net section. The <code>plot</code> function allows us to see the impact of the penalty on the coefficients in the model.</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="model.html#cb203-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
-<span id="cb203-2"><a href="model.html#cb203-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb203-3"><a href="model.html#cb203-3" aria-hidden="true" tabindex="-1"></a>ames_ridge <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(<span class="at">x =</span> train_x,  <span class="at">y =</span> train_y,  <span class="at">alpha =</span> <span class="dv">0</span>)</span>
-<span id="cb203-4"><a href="model.html#cb203-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb203-5"><a href="model.html#cb203-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ames_ridge, <span class="at">xvar =</span> <span class="st">&quot;lambda&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="model.html#cb202-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
+<span id="cb202-2"><a href="model.html#cb202-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb202-3"><a href="model.html#cb202-3" aria-hidden="true" tabindex="-1"></a>ames_ridge <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(<span class="at">x =</span> train_x,  <span class="at">y =</span> train_y,  <span class="at">alpha =</span> <span class="dv">0</span>)</span>
+<span id="cb202-4"><a href="model.html#cb202-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb202-5"><a href="model.html#cb202-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ames_ridge, <span class="at">xvar =</span> <span class="st">&quot;lambda&quot;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
 <p>The <code>glmnet</code> function automatically standardizes the variables before fitting the regression model. This is important so that all of the variables are on the same scale before adjustments are made to the estimated coefficients. Even with this standardization we can see the large coefficient values for some of the variables. The top of the plot lists how many variables are in the model at each value of penalty. This will never change for ridge regression, but does for LASSO.</p>
 <p>What <span class="math inline">\(\lambda\)</span> term is best? That will be discussed in the optimizing section below, but let’s discuss other possible penalties first.</p>
 </div>
-<div id="lasso" class="section level3" number="6.1.3">
-<h3><span class="header-section-number">6.1.3</span> LASSO</h3>
+<div id="lasso" class="section level3 hasAnchor" number="6.1.3">
+<h3><span class="header-section-number">6.1.3</span> LASSO<a href="model.html#lasso" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Least absolute shrinkage and selection operator</strong> (LASSO) regression adds what is commonly referred to as an “<span class="math inline">\(L_1\)</span>” penalty:</p>
 <p><span class="math display">\[
 min(\sum_{i=1}^n(y_i - \hat{y}_i)^2 + \lambda \sum_{j=1}^p |\hat{\beta}_j|) = min(SSE + \lambda \sum_{j=1}^p |\hat{\beta}_j|)
@@ -446,88 +449,88 @@ min(\sum_{i=1}^n(y_i - \hat{y}_i)^2 + \lambda \sum_{j=1}^p |\hat{\beta}_j|) = mi
 \]</span></p>
 <p>Notice the distinct difference here. In this scenario, there is a possible penalty value (<span class="math inline">\(\lambda = X^TY\)</span>) that will force the estimated coefficients to equal zero. There is some benefit to this. This makes LASSO also function as a variable selection criteria as well.</p>
 <p>Let’s build a regularized regression for our Ames dataset using the LASSO approach. To build a LASSO regression we need separate data matrices for our predictors and our target variable just like we did for ridge. From there we use the <code>glmnet</code> function with the <code>x =</code> option where we specify the predictor model matrix and the <code>y =</code> option where we specify the target variable. The <code>alpha = 1</code> option specifies that a LASSO regression will be used as defined in more detail below in the elastic net section. The <code>plot</code> function allows us to see the impact of the penalty on the coefficients in the model.</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="model.html#cb204-1" aria-hidden="true" tabindex="-1"></a>ames_lasso <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(<span class="at">x =</span> train_x,  <span class="at">y =</span> train_y,  <span class="at">alpha =</span> <span class="dv">1</span>)</span>
-<span id="cb204-2"><a href="model.html#cb204-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb204-3"><a href="model.html#cb204-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ames_lasso, <span class="at">xvar =</span> <span class="st">&quot;lambda&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="model.html#cb203-1" aria-hidden="true" tabindex="-1"></a>ames_lasso <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(<span class="at">x =</span> train_x,  <span class="at">y =</span> train_y,  <span class="at">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb203-2"><a href="model.html#cb203-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb203-3"><a href="model.html#cb203-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ames_lasso, <span class="at">xvar =</span> <span class="st">&quot;lambda&quot;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
 <p>The <code>glmnet</code> function automatically standardizes the variables before fitting the regression model. This is important so that all of the variables are on the same scale before adjustments are made to the estimated coefficients. Even with this standardization we can see the large coefficient values for some of the variables. The top of the plot lists how many variables are in the model at each value of penalty. Notice as the penalty increases, the number of variables decreases as variables are forced to zero.</p>
 <p>What <span class="math inline">\(\lambda\)</span> term is best? That will be discussed in the optimizing section below, but let’s discuss the last possible penalty first - the combination of both ridge and LASSO.</p>
 </div>
-<div id="elastic-net" class="section level3" number="6.1.4">
-<h3><span class="header-section-number">6.1.4</span> Elastic Net</h3>
+<div id="elastic-net" class="section level3 hasAnchor" number="6.1.4">
+<h3><span class="header-section-number">6.1.4</span> Elastic Net<a href="model.html#elastic-net" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Which approach is better, ridge or LASSO? Both have advantages and disadvantages. LASSO performs variable selection while ridge keeps all variables in the model. However, reducing the number of variables might impact minimum error. Also, if you have two correlated variables, which one LASSO chooses to zero out is relatively arbitrary to the context of the problem.</p>
 <p>Elastic nets were designed to take advantage of both penalty approaches. In elastic nets, we are using both penalties in the minimization:</p>
 <p><span class="math display">\[
-min(SSE + \lambda_1 \sum_{j=1}^p |\hat{\beta}_j| + \lambda_2 \sum_{j=1}^p \hat{\beta}^2_j) 
+min(SSE + \lambda_1 \sum_{j=1}^p |\hat{\beta}_j| + \lambda_2 \sum_{j=1}^p \hat{\beta}^2_j)
 \]</span></p>
 <p>In R, the <code>glmnet</code> function takes a slightly different approach to the elastic net implementation with the following:</p>
 <p><span class="math display">\[
-min(SSE + \lambda[ \alpha \sum_{j=1}^p |\hat{\beta}_j| + (1-\alpha) \sum_{j=1}^p \hat{\beta}^2_j]) 
+min(SSE + \lambda[ \alpha \sum_{j=1}^p |\hat{\beta}_j| + (1-\alpha) \sum_{j=1}^p \hat{\beta}^2_j])
 \]</span></p>
 <p>R still has one penalty <span class="math inline">\(\lambda\)</span>, however, it includes the <span class="math inline">\(\alpha\)</span> parameter to balance between the two penalty terms. This is why in <code>glmnet</code>, the <code>alpha = 1</code> option gives a LASSO regression and <code>alpha = 0</code> gives a ridge regression. Any value in between zero and one will provide an elastic net.</p>
 <p>Let’s build a regularized regression for our Ames dataset using the elastic net approach with an <span class="math inline">\(\alpha = 0.5\)</span>. To build am elastic net we need separate data matrices for our predictors and our target variable just like we did for ridge and LASSO. From there we use the <code>glmnet</code> function with the <code>x =</code> option where we specify the predictor model matrix and the <code>y =</code> option where we specify the target variable. The <code>alpha = 0.5</code> option specifies that an elastic net will be used since it is between zero and one. The <code>plot</code> function allows us to see the impact of the penalty on the coefficients in the model.</p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="model.html#cb205-1" aria-hidden="true" tabindex="-1"></a>ames_en <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(<span class="at">x =</span> train_x,  <span class="at">y =</span> train_y,  <span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
-<span id="cb205-2"><a href="model.html#cb205-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb205-3"><a href="model.html#cb205-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ames_en, <span class="at">xvar =</span> <span class="st">&quot;lambda&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="model.html#cb204-1" aria-hidden="true" tabindex="-1"></a>ames_en <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(<span class="at">x =</span> train_x,  <span class="at">y =</span> train_y,  <span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
+<span id="cb204-2"><a href="model.html#cb204-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb204-3"><a href="model.html#cb204-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ames_en, <span class="at">xvar =</span> <span class="st">&quot;lambda&quot;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
 <p>The <code>glmnet</code> function automatically standardizes the variables before fitting the regression model. This is important so that all of the variables are on the same scale before adjustments are made to the estimated coefficients. Even with this standardization we can see the large coefficient values for some of the variables. The top of the plot lists how many variables are in the model at each value of penalty. Notice as the penalty increases, the number of variables decreases as variables are forced to zero using the LASSO piece of the elastic net penalty.</p>
 <p>What <span class="math inline">\(\lambda\)</span> term is best? What is the proper balance between ridge and LASSO penalties when building an elastic net? That will be discussed in the following section.</p>
 </div>
 </div>
-<div id="optimizing-penalties" class="section level2" number="6.2">
-<h2><span class="header-section-number">6.2</span> Optimizing Penalties</h2>
+<div id="optimizing-penalties" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Optimizing Penalties<a href="model.html#optimizing-penalties" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>No matter the approach listed above, a penatly term <span class="math inline">\(\lambda\)</span> needs to be picked. However, we do not want to get caught overfitting our training data by minimizing the variance so much that it is not generalizable to the overall pattern and other similar data. Take the following plot:</p>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
 <p>The red line is overfitted to the dataset and picks up too much of the unimportant pattern. The orange dotted line is underfit as it does not pick up enough of the pattern. The light blue, solid line is fit well to the dataset as it picks up the general pattern while not overfitting to the dataset.</p>
-<div id="cross-validation" class="section level3" number="6.2.1">
-<h3><span class="header-section-number">6.2.1</span> Cross-Validation</h3>
+<div id="cross-validation" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Cross-Validation<a href="model.html#cross-validation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Cross-validation</strong> is a common approach in modeling to prevent overfitting of data when you need to <strong>tune</strong> a parameter. The idea of cross-validation is to split the training data into multiple pieces, build the model on a majority of the pieces while evaluating it on the remaining piece. Then we do the same process again, but switch out which pieces the model is built and evaluated on.</p>
 <p>A common cross-validation (CV) approach is the <span class="math inline">\(k\)</span>-fold CV. In the <span class="math inline">\(k\)</span>-fold CV approach, the model is built <span class="math inline">\(k\)</span> times. The data is initially split into <span class="math inline">\(k\)</span> equally sized pieces. Each time the model is built, it is built off of <span class="math inline">\(k-1\)</span> pieces of the data and evaluated on the last piece. This process is repeated until each piece is left out for evaluation. This is diagrammed below in Figure <a href="model.html#fig:kCV">6.1</a>.</p>
-<div class="figure" style="text-align: center"><span id="fig:kCV"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:kCV"></span>
 <img src="img/kCV.png" alt="Example of a 10-fold Cross-Validation" width="50%" />
 <p class="caption">
 Figure 6.1: Example of a 10-fold Cross-Validation
 </p>
 </div>
 </div>
-<div id="cv-in-regularized-regression" class="section level3" number="6.2.2">
-<h3><span class="header-section-number">6.2.2</span> CV in Regularized Regression</h3>
+<div id="cv-in-regularized-regression" class="section level3 hasAnchor" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> CV in Regularized Regression<a href="model.html#cv-in-regularized-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In R, the <code>cv.glmnet</code> function will automatically implement a 10-fold CV (by default, but can be adjusted through options) to help evaluate and optimize the <span class="math inline">\(\lambda\)</span> values for our regularized regression models.</p>
 <p>Let’s perform an example using the LASSO regression. The <code>cv.glmnet</code> function takes the same inputs as the <code>glmnet</code> function above. Again, we will use the <code>plot</code> function, but this time we get a different plot.</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="model.html#cb206-1" aria-hidden="true" tabindex="-1"></a>ames_lasso_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(<span class="at">x =</span> train_x,  <span class="at">y =</span> train_y,  <span class="at">alpha =</span> <span class="dv">1</span>)</span>
-<span id="cb206-2"><a href="model.html#cb206-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb206-3"><a href="model.html#cb206-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ames_lasso_cv)</span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="model.html#cb205-1" aria-hidden="true" tabindex="-1"></a>ames_lasso_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(<span class="at">x =</span> train_x,  <span class="at">y =</span> train_y,  <span class="at">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb205-2"><a href="model.html#cb205-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb205-3"><a href="model.html#cb205-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ames_lasso_cv)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="model.html#cb207-1" aria-hidden="true" tabindex="-1"></a>ames_lasso_cv<span class="sc">$</span>lambda.min </span></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="model.html#cb206-1" aria-hidden="true" tabindex="-1"></a>ames_lasso_cv<span class="sc">$</span>lambda.min </span></code></pre></div>
 <pre><code>## [1] 49.69435</code></pre>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="model.html#cb209-1" aria-hidden="true" tabindex="-1"></a>ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se</span></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="model.html#cb208-1" aria-hidden="true" tabindex="-1"></a>ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se</span></code></pre></div>
 <pre><code>## [1] 3588.334</code></pre>
 <p>The above plot shows the results from our cross-validation. Here the models are evaluated based on their <strong>mean-squared error</strong> (MSE). The MSE is defined as <span class="math inline">\(\frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_i)^2\)</span>. The <span class="math inline">\(\lambda\)</span> value that minimizes the MSE is 49.69435 (with a <span class="math inline">\(\log(\lambda)\)</span> = 3.91). This is highlighted by the first, vertical dashed line. The second vertical dashed line is the largest <span class="math inline">\(\lambda\)</span> value that is one standard error above the minimum value. This value is especially useful in LASSO regressions. The largest <span class="math inline">\(\lambda\)</span> within one standard error would provide approximately the same MSE, but with a further reduction in the number of variables. Notice that to go from the first line to the second, the change in MSE is very small, but the reduction of variables is from 36 variables to around 12 variables.</p>
 <p>Let’s look at the impact on the coefficients under this penalty using the <code>glmnet</code> function as before.</p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="model.html#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ames_lasso, <span class="at">xvar =</span> <span class="st">&quot;lambda&quot;</span>)</span>
-<span id="cb211-2"><a href="model.html#cb211-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">log</span>(ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>)</span>
-<span id="cb211-3"><a href="model.html#cb211-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">log</span>(ames_lasso_cv<span class="sc">$</span>lambda.min), <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="model.html#cb210-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ames_lasso, <span class="at">xvar =</span> <span class="st">&quot;lambda&quot;</span>)</span>
+<span id="cb210-2"><a href="model.html#cb210-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">log</span>(ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>)</span>
+<span id="cb210-3"><a href="model.html#cb210-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">log</span>(ames_lasso_cv<span class="sc">$</span>lambda.min), <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
 <p>To investigate which variables are important at a <span class="math inline">\(\lambda\)</span> value, we can view the coefficients using the <code>coef</code> function. They are ranked here:</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="model.html#cb212-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(ames_lasso, <span class="at">s =</span> ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se) <span class="sc">%&gt;%</span></span>
-<span id="cb212-2"><a href="model.html#cb212-2" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb212-3"><a href="model.html#cb212-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(row <span class="sc">!=</span> <span class="st">&quot;(Intercept)&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb212-4"><a href="model.html#cb212-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(value, <span class="fu">reorder</span>(row, value))) <span class="sc">+</span></span>
-<span id="cb212-5"><a href="model.html#cb212-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb212-6"><a href="model.html#cb212-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Influential Variables&quot;</span>) <span class="sc">+</span></span>
-<span id="cb212-7"><a href="model.html#cb212-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Coefficient&quot;</span>) <span class="sc">+</span></span>
-<span id="cb212-8"><a href="model.html#cb212-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="cn">NULL</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="model.html#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(ames_lasso, <span class="at">s =</span> ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se) <span class="sc">%&gt;%</span></span>
+<span id="cb211-2"><a href="model.html#cb211-2" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb211-3"><a href="model.html#cb211-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(row <span class="sc">!=</span> <span class="st">&quot;(Intercept)&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb211-4"><a href="model.html#cb211-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(value, <span class="fu">reorder</span>(row, value))) <span class="sc">+</span></span>
+<span id="cb211-5"><a href="model.html#cb211-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb211-6"><a href="model.html#cb211-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Influential Variables&quot;</span>) <span class="sc">+</span></span>
+<span id="cb211-7"><a href="model.html#cb211-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Coefficient&quot;</span>) <span class="sc">+</span></span>
+<span id="cb211-8"><a href="model.html#cb211-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="cn">NULL</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
 <p>The variable describing the overall quality of the home is the driving factor of this model as well as the other variables listed above.</p>
 <p>A similar approach can be taken for CV with ridge regression using the same structure of code. That will not be covered here. Elastic nets are more complicated in that they have multiple parameters to optimize. For that approach, an optimization grid will need to be structured to evaluate different <span class="math inline">\(\lambda\)</span> values across different <span class="math inline">\(\alpha\)</span> values. A loop can be set up to run the <code>cv.glmnet</code> function across many different values of <span class="math inline">\(\alpha\)</span>. That will not be covered in detail here.</p>
 </div>
 </div>
-<div id="model-comparisons" class="section level2" number="6.3">
-<h2><span class="header-section-number">6.3</span> Model Comparisons</h2>
+<div id="model-comparisons" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Model Comparisons<a href="model.html#model-comparisons" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Now we have multiple models built for our dataset. To help evaluate which model is better, we will use the test dataset as described in Chapter <a href="slr.html#slr">2</a>.</p>
 <p>The models we have built are nothing but formulas. All we have to do is put the test dataset in the formula to predict/score the test data. We <strong>do not</strong> rerun the algorithm as the goal is <strong>not</strong> to fit the test dataset, but to just score it. We need to make sure that we have the same structure to the test dataset that we do with the training dataset. Any variable transformations, new variable creations, and missing value imputations done on the training dataset must be done on the test dataset in the same way.</p>
-<div id="model-metrics" class="section level3" number="6.3.1">
-<h3><span class="header-section-number">6.3.1</span> Model Metrics</h3>
+<div id="model-metrics" class="section level3 hasAnchor" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Model Metrics<a href="model.html#model-metrics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Once the predicted values are obtained from each model we need to evaluate good these predictions are. There are many different metrics to evaluate models depending on what type of target variable that you have. Some common metrics for continuous target variables are the square root of the mean squared error (RMSE), the mean absolute error (MAE), and mean absolute percentage error (MAPE).</p>
 <p>The RMSE is evaluated as follows:</p>
 <p><span class="math display">\[
@@ -545,19 +548,21 @@ MAPE = 100 \times \frac{1}{n} \sum_{i=1}^n |\frac{y_i - \hat{y}_i}{y_i}|
 \]</span>
 The MAPE gives the average absolute <em>percentage</em> difference between our predictions and the actual values. This metric is very interpretable and not dependent on the scale of the data. However, it is not symmetric like the MAE.</p>
 </div>
-<div id="test-dataset-comparison" class="section level3" number="6.3.2">
-<h3><span class="header-section-number">6.3.2</span> Test Dataset Comparison</h3>
+<div id="test-dataset-comparison" class="section level3 hasAnchor" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> Test Dataset Comparison<a href="model.html#test-dataset-comparison" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The final model we had from Chapter <a href="diag.html#diag">5</a> had the variables . From this model we can use the <code>predict</code> function with the <code>newdata =</code> option to use score the <code>test</code> dataset.</p>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="model.html#cb213-1" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_lm <span class="ot">&lt;-</span> <span class="fu">predict</span>(ames_lm, <span class="at">newdata =</span> test)</span>
-<span id="cb213-2"><a href="model.html#cb213-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb213-3"><a href="model.html#cb213-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(test<span class="sc">$</span>pred_lm)</span></code></pre></div>
-<pre><code>##        1        2        3        4        5        6 
-## 142107.3 142107.3 228909.6 142107.3 142107.3 142107.3</code></pre>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="model.html#cb212-1" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_lm <span class="ot">&lt;-</span> <span class="fu">predict</span>(ames_lm, <span class="at">newdata =</span> test)</span>
+<span id="cb212-2"><a href="model.html#cb212-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb212-3"><a href="model.html#cb212-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(test<span class="sc">$</span>pred_lm)</span></code></pre></div>
+<pre><code>##        1        2        3        4        5 
+## 142107.3 142107.3 228909.6 142107.3 142107.3 
+##        6 
+## 142107.3</code></pre>
 <p>To get predictions from the regularized regression models, a <span class="math inline">\(\lambda\)</span> value must be selected. For the previous LASSO regression we will choose the largest <span class="math inline">\(\lambda\)</span> value within one standard error of the minimum <span class="math inline">\(\lambda\)</span> value to help reduce the number of variables. Again, we will use the <code>predict</code> function. The <code>s =</code> option is where we input the <span class="math inline">\(\lambda\)</span> value. The <code>newx =</code> option is where we specify the <code>test</code> dataset.</p>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="model.html#cb215-1" aria-hidden="true" tabindex="-1"></a>test_reg<span class="sc">$</span>pred_lasso <span class="ot">&lt;-</span> <span class="fu">predict</span>(ames_lasso, <span class="at">s =</span> ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se, <span class="at">newx =</span> test_x)</span>
-<span id="cb215-2"><a href="model.html#cb215-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb215-3"><a href="model.html#cb215-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(test_reg<span class="sc">$</span>pred_lasso)</span></code></pre></div>
-<pre><code>##          1
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="model.html#cb214-1" aria-hidden="true" tabindex="-1"></a>test_reg<span class="sc">$</span>pred_lasso <span class="ot">&lt;-</span> <span class="fu">predict</span>(ames_lasso, <span class="at">s =</span> ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se, <span class="at">newx =</span> test_x)</span>
+<span id="cb214-2"><a href="model.html#cb214-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb214-3"><a href="model.html#cb214-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(test_reg<span class="sc">$</span>pred_lasso)</span></code></pre></div>
+<pre><code>##         s1
 ## 1 156677.8
 ## 2 172432.5
 ## 3 239922.1
@@ -565,16 +570,16 @@ The MAPE gives the average absolute <em>percentage</em> difference between our p
 ## 5 200908.8
 ## 6 124913.5</code></pre>
 <p>Now we need to calculate the MAE and MAPE for each model for comparison.</p>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="model.html#cb217-1" aria-hidden="true" tabindex="-1"></a>test <span class="sc">%&gt;%</span></span>
-<span id="cb217-2"><a href="model.html#cb217-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lm_APE =</span> <span class="dv">100</span><span class="sc">*</span><span class="fu">abs</span>((Sale_Price <span class="sc">-</span> pred_lm)<span class="sc">/</span>Sale_Price)) <span class="sc">%&gt;%</span></span>
-<span id="cb217-3"><a href="model.html#cb217-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">MAPE_lm =</span> <span class="fu">mean</span>(lm_APE))</span></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="model.html#cb216-1" aria-hidden="true" tabindex="-1"></a>test <span class="sc">%&gt;%</span></span>
+<span id="cb216-2"><a href="model.html#cb216-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lm_APE =</span> <span class="dv">100</span><span class="sc">*</span><span class="fu">abs</span>((Sale_Price <span class="sc">-</span> pred_lm)<span class="sc">/</span>Sale_Price)) <span class="sc">%&gt;%</span></span>
+<span id="cb216-3"><a href="model.html#cb216-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">MAPE_lm =</span> <span class="fu">mean</span>(lm_APE))</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 1
 ##   MAPE_lm
 ##     &lt;dbl&gt;
 ## 1    23.2</code></pre>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="model.html#cb219-1" aria-hidden="true" tabindex="-1"></a>test_reg <span class="sc">%&gt;%</span></span>
-<span id="cb219-2"><a href="model.html#cb219-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lasso_APE =</span> <span class="dv">100</span><span class="sc">*</span><span class="fu">abs</span>((Sale_Price <span class="sc">-</span> pred_lasso)<span class="sc">/</span>Sale_Price)) <span class="sc">%&gt;%</span></span>
-<span id="cb219-3"><a href="model.html#cb219-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">MAPE_lasso =</span> <span class="fu">mean</span>(lasso_APE))</span></code></pre></div>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="model.html#cb218-1" aria-hidden="true" tabindex="-1"></a>test_reg <span class="sc">%&gt;%</span></span>
+<span id="cb218-2"><a href="model.html#cb218-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lasso_APE =</span> <span class="dv">100</span><span class="sc">*</span><span class="fu">abs</span>((Sale_Price <span class="sc">-</span> pred_lasso)<span class="sc">/</span>Sale_Price)) <span class="sc">%&gt;%</span></span>
+<span id="cb218-3"><a href="model.html#cb218-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">MAPE_lasso =</span> <span class="fu">mean</span>(lasso_APE))</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 1
 ##   MAPE_lasso
 ##        &lt;dbl&gt;
@@ -595,7 +600,6 @@ The MAPE gives the average absolute <em>percentage</em> difference between our p
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -614,6 +618,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -634,6 +639,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section",
 "toc": null
