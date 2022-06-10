@@ -58,8 +58,7 @@ library(epiDisplay)
 library(gridExtra)
 ```
 
-This is a test to see if this works.
- 
+
 This first chapter will review some basic statistical concepts that we assume the reader has seen previously. We will demonstrate how to implement these concepts in R along the way.
 
 ## Exploratory Data Analysis (EDA) {#eda}
