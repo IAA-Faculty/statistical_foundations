@@ -28,10 +28,10 @@ This Chapter aims to answer the following questions:
     <ul> 
       <li> One sample t-test 
       <li> Two sample t-test
-        <li> Testing Normality
-        <li> Testing Equality of Variances
-        <li> Testing Equality of Means
-        <li> Mann-Whitney-Wilcoxon Test
+          <li> Testing Normality
+          <li> Testing Equality of Variances
+          <li> Testing Equality of Means
+          <li> Mann-Whitney-Wilcoxon Test
 
 
 The following packages will be used in this textbook. Below we install and add the packages to our libraries so that any version issues can be dealt with at the beginning of the course. Sometimes packages require that you update to the latest version of R; if you see an error that indicates that situation, download the latest version of R from [CRAN](https://cran.r-project.org) and install it. 
