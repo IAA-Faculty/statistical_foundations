@@ -1009,7 +1009,7 @@ PhD
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="intro-stat.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb8-2"><a href="intro-stat.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb8-3"><a href="intro-stat.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ames) <span class="sc">+</span></span>
-<span id="cb8-4"><a href="intro-stat.html#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Heating_QC))</span></code></pre></div>
+<span id="cb8-4"><a href="intro-stat.html#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Heating_QC),<span class="at">fill=</span><span class="st">&quot;orange&quot;</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Heating System Quality&quot;</span>,<span class="at">y=</span><span class="st">&quot;Frequency&quot;</span>,<span class="at">title=</span><span class="st">&quot;Histogram of Heating System&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:barchart"></span>
 <img src="bookdownproj_files/figure-html/barchart-1.png" alt="Distribution of Nominal Variable Heating_QC" width="672" />
 <p class="caption">
@@ -1030,8 +1030,8 @@ Figure 1.1: Distribution of Nominal Variable Heating_QC
 <p>You’ll notice that very few houses (3) have heating systems in <code>Poor</code> condition, and the majority of houses have systems rated <code>Excellent</code>. <strong>It will likely make sense to combine the categories of <code>Fair</code> and <code>Poor</code> in our eventual analysis, a decision we will later revisit.</strong></p>
 <p>Next we create a <strong>histogram</strong> for an interval attribute like <code>Sale_Price</code>:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="intro-stat.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ames) <span class="sc">+</span></span>
-<span id="cb11-2"><a href="intro-stat.html#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Sale_Price<span class="sc">/</span><span class="dv">1000</span>)) <span class="sc">+</span> </span>
-<span id="cb11-3"><a href="intro-stat.html#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>)</span></code></pre></div>
+<span id="cb11-2"><a href="intro-stat.html#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Sale_Price<span class="sc">/</span><span class="dv">1000</span>),<span class="at">fill=</span><span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb11-3"><a href="intro-stat.html#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>,<span class="at">y=</span><span class="st">&quot;Frequency&quot;</span>,<span class="at">title=</span><span class="st">&quot;Histogram of Sales Price in Thousands of Dollars&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:histogram"></span>
 <img src="bookdownproj_files/figure-html/histogram-1.png" alt="Distribution of Interval Variable Sale_Price" width="672" />
 <p class="caption">
@@ -1041,20 +1041,15 @@ Figure 1.2: Distribution of Interval Variable Sale_Price
 <p>From this initial inspection, we can conclude that most of the houses sell for less than $200,000 and there are a number of expensive anomalies. To more concretely describe and quantify a statistical distribution, we use statistics that describe the <em>location, spread, and shape</em> of the data.</p>
 <div id="location" class="section level4 unnumbered hasAnchor">
 <h4>Location<a href="intro-stat.html#location" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>The <em>location</em> of a distribution refers to the x-axis of a histogram like that in Figure <a href="intro-stat.html#fig:histogram">1.2</a>. Where is most of the data located? The sample <strong>mean</strong>, <strong>median</strong>, and <strong>mode</strong> are the most common statistics of location, but <strong>percentiles</strong> and the <strong>interquartile range</strong> can also be seen in this light.</p>
+<p>The <em>location</em> is a measure of central tendency for a distribution. Most common measures of central tendency are <strong>mean</strong>, <strong>median</strong>, and <strong>mode</strong>.</p>
 <p>We define each of these terms below for a variable <span class="math inline">\(\mathbf{x}\)</span> having n observations with values <span class="math inline">\(\{x_i\}_{i=1}^n\)</span>, sorted in order of magnitude such that <span class="math inline">\(x_1 \leq x_2 \leq \dots \leq x_n\)</span>:</p>
 <ul>
 <li>
 Mean: The <strong>average</strong> of the observations, <span class="math inline">\(\bar{\mathbf{x}}= \frac{1}{n}\sum_{i=1}^n x_i\)</span>
 <li>
-Median: The “middle value” of the data. Formally, when <span class="math inline">\(n\)</span> is odd, the median is the observation value, <span class="math inline">\(x_m = x_{\frac{(n+1)}{2}}\)</span> for which <span class="math inline">\(x_i &lt; x_m\)</span> for 50% of the observations (excluding <span class="math inline">\(x_m\)</span>). When <span class="math inline">\(n\)</span> is even, <span class="math inline">\(x_m\)</span> is the average of <span class="math inline">\(x_\frac{n}{2}\)</span> and <span class="math inline">\(x_{(\frac{n}{2}+1)}\)</span>. The median is also known as the <span class="math inline">\(2^{nd}\)</span> <strong>quartile</strong>.
+Median: The “middle value” of the data. Formally, when <span class="math inline">\(n\)</span> is odd, the median is the observation value, <span class="math inline">\(x_m = x_{\frac{(n+1)}{2}}\)</span> for which <span class="math inline">\(x_i &lt; x_m\)</span> for 50% of the observations (excluding <span class="math inline">\(x_m\)</span>). When <span class="math inline">\(n\)</span> is even, <span class="math inline">\(x_m\)</span> is the average of <span class="math inline">\(x_\frac{n}{2}\)</span> and <span class="math inline">\(x_{(\frac{n}{2}+1)}\)</span>. The median is also known as the <span class="math inline">\(2^{nd}\)</span> <strong>quartile</strong> (see next section).
 <li>
-Mode: The most commonly occurring value in the data. Most commonly used to describe nominal attributes.
-<li>
-Percentiles: The 99 intermediate values of the data which divide the observations into 100 equally-sized groups. The <span class="math inline">\(r^{th}\)</span> percentile of the data, <span class="math inline">\(P_r\)</span> is the number for which <span class="math inline">\(r\%\)</span> of the data is less than <span class="math inline">\(P_r\)</span>.
-<li>
-Quartiles: The quartiles of a variable are the <span class="math inline">\(25^{th}\)</span>, <span class="math inline">\(50^{th}\)</span>, and <span class="math inline">\(75^{th}\)</span> percentiles. They are denoted as <span class="math inline">\(Q_1\)</span> (<span class="math inline">\(1^{st}\)</span> quartile), <span class="math inline">\(Q_2\)</span> (<span class="math inline">\(2^{nd}\)</span> quartile = median), and <span class="math inline">\(Q_3\)</span> (<span class="math inline">\(3^{rd}\)</span> quartile) respectively.
-</ul>
+<p>Mode: The most commonly occurring value in the data. Most commonly used to describe nominal attributes.</p>
 <p><strong>Example</strong></p>
 <p>The following table contains the heights of 10 students randomly sampled from NC State’s campus. Compute the mean, median, mode and quartiles of this variable.</p>
 <table style="width:auto; margin-left: auto; margin-right: auto;" >
@@ -1090,24 +1085,26 @@ The mean is <code>(60+62+63+65+67+67+67+68+68+69)/10</code> = 65.6.
 The median (second quartile) is <code>(67+67)/2</code> = 67.
 <li>
 The mode is 67.
-<li>
-The first quartile is <code>(62+63)/2</code> = 62.5
-<li>
-The third quartile is <code>(68+68)/2</code> = 68
 </ul>
 </div>
 <div id="spread" class="section level4 unnumbered hasAnchor">
 <h4>Spread<a href="intro-stat.html#spread" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Once we have an understanding of where the bulk of the data is located, we move on to describing the spread (the dispersion or variation) of the data. <strong>Range</strong>, <strong>interquartile range</strong>, <strong>variance</strong>, and <strong>standard deviation</strong> are all statistics that describe spread.</p>
+<p>Once we have an understanding of the central tendency of a data set, we move on to describing the spread (the dispersion or variation) of the data. <strong>Range</strong>, <strong>interquartile range</strong>, <strong>variance</strong>, and <strong>standard deviation</strong> are all statistics that describe spread.</p>
 <ul>
 <li>
 Range: The difference between the maximum and minimum data values.
 <li>
-Interquartile range (IQR): The difference between the <span class="math inline">\(25^{th}\)</span> and <span class="math inline">\(75^{th}\)</span> percentiles.
-<li>
 Sample variance: The sum of squared differences between each data point and the mean, divided by (n-1). <span class="math inline">\(\frac{1}{n-1}\sum_{i=1}^n (x_i-\bar{x})^2\)</span>
 <li>
-<p>Standard deviation: The square root of the sample variance.</p>
+<p>Standard deviation: The square root of the sample variance.<br />
+</p>
+<p>In order to define <strong>interquartile range</strong>, we must first define <strong>percentiles</strong> and <strong>quartiles</strong>.</p>
+<li>
+Percentiles: The 99 intermediate values of the data which divide the observations into 100 equally-sized groups. The <span class="math inline">\(r^{th}\)</span> percentile of the data, <span class="math inline">\(P_{r}\)</span> is the number for which <span class="math inline">\(r\)</span>% of the data is less than <span class="math inline">\(P_{r}\)</span>.
+<li>
+Quartiles: The quartiles of the data are the <span class="math inline">\(25^{th}\)</span>, <span class="math inline">\(50^{th}\)</span> and <span class="math inline">\(75^{th}\)</span> percentiles. They are denoted as <span class="math inline">\(Q_{1}\)</span> (<span class="math inline">\(1^{st}\)</span> quartile), <span class="math inline">\(Q_{2}\)</span> (<span class="math inline">\(2^{nd}\)</span> quartile = median) and <span class="math inline">\(Q_{3}\)</span> (<span class="math inline">\(3^{rd}\)</span> quartile), respectively.
+<li>
+<p>Interquartile range (IQR): The difference between the <span class="math inline">\(25^{th}\)</span> and <span class="math inline">\(75^{th}\)</span> percentiles.</p>
 <p>One should note that standard deviation is more frequently reported than variance because it shares the same units as the original data, and because of the guidance provided by the empirical rule. If we’re exploring something like <code>Sale_Price</code>, which has the unit “dollars”, then the variance would be measured in “square-dollars”, which hampers the intuition. Standard deviation, on the other hand, would share the unit “dollars”, aiding our fundamental understanding.</p>
 <p><strong>Example </strong>
 Let’s again use the table of heights from the previous example, this time computing the range, IQR, sample variance and standard deviation.</p>
@@ -1141,11 +1138,15 @@ height
 <li>
 The range <code>69-60</code> = 9.
 <li>
-The IQR is <code>68 - 62.5</code> = 5.5.
-<li>
 The variance is <code>((60-65.6)^2+(62-65.6)^2+(63-65.6)^2+(65-65.6)^2+(67-65.6)^2+(67-65.6)^2+(67-65.6)^2+(68-65.6)^2+(68-65.6)^2+(69-65.6)^2)/9</code> = 8.933
 <li>
 The standard deviation is <code>sqrt(8.933)</code> = 2.989
+<li>
+The first quartile is <code>(62+63)/2</code> = 62.5
+<li>
+The third quartile is <code>(68+68)/2</code> = 68
+<li>
+The IQR is <code>68 - 62.5</code> = 5.5.
 </ul>
 </div>
 <div id="shape" class="section level4 unnumbered hasAnchor">
