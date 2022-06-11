@@ -5,6 +5,35 @@ output:
 ---
 # Introduction to Statistics {#intro-stat}
 
+Welcome to your introduction to statistics.  You will be learning the basics of statistics, along with applications of statistics within the R language.  This book will provide fundamentals of the concepts and the code to apply these concepts in R.  \
+This Chapter aims to answer the following questions:
+<ul>
+  <li> What type of data is being analyzed? 
+    <ul> 
+      <li> Nominal 
+      <li> Ordinal
+      <li> Continuous/Discrete
+</ul>
+  <li> How do we describe distributions of these variables?
+    <ul> 
+      <li> Center 
+      <li> Spread
+      <li> Shape
+      <li> Graphical Display
+</ul>
+  <li> How do we create confidence intervals for parameters?
+    <ul> 
+</ul>
+  <li> How do we perform hypothesis testing?
+    <ul> 
+      <li> One sample t-test 
+      <li> Two sample t-test
+        <li> Testing Normality
+        <li> Testing Equality of Variances
+        <li> Testing Equality of Means
+        <li> Mann-Whitney-Wilcoxon Test
+
+
 The following packages will be used in this textbook. Below we install and add the packages to our libraries so that any version issues can be dealt with at the beginning of the course. Sometimes packages require that you update to the latest version of R; if you see an error that indicates that situation, download the latest version of R from [CRAN](https://cran.r-project.org) and install it. 
 
 ```{r eval=F, message=F}
@@ -57,11 +86,8 @@ library(carData)
 library(epiDisplay)
 library(gridExtra)
 ```
-In this first chapter, you will learn:
-1. Exploratory Data Analysis (EDA)
 
 
-This first chapter will review some basic statistical concepts that we assume the reader has seen previously. We will demonstrate how to implement these concepts in R along the way.
 
 ## Exploratory Data Analysis (EDA) {#eda}
 
@@ -180,10 +206,10 @@ We will demonstrate the creation of this data using some simple random categoric
 
 ```{r}
 set.seed(41)
-data <- data.frame(y = c(rnorm(10,2), rnorm(10,1),rnorm(10,0)),
+dat <- data.frame(y = c(rnorm(10,2), rnorm(10,1),rnorm(10,0)),
                 x1 = factor(rep(c("A", "B", "C"), each = 10)),
                 x2 = factor(rep(c("Z", "X", "Y","W","V","U"), each = 5)))
-print(data)
+print(dat)
 ```
 Unlike reference and effects coding, which are typically specified within the `lm()` function as we will see in Chapter \@ref(slr), one-hot encoding is most quickly achieved through use of the `onehot` package in R, which first creates an "encoder" to do the job quickly. 
 
@@ -191,8 +217,8 @@ The speed of this function has been tested against both the base R `model.matrix
 ```{r message=FALSE}
 library(onehot)
 
-encoder  = onehot(data)
-dummies = predict(encoder,data)
+encoder  = onehot(dat)
+dummies = predict(encoder,dat)
 head(dummies)
 ```
 

@@ -300,6 +300,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="intro-stat" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction to Statistics<a href="intro-stat.html#intro-stat" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+Welcome to your introduction to statistics. You will be learning the basics of statistics, along with applications of statistics within the R language. This book will provide fundamentals of the concepts and the code to apply these concepts in R.<br />
+This Chapter aims to answer the following questions:
+<ul>
+<li>
+What type of data is being analyzed?
+<ul>
+<li>
+Nominal
+<li>
+Ordinal
+<li>
+Continuous/Discrete
+</ul>
+<li>
+How do we describe distributions of these variables?
+<ul>
+<li>
+Center
+<li>
+Spread
+<li>
+Shape
+<li>
+Graphical Display
+</ul>
+<li>
+How do we create confidence intervals for parameters?
+<ul>
+</ul>
+<li>
+How do we perform hypothesis testing?
+<ul>
+<li>
+One sample t-test
+<li>
+Two sample t-test
+<li>
+Testing Normality
+<li>
+Testing Equality of Variances
+<li>
+Testing Equality of Means
+<li>
+<p>Mann-Whitney-Wilcoxon Test</p>
 <p>The following packages will be used in this textbook. Below we install and add the packages to our libraries so that any version issues can be dealt with at the beginning of the course. Sometimes packages require that you update to the latest version of R; if you see an error that indicates that situation, download the latest version of R from <a href="https://cran.r-project.org">CRAN</a> and install it.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="intro-stat.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;AmesHousing&#39;</span>)</span>
 <span id="cb1-2"><a href="intro-stat.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;tidyverse&#39;</span>)</span>
@@ -347,9 +391,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-21"><a href="intro-stat.html#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(carData)</span>
 <span id="cb2-22"><a href="intro-stat.html#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(epiDisplay)</span>
 <span id="cb2-23"><a href="intro-stat.html#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span></code></pre></div>
-<p>In this first chapter, you will learn:
-1. Exploratory Data Analysis (EDA)</p>
-<p>This first chapter will review some basic statistical concepts that we assume the reader has seen previously. We will demonstrate how to implement these concepts in R along the way.</p>
 <div id="eda" class="section level2 hasAnchor" number="1.1">
 <h2><span class="header-section-number">1.1</span> Exploratory Data Analysis (EDA)<a href="intro-stat.html#eda" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <!-- <script> -->
@@ -579,10 +620,10 @@ Other
 </caption>
 <p>We will demonstrate the creation of this data using some simple random categorical data:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro-stat.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">41</span>)</span>
-<span id="cb4-2"><a href="intro-stat.html#cb4-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">2</span>), <span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">1</span>),<span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">0</span>)),</span>
+<span id="cb4-2"><a href="intro-stat.html#cb4-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">2</span>), <span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">1</span>),<span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">0</span>)),</span>
 <span id="cb4-3"><a href="intro-stat.html#cb4-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">x1 =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>), <span class="at">each =</span> <span class="dv">10</span>)),</span>
 <span id="cb4-4"><a href="intro-stat.html#cb4-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">x2 =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Z&quot;</span>, <span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>,<span class="st">&quot;W&quot;</span>,<span class="st">&quot;V&quot;</span>,<span class="st">&quot;U&quot;</span>), <span class="at">each =</span> <span class="dv">5</span>)))</span>
-<span id="cb4-5"><a href="intro-stat.html#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(data)</span></code></pre></div>
+<span id="cb4-5"><a href="intro-stat.html#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(dat)</span></code></pre></div>
 <pre><code>##             y x1 x2
 ## 1   1.2056317  A  Z
 ## 2   2.1972575  A  Z
@@ -618,8 +659,8 @@ Other
 <p>The speed of this function has been tested against both the base R <code>model.matrix()</code> function and the <code>dummyVars()</code> function in the <code>caret</code> package and is <em>substantially</em> faster than either.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="intro-stat.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(onehot)</span>
 <span id="cb6-2"><a href="intro-stat.html#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="intro-stat.html#cb6-3" aria-hidden="true" tabindex="-1"></a>encoder  <span class="ot">=</span> <span class="fu">onehot</span>(data)</span>
-<span id="cb6-4"><a href="intro-stat.html#cb6-4" aria-hidden="true" tabindex="-1"></a>dummies <span class="ot">=</span> <span class="fu">predict</span>(encoder,data)</span>
+<span id="cb6-3"><a href="intro-stat.html#cb6-3" aria-hidden="true" tabindex="-1"></a>encoder  <span class="ot">=</span> <span class="fu">onehot</span>(dat)</span>
+<span id="cb6-4"><a href="intro-stat.html#cb6-4" aria-hidden="true" tabindex="-1"></a>dummies <span class="ot">=</span> <span class="fu">predict</span>(encoder,dat)</span>
 <span id="cb6-5"><a href="intro-stat.html#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dummies)</span></code></pre></div>
 <pre><code>##             y x1=A x1=B x1=C x2=U x2=V x2=W x2=X x2=Y x2=Z
 ## [1,] 1.205632    1    0    0    0    0    0    0    0    1
