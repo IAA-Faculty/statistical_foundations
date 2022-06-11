@@ -153,7 +153,7 @@ The crucial first step to any data science problem is exploratory data analysis 
 </ul>
 </ul>
 
- We will maintain an example data set throughout this text to demonstrate the various tools and techniques being discussed. It is a real-estate data set that contains the `sale_price` and physical attributes of nearly 3,000 homes in Ames, Iowa in the early 2000s. To access this data, we first add the `AmesHousing` package to our library and create the nicely formatted data with the `make_ordinal_ames()` function. 
+ Throughout the textbook, we will continue to use a real-estate data set that contains the `sale_price` and numerous physical attributes of nearly 3,000 homes in Ames, Iowa in the early 2000s. To access this data, we first add the `AmesHousing` package to our library and create the nicely formatted data with the `make_ordinal_ames()` function. 
 
 
 ```{r results='hide', message=FALSE}
@@ -226,7 +226,7 @@ __Reference-level coding __
 
 Reference-level coding is similar to one-hot encoding except one of the levels of the attribute, called the __reference level__, is omitted. Notice that the 4 dummy columns from Table \@ref(tab:onehot) collectively form a linearly dependent set; that is, if you know the values of 3 of the 4 dummy variables you can determine the $4^{th}$ with complete certainty. This would be a problem for linear regression, where we assume our input attributes are not linearly dependent as we will discuss in Chapter \@ref(slr).  
 
-A reference level of the attribute is often specified by the user to be a particular level worthy of comparison (a baseline), as the regression output will be interpreted in a way that compares each non-reference level to the reference level. If a reference level is not specified by the user, one will be picked by the software by default either using the order in which the levels were encountered in the data, or their alphabetical ordering. Users should check the documentation of the associated function to understand what to expect.
+A reference level of the attribute is often specified by the user to be a particular level worthy of comparison (a baseline), as the estimates in the regression output will be interpreted in a way that compares each non-reference level to the reference level. If a reference level is not specified by the user, one will be picked by the software by default either using the order in which the levels were encountered in the data, or their alphabetical ordering. Users should check the documentation of the associated function to understand what to expect.
 
 Table \@ref(tab:refcoding) transforms the one-hot encoding from Table \@ref(tab:onehot) into reference-level coding with the color "blue" as the reference level. Notice the absence of the column indicating "blue" and how each blue observation exists as a row of zeros. 
 
@@ -245,7 +245,7 @@ Table \@ref(tab:refcoding) transforms the one-hot encoding from Table \@ref(tab:
 
 __Effects coding__
 
-Effects coding is useful for obtaining a more general comparative interpretation when you have approximately equal sample sizes across each level of your categorical attribute. Effects coding is designed to allow the user to compare each level to _all_ the other levels. More specifically the mean of each level is compared to the __overall mean__ of your data. However, the comparison is actually to the so-called _grand mean_, which is the mean of the means of each group. When sample sizes are equal, the grand mean and the overall sample mean are equivalent. When sample sizes are _not_ equal, the parameter estimates for effects coding should not be used for interpretation or explanation. 
+Effects coding is useful for obtaining a more general comparative interpretation when you have approximately equal sample sizes across each level of your categorical attribute. Effects coding is designed to allow the user to compare each level to _all_ of the other levels. More specifically the mean of each level is compared to the __overall mean__ of your data. However, the comparison is actually to the so-called _grand mean_, which is the mean of the means of each group. When sample sizes are equal, the grand mean and the overall sample mean are equivalent. When sample sizes are _not_ equal, the parameter estimates for effects coding should not be used for interpretation or explanation. 
 
 Effects coding still requires a _reference level_, however the purpose of the reference level is not the same as it was in reference-level coding. Here, the reference level is left out in the sense that no comparison is made between it and the overall mean. Table \@ref(tab:effcoding) shows our same example with effects coding. Again we notice the absence of the column indicating "blue"  but now the reference level receives values of `-1` rather than `0` for all 3 dummy columns.  We will revisit the interpretation of linear regression coefficients under this coding scheme in Chapter \@ref(slr). 
 
@@ -310,7 +310,7 @@ If we were modeling the effect of education on something like salary, it seems r
 
 __Target Level Encoding__
 
-The values in Table \@ref(tab:educationscaled) might have struck the reader as logical but arbitrary. To be more scientific about the determination of those numeric values, one might wish to use information from the response variable to obtain a more precise expected change in salary for each level increase in education. At first hearing this, one might question the validity of the technique; isn't the goal to _predict_ salary? This line of thought is natural, but there are no concerns here. As long as we have training data (and we must if we're creating a regression model!), we can simply create a look-up table that matches each level of education to the average or median salary obtained for that level. These values can be used just as readily as the arbitrary levels created in Table \@ref(tab:educationscaled) to encode the ordinal attribute!
+The values in Table \@ref(tab:educationscaled) might have struck the reader as logical but arbitrary. To be more scientific about the determination of those numeric values, one might wish to use information from the response variable to obtain a more precise expected change in salary for each level increase in education. At first hearing this, one might question the validity of the technique; isn't the goal to _predict_ salary? This line of thought is natural, which is why having a holdout sample is extremely important in this situation. To implement Target level encoding, we can simply create a look-up table that matches each level of education to the average or median salary obtained for that level. These values can be used just as readily as the arbitrary levels created in Table \@ref(tab:educationscaled) to encode the ordinal attribute!
 
 ### Distributions {#dist}
 
