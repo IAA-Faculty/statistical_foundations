@@ -622,17 +622,11 @@ All the statistics discussed so far have been _point estimates_. They are our _b
 
 For the remainder of this text, we will assume our sample is representative of the population. Let's review some common statistical notation of _population parameters_ (the true values we are unable to observe) and _sample statistics_ (those values we calculate based on our sample)
 
-```{r table2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
-
-tabl<-"
 | Population Parmeter             |Sample Statistic           |
-|:-------------------------------:|:---------------------------:|
-|Mean (\mu)                     |Sample Average($\bar{x}$)   |
-|Variance ($\sigma^{2}$)          |Sample Variance($s^{2}_{x}$)|
-|Standard deviation ($\sigma^{2}$)|Sample standard deviation($s_{x}$)|
-"
-cat(tabl)
-```
+|:------------------------------------:|:---------------------------:|
+|Mean ($\mu$)                          |Sample Average($\bar{x}$)   |
+|Variance ($\sigma^{2}$)               |Sample Variance($s^{2}_{x}$)|
+|Standard deviation ($\sigma^{2}$)     |Sample standard deviation($s_{x}$)|
 
 
 
@@ -644,7 +638,7 @@ This will be the subject of interest in the next section.
 
 Let's imagine that we want to calculate the average gas mileage of American cars on the road today in order to analyze the country's carbon footprint. It should be clear to the reader that the calculation of the _population mean_ would not be possible. The best we could do is take a large representative sample and calculate the sample average. Again, the next question should be: What is the margin of error for this estimate? If our sample average is 21.1 mpg, could the population mean reasonably be 21.2 mpg? how about 25 mpg? 42 mpg? 
 
-To answer this question, we reach for the notion of _confidence intervals_. A __confidence interval__ is an interval that we believe contains the population mean with some degree of confidence. A confidence interval is associated with a _confidence level_, a percentage, which indicates the strength of our confidence that the population mean is contained in the interval. 
+To answer this question, we reach for the notion of _confidence intervals_. A __confidence interval__ is an interval that we believe contains the population mean with some degree of confidence. A confidence interval is associated with a _confidence level_, a percentage, which indicates the strength of our confidence that the interval created actually captured the true parameter. 
 
 It's an important nuance to remember that the population mean is a fixed number. The source of randomness in our estimation is our sample. When we construct a 95% confidence interval, we are claiming that, upon repetition of the sampling and interval calculation process, we expect 95% of our created intervals to contain the population mean. 
 
