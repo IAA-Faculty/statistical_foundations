@@ -322,7 +322,7 @@ We'll begin by exploring one of our nominal features, `Heating_QC` which categor
 library(ggplot2)
 library(tidyverse)
 ggplot(data = ames) +
-  geom_bar(mapping = aes(x = Heating_QC),fill="orange") + labs(x="Heating System Quality",y="Frequency",title="Histogram of Heating System")
+  geom_bar(mapping = aes(x = Heating_QC),fill="orange") + labs(x="Heating System Quality",y="Frequency",title="Bar Graph of Heating System")
 ```
 To summon the same information in tabular form, we can use the `count()` function to create a table:
 ```{r}
