@@ -434,7 +434,7 @@ The final description we will want to give to distributions regards their shape.
 
 We'll formalize these ideas with some illustrations. A distribution is right (left) skewed if it has a longer tail on its right (left) side, as shown in Figure \@ref(fig:skewdiagram). 
 
-```{r label='skewdiagram', fig.align='center', fig.cap = 'Examples of Left-Skewed (Negative Skew) and Right-skewed (Positive Skew) distributions respectively', out.width="100%"}
+```{r echo=F,label='skewdiagram', fig.align='center', fig.cap = 'Examples of Left-Skewed (Negative Skew) and Right-skewed (Positive Skew) distributions respectively', out.width="100%"}
 knitr::include_graphics("img/skewdiagrams.png")
 ```
 
