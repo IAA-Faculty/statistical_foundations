@@ -648,7 +648,7 @@ To obtain a confidence interval for a mean in R, we can use the `t.test()` funct
 t.test(ames$Sale_Price, conf.level = 0.95)
 ```
 
-We can gather based on the output that our 95% confidence interval for the mean of `Sale_Price` is [177902.3, 183689.9]. This function also outputs some alternative information that relates to hypothesis testing which we will discuss in Section \@ref(hypotest). For now, if we'd like to restrict the output, we can extract the confidence interval by adding `$conf.int` to our code:
+We can gather based on the output that our 95% confidence interval for the mean of `Sale_Price` is [177902.3, 183689.9]. This function also outputs some extra information that relates to hypothesis testing which we will discuss in Section \@ref(hypotest). For now, if we'd like to only pull the output containing the confidence interval information, we can specify `$conf.int` to our code:
 
 ```{r}
 t.test(ames$Sale_Price, conf.level = 0.95)$conf.int
