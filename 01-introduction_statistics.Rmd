@@ -591,13 +591,13 @@ Box plots (sometimes called box-and-whisker plots) will not necessarily tell you
 
 Many of us have become familiar with the _idea_ of a box plot, but when pressed for the specific steps to create one, we realize our familiarity fades. The diagram in Figure \@ref(fig:boxplot) will remind the reader the precise information conveyed by a box plot. 
 
-```{r label='boxplot',fig.align='center',fig.cap='Anatomy of a Box Plot.',echo=F, out.width="110%"}
+```{r label='boxplot',fig.align='center',fig.cap='Anatomy of a Box Plot.',echo=F}
 knitr::include_graphics("img/boxplot.png")
 ```
 
 Figure \@ref(fig:rboxplot) shows the boxplot of `Sale_Price`.
 
-```{r label='rboxplot',fig.align='center',fig.cap='Box Plot of Sale_Price'}
+```{r label='rboxplot',fig.align='center',fig.cap='Box Plot of Sales Price'}
 ggplot(data = ames, aes(y = Sale_Price/1000)) + 
   geom_boxplot() + 
   labs(y = "Sales Price (Thousands $)")
@@ -648,7 +648,7 @@ To obtain a confidence interval for a mean in R, we can use the `t.test()` funct
 t.test(ames$Sale_Price, conf.level = 0.95)
 ```
 
-We can gather based on the output that our 95% confidence interval for the mean of `Sale_Price` is [177902.3, 183689.9]. This function also outputs some extra information that relates to hypothesis testing which we will discuss in Section \@ref(hypotest). For now, if we'd like to only pull the output containing the confidence interval information, we can specify `$conf.int` to our code:
+We can gather based on the output that our 95% confidence interval for the mean of `Sale_Price` is [177902.3, 183689.9]. This function also outputs some extra information that relates to hypothesis testing which we will discuss in Section \@ref(hypotest). For now, if we only want to pull the output containing the confidence interval information, we can specify `$conf.int` to the object output from `t.test`:
 
 ```{r}
 t.test(ames$Sale_Price, conf.level = 0.95)$conf.int
@@ -666,7 +666,7 @@ results <- t.test(ames$Sale_Price, conf.level = 0.95)
 
 A confidence interval can help us test a hypothesis about the population mean. A __hypothesis__ is merely a statement that we wish to investigate scientifically through the process of statistical inference. In Section \@ref(ci) we proposed some potential hypotheses in the form of questions: If the sample average gas mileage is 21.1, is it possible that the population mean is 21.2? How about 42? The statistical __hypothesis test__ can help us answer these questions.
 
-To conduct a hypothesis test, we make an initial assumption. This initial assumption is called the __null hypothesis__ and typically denoted as $H_0$. We then analyze the data and determine whether our observations are likely, given our assumption of the null hypothesis. If we determine that our observed data was unlikely _enough_ (beyond some threshold of confidence that we set before hand - or beyond a "reasonable doubt" in the justice system) then we _reject_ our initial assumption in favor of the opposite statement, known as the __alternative hypothesis__ denoted $H_a$. The confidence threshold or __confidence level__ that we use to determine how much evidence is required to reject the null hypothesis is a proportion, $\alpha$, which specifies how often we're willing to incorrectly reject the null hypothesis. Remember, in applied statistics there are no proofs. Every decision we make comes with some degree of uncertainty. $\alpha$ quantifies our allowance for that uncertainty. In statistical textbooks of years past, $\alpha = 0.05$ was the norm. Later in this text we will propose much smaller values for $\alpha$ depending on your sample size. 
+To conduct a hypothesis test, we make an initial assumption. This initial assumption is called the __null hypothesis__ and typically denoted as $H_0$. We then analyze the data and determine whether our observations are likely, given our assumption of the null hypothesis. If we determine that our observed data was unlikely _enough_ (beyond some threshold that we set before hand - or beyond a "reasonable doubt" in the justice system) then we _reject_ our initial assumption in favor of the opposite statement, known as the __alternative hypothesis__ denoted $H_a$. The threshold or __significance level__ that we use to determine how much evidence is required to reject the null hypothesis is a proportion, $\alpha$, which specifies how often we're willing to incorrectly reject the null hypothesis (this means that we are assuming the null hypothesis is true). Remember, in applied statistics there are no proofs. Every decision we make comes with some degree of uncertainty. $\alpha$ quantifies our allowance for that uncertainty. In statistical textbooks of years past, $\alpha = 0.05$ was the norm. Later in this text we will propose much smaller values for $\alpha$ depending on your sample size. 
 
 In order to quantify how unlikely it was that we observed a statistic as extreme or more extreme than we did, we calculate a __p-value__. The p-value is the area under the __null distribution__ that represents the probability that we observed something as extreme or more extreme than we did (assuming the truth of the null hypothesis). If our p-value is less than our confidence level, $\alpha$, we have enough evidence to reject the null hypothesis in favor of the alternative. 
 
