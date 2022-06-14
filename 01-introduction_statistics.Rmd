@@ -774,7 +774,7 @@ In this second test, we see that we actually _do have enough evidence_ to claim 
 
 ## Two-Sample t-tests
 
-If we have a hypothesis about a difference in the means of two groups of observations, a __two-sample t-test__ can tell us whether that difference is statistically significant. By _statistically significant_, we mean the observed difference in sample means is greater than what we would expect to find if the population means were truly equal. In other words, statistical significance is a phrase that describes when our p-value falls below our confidence level, $\alpha$. Typically, the groups of interest are formed by levels of a binary variable, and the t-test is a way of testing whether there is a relationship between that binary variable and the continuous variable. 
+If we have a hypothesis about a difference in the means of two groups of observations, a __two-sample t-test__ can tell us whether that difference is statistically significant. By _statistically significant_, we mean the observed difference in sample means is greater than what we would expect to find if the population means were truly equal. In other words, statistical significance is a phrase that describes when our p-value falls below our significance level, $\alpha$. Typically, the groups of interest are formed by levels of a binary variable, and the t-test is a way of testing whether there is a relationship between that binary variable and the continuous variable. 
 
 To conduct a two-sample t-test, our data should satisfy 3 fundamental assumptions:
 <ol>
@@ -791,7 +791,7 @@ The $1^{st}$ assumption is not easily checked unless the data is generated over 
 
 ### Testing Normality of Groups {#testnorm}
 
-The t-test is robust to deviations from normality, thus we can test the normality assumption either graphically or through formal statistical tests. The best graphical test of normality is a QQ-Plot, though histograms are often used as well. We saw in Figures \@ref(fig:qqplot) and \@ref(fig:histogram) that the distribution of `Sale_Price` was not perfectly normal, however the deviations from normality were not egregious. In Figure \@ref(fig:qqplotcentralair) we again examine the normality of Sale Price, this time for each value of `Central_Air`:
+We can test the normality assumption either graphically or through formal statistical tests. The best graphical test of normality is a QQ-Plot, though histograms are often used as well. We saw in Figures \@ref(fig:qqplot) and \@ref(fig:histogram) that the distribution of `Sale_Price` was not perfectly normal, however the deviations from normality were not egregious. In Figure \@ref(fig:qqplotcentralair) we again examine the normality of Sale Price, this time for each value of `Central_Air`:
 
 ```{r label='qqplotcentralair',fig.align='center',fig.cap="QQ-Plot: Quantiles of Sale_Price vs. quantiles of a theoretical normal distribution with same mean and standard deviation, for each level of Central_Air. Conclusion: Sale_Price is _not_ normally distributed for Central_Air='Yes' and is _more_ normally distributed for Central_Air = 'No'."}
 ggplot(data = ames, aes(sample = Sale_Price, color = Central_Air)) +
@@ -800,7 +800,7 @@ ggplot(data = ames, aes(sample = Sale_Price, color = Central_Air)) +
 ```
 
 
-For formal tests of normality, we most often use the Shapiro-Wilk test, although many such formal tests exist, each with their own advantages. All of these tests have the null hypothesis of normality:
+For formal tests of normality, we most often use the Shapiro-Wilk test, although many other formal tests exist, each with their own advantages and disadvantages. All of these tests have the null hypothesis of normality:
 $$H_0: \text{ the data is normally distributed}$$
 $$H_a: \text{ the data is NOT normally distributed}$$
 We conduct formal tests as follows:
@@ -811,8 +811,7 @@ shapiro.test(ames$Sale_Price[ames$Central_Air=='N'])
 ```
 The formal test rejects the null hypotheses of normality and confirms what we saw in our visual analysis.
 
-While this attribute is, indeed, NOT normally distributed, it is important to note that __the t-test is robust to deviations from normality, provided the underlying distribution is unimodal, relatively symmetric and not _severely_ skewed/kurtotic. __ 
-For the sake of illustration, we will proceed in this example under the assumption of normality, though a non-parametric approach will also be demonstrated to confirm our analysis in Section \@ref(wilcoxon).
+For the sake of illustration, we will proceed in this example under the assumption of normality (JUST for illustration), though a non-parametric approach will also be demonstrated later in our analysis in Section \@ref(wilcoxon). 
 
 ### Testing Equality of Variances {#ftest}
 

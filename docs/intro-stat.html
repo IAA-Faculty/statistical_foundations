@@ -1543,7 +1543,7 @@ What happens if we increase/decrease the number of coin flips in our experiment,
 </div>
 <div id="two-sample-t-tests" class="section level2 hasAnchor" number="1.5">
 <h2><span class="header-section-number">1.5</span> Two-Sample t-tests<a href="intro-stat.html#two-sample-t-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>If we have a hypothesis about a difference in the means of two groups of observations, a <strong>two-sample t-test</strong> can tell us whether that difference is statistically significant. By <em>statistically significant</em>, we mean the observed difference in sample means is greater than what we would expect to find if the population means were truly equal. In other words, statistical significance is a phrase that describes when our p-value falls below our confidence level, <span class="math inline">\(\alpha\)</span>. Typically, the groups of interest are formed by levels of a binary variable, and the t-test is a way of testing whether there is a relationship between that binary variable and the continuous variable.</p>
+<p>If we have a hypothesis about a difference in the means of two groups of observations, a <strong>two-sample t-test</strong> can tell us whether that difference is statistically significant. By <em>statistically significant</em>, we mean the observed difference in sample means is greater than what we would expect to find if the population means were truly equal. In other words, statistical significance is a phrase that describes when our p-value falls below our significance level, <span class="math inline">\(\alpha\)</span>. Typically, the groups of interest are formed by levels of a binary variable, and the t-test is a way of testing whether there is a relationship between that binary variable and the continuous variable.</p>
 To conduct a two-sample t-test, our data should satisfy 3 fundamental assumptions:
 <ol>
 <li>
@@ -1558,7 +1558,7 @@ The variances for each group are equal
 <p>The <span class="math inline">\(1^{st}\)</span> assumption is not easily checked unless the data is generated over time (time-series) and is instead generally implied by careful data collect and the application of domain expertise.</p>
 <div id="testnorm" class="section level3 hasAnchor" number="1.5.1">
 <h3><span class="header-section-number">1.5.1</span> Testing Normality of Groups<a href="intro-stat.html#testnorm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The t-test is robust to deviations from normality, thus we can test the normality assumption either graphically or through formal statistical tests. The best graphical test of normality is a QQ-Plot, though histograms are often used as well. We saw in Figures <a href="intro-stat.html#fig:qqplot">1.10</a> and <a href="intro-stat.html#fig:histogram">1.2</a> that the distribution of <code>Sale_Price</code> was not perfectly normal, however the deviations from normality were not egregious. In Figure <a href="intro-stat.html#fig:qqplotcentralair">1.17</a> we again examine the normality of Sale Price, this time for each value of <code>Central_Air</code>:</p>
+<p>We can test the normality assumption either graphically or through formal statistical tests. The best graphical test of normality is a QQ-Plot, though histograms are often used as well. We saw in Figures <a href="intro-stat.html#fig:qqplot">1.10</a> and <a href="intro-stat.html#fig:histogram">1.2</a> that the distribution of <code>Sale_Price</code> was not perfectly normal, however the deviations from normality were not egregious. In Figure <a href="intro-stat.html#fig:qqplotcentralair">1.17</a> we again examine the normality of Sale Price, this time for each value of <code>Central_Air</code>:</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="intro-stat.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ames, <span class="fu">aes</span>(<span class="at">sample =</span> Sale_Price, <span class="at">color =</span> Central_Air)) <span class="sc">+</span></span>
 <span id="cb50-2"><a href="intro-stat.html#cb50-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
 <span id="cb50-3"><a href="intro-stat.html#cb50-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">stat_qq_line</span>()</span></code></pre></div>
@@ -1568,7 +1568,7 @@ The variances for each group are equal
 Figure 1.17: QQ-Plot: Quantiles of Sale_Price vs. quantiles of a theoretical normal distribution with same mean and standard deviation, for each level of Central_Air. Conclusion: Sale_Price is <em>not</em> normally distributed for Central_Air=‘Yes’ and is <em>more</em> normally distributed for Central_Air = ‘No’.
 </p>
 </div>
-<p>For formal tests of normality, we most often use the Shapiro-Wilk test, although many such formal tests exist, each with their own advantages. All of these tests have the null hypothesis of normality:
+<p>For formal tests of normality, we most often use the Shapiro-Wilk test, although many other formal tests exist, each with their own advantages and disadvantages. All of these tests have the null hypothesis of normality:
 <span class="math display">\[H_0: \text{ the data is normally distributed}\]</span>
 <span class="math display">\[H_a: \text{ the data is NOT normally distributed}\]</span>
 We conduct formal tests as follows:</p>
@@ -1585,8 +1585,7 @@ We conduct formal tests as follows:</p>
 ## data:  ames$Sale_Price[ames$Central_Air == &quot;N&quot;]
 ## W = 0.95315, p-value = 4.739e-06</code></pre>
 <p>The formal test rejects the null hypotheses of normality and confirms what we saw in our visual analysis.</p>
-<p>While this attribute is, indeed, NOT normally distributed, it is important to note that <strong>the t-test is robust to deviations from normality, provided the underlying distribution is unimodal, relatively symmetric and not <em>severely</em> skewed/kurtotic. </strong>
-For the sake of illustration, we will proceed in this example under the assumption of normality, though a non-parametric approach will also be demonstrated to confirm our analysis in Section <a href="intro-stat.html#wilcoxon">1.5.4</a>.</p>
+<p>For the sake of illustration, we will proceed in this example under the assumption of normality (JUST for illustration), though a non-parametric approach will also be demonstrated later in our analysis in Section <a href="intro-stat.html#wilcoxon">1.5.4</a>.</p>
 </div>
 <div id="ftest" class="section level3 hasAnchor" number="1.5.2">
 <h3><span class="header-section-number">1.5.2</span> Testing Equality of Variances<a href="intro-stat.html#ftest" class="anchor-section" aria-label="Anchor link to header"></a></h3>
