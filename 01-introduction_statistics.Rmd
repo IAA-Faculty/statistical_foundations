@@ -718,7 +718,7 @@ summary(df$number_heads)
 
 __Example__ 
 
-Suppose now we obtain a new coin from a friend and our hypothesis is that it "feels unfair". We decide that we want to be 99% confident before we accuse our friend of cheating, so we conduct a hypothesis test. Our null hypothesis must generate a known distribution to which we can compare. Thus our null hypothesis is that the coin is fair:
+Suppose now we obtain a new coin from a friend and our hypothesis is that it "feels unfair". We decide that we want a conservative signficance level of 0.01 before we accuse our friend of cheating, so we conduct a hypothesis test. Our null hypothesis must generate a known distribution to which we can compare. Thus our null hypothesis is that the coin is fair:
 $$H_0 = \text{The coin is fair:}\quad P(Heads) = 0.5$$
 Our alternative hypothesis is the opposite of this:
 $$H_0 = \text{The coin is not fair:}\quad P(Heads) \neq 0.5$$
@@ -740,7 +740,7 @@ We can use this simulated distribution to estimate the p-value associated with o
 ```{r}
 sum(number_heads>=65 | number_heads<=35)/T
 ```
-__Conclusion__: We said at the outset that we wanted to be 99% certain of our claim before we accused our friend of cheating. Based on our simulations, there is a 0.4% chance that we'd obtain the result we did, or something more extreme, if the coin was fair. Therefore, we have no choice but to _reject our null hypothesis in favor of the alternative_. Our friend has some explaining to do!
+__Conclusion__: We said at the outset that we wanted a significance level of 0.01, or 1%, for our test before we accused our friend of cheating. Based on our simulations, there is a 0.4% chance that we'd obtain the result we did, or something more extreme, if the coin was fair. Therefore, we have no choice but to _reject our null hypothesis in favor of the alternative_. Our friend has some explaining to do!
 
 Before we move on, we can compare the simulated result we just developed to one based on a theoretical distribution. This can be done using the ```prop.test()``` function to test a proportion. The formal test confirms our conclusion. 
 
@@ -758,7 +758,7 @@ The nice thing about a simulation study like the one above is that it allows the
  
 ### One-Sample T-Test {#onesample}
 
-If we want to test whether the mean of continuous variable is equal to hypothesized value, we can use the `t.test()` function. The following code tests whether the average sale price of homes from Ames, Iowa over the data time period is \$178,000. For now, we'll use the classic $\alpha=0.05$ as our confidence level. If we have enough evidence to reject this null hypothesis, we will conclude that the mean sale price is either lower or higher for a two-tailed test (the default):
+If we want to test whether the mean of continuous variable is equal to hypothesized value, we can use the `t.test()` function. The following code tests whether the average sale price of homes from Ames, Iowa over the data time period is \$178,000. For now, we'll use the classic $\alpha=0.05$ as our significance level. If we have enough evidence to reject this null hypothesis, we will conclude that the mean sale price is significantly different than \$178,000 for a two-tailed test (the default):
 
 
 ```{r}
