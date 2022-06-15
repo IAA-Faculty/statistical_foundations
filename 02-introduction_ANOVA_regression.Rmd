@@ -4,6 +4,34 @@
 library(AmesHousing)
 ames=make_ordinal_ames()
 ```
+This Chapter aims to answer the following questions:
+</ul>
+  <li> What is a predictive model versus an explanative model? 
+</ul>
+  <li> How to perform an honest assessment of a model. 
+</ul>
+  <li> How to estimate associations. 
+    <ul> 
+      <li> Continuous-Continuous 
+      <li> Continuous-Categorical
+      <li> Pearson's correlation
+        <ul>
+        <li> Test of Hypothesis
+        <li> Effect of outliers
+        <li> Correlation Matrix
+</ul>
+  <li> How to perform ANOVA. 
+    <ul> 
+      <li> Testing assumptions 
+      <li> Kruskal-Wallis
+      <li> Post-hoc tests
+</ul>
+  <li> How to perform Simple Linear Regression. 
+    <ul> 
+      <li> Assumptions 
+      <li> Inference
+</ul>
+
 In this chapter, we introduce one of the most commonly used tools in data science: the linear model. We'll start with some basic terminology. A __linear model__ is an equation that typically takes the form 
 \begin{equation}
 \mathbf{y} = \beta_0 + \beta_1\mathbf{x_1} + \dots + \beta_k\mathbf{x_k} + \boldsymbol \varepsilon 
