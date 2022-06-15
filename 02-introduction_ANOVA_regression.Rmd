@@ -100,7 +100,7 @@ Bivariate exploratory analysis is often used to assess relationships between two
 
 ### Continuous-Continuous Associations
 
-Let's conduct a preliminary assessment of the relationship between the size of the house in square feet (via `Gr_Liv_Area`) and the `Sale_Price` by creating a scatter plot. Note that we call this a preliminary assessment because we should not declare a statistical relationship without a formal hypothesis test (see Section \@ref(cor)). 
+Let's conduct a preliminary assessment of the relationship between the size of the house in square feet (via `Gr_Liv_Area`) and the `Sale_Price` by creating a scatter plot (only on the training data). Note that we call this a preliminary assessment because we should not declare a statistical relationship without a formal hypothesis test (see Section \@ref(cor)). 
 
 ```{r label='scatterplot',fig.align='center',fig.cap='Scatter plot demonstrating a positive linear relationship'} 
 ggplot(data = train) + 
