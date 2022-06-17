@@ -170,13 +170,13 @@ __One-way ANOVA__ aims to determine whether there is a difference in the mean of
 <li> The variances for each group are equal 
 </ol>
 
-While ANOVA typically refers to a single hypothesis test, it is truly a linear model with dummy variable inputs. Let \(x_a\), \(x_b\), and \(x_c\) be 3 reference-coded dummy variables for an attribute with 4 levels: `a`, `b`, `c`, and `d`. Note that we only have 3 dummy variables because one gets left out for the reference level, here `d`. ANOVA will create the following linear model:
+A one-way ANOVA refers to a single hypothesis test, which is $H_{0}: \mu_{1}=\mu_{2}=...\mu_{k}$ for a predictor variable with $k$ levels against the alternative of at least one difference. Although a one-way ANOVA is designed to assess whether or not there is a significant difference within the mean values of the response with respect to the different levels of the predictor variable, we can draw some parallel to the regression model.  For example, if we have $k$=4, then we can let \(x_a\), \(x_b\), and \(x_c\) be 3 reference-coded dummy variables for the levels: `a`, `b`, `c`, and `d`. Note that we only have 3 dummy variables because one gets left out for the reference level, in this case it is `d`. The linear model is of the following form:
 
 \begin{equation}
 y=\beta_0 + \beta_ax_a+\beta_bx_b+\beta_cx_c + \varepsilon (\#eq:anova1) 
 \end{equation}
 
-Now this model is especially easy to digest because $x_a$, $x_b$ and $x_c$ are binary indicator variables that sum to 1 for each observation. That means if $x_a = 1$ for a given observation then we know that $x_b$ and $x_c$ must be 0.  The following facts can be easily derived for _reference-level coding_ (they will change for effects-level coding) due to the fact that linear models are designed to predict the conditional expectation of y given x, $E[y|x]$. Indeed, for this situation where there 4 levels of our categorical input, the ANOVA _model_ will produce up to 4 distinct predictions. The prediction for each group is merely the group mean! 
+If we define $x_a$ as 1 if the observation belongs to level `a` and 0 otherwise, and the same definition for $x_b$ and $x_c$, then this is called _reference-level coding_ (this will change for effects-level coding). The predicted values in \@ref(eq:anova1) is basically the predicted mean of the response within the 4 levels of the predictor variable.  
 <ul>
 <li> $\beta_0$ represents the mean of reference group, group `d`. 
 <li> $\beta_a, \beta_b, \beta_c$ all represent the _difference_ in the respective group means compared to the reference level. Positive values thus reflect a group mean that is higher than the reference group, and negative values reflect a group mean lower than the reference group. 
@@ -229,7 +229,7 @@ par(mfrow=c(1,1))
 
 ```
 In the top-right plot in Figure \@ref(fig:anovaplots) we verify again the _approximate_ normality of sale price.  To test for the third assumption of equal variances, we opt for a formal test like Levene's (which depends on normality and can be found in the `car` package) or Fligner's (which does not depend on normality and exists in the `stats` package). In both cases, the null hypothesis is equal variances:
-$$H_0: \sigma_a^2 =\sigma_b^2 =\sigma_c^2 \quad  \text{i.e., the groups have equal variance}$$
+$$H_0: \sigma_a^2 =\sigma_b^2 =\sigma_c^2=\sigma_d^2 \quad  \text{i.e., the groups have equal variance}$$
 $$H_a: \text{at least one group's variance is different}$$
 
 ```{r message=F}
@@ -253,7 +253,7 @@ We summarize this information in the following table:
 <tr> <td> Conditions <td> Interpretation of Significant <br> Kruskal-Wallis Test 
 <tr> <td> Group distributions are identical in shape,<br> variance, and symmetric <td> Difference in means 
 <tr> <td> Group distributions are identical in shape,<br> variance, but not symmetric <td> Difference in medians 
-<tr> <td> Group distributions are identical in shape,<br> variance, but not symmetric <td> Difference in location. <br> (distributional dominance) </tr>
+<tr> <td> Group distributions are not identical in shape,<br> variance, and are not symmetric <td> Difference in location. <br> (distributional dominance) </tr>
 </table>
 
 Implementing the Kruskal-Wallis test in R is simple:
@@ -270,7 +270,7 @@ After performing an ANOVA and learning that there is a difference between the gr
 
 Let's suppose we are comparing grocery spending on 4 different credit card rewards programs. If we'd like to compare the rewards programs pairwise, that entails 6 different hypothesis tests (each is a two-sample t-test). If we keep a confidence level of $\alpha = 0.05$ and subsequently view "being wrong in one test" as a random event happening with probability $p=0.05$ then our probability of being wrong _in at least_ one test out of 6 could be as great as 0.26! 
 
-To control this experiment-wise error rate, we must lower our confidence thresholds to account for it. Alternatively, we can view this as an adjustment of our p-values higher while keeping our confidence threshold fixed as usual. This is typically the approach taken, as we prefer to fix our confidence thresholds in accordance with previous literature or industry standards. There are many methods of adjustment that have been proposed over the years for this purpose. Here, we consider two popular methods: Tukey's test for pairwise comparisons and Dunnett's test for control group comparisons. If the reader finds themselves in a situation that doesn't fit the presciption of either of these methods, we suggest looking next at the modified Bonferroni correction or the notion of false discovery rates proposed by Benjamini and Hochberg in 1995. 
+To control this experiment-wise error rate, we must lower our significance thresholds to account for it. Alternatively, we can view this as an adjustment of our p-values higher while keeping our significance threshold fixed as usual. This is typically the approach taken, as we prefer to fix our significance thresholds in accordance with previous literature or industry standards. There are many methods of adjustment that have been proposed over the years for this purpose. Here, we consider two popular methods: Tukey's test for pairwise comparisons and Dunnett's test for control group comparisons. If the reader finds themselves in a situation that doesn't fit the prescription of either of these methods, we suggest looking next at the modified Bonferroni correction or the notion of false discovery rates proposed by Benjamini and Hochberg in 1995. 
 
 ### Tukey-Kramer {#tukey}
 
