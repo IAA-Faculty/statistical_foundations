@@ -380,7 +380,7 @@ plot(x,y)
 
 ### The Correlation Matrix
 
-It's common to consider and calculate all pairwise correlations between variables in a dataset. If many attributes share a high degree of mutual correlation, this can cause problems for regression as will be discussed in Chapter \@ref(diagnostics). The pairwise correlations are generally arranged in an array called the __correlation matrix__, where the $(i,j)^{th}$ entry is the correlation between the $i^{th}$ variable and $j^{th}$ variable in your list. To compute the correlation matrix, we again use the `cor()` function.
+It's common to consider and calculate all pairwise correlations between variables in a dataset. If many attributes share a high degree of mutual correlation, this can cause problems for regression as will be discussed in Chapter 5. The pairwise correlations are generally arranged in an array called the __correlation matrix__, where the $(i,j)^{th}$ entry is the correlation between the $i^{th}$ variable and $j^{th}$ variable in your list. To compute the correlation matrix, we again use the `cor()` function.
 
 ```{r}
 cor(train[, c('Year_Built','Total_Bsmt_SF','First_Flr_SF','Gr_Liv_Area','Sale_Price')])
