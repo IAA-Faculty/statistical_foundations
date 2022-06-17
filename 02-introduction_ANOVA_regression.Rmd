@@ -400,16 +400,16 @@ After learning that two variables share a linear relationship, the next question
 y=\beta_0 + \beta_1x + \varepsilon
 (\#eq:slr)
 \end{equation}
-where $\beta_0$, the __intercept__, gives the expected value of $y$ when $x=0$ and $\beta_1$, the __slope__ gives the expected change in $y$ for a one-unit increase in $x$. The __error__, $\varepsilon$ is the amount each individual $y$ differs from the population line (we would not expect all values of $y$ to fall directly on the line).  When we use a sample of data to estimate the true population line, we get our sample equation or $\hat{y}=\hat{\beta}_0 + \hat{\beta}_1x$. _Ordinary Least Squares seeks to minimize the sum of squared residuals, or sum of squared error_. That objective is known as a __loss function__. The sum of squared error (SSE) or equivalently the mean squared error (MSE) loss functions are by far the most popular loss functions for continuous prediction problems. In regression, it is this loss function that provides us with the theory that ensures our predictions are the (conditional) _expected values_ of $y$, given the input data $x$ ($E(y|x)$). 
+where $\beta_0$, the __intercept__, gives the expected value of $y$ when $x=0$ and $\beta_1$, the __slope__ gives the expected change in $y$ for a one-unit increase in $x$. The __error__, $\varepsilon$ is the amount each individual $y$ differs from the population line (we would not expect all values of $y$ to fall directly on the line).  When we use a sample of data to estimate the true population line, we get our prediction equation or $\hat{y}=\hat{\beta}_0 + \hat{\beta}_1x$. Residuals from the predicted line is defined as $e=y-\hat{y}$. _Ordinary Least Squares seeks to minimize the sum of squared residuals or sum of squared error_. That objective is known as a __loss function__. The sum of squared error (SSE) or equivalently the mean squared error (MSE) loss functions are by far the most popular loss functions for continuous prediction problems. 
 
-We should note that SSE is not the _only_ loss function at our disposal. Minimizing the _mean absolute error_ (MAE) is common in situations with a highly skewed response variable (squaring very large errors gives those observations in the tail too much influence on the regression as we will later discuss). Using MAE to drive our loss function gives us predictions that are conditional _medians_ of the response, given the input data. Other loss functions, like Huber's M function, are also used to handle problems with influential observations as discussed in Chapter \@ref(diag).
+We should note that SSE is not the _only_ loss function at our disposal. Minimizing the _mean absolute error_ (MAE) is common in situations with a highly skewed response variable (squaring very large errors gives those observations in the tail too much influence on the regression as we will later discuss). Using MAE to drive our loss function gives us predictions that are conditional _medians_ of the response, given the input data. Other loss functions, like Huber's M function, are also used to handle problems with influential observations as discussed in Chapter 5.
 
 As we mentioned in Section \@ref(evp), a simple linear regression serves two purposes:
 <ol>
 <li> to predict the expected value of $y$ for each value of $x$ and 
 <li> to explain _how_ $y$ is expected to change for a unit change in $x$. 
 </ol>
-In order to accurately use a regression for the second purpose, however, we must first meet some strict assumptions with our data. 
+In order to accurately use a regression for the second purpose, however, we must first meet assumptions with our data. 
 
 ### Assumptions of Linear Regression {#slrassumptions}
 
