@@ -757,20 +757,22 @@ Figure 5.15: Influential and Outlier Observations
 </div>
 <div id="multicollinearity" class="section level2 hasAnchor" number="5.7">
 <h2><span class="header-section-number">5.7</span> Multicollinearity<a href="diag.html#multicollinearity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Multicollinearity occurs when one or more predictor variables are linearly related to each others and will create many issues with the regression. The parameter estimates will not be stable and the standard errors will be inflated (making it more difficult to find significant explantory variables). The two most common ways to identify multicollinearity is by looking at the correlation among the predictor variables and calculating the variance inflation factor.<br />
-</p>
-<p>The variance inflation factor (also referred to as VIF) will take each explanatory variable and model it as a linear regression of the remaining explanatory variables. For example, let’s say we have the following regression equation:
+<p>Multicollinearity occurs when one or more predictor variables are linearly related to each other and will create issues with the regression. The parameter estimates will not be stable and the standard errors will be inflated (making it more difficult to find significant explantory variables). The two most common ways to identify multicollinearity is by looking at the correlation among the predictor variables and calculating the variance inflation factor.</p>
+<p>The variance inflation factor (also referred to as VIF) will take each explanatory variable and model it as a linear regression of the remaining explanatory variables. For example, let’s say we have the following regression equation:<br />
 <span class="math display">\[\widehat{Y}_{i}=b_{0} + b_{1}x_{1}+ b_{2}x_{2}+ b_{3}x_{3}.\]</span>
-There are only 3 explanatory variables in this regression. A VIF will be calculated on each <span class="math inline">\(x_{i}\)</span> in the following manner:\
-1. A regression is fit on each <span class="math inline">\(x_{i}\)</span> with the remaining <span class="math inline">\(x_{i}\)</span>’s as the explanatory variables. For example, to calculate the VIF for <span class="math inline">\(x_{1}\)</span>, we fit the following model:
+There are only 3 explanatory variables in this regression. A VIF will be calculated on each <span class="math inline">\(x_{i}\)</span> in the following manner:</p>
+<ol style="list-style-type: decimal">
+<li>A regression is fit on each <span class="math inline">\(x_{i}\)</span> with the remaining <span class="math inline">\(x_{i}\)</span>’s as the explanatory variables. For example, to calculate the VIF for <span class="math inline">\(x_{1}\)</span>, we fit the following model:<br />
 <span class="math display">\[\widehat{x}_{1}=b_{0} + b_{1}x_{2}+ b_{2}x_{3},\]</span>
-and obtain the <span class="math inline">\(R^2\)</span> value from this model (call it <span class="math inline">\(R_{1}^2\)</span>).\
-2. The VIF for <span class="math inline">\(x_{1}\)</span> is calculated by
+and obtain the <span class="math inline">\(R^2\)</span> value from this model (call it <span class="math inline">\(R_{1}^2\)</span>).<br />
+</li>
+<li>The VIF for <span class="math inline">\(x_{1}\)</span> is calculated by
 <span class="math display">\[VIF=\frac{1}{1-R_{1}^2}.\]</span>
-Repeat this process for each of the other explanatory variables. If a VIF value is larger than 10, then we say that multicollinearity is an issue.</p>
+Repeat this process for each of the other explanatory variables. If a VIF value is larger than 10, then we say that multicollinearity is an issue.</li>
+</ol>
 <p><strong>Example</strong></p>
-<p>We will use the mtcars data set dealing with fuel consumption and automobile design. The data set consists of the following variables:<br />
-A data frame with 32 observations on 11 (numeric) variables.</p>
+<p>We will use the mtcars data set dealing with fuel consumption and automobile design. The data set consists of the following variables:</p>
+<p>A data frame with 32 observations on 11 (numeric) variables.</p>
 <p>mpg: Miles/(US) gallon<br />
 cyl: Number of cylinders<br />
 disp: Displacement (cu.in.)<br />
@@ -780,8 +782,7 @@ wt: Weight (1000 lbs)<br />
 qsec: 1/4 mile time<br />
 vs: Engine (0 = V-shaped, 1 = straight)<br />
 am: Transmission (0 = automatic, 1 = manual)<br />
-gear: Number of forward gears<br />
-</p>
+gear: Number of forward gears</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="diag.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mtcars)</span></code></pre></div>
 <pre><code>##             mpg        cyl       disp         hp        drat         wt
 ## mpg   1.0000000 -0.8521620 -0.8475514 -0.7761684  0.68117191 -0.8676594
@@ -813,10 +814,12 @@ gear: Number of forward gears<br />
 ## 15.373833 21.620241  9.832037  3.374620 15.164887  7.527958  4.965873  4.648487 
 ##      gear      carb 
 ##  5.357452  7.908747</code></pre>
-<p>From the correlation output and VIF output, it is clear to see that multicollinearity is an issue. To deal with multicollinearity, we can do either of the following:
-1. Remove one or more variables that are co-linearly related to another variable(s).<br />
-2. Create new transformed variables (take linear combinations of variables; create ratio of variables, etc).<br />
-</p>
+<p>From the correlation output and VIF output, it is clear that multicollinearity is an issue. To deal with multicollinearity, we can do either of the following:</p>
+<ol style="list-style-type: decimal">
+<li>Remove one or more variables that are co-linearly related to another variable(s).<br />
+</li>
+<li>Create new transformed variables (take linear combinations of variables; create ratio of variables, etc).</li>
+</ol>
 
 </div>
 </div>
