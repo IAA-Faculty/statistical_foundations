@@ -1,6 +1,6 @@
 # Model Selection {#sel}
 
-This section will dive into some basic foundations in model selection, or finding the best model for a data set.  In most data sets, there will most likely be variables that are informative and ones that are uninformative in predicting the response.  With many explanatory variables, it could be extremely time consuming to try all potential models by hand, and the use of automatic procedures can greatly assist in obtaining subsets of variables in which to focus your attention.  \\
+Test.This section will dive into some basic foundations in model selection, or finding the best model for a data set.  In most data sets, there will most likely be variables that are informative and ones that are uninformative in predicting the response.  With many explanatory variables, it could be extremely time consuming to try all potential models by hand, and the use of automatic procedures can greatly assist in obtaining subsets of variables in which to focus your attention.  \\
 
 This Chapter aims to answer the following questions:
 </ul>
