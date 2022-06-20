@@ -294,7 +294,7 @@ back.model3 <- step(full.model,
 ### Stepwise {.unnumbered}
 
 
-Stepwise selection is a combination of both of these methods.  We will start with the "base model" as the empty model (i.e. just the intercept) and will add variables (as in forward selection).  However, as we add new variables, we will also check that the variables in the model are still contributing (in other words, we check to see if the model would be better if we drop one of the variables in the model. Keep in mind that this algorithm is similar to forward selection and backward elimination in that only one variable may either enter or be removed at each step.  The algorithm stops when no more variables can be added to nor taken away from the model (in other words, the current "base model" is better than adding any single variable or taking away any single variable).  The addition and removal of variables is again based upon the criteria specified. See the algorithm below:   
+Stepwise selection is a combination of both of these methods.  In this algorithm, we start with the "base model" as the empty model (i.e. just the intercept) and will add variables (as in forward selection).  However, as we add new variables, we will also check that the variables in the model are still contributing (in other words, after a new variable is added, we check to see if the model would be better if we drop one of the other variables in the model). Keep in mind that this algorithm is similar to forward selection and backward elimination in that only one variable may either enter or be removed at each step.  The algorithm stops when no more variables can be added to nor taken away from the model (in other words, the current "base model" is better than adding any single addition of one variable or any single extraction of one variable).  The addition and removal of variables is again based upon the criteria specified. See the algorithm below:   
 
 0. Start with empty model with only the intercept in it, this is the base model and calculate the criterion on this model\
     1.  For each variable not in model, create a linear regression model with the base model plus this variable; create additional models with the base model taking away one variable at a time \
@@ -305,7 +305,7 @@ Stepwise selection is a combination of both of these methods.  We will start wit
     4.  The base model is now the best model selected in step 3.  Using this as your new base model, go back to step 1 and continue.\
 
 
-To do stepwise selection in R, you will use the step function.  The "empty model" should be used as your initial model.  For the scope of the model, you need to put the "smallest model" (just the intercept) to the "largest model" (full model).  The direction is both.  The penalty (which indicates the criteria) can be controlled by defining "k".  As discussed before, a value of 2 will use the AIC criterion, a value of $log(n)$ will produce the BIC penalty, and finally the upper $\alpha$-quantile of a $\chi^{2}$ distribution with one degree of freedom will use p-value for its removal of variables.  
+To do stepwise selection in R, you will use the step function.  The "empty model" should be used as your initial model.  For the scope of the model, you need to put the "smallest model" (just the intercept) to the "largest model" (full model).  The direction is both.  The penalty (which indicates the criteria) can be controlled by defining "$k$".  As discussed before, a value of 2 will use the AIC criterion, a value of $log(n)$ will produce the BIC penalty, and finally the upper $\alpha$-quantile of a $\chi^{2}$ distribution with one degree of freedom will use p-value for its removal of variables.  
 
 
 ```{r stepwise, prompt=FALSE, eval=FALSE}
@@ -435,7 +435,7 @@ As you can see from the above stepwise procedures of forward, backward and stepw
 
 ## Significance Levels
 
-If you are going to use the "p-value" method, you need to be aware of some considerations due to sample size.  The larger the sample size, the smaller the p-values will be and the more likely it is that you will end up seeing many "significant" p-values due to the relationship between p-values (not necessarily because that variable was informative).  The paper by Raftery on the Moodle page sums up the problem nicely and provides at least some guidance in terms of potential alpha-levels to use for different sample sizes.  A summary of the table is provided below.
+If you are going to use the "p-value" method, you need to be aware of some considerations due to sample size.  The larger the sample size, the smaller the p-values will be and the more likely it is that you will end up seeing many "significant" p-values due to the relationship between p-values and sample size (not necessarily because that variable was informative).  The paper by Raftery on the Moodle page sums up the problem nicely and provides at least some guidance in terms of potential alpha-levels to use for different sample sizes.  A summary of the table is provided below.
 
 |Evidence   |30   | 50   |100   |  1000  |
 | :-------  |----:| ----:|----: |-------:|
