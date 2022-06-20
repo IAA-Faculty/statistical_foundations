@@ -186,7 +186,7 @@ ggplot(temp,aes(x=x,y=y,color = "blue")) +
 
 ```
  
-Notice how the variability increases as the predicted values increase (the bands get wider).  This is referred to as heteroskedasticity in the variance, which violates the constant variance assumption (homoskedasticity).  The homoskedastic assumption is about the regression line, so it is best to look at the plot of residuals versus predicted values (not individual x-values).  There are a few tests for this assumption, but have a number of problems with them.  Best way to evaluate this assumption is by visualizing the residual plot and make a judgement call.  If the variance appears to be heteroskadastic, any inferences under the traditional assumptions will be incorrect.  In other words, hypothesis tests and confidence intervals based on the t, F, and $\chi^{2}$ distributions will not be valid.
+Notice how the variability increases as the predicted values increase (the bands get wider).  This is referred to as heteroskedasticity in the variance, which violates the constant variance assumption (homoskedasticity).  The homoskedastic assumption is about the regression line, so it is best to look at the plot of residuals versus predicted values (not individual x-values).  There are a few tests for this assumption, but they are limited in what they are able to test.  Best way to evaluate this assumption is by visualizing the residual plot and make a judgement call.  If the variance appears to be heteroskadastic, any inferences under the traditional assumptions will be incorrect.  In other words, hypothesis tests and confidence intervals based on the t, F, and $\chi^{2}$ distributions will not be valid.
 
 **Example**
 
@@ -245,13 +245,14 @@ grid.arrange(h,q,ncol=2)
 
 **Formal Hypothesis tests**
 
-You can also run a formal hypothesis test.  The hypotheses are \ $H_{0}:$ Residuals are normally distributed\
-$H_{A}:$ Residuals are not normally distributed.\
+You can also run a formal hypothesis test.  The hypotheses are  
+$H_{0}:$ Residuals are normally distributed  
+$H_{A}:$ Residuals are not normally distributed.  
 
 There are MANY different tests for normality.  Only two will be covered here.
 
-1. Anderson-Darling is based on the empirical cumulative distribution function of the data and gives more weight to the tails.  \
-2. Shapiro-Wilk test uses the idea of correlation between the sample data and normal scores.  The Shapiro-Wilk is better for smaller data sets. \
+1. Anderson-Darling is based on the empirical cumulative distribution function of the data and gives more weight to the tails.   
+2. Shapiro-Wilk test uses the idea of correlation between the sample data and normal scores.  The Shapiro-Wilk is better for smaller data sets.  
 
 
 With large samples, you will most likely end up rejecting these hypothesis tests (using corrected significance levels is recommended).  Keep in mind that you can also get different result from different tests.  It is up to you to make the decision on whether or not you are comfortable in the assumption for normality holding in different situations.
@@ -271,14 +272,13 @@ Using a simulated data set (so the "TRUE" distribution is actually normal indica
 
 If the residuals are not normally distributed, one solution is to transform them to normality.  However, the exact transformation might be difficult to identify.  George Box and Sir David Cox developed an algorithm back in the 1960's to assist in identifying "power" transformations to make a variable normally distributed (think..."what power should I raise this variable to?").  Their algorithm tries out different values of $\lambda$ or powers of the response variable in the following way:\
 
-$$ 
-y = \begin{array}
+ 
+$$y = \begin{array}
 {rr}
 \frac{y^{\lambda}-1}{\lambda} & if \lambda \ne 0  \\
 log(y) & if \lambda = 0 
-\end{array}
+\end{array}$$   
 
-$$
 **Example**
 
 Using the residuls from the originally salary data, we can take a look at the box-cox transformation.
@@ -303,15 +303,15 @@ Another important assumption is that the observations are independent.  There ar
 1. Experimental design or collection of data\
 2. Explore residual plots\
 
-Depending on how the data was collected or the experimental design, there could be potential correlation in the observations.  For example, if the data collected information on multiple family members (included husband and wife and kids).  Or if multiple observations were collected on the same subject.  There are various models that exists that can account for this dependence (longitudinal analysis, hierarchical models, etc).  However, this type of analysis will be covered later throughout the year.  There is no diagnostic measures to indicate this correlation structure.  Your best way of knowing it is there is to know the experimental design or collection of data.\  
-We will focus our attention on a form of dependence that is evident from residual plots, which is autocorrelation.  This happens when ordered observations are dependent on prior observations.  One of the most common instances of this correlation structure is through data that is collected over time, also referred to as time series.  You will learn more about time series data in the Fall semester, but for now, let's explore how recognize if it is an issue in the analysis.  To diagnose autocorrelation in data, you can \
+Depending on how the data was collected or the experimental design, there could be potential correlation in the observations.  For example, if the data collected information on multiple family members (include husband and wife and kids).  Or if multiple observations were collected on the same subject.  There are various models that exists that can account for this dependence (longitudinal analysis, hierarchical models, etc).  However, this type of analysis will be covered later throughout the year.  There is no diagnostic measures to indicate this correlation structure.  Your best way of knowing it is there is to know the experimental design or collection of data.\  
+We will focus our attention on a form of dependence that is evident from the residual plots, which is autocorrelation.  This happens when ordered observations are dependent on prior observations.  One of the most common instances of this correlation structure is through data that is collected over time, also referred to as time series.  You will learn more about time series data in the Fall semester, but for now, let's explore how to recognize if it is an issue in the analysis.  To diagnose autocorrelation in data, you can \
 
-1. Visually inspect the plot of residuals by time\
+1. Visually inspect the plot of residuals by time (see a pattern over time...usually cyclical)\
 2. Conduct a Durbin-Watson test\
 
-In visually inspecting a plot of residuals across time, you would expect to see a type of cyclical pattern if autocorrelation exists as it does in Figure \ref@(fig:autoplot).
+In visually inspecting a plot of residuals across time, you would expect to see a type of cyclical pattern if autocorrelation exists as it does in Figure \@ref(fig:autoplot).
 
-```{r  fig=T, fig.align='center',fig.cap = 'Residuals vs Time: Autocorrelation Present',label='autoplot', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
+```{r autoplot, fig=T, fig.align='center',fig.cap = 'Residuals vs Time: Autocorrelation Present',label='autoplot', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
 
 
 set.seed(49205)
@@ -330,7 +330,7 @@ $H_{A}:$ Residual Correlation\
 The Durbin-Watson test statistic is calculated by 
 
 $$ d=\frac{\sum_{t=2}^T(e_{t}-e_{t-1})^2}{\sum_{t=1}^T e_{t}^2}$$
-where e represents the error terms, or residuals.  The statistic *d* ranges from 0 to 4, with a value of 2 indicating no residual correlation. Values of *d* smaller than 2 may indicate a positive autocorrelation and a value of *d* larger than 2 may indicate a negative autocorrelation.  However, the question becomes when is it "significantly different" than 2?  Unless there is good reason to assume a negative autocorrelation, testing for positive autocorrelation would be the preferred test.  The Durbin-Watson test is in the lmtest package of R. If you want to test for positive autocorrelation, you will need to specify the alternative of "greater" (even though the test statistic is testing for a value LESS than 2!!).\
+where $e$ represents the error terms, or residuals.  The statistic *d* ranges from 0 to 4, with a value of 2 indicating no residual correlation. Values of *d* smaller than 2 may indicate a positive autocorrelation and a value of *d* larger than 2 may indicate a negative autocorrelation.  However, the question becomes when is it "significantly different" than 2?  Unless there is good reason to assume a negative autocorrelation, testing for positive autocorrelation would be the preferred test.  The Durbin-Watson test is in the lmtest package of R. If you want to test for positive autocorrelation, you will need to specify the alternative of "greater" (even though the test statistic is testing for a value LESS than 2!!).\
 
 **Example**
 The following data set illustrates this test using the Google data set in the TSA package (returns of Google stock from 08/20/04 - 09/13/06).

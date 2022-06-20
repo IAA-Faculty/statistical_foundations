@@ -527,7 +527,7 @@ Figure 5.8: Residual Plot Showing Non-Constant Variance
 Figure 5.9: Residual Plot Showing Non-Constant Variance
 </p>
 </div>
-<p>Notice how the variability increases as the predicted values increase (the bands get wider). This is referred to as heteroskedasticity in the variance, which violates the constant variance assumption (homoskedasticity). The homoskedastic assumption is about the regression line, so it is best to look at the plot of residuals versus predicted values (not individual x-values). There are a few tests for this assumption, but have a number of problems with them. Best way to evaluate this assumption is by visualizing the residual plot and make a judgement call. If the variance appears to be heteroskadastic, any inferences under the traditional assumptions will be incorrect. In other words, hypothesis tests and confidence intervals based on the t, F, and <span class="math inline">\(\chi^{2}\)</span> distributions will not be valid.</p>
+<p>Notice how the variability increases as the predicted values increase (the bands get wider). This is referred to as heteroskedasticity in the variance, which violates the constant variance assumption (homoskedasticity). The homoskedastic assumption is about the regression line, so it is best to look at the plot of residuals versus predicted values (not individual x-values). There are a few tests for this assumption, but they are limited in what they are able to test. Best way to evaluate this assumption is by visualizing the residual plot and make a judgement call. If the variance appears to be heteroskadastic, any inferences under the traditional assumptions will be incorrect. In other words, hypothesis tests and confidence intervals based on the t, F, and <span class="math inline">\(\chi^{2}\)</span> distributions will not be valid.</p>
 <p><strong>Example</strong></p>
 <p>The following fictious salary data set is from the online textbook <a href="https://daviddalpiaz.github.io/appliedstats/index.html"><em>Applied Statistics with R</em></a>. The explanatory variable is number of years employment and the response variable is annual salary.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="diag.html#cb12-1" aria-hidden="true" tabindex="-1"></a>years<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">11</span>,<span class="dv">11</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="dv">13</span>,<span class="dv">13</span>,<span class="dv">13</span>,<span class="dv">13</span>,<span class="dv">14</span>,<span class="dv">14</span>,<span class="dv">14</span>,<span class="dv">14</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">18</span>,<span class="dv">18</span>,<span class="dv">18</span>,<span class="dv">18</span>,<span class="dv">19</span>,<span class="dv">19</span>,<span class="dv">19</span>,<span class="dv">19</span>,<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">21</span>,<span class="dv">21</span>,<span class="dv">21</span>,<span class="dv">21</span>,<span class="dv">22</span>,<span class="dv">22</span>,<span class="dv">22</span>,<span class="dv">22</span>,<span class="dv">23</span>,<span class="dv">23</span>,<span class="dv">23</span>,<span class="dv">23</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">25</span>,<span class="dv">25</span>,<span class="dv">25</span>)</span>
@@ -569,15 +569,14 @@ Figure 5.12: Histogram and Q-Q Plot of Residuals
 </p>
 </div>
 <p><strong>Formal Hypothesis tests</strong></p>
-<p>You can also run a formal hypothesis test. The hypotheses are  <span class="math inline">\(H_{0}:\)</span> Residuals are normally distributed<br />
-<span class="math inline">\(H_{A}:\)</span> Residuals are not normally distributed.<br />
-</p>
+<p>You can also run a formal hypothesis test. The hypotheses are<br />
+<span class="math inline">\(H_{0}:\)</span> Residuals are normally distributed<br />
+<span class="math inline">\(H_{A}:\)</span> Residuals are not normally distributed.</p>
 <p>There are MANY different tests for normality. Only two will be covered here.</p>
 <ol style="list-style-type: decimal">
 <li>Anderson-Darling is based on the empirical cumulative distribution function of the data and gives more weight to the tails.<br />
 </li>
-<li>Shapiro-Wilk test uses the idea of correlation between the sample data and normal scores. The Shapiro-Wilk is better for smaller data sets.<br />
-</li>
+<li>Shapiro-Wilk test uses the idea of correlation between the sample data and normal scores. The Shapiro-Wilk is better for smaller data sets.</li>
 </ol>
 <p>With large samples, you will most likely end up rejecting these hypothesis tests (using corrected significance levels is recommended). Keep in mind that you can also get different result from different tests. It is up to you to make the decision on whether or not you are comfortable in the assumption for normality holding in different situations.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="diag.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">55402</span>)</span>
@@ -598,15 +597,12 @@ Figure 5.12: Histogram and Q-Q Plot of Residuals
 <p><strong>Box-cox Transformation</strong></p>
 <p>If the residuals are not normally distributed, one solution is to transform them to normality. However, the exact transformation might be difficult to identify. George Box and Sir David Cox developed an algorithm back in the 1960’s to assist in identifying “power” transformations to make a variable normally distributed (think…“what power should I raise this variable to?”). Their algorithm tries out different values of <span class="math inline">\(\lambda\)</span> or powers of the response variable in the following way:<br />
 </p>
-$$
-y =
-<span class="math display">\[\begin{array}
+<p><span class="math display">\[y = \begin{array}
 {rr}
 \frac{y^{\lambda}-1}{\lambda} &amp; if \lambda \ne 0  \\
 log(y) &amp; if \lambda = 0
-\end{array}\]</span>
-<p>$$
-<strong>Example</strong></p>
+\end{array}\]</span></p>
+<p><strong>Example</strong></p>
 <p>Using the residuls from the originally salary data, we can take a look at the box-cox transformation.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="diag.html#cb17-1" aria-hidden="true" tabindex="-1"></a>lm.var<span class="ot">=</span><span class="fu">lm</span>(salary<span class="sc">~</span>years)</span>
 <span id="cb17-2"><a href="diag.html#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -628,16 +624,16 @@ The output from the graph clearly incates that <span class="math inline">\(\lamb
 <li>Explore residual plots<br />
 </li>
 </ol>
-<p>Depending on how the data was collected or the experimental design, there could be potential correlation in the observations. For example, if the data collected information on multiple family members (included husband and wife and kids). Or if multiple observations were collected on the same subject. There are various models that exists that can account for this dependence (longitudinal analysis, hierarchical models, etc). However, this type of analysis will be covered later throughout the year. There is no diagnostic measures to indicate this correlation structure. Your best way of knowing it is there is to know the experimental design or collection of data. 
-We will focus our attention on a form of dependence that is evident from residual plots, which is autocorrelation. This happens when ordered observations are dependent on prior observations. One of the most common instances of this correlation structure is through data that is collected over time, also referred to as time series. You will learn more about time series data in the Fall semester, but for now, let’s explore how recognize if it is an issue in the analysis. To diagnose autocorrelation in data, you can<br />
+<p>Depending on how the data was collected or the experimental design, there could be potential correlation in the observations. For example, if the data collected information on multiple family members (include husband and wife and kids). Or if multiple observations were collected on the same subject. There are various models that exists that can account for this dependence (longitudinal analysis, hierarchical models, etc). However, this type of analysis will be covered later throughout the year. There is no diagnostic measures to indicate this correlation structure. Your best way of knowing it is there is to know the experimental design or collection of data. 
+We will focus our attention on a form of dependence that is evident from the residual plots, which is autocorrelation. This happens when ordered observations are dependent on prior observations. One of the most common instances of this correlation structure is through data that is collected over time, also referred to as time series. You will learn more about time series data in the Fall semester, but for now, let’s explore how to recognize if it is an issue in the analysis. To diagnose autocorrelation in data, you can<br />
 </p>
 <ol style="list-style-type: decimal">
-<li>Visually inspect the plot of residuals by time<br />
+<li>Visually inspect the plot of residuals by time (see a pattern over time…usually cyclical)<br />
 </li>
 <li>Conduct a Durbin-Watson test<br />
 </li>
 </ol>
-<p>In visually inspecting a plot of residuals across time, you would expect to see a type of cyclical pattern if autocorrelation exists as it does in Figure (fig:autoplot).</p>
+<p>In visually inspecting a plot of residuals across time, you would expect to see a type of cyclical pattern if autocorrelation exists as it does in Figure <a href="diag.html#fig:autoplot">5.13</a>.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="diag.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">49205</span>)</span>
 <span id="cb18-2"><a href="diag.html#cb18-2" aria-hidden="true" tabindex="-1"></a>error1<span class="ot">=</span><span class="fu">rnorm</span>(<span class="dv">50</span>)</span>
 <span id="cb18-3"><a href="diag.html#cb18-3" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">50</span>)</span>
@@ -656,7 +652,7 @@ Figure 5.13: Residuals vs Time: Autocorrelation Present
 </p>
 <p>The Durbin-Watson test statistic is calculated by</p>
 <p><span class="math display">\[ d=\frac{\sum_{t=2}^T(e_{t}-e_{t-1})^2}{\sum_{t=1}^T e_{t}^2}\]</span>
-where e represents the error terms, or residuals. The statistic <em>d</em> ranges from 0 to 4, with a value of 2 indicating no residual correlation. Values of <em>d</em> smaller than 2 may indicate a positive autocorrelation and a value of <em>d</em> larger than 2 may indicate a negative autocorrelation. However, the question becomes when is it “significantly different” than 2? Unless there is good reason to assume a negative autocorrelation, testing for positive autocorrelation would be the preferred test. The Durbin-Watson test is in the lmtest package of R. If you want to test for positive autocorrelation, you will need to specify the alternative of “greater” (even though the test statistic is testing for a value LESS than 2!!).<br />
+where <span class="math inline">\(e\)</span> represents the error terms, or residuals. The statistic <em>d</em> ranges from 0 to 4, with a value of 2 indicating no residual correlation. Values of <em>d</em> smaller than 2 may indicate a positive autocorrelation and a value of <em>d</em> larger than 2 may indicate a negative autocorrelation. However, the question becomes when is it “significantly different” than 2? Unless there is good reason to assume a negative autocorrelation, testing for positive autocorrelation would be the preferred test. The Durbin-Watson test is in the lmtest package of R. If you want to test for positive autocorrelation, you will need to specify the alternative of “greater” (even though the test statistic is testing for a value LESS than 2!!).<br />
 </p>
 <p><strong>Example</strong>
 The following data set illustrates this test using the Google data set in the TSA package (returns of Google stock from 08/20/04 - 09/13/06).</p>
