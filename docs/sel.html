@@ -50,13 +50,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -307,7 +300,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="sel" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Model Selection<a href="sel.html#sel" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This section will dive into some basic foundations in model selection, or finding the best model for a data set. In most data sets, there will most likely be variables that are informative and ones that are uninformative in predicting the response. With many explanatory variables, it could be extremely time consuming to try all potential models by hand, and the use of automatic procedures can greatly assist in obtaining subsets of variables in which to focus your attention.</p>
+<p>This section will dive into some basic foundations in model selection, or finding the best model for a data set. In most data sets, there will most likely be variables that are informative and ones that are uninformative in predicting the response. With many explanatory variables, it could be extremely time consuming to try all potential models by hand, and the use of automatic procedures can greatly assist in obtaining subsets of variables in which to focus your attention. \</p>
+This Chapter aims to answer the following questions:
+</ul>
+<li>
+What are the different selection criteria that can be used in model selection?
+</ul>
+<li>
+How to perform a stepwise search algorithm.
+<ul>
+<li>
+Forward Selection
+<li>
+Backward Elimination
+<li>
+Stepwise Selection
+</ul>
+<li>
+Considerations when looking at p-values.
+<ul>
 <p>CAUTION: you should NEVER just use the final model created from an automatic procedure! <em>Always</em> explore your data (both automatically selected <em>and</em> excluded variables), and use domain knowledge, diagnostics, and critical thought to decide on your final model.</p>
 <p>We will focus on two techniques for automatic variable selection: stepwise procedures and LASSO. Within the stepwise procedures, we will discuss forward, backward and stepwise searches using several different selection criteria. We will end this section discussing important considerations in use of p-values when dealing with large data sets.</p>
 <div id="selection-criteria" class="section level2 hasAnchor" number="4.1">
@@ -343,15 +354,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol></li>
 </ol>
 <p>To do forward selection in R, you will use the step function. The “empty model” should be used as your initial model (which is just the intercept). For the scope of the model, you need to put the “smallest model” (just the intercept) to the “largest model” (full model). The direction is forward. The penalty can be controlled by defining “k”. Using a value of 2 for “k” will use the AIC criterion (remember AIC penalty was <span class="math inline">\(2p\)</span>) and using <span class="math inline">\(log(n)\)</span> for “k” will use the BIC criterion (remember BIC penalty was plog(n)). If you do not specify anything for “k”, the default is AIC. You can also define “k” as the upper <span class="math inline">\(\alpha\)</span>-quantile of a <span class="math inline">\(\chi^{2}\)</span> distribution with one degree of freedom, which will use p-value for its selection of variables. In this case, the best “model” is the one with the lowest p-value for the new variable. In order to enter the model, the p-value of this variable will need to be lower than the “cut-off” for the p-values (<span class="math inline">\(\alpha\)</span>), which means that the criterion to enter the model would be that the variable has a p-value smaller than <span class="math inline">\(\alpha\)</span>.</p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="sel.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create full model and empty model</span></span>
-<span id="cb160-2"><a href="sel.html#cb160-2" aria-hidden="true" tabindex="-1"></a>full.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> . , <span class="at">data =</span> train_sel)</span>
-<span id="cb160-3"><a href="sel.html#cb160-3" aria-hidden="true" tabindex="-1"></a>empty.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> train_sel)</span>
-<span id="cb160-4"><a href="sel.html#cb160-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb160-5"><a href="sel.html#cb160-5" aria-hidden="true" tabindex="-1"></a><span class="co"># k = 2 for AIC selection</span></span>
-<span id="cb160-6"><a href="sel.html#cb160-6" aria-hidden="true" tabindex="-1"></a>for.model <span class="ot">&lt;-</span> <span class="fu">step</span>(empty.model,</span>
-<span id="cb160-7"><a href="sel.html#cb160-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
-<span id="cb160-8"><a href="sel.html#cb160-8" aria-hidden="true" tabindex="-1"></a>                               <span class="at">upper =</span> full.model),</span>
-<span id="cb160-9"><a href="sel.html#cb160-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="at">k =</span> <span class="dv">2</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="sel.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create full model and empty model</span></span>
+<span id="cb1-2"><a href="sel.html#cb1-2" aria-hidden="true" tabindex="-1"></a>full.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> . , <span class="at">data =</span> train_sel)</span>
+<span id="cb1-3"><a href="sel.html#cb1-3" aria-hidden="true" tabindex="-1"></a>empty.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> train_sel)</span>
+<span id="cb1-4"><a href="sel.html#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="sel.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># k = 2 for AIC selection</span></span>
+<span id="cb1-6"><a href="sel.html#cb1-6" aria-hidden="true" tabindex="-1"></a>for.model <span class="ot">&lt;-</span> <span class="fu">step</span>(empty.model,</span>
+<span id="cb1-7"><a href="sel.html#cb1-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
+<span id="cb1-8"><a href="sel.html#cb1-8" aria-hidden="true" tabindex="-1"></a>                               <span class="at">upper =</span> full.model),</span>
+<span id="cb1-9"><a href="sel.html#cb1-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="at">k =</span> <span class="dv">2</span>) </span></code></pre></div>
 <p>Below is edited output with comments to lead you through the forward selection. Notice that the above code has k=2, which means we are using AIC as our selection criterion. The first information R provides is for the initial model, which is <span class="math display">\[Y_{i}=\beta_{0} + \varepsilon_{i}.\]</span> The “empty model” has an AIC of 46,323.64 (in order for ANY variable to be added, that model must be better, or in other words have a smaller AIC than this initial model).</p>
 <pre><code>Start:  AIC=46323.64
 Sale_Price ~ 1</code></pre>
@@ -641,16 +652,16 @@ Sale_Price ~ Overall_Qual + Gr_Liv_Area + House_Style + Garage_Area + Bldg_Type 
 <p>Notice that the previous step had a model with the intercept, Overall_Qual, Gr_Liv_Area, House_Style, Garage_Area,
 Bldg_Type, Fireplaces, Full_Bath, Half_Bath, Lot_Area, Roof_Style, Central_Air, Second_Flr_SF, TotRms_AbvGrd, and First_Flr_SF (as illustrated by the above formula). The AIC for this model is 42676.1. There is only one variable left that could be added (Street). However, when we add street to the model, the AIC now becomes 42677 (in other words AIC increases, which is a worse model). The algorithm stops here.</p>
 <p>The code below illustrates how to do forward selection with BIC and p-values. In the output from R, it still says “AIC”, but now these values are calculated by using the BIC formula or the corresponding “k” values for p-values (take a look at the values R has for the “AIC” column and you will see that it has changed!).</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="sel.html#cb165-1" aria-hidden="true" tabindex="-1"></a><span class="co"># k = log(n) for BIC selection</span></span>
-<span id="cb165-2"><a href="sel.html#cb165-2" aria-hidden="true" tabindex="-1"></a>for.model2 <span class="ot">&lt;-</span> <span class="fu">step</span>(empty.model,</span>
-<span id="cb165-3"><a href="sel.html#cb165-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
-<span id="cb165-4"><a href="sel.html#cb165-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">upper =</span> full.model),</span>
-<span id="cb165-5"><a href="sel.html#cb165-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="at">k =</span> <span class="fu">log</span>(<span class="fu">nrow</span>(train_sel))) <span class="co"># k = qchisq(alpha, 1, lower.tail = FALSE) for p-value with alpha selection</span></span>
-<span id="cb165-6"><a href="sel.html#cb165-6" aria-hidden="true" tabindex="-1"></a>alpha.f<span class="ot">=</span><span class="fl">0.05</span></span>
-<span id="cb165-7"><a href="sel.html#cb165-7" aria-hidden="true" tabindex="-1"></a>for.model3 <span class="ot">&lt;-</span> <span class="fu">step</span>(empty.model,</span>
-<span id="cb165-8"><a href="sel.html#cb165-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
-<span id="cb165-9"><a href="sel.html#cb165-9" aria-hidden="true" tabindex="-1"></a>                                <span class="at">upper =</span> full.model),</span>
-<span id="cb165-10"><a href="sel.html#cb165-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="at">k =</span> <span class="fu">qchisq</span>(alpha.f, <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="sel.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># k = log(n) for BIC selection</span></span>
+<span id="cb6-2"><a href="sel.html#cb6-2" aria-hidden="true" tabindex="-1"></a>for.model2 <span class="ot">&lt;-</span> <span class="fu">step</span>(empty.model,</span>
+<span id="cb6-3"><a href="sel.html#cb6-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
+<span id="cb6-4"><a href="sel.html#cb6-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">upper =</span> full.model),</span>
+<span id="cb6-5"><a href="sel.html#cb6-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="at">k =</span> <span class="fu">log</span>(<span class="fu">nrow</span>(train_sel))) <span class="co"># k = qchisq(alpha, 1, lower.tail = FALSE) for p-value with alpha selection</span></span>
+<span id="cb6-6"><a href="sel.html#cb6-6" aria-hidden="true" tabindex="-1"></a>alpha.f<span class="ot">=</span><span class="fl">0.05</span></span>
+<span id="cb6-7"><a href="sel.html#cb6-7" aria-hidden="true" tabindex="-1"></a>for.model3 <span class="ot">&lt;-</span> <span class="fu">step</span>(empty.model,</span>
+<span id="cb6-8"><a href="sel.html#cb6-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
+<span id="cb6-9"><a href="sel.html#cb6-9" aria-hidden="true" tabindex="-1"></a>                                <span class="at">upper =</span> full.model),</span>
+<span id="cb6-10"><a href="sel.html#cb6-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="at">k =</span> <span class="fu">qchisq</span>(alpha.f, <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)) </span></code></pre></div>
 </div>
 <div id="backward" class="section level3 unnumbered hasAnchor">
 <h3>Backward<a href="sel.html#backward" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -674,15 +685,15 @@ Bldg_Type, Fireplaces, Full_Bath, Half_Bath, Lot_Area, Roof_Style, Central_Air, 
 </ol></li>
 </ol>
 <p>To do backward elimination in R, you will use the step function. The “full model” should be used as your initial model (which is the model with all the predictor variables in it). For the scope of the model, you need to put the “smallest model” (just the intercept) to the “largest model” (full model). The direction is backward. The penalty (which indicates the criteria) can be controlled by defining “k”. As discussed before, a value of 2 will use the AIC criterion, a value of <span class="math inline">\(log(n)\)</span> will produce the BIC penalty, and finally the upper <span class="math inline">\(\alpha\)</span>-quantile of a <span class="math inline">\(\chi^{2}\)</span> distribution with one degree of freedom will use p-value for its removal of variables.</p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="sel.html#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create full model and empty model</span></span>
-<span id="cb166-2"><a href="sel.html#cb166-2" aria-hidden="true" tabindex="-1"></a>full.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> . , <span class="at">data =</span> train_sel)</span>
-<span id="cb166-3"><a href="sel.html#cb166-3" aria-hidden="true" tabindex="-1"></a>empty.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> train_sel)</span>
-<span id="cb166-4"><a href="sel.html#cb166-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb166-5"><a href="sel.html#cb166-5" aria-hidden="true" tabindex="-1"></a><span class="co"># k = 2 for AIC selection</span></span>
-<span id="cb166-6"><a href="sel.html#cb166-6" aria-hidden="true" tabindex="-1"></a>back.model <span class="ot">&lt;-</span> <span class="fu">step</span>(full.model,</span>
-<span id="cb166-7"><a href="sel.html#cb166-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
-<span id="cb166-8"><a href="sel.html#cb166-8" aria-hidden="true" tabindex="-1"></a>                               <span class="at">upper =</span> full.model),</span>
-<span id="cb166-9"><a href="sel.html#cb166-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="at">k =</span> <span class="dv">2</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="sel.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create full model and empty model</span></span>
+<span id="cb7-2"><a href="sel.html#cb7-2" aria-hidden="true" tabindex="-1"></a>full.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> . , <span class="at">data =</span> train_sel)</span>
+<span id="cb7-3"><a href="sel.html#cb7-3" aria-hidden="true" tabindex="-1"></a>empty.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> train_sel)</span>
+<span id="cb7-4"><a href="sel.html#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="sel.html#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># k = 2 for AIC selection</span></span>
+<span id="cb7-6"><a href="sel.html#cb7-6" aria-hidden="true" tabindex="-1"></a>back.model <span class="ot">&lt;-</span> <span class="fu">step</span>(full.model,</span>
+<span id="cb7-7"><a href="sel.html#cb7-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
+<span id="cb7-8"><a href="sel.html#cb7-8" aria-hidden="true" tabindex="-1"></a>                               <span class="at">upper =</span> full.model),</span>
+<span id="cb7-9"><a href="sel.html#cb7-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="at">k =</span> <span class="dv">2</span>) </span></code></pre></div>
 <p>Below is edited output with comments to lead you through the backward elimination. Notice that the above code has k=2, which means we are using AIC as our selection criterion. The first information R provides is for the initial model, which is <span class="math display">\[Y_{i}=\beta_{0} + \beta_{1}x_{i,1}+\beta_{2}x_{i,2}+\beta_{3}x_{i,3}+\beta_{4}x_{i,4}+\beta_{5}x_{i,5}+\beta_{6}x_{i,6}+\beta_{i,7}x_{7}+\beta_{8}x_{i,8}+\beta_{9}x_{i,9}+\beta_{10}x_{i,10}+\beta_{11}x_{i,11}+\beta_{12}x_{i,12}+\beta_{13}x_{i,13}+\beta_{14}x_{i,14}+\beta_{15}x_{i,15}+\varepsilon_{i}.\]</span> The “full model” has an AIC of 42,677.12 (in order for ANY variable to be removed, that model must be better, or in other words have a smaller AIC than this initial model).</p>
 <p>R then displays linear regression models with one variable removed and their corresponding AIC values. For example, if we remove Street (just that one variable), the AIC of that model will be 42675. Notice that R put the information in ascending AIC values (so, best linear regression is at the top with an AIC value of 42,675 which is indeed smaller than 42,677.12, so Street will be removed). You will also see a line with <none>. This is the “base model”, or in this case the full model.</p>
 <table>
@@ -928,16 +939,16 @@ Sale_Price ~ Lot_Area + Bldg_Type + House_Style + Overall_Qual +
     Roof_Style + Central_Air + First_Flr_SF + Second_Flr_SF + 
     Full_Bath + Half_Bath + Fireplaces + Garage_Area + TotRms_AbvGrd</code></pre>
 <p>The code below illustrates how to do backward elimination with BIC and p-values.</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="sel.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="co"># k = log(n) for BIC selection</span></span>
-<span id="cb168-2"><a href="sel.html#cb168-2" aria-hidden="true" tabindex="-1"></a>back.model2 <span class="ot">&lt;-</span> <span class="fu">step</span>(full.model,</span>
-<span id="cb168-3"><a href="sel.html#cb168-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
-<span id="cb168-4"><a href="sel.html#cb168-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">upper =</span> full.model),</span>
-<span id="cb168-5"><a href="sel.html#cb168-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="at">k =</span> <span class="fu">log</span>(<span class="fu">nrow</span>(train_sel))) <span class="co"># k = qchisq(alpha, 1, lower.tail = FALSE) for p-value with alpha selection</span></span>
-<span id="cb168-6"><a href="sel.html#cb168-6" aria-hidden="true" tabindex="-1"></a>alpha.f<span class="ot">=</span><span class="fl">0.05</span></span>
-<span id="cb168-7"><a href="sel.html#cb168-7" aria-hidden="true" tabindex="-1"></a>back.model3 <span class="ot">&lt;-</span> <span class="fu">step</span>(full.model,</span>
-<span id="cb168-8"><a href="sel.html#cb168-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
-<span id="cb168-9"><a href="sel.html#cb168-9" aria-hidden="true" tabindex="-1"></a>                                <span class="at">upper =</span> full.model),</span>
-<span id="cb168-10"><a href="sel.html#cb168-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="at">k =</span> <span class="fu">qchisq</span>(alpha.f, <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="sel.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># k = log(n) for BIC selection</span></span>
+<span id="cb9-2"><a href="sel.html#cb9-2" aria-hidden="true" tabindex="-1"></a>back.model2 <span class="ot">&lt;-</span> <span class="fu">step</span>(full.model,</span>
+<span id="cb9-3"><a href="sel.html#cb9-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
+<span id="cb9-4"><a href="sel.html#cb9-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">upper =</span> full.model),</span>
+<span id="cb9-5"><a href="sel.html#cb9-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="at">k =</span> <span class="fu">log</span>(<span class="fu">nrow</span>(train_sel))) <span class="co"># k = qchisq(alpha, 1, lower.tail = FALSE) for p-value with alpha selection</span></span>
+<span id="cb9-6"><a href="sel.html#cb9-6" aria-hidden="true" tabindex="-1"></a>alpha.f<span class="ot">=</span><span class="fl">0.05</span></span>
+<span id="cb9-7"><a href="sel.html#cb9-7" aria-hidden="true" tabindex="-1"></a>back.model3 <span class="ot">&lt;-</span> <span class="fu">step</span>(full.model,</span>
+<span id="cb9-8"><a href="sel.html#cb9-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
+<span id="cb9-9"><a href="sel.html#cb9-9" aria-hidden="true" tabindex="-1"></a>                                <span class="at">upper =</span> full.model),</span>
+<span id="cb9-10"><a href="sel.html#cb9-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="at">k =</span> <span class="fu">qchisq</span>(alpha.f, <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)) </span></code></pre></div>
 </div>
 <div id="stepwise" class="section level3 unnumbered hasAnchor">
 <h3>Stepwise<a href="sel.html#stepwise" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -961,15 +972,15 @@ Sale_Price ~ Lot_Area + Bldg_Type + House_Style + Overall_Qual +
 </ol></li>
 </ol>
 <p>To do stepwise selection in R, you will use the step function. The “empty model” should be used as your initial model. For the scope of the model, you need to put the “smallest model” (just the intercept) to the “largest model” (full model). The direction is both. The penalty (which indicates the criteria) can be controlled by defining “k”. As discussed before, a value of 2 will use the AIC criterion, a value of <span class="math inline">\(log(n)\)</span> will produce the BIC penalty, and finally the upper <span class="math inline">\(\alpha\)</span>-quantile of a <span class="math inline">\(\chi^{2}\)</span> distribution with one degree of freedom will use p-value for its removal of variables.</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="sel.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create full model and empty model</span></span>
-<span id="cb169-2"><a href="sel.html#cb169-2" aria-hidden="true" tabindex="-1"></a>full.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> . , <span class="at">data =</span> train_sel)</span>
-<span id="cb169-3"><a href="sel.html#cb169-3" aria-hidden="true" tabindex="-1"></a>empty.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> train_sel)</span>
-<span id="cb169-4"><a href="sel.html#cb169-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb169-5"><a href="sel.html#cb169-5" aria-hidden="true" tabindex="-1"></a><span class="co"># k = 2 for AIC selection</span></span>
-<span id="cb169-6"><a href="sel.html#cb169-6" aria-hidden="true" tabindex="-1"></a>step.model <span class="ot">&lt;-</span> <span class="fu">step</span>(empty.model,</span>
-<span id="cb169-7"><a href="sel.html#cb169-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
-<span id="cb169-8"><a href="sel.html#cb169-8" aria-hidden="true" tabindex="-1"></a>                               <span class="at">upper =</span> full.model),</span>
-<span id="cb169-9"><a href="sel.html#cb169-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">direction =</span> <span class="st">&quot;both&quot;</span>, <span class="at">k =</span> <span class="dv">2</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="sel.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create full model and empty model</span></span>
+<span id="cb10-2"><a href="sel.html#cb10-2" aria-hidden="true" tabindex="-1"></a>full.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> . , <span class="at">data =</span> train_sel)</span>
+<span id="cb10-3"><a href="sel.html#cb10-3" aria-hidden="true" tabindex="-1"></a>empty.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> train_sel)</span>
+<span id="cb10-4"><a href="sel.html#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="sel.html#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># k = 2 for AIC selection</span></span>
+<span id="cb10-6"><a href="sel.html#cb10-6" aria-hidden="true" tabindex="-1"></a>step.model <span class="ot">&lt;-</span> <span class="fu">step</span>(empty.model,</span>
+<span id="cb10-7"><a href="sel.html#cb10-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
+<span id="cb10-8"><a href="sel.html#cb10-8" aria-hidden="true" tabindex="-1"></a>                               <span class="at">upper =</span> full.model),</span>
+<span id="cb10-9"><a href="sel.html#cb10-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">direction =</span> <span class="st">&quot;both&quot;</span>, <span class="at">k =</span> <span class="dv">2</span>) </span></code></pre></div>
 <p>As you can see, the initial base model is just the intercept (AIC=46,323.64). From this initial model, all simple linear regressions are created and the AIC is observed.</p>
 <pre><code>Start:  AIC=46323.64
 Sale_Price ~ 1</code></pre>
