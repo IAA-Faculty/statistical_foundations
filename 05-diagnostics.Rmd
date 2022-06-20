@@ -2,6 +2,22 @@
 
 In this Chapter, we will take a look at each of the assumptions in a linear model.  We will discuss what tools you will use to assess these assumptions, how to diagnose if the assumptions are met, some common problems often encountered when these assumptions do not hold and finally some remedies to fix these common issues.  You will notice that a variety of data sets are used throughout this Chapter. This is to help visualize and test for various assumptions and how to identify when these assumptions are not met.
 
+<ul>
+This Chapter aims to answer the following questions:
+</ul>
+  <li> How to use residuals from a multiple linear regression model to assess the assumptions.
+</ul>
+  <ul>
+  <li> Does the mean of the response have a linear pattern in the explanatory variables?
+  <li> Do the residuals have a constant variance? 
+  <li> Are the residuals normally distributed? 
+  <li> Are the residuals independent?
+</ul>
+  <li> How to identify potential outliers and influential points.
+</ul> 
+  <li> How to identify potential multicolliearity.
+<ul>
+
 In multiple linear regression, the assumptions are as follows:
 
   1. The mean of the Y's is accurately modeled by a linear function of the X's.\
@@ -10,7 +26,7 @@ In multiple linear regression, the assumptions are as follows:
   4. The errors are independent. \
   5. No perfect collinearity. \
   
-Before starting on investigating the assumptions, it is always good to take a look at your data (if it is not too large).  The `pairs` command in R allows you to look at all scatterplots between the variables in a data set.  
+Before exploring the assumptions of a linear model, it is always good to visually take a look at your data (if it is not too large).  The `pairs` command in R allows you to look at all scatterplots between the variables in a data set.  
   
 To illustrate this, we will use the Salaries data set in the package carData in R that has 397 observations of salaries for professors.  The explanatory variables include:
 
@@ -26,7 +42,16 @@ Using this data set, let's take a look at the relationship between each pair of 
 
 
 ```{r fig=T, label='pairsex', fig.align='center',fig.cap='Matrix of Scatter Plots for the Salaries Data', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
-
+library(carData)
+library(ggplot2)
+library(gridExtra)
+library(grid)
+library(lattice)
+library(nortest)
+library(MASS)
+library(TSA)
+library(lmtest)
+library(car)
 pairs(Salaries)
 
 ```
@@ -91,29 +116,27 @@ However, after looking at the residual plot and noticing the quadratic shape, we
 ```{r fig=T, fig.align='center', fig.cap = 'New Residual Plot after Fitting a Quadratic Term', label='quadexample2', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
 
 lm.quad=lm(strength~amount + I(amount^2))
-##OR
-lm.quad=lm(strength~poly(amount,2))
 
 summary(lm.quad)
 ggplot(lm.quad,aes(x=amount,y=resid(lm.quad)))+geom_point(color="orange",size=2)+labs(title="Residual plot", x="Amount", y="Residuals")
 
 ```
 The second order polynomial model is 
-$$\hat{Y}_{i} = 2.8 + 0.6x_{i}-0.3x^{2}_{i}$$
+$$\hat{Y}_{i} = 2.21 + 0.33x_{i}-0.04x^{2}_{i}$$
 and the residuals from this model are shown in Figure \@ref(fig:quadexample2). If you think there might still be some pattern in Figure \@ref(fig:quadexample2), you could try a third degree polynomial:
 
 
 ```{r fig=T, fig.align='center', fig.cap = 'New Residual Plot after Fitting a Cubic Term', label='quadexample3', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
 
 
-lm.quad=lm(strength~poly(amount,3))
+lm.3=lm(strength~amount+I(amount^2)+I(amount^3))
 
-summary(lm.quad)
-ggplot(lm.quad,aes(x=amount,y=resid(lm.quad)))+geom_point(color="orange",size=2)+labs(x="Amount", y="Residuals")
+summary(lm.3)
+ggplot(lm.3,aes(x=amount,y=resid(lm.3)))+geom_point(color="orange",size=2)+labs(x="Amount", y="Residuals")
 
 ```
 The new regression equation is now
-$$\hat{Y}_{i} = 2.81 + 0.63x_{i}-0.28x^{2}_{i}-0.24x^{3}_{i}.$$
+$$\hat{Y}_{i} = 2.73 - 0.37x_{i}+0.22x^{2}_{i}-0.03x^{3}_{i}.$$
 
 In wrapping up the misspecified model, if a linear model does not look appropriate (there is a pattern in the residual plot), then you can try the following remedies:
 
