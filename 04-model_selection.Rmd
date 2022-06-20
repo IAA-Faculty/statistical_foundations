@@ -1,7 +1,7 @@
 # Model Selection {#sel}
 
-This section will dive into some basic foundations in model selection, or finding the best model for a data set.  In most data sets, there will most likely be variables that are informative and ones that are uninformative in predicting the response.  With many explanatory variables, it could be extremely time consuming to try all potential models by hand, and the use of automatic procedures can greatly assist in obtaining subsets of variables in which to focus your attention.  \\
-
+This section will dive into some basic foundations in model selection, or finding the best model for a data set.  In most data sets, there will most likely be variables that are informative and ones that are uninformative in predicting the response.  With many explanatory variables, it could be extremely time consuming to try all potential models by hand, and the use of automatic procedures can greatly assist in obtaining subsets of variables in which to focus your attention.  
+<ul>
 This Chapter aims to answer the following questions:
 </ul>
   <li> What are the different selection criteria that can be used in model selection? 
@@ -21,13 +21,13 @@ We will focus on two techniques for automatic variable selection: stepwise proce
 
 ## Selection Criteria
 
-When trying to find the best model, there are many selection criteria at our disposal.  For example, you have already been introduced to $R^{2}$ (the larger value of $R^{2}$ the better the model).  However, when comparing multivariate models, the adjusted $R^{2}$ is better due to the fact that $R^{2}$ can potentially increase even when adding noise.  The adjusted $R^{2}$ can be thought of as $R^{2}$ with penalty (for every additional variable added to the model, we add a penalty).  This allows us to weigh the contribution of adding new variables against the added complexity of more variables in the model.  There are other selection criteria that are also used in selecting the "best model" (or variable selection).  As you will notice, these selection criteria also have a penalty to take into account the addition of variables.  We will use two of the most common ones: AIC and BIC (or also referred to as SBC).
+When trying to find the best model, there are many selection criteria at our disposal.  For example, you have already been introduced to $R^{2}$ (the larger the value of $R^{2}$, the better the model).  However, when comparing multivariate models, the adjusted $R^{2}$ is better due to the fact that $R^{2}$ can potentially increase even when adding noise.  The adjusted $R^{2}$ can be thought of as $R^{2}$ with penalty (for every additional variable added to the model, we add a penalty).  This allows us to weigh the contribution of adding new variables against the added complexity of more variables in the model.  There are other selection criteria that are also used in selecting the "best model" (or variable selection).  As you will notice, these selection criteria also have a penalty to take into account the addition of variables.  We will use two of the most common ones: AIC and BIC (can also be referred to as SBC).
 
-The AIC, or __Akaike information criterion__, was developed by statistician Hirotugu Akaike in the 1970's and is defined by 
+The AIC, or __Akaike Information Criterion__, was developed by statistician Hirotugu Akaike in the 1970's and is defined by 
 $$ AIC = -2log(Likelihood) + 2p.  $$  In this case, "Likelihood" is the likelihood of the data and $2p$ is the "penalty", where $p$ is the number of parameters in the model.  A smaller AIC indicates a better model.
 
-BIC, also known as the Bayesian Information Criterion (also called SBC or Schwarz Bayesian Information) was first developed by Gideon E. Schwarz, also back in the 1970's and is defined by
-$$BIC = -2log(Likelihood) + plog(n). $$ In this case, "Likelihood" is the likelihood of the data and plog(n) is the "penalty", where p is the number of parameters in the model and n is the sample size.  A smaller BIC indicates a better model.  Notice that both penalties have a common term of p in them (this will be important to remember when we start discussing the R code). 
+BIC, also known as the __Bayesian Information Criterion__ (also called SBC or __Schwarz Bayesian Information__) was first developed by Gideon E. Schwarz, also back in the 1970's and is defined by
+$$BIC = -2log(Likelihood) + plog(n). $$ In this case, "Likelihood" is the likelihood of the data and $plog(n)$ is the "penalty", where $p$ is the number of parameters in the model and $n$ is the sample size.  A smaller BIC indicates a better model.  Notice that both penalties have a common term of $p$ in them (this will be important to remember when we start discussing the R code). 
 
 
 ## Stepwise Selection
@@ -67,15 +67,15 @@ train_sel = train %>% dplyr::select('Sale_Price',
 
 For forward selection, we start with a null model (only the intercept) and add one variable at a time until no other variables can be added based on a given criterion.  The algorithm is as follows:
 
-0. Start with a null model, this is the base model\
-    1.  For each variable not in model, create a linear regression model with the base model plus this variable \
+0. Start with a null model, this is the base model (just the intercept)\
+    1.  For each variable not in model, create a linear regression model with the base model plus this one variable \
     2.  See which linear regression is best (based on criterion)\
     3.  Is this regression better than the base model?  \
         a. Yes, then continue on to step 4\
         b. No, exit the algorithm with the base model as the chosen model\
     4.  The base model is now the previous base model plus the variable selected in step 3.  Using this as your new base model, go back to step 1 and continue.\
  
-To do forward selection in R, you will use the step function.  The "empty model" should be used as your initial model (which is just the intercept).  For the scope of the model, you need to put the "smallest model" (just the intercept) to the "largest model" (full model).  The direction is forward.  The penalty can be controlled by defining "k".  Using a value of 2 for "k" will use the AIC criterion (remember AIC penalty was $2p$) and using $log(n)$ for "k" will use the BIC criterion (remember BIC penalty was plog(n)).  If you do not specify anything for "k", the default is AIC.  You can also define "k" as the upper $\alpha$-quantile of a $\chi^{2}$ distribution with one degree of freedom, which will use p-value for its selection of variables.  In this case, the best "model" is the one with the lowest p-value for the new variable.  In order to enter the model, the p-value of this variable will need to be lower than the "cut-off" for the p-values ($\alpha$), which means that the criterion to enter the model would be that the variable has a p-value smaller than $\alpha$.
+To do forward selection in R, you will use the step function.  The "empty model" should be used as your initial model (which is just the intercept).  For the scope of the model, you need to put the "smallest model" (just the intercept) to the "largest model" (full model).  The direction is forward.  The penalty can be controlled by defining "$k$".  Using a value of 2 for "$k$" will use the AIC criterion (remember AIC penalty was $2p$) and using $log(n)$ for "$k$" will use the BIC criterion (remember BIC penalty was $plog(n)$).  If you do not specify anything for "$k$", the default is AIC.  You can also define "$k$" as the upper $\alpha$-quantile of a $\chi^{2}$ distribution with one degree of freedom, which will use p-value for its selection of variables.  In this case, the best "model" is the one with the lowest p-value for the new variable.  In order to enter the model, the p-value of this variable will need to be lower than the "cut-off" for the p-values ($\alpha$), which means that the criterion to enter the model would be that the variable has a p-value smaller than $\alpha$.
 
 ```{r forward, prompt=FALSE, eval=FALSE}
 # Create full model and empty model
@@ -89,14 +89,14 @@ for.model <- step(empty.model,
                   direction = "forward", k = 2) 
 
 ```
-Below is edited output with comments to lead you through the forward selection.  Notice that the above code has k=2, which means we are using AIC as our selection criterion.  The first information R provides is for the initial model, which is  $$Y_{i}=\beta_{0} + \varepsilon_{i}.$$ The "empty model" has an AIC of 46,323.64 (in order for ANY variable to be added, that model must be better, or in other words have a smaller AIC than this initial model).
+Below is edited output with comments to lead you through the forward selection.  Notice that the above code has $k$=2, which means we are using AIC as our selection criterion.  The first information R provides is for the initial model, which is  $$Y_{i}=\beta_{0} + \varepsilon_{i}.$$ The "empty model" has an AIC of 46,323.64 (in order for ANY variable to be added, that model must be better, or in other words have a smaller AIC than this initial model).
 
 ```
 Start:  AIC=46323.64
 Sale_Price ~ 1
 ```
 
-R then displays all simple linear regressions with their corresponding AIC values.  Notice that R put the information in ascending AIC values (so, best simple linear regression is 43,817 which is indeed smaller than 46,323.64).  You will also see a line with a blank for the variable (this is the current "base model").  This is the "base model".  In this first step, it is just the intercept.  Therefore, we will add the variable Overall_Qual.
+R then displays all simple linear regressions with their corresponding AIC values.  Notice that R puts the information in ascending AIC values (so, the best simple linear regression is 43,817 which is indeed smaller than 46,323.64).  You will also see a line with a blank for the "variable", this is the current "base model".  In this first step, it is just the intercept.  Therefore, we will add the variable Overall_Qual.
 
 
 |               | Df  | Sum of Sq | RSS      | AIC    |
@@ -118,7 +118,7 @@ R then displays all simple linear regressions with their corresponding AIC value
 | +Street       |  1  |3.1752e+10 |1.3165e+13| 46321  |
 | <none>        |                 |1.3197e+13| 46324  |
 
-Now, R shows you the new "base model", which includes Overall_Qual (and of course the intercept is still included) and the new AIC value to beat 43816.66).
+Now, R shows you the new "base model", which includes Overall_Qual (and of course the intercept is still included) and the new AIC value to beat which is 43816.66.
 
 ```
 Step:  AIC=43816.66
@@ -171,7 +171,7 @@ Sale_Price ~ Overall_Qual + Gr_Liv_Area + House_Style + Garage_Area + Bldg_Type 
 Notice that the previous step had a model with the intercept, Overall_Qual, Gr_Liv_Area, House_Style, Garage_Area, 
 Bldg_Type, Fireplaces, Full_Bath, Half_Bath, Lot_Area, Roof_Style, Central_Air, Second_Flr_SF, TotRms_AbvGrd, and First_Flr_SF (as illustrated by the above formula).  The AIC for this model is 42676.1.  There is only one variable left that could be added (Street).  However, when we add street to the model, the AIC now becomes 42677 (in other words AIC increases, which is a worse model).  The algorithm stops here.
 
-The code below illustrates how to do forward selection with BIC and p-values.  In the output from R, it still says "AIC", but now these values are calculated by using the BIC formula or the corresponding "k" values for p-values (take a look at the values R has for the "AIC" column and you will see that it has changed!).
+The code below illustrates how to do forward selection with BIC and p-values.  In the output from R, it still says "AIC", but now these values are calculated by using the BIC formula or the corresponding "$k$" values for p-values (take a look at the values R has for the "AIC" column and you will see that it has changed!).
 
 
 ```{r other forward options, prompt=FALSE, eval=FALSE}
@@ -202,7 +202,7 @@ Backward elimination starts with the "base" model as the full model (i.e. all va
         b. No, exit the algorithm with the base model as the chosen model\
     4.  The base model is now the model with the variable removed. Using this as your new base model, go back to step 1 and continue.\
 
-To do backward elimination in R, you will use the step function.  The "full model" should be used as your initial model (which is the model with all the predictor variables in it).  For the scope of the model, you need to put the "smallest model" (just the intercept) to the "largest model" (full model).  The direction is backward.  The penalty (which indicates the criteria) can be controlled by defining "k".  As discussed before, a value of 2 will use the AIC criterion, a value of $log(n)$ will produce the BIC penalty, and finally the upper $\alpha$-quantile of a $\chi^{2}$ distribution with one degree of freedom will use p-value for its removal of variables.  
+To do backward elimination in R, you will use the step function.  The "full model" should be used as your initial model (which is the model with all the predictor variables in it).  For the scope of the model, you need to put the "smallest model" (just the intercept) to the "largest model" (full model).  The direction is backward.  The penalty (which indicates the criteria) can be controlled by defining "$k$".  As discussed before, a value of 2 will use the AIC criterion, a value of $log(n)$ will produce the BIC penalty, and finally the upper $\alpha$-quantile of a $\chi^{2}$ distribution with one degree of freedom will use p-value for its removal of variables.  
 
 ```{r backward, prompt=FALSE, eval=FALSE}
 # Create full model and empty model
@@ -217,7 +217,7 @@ back.model <- step(full.model,
 
 ```
 
-Below is edited output with comments to lead you through the backward elimination.  Notice that the above code has k=2, which means we are using AIC as our selection criterion.  The first information R provides is for the initial model, which is  $$Y_{i}=\beta_{0} + \beta_{1}x_{i,1}+\beta_{2}x_{i,2}+\beta_{3}x_{i,3}+\beta_{4}x_{i,4}+\beta_{5}x_{i,5}+\beta_{6}x_{i,6}+\beta_{i,7}x_{7}+\beta_{8}x_{i,8}+\beta_{9}x_{i,9}+\beta_{10}x_{i,10}+\beta_{11}x_{i,11}+\beta_{12}x_{i,12}+\beta_{13}x_{i,13}+\beta_{14}x_{i,14}+\beta_{15}x_{i,15}+\varepsilon_{i}.$$ The "full model" has an AIC of 42,677.12 (in order for ANY variable to be removed, that model must be better, or in other words have a smaller AIC than this initial model).
+Below is edited output with comments to lead you through the backward elimination.  Notice that the above code has $k$=2, which means we are using AIC as our selection criterion.  The first information R provides is for the initial model, which is  $$Y_{i}=\beta_{0} + \beta_{1}x_{i,1}+\beta_{2}x_{i,2}+\beta_{3}x_{i,3}+\beta_{4}x_{i,4}+\beta_{5}x_{i,5}+\beta_{6}x_{i,6}+\beta_{i,7}x_{7}+\beta_{8}x_{i,8}+\beta_{9}x_{i,9}+\beta_{10}x_{i,10}+\beta_{11}x_{i,11}+\beta_{12}x_{i,12}+\beta_{13}x_{i,13}+\beta_{14}x_{i,14}+\beta_{15}x_{i,15}+\varepsilon_{i}.$$ The "full model" has an AIC of 42,677.12 (in order for ANY variable to be removed, that model must be better, or in other words have a smaller AIC than this initial model).
 
 R then displays linear regression models with one variable removed and their corresponding AIC values.  For example, if we remove Street (just that one variable), the AIC of that model will be 42675. Notice that R put the information in ascending AIC values (so, best linear regression is at the top with an AIC value of 42,675 which is indeed smaller than 42,677.12, so Street will be removed).  You will also see a line with <none>.  This is the "base model", or in this case the full model.  
 
@@ -263,7 +263,7 @@ Once Street is removed, the new "base model" (without this variable) has an AIC 
 |- Overall_Qual | 9  |1.7202e+12 |3.8749e+12 |43860     |
 
 
-Notice that none of the removal of variables is better than the "base model" based on the AIC (best one is TotRms_AbvGrd and that has an AIC of 42675, which is not better than the base model).  Since none of the removals improve the model, the algorithm stops here with all variables in the model except Street.  Therefore, the final model is:
+Notice that none of the removal of variables is better than the "base model" based on the AIC (best one is TotRms_AbvGrd and that has an AIC of 42675, which is not better than the base model).  Since none of the removals improve the model, the algorithm stops here with all variables in the model except Street. A quick note here: notice that backward elimination selected the same model as forward selection.  This will not always be the case! Therefore, the final model is:
 
 ```
 Step:  AIC=42674.6
