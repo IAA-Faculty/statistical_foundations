@@ -311,7 +311,7 @@ We will focus our attention on a form of dependence that is evident from the res
 
 In visually inspecting a plot of residuals across time, you would expect to see a type of cyclical pattern if autocorrelation exists as it does in Figure \@ref(fig:autoplot).
 
-```{r autoplot, fig=T, fig.align='center',fig.cap = 'Residuals vs Time: Autocorrelation Present',label='autoplot', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
+```{r autoplot, fig=T, fig.align='center',fig.cap = 'Residuals vs Time: Autocorrelation Present',label='autoplot', prompt=FALSE, eval=TRUE, message = FALSE, echo=FALSE}
 
 
 set.seed(49205)
