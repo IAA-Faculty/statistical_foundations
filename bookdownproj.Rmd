@@ -1,3 +1,38 @@
+--- 
+title: "Statistical Foundations"
+#author: "Dr. Andrea Villanes"
+output: pdf_document
+site: bookdown::bookdown_site
+github-repo: IAA-Faculty/statistical_foundations
+---
+--- 
+title: "Statistical Foundations"
+#author: "Dr. Andrea Villanes"
+output: pdf_document
+site: bookdown::bookdown_site
+github-repo: IAA-Faculty/statistical_foundations
+---
+
+# About {-}
+
+### Authors {-}
+
+Aric Labarr, Phd - Institute for Advanced Analytics @ NC State\
+Susan Simmons, PhD - Institute for Advanced Analytics @ NC State\
+
+with special thanks to the contributions from Dr. Shaina Race
+
+### Structure of the book {-}
+
+The book is broken down into small sections that aim to demonstrate a single concept at a time. The companion text, [Data Manipulation Techniques with R](https://andreavillanes.github.io/R_Data_Manipulation_Techniques/) introduces the foundations of programming in R. This book is a work in progress. Submit any issues  [here](https://https://github.com/IAA-Faculty/statistical_foundations/issues). Please check back frequently for updates. 
+
+
+### Acknowledgements {.unnumbered}
+
+The authors would like to thank the members of the faculty and the TAs at the Institute for Advanced Analytics for providing feedback on this work.
+
+<!--chapter:end:index.Rmd-->
+
 ---
 output:
   word_document: default
@@ -64,7 +99,7 @@ install.packages('gridExtra')
 
 
 
-```{r message=F}
+```{r, message=F}
 library(AmesHousing)
 library(tidyverse)
 library(car)
@@ -868,4 +903,128 @@ wilcox.test(Sale_Price ~ Central_Air, data = ames)
 ```
 Thus, we make the same conclusion with our non-parametric test. Houses with and without central air should be expected to sell for different prices. 
 
+
+
+<!--chapter:end:01-introduction_statistics.Rmd-->
+
+
+# Introduction to ANOVA and Linear Regression {#slr}
+
+Placeholder
+
+
+## Prediction vs. Explanation {#evp}
+## Honest Assessment {#trainvalidtest}
+## Bivariate EDA
+### Continuous-Continuous Associations
+###  Continuous-Categorical Associations
+## One-Way ANOVA {#oneway}
+### Testing Assumptions
+### Kruskal-Wallis {#kruskal}
+## ANOVA Post-hoc Testing {#posthoc}
+### Tukey-Kramer {#tukey}
+### Dunnett's Test {#dunnett}
+## Pearson Correlation {#cor}
+### Statistical Test {#testcor}
+### Effect of Anomalous Observations
+### The Correlation Matrix
+## Simple Linear Regression 
+### Assumptions of Linear Regression {#slrassumptions}
+### Testing for Association
+
+<!--chapter:end:02-introduction_ANOVA_regression.Rmd-->
+
+
+# Complex ANOVA and Multiple Linear Regression {#mlr}
+
+Placeholder
+
+
+## Two-Way ANOVA
+### Exploration
+### Model
+### Post-Hoc Testing
+## Two-Way ANOVA with Interactions
+### Post-Hoc Testing
+### Assumptions
+## Randomized Block Design
+### Garlic Bulb Weight Example
+### Assumptions
+## Multiple Linear Regression
+### Model Structure
+### Global & Local Inference
+### Assumptions
+### Multiple Coefficients of Determination
+### Categorical Predictor Variables
+
+<!--chapter:end:03-complex_ANOVA_Regression.Rmd-->
+
+
+# Model Selection {#sel}
+
+Placeholder
+
+
+## Selection Criteria
+## Stepwise Selection
+### Forward {.unnumbered}
+### Backward {.unnumbered}
+### Stepwise {.unnumbered}
+## Significance Levels
+
+<!--chapter:end:04-model_selection.Rmd-->
+
+
+# Diagnostics {#diag}
+
+Placeholder
+
+
+## Examining Residuals
+## Misspecified Model
+## Constant Variance
+## Normality
+## Correlated Errors
+## Influential Observations and Outliers
+## Multicollinearity
+
+<!--chapter:end:05-diagnostics.Rmd-->
+
+
+# Model Building & Scoring for Prediction {#model}
+
+Placeholder
+
+
+## Regularized Regression
+### Penalties in Models
+### Ridge Regression
+### LASSO
+### Elastic Net
+## Optimizing Penalties
+### Cross-Validation
+### CV in Regularized Regression
+## Model Comparisons
+### Model Metrics
+### Test Dataset Comparison
+
+<!--chapter:end:06-model_building_scoring.Rmd-->
+
+
+# Categorical Data Analysis {#cat}
+
+Placeholder
+
+
+## Describing Categorical Data
+## Tests of Association
+## Measures of Association
+## Introduction to Logistic Regression
+### Linear Probability Model
+### Binary Logistic Regression
+### Adding Categorical Variables
+### Model Assessment
+### Variable Selection and Regularized Regression
+
+<!--chapter:end:07-categorical.Rmd-->
 
