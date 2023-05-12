@@ -890,3 +890,9 @@ plt.show()
 df=r.ames['Heating_QC'].value_counts().rename_axis('unique_values').to_frame('counts')
 ```
 
+```{python}
+x=r.ames["Sale_Price"]/1000
+plt.hist(x,color="blue")
+plt.show() 
+```
+
