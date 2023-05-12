@@ -5,7 +5,7 @@ output:
 ---
 # Introduction to Statistics {#intro-stat}
 
-Welcome to your introduction to statistics.  You will be learning the basics of statistics, along with applications of statistics within the R language.  This book will provide fundamentals of the concepts and the code to apply these concepts in R.  \
+Welcome to your introduction to statistics.  You will be learning the basics of statistics, along with applications of statistics within the R language.  This book will provide fundamentals of the concepts and the code to apply these concepts in R.  At the end of each section, you will also find the Python code that will perform a comparable analysis (however, in class, we will be discussing the R code).\
 This Chapter aims to answer the following questions:
 <ul>
   <li> What type of data is being analyzed? 
@@ -53,7 +53,6 @@ install.packages('leaps')
 install.packages('glmnet')
 install.packages('nortest')
 install.packages('lmtest')
-install.packages('InformationValue')
 install.packages('gmodels')
 install.packages('vcdExtra')
 install.packages('TSA')
@@ -61,6 +60,9 @@ install.packages('carData')
 install.packages('epiDisplay')
 install.packages('gridExtra')
 ```
+
+
+
 ```{r message=F}
 library(AmesHousing)
 library(tidyverse)
@@ -78,7 +80,6 @@ library(leaps)
 library(glmnet)
 library(nortest)
 library(lmtest)
-library(InformationValue)
 library(gmodels)
 library(vcdExtra)
 library(TSA)
@@ -90,38 +91,6 @@ library(gridExtra)
 
 
 ## Exploratory Data Analysis (EDA) {#eda}
-
-<!-- <script> -->
-<!-- var acc = document.getElementsByClassName("accordion"); -->
-<!-- var i; -->
-
-<!-- for (i = 0; i < acc.length; i++) { -->
-<!--   acc[i].addEventListener("click", function() { -->
-<!--     this.classList.toggle("active"); -->
-<!--     var panel = this.nextElementSibling; -->
-<!--     if (panel.style.display === "block") { -->
-<!--       panel.style.display = "none"; -->
-<!--     } else { -->
-<!--       panel.style.display = "block"; -->
-<!--     } -->
-<!--   }); -->
-<!-- } -->
-<!-- </script> -->
-
-<!-- <button class="accordion">R</button> -->
-<!-- <div class="panel"> -->
-<!--  <p> `R Code`</p> -->
-<!-- </div> -->
-
-<!-- <button class="accordion">SAS</button> -->
-<!-- <div class="panel"> -->
-<!--   <p>`SAS Code`</p> -->
-<!-- </div> -->
-
-<!-- <button class="accordion">Python</button> -->
-<!-- <div class="panel"> -->
-<!--   <p>`Python Code` </p> -->
-<!-- </div> -->
 
 The crucial first step to any data science problem is exploratory data analysis (EDA). Before you attempt to run any models, or jump towards any formal statistical analysis, you must ___explore your data___. Many unexpected frustrations arise when exploratory analysis is overlooked; knowing your data is critical to your ability to make necessary assumptions about it. This preliminary analysis will help inform our decisions for data manipulation, give us a base-level understanding of our variables and the relationships between them, and help determine which statistical analyses might be appropriate for the questions we are trying to answer. Some of the questions we aim to answer through exploratory analysis are:
 <ul>
@@ -865,4 +834,59 @@ wilcox.test(Sale_Price ~ Central_Air, data = ames)
 ```
 Thus, we make the same conclusion with our non-parametric test. Houses with and without central air should be expected to sell for different prices. 
 
+## Python Code
+
+```{r}
+library(reticulate)
+use_python("C:\\ProgramData\\Anaconda3\\python.exe")
+
+py$ames <- ames
+```
+
+
+
+```{python}
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.preprocessing import OneHotEncoder
+import seaborn as sns
+import matplotlib.pyplot as plt
+from numpy import random
+x1=np.repeat(["A","B","C"],10)
+x2=np.repeat(["Z", "X", "Y","W","V","U"],5)
+random.seed(41)
+y=np.concatenate([np.random.normal(loc=2.0, scale=1.0, size=10),np.random.normal(loc=1.0, scale=1.0, size=10),np.random.normal(loc=0.0, scale=1.0, size=10)])
+array=np.array([x1,x2,y])
+array2=np.transpose(array)
+column_values=["x1","x2","y"]
+df = pd.DataFrame(data = array2, 
+                  columns = column_values)
+print(df)
+```
+
+
+```{python}
+one_hot_encoded_data = pd.get_dummies(df, columns = ['x1', 'x2'])
+print(one_hot_encoded_data)
+```
+
+
+```{python}
+
+df=ames['Heating_QC'].value_counts().rename("HeatingSystem").reset_index(name="Frequency").reset_index()
+df.columns=["index","Heating","Frequency"]
+print(df)
+
+plt.bar(df["Heating"],df["Frequency"],color="orange")
+plt.xlabel("Heating System Quality")
+plt.ylabel("Frequency")
+plt.show()
+
+```
+
+```{python}
+df=ames['Heating_QC'].value_counts().rename_axis('unique_values').to_frame('counts')
+```
 
