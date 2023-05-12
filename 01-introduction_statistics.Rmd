@@ -875,7 +875,7 @@ print(one_hot_encoded_data)
 
 ```{python}
 
-df=ames['Heating_QC'].value_counts().rename("HeatingSystem").reset_index(name="Frequency").reset_index()
+df=r.ames['Heating_QC'].value_counts().rename("HeatingSystem").reset_index(name="Frequency").reset_index()
 df.columns=["index","Heating","Frequency"]
 print(df)
 
@@ -887,6 +887,6 @@ plt.show()
 ```
 
 ```{python}
-df=ames['Heating_QC'].value_counts().rename_axis('unique_values').to_frame('counts')
+df=r.ames['Heating_QC'].value_counts().rename_axis('unique_values').to_frame('counts')
 ```
 
