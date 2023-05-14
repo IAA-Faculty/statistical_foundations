@@ -854,6 +854,9 @@ from sklearn.preprocessing import OneHotEncoder
 import seaborn as sns
 import matplotlib.pyplot as plt
 from numpy import random
+import statsmodels.api as sm
+import pylab as py
+import scipy.stats as stats
 x1=np.repeat(["A","B","C"],10)
 x2=np.repeat(["Z", "X", "Y","W","V","U"],5)
 random.seed(41)
@@ -916,4 +919,27 @@ r.ames.groupby(["Exter_Qual"])["Sale_Price"].max()
 x=r.ames["Sale_Price"]/1000
 sns.histplot(x, kde=True, color = 'blue')
 ```
+
+```{python}
+
+
+sns.histplot(data=r.ames, x="Sale_Price", hue="Central_Air")
+```
+```{python}
+
+
+sns.histplot(data=r.ames, x="Sale_Price", hue="Central_Air",stat="probability")
+```
+
+```{python}
+sns.displot(r.ames, x="Sale_Price", hue="Central_Air", kind="kde", fill=True)
+```
+
+```{python}
+x=r.ames["Sale_Price"]/1000
+sm.qqplot(x, line='45',fit=True)
+py.show()
+```
+
+
 

@@ -1669,16 +1669,19 @@ Difference in location. <br> (distributional dominance)
 <span id="cb64-6"><a href="intro-stat.html#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb64-7"><a href="intro-stat.html#cb64-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb64-8"><a href="intro-stat.html#cb64-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> numpy <span class="im">import</span> random</span>
-<span id="cb64-9"><a href="intro-stat.html#cb64-9" aria-hidden="true" tabindex="-1"></a>x1<span class="op">=</span>np.repeat([<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>],<span class="dv">10</span>)</span>
-<span id="cb64-10"><a href="intro-stat.html#cb64-10" aria-hidden="true" tabindex="-1"></a>x2<span class="op">=</span>np.repeat([<span class="st">&quot;Z&quot;</span>, <span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>,<span class="st">&quot;W&quot;</span>,<span class="st">&quot;V&quot;</span>,<span class="st">&quot;U&quot;</span>],<span class="dv">5</span>)</span>
-<span id="cb64-11"><a href="intro-stat.html#cb64-11" aria-hidden="true" tabindex="-1"></a>random.seed(<span class="dv">41</span>)</span>
-<span id="cb64-12"><a href="intro-stat.html#cb64-12" aria-hidden="true" tabindex="-1"></a>y<span class="op">=</span>np.concatenate([np.random.normal(loc<span class="op">=</span><span class="fl">2.0</span>, scale<span class="op">=</span><span class="fl">1.0</span>, size<span class="op">=</span><span class="dv">10</span>),np.random.normal(loc<span class="op">=</span><span class="fl">1.0</span>, scale<span class="op">=</span><span class="fl">1.0</span>, size<span class="op">=</span><span class="dv">10</span>),np.random.normal(loc<span class="op">=</span><span class="fl">0.0</span>, scale<span class="op">=</span><span class="fl">1.0</span>, size<span class="op">=</span><span class="dv">10</span>)])</span>
-<span id="cb64-13"><a href="intro-stat.html#cb64-13" aria-hidden="true" tabindex="-1"></a>array<span class="op">=</span>np.array([x1,x2,y])</span>
-<span id="cb64-14"><a href="intro-stat.html#cb64-14" aria-hidden="true" tabindex="-1"></a>array2<span class="op">=</span>np.transpose(array)</span>
-<span id="cb64-15"><a href="intro-stat.html#cb64-15" aria-hidden="true" tabindex="-1"></a>column_values<span class="op">=</span>[<span class="st">&quot;x1&quot;</span>,<span class="st">&quot;x2&quot;</span>,<span class="st">&quot;y&quot;</span>]</span>
-<span id="cb64-16"><a href="intro-stat.html#cb64-16" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(data <span class="op">=</span> array2, </span>
-<span id="cb64-17"><a href="intro-stat.html#cb64-17" aria-hidden="true" tabindex="-1"></a>                  columns <span class="op">=</span> column_values)</span>
-<span id="cb64-18"><a href="intro-stat.html#cb64-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df)</span></code></pre></div>
+<span id="cb64-9"><a href="intro-stat.html#cb64-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb64-10"><a href="intro-stat.html#cb64-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pylab <span class="im">as</span> py</span>
+<span id="cb64-11"><a href="intro-stat.html#cb64-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> stats</span>
+<span id="cb64-12"><a href="intro-stat.html#cb64-12" aria-hidden="true" tabindex="-1"></a>x1<span class="op">=</span>np.repeat([<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>],<span class="dv">10</span>)</span>
+<span id="cb64-13"><a href="intro-stat.html#cb64-13" aria-hidden="true" tabindex="-1"></a>x2<span class="op">=</span>np.repeat([<span class="st">&quot;Z&quot;</span>, <span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>,<span class="st">&quot;W&quot;</span>,<span class="st">&quot;V&quot;</span>,<span class="st">&quot;U&quot;</span>],<span class="dv">5</span>)</span>
+<span id="cb64-14"><a href="intro-stat.html#cb64-14" aria-hidden="true" tabindex="-1"></a>random.seed(<span class="dv">41</span>)</span>
+<span id="cb64-15"><a href="intro-stat.html#cb64-15" aria-hidden="true" tabindex="-1"></a>y<span class="op">=</span>np.concatenate([np.random.normal(loc<span class="op">=</span><span class="fl">2.0</span>, scale<span class="op">=</span><span class="fl">1.0</span>, size<span class="op">=</span><span class="dv">10</span>),np.random.normal(loc<span class="op">=</span><span class="fl">1.0</span>, scale<span class="op">=</span><span class="fl">1.0</span>, size<span class="op">=</span><span class="dv">10</span>),np.random.normal(loc<span class="op">=</span><span class="fl">0.0</span>, scale<span class="op">=</span><span class="fl">1.0</span>, size<span class="op">=</span><span class="dv">10</span>)])</span>
+<span id="cb64-16"><a href="intro-stat.html#cb64-16" aria-hidden="true" tabindex="-1"></a>array<span class="op">=</span>np.array([x1,x2,y])</span>
+<span id="cb64-17"><a href="intro-stat.html#cb64-17" aria-hidden="true" tabindex="-1"></a>array2<span class="op">=</span>np.transpose(array)</span>
+<span id="cb64-18"><a href="intro-stat.html#cb64-18" aria-hidden="true" tabindex="-1"></a>column_values<span class="op">=</span>[<span class="st">&quot;x1&quot;</span>,<span class="st">&quot;x2&quot;</span>,<span class="st">&quot;y&quot;</span>]</span>
+<span id="cb64-19"><a href="intro-stat.html#cb64-19" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(data <span class="op">=</span> array2, </span>
+<span id="cb64-20"><a href="intro-stat.html#cb64-20" aria-hidden="true" tabindex="-1"></a>                  columns <span class="op">=</span> column_values)</span>
+<span id="cb64-21"><a href="intro-stat.html#cb64-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df)</span></code></pre></div>
 <pre><code>##    x1 x2                      y
 ## 0   A  Z     1.7292876769326795
 ## 1   A  Z       2.10484805260974
@@ -1821,6 +1824,20 @@ Difference in location. <br> (distributional dominance)
 <span id="cb95-2"><a href="intro-stat.html#cb95-2" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>r.ames[<span class="st">&quot;Sale_Price&quot;</span>]<span class="op">/</span><span class="dv">1000</span></span>
 <span id="cb95-3"><a href="intro-stat.html#cb95-3" aria-hidden="true" tabindex="-1"></a>sns.histplot(x, kde<span class="op">=</span><span class="va">True</span>, color <span class="op">=</span> <span class="st">&#39;blue&#39;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-33-5.png" width="672" /></p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb96-1"><a href="intro-stat.html#cb96-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-2"><a href="intro-stat.html#cb96-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-3"><a href="intro-stat.html#cb96-3" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>r.ames, x<span class="op">=</span><span class="st">&quot;Sale_Price&quot;</span>, hue<span class="op">=</span><span class="st">&quot;Central_Air&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-34-7.png" width="672" /></p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb97-1"><a href="intro-stat.html#cb97-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-2"><a href="intro-stat.html#cb97-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-3"><a href="intro-stat.html#cb97-3" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>r.ames, x<span class="op">=</span><span class="st">&quot;Sale_Price&quot;</span>, hue<span class="op">=</span><span class="st">&quot;Central_Air&quot;</span>,stat<span class="op">=</span><span class="st">&quot;probability&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-35-9.png" width="672" /></p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb98-1"><a href="intro-stat.html#cb98-1" aria-hidden="true" tabindex="-1"></a>sns.displot(r.ames, x<span class="op">=</span><span class="st">&quot;Sale_Price&quot;</span>, hue<span class="op">=</span><span class="st">&quot;Central_Air&quot;</span>, kind<span class="op">=</span><span class="st">&quot;kde&quot;</span>, fill<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-36-11.png" width="293" /></p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb99-1"><a href="intro-stat.html#cb99-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>r.ames[<span class="st">&quot;Sale_Price&quot;</span>]<span class="op">/</span><span class="dv">1000</span></span>
+<span id="cb99-2"><a href="intro-stat.html#cb99-2" aria-hidden="true" tabindex="-1"></a>sm.qqplot(x, line<span class="op">=</span><span class="st">&#39;45&#39;</span>,fit<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb99-3"><a href="intro-stat.html#cb99-3" aria-hidden="true" tabindex="-1"></a>py.show()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-37-13.png" width="672" /></p>
 
 </div>
 </div>
