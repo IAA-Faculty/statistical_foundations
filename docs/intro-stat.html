@@ -1767,6 +1767,60 @@ Difference in location. <br> (distributional dominance)
 ##        458.1156, 532.3367, 606.5578, 680.7789, 755.    ]), &lt;BarContainer object of 10 artists&gt;)</code></pre>
 <div class="sourceCode" id="cb76"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb76-1"><a href="intro-stat.html#cb76-1" aria-hidden="true" tabindex="-1"></a>plt.show() </span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-30-3.png" width="672" /></p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb77-1"><a href="intro-stat.html#cb77-1" aria-hidden="true" tabindex="-1"></a>r.ames[<span class="st">&quot;Sale_Price&quot;</span>].describe()</span></code></pre></div>
+<pre><code>## count      2930.000000
+## mean     180796.060068
+## std       79886.692357
+## min       12789.000000
+## 25%      129500.000000
+## 50%      160000.000000
+## 75%      213500.000000
+## max      755000.000000
+## Name: Sale_Price, dtype: float64</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb79-1"><a href="intro-stat.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Mean:&quot;</span>)</span></code></pre></div>
+<pre><code>## Mean:</code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb81-1"><a href="intro-stat.html#cb81-1" aria-hidden="true" tabindex="-1"></a>r.ames.groupby([<span class="st">&quot;Exter_Qual&quot;</span>])[<span class="st">&quot;Sale_Price&quot;</span>].mean()</span></code></pre></div>
+<pre><code>## Exter_Qual
+## Poor                   NaN
+## Fair          89923.742857
+## Typical      143373.968316
+## Good         230756.384226
+## Excellent    377918.616822
+## Name: Sale_Price, dtype: float64</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb83-1"><a href="intro-stat.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Standard Deviation:&quot;</span>)</span></code></pre></div>
+<pre><code>## Standard Deviation:</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb85-1"><a href="intro-stat.html#cb85-1" aria-hidden="true" tabindex="-1"></a>r.ames.groupby([<span class="st">&quot;Exter_Qual&quot;</span>])[<span class="st">&quot;Sale_Price&quot;</span>].std()</span></code></pre></div>
+<pre><code>## Exter_Qual
+## Poor                   NaN
+## Fair          38013.502946
+## Typical       41503.853558
+## Good          70411.143067
+## Excellent    106987.707970
+## Name: Sale_Price, dtype: float64</code></pre>
+<div class="sourceCode" id="cb87"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb87-1"><a href="intro-stat.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Minimum:&quot;</span>)</span></code></pre></div>
+<pre><code>## Minimum:</code></pre>
+<div class="sourceCode" id="cb89"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb89-1"><a href="intro-stat.html#cb89-1" aria-hidden="true" tabindex="-1"></a>r.ames.groupby([<span class="st">&quot;Exter_Qual&quot;</span>])[<span class="st">&quot;Sale_Price&quot;</span>].<span class="bu">min</span>()</span></code></pre></div>
+<pre><code>## Exter_Qual
+## Poor              NaN
+## Fair          13100.0
+## Typical       12789.0
+## Good          52000.0
+## Excellent    160000.0
+## Name: Sale_Price, dtype: float64</code></pre>
+<div class="sourceCode" id="cb91"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb91-1"><a href="intro-stat.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Maximum:&quot;</span>)</span></code></pre></div>
+<pre><code>## Maximum:</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb93-1"><a href="intro-stat.html#cb93-1" aria-hidden="true" tabindex="-1"></a>r.ames.groupby([<span class="st">&quot;Exter_Qual&quot;</span>])[<span class="st">&quot;Sale_Price&quot;</span>].<span class="bu">max</span>()</span></code></pre></div>
+<pre><code>## Exter_Qual
+## Poor              NaN
+## Fair         200000.0
+## Typical      415000.0
+## Good         745000.0
+## Excellent    755000.0
+## Name: Sale_Price, dtype: float64</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb95-1"><a href="intro-stat.html#cb95-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-2"><a href="intro-stat.html#cb95-2" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>r.ames[<span class="st">&quot;Sale_Price&quot;</span>]<span class="op">/</span><span class="dv">1000</span></span>
+<span id="cb95-3"><a href="intro-stat.html#cb95-3" aria-hidden="true" tabindex="-1"></a>sns.histplot(x, kde<span class="op">=</span><span class="va">True</span>, color <span class="op">=</span> <span class="st">&#39;blue&#39;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-33-5.png" width="672" /></p>
 
 </div>
 </div>

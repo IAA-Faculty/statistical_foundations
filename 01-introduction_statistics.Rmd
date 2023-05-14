@@ -896,3 +896,24 @@ plt.hist(x,color="blue")
 plt.show() 
 ```
 
+
+```{python}
+r.ames["Sale_Price"].describe()
+```
+
+```{python}
+print("Mean:")
+r.ames.groupby(["Exter_Qual"])["Sale_Price"].mean()
+print("Standard Deviation:")
+r.ames.groupby(["Exter_Qual"])["Sale_Price"].std()
+print("Minimum:")
+r.ames.groupby(["Exter_Qual"])["Sale_Price"].min()
+print("Maximum:")
+r.ames.groupby(["Exter_Qual"])["Sale_Price"].max()
+```
+```{python}
+
+x=r.ames["Sale_Price"]/1000
+sns.histplot(x, kde=True, color = 'blue')
+```
+
