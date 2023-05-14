@@ -1841,12 +1841,17 @@ Difference in location. <br> (distributional dominance)
 <div class="sourceCode" id="cb100"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb100-1"><a href="intro-stat.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating plot</span></span>
 <span id="cb100-2"><a href="intro-stat.html#cb100-2" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>r.ames[<span class="st">&quot;Sale_Price&quot;</span>]<span class="op">/</span><span class="dv">1000</span></span>
 <span id="cb100-3"><a href="intro-stat.html#cb100-3" aria-hidden="true" tabindex="-1"></a>plt.boxplot(x)</span></code></pre></div>
-<pre><code>## {&#39;whiskers&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001D59DFD3730&gt;, &lt;matplotlib.lines.Line2D object at 0x000001D59DFD3A00&gt;], &#39;caps&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001D59DFD3CA0&gt;, &lt;matplotlib.lines.Line2D object at 0x000001D59DFD3F40&gt;], &#39;boxes&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001D59DFD35E0&gt;], &#39;medians&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001D59DFDF220&gt;], &#39;fliers&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001D59DFDF4C0&gt;], &#39;means&#39;: []}</code></pre>
+<pre><code>## {&#39;whiskers&#39;: [&lt;matplotlib.lines.Line2D object at 0x000002848396B7F0&gt;, &lt;matplotlib.lines.Line2D object at 0x000002848396BAC0&gt;], &#39;caps&#39;: [&lt;matplotlib.lines.Line2D object at 0x000002848396BD60&gt;, &lt;matplotlib.lines.Line2D object at 0x00000284832F6040&gt;], &#39;boxes&#39;: [&lt;matplotlib.lines.Line2D object at 0x000002848396B6A0&gt;], &#39;medians&#39;: [&lt;matplotlib.lines.Line2D object at 0x00000284832F62E0&gt;], &#39;fliers&#39;: [&lt;matplotlib.lines.Line2D object at 0x00000284832F6580&gt;], &#39;means&#39;: []}</code></pre>
 <div class="sourceCode" id="cb102"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb102-1"><a href="intro-stat.html#cb102-1" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-38-15.png" width="672" /></p>
 <div class="sourceCode" id="cb103"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb103-1"><a href="intro-stat.html#cb103-1" aria-hidden="true" tabindex="-1"></a>sns.boxplot( y<span class="op">=</span>r.ames[<span class="st">&quot;Sale_Price&quot;</span>], x<span class="op">=</span>r.ames[<span class="st">&quot;Central_Air&quot;</span>] )</span>
 <span id="cb103-2"><a href="intro-stat.html#cb103-2" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-39-17.png" width="672" /></p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb104-1"><a href="intro-stat.html#cb104-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>r.ames[<span class="st">&quot;Sale_Price&quot;</span>]</span>
+<span id="cb104-2"><a href="intro-stat.html#cb104-2" aria-hidden="true" tabindex="-1"></a>stats.t.interval(alpha<span class="op">=</span><span class="fl">0.95</span>, df<span class="op">=</span><span class="bu">len</span>(x)<span class="op">-</span><span class="dv">1</span>, loc<span class="op">=</span>np.mean(x), scale<span class="op">=</span>stats.sem(x)) </span></code></pre></div>
+<pre><code>## (177902.26200144587, 183689.85813507292)
+## 
+## &lt;string&gt;:1: DeprecationWarning: Use of keyword argument `alpha` for method `interval` is deprecated. Use first positional argument or keyword argument `confidence` instead.</code></pre>
 
 </div>
 </div>

@@ -956,3 +956,9 @@ sns.boxplot( y=r.ames["Sale_Price"], x=r.ames["Central_Air"] )
 plt.show()
 ```
 
+
+```{python}
+x=r.ames["Sale_Price"]
+stats.t.interval(alpha=0.95, df=len(x)-1, loc=np.mean(x), scale=stats.sem(x)) 
+```
+
