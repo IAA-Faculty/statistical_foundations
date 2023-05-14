@@ -942,4 +942,17 @@ py.show()
 ```
 
 
+```{python}
+# Creating plot
+x=r.ames["Sale_Price"]/1000
+plt.boxplot(x)
+
+plt.show()
+```
+
+
+```{python}
+sns.boxplot( y=r.ames["Sale_Price"], x=r.ames["Central_Air"] )
+plt.show()
+```
 
