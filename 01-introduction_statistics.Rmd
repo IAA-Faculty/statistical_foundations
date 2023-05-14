@@ -857,6 +857,7 @@ from numpy import random
 import statsmodels.api as sm
 import pylab as py
 import scipy.stats as stats
+import statsmodels as statsmodels
 x1=np.repeat(["A","B","C"],10)
 x2=np.repeat(["Z", "X", "Y","W","V","U"],5)
 random.seed(41)
@@ -960,5 +961,12 @@ plt.show()
 ```{python}
 x=r.ames["Sale_Price"]
 stats.t.interval(alpha=0.95, df=len(x)-1, loc=np.mean(x), scale=stats.sem(x)) 
+```
+```{python}
+count=65
+nobs=100
+value=0.5
+stat,pval = statsmodels.stats.proportion.proportions_ztest(count,nobs,value,alternative='two-sided')
+print('{0:0.3f}'.format(pval))
 ```
 
