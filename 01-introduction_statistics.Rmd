@@ -716,7 +716,7 @@ Before we move on, we can compare the simulated result we just developed to one 
 ```{r}
 prop.test(65, 100, p = 0.5,
            alternative = c("two.sided"),
-           conf.level = 0.99)
+           conf.level = 0.99,correct=F)
 ```
 ***
 
@@ -966,7 +966,62 @@ stats.t.interval(alpha=0.95, df=len(x)-1, loc=np.mean(x), scale=stats.sem(x))
 count=65
 nobs=100
 value=0.5
-stat,pval = statsmodels.stats.proportion.proportions_ztest(count,nobs,value,alternative='two-sided')
-print('{0:0.3f}'.format(pval))
+statsmodels.stats.proportion.proportions_ztest(count,nobs,value,alternative='two-sided',prop_var=0.5)
+
+```
+```{python}
+x=r.ames["Sale_Price"]
+stats.ttest_1samp(x, popmean=178000,alternative='two-sided')
+```
+
+```{python}
+x=r.ames["Sale_Price"]
+stats.ttest_1samp(x, popmean=178000,alternative='greater')
+```
+```{python}
+yes=r.ames[r.ames["Central_Air"]=="Y"]
+sm.qqplot(yes["Sale_Price"], line='45',fit=True)
+
+
+```
+```{python}
+no=r.ames[r.ames["Central_Air"]=="N"]
+sm.qqplot(no["Sale_Price"], line='45',fit=True)
+```
+
+
+```{python}
+x=r.ames["Sale_Price"]
+stats.shapiro(x)
+```
+
+```{python}
+yes=r.ames[r.ames["Central_Air"]=="Y"]
+no=r.ames[r.ames["Central_Air"]=="N"]
+
+np.var(yes["Sale_Price"],ddof=1)
+np.var(no["Sale_Price"],ddof=1)
+
+#define F-test function
+def f_test(x, y):
+    x = np.array(x)
+    y = np.array(y)
+    f = np.var(x, ddof=1)/np.var(y, ddof=1) #calculate F test statistic 
+    dfn = x.size-1 #define degrees of freedom numerator 
+    dfd = y.size-1 #define degrees of freedom denominator 
+    p = 1-stats.f.cdf(f, dfn, dfd) #find p-value of F test statistic 
+    return f, p
+  
+f_test(yes["Sale_Price"],no["Sale_Price"])
+```
+
+```{python}
+yes=r.ames[r.ames["Central_Air"]=="Y"]
+no=r.ames[r.ames["Central_Air"]=="N"]
+stats.ttest_ind(yes["Sale_Price"], no["Sale_Price"], equal_var=False,alternative="two-sided")
+```
+
+```{python}
+stats.mannwhitneyu(yes["Sale_Price"], no["Sale_Price"],use_continuity=True, alternative='two-sided')
 ```
 

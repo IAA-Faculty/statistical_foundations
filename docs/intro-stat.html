@@ -1476,15 +1476,15 @@ Figure 1.16: Null Distribution: Number of heads for fair coin tossed 100 times
 <p>Before we move on, we can compare the simulated result we just developed to one based on a theoretical distribution. This can be done using the <code>prop.test()</code> function to test a proportion. The formal test confirms our conclusion.</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="intro-stat.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="dv">65</span>, <span class="dv">100</span>, <span class="at">p =</span> <span class="fl">0.5</span>,</span>
 <span id="cb46-2"><a href="intro-stat.html#cb46-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">alternative =</span> <span class="fu">c</span>(<span class="st">&quot;two.sided&quot;</span>),</span>
-<span id="cb46-3"><a href="intro-stat.html#cb46-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">conf.level =</span> <span class="fl">0.99</span>)</span></code></pre></div>
+<span id="cb46-3"><a href="intro-stat.html#cb46-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">conf.level =</span> <span class="fl">0.99</span>,<span class="at">correct=</span>F)</span></code></pre></div>
 <pre><code>## 
-##  1-sample proportions test with continuity correction
+##  1-sample proportions test without continuity correction
 ## 
 ## data:  65 out of 100
-## X-squared = 8.41, df = 1, p-value = 0.003732
+## X-squared = 9, df = 1, p-value = 0.0027
 ## alternative hypothesis: true p is not equal to 0.5
 ## 99 percent confidence interval:
-##  0.5162768 0.7643236
+##  0.5213257 0.7600081
 ## sample estimates:
 ##    p 
 ## 0.65</code></pre>
@@ -1842,7 +1842,7 @@ Difference in location. <br> (distributional dominance)
 <div class="sourceCode" id="cb100"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb100-1"><a href="intro-stat.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating plot</span></span>
 <span id="cb100-2"><a href="intro-stat.html#cb100-2" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>r.ames[<span class="st">&quot;Sale_Price&quot;</span>]<span class="op">/</span><span class="dv">1000</span></span>
 <span id="cb100-3"><a href="intro-stat.html#cb100-3" aria-hidden="true" tabindex="-1"></a>plt.boxplot(x)</span></code></pre></div>
-<pre><code>## {&#39;whiskers&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001D2BD3BD6A0&gt;, &lt;matplotlib.lines.Line2D object at 0x000001D2BD38E310&gt;], &#39;caps&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001D2BDFC5DF0&gt;, &lt;matplotlib.lines.Line2D object at 0x000001D2BDFC5E80&gt;], &#39;boxes&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001D2B3633CD0&gt;], &#39;medians&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001D2BDFB4670&gt;], &#39;fliers&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001D2BDFB4FA0&gt;], &#39;means&#39;: []}</code></pre>
+<pre><code>## {&#39;whiskers&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001A09EFA1400&gt;, &lt;matplotlib.lines.Line2D object at 0x000001A09F3C13D0&gt;], &#39;caps&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001A09E87D310&gt;, &lt;matplotlib.lines.Line2D object at 0x000001A09E87D790&gt;], &#39;boxes&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001A09F173670&gt;], &#39;medians&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001A09E87D610&gt;], &#39;fliers&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001A09E8BBCA0&gt;], &#39;means&#39;: []}</code></pre>
 <div class="sourceCode" id="cb102"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb102-1"><a href="intro-stat.html#cb102-1" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-38-15.png" width="672" /></p>
 <div class="sourceCode" id="cb103"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb103-1"><a href="intro-stat.html#cb103-1" aria-hidden="true" tabindex="-1"></a>sns.boxplot( y<span class="op">=</span>r.ames[<span class="st">&quot;Sale_Price&quot;</span>], x<span class="op">=</span>r.ames[<span class="st">&quot;Central_Air&quot;</span>] )</span>
@@ -1856,9 +1856,49 @@ Difference in location. <br> (distributional dominance)
 <div class="sourceCode" id="cb106"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb106-1"><a href="intro-stat.html#cb106-1" aria-hidden="true" tabindex="-1"></a>count<span class="op">=</span><span class="dv">65</span></span>
 <span id="cb106-2"><a href="intro-stat.html#cb106-2" aria-hidden="true" tabindex="-1"></a>nobs<span class="op">=</span><span class="dv">100</span></span>
 <span id="cb106-3"><a href="intro-stat.html#cb106-3" aria-hidden="true" tabindex="-1"></a>value<span class="op">=</span><span class="fl">0.5</span></span>
-<span id="cb106-4"><a href="intro-stat.html#cb106-4" aria-hidden="true" tabindex="-1"></a>stat,pval <span class="op">=</span> statsmodels.stats.proportion.proportions_ztest(count,nobs,value,alternative<span class="op">=</span><span class="st">&#39;two-sided&#39;</span>)</span>
-<span id="cb106-5"><a href="intro-stat.html#cb106-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;</span><span class="sc">{0:0.3f}</span><span class="st">&#39;</span>.<span class="bu">format</span>(pval))</span></code></pre></div>
-<pre><code>## 0.002</code></pre>
+<span id="cb106-4"><a href="intro-stat.html#cb106-4" aria-hidden="true" tabindex="-1"></a>statsmodels.stats.proportion.proportions_ztest(count,nobs,value,alternative<span class="op">=</span><span class="st">&#39;two-sided&#39;</span>,prop_var<span class="op">=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<pre><code>## (3.0000000000000004, 0.0026997960632601866)</code></pre>
+<div class="sourceCode" id="cb108"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb108-1"><a href="intro-stat.html#cb108-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>r.ames[<span class="st">&quot;Sale_Price&quot;</span>]</span>
+<span id="cb108-2"><a href="intro-stat.html#cb108-2" aria-hidden="true" tabindex="-1"></a>stats.ttest_1samp(x, popmean<span class="op">=</span><span class="dv">178000</span>,alternative<span class="op">=</span><span class="st">&#39;two-sided&#39;</span>)</span></code></pre></div>
+<pre><code>## Ttest_1sampResult(statistic=1.8945491101378895, pvalue=0.058250572779629695)</code></pre>
+<div class="sourceCode" id="cb110"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb110-1"><a href="intro-stat.html#cb110-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>r.ames[<span class="st">&quot;Sale_Price&quot;</span>]</span>
+<span id="cb110-2"><a href="intro-stat.html#cb110-2" aria-hidden="true" tabindex="-1"></a>stats.ttest_1samp(x, popmean<span class="op">=</span><span class="dv">178000</span>,alternative<span class="op">=</span><span class="st">&#39;greater&#39;</span>)</span></code></pre></div>
+<pre><code>## Ttest_1sampResult(statistic=1.8945491101378895, pvalue=0.029125286389814847)</code></pre>
+<div class="sourceCode" id="cb112"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb112-1"><a href="intro-stat.html#cb112-1" aria-hidden="true" tabindex="-1"></a>yes<span class="op">=</span>r.ames[r.ames[<span class="st">&quot;Central_Air&quot;</span>]<span class="op">==</span><span class="st">&quot;Y&quot;</span>]</span>
+<span id="cb112-2"><a href="intro-stat.html#cb112-2" aria-hidden="true" tabindex="-1"></a>sm.qqplot(yes[<span class="st">&quot;Sale_Price&quot;</span>], line<span class="op">=</span><span class="st">&#39;45&#39;</span>,fit<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-44-19.png" width="672" /></p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb113-1"><a href="intro-stat.html#cb113-1" aria-hidden="true" tabindex="-1"></a>no<span class="op">=</span>r.ames[r.ames[<span class="st">&quot;Central_Air&quot;</span>]<span class="op">==</span><span class="st">&quot;N&quot;</span>]</span>
+<span id="cb113-2"><a href="intro-stat.html#cb113-2" aria-hidden="true" tabindex="-1"></a>sm.qqplot(no[<span class="st">&quot;Sale_Price&quot;</span>], line<span class="op">=</span><span class="st">&#39;45&#39;</span>,fit<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-45-21.png" width="672" /></p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb114-1"><a href="intro-stat.html#cb114-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>r.ames[<span class="st">&quot;Sale_Price&quot;</span>]</span>
+<span id="cb114-2"><a href="intro-stat.html#cb114-2" aria-hidden="true" tabindex="-1"></a>stats.shapiro(x)</span></code></pre></div>
+<pre><code>## ShapiroResult(statistic=0.8762608170509338, pvalue=2.3401684354224445e-43)</code></pre>
+<div class="sourceCode" id="cb116"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb116-1"><a href="intro-stat.html#cb116-1" aria-hidden="true" tabindex="-1"></a>yes<span class="op">=</span>r.ames[r.ames[<span class="st">&quot;Central_Air&quot;</span>]<span class="op">==</span><span class="st">&quot;Y&quot;</span>]</span>
+<span id="cb116-2"><a href="intro-stat.html#cb116-2" aria-hidden="true" tabindex="-1"></a>no<span class="op">=</span>r.ames[r.ames[<span class="st">&quot;Central_Air&quot;</span>]<span class="op">==</span><span class="st">&quot;N&quot;</span>]</span>
+<span id="cb116-3"><a href="intro-stat.html#cb116-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-4"><a href="intro-stat.html#cb116-4" aria-hidden="true" tabindex="-1"></a>np.var(yes[<span class="st">&quot;Sale_Price&quot;</span>],ddof<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## 6260190152.032549</code></pre>
+<div class="sourceCode" id="cb118"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb118-1"><a href="intro-stat.html#cb118-1" aria-hidden="true" tabindex="-1"></a>np.var(no[<span class="st">&quot;Sale_Price&quot;</span>],ddof<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb118-2"><a href="intro-stat.html#cb118-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-3"><a href="intro-stat.html#cb118-3" aria-hidden="true" tabindex="-1"></a><span class="co">#define F-test function</span></span></code></pre></div>
+<pre><code>## 1413536271.3585553</code></pre>
+<div class="sourceCode" id="cb120"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb120-1"><a href="intro-stat.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f_test(x, y):</span>
+<span id="cb120-2"><a href="intro-stat.html#cb120-2" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.array(x)</span>
+<span id="cb120-3"><a href="intro-stat.html#cb120-3" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> np.array(y)</span>
+<span id="cb120-4"><a href="intro-stat.html#cb120-4" aria-hidden="true" tabindex="-1"></a>    f <span class="op">=</span> np.var(x, ddof<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span>np.var(y, ddof<span class="op">=</span><span class="dv">1</span>) <span class="co">#calculate F test statistic </span></span>
+<span id="cb120-5"><a href="intro-stat.html#cb120-5" aria-hidden="true" tabindex="-1"></a>    dfn <span class="op">=</span> x.size<span class="op">-</span><span class="dv">1</span> <span class="co">#define degrees of freedom numerator </span></span>
+<span id="cb120-6"><a href="intro-stat.html#cb120-6" aria-hidden="true" tabindex="-1"></a>    dfd <span class="op">=</span> y.size<span class="op">-</span><span class="dv">1</span> <span class="co">#define degrees of freedom denominator </span></span>
+<span id="cb120-7"><a href="intro-stat.html#cb120-7" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> <span class="dv">1</span><span class="op">-</span>stats.f.cdf(f, dfn, dfd) <span class="co">#find p-value of F test statistic </span></span>
+<span id="cb120-8"><a href="intro-stat.html#cb120-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> f, p</span>
+<span id="cb120-9"><a href="intro-stat.html#cb120-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb120-10"><a href="intro-stat.html#cb120-10" aria-hidden="true" tabindex="-1"></a>f_test(yes[<span class="st">&quot;Sale_Price&quot;</span>],no[<span class="st">&quot;Sale_Price&quot;</span>])</span></code></pre></div>
+<pre><code>## (4.4287439090727085, 1.1102230246251565e-16)</code></pre>
+<div class="sourceCode" id="cb122"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb122-1"><a href="intro-stat.html#cb122-1" aria-hidden="true" tabindex="-1"></a>yes<span class="op">=</span>r.ames[r.ames[<span class="st">&quot;Central_Air&quot;</span>]<span class="op">==</span><span class="st">&quot;Y&quot;</span>]</span>
+<span id="cb122-2"><a href="intro-stat.html#cb122-2" aria-hidden="true" tabindex="-1"></a>no<span class="op">=</span>r.ames[r.ames[<span class="st">&quot;Central_Air&quot;</span>]<span class="op">==</span><span class="st">&quot;N&quot;</span>]</span>
+<span id="cb122-3"><a href="intro-stat.html#cb122-3" aria-hidden="true" tabindex="-1"></a>stats.ttest_ind(yes[<span class="st">&quot;Sale_Price&quot;</span>], no[<span class="st">&quot;Sale_Price&quot;</span>], equal_var<span class="op">=</span><span class="va">False</span>,alternative<span class="op">=</span><span class="st">&quot;two-sided&quot;</span>)</span></code></pre></div>
+<pre><code>## Ttest_indResult(statistic=27.43321766127874, pvalue=8.78493646231923e-88)</code></pre>
+<div class="sourceCode" id="cb124"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb124-1"><a href="intro-stat.html#cb124-1" aria-hidden="true" tabindex="-1"></a>stats.mannwhitneyu(yes[<span class="st">&quot;Sale_Price&quot;</span>], no[<span class="st">&quot;Sale_Price&quot;</span>],use_continuity<span class="op">=</span><span class="va">True</span>, alternative<span class="op">=</span><span class="st">&#39;two-sided&#39;</span>)</span></code></pre></div>
+<pre><code>## MannwhitneyuResult(statistic=472700.0, pvalue=1.2086496396714786e-71)</code></pre>
 
 </div>
 </div>
