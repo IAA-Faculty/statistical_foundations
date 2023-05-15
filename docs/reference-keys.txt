@@ -107,3 +107,8 @@ binary-logistic-regression
 adding-categorical-variables
 model-assessment
 variable-selection-and-regularized-regression
+python-code-1
+python-code-2
+python-code-3
+python-code-4
+python-code-5
