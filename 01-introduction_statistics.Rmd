@@ -608,7 +608,6 @@ For all of the Python code throughout the book, you will need to use the followi
 ```{python}
 
 import pandas as pd
-import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder
 import seaborn as sns
@@ -735,8 +734,7 @@ plt.show()
 QQ plots: 
 
 ```{python}
-x=r.ames["Sale_Price"]/1000
-sma.qqplot(x, line='45',fit=True)
+sma.qqplot(ames_py['Sale_Price']/1000, line='45',fit=True)
 py.show()
 ```
 
@@ -744,15 +742,15 @@ Boxplots:
 
 ```{python}
 # Creating plot
-x=r.ames["Sale_Price"]/1000
-plt.boxplot(x)
-
+ax = sns.boxplot(data = ames_py, x = ames_py['Sale_Price']/1000)
+ax.set(xlabel = 'Sales Price (Thousands $)',
+       title = 'Boxplot of Sales Price in Thousands of Dollars')
 plt.show()
 ```
 
 
 ```{python}
-sns.boxplot( y=r.ames["Sale_Price"], x=r.ames["Central_Air"] )
+ax = sns.catplot(data = ames_py, x = "Central_Air", y = "Sale_Price", kind = "box")
 plt.show()
 ```
 
