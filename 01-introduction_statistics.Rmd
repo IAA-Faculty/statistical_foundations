@@ -515,6 +515,9 @@ ggplot(ames,aes(x=Sale_Price/1000)) +
 
 
 ```
+
+
+
 ```{r label='overhistogramdensityAC',fig.align='center',fig.cap='Histogram: Density of Sale_Price for varying qualities of  Central_Air'} 
 ggplot(ames,aes(x=Sale_Price/1000)) + 
     geom_histogram(data=subset(ames,Central_Air == 'Y'),aes(y=..density..,fill=Central_Air), alpha = 0.2) +
@@ -611,9 +614,11 @@ from sklearn.preprocessing import OneHotEncoder
 import seaborn as sns
 import matplotlib.pyplot as plt
 from numpy import random
-import statsmodels.api as sm
+import statsmodels.api as sma
+import statsmodels as sm
 import pylab as py
 import scipy.stats as stats
+import scipy as sp
 import statsmodels as statsmodels
 
 ```
@@ -636,18 +641,24 @@ one_hot_encoded_data = pd.get_dummies(df, columns = ['x1', 'x2'])
 print(one_hot_encoded_data)
 ```
 
+Bring the r data set over to Python.
+
+```{python}
+ames_py = r.ames
+ames_py = pd.DataFrame(ames_py)
+
+ames_py.describe()
+```
+
 
 Creating a frequency bar plot for Heating Quality:
 
 ```{python}
 
-df=r.ames['Heating_QC'].value_counts().rename("HeatingSystem").reset_index(name="Frequency").reset_index()
-df.columns=["index","Heating","Frequency"]
-print(df)
-
-plt.bar(df["Heating"],df["Frequency"],color="orange")
-plt.xlabel("Heating System Quality")
-plt.ylabel("Frequency")
+ax = sns.countplot(x = "Heating_QC", data = ames_py, color = "orange")
+ax.set(xlabel = 'Heating Quality',
+       ylabel = 'Frequency',
+       title = 'Bar Graph of Heating System')
 plt.show()
 
 ```
@@ -719,7 +730,7 @@ QQ plots:
 
 ```{python}
 x=r.ames["Sale_Price"]/1000
-sm.qqplot(x, line='45',fit=True)
+sma.qqplot(x, line='45',fit=True)
 py.show()
 ```
 
@@ -1007,7 +1018,7 @@ Our final conclusion from the t-test is the _rejection of the null hypothesis_ a
 QQ plots for those homes with Central Air and without Central Air:
 ```{python}
 yes=r.ames[r.ames["Central_Air"]=="Y"]
-sm.qqplot(yes["Sale_Price"], line='45',fit=True)
+sma.qqplot(yes["Sale_Price"], line='45',fit=True)
 
 
 ```
@@ -1015,7 +1026,7 @@ sm.qqplot(yes["Sale_Price"], line='45',fit=True)
 
 ```{python}
 no=r.ames[r.ames["Central_Air"]=="N"]
-sm.qqplot(no["Sale_Price"], line='45',fit=True)
+sma.qqplot(no["Sale_Price"], line='45',fit=True)
 ```
 
 Shapiro-Wilks test for Normality:
