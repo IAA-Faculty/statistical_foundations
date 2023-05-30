@@ -808,8 +808,8 @@ Confidence intervals:
 
 
 ```{python}
-x=r.ames["Sale_Price"]
-stats.t.interval(alpha=0.95, df=len(x)-1, loc=np.mean(x), scale=stats.sem(x)) 
+d = sm.stats.weightstats.DescrStatsW(ames_py['Sale_Price'])
+d.tconfint_mean(0.05)
 ```
 
 
@@ -931,21 +931,21 @@ Proportion test:
 count=65
 nobs=100
 value=0.5
-statsmodels.stats.proportion.proportions_ztest(count,nobs,value,alternative='two-sided',prop_var=0.5)
+sm.stats.proportion.proportions_ztest(count,nobs,value,alternative='two-sided',prop_var=0.5)
 
 ```
 
 One sample mean test (two-sided):
 ```{python}
-x=r.ames["Sale_Price"]
-stats.ttest_1samp(x, popmean=178000,alternative='two-sided')
+d = sm.stats.weightstats.DescrStatsW(ames_py['Sale_Price'])
+d.ttest_mean(value = 178000, alternative = 'two-sided')
 ```
 
 One sample mean test (greater than):
 
 ```{python}
-x=r.ames["Sale_Price"]
-stats.ttest_1samp(x, popmean=178000,alternative='greater')
+d = sm.stats.weightstats.DescrStatsW(ames_py['Sale_Price'])
+d.ttest_mean(value = 178000, alternative = 'larger')
 ```
 
 
@@ -1033,18 +1033,19 @@ no=r.ames[r.ames["Central_Air"]=="N"]
 sma.qqplot(no["Sale_Price"], line='45',fit=True)
 ```
 
-Shapiro-Wilks test for Normality:
+Test for Normality:
 
 ```{python}
-x=r.ames["Sale_Price"]
-stats.shapiro(x)
+sma.stats.diagnostic.normal_ad(ames_py[ames_py["Central_Air"] == 'Y']['Sale_Price'])
+
+sma.stats.diagnostic.normal_ad(ames_py[ames_py["Central_Air"] == 'N']['Sale_Price'])
 ```
 
 Test for equality of variance (need to define a function for the F-test):
 
 ```{python}
-yes=r.ames[r.ames["Central_Air"]=="Y"]
-no=r.ames[r.ames["Central_Air"]=="N"]
+yes=ames_py[ames_py["Central_Air"]=="Y"]
+no=ames_py[ames_py["Central_Air"]=="N"]
 
 np.var(yes["Sale_Price"],ddof=1)
 np.var(no["Sale_Price"],ddof=1)
@@ -1062,12 +1063,17 @@ def f_test(x, y):
 f_test(yes["Sale_Price"],no["Sale_Price"])
 ```
 
+Or can do Levene's test:
+
+```{python}
+sp.stats.levene(ames_py[ames_py["Central_Air"] == 'Y']['Sale_Price'], ames_py[ames_py["Central_Air"] == 'N']['Sale_Price'])
+```
+
+
 T-test for two sample means:
 
 ```{python}
-yes=r.ames[r.ames["Central_Air"]=="Y"]
-no=r.ames[r.ames["Central_Air"]=="N"]
-stats.ttest_ind(yes["Sale_Price"], no["Sale_Price"], equal_var=False,alternative="two-sided")
+sp.stats.ttest_ind(ames_py[ames_py["Central_Air"] == 'Y']['Sale_Price'], ames_py[ames_py["Central_Air"] == 'N']['Sale_Price'], equal_var = False)
 ```
 
 
@@ -1102,6 +1108,6 @@ Mann-Whitney Wilcoxon test:
 
 
 ```{python}
-stats.mannwhitneyu(yes["Sale_Price"], no["Sale_Price"],use_continuity=True, alternative='two-sided')
+sp.stats.mannwhitneyu(ames_py[ames_py["Central_Air"] == 'Y']['Sale_Price'], ames_py[ames_py["Central_Air"] == 'N']['Sale_Price'])
 ```
 
