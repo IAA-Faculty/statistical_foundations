@@ -666,34 +666,27 @@ plt.show()
 Creating a table of frequencies for Heating Quality:
 
 ```{python}
-df=r.ames['Heating_QC'].value_counts().rename_axis('unique_values').to_frame('counts')
+ames_py['Heating_QC'].value_counts()
 ```
 
 Creating a frequency histogram of Sales Price:
 
 ```{python}
-x=r.ames["Sale_Price"]/1000
-plt.hist(x,color="blue")
-plt.show() 
+ax = sns.histplot(x = ames_py['Sale_Price']/1000, data = ames_py, color = "blue")
+ax.set(xlabel = 'Sales Price (Thousands $)',
+       ylabel = 'Frequency',
+       title = 'Histogram of Sales Price in Thousands of Dollars')
+plt.show()
 ```
 
-Getting summary information for Sales Price:
+
+
+Getting summary statistics by Sales Price and External Quality:
 
 ```{python}
-r.ames["Sale_Price"].describe()
-```
+ames_py['Sale_Price'].describe()
 
-Getting summary statistics by External Quality:
-
-```{python}
-print("Mean:")
-r.ames.groupby(["Exter_Qual"])["Sale_Price"].mean()
-print("Standard Deviation:")
-r.ames.groupby(["Exter_Qual"])["Sale_Price"].std()
-print("Minimum:")
-r.ames.groupby(["Exter_Qual"])["Sale_Price"].min()
-print("Maximum:")
-r.ames.groupby(["Exter_Qual"])["Sale_Price"].max()
+ames_py.groupby('Exter_Qual')['Sale_Price'].describe()
 ```
 
 Overlay a density plot on top of a the Sales Price histogram:
@@ -707,23 +700,36 @@ sns.histplot(x, kde=True, color = 'blue')
 Showing overlay of histograms for Sales Price by Central Air:
 
 ```{python}
-
-
-sns.histplot(data=r.ames, x="Sale_Price", hue="Central_Air")
+ax = sns.displot(data = ames_py, x = ames_py['Sale_Price']/1000, kde = True)
+ax.set(xlabel = 'Sales Price (Thousands $)',
+       ylabel = 'Frequency')
+plt.show()
 ```
 
-Same histogram, but now as a relative frequency histogram:
-
-```{python}
-
-
-sns.histplot(data=r.ames, x="Sale_Price", hue="Central_Air",stat="probability")
-```
 
 Overlay of density plots (for Sales Price broken down by Central Air):
 
 ```{python}
-sns.displot(r.ames, x="Sale_Price", hue="Central_Air", kind="kde", fill=True)
+ax = sns.displot(data = ames_py, x = ames_py['Sale_Price']/1000, hue = "Central_Air")
+ax.set(xlabel = 'Sales Price (Thousands $)',
+       ylabel = 'Frequency')
+plt.show()
+```
+
+
+```{python}
+ax = sns.displot(data = ames_py, x = ames_py['Sale_Price']/1000, hue = "Central_Air", stat = "density", common_norm = False)
+ax.set(xlabel = 'Sales Price (Thousands $)',
+       ylabel = 'Density')
+plt.show()
+```
+
+
+```{python}
+ax = sns.displot(data = ames_py, x = ames_py['Sale_Price']/1000, hue = "Central_Air", common_norm = False, kind = "kde", fill = True)
+ax.set(xlabel = 'Sales Price (Thousands $)',
+       ylabel = 'Density')
+plt.show()
 ```
 
 QQ plots: 
