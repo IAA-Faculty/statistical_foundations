@@ -696,7 +696,7 @@ Assumptions
 train['pred_mlr'] = model_mlr.predict()
 train['resid_mlr'] = model_mlr.resid
 
-train[['Sale_Price', 'pred_anova', 'pred_slr', 'pred_mlr']].head(n = 10)
+train[['Sale_Price', 'pred_mlr', 'resid_mlr']].head(n = 10)
 
 sm.api.qqplot(train['resid_mlr'])
 plt.show()
