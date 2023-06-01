@@ -1,3 +1,73 @@
+
+
+```{r include=FALSE}
+library(AmesHousing)
+library(tidyverse)
+library(car)
+library(DescTools)
+library(corrplot)
+library(mosaic)
+library(modelr)
+library(plotly)
+library(ggplot2)
+library(Hmisc)
+library(onehot)
+library(jmuOutlier)
+library(leaps)
+library(glmnet)
+library(nortest)
+library(lmtest)
+library(gmodels)
+library(vcdExtra)
+library(TSA)
+library(carData)
+library(epiDisplay)
+library(gridExtra)
+ames=make_ordinal_ames()
+
+library(tidyverse)
+
+set.seed(123)
+
+ames <- ames %>% mutate(id = row_number())
+
+train <- ames %>% sample_frac(0.7)
+
+test <- anti_join(ames, train, by = 'id')
+library(reticulate)
+use_python("C:\\ProgramData\\Anaconda3\\python.exe")
+```
+
+
+
+```{python include=F}
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import OneHotEncoder
+import seaborn as sns
+import matplotlib.pyplot as plt
+from numpy import random
+import statsmodels.api as sma
+import statsmodels as sm
+import pylab as py
+import scipy.stats as stats
+import scipy as sp
+import statsmodels as statsmodels
+import statsmodels.formula.api as smf
+import sklearn
+ames_py = r.ames
+ames_py = pd.DataFrame(ames_py)
+train = r.train
+test = r.test
+
+```
+
+
+
+
+
+
+
 # Model Building & Scoring for Prediction {#model}
 Chapters \@ref(slr) and \@ref(mlr) only scratch the surface of model building. Linear regression is a great initial approach to take to model building. In fact, in the realm of statistical models, linear regression (calculated by ordinary least squares) is the **best linear unbiased estimator**. The two key pieces to that previous statement are "best" and "unbiased." 
 
@@ -206,6 +276,36 @@ The ```glmnet``` function automatically standardizes the variables before fittin
 
 What $\lambda$ term is best? What is the proper balance between ridge and LASSO penalties when building an elastic net? That will be discussed in the following section.
 
+### Python Code
+
+Ridge Regression
+
+```{python}
+train = train[['Sale_Price', 'Lot_Area', 'Street', 'Bldg_Type',
+               'House_Style', 'Overall_Qual', 'Roof_Style', 
+               'Central_Air', 'First_Flr_SF', 'Second_Flr_SF', 
+               'Full_Bath', 'Half_Bath', 'Fireplaces', 
+               'Garage_Area', 'Gr_Liv_Area', 'TotRms_AbvGrd']]
+               
+train = train.fillna(0)
+               
+test = test[['Sale_Price', 'Lot_Area', 'Street', 'Bldg_Type',
+             'House_Style', 'Overall_Qual', 'Roof_Style', 
+             'Central_Air', 'First_Flr_SF', 'Second_Flr_SF', 
+             'Full_Bath', 'Half_Bath', 'Fireplaces', 
+             'Garage_Area', 'Gr_Liv_Area', 'TotRms_AbvGrd']]
+
+test = test.fillna(0)
+```
+
+
+```{python}
+train_dummy = pd.get_dummies(train, columns = ['Street', 'Bldg_Type', 'House_Style', 'Overall_Qual', 'Roof_Style', 'Central_Air'])
+
+print(train_dummy)
+```
+
+
 ## Optimizing Penalties
 No matter the approach listed above, a penatly term $\lambda$ needs to be picked. However, we do not want to get caught overfitting our training data by minimizing the variance so much that it is not generalizable to the overall pattern and other similar data. Take the following plot:
 
@@ -261,14 +361,14 @@ abline(v = log(ames_lasso_cv$lambda.min), col = "black", lty = "dashed")
 To investigate which variables are important at a $\lambda$ value, we can view the coefficients using the ```coef``` function. They are ranked here:
 
 ```{r, warning=FALSE}
-coef(ames_lasso, s = ames_lasso_cv$lambda.1se) %>%
-  broom::tidy() %>%
-  filter(row != "(Intercept)") %>%
-  ggplot(aes(value, reorder(row, value))) +
-  geom_point() +
-  ggtitle("Influential Variables") +
-  xlab("Coefficient") +
-  ylab(NULL)
+#coef(ames_lasso, s = ames_lasso_cv$lambda.1se) %>%
+#  broom::tidy() %>%
+#  filter(row != "(Intercept)") %>%
+#  ggplot(aes(value, reorder(row, value))) +
+#  geom_point() +
+#  ggtitle("Influential Variables") +
+#  xlab("Coefficient") +
+#  ylab(NULL)
 ```
 
 The variable describing the overall quality of the home is the driving factor of this model as well as the other variables listed above.
@@ -308,9 +408,9 @@ The MAPE gives the average absolute *percentage* difference between our predicti
 The final model we had from Chapter \@ref(diag) had the variables . From this model we can use the ```predict``` function with the ```newdata = ``` option to use score the ```test``` dataset. 
 
 ```{r}
-test$pred_lm <- predict(ames_lm, newdata = test)
+#test$pred_lm <- predict(ames_lm, newdata = test)
 
-head(test$pred_lm)
+#head(test$pred_lm)
 ```
 
 To get predictions from the regularized regression models, a $\lambda$ value must be selected. For the previous LASSO regression we will choose the largest $\lambda$ value within one standard error of the minimum $\lambda$ value to help reduce the number of variables. Again, we will use the ```predict``` function. The ```s = ``` option is where we input the $\lambda$ value. The ```newx = ``` option is where we specify the ```test``` dataset. 
@@ -324,13 +424,13 @@ head(test_reg$pred_lasso)
 Now we need to calculate the MAE and MAPE for each model for comparison.
 
 ```{r}
-test %>%
-  mutate(lm_APE = 100*abs((Sale_Price - pred_lm)/Sale_Price)) %>%
-  dplyr::summarise(MAPE_lm = mean(lm_APE))
+#test %>%
+#  mutate(lm_APE = 100*abs((Sale_Price - pred_lm)/Sale_Price)) %>%
+#  dplyr::summarise(MAPE_lm = mean(lm_APE))
 
-test_reg %>%
-  mutate(lasso_APE = 100*abs((Sale_Price - pred_lasso)/Sale_Price)) %>%
-  dplyr::summarise(MAPE_lasso = mean(lasso_APE))
+#test_reg %>%
+#  mutate(lasso_APE = 100*abs((Sale_Price - pred_lasso)/Sale_Price)) %>%
+#  dplyr::summarise(MAPE_lasso = mean(lasso_APE))
 
 ```
 

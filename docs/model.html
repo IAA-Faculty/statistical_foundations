@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Model Building &amp; Scoring for Prediction | Statistical Foundations</title>
   <meta name="description" content="Chapter 6 Model Building &amp; Scoring for Prediction | Statistical Foundations" />
-  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Model Building &amp; Scoring for Prediction | Statistical Foundations" />
   <meta property="og:type" content="book" />
@@ -50,13 +50,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -97,7 +90,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -110,7 +103,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -124,6 +117,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -158,50 +155,67 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1.4" data-path="intro-stat.html"><a href="intro-stat.html#skew"><i class="fa fa-check"></i><b>1.1.4</b> Skewness</a></li>
 <li class="chapter" data-level="1.1.5" data-path="intro-stat.html"><a href="intro-stat.html#kurt"><i class="fa fa-check"></i><b>1.1.5</b> Kurtosis</a></li>
 <li class="chapter" data-level="1.1.6" data-path="intro-stat.html"><a href="intro-stat.html#graphdist"><i class="fa fa-check"></i><b>1.1.6</b> Graphical Displays of Distributions</a></li>
+<li class="chapter" data-level="1.1.7" data-path="intro-stat.html"><a href="intro-stat.html#python-code"><i class="fa fa-check"></i><b>1.1.7</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="intro-stat.html"><a href="intro-stat.html#pointest"><i class="fa fa-check"></i><b>1.2</b> Point Estimates</a></li>
-<li class="chapter" data-level="1.3" data-path="intro-stat.html"><a href="intro-stat.html#ci"><i class="fa fa-check"></i><b>1.3</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="1.3" data-path="intro-stat.html"><a href="intro-stat.html#ci"><i class="fa fa-check"></i><b>1.3</b> Confidence Intervals</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="intro-stat.html"><a href="intro-stat.html#python-code-1"><i class="fa fa-check"></i><b>1.3.1</b> Python Code</a></li>
+</ul></li>
 <li class="chapter" data-level="1.4" data-path="intro-stat.html"><a href="intro-stat.html#hypotest"><i class="fa fa-check"></i><b>1.4</b> Hypothesis Testing</a>
 <ul>
 <li class="chapter" data-level="1.4.1" data-path="intro-stat.html"><a href="intro-stat.html#onesample"><i class="fa fa-check"></i><b>1.4.1</b> One-Sample T-Test</a></li>
+<li class="chapter" data-level="1.4.2" data-path="intro-stat.html"><a href="intro-stat.html#python-code-2"><i class="fa fa-check"></i><b>1.4.2</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="intro-stat.html"><a href="intro-stat.html#two-sample-t-tests"><i class="fa fa-check"></i><b>1.5</b> Two-Sample t-tests</a>
 <ul>
 <li class="chapter" data-level="1.5.1" data-path="intro-stat.html"><a href="intro-stat.html#testnorm"><i class="fa fa-check"></i><b>1.5.1</b> Testing Normality of Groups</a></li>
 <li class="chapter" data-level="1.5.2" data-path="intro-stat.html"><a href="intro-stat.html#ftest"><i class="fa fa-check"></i><b>1.5.2</b> Testing Equality of Variances</a></li>
 <li class="chapter" data-level="1.5.3" data-path="intro-stat.html"><a href="intro-stat.html#tsttest"><i class="fa fa-check"></i><b>1.5.3</b> Testing Equality of Means</a></li>
-<li class="chapter" data-level="1.5.4" data-path="intro-stat.html"><a href="intro-stat.html#wilcoxon"><i class="fa fa-check"></i><b>1.5.4</b> Mann-Whitney-Wilcoxon Test</a></li>
+<li class="chapter" data-level="1.5.4" data-path="intro-stat.html"><a href="intro-stat.html#python-code-3"><i class="fa fa-check"></i><b>1.5.4</b> Python Code</a></li>
+<li class="chapter" data-level="1.5.5" data-path="intro-stat.html"><a href="intro-stat.html#wilcoxon"><i class="fa fa-check"></i><b>1.5.5</b> Mann-Whitney-Wilcoxon Test</a></li>
+<li class="chapter" data-level="1.5.6" data-path="intro-stat.html"><a href="intro-stat.html#python-code-4"><i class="fa fa-check"></i><b>1.5.6</b> Python Code</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="slr.html"><a href="slr.html"><i class="fa fa-check"></i><b>2</b> Introduction to ANOVA and Linear Regression</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="slr.html"><a href="slr.html#evp"><i class="fa fa-check"></i><b>2.1</b> Prediction vs. Explanation</a></li>
-<li class="chapter" data-level="2.2" data-path="slr.html"><a href="slr.html#trainvalidtest"><i class="fa fa-check"></i><b>2.2</b> Honest Assessment</a></li>
+<li class="chapter" data-level="2.2" data-path="slr.html"><a href="slr.html#trainvalidtest"><i class="fa fa-check"></i><b>2.2</b> Honest Assessment</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="slr.html"><a href="slr.html#python-code-5"><i class="fa fa-check"></i><b>2.2.1</b> Python Code</a></li>
+</ul></li>
 <li class="chapter" data-level="2.3" data-path="slr.html"><a href="slr.html#bivariate-eda"><i class="fa fa-check"></i><b>2.3</b> Bivariate EDA</a>
 <ul>
 <li class="chapter" data-level="2.3.1" data-path="slr.html"><a href="slr.html#continuous-continuous-associations"><i class="fa fa-check"></i><b>2.3.1</b> Continuous-Continuous Associations</a></li>
 <li class="chapter" data-level="2.3.2" data-path="slr.html"><a href="slr.html#continuous-categorical-associations"><i class="fa fa-check"></i><b>2.3.2</b> Continuous-Categorical Associations</a></li>
+<li class="chapter" data-level="2.3.3" data-path="slr.html"><a href="slr.html#python-code-6"><i class="fa fa-check"></i><b>2.3.3</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="slr.html"><a href="slr.html#oneway"><i class="fa fa-check"></i><b>2.4</b> One-Way ANOVA</a>
 <ul>
-<li class="chapter" data-level="2.4.1" data-path="slr.html"><a href="slr.html#testing-assumptions"><i class="fa fa-check"></i><b>2.4.1</b> Testing Assumptions</a></li>
-<li class="chapter" data-level="2.4.2" data-path="slr.html"><a href="slr.html#kruskal"><i class="fa fa-check"></i><b>2.4.2</b> Kruskal-Wallis</a></li>
+<li class="chapter" data-level="2.4.1" data-path="slr.html"><a href="slr.html#python-code-7"><i class="fa fa-check"></i><b>2.4.1</b> Python Code</a></li>
+<li class="chapter" data-level="2.4.2" data-path="slr.html"><a href="slr.html#testing-assumptions"><i class="fa fa-check"></i><b>2.4.2</b> Testing Assumptions</a></li>
+<li class="chapter" data-level="2.4.3" data-path="slr.html"><a href="slr.html#python-code-8"><i class="fa fa-check"></i><b>2.4.3</b> Python Code</a></li>
+<li class="chapter" data-level="2.4.4" data-path="slr.html"><a href="slr.html#kruskal"><i class="fa fa-check"></i><b>2.4.4</b> Kruskal-Wallis</a></li>
+<li class="chapter" data-level="2.4.5" data-path="slr.html"><a href="slr.html#python-code-9"><i class="fa fa-check"></i><b>2.4.5</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="slr.html"><a href="slr.html#posthoc"><i class="fa fa-check"></i><b>2.5</b> ANOVA Post-hoc Testing</a>
 <ul>
 <li class="chapter" data-level="2.5.1" data-path="slr.html"><a href="slr.html#tukey"><i class="fa fa-check"></i><b>2.5.1</b> Tukey-Kramer</a></li>
 <li class="chapter" data-level="2.5.2" data-path="slr.html"><a href="slr.html#dunnett"><i class="fa fa-check"></i><b>2.5.2</b> Dunnett’s Test</a></li>
+<li class="chapter" data-level="2.5.3" data-path="slr.html"><a href="slr.html#python-code-10"><i class="fa fa-check"></i><b>2.5.3</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="slr.html"><a href="slr.html#cor"><i class="fa fa-check"></i><b>2.6</b> Pearson Correlation</a>
 <ul>
 <li class="chapter" data-level="2.6.1" data-path="slr.html"><a href="slr.html#testcor"><i class="fa fa-check"></i><b>2.6.1</b> Statistical Test</a></li>
 <li class="chapter" data-level="2.6.2" data-path="slr.html"><a href="slr.html#effect-of-anomalous-observations"><i class="fa fa-check"></i><b>2.6.2</b> Effect of Anomalous Observations</a></li>
 <li class="chapter" data-level="2.6.3" data-path="slr.html"><a href="slr.html#the-correlation-matrix"><i class="fa fa-check"></i><b>2.6.3</b> The Correlation Matrix</a></li>
+<li class="chapter" data-level="2.6.4" data-path="slr.html"><a href="slr.html#python-code-11"><i class="fa fa-check"></i><b>2.6.4</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="2.7" data-path="slr.html"><a href="slr.html#simple-linear-regression"><i class="fa fa-check"></i><b>2.7</b> Simple Linear Regression</a>
 <ul>
 <li class="chapter" data-level="2.7.1" data-path="slr.html"><a href="slr.html#slrassumptions"><i class="fa fa-check"></i><b>2.7.1</b> Assumptions of Linear Regression</a></li>
 <li class="chapter" data-level="2.7.2" data-path="slr.html"><a href="slr.html#testing-for-association"><i class="fa fa-check"></i><b>2.7.2</b> Testing for Association</a></li>
+<li class="chapter" data-level="2.7.3" data-path="slr.html"><a href="slr.html#python-code-12"><i class="fa fa-check"></i><b>2.7.3</b> Python Code</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Complex ANOVA and Multiple Linear Regression</a>
@@ -211,16 +225,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1.1" data-path="mlr.html"><a href="mlr.html#exploration"><i class="fa fa-check"></i><b>3.1.1</b> Exploration</a></li>
 <li class="chapter" data-level="3.1.2" data-path="mlr.html"><a href="mlr.html#model"><i class="fa fa-check"></i><b>3.1.2</b> Model</a></li>
 <li class="chapter" data-level="3.1.3" data-path="mlr.html"><a href="mlr.html#post-hoc-testing"><i class="fa fa-check"></i><b>3.1.3</b> Post-Hoc Testing</a></li>
+<li class="chapter" data-level="3.1.4" data-path="mlr.html"><a href="mlr.html#python-code-13"><i class="fa fa-check"></i><b>3.1.4</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="mlr.html"><a href="mlr.html#two-way-anova-with-interactions"><i class="fa fa-check"></i><b>3.2</b> Two-Way ANOVA with Interactions</a>
 <ul>
 <li class="chapter" data-level="3.2.1" data-path="mlr.html"><a href="mlr.html#post-hoc-testing-1"><i class="fa fa-check"></i><b>3.2.1</b> Post-Hoc Testing</a></li>
 <li class="chapter" data-level="3.2.2" data-path="mlr.html"><a href="mlr.html#assumptions"><i class="fa fa-check"></i><b>3.2.2</b> Assumptions</a></li>
+<li class="chapter" data-level="3.2.3" data-path="mlr.html"><a href="mlr.html#python-code-14"><i class="fa fa-check"></i><b>3.2.3</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="mlr.html"><a href="mlr.html#randomized-block-design"><i class="fa fa-check"></i><b>3.3</b> Randomized Block Design</a>
 <ul>
 <li class="chapter" data-level="3.3.1" data-path="mlr.html"><a href="mlr.html#garlic-bulb-weight-example"><i class="fa fa-check"></i><b>3.3.1</b> Garlic Bulb Weight Example</a></li>
 <li class="chapter" data-level="3.3.2" data-path="mlr.html"><a href="mlr.html#assumptions-1"><i class="fa fa-check"></i><b>3.3.2</b> Assumptions</a></li>
+<li class="chapter" data-level="3.3.3" data-path="mlr.html"><a href="mlr.html#python-code-15"><i class="fa fa-check"></i><b>3.3.3</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="mlr.html"><a href="mlr.html#multiple-linear-regression"><i class="fa fa-check"></i><b>3.4</b> Multiple Linear Regression</a>
 <ul>
@@ -229,6 +246,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4.3" data-path="mlr.html"><a href="mlr.html#assumptions-2"><i class="fa fa-check"></i><b>3.4.3</b> Assumptions</a></li>
 <li class="chapter" data-level="3.4.4" data-path="mlr.html"><a href="mlr.html#multiple-coefficients-of-determination"><i class="fa fa-check"></i><b>3.4.4</b> Multiple Coefficients of Determination</a></li>
 <li class="chapter" data-level="3.4.5" data-path="mlr.html"><a href="mlr.html#categorical-predictor-variables"><i class="fa fa-check"></i><b>3.4.5</b> Categorical Predictor Variables</a></li>
+<li class="chapter" data-level="3.4.6" data-path="mlr.html"><a href="mlr.html#python-code-16"><i class="fa fa-check"></i><b>3.4.6</b> Python Code</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="sel.html"><a href="sel.html"><i class="fa fa-check"></i><b>4</b> Model Selection</a>
@@ -240,17 +258,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="sel.html"><a href="sel.html#backward"><i class="fa fa-check"></i>Backward</a></li>
 <li class="chapter" data-level="" data-path="sel.html"><a href="sel.html#stepwise"><i class="fa fa-check"></i>Stepwise</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="sel.html"><a href="sel.html#significance-levels"><i class="fa fa-check"></i><b>4.3</b> Significance Levels</a></li>
+<li class="chapter" data-level="4.3" data-path="sel.html"><a href="sel.html#significance-levels"><i class="fa fa-check"></i><b>4.3</b> Significance Levels</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="sel.html"><a href="sel.html#python-code-17"><i class="fa fa-check"></i><b>4.3.1</b> Python Code</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="diag.html"><a href="diag.html"><i class="fa fa-check"></i><b>5</b> Diagnostics</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="diag.html"><a href="diag.html#examining-residuals"><i class="fa fa-check"></i><b>5.1</b> Examining Residuals</a></li>
-<li class="chapter" data-level="5.2" data-path="diag.html"><a href="diag.html#misspecified-model"><i class="fa fa-check"></i><b>5.2</b> Misspecified Model</a></li>
-<li class="chapter" data-level="5.3" data-path="diag.html"><a href="diag.html#constant-variance"><i class="fa fa-check"></i><b>5.3</b> Constant Variance</a></li>
-<li class="chapter" data-level="5.4" data-path="diag.html"><a href="diag.html#normality"><i class="fa fa-check"></i><b>5.4</b> Normality</a></li>
-<li class="chapter" data-level="5.5" data-path="diag.html"><a href="diag.html#correlated-errors"><i class="fa fa-check"></i><b>5.5</b> Correlated Errors</a></li>
-<li class="chapter" data-level="5.6" data-path="diag.html"><a href="diag.html#influential-observations-and-outliers"><i class="fa fa-check"></i><b>5.6</b> Influential Observations and Outliers</a></li>
-<li class="chapter" data-level="5.7" data-path="diag.html"><a href="diag.html#multicollinearity"><i class="fa fa-check"></i><b>5.7</b> Multicollinearity</a></li>
+<li class="chapter" data-level="5.0.1" data-path="diag.html"><a href="diag.html#python-code-18"><i class="fa fa-check"></i><b>5.0.1</b> Python Code</a></li>
+<li class="chapter" data-level="5.1" data-path="diag.html"><a href="diag.html#examining-residuals"><i class="fa fa-check"></i><b>5.1</b> Examining Residuals</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="diag.html"><a href="diag.html#python-code-19"><i class="fa fa-check"></i><b>5.1.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="diag.html"><a href="diag.html#misspecified-model"><i class="fa fa-check"></i><b>5.2</b> Misspecified Model</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="diag.html"><a href="diag.html#python-code-20"><i class="fa fa-check"></i><b>5.2.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="diag.html"><a href="diag.html#constant-variance"><i class="fa fa-check"></i><b>5.3</b> Constant Variance</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="diag.html"><a href="diag.html#python-code-21"><i class="fa fa-check"></i><b>5.3.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="diag.html"><a href="diag.html#normality"><i class="fa fa-check"></i><b>5.4</b> Normality</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="diag.html"><a href="diag.html#python-code-22"><i class="fa fa-check"></i><b>5.4.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="diag.html"><a href="diag.html#correlated-errors"><i class="fa fa-check"></i><b>5.5</b> Correlated Errors</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="diag.html"><a href="diag.html#python-code-23"><i class="fa fa-check"></i><b>5.5.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="diag.html"><a href="diag.html#influential-observations-and-outliers"><i class="fa fa-check"></i><b>5.6</b> Influential Observations and Outliers</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="diag.html"><a href="diag.html#python-code-24"><i class="fa fa-check"></i><b>5.6.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="diag.html"><a href="diag.html#multicollinearity"><i class="fa fa-check"></i><b>5.7</b> Multicollinearity</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="diag.html"><a href="diag.html#python-code-25"><i class="fa fa-check"></i><b>5.7.1</b> Python Code</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="mlr.html"><a href="mlr.html#model"><i class="fa fa-check"></i><b>6</b> Model Building &amp; Scoring for Prediction</a>
 <ul>
@@ -260,6 +303,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1.2" data-path="model.html"><a href="model.html#ridge-regression"><i class="fa fa-check"></i><b>6.1.2</b> Ridge Regression</a></li>
 <li class="chapter" data-level="6.1.3" data-path="model.html"><a href="model.html#lasso"><i class="fa fa-check"></i><b>6.1.3</b> LASSO</a></li>
 <li class="chapter" data-level="6.1.4" data-path="model.html"><a href="model.html#elastic-net"><i class="fa fa-check"></i><b>6.1.4</b> Elastic Net</a></li>
+<li class="chapter" data-level="6.1.5" data-path="model.html"><a href="model.html#python-code-26"><i class="fa fa-check"></i><b>6.1.5</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="model.html"><a href="model.html#optimizing-penalties"><i class="fa fa-check"></i><b>6.2</b> Optimizing Penalties</a>
 <ul>
@@ -374,56 +418,56 @@ min(\sum_{i=1}^n(y_i - \hat{y}_i)^2 + \lambda \sum_{j=1}^p \hat{\beta}^2_j) = mi
 \]</span></p>
 <p>This penalty is controlled by the <strong>tuning parameter</strong> <span class="math inline">\(\lambda\)</span>. If <span class="math inline">\(\lambda = 0\)</span>, then we have typical OLS linear regression. However, as <span class="math inline">\(\lambda \rightarrow \infty\)</span>, the coefficients in the model shrink to zero. This makes intuitive sense. Since the estimated coefficients, <span class="math inline">\(\hat{\beta}_j\)</span>’s, are the only thing changing to minimize this equation, then as <span class="math inline">\(\lambda \rightarrow \infty\)</span>, the equation is best minimized by forcing the coefficients to be smaller and smaller. We will see how to optimize this penalty term in a later section.</p>
 <p>Let’s build a regularized regression for our Ames dataset. To build a ridge regression we need separate data matrices for our predictors and our target variable. First, we isolate out the variables we are interested in using the <code>select</code> function. From there the <code>model.matrix</code> function will create any categorical dummy variables needed. We also isolate the target variable into its own vector.</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="model.html#cb200-1" aria-hidden="true" tabindex="-1"></a>train_reg <span class="ot">&lt;-</span> train <span class="sc">%&gt;%</span> </span>
-<span id="cb200-2"><a href="model.html#cb200-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Sale_Price, </span>
-<span id="cb200-3"><a href="model.html#cb200-3" aria-hidden="true" tabindex="-1"></a>         Lot_Area,</span>
-<span id="cb200-4"><a href="model.html#cb200-4" aria-hidden="true" tabindex="-1"></a>         Street,</span>
-<span id="cb200-5"><a href="model.html#cb200-5" aria-hidden="true" tabindex="-1"></a>         Bldg_Type,</span>
-<span id="cb200-6"><a href="model.html#cb200-6" aria-hidden="true" tabindex="-1"></a>         House_Style,</span>
-<span id="cb200-7"><a href="model.html#cb200-7" aria-hidden="true" tabindex="-1"></a>         Overall_Qual,</span>
-<span id="cb200-8"><a href="model.html#cb200-8" aria-hidden="true" tabindex="-1"></a>         Roof_Style,</span>
-<span id="cb200-9"><a href="model.html#cb200-9" aria-hidden="true" tabindex="-1"></a>         Central_Air,</span>
-<span id="cb200-10"><a href="model.html#cb200-10" aria-hidden="true" tabindex="-1"></a>         First_Flr_SF,</span>
-<span id="cb200-11"><a href="model.html#cb200-11" aria-hidden="true" tabindex="-1"></a>         Second_Flr_SF,</span>
-<span id="cb200-12"><a href="model.html#cb200-12" aria-hidden="true" tabindex="-1"></a>         Full_Bath,</span>
-<span id="cb200-13"><a href="model.html#cb200-13" aria-hidden="true" tabindex="-1"></a>         Half_Bath,</span>
-<span id="cb200-14"><a href="model.html#cb200-14" aria-hidden="true" tabindex="-1"></a>         Fireplaces,</span>
-<span id="cb200-15"><a href="model.html#cb200-15" aria-hidden="true" tabindex="-1"></a>         Garage_Area,</span>
-<span id="cb200-16"><a href="model.html#cb200-16" aria-hidden="true" tabindex="-1"></a>         Gr_Liv_Area, </span>
-<span id="cb200-17"><a href="model.html#cb200-17" aria-hidden="true" tabindex="-1"></a>         TotRms_AbvGrd) <span class="sc">%&gt;%</span></span>
-<span id="cb200-18"><a href="model.html#cb200-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace</span>(<span class="fu">is.na</span>(.), <span class="dv">0</span>)</span>
-<span id="cb200-19"><a href="model.html#cb200-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb200-20"><a href="model.html#cb200-20" aria-hidden="true" tabindex="-1"></a>train_x <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> train_reg)[, <span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb200-21"><a href="model.html#cb200-21" aria-hidden="true" tabindex="-1"></a>train_y <span class="ot">&lt;-</span> train_reg<span class="sc">$</span>Sale_Price</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="model.html#cb1-1" aria-hidden="true" tabindex="-1"></a>train_reg <span class="ot">&lt;-</span> train <span class="sc">%&gt;%</span> </span>
+<span id="cb1-2"><a href="model.html#cb1-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Sale_Price, </span>
+<span id="cb1-3"><a href="model.html#cb1-3" aria-hidden="true" tabindex="-1"></a>         Lot_Area,</span>
+<span id="cb1-4"><a href="model.html#cb1-4" aria-hidden="true" tabindex="-1"></a>         Street,</span>
+<span id="cb1-5"><a href="model.html#cb1-5" aria-hidden="true" tabindex="-1"></a>         Bldg_Type,</span>
+<span id="cb1-6"><a href="model.html#cb1-6" aria-hidden="true" tabindex="-1"></a>         House_Style,</span>
+<span id="cb1-7"><a href="model.html#cb1-7" aria-hidden="true" tabindex="-1"></a>         Overall_Qual,</span>
+<span id="cb1-8"><a href="model.html#cb1-8" aria-hidden="true" tabindex="-1"></a>         Roof_Style,</span>
+<span id="cb1-9"><a href="model.html#cb1-9" aria-hidden="true" tabindex="-1"></a>         Central_Air,</span>
+<span id="cb1-10"><a href="model.html#cb1-10" aria-hidden="true" tabindex="-1"></a>         First_Flr_SF,</span>
+<span id="cb1-11"><a href="model.html#cb1-11" aria-hidden="true" tabindex="-1"></a>         Second_Flr_SF,</span>
+<span id="cb1-12"><a href="model.html#cb1-12" aria-hidden="true" tabindex="-1"></a>         Full_Bath,</span>
+<span id="cb1-13"><a href="model.html#cb1-13" aria-hidden="true" tabindex="-1"></a>         Half_Bath,</span>
+<span id="cb1-14"><a href="model.html#cb1-14" aria-hidden="true" tabindex="-1"></a>         Fireplaces,</span>
+<span id="cb1-15"><a href="model.html#cb1-15" aria-hidden="true" tabindex="-1"></a>         Garage_Area,</span>
+<span id="cb1-16"><a href="model.html#cb1-16" aria-hidden="true" tabindex="-1"></a>         Gr_Liv_Area, </span>
+<span id="cb1-17"><a href="model.html#cb1-17" aria-hidden="true" tabindex="-1"></a>         TotRms_AbvGrd) <span class="sc">%&gt;%</span></span>
+<span id="cb1-18"><a href="model.html#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace</span>(<span class="fu">is.na</span>(.), <span class="dv">0</span>)</span>
+<span id="cb1-19"><a href="model.html#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="model.html#cb1-20" aria-hidden="true" tabindex="-1"></a>train_x <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> train_reg)[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb1-21"><a href="model.html#cb1-21" aria-hidden="true" tabindex="-1"></a>train_y <span class="ot">&lt;-</span> train_reg<span class="sc">$</span>Sale_Price</span></code></pre></div>
 <p>We will want to do the same thing for the test dataset as well.</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="model.html#cb201-1" aria-hidden="true" tabindex="-1"></a>test_reg <span class="ot">&lt;-</span> test <span class="sc">%&gt;%</span> </span>
-<span id="cb201-2"><a href="model.html#cb201-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Sale_Price, </span>
-<span id="cb201-3"><a href="model.html#cb201-3" aria-hidden="true" tabindex="-1"></a>         Lot_Area,</span>
-<span id="cb201-4"><a href="model.html#cb201-4" aria-hidden="true" tabindex="-1"></a>         Street,</span>
-<span id="cb201-5"><a href="model.html#cb201-5" aria-hidden="true" tabindex="-1"></a>         Bldg_Type,</span>
-<span id="cb201-6"><a href="model.html#cb201-6" aria-hidden="true" tabindex="-1"></a>         House_Style,</span>
-<span id="cb201-7"><a href="model.html#cb201-7" aria-hidden="true" tabindex="-1"></a>         Overall_Qual,</span>
-<span id="cb201-8"><a href="model.html#cb201-8" aria-hidden="true" tabindex="-1"></a>         Roof_Style,</span>
-<span id="cb201-9"><a href="model.html#cb201-9" aria-hidden="true" tabindex="-1"></a>         Central_Air,</span>
-<span id="cb201-10"><a href="model.html#cb201-10" aria-hidden="true" tabindex="-1"></a>         First_Flr_SF,</span>
-<span id="cb201-11"><a href="model.html#cb201-11" aria-hidden="true" tabindex="-1"></a>         Second_Flr_SF,</span>
-<span id="cb201-12"><a href="model.html#cb201-12" aria-hidden="true" tabindex="-1"></a>         Full_Bath,</span>
-<span id="cb201-13"><a href="model.html#cb201-13" aria-hidden="true" tabindex="-1"></a>         Half_Bath,</span>
-<span id="cb201-14"><a href="model.html#cb201-14" aria-hidden="true" tabindex="-1"></a>         Fireplaces,</span>
-<span id="cb201-15"><a href="model.html#cb201-15" aria-hidden="true" tabindex="-1"></a>         Garage_Area,</span>
-<span id="cb201-16"><a href="model.html#cb201-16" aria-hidden="true" tabindex="-1"></a>         Gr_Liv_Area, </span>
-<span id="cb201-17"><a href="model.html#cb201-17" aria-hidden="true" tabindex="-1"></a>         TotRms_AbvGrd) <span class="sc">%&gt;%</span></span>
-<span id="cb201-18"><a href="model.html#cb201-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace</span>(<span class="fu">is.na</span>(.), <span class="dv">0</span>)</span>
-<span id="cb201-19"><a href="model.html#cb201-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb201-20"><a href="model.html#cb201-20" aria-hidden="true" tabindex="-1"></a>test_x <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> test_reg)[, <span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb201-21"><a href="model.html#cb201-21" aria-hidden="true" tabindex="-1"></a>test_y <span class="ot">&lt;-</span> test_reg<span class="sc">$</span>Sale_Price</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="model.html#cb2-1" aria-hidden="true" tabindex="-1"></a>test_reg <span class="ot">&lt;-</span> test <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="model.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Sale_Price, </span>
+<span id="cb2-3"><a href="model.html#cb2-3" aria-hidden="true" tabindex="-1"></a>         Lot_Area,</span>
+<span id="cb2-4"><a href="model.html#cb2-4" aria-hidden="true" tabindex="-1"></a>         Street,</span>
+<span id="cb2-5"><a href="model.html#cb2-5" aria-hidden="true" tabindex="-1"></a>         Bldg_Type,</span>
+<span id="cb2-6"><a href="model.html#cb2-6" aria-hidden="true" tabindex="-1"></a>         House_Style,</span>
+<span id="cb2-7"><a href="model.html#cb2-7" aria-hidden="true" tabindex="-1"></a>         Overall_Qual,</span>
+<span id="cb2-8"><a href="model.html#cb2-8" aria-hidden="true" tabindex="-1"></a>         Roof_Style,</span>
+<span id="cb2-9"><a href="model.html#cb2-9" aria-hidden="true" tabindex="-1"></a>         Central_Air,</span>
+<span id="cb2-10"><a href="model.html#cb2-10" aria-hidden="true" tabindex="-1"></a>         First_Flr_SF,</span>
+<span id="cb2-11"><a href="model.html#cb2-11" aria-hidden="true" tabindex="-1"></a>         Second_Flr_SF,</span>
+<span id="cb2-12"><a href="model.html#cb2-12" aria-hidden="true" tabindex="-1"></a>         Full_Bath,</span>
+<span id="cb2-13"><a href="model.html#cb2-13" aria-hidden="true" tabindex="-1"></a>         Half_Bath,</span>
+<span id="cb2-14"><a href="model.html#cb2-14" aria-hidden="true" tabindex="-1"></a>         Fireplaces,</span>
+<span id="cb2-15"><a href="model.html#cb2-15" aria-hidden="true" tabindex="-1"></a>         Garage_Area,</span>
+<span id="cb2-16"><a href="model.html#cb2-16" aria-hidden="true" tabindex="-1"></a>         Gr_Liv_Area, </span>
+<span id="cb2-17"><a href="model.html#cb2-17" aria-hidden="true" tabindex="-1"></a>         TotRms_AbvGrd) <span class="sc">%&gt;%</span></span>
+<span id="cb2-18"><a href="model.html#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace</span>(<span class="fu">is.na</span>(.), <span class="dv">0</span>)</span>
+<span id="cb2-19"><a href="model.html#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="model.html#cb2-20" aria-hidden="true" tabindex="-1"></a>test_x <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> test_reg)[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb2-21"><a href="model.html#cb2-21" aria-hidden="true" tabindex="-1"></a>test_y <span class="ot">&lt;-</span> test_reg<span class="sc">$</span>Sale_Price</span></code></pre></div>
 <p>From there we use the <code>glmnet</code> function with the <code>x =</code> option where we specify the predictor model matrix and the <code>y =</code> option where we specify the target variable. The <code>alpha = 0</code> option specifies that a ridge regression will be used as defined in more detail below in the elastic net section. The <code>plot</code> function allows us to see the impact of the penalty on the coefficients in the model.</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="model.html#cb202-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
-<span id="cb202-2"><a href="model.html#cb202-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb202-3"><a href="model.html#cb202-3" aria-hidden="true" tabindex="-1"></a>ames_ridge <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(<span class="at">x =</span> train_x,  <span class="at">y =</span> train_y,  <span class="at">alpha =</span> <span class="dv">0</span>)</span>
-<span id="cb202-4"><a href="model.html#cb202-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb202-5"><a href="model.html#cb202-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ames_ridge, <span class="at">xvar =</span> <span class="st">&quot;lambda&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="model.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
+<span id="cb3-2"><a href="model.html#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="model.html#cb3-3" aria-hidden="true" tabindex="-1"></a>ames_ridge <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(<span class="at">x =</span> train_x,  <span class="at">y =</span> train_y,  <span class="at">alpha =</span> <span class="dv">0</span>)</span>
+<span id="cb3-4"><a href="model.html#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="model.html#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ames_ridge, <span class="at">xvar =</span> <span class="st">&quot;lambda&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>The <code>glmnet</code> function automatically standardizes the variables before fitting the regression model. This is important so that all of the variables are on the same scale before adjustments are made to the estimated coefficients. Even with this standardization we can see the large coefficient values for some of the variables. The top of the plot lists how many variables are in the model at each value of penalty. This will never change for ridge regression, but does for LASSO.</p>
 <p>What <span class="math inline">\(\lambda\)</span> term is best? That will be discussed in the optimizing section below, but let’s discuss other possible penalties first.</p>
 </div>
@@ -449,10 +493,10 @@ min(\sum_{i=1}^n(y_i - \hat{y}_i)^2 + \lambda \sum_{j=1}^p |\hat{\beta}_j|) = mi
 \]</span></p>
 <p>Notice the distinct difference here. In this scenario, there is a possible penalty value (<span class="math inline">\(\lambda = X^TY\)</span>) that will force the estimated coefficients to equal zero. There is some benefit to this. This makes LASSO also function as a variable selection criteria as well.</p>
 <p>Let’s build a regularized regression for our Ames dataset using the LASSO approach. To build a LASSO regression we need separate data matrices for our predictors and our target variable just like we did for ridge. From there we use the <code>glmnet</code> function with the <code>x =</code> option where we specify the predictor model matrix and the <code>y =</code> option where we specify the target variable. The <code>alpha = 1</code> option specifies that a LASSO regression will be used as defined in more detail below in the elastic net section. The <code>plot</code> function allows us to see the impact of the penalty on the coefficients in the model.</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="model.html#cb203-1" aria-hidden="true" tabindex="-1"></a>ames_lasso <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(<span class="at">x =</span> train_x,  <span class="at">y =</span> train_y,  <span class="at">alpha =</span> <span class="dv">1</span>)</span>
-<span id="cb203-2"><a href="model.html#cb203-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb203-3"><a href="model.html#cb203-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ames_lasso, <span class="at">xvar =</span> <span class="st">&quot;lambda&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="model.html#cb4-1" aria-hidden="true" tabindex="-1"></a>ames_lasso <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(<span class="at">x =</span> train_x,  <span class="at">y =</span> train_y,  <span class="at">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb4-2"><a href="model.html#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="model.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ames_lasso, <span class="at">xvar =</span> <span class="st">&quot;lambda&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>The <code>glmnet</code> function automatically standardizes the variables before fitting the regression model. This is important so that all of the variables are on the same scale before adjustments are made to the estimated coefficients. Even with this standardization we can see the large coefficient values for some of the variables. The top of the plot lists how many variables are in the model at each value of penalty. Notice as the penalty increases, the number of variables decreases as variables are forced to zero.</p>
 <p>What <span class="math inline">\(\lambda\)</span> term is best? That will be discussed in the optimizing section below, but let’s discuss the last possible penalty first - the combination of both ridge and LASSO.</p>
 </div>
@@ -469,18 +513,54 @@ min(SSE + \lambda[ \alpha \sum_{j=1}^p |\hat{\beta}_j| + (1-\alpha) \sum_{j=1}^p
 \]</span></p>
 <p>R still has one penalty <span class="math inline">\(\lambda\)</span>, however, it includes the <span class="math inline">\(\alpha\)</span> parameter to balance between the two penalty terms. This is why in <code>glmnet</code>, the <code>alpha = 1</code> option gives a LASSO regression and <code>alpha = 0</code> gives a ridge regression. Any value in between zero and one will provide an elastic net.</p>
 <p>Let’s build a regularized regression for our Ames dataset using the elastic net approach with an <span class="math inline">\(\alpha = 0.5\)</span>. To build am elastic net we need separate data matrices for our predictors and our target variable just like we did for ridge and LASSO. From there we use the <code>glmnet</code> function with the <code>x =</code> option where we specify the predictor model matrix and the <code>y =</code> option where we specify the target variable. The <code>alpha = 0.5</code> option specifies that an elastic net will be used since it is between zero and one. The <code>plot</code> function allows us to see the impact of the penalty on the coefficients in the model.</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="model.html#cb204-1" aria-hidden="true" tabindex="-1"></a>ames_en <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(<span class="at">x =</span> train_x,  <span class="at">y =</span> train_y,  <span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
-<span id="cb204-2"><a href="model.html#cb204-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb204-3"><a href="model.html#cb204-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ames_en, <span class="at">xvar =</span> <span class="st">&quot;lambda&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="model.html#cb5-1" aria-hidden="true" tabindex="-1"></a>ames_en <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(<span class="at">x =</span> train_x,  <span class="at">y =</span> train_y,  <span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
+<span id="cb5-2"><a href="model.html#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="model.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ames_en, <span class="at">xvar =</span> <span class="st">&quot;lambda&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>The <code>glmnet</code> function automatically standardizes the variables before fitting the regression model. This is important so that all of the variables are on the same scale before adjustments are made to the estimated coefficients. Even with this standardization we can see the large coefficient values for some of the variables. The top of the plot lists how many variables are in the model at each value of penalty. Notice as the penalty increases, the number of variables decreases as variables are forced to zero using the LASSO piece of the elastic net penalty.</p>
 <p>What <span class="math inline">\(\lambda\)</span> term is best? What is the proper balance between ridge and LASSO penalties when building an elastic net? That will be discussed in the following section.</p>
+</div>
+<div id="python-code-26" class="section level3 hasAnchor" number="6.1.5">
+<h3><span class="header-section-number">6.1.5</span> Python Code<a href="model.html#python-code-26" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Ridge Regression</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="model.html#cb6-1" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> train[[<span class="st">&#39;Sale_Price&#39;</span>, <span class="st">&#39;Lot_Area&#39;</span>, <span class="st">&#39;Street&#39;</span>, <span class="st">&#39;Bldg_Type&#39;</span>,</span>
+<span id="cb6-2"><a href="model.html#cb6-2" aria-hidden="true" tabindex="-1"></a>               <span class="st">&#39;House_Style&#39;</span>, <span class="st">&#39;Overall_Qual&#39;</span>, <span class="st">&#39;Roof_Style&#39;</span>, </span>
+<span id="cb6-3"><a href="model.html#cb6-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">&#39;Central_Air&#39;</span>, <span class="st">&#39;First_Flr_SF&#39;</span>, <span class="st">&#39;Second_Flr_SF&#39;</span>, </span>
+<span id="cb6-4"><a href="model.html#cb6-4" aria-hidden="true" tabindex="-1"></a>               <span class="st">&#39;Full_Bath&#39;</span>, <span class="st">&#39;Half_Bath&#39;</span>, <span class="st">&#39;Fireplaces&#39;</span>, </span>
+<span id="cb6-5"><a href="model.html#cb6-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">&#39;Garage_Area&#39;</span>, <span class="st">&#39;Gr_Liv_Area&#39;</span>, <span class="st">&#39;TotRms_AbvGrd&#39;</span>]]</span>
+<span id="cb6-6"><a href="model.html#cb6-6" aria-hidden="true" tabindex="-1"></a>               </span>
+<span id="cb6-7"><a href="model.html#cb6-7" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> train.fillna(<span class="dv">0</span>)</span>
+<span id="cb6-8"><a href="model.html#cb6-8" aria-hidden="true" tabindex="-1"></a>               </span>
+<span id="cb6-9"><a href="model.html#cb6-9" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> test[[<span class="st">&#39;Sale_Price&#39;</span>, <span class="st">&#39;Lot_Area&#39;</span>, <span class="st">&#39;Street&#39;</span>, <span class="st">&#39;Bldg_Type&#39;</span>,</span>
+<span id="cb6-10"><a href="model.html#cb6-10" aria-hidden="true" tabindex="-1"></a>             <span class="st">&#39;House_Style&#39;</span>, <span class="st">&#39;Overall_Qual&#39;</span>, <span class="st">&#39;Roof_Style&#39;</span>, </span>
+<span id="cb6-11"><a href="model.html#cb6-11" aria-hidden="true" tabindex="-1"></a>             <span class="st">&#39;Central_Air&#39;</span>, <span class="st">&#39;First_Flr_SF&#39;</span>, <span class="st">&#39;Second_Flr_SF&#39;</span>, </span>
+<span id="cb6-12"><a href="model.html#cb6-12" aria-hidden="true" tabindex="-1"></a>             <span class="st">&#39;Full_Bath&#39;</span>, <span class="st">&#39;Half_Bath&#39;</span>, <span class="st">&#39;Fireplaces&#39;</span>, </span>
+<span id="cb6-13"><a href="model.html#cb6-13" aria-hidden="true" tabindex="-1"></a>             <span class="st">&#39;Garage_Area&#39;</span>, <span class="st">&#39;Gr_Liv_Area&#39;</span>, <span class="st">&#39;TotRms_AbvGrd&#39;</span>]]</span>
+<span id="cb6-14"><a href="model.html#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="model.html#cb6-15" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> test.fillna(<span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="model.html#cb7-1" aria-hidden="true" tabindex="-1"></a>train_dummy <span class="op">=</span> pd.get_dummies(train, columns <span class="op">=</span> [<span class="st">&#39;Street&#39;</span>, <span class="st">&#39;Bldg_Type&#39;</span>, <span class="st">&#39;House_Style&#39;</span>, <span class="st">&#39;Overall_Qual&#39;</span>, <span class="st">&#39;Roof_Style&#39;</span>, <span class="st">&#39;Central_Air&#39;</span>])</span>
+<span id="cb7-2"><a href="model.html#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="model.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(train_dummy)</span></code></pre></div>
+<pre><code>##       Sale_Price  Lot_Area  ...  Central_Air_N  Central_Air_Y
+## 0         232600     11216  ...              0              1
+## 1         166000      2998  ...              0              1
+## 2         170000     17871  ...              0              1
+## 3         252000     10574  ...              0              1
+## 4         134000      6000  ...              0              1
+## ...          ...       ...  ...            ...            ...
+## 2046       72500      6627  ...              1              0
+## 2047      137000     11425  ...              0              1
+## 2048       80000      5220  ...              0              1
+## 2049      221000     12803  ...              0              1
+## 2050      102000      7288  ...              1              0
+## 
+## [2051 rows x 43 columns]</code></pre>
 </div>
 </div>
 <div id="optimizing-penalties" class="section level2 hasAnchor" number="6.2">
 <h2><span class="header-section-number">6.2</span> Optimizing Penalties<a href="model.html#optimizing-penalties" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>No matter the approach listed above, a penatly term <span class="math inline">\(\lambda\)</span> needs to be picked. However, we do not want to get caught overfitting our training data by minimizing the variance so much that it is not generalizable to the overall pattern and other similar data. Take the following plot:</p>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>The red line is overfitted to the dataset and picks up too much of the unimportant pattern. The orange dotted line is underfit as it does not pick up enough of the pattern. The light blue, solid line is fit well to the dataset as it picks up the general pattern while not overfitting to the dataset.</p>
 <div id="cross-validation" class="section level3 hasAnchor" number="6.2.1">
 <h3><span class="header-section-number">6.2.1</span> Cross-Validation<a href="model.html#cross-validation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -497,30 +577,29 @@ Figure 6.1: Example of a 10-fold Cross-Validation
 <h3><span class="header-section-number">6.2.2</span> CV in Regularized Regression<a href="model.html#cv-in-regularized-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In R, the <code>cv.glmnet</code> function will automatically implement a 10-fold CV (by default, but can be adjusted through options) to help evaluate and optimize the <span class="math inline">\(\lambda\)</span> values for our regularized regression models.</p>
 <p>Let’s perform an example using the LASSO regression. The <code>cv.glmnet</code> function takes the same inputs as the <code>glmnet</code> function above. Again, we will use the <code>plot</code> function, but this time we get a different plot.</p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="model.html#cb205-1" aria-hidden="true" tabindex="-1"></a>ames_lasso_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(<span class="at">x =</span> train_x,  <span class="at">y =</span> train_y,  <span class="at">alpha =</span> <span class="dv">1</span>)</span>
-<span id="cb205-2"><a href="model.html#cb205-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb205-3"><a href="model.html#cb205-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ames_lasso_cv)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="model.html#cb206-1" aria-hidden="true" tabindex="-1"></a>ames_lasso_cv<span class="sc">$</span>lambda.min </span></code></pre></div>
-<pre><code>## [1] 49.69435</code></pre>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="model.html#cb208-1" aria-hidden="true" tabindex="-1"></a>ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="model.html#cb9-1" aria-hidden="true" tabindex="-1"></a>ames_lasso_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(<span class="at">x =</span> train_x,  <span class="at">y =</span> train_y,  <span class="at">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb9-2"><a href="model.html#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="model.html#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ames_lasso_cv)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="model.html#cb10-1" aria-hidden="true" tabindex="-1"></a>ames_lasso_cv<span class="sc">$</span>lambda.min </span></code></pre></div>
+<pre><code>## [1] 41.25712</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="model.html#cb12-1" aria-hidden="true" tabindex="-1"></a>ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se</span></code></pre></div>
 <pre><code>## [1] 3588.334</code></pre>
 <p>The above plot shows the results from our cross-validation. Here the models are evaluated based on their <strong>mean-squared error</strong> (MSE). The MSE is defined as <span class="math inline">\(\frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_i)^2\)</span>. The <span class="math inline">\(\lambda\)</span> value that minimizes the MSE is 49.69435 (with a <span class="math inline">\(\log(\lambda)\)</span> = 3.91). This is highlighted by the first, vertical dashed line. The second vertical dashed line is the largest <span class="math inline">\(\lambda\)</span> value that is one standard error above the minimum value. This value is especially useful in LASSO regressions. The largest <span class="math inline">\(\lambda\)</span> within one standard error would provide approximately the same MSE, but with a further reduction in the number of variables. Notice that to go from the first line to the second, the change in MSE is very small, but the reduction of variables is from 36 variables to around 12 variables.</p>
 <p>Let’s look at the impact on the coefficients under this penalty using the <code>glmnet</code> function as before.</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="model.html#cb210-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ames_lasso, <span class="at">xvar =</span> <span class="st">&quot;lambda&quot;</span>)</span>
-<span id="cb210-2"><a href="model.html#cb210-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">log</span>(ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>)</span>
-<span id="cb210-3"><a href="model.html#cb210-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">log</span>(ames_lasso_cv<span class="sc">$</span>lambda.min), <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="model.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ames_lasso, <span class="at">xvar =</span> <span class="st">&quot;lambda&quot;</span>)</span>
+<span id="cb14-2"><a href="model.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">log</span>(ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>)</span>
+<span id="cb14-3"><a href="model.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">log</span>(ames_lasso_cv<span class="sc">$</span>lambda.min), <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>To investigate which variables are important at a <span class="math inline">\(\lambda\)</span> value, we can view the coefficients using the <code>coef</code> function. They are ranked here:</p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="model.html#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(ames_lasso, <span class="at">s =</span> ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se) <span class="sc">%&gt;%</span></span>
-<span id="cb211-2"><a href="model.html#cb211-2" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb211-3"><a href="model.html#cb211-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(row <span class="sc">!=</span> <span class="st">&quot;(Intercept)&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb211-4"><a href="model.html#cb211-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(value, <span class="fu">reorder</span>(row, value))) <span class="sc">+</span></span>
-<span id="cb211-5"><a href="model.html#cb211-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb211-6"><a href="model.html#cb211-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Influential Variables&quot;</span>) <span class="sc">+</span></span>
-<span id="cb211-7"><a href="model.html#cb211-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Coefficient&quot;</span>) <span class="sc">+</span></span>
-<span id="cb211-8"><a href="model.html#cb211-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="cn">NULL</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="model.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#coef(ames_lasso, s = ames_lasso_cv$lambda.1se) %&gt;%</span></span>
+<span id="cb15-2"><a href="model.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  broom::tidy() %&gt;%</span></span>
+<span id="cb15-3"><a href="model.html#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(row != &quot;(Intercept)&quot;) %&gt;%</span></span>
+<span id="cb15-4"><a href="model.html#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  ggplot(aes(value, reorder(row, value))) +</span></span>
+<span id="cb15-5"><a href="model.html#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  geom_point() +</span></span>
+<span id="cb15-6"><a href="model.html#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#  ggtitle(&quot;Influential Variables&quot;) +</span></span>
+<span id="cb15-7"><a href="model.html#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  xlab(&quot;Coefficient&quot;) +</span></span>
+<span id="cb15-8"><a href="model.html#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  ylab(NULL)</span></span></code></pre></div>
 <p>The variable describing the overall quality of the home is the driving factor of this model as well as the other variables listed above.</p>
 <p>A similar approach can be taken for CV with ridge regression using the same structure of code. That will not be covered here. Elastic nets are more complicated in that they have multiple parameters to optimize. For that approach, an optimization grid will need to be structured to evaluate different <span class="math inline">\(\lambda\)</span> values across different <span class="math inline">\(\alpha\)</span> values. A loop can be set up to run the <code>cv.glmnet</code> function across many different values of <span class="math inline">\(\alpha\)</span>. That will not be covered in detail here.</p>
 </div>
@@ -551,17 +630,13 @@ The MAPE gives the average absolute <em>percentage</em> difference between our p
 <div id="test-dataset-comparison" class="section level3 hasAnchor" number="6.3.2">
 <h3><span class="header-section-number">6.3.2</span> Test Dataset Comparison<a href="model.html#test-dataset-comparison" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The final model we had from Chapter <a href="diag.html#diag">5</a> had the variables . From this model we can use the <code>predict</code> function with the <code>newdata =</code> option to use score the <code>test</code> dataset.</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="model.html#cb212-1" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_lm <span class="ot">&lt;-</span> <span class="fu">predict</span>(ames_lm, <span class="at">newdata =</span> test)</span>
-<span id="cb212-2"><a href="model.html#cb212-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb212-3"><a href="model.html#cb212-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(test<span class="sc">$</span>pred_lm)</span></code></pre></div>
-<pre><code>##        1        2        3        4        5 
-## 142107.3 142107.3 228909.6 142107.3 142107.3 
-##        6 
-## 142107.3</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="model.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#test$pred_lm &lt;- predict(ames_lm, newdata = test)</span></span>
+<span id="cb16-2"><a href="model.html#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="model.html#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#head(test$pred_lm)</span></span></code></pre></div>
 <p>To get predictions from the regularized regression models, a <span class="math inline">\(\lambda\)</span> value must be selected. For the previous LASSO regression we will choose the largest <span class="math inline">\(\lambda\)</span> value within one standard error of the minimum <span class="math inline">\(\lambda\)</span> value to help reduce the number of variables. Again, we will use the <code>predict</code> function. The <code>s =</code> option is where we input the <span class="math inline">\(\lambda\)</span> value. The <code>newx =</code> option is where we specify the <code>test</code> dataset.</p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="model.html#cb214-1" aria-hidden="true" tabindex="-1"></a>test_reg<span class="sc">$</span>pred_lasso <span class="ot">&lt;-</span> <span class="fu">predict</span>(ames_lasso, <span class="at">s =</span> ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se, <span class="at">newx =</span> test_x)</span>
-<span id="cb214-2"><a href="model.html#cb214-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb214-3"><a href="model.html#cb214-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(test_reg<span class="sc">$</span>pred_lasso)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="model.html#cb17-1" aria-hidden="true" tabindex="-1"></a>test_reg<span class="sc">$</span>pred_lasso <span class="ot">&lt;-</span> <span class="fu">predict</span>(ames_lasso, <span class="at">s =</span> ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se, <span class="at">newx =</span> test_x)</span>
+<span id="cb17-2"><a href="model.html#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="model.html#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(test_reg<span class="sc">$</span>pred_lasso)</span></code></pre></div>
 <pre><code>##         s1
 ## 1 156677.8
 ## 2 172432.5
@@ -570,20 +645,13 @@ The MAPE gives the average absolute <em>percentage</em> difference between our p
 ## 5 200908.8
 ## 6 124913.5</code></pre>
 <p>Now we need to calculate the MAE and MAPE for each model for comparison.</p>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="model.html#cb216-1" aria-hidden="true" tabindex="-1"></a>test <span class="sc">%&gt;%</span></span>
-<span id="cb216-2"><a href="model.html#cb216-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lm_APE =</span> <span class="dv">100</span><span class="sc">*</span><span class="fu">abs</span>((Sale_Price <span class="sc">-</span> pred_lm)<span class="sc">/</span>Sale_Price)) <span class="sc">%&gt;%</span></span>
-<span id="cb216-3"><a href="model.html#cb216-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">MAPE_lm =</span> <span class="fu">mean</span>(lm_APE))</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 1
-##   MAPE_lm
-##     &lt;dbl&gt;
-## 1    23.2</code></pre>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="model.html#cb218-1" aria-hidden="true" tabindex="-1"></a>test_reg <span class="sc">%&gt;%</span></span>
-<span id="cb218-2"><a href="model.html#cb218-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lasso_APE =</span> <span class="dv">100</span><span class="sc">*</span><span class="fu">abs</span>((Sale_Price <span class="sc">-</span> pred_lasso)<span class="sc">/</span>Sale_Price)) <span class="sc">%&gt;%</span></span>
-<span id="cb218-3"><a href="model.html#cb218-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">MAPE_lasso =</span> <span class="fu">mean</span>(lasso_APE))</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 1
-##   MAPE_lasso
-##        &lt;dbl&gt;
-## 1       13.4</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="model.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#test %&gt;%</span></span>
+<span id="cb19-2"><a href="model.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  mutate(lm_APE = 100*abs((Sale_Price - pred_lm)/Sale_Price)) %&gt;%</span></span>
+<span id="cb19-3"><a href="model.html#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  dplyr::summarise(MAPE_lm = mean(lm_APE))</span></span>
+<span id="cb19-4"><a href="model.html#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="model.html#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">#test_reg %&gt;%</span></span>
+<span id="cb19-6"><a href="model.html#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">#  mutate(lasso_APE = 100*abs((Sale_Price - pred_lasso)/Sale_Price)) %&gt;%</span></span>
+<span id="cb19-7"><a href="model.html#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  dplyr::summarise(MAPE_lasso = mean(lasso_APE))</span></span></code></pre></div>
 <p>From the above results, the linear regression from LASSO has a lower MAPE.</p>
 <p>Once we have scored models with the test dataset, we should <strong>not</strong> go back to try and rebuild any models. We will use the model with the lowest MAE or MAPE. This number is also the number that we report on how well our model performs. No metrics on the training dataset should be reported for the performance of the model.</p>
 
@@ -657,7 +725,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
