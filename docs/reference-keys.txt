@@ -160,3 +160,7 @@ fig:influenceresid
 python-code-17
 python-code-18
 python-code-19
+python-code-20
+python-code-21
+python-code-22
+python-code-23
