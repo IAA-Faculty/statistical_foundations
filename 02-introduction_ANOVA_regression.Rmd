@@ -134,6 +134,27 @@ dim(test)
 <!-- </ol> -->
 <!-- It's important to note that _even with the same seed_, these two methods will not produce the same result as the randomization contained within them is fundamentally different.  -->
 
+### Python Code
+
+To create the training data set in Python
+
+```{python}
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+
+train,test = train_test_split(ames_py,test_size=0.3,random_state=123)
+train.head()
+```
+
+
+However, note that this will create a different train/test split.  Therefore, we will just pull in our train/test data set from R.
+
+```{python}
+train = r.train
+test = r.test
+```
+
+
 ## Bivariate EDA
 
 As stated in Chapter \@ref(intro-stat), exploratory data analysis is the foundation of any successful data science project. As we move on to the discussion of modeling, we begin to explore _bivariate_ relationships in our data. In doing so, we will often explore the input variables' relationships with the target. __Such exploration should only be done on the training data; we should never let insights from the validation or test data inform our decisions about modeling.__
@@ -201,6 +222,52 @@ ggplot(data = train, aes(y = Sale_Price/1000, x = `Exter_Qual`, fill = `Exter_Qu
 Notice that we've highlighted the mean on each box-plot for the purposes of comparison. We now have a hypothesis that we may want to formally test. After all, it is not good practice to look at Figures \@ref(fig:overhistogramdensitykernel) and \@ref(fig:multiboxplot) and _declare_ that a statistical difference exists. While we do, over time, get a feel for which visually apparent relationships turn out to be statistically significant, it's _imperative_ that we conduct formal testing before declaring such insights to a colleague or stakeholder. 
 
 If we want to test whether the `Sale_Price` is different for the different values of `Exter_Qual`, we have to reach for the multi-group alternative to the 2-sample t-test. This is called __Analysis of Variance__, or __ANOVA__ for short. 
+
+### Python Code
+
+For Continuous-Continuous Associations:
+
+```{python}
+ax = sns.relplot(data = train, y = train['Sale_Price']/1000, x = "Gr_Liv_Area")
+ax.set(ylabel = 'Sales Price (Thousands $)',
+       xlabel = 'Greater Living Area (Sqft)')
+plt.show()
+```
+
+
+For Continuous-Categorical Associations:
+
+```{python}
+train['Exter_Qual'] = train['Exter_Qual'].cat.remove_unused_categories()
+
+ax = sns.catplot(data = train, y = "Sale_Price", x = "Exter_Qual", kind = "bar")
+ax.set(ylabel = 'Sales Price (Thousands $)',
+       xlabel = 'Exterior Quality')
+plt.show()
+```
+
+
+```{python}
+ax = sns.displot(data = ames_py, x = ames_py['Sale_Price']/1000, hue = "Exter_Qual")
+ax.set(xlabel = 'Sales Price (Thousands $)',
+       ylabel = 'Frequency')
+plt.show()
+```
+
+
+```{python}
+ax = sns.displot(data = ames_py, x = ames_py['Sale_Price']/1000, hue = "Exter_Qual", common_norm = False, kind = "kde", fill = True)
+ax.set(xlabel = 'Sales Price (Thousands $)',
+       ylabel = 'Density')
+plt.show()
+```
+
+
+```{python}
+ax = sns.catplot(data = ames_py, x = "Exter_Qual", y = "Sale_Price", kind = "box")
+plt.show()
+```
+
 
 ## One-Way ANOVA {#oneway}
 
