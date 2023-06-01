@@ -324,6 +324,50 @@ train$resid_anova <- resid(ames_lm, data = train)
 (model_output = train %>% dplyr::select(Sale_Price, pred_anova, resid_anova))
 ```
 
+### Python Code
+
+Using statsmodels (linear regression approach to ANOVA):
+
+```{python}
+import statsmodels.formula.api as smf
+
+model = smf.ols("Sale_Price ~ C(Exter_Qual)", data = train).fit()
+model.summary()
+```
+
+
+```{python}
+sm.api.stats.anova_lm(model, typ=2)
+```
+
+
+Another way of doing it in statsmodels:
+
+
+```{python}
+sm.stats.oneway.anova_oneway(data = train['Sale_Price'], groups = train['Exter_Qual'], use_var = 'equal', welch_correction = False)
+```
+
+
+Using Scipy instead of statsmodels:
+
+
+```{python}
+sp.stats.f_oneway(train['Sale_Price'][train['Exter_Qual'] == 'Excellent'],
+               train['Sale_Price'][train['Exter_Qual'] == 'Good'],
+               train['Sale_Price'][train['Exter_Qual'] == 'Typical'],
+               train['Sale_Price'][train['Exter_Qual'] == 'Fair'])
+```
+
+
+
+```{python}
+train['pred_anova'] = model.predict()
+train['resid_anova'] = model.resid
+
+train[['Sale_Price', 'pred_anova', 'resid_anova']].head(n = 10)
+```
+
 
 
 ### Testing Assumptions
@@ -352,6 +396,32 @@ fligner.test(Sale_Price ~ Exter_Qual, data = train) # DOES NOT depend on Normali
 ```
 And in both cases, we're forced to reject the null hypothesis of equal variances. A non-parametric version of the ANOVA test, the Kruskal-Wallis test, is more suitable to this particular case. Non-parametric tests do not have the same _statistical power_ to detect differences between groups. __Statistical power__ is the probability of detecting an effect, if there is a true effect present to detect. We should opt for these tests in situations where our data is ordinal or otherwise violates the assumptions of normality or equal variances in ways that cannot be fixed by logarithmic or other similar transformation. 
 
+### Python Code
+
+```{python}
+sm.api.qqplot(train['resid_anova'])
+plt.show()
+
+sp.stats.shapiro(model.resid)
+```
+
+
+```{python}
+sp.stats.levene(train['Sale_Price'][train['Exter_Qual'] == 'Excellent'],
+               train['Sale_Price'][train['Exter_Qual'] == 'Good'],
+               train['Sale_Price'][train['Exter_Qual'] == 'Typical'],
+               train['Sale_Price'][train['Exter_Qual'] == 'Fair'])
+```
+
+
+```{python}
+sp.stats.fligner(train['Sale_Price'][train['Exter_Qual'] == 'Excellent'],
+               train['Sale_Price'][train['Exter_Qual'] == 'Good'],
+               train['Sale_Price'][train['Exter_Qual'] == 'Typical'],
+               train['Sale_Price'][train['Exter_Qual'] == 'Fair'])
+```
+
+
 ### Kruskal-Wallis {#kruskal}
 
 The Kruskal-Wallis test, proposed in 1952, is equivalent to a parametric one-way ANOVA where the data values have been replaced with their ranks (i.e. largest value = 1, second largest value = 2, etc.). When the data _is not_ normally distributed but _is_ identically distributed (having the same shape and variance), the Kruskal-Wallis test can be considered a test for differences in medians. If those identical distributions are also symmetric, then Kruskal-Wallis can be interpretted as testing for a difference in means. When the data is not identically distributed, or when the distributions are not symmetric, Kruskal-Wallis is a test of __dominance__ between distributions. __Distributional dominance__ is the notion that one group's distribution is located at larger values than another, probabilistically speaking.  Formally, a random variable A has dominance over random variable B if $P(A\geq x) \geq P(B\geq x)$ for all $x$, and for some $x$, $P(A\geq x) > P(B\geq x)$.
@@ -371,6 +441,16 @@ Implementing the Kruskal-Wallis test in R is simple:
 kruskal.test(Sale_Price ~ Exter_Qual, data = train)
 ```
 Our conclusion would be that the distribution of sale price is different across different levels of exterior quality. 
+
+
+### Python Code
+
+```{python}
+sp.stats.kruskal(train['Sale_Price'][train['Exter_Qual'] == 'Excellent'],
+               train['Sale_Price'][train['Exter_Qual'] == 'Good'],
+               train['Sale_Price'][train['Exter_Qual'] == 'Typical'],
+               train['Sale_Price'][train['Exter_Qual'] == 'Fair'])
+```
 
 
 ## ANOVA Post-hoc Testing {#posthoc}
@@ -409,6 +489,23 @@ DunnettTest(x = train$Sale_Price, g = train$Exter_Qual, control = 'Typical')
 ```
 In the output from Dunnett's test, we notice the p-value comparing `Fair` to `Typical` exterior qualities is lower than it was in the Tukey-Kramer test. This is consistent with our expectations for a test that isn't controlling for as many comparisons; it makes a smaller upward adjustment of p-values to satisfy a given experiment-wise error rate.
 
+
+### Python Code
+
+
+Tukey-Kramer test:
+
+```{python}
+import statsmodels.stats.multicomp as mc
+
+comp = mc.MultiComparison(train['Sale_Price'], train['Exter_Qual'])
+ph_res = comp.tukeyhsd(alpha = 0.05)
+ph_res.summary()
+ph_res.plot_simultaneous()
+```
+
+
+No Dunnett's test in Python. The team at statsmodels is supposedly "working on it".
 
 ## Pearson Correlation {#cor}
 

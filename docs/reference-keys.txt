@@ -129,3 +129,7 @@ fig:extremenocor
 eq:slr
 fig:slrplots
 python-code-6
+python-code-7
+python-code-8
+python-code-9
+python-code-10
