@@ -364,6 +364,15 @@ Outside of the typical assumptions for ANOVA that still hold here, there are two
 
 The first, new assumption of randomness deals with the reliability of the analysis. Randomness is key to removing the impact of the nuisance factors. The second, new assumption implies there is **no interaction** between the treatment variable and the blocking variable. For example, we are implying that the fertilizers' impacts ob garlic bulb weight are not changed depending on what block you are on. In other words, fertilizers have the same impact regardless of sun exposure, pH levels, rain fall, etc. We are **not** saying these nuisance factors do not impact the target variable or bulb weight of garlic, just that they do not change the effect of the fertilizer on bulb weight.
 
+
+
+### Python Code
+
+```{python}
+block=pd.read_csv('https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/master/garlic_block.csv')
+```
+
+
 ## Multiple Linear Regression
 Most practical applications of of regression modeling involve using more complicated models than a simple linear regression with only one predictor variable to predict your target. Additional variables in a model can lead to better explanations and predictions of the target. These linear regressions with more than one variable are called **multiple linear regression** models. However, as we will see in this section and the following chapters, with more variables comes much more complication.
 
