@@ -617,10 +617,10 @@ Climb:	Vertical climb in the course\
 
 
 url = 'http://www.statsci.org/data/general/hills.txt' 
-races.table = read.table(url, header=TRUE, sep='\t')
-n.index=seq(1,nrow(races.table))
-races.table=cbind(races.table,n.index)
-lm.model=lm(Time~Distance+Climb,data=races.table)
+races_table = read.table(url, header=TRUE, sep='\t')
+n.index=seq(1,nrow(races_table))
+races.table=cbind(races_table,n.index)
+lm.model=lm(Time~Distance+Climb,data=races_table)
 
 
 ##Plots of outliers
@@ -632,16 +632,16 @@ b = ggplot(lm.model,aes(x=n.index,y=rstudent(lm.model)))+geom_point(color="orang
 c = ggplot(lm.model,aes(x=n.index,y=rstandard(lm.model)))+geom_point(color="orange")+geom_line(y=-3)+geom_line(y=3)+labs(title = "Internal Studentized Residuals",x="Observation",y="Residuals")
 
 ##Cook's D
-D.cut=4/(nrow(races.table)-3-1)
+D.cut=4/(nrow(races_table)-3-1)
 
 d =ggplot(lm.model,aes(x=n.index,y=cooks.distance(lm.model)))+geom_point(color="orange")+geom_line(y=D.cut)+labs(title = "Cook's D",x="Observation",y="Cook's Distance")
 
 ##Dffit
-df.cut=2*(sqrt((3+1)/nrow(races.table)))
+df.cut=2*(sqrt((3+1)/nrow(races_table)))
 
 e =ggplot(lm.model,aes(x=n.index,y=dffits(lm.model)))+geom_point(color="orange")+geom_line(y=df.cut)+geom_line(y=-df.cut)+labs(title = "DFFITS",x="Observation",y="DFFITS")
 
-db.cut=2/sqrt(nrow(races.table))
+db.cut=2/sqrt(nrow(races_table))
 
 
 f =ggplot(lm.model,aes(x=n.index,y=dfbetas(lm.model)[,'Climb']))+geom_point(color="orange")+geom_line(y=db.cut)+geom_line(y=-db.cut)+labs(title = "DFBETA for Climb",x="Observation",y="DFBETAS")
@@ -649,7 +649,7 @@ f =ggplot(lm.model,aes(x=n.index,y=dfbetas(lm.model)[,'Climb']))+geom_point(colo
 g =ggplot(lm.model,aes(x=n.index,y=dfbetas(lm.model)[,'Distance']))+geom_point(color="orange")+geom_line(y=db.cut)+geom_line(y=-db.cut)+labs(title = "DFBETA for Distance",x="Observation",y="DFBETAS")
 
 ##Hat
-hat.cut=2*(3+1)/nrow(races.table)
+hat.cut=2*(3+1)/nrow(races_table)
 
 h = ggplot(lm.model,aes(x=n.index,y=hatvalues(lm.model)))+geom_point(color="orange")+geom_line(y=hat.cut)+labs(title = "Hat values",x="Observation",y="Hat Values")
 
