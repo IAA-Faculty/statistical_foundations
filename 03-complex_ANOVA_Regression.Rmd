@@ -370,6 +370,17 @@ The first, new assumption of randomness deals with the reliability of the analys
 
 ```{python}
 block=pd.read_csv('https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/master/garlic_block.csv')
+block.head(n = 32)
+```
+
+
+```{python}
+import statsmodels.formula.api as smf
+
+model_b = smf.ols("BulbWt ~ C(Fertilizer) + C(Sector)", data = block).fit()
+model_b.summary()
+
+sm.api.stats.anova_lm(model_b, typ=2)
 ```
 
 
@@ -666,3 +677,43 @@ summary(ames_lm4)
 
 
 With these results we estimate the average difference in sales price between homes with central air and without central air to be \$54,513.08.
+
+
+
+### Python Code
+
+Global and Local Inference
+
+```{python}
+model_mlr = smf.ols("Sale_Price ~ Gr_Liv_Area + TotRms_AbvGrd", data = train).fit()
+model_mlr.summary()
+```
+
+
+Assumptions
+
+```{python}
+train['pred_mlr'] = model_mlr.predict()
+train['resid_mlr'] = model_mlr.resid
+
+train[['Sale_Price', 'pred_anova', 'pred_slr', 'pred_mlr']].head(n = 10)
+
+sm.api.qqplot(train['resid_mlr'])
+plt.show()
+```
+
+
+Multiple Coefficient of Determination
+
+```{python}
+model_mlr.summary()
+```
+
+
+Categorical Predictor Variables
+
+```{python}
+model_mlr2 = smf.ols("Sale_Price ~ Gr_Liv_Area + TotRms_AbvGrd + C(Central_Air)", data = train).fit()
+model_mlr2.summary()
+```
+
