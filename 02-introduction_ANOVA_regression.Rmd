@@ -599,6 +599,35 @@ pairs(train[, c('Year_Built','Total_Bsmt_SF','First_Flr_SF','Gr_Liv_Area','Sale_
 ```
 
 
+### Python Code
+
+Pearson's correlation
+
+```{python}
+np.corrcoef(train['Gr_Liv_Area'], train['Sale_Price'])
+```
+
+
+Statistical test for Correlation
+
+```{python}
+sp.stats.pearsonr(train['Gr_Liv_Area'], train['Sale_Price'])
+```
+
+
+Correlation Matrix
+
+```{python}
+np.corrcoef(train[['Year_Built', 'Total_Bsmt_SF', 'First_Flr_SF', 'Gr_Liv_Area', 'Sale_Price']], rowvar = False)
+```
+
+
+```{python}
+ax = sns.pairplot(data = train[['Year_Built', 'Total_Bsmt_SF', 'First_Flr_SF', 'Gr_Liv_Area', 'Sale_Price']])
+plt.show()
+```
+
+
 ## Simple Linear Regression 
 
 After learning that two variables share a linear relationship, the next question is natural: _what is that relationship?_ How much,on average, should we expect one variable to change as the other changes by a single unit? Simple linear regression answers this question by creating a linear equation that best represents the relationship in the sense that it minimizes the squared error between the observed data and the model predictions (i.e. the sum of the squared residuals). The simple linear regression equation is typically written
@@ -658,4 +687,30 @@ summary(slr)
 The first thing we're likely to examine in the coefficient table is the p-value for `Gr_Liv_Area`. It is strongly significant (in fact, it's the same t-value and p-value as we saw for the `cor.test` as these tests are mathematically equivalent), indicating that there is an association between the size of the home and the sale price. Furthermore, the _parameter estimate_ is 115.5 indicating that we'd expect the price of a home to increase by \$115.5 for every additional square foot of living space. Because of the linearity of the model, we can extend this slope estimate to any unit change in $x$. For example, it might be difficult to think in terms of single square feet when comparing houses, so we might prefer to use a 100 square-foot change and report our conclusion as follows: For each additional 100 square feet of living area, we expect the house price to increase by \$11,550. 
 
 
+### Python Code
+
+Assumptions of Linear Regression
+
+```{python}
+sp.stats.spearmanr(train['Gr_Liv_Area'], train['Sale_Price'])
+```
+
+
+Test for Association
+
+```{python}
+model_slr = smf.ols("Sale_Price ~ Gr_Liv_Area", data = train).fit()
+model_slr.summary()
+
+train['pred_slr'] = model_slr.predict()
+train['resid_slr'] = model_slr.resid
+
+train[['Sale_Price', 'pred_anova', 'pred_slr']].head(n = 10)
+```
+
+
+```{python}
+sm.api.qqplot(train['resid_slr'])
+plt.show()
+```
 
