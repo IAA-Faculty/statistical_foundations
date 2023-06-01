@@ -446,3 +446,8 @@ If you are going to use the "p-value" method, you need to be aware of some consi
 
 
 You can quickly see that for even sample sizes of 1000, one should consider the value of alpha that is used to determine significance. One thing that most researchers agree on is that considerations need to be taken for larger sample size.  However, what those considerations should be and exactly how to do that is not agreed upon.  You should consider your sample size when you are determining what level of significance you want to choose for your analysis (also take into account which is worse....a type I error or a type II error).  There is no quick answer to this question and each decision will depend on the analysis being conducted.
+
+
+### Python Code
+
+Python does NOT have nice capabilities to do this automatically in statsmodels, scikitlearn, or scipy. All resources I can find involve downloading and installing a package (mlxtend) that is not included by default in anaconda or writing your own function. Scikit learn has something similar but uses the model's coefficients (!!!) to select, not p-values. Scikit learn can do this by evaluating a metric on cross-validation, but that is not covered until machine learning in Fall 3.

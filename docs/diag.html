@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Diagnostics | Statistical Foundations</title>
   <meta name="description" content="Chapter 5 Diagnostics | Statistical Foundations" />
-  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Diagnostics | Statistical Foundations" />
   <meta property="og:type" content="book" />
@@ -90,7 +90,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -103,7 +103,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -117,6 +117,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -151,50 +155,67 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1.4" data-path="intro-stat.html"><a href="intro-stat.html#skew"><i class="fa fa-check"></i><b>1.1.4</b> Skewness</a></li>
 <li class="chapter" data-level="1.1.5" data-path="intro-stat.html"><a href="intro-stat.html#kurt"><i class="fa fa-check"></i><b>1.1.5</b> Kurtosis</a></li>
 <li class="chapter" data-level="1.1.6" data-path="intro-stat.html"><a href="intro-stat.html#graphdist"><i class="fa fa-check"></i><b>1.1.6</b> Graphical Displays of Distributions</a></li>
+<li class="chapter" data-level="1.1.7" data-path="intro-stat.html"><a href="intro-stat.html#python-code"><i class="fa fa-check"></i><b>1.1.7</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="intro-stat.html"><a href="intro-stat.html#pointest"><i class="fa fa-check"></i><b>1.2</b> Point Estimates</a></li>
-<li class="chapter" data-level="1.3" data-path="intro-stat.html"><a href="intro-stat.html#ci"><i class="fa fa-check"></i><b>1.3</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="1.3" data-path="intro-stat.html"><a href="intro-stat.html#ci"><i class="fa fa-check"></i><b>1.3</b> Confidence Intervals</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="intro-stat.html"><a href="intro-stat.html#python-code-1"><i class="fa fa-check"></i><b>1.3.1</b> Python Code</a></li>
+</ul></li>
 <li class="chapter" data-level="1.4" data-path="intro-stat.html"><a href="intro-stat.html#hypotest"><i class="fa fa-check"></i><b>1.4</b> Hypothesis Testing</a>
 <ul>
 <li class="chapter" data-level="1.4.1" data-path="intro-stat.html"><a href="intro-stat.html#onesample"><i class="fa fa-check"></i><b>1.4.1</b> One-Sample T-Test</a></li>
+<li class="chapter" data-level="1.4.2" data-path="intro-stat.html"><a href="intro-stat.html#python-code-2"><i class="fa fa-check"></i><b>1.4.2</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="intro-stat.html"><a href="intro-stat.html#two-sample-t-tests"><i class="fa fa-check"></i><b>1.5</b> Two-Sample t-tests</a>
 <ul>
 <li class="chapter" data-level="1.5.1" data-path="intro-stat.html"><a href="intro-stat.html#testnorm"><i class="fa fa-check"></i><b>1.5.1</b> Testing Normality of Groups</a></li>
 <li class="chapter" data-level="1.5.2" data-path="intro-stat.html"><a href="intro-stat.html#ftest"><i class="fa fa-check"></i><b>1.5.2</b> Testing Equality of Variances</a></li>
 <li class="chapter" data-level="1.5.3" data-path="intro-stat.html"><a href="intro-stat.html#tsttest"><i class="fa fa-check"></i><b>1.5.3</b> Testing Equality of Means</a></li>
-<li class="chapter" data-level="1.5.4" data-path="intro-stat.html"><a href="intro-stat.html#wilcoxon"><i class="fa fa-check"></i><b>1.5.4</b> Mann-Whitney-Wilcoxon Test</a></li>
+<li class="chapter" data-level="1.5.4" data-path="intro-stat.html"><a href="intro-stat.html#python-code-3"><i class="fa fa-check"></i><b>1.5.4</b> Python Code</a></li>
+<li class="chapter" data-level="1.5.5" data-path="intro-stat.html"><a href="intro-stat.html#wilcoxon"><i class="fa fa-check"></i><b>1.5.5</b> Mann-Whitney-Wilcoxon Test</a></li>
+<li class="chapter" data-level="1.5.6" data-path="intro-stat.html"><a href="intro-stat.html#python-code-4"><i class="fa fa-check"></i><b>1.5.6</b> Python Code</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="slr.html"><a href="slr.html"><i class="fa fa-check"></i><b>2</b> Introduction to ANOVA and Linear Regression</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="slr.html"><a href="slr.html#evp"><i class="fa fa-check"></i><b>2.1</b> Prediction vs. Explanation</a></li>
-<li class="chapter" data-level="2.2" data-path="slr.html"><a href="slr.html#trainvalidtest"><i class="fa fa-check"></i><b>2.2</b> Honest Assessment</a></li>
+<li class="chapter" data-level="2.2" data-path="slr.html"><a href="slr.html#trainvalidtest"><i class="fa fa-check"></i><b>2.2</b> Honest Assessment</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="slr.html"><a href="slr.html#python-code-5"><i class="fa fa-check"></i><b>2.2.1</b> Python Code</a></li>
+</ul></li>
 <li class="chapter" data-level="2.3" data-path="slr.html"><a href="slr.html#bivariate-eda"><i class="fa fa-check"></i><b>2.3</b> Bivariate EDA</a>
 <ul>
 <li class="chapter" data-level="2.3.1" data-path="slr.html"><a href="slr.html#continuous-continuous-associations"><i class="fa fa-check"></i><b>2.3.1</b> Continuous-Continuous Associations</a></li>
 <li class="chapter" data-level="2.3.2" data-path="slr.html"><a href="slr.html#continuous-categorical-associations"><i class="fa fa-check"></i><b>2.3.2</b> Continuous-Categorical Associations</a></li>
+<li class="chapter" data-level="2.3.3" data-path="slr.html"><a href="slr.html#python-code-6"><i class="fa fa-check"></i><b>2.3.3</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="slr.html"><a href="slr.html#oneway"><i class="fa fa-check"></i><b>2.4</b> One-Way ANOVA</a>
 <ul>
-<li class="chapter" data-level="2.4.1" data-path="slr.html"><a href="slr.html#testing-assumptions"><i class="fa fa-check"></i><b>2.4.1</b> Testing Assumptions</a></li>
-<li class="chapter" data-level="2.4.2" data-path="slr.html"><a href="slr.html#kruskal"><i class="fa fa-check"></i><b>2.4.2</b> Kruskal-Wallis</a></li>
+<li class="chapter" data-level="2.4.1" data-path="slr.html"><a href="slr.html#python-code-7"><i class="fa fa-check"></i><b>2.4.1</b> Python Code</a></li>
+<li class="chapter" data-level="2.4.2" data-path="slr.html"><a href="slr.html#testing-assumptions"><i class="fa fa-check"></i><b>2.4.2</b> Testing Assumptions</a></li>
+<li class="chapter" data-level="2.4.3" data-path="slr.html"><a href="slr.html#python-code-8"><i class="fa fa-check"></i><b>2.4.3</b> Python Code</a></li>
+<li class="chapter" data-level="2.4.4" data-path="slr.html"><a href="slr.html#kruskal"><i class="fa fa-check"></i><b>2.4.4</b> Kruskal-Wallis</a></li>
+<li class="chapter" data-level="2.4.5" data-path="slr.html"><a href="slr.html#python-code-9"><i class="fa fa-check"></i><b>2.4.5</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="slr.html"><a href="slr.html#posthoc"><i class="fa fa-check"></i><b>2.5</b> ANOVA Post-hoc Testing</a>
 <ul>
 <li class="chapter" data-level="2.5.1" data-path="slr.html"><a href="slr.html#tukey"><i class="fa fa-check"></i><b>2.5.1</b> Tukey-Kramer</a></li>
 <li class="chapter" data-level="2.5.2" data-path="slr.html"><a href="slr.html#dunnett"><i class="fa fa-check"></i><b>2.5.2</b> Dunnett’s Test</a></li>
+<li class="chapter" data-level="2.5.3" data-path="slr.html"><a href="slr.html#python-code-10"><i class="fa fa-check"></i><b>2.5.3</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="slr.html"><a href="slr.html#cor"><i class="fa fa-check"></i><b>2.6</b> Pearson Correlation</a>
 <ul>
 <li class="chapter" data-level="2.6.1" data-path="slr.html"><a href="slr.html#testcor"><i class="fa fa-check"></i><b>2.6.1</b> Statistical Test</a></li>
 <li class="chapter" data-level="2.6.2" data-path="slr.html"><a href="slr.html#effect-of-anomalous-observations"><i class="fa fa-check"></i><b>2.6.2</b> Effect of Anomalous Observations</a></li>
 <li class="chapter" data-level="2.6.3" data-path="slr.html"><a href="slr.html#the-correlation-matrix"><i class="fa fa-check"></i><b>2.6.3</b> The Correlation Matrix</a></li>
+<li class="chapter" data-level="2.6.4" data-path="slr.html"><a href="slr.html#python-code-11"><i class="fa fa-check"></i><b>2.6.4</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="2.7" data-path="slr.html"><a href="slr.html#simple-linear-regression"><i class="fa fa-check"></i><b>2.7</b> Simple Linear Regression</a>
 <ul>
 <li class="chapter" data-level="2.7.1" data-path="slr.html"><a href="slr.html#slrassumptions"><i class="fa fa-check"></i><b>2.7.1</b> Assumptions of Linear Regression</a></li>
 <li class="chapter" data-level="2.7.2" data-path="slr.html"><a href="slr.html#testing-for-association"><i class="fa fa-check"></i><b>2.7.2</b> Testing for Association</a></li>
+<li class="chapter" data-level="2.7.3" data-path="slr.html"><a href="slr.html#python-code-12"><i class="fa fa-check"></i><b>2.7.3</b> Python Code</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Complex ANOVA and Multiple Linear Regression</a>
@@ -204,16 +225,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1.1" data-path="mlr.html"><a href="mlr.html#exploration"><i class="fa fa-check"></i><b>3.1.1</b> Exploration</a></li>
 <li class="chapter" data-level="3.1.2" data-path="mlr.html"><a href="mlr.html#model"><i class="fa fa-check"></i><b>3.1.2</b> Model</a></li>
 <li class="chapter" data-level="3.1.3" data-path="mlr.html"><a href="mlr.html#post-hoc-testing"><i class="fa fa-check"></i><b>3.1.3</b> Post-Hoc Testing</a></li>
+<li class="chapter" data-level="3.1.4" data-path="mlr.html"><a href="mlr.html#python-code-13"><i class="fa fa-check"></i><b>3.1.4</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="mlr.html"><a href="mlr.html#two-way-anova-with-interactions"><i class="fa fa-check"></i><b>3.2</b> Two-Way ANOVA with Interactions</a>
 <ul>
 <li class="chapter" data-level="3.2.1" data-path="mlr.html"><a href="mlr.html#post-hoc-testing-1"><i class="fa fa-check"></i><b>3.2.1</b> Post-Hoc Testing</a></li>
 <li class="chapter" data-level="3.2.2" data-path="mlr.html"><a href="mlr.html#assumptions"><i class="fa fa-check"></i><b>3.2.2</b> Assumptions</a></li>
+<li class="chapter" data-level="3.2.3" data-path="mlr.html"><a href="mlr.html#python-code-14"><i class="fa fa-check"></i><b>3.2.3</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="mlr.html"><a href="mlr.html#randomized-block-design"><i class="fa fa-check"></i><b>3.3</b> Randomized Block Design</a>
 <ul>
 <li class="chapter" data-level="3.3.1" data-path="mlr.html"><a href="mlr.html#garlic-bulb-weight-example"><i class="fa fa-check"></i><b>3.3.1</b> Garlic Bulb Weight Example</a></li>
 <li class="chapter" data-level="3.3.2" data-path="mlr.html"><a href="mlr.html#assumptions-1"><i class="fa fa-check"></i><b>3.3.2</b> Assumptions</a></li>
+<li class="chapter" data-level="3.3.3" data-path="mlr.html"><a href="mlr.html#python-code-15"><i class="fa fa-check"></i><b>3.3.3</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="mlr.html"><a href="mlr.html#multiple-linear-regression"><i class="fa fa-check"></i><b>3.4</b> Multiple Linear Regression</a>
 <ul>
@@ -222,6 +246,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4.3" data-path="mlr.html"><a href="mlr.html#assumptions-2"><i class="fa fa-check"></i><b>3.4.3</b> Assumptions</a></li>
 <li class="chapter" data-level="3.4.4" data-path="mlr.html"><a href="mlr.html#multiple-coefficients-of-determination"><i class="fa fa-check"></i><b>3.4.4</b> Multiple Coefficients of Determination</a></li>
 <li class="chapter" data-level="3.4.5" data-path="mlr.html"><a href="mlr.html#categorical-predictor-variables"><i class="fa fa-check"></i><b>3.4.5</b> Categorical Predictor Variables</a></li>
+<li class="chapter" data-level="3.4.6" data-path="mlr.html"><a href="mlr.html#python-code-16"><i class="fa fa-check"></i><b>3.4.6</b> Python Code</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="sel.html"><a href="sel.html"><i class="fa fa-check"></i><b>4</b> Model Selection</a>
@@ -233,11 +258,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="sel.html"><a href="sel.html#backward"><i class="fa fa-check"></i>Backward</a></li>
 <li class="chapter" data-level="" data-path="sel.html"><a href="sel.html#stepwise"><i class="fa fa-check"></i>Stepwise</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="sel.html"><a href="sel.html#significance-levels"><i class="fa fa-check"></i><b>4.3</b> Significance Levels</a></li>
+<li class="chapter" data-level="4.3" data-path="sel.html"><a href="sel.html#significance-levels"><i class="fa fa-check"></i><b>4.3</b> Significance Levels</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="sel.html"><a href="sel.html#python-code-17"><i class="fa fa-check"></i><b>4.3.1</b> Python Code</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="diag.html"><a href="diag.html"><i class="fa fa-check"></i><b>5</b> Diagnostics</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="diag.html"><a href="diag.html#examining-residuals"><i class="fa fa-check"></i><b>5.1</b> Examining Residuals</a></li>
+<li class="chapter" data-level="5.0.1" data-path="diag.html"><a href="diag.html#python-code-18"><i class="fa fa-check"></i><b>5.0.1</b> Python Code</a></li>
+<li class="chapter" data-level="5.1" data-path="diag.html"><a href="diag.html#examining-residuals"><i class="fa fa-check"></i><b>5.1</b> Examining Residuals</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="diag.html"><a href="diag.html#python-code-19"><i class="fa fa-check"></i><b>5.1.1</b> Python Code</a></li>
+</ul></li>
 <li class="chapter" data-level="5.2" data-path="diag.html"><a href="diag.html#misspecified-model"><i class="fa fa-check"></i><b>5.2</b> Misspecified Model</a></li>
 <li class="chapter" data-level="5.3" data-path="diag.html"><a href="diag.html#constant-variance"><i class="fa fa-check"></i><b>5.3</b> Constant Variance</a></li>
 <li class="chapter" data-level="5.4" data-path="diag.html"><a href="diag.html#normality"><i class="fa fa-check"></i><b>5.4</b> Normality</a></li>
@@ -371,24 +403,154 @@ Figure 5.1: Matrix of Scatter Plots for the Salaries Data
 </p>
 </div>
 <p>If there are not too many variables, this plot is a nice way to see all the relationships in the data set. The variables are listed along the diagonal and each off diagonal plot is a scatterplot of the variables represented by that row and column. For example, the first row of plots have rank on the y-axis. The first column of plots have rank along the x-axis.</p>
+<div id="python-code-18" class="section level3 hasAnchor" number="5.0.1">
+<h3><span class="header-section-number">5.0.1</span> Python Code<a href="diag.html#python-code-18" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="diag.html#cb2-1" aria-hidden="true" tabindex="-1"></a>Salaries <span class="op">=</span> r.Salaries</span>
+<span id="cb2-2"><a href="diag.html#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="diag.html#cb2-3" aria-hidden="true" tabindex="-1"></a>Salaries <span class="op">=</span> Salaries.rename(columns<span class="op">=</span>{<span class="st">&quot;yrs.since.phd&quot;</span>: <span class="st">&quot;yrs_since_phd&quot;</span>, <span class="st">&quot;yrs.service&quot;</span>: <span class="st">&quot;yrs_service&quot;</span>})</span>
+<span id="cb2-4"><a href="diag.html#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="diag.html#cb2-5" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.pairplot(data <span class="op">=</span> Salaries[[<span class="st">&#39;rank&#39;</span>, <span class="st">&#39;discipline&#39;</span>, <span class="st">&#39;yrs_since_phd&#39;</span>, <span class="st">&#39;yrs_service&#39;</span>, <span class="st">&#39;salary&#39;</span>]])</span>
+<span id="cb2-6"><a href="diag.html#cb2-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<pre><code>## Traceback (most recent call last):
+##   File &quot;C:\PROGRA~3\ANACON~1\lib\site-packages\matplotlib\backends\backend_qt.py&quot;, line 454, in _draw_idle
+##     self.draw()
+##   File &quot;C:\PROGRA~3\ANACON~1\lib\site-packages\matplotlib\backends\backend_agg.py&quot;, line 405, in draw
+##     self.figure.draw(self.renderer)
+##   File &quot;C:\PROGRA~3\ANACON~1\lib\site-packages\matplotlib\artist.py&quot;, line 74, in draw_wrapper
+##     result = draw(artist, renderer, *args, **kwargs)
+##   File &quot;C:\PROGRA~3\ANACON~1\lib\site-packages\matplotlib\artist.py&quot;, line 51, in draw_wrapper
+##     return draw(artist, renderer)
+##   File &quot;C:\PROGRA~3\ANACON~1\lib\site-packages\matplotlib\figure.py&quot;, line 3071, in draw
+##     mimage._draw_list_compositing_images(
+##   File &quot;C:\PROGRA~3\ANACON~1\lib\site-packages\matplotlib\image.py&quot;, line 131, in _draw_list_compositing_images
+##     a.draw(renderer)
+##   File &quot;C:\PROGRA~3\ANACON~1\lib\site-packages\matplotlib\artist.py&quot;, line 51, in draw_wrapper
+##     return draw(artist, renderer)
+##   File &quot;C:\PROGRA~3\ANACON~1\lib\site-packages\matplotlib\axes\_base.py&quot;, line 3071, in draw
+##     self._update_title_position(renderer)
+##   File &quot;C:\PROGRA~3\ANACON~1\lib\site-packages\matplotlib\axes\_base.py&quot;, line 3004, in _update_title_position
+##     if (ax.xaxis.get_ticks_position() in [&#39;top&#39;, &#39;unknown&#39;]
+##   File &quot;C:\PROGRA~3\ANACON~1\lib\site-packages\matplotlib\axis.py&quot;, line 2399, in get_ticks_position
+##     self._get_ticks_position()]
+##   File &quot;C:\PROGRA~3\ANACON~1\lib\site-packages\matplotlib\axis.py&quot;, line 2111, in _get_ticks_position
+##     major = self.majorTicks[0]
+## IndexError: list index out of range</code></pre>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-3-1.png" width="720" /></p>
+</div>
 <div id="examining-residuals" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Examining Residuals<a href="diag.html#examining-residuals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>As you can see from the above list of assumptions that most of them involve the error term which is estimated by the residuals. We will be using the residuals for many of these diagnostics. One of the most useful plot is referred as the residual plot. This plot will have the residuals along the y-axis and either the predicted values or individual x-values along the x-axis. Figure (fig:salresid) is an example using the residuals from a linear model predicting salary using all of the explanatory variables.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="diag.html#cb2-1" aria-hidden="true" tabindex="-1"></a>lm.model<span class="ot">=</span><span class="fu">lm</span>(salary<span class="sc">~</span>.,<span class="at">data=</span>Salaries)</span>
-<span id="cb2-2"><a href="diag.html#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="diag.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">fitted</span>(lm.model),<span class="at">y=</span><span class="fu">resid</span>(lm.model)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;blue&quot;</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Predicted Values&quot;</span>,<span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="diag.html#cb4-1" aria-hidden="true" tabindex="-1"></a>lm.model<span class="ot">=</span><span class="fu">lm</span>(salary<span class="sc">~</span>.,<span class="at">data=</span>Salaries)</span>
+<span id="cb4-2"><a href="diag.html#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="diag.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">fitted</span>(lm.model),<span class="at">y=</span><span class="fu">resid</span>(lm.model)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;blue&quot;</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Predicted Values&quot;</span>,<span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:salresid"></span>
-<img src="bookdownproj_files/figure-html/salresid-1.png" alt="Residuals vs. Predicted Values for Salary Model" width="672" />
+<img src="bookdownproj_files/figure-html/salresid-3.png" alt="Residuals vs. Predicted Values for Salary Model" width="672" />
 <p class="caption">
 Figure 5.2: Residuals vs. Predicted Values for Salary Model
 </p>
+</div>
+<div id="python-code-19" class="section level3 hasAnchor" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Python Code<a href="diag.html#python-code-19" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="diag.html#cb5-1" aria-hidden="true" tabindex="-1"></a>model_mlr <span class="op">=</span> smf.ols(<span class="st">&quot;salary ~ C(rank) + C(discipline) + yrs_since_phd + yrs_service + C(sex)&quot;</span>, data <span class="op">=</span> Salaries).fit()</span>
+<span id="cb5-2"><a href="diag.html#cb5-2" aria-hidden="true" tabindex="-1"></a>model_mlr.summary()</span></code></pre></div>
+<table class="simpletable">
+<caption>OLS Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>         <td>salary</td>      <th>  R-squared:         </th> <td>   0.455</td>
+</tr>
+<tr>
+  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared:    </th> <td>   0.446</td>
+</tr>
+<tr>
+  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   54.20</td>
+</tr>
+<tr>
+  <th>Date:</th>             <td>Thu, 01 Jun 2023</td> <th>  Prob (F-statistic):</th> <td>1.79e-48</td>
+</tr>
+<tr>
+  <th>Time:</th>                 <td>15:57:41</td>     <th>  Log-Likelihood:    </th> <td> -4538.9</td>
+</tr>
+<tr>
+  <th>No. Observations:</th>      <td>   397</td>      <th>  AIC:               </th> <td>   9092.</td>
+</tr>
+<tr>
+  <th>Df Residuals:</th>          <td>   390</td>      <th>  BIC:               </th> <td>   9120.</td>
+</tr>
+<tr>
+  <th>Df Model:</th>              <td>     6</td>      <th>                     </th>     <td> </td>   
+</tr>
+<tr>
+  <th>Covariance Type:</th>      <td>nonrobust</td>    <th>                     </th>     <td> </td>   
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+            <td></td>              <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>Intercept</th>            <td> 6.596e+04</td> <td> 4588.601</td> <td>   14.374</td> <td> 0.000</td> <td> 5.69e+04</td> <td>  7.5e+04</td>
+</tr>
+<tr>
+  <th>C(rank)[T.AssocProf]</th> <td> 1.291e+04</td> <td> 4145.278</td> <td>    3.114</td> <td> 0.002</td> <td> 4757.700</td> <td> 2.11e+04</td>
+</tr>
+<tr>
+  <th>C(rank)[T.Prof]</th>      <td> 4.507e+04</td> <td> 4237.523</td> <td>   10.635</td> <td> 0.000</td> <td> 3.67e+04</td> <td> 5.34e+04</td>
+</tr>
+<tr>
+  <th>C(discipline)[T.B]</th>   <td> 1.442e+04</td> <td> 2342.875</td> <td>    6.154</td> <td> 0.000</td> <td> 9811.380</td> <td>  1.9e+04</td>
+</tr>
+<tr>
+  <th>C(sex)[T.Male]</th>       <td> 4783.4928</td> <td> 3858.668</td> <td>    1.240</td> <td> 0.216</td> <td>-2802.901</td> <td> 1.24e+04</td>
+</tr>
+<tr>
+  <th>yrs_since_phd</th>        <td>  535.0583</td> <td>  240.994</td> <td>    2.220</td> <td> 0.027</td> <td>   61.248</td> <td> 1008.869</td>
+</tr>
+<tr>
+  <th>yrs_service</th>          <td> -489.5157</td> <td>  211.938</td> <td>   -2.310</td> <td> 0.021</td> <td> -906.199</td> <td>  -72.833</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+  <th>Omnibus:</th>       <td>46.385</td> <th>  Durbin-Watson:     </th> <td>   1.919</td>
+</tr>
+<tr>
+  <th>Prob(Omnibus):</th> <td> 0.000</td> <th>  Jarque-Bera (JB):  </th> <td>  82.047</td>
+</tr>
+<tr>
+  <th>Skew:</th>          <td> 0.699</td> <th>  Prob(JB):          </th> <td>1.53e-18</td>
+</tr>
+<tr>
+  <th>Kurtosis:</th>      <td> 4.733</td> <th>  Cond. No.          </th> <td>    179.</td>
+</tr>
+</table><br/><br/>Notes:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="diag.html#cb6-1" aria-hidden="true" tabindex="-1"></a>Salaries[<span class="st">&#39;pred_mlr&#39;</span>] <span class="op">=</span> model_mlr.predict()</span>
+<span id="cb6-2"><a href="diag.html#cb6-2" aria-hidden="true" tabindex="-1"></a>Salaries[<span class="st">&#39;resid_mlr&#39;</span>] <span class="op">=</span> model_mlr.resid</span>
+<span id="cb6-3"><a href="diag.html#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="diag.html#cb6-4" aria-hidden="true" tabindex="-1"></a>Salaries[[<span class="st">&#39;salary&#39;</span>, <span class="st">&#39;pred_mlr&#39;</span>, <span class="st">&#39;resid_mlr&#39;</span>]].head(n <span class="op">=</span> <span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##    salary       pred_mlr     resid_mlr
+## 0  139750  131577.173919   8172.826081
+## 1  173200  133091.263631  40108.736369
+## 2   79750   85828.036746  -6078.036746
+## 3  115000  135208.859230 -20208.859230
+## 4  141500  131554.536390   9945.463610
+## 5   97000   98337.194064  -1337.194064
+## 6  175000  135015.236444  39984.763556
+## 7  147765  132271.764939  15493.235061
+## 8  119250  131668.259052 -12418.259052
+## 9  129000  126258.622800   2741.377200</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="diag.html#cb8-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.relplot(data <span class="op">=</span> Salaries, y <span class="op">=</span> <span class="st">&quot;resid_mlr&quot;</span>, x <span class="op">=</span> <span class="st">&quot;pred_mlr&quot;</span>)</span>
+<span id="cb8-2"><a href="diag.html#cb8-2" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(ylabel <span class="op">=</span> <span class="st">&#39;Residuals&#39;</span>,</span>
+<span id="cb8-3"><a href="diag.html#cb8-3" aria-hidden="true" tabindex="-1"></a>       xlabel <span class="op">=</span> <span class="st">&#39;Predicted Salary&#39;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-6-1.png" width="245" /></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="diag.html#cb9-1" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-6-2.png" width="480" /></p>
 </div>
 </div>
 <div id="misspecified-model" class="section level2 hasAnchor" number="5.2">
 <h2><span class="header-section-number">5.2</span> Misspecified Model<a href="diag.html#misspecified-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>One of the assumptions assumes that the expected value of the response is accurately modeled by a linear function of the explanatory variables. If this is true, then we would expect our residual plots to be random scatter (in other words, all of the “signal” was correctly captured in the model and there is just noise left over).</p>
 <div class="figure"><span style="display:block;" id="fig:correctspec"></span>
-<img src="bookdownproj_files/figure-html/correctspec-1.png" alt="Ideal residual plot showing residual values randomly distributed with equal variance" width="672" />
+<img src="bookdownproj_files/figure-html/correctspec-5.png" alt="Ideal residual plot showing residual values randomly distributed with equal variance" width="672" />
 <p class="caption">
 Figure 5.3: Ideal residual plot showing residual values randomly distributed with equal variance
 </p>
@@ -403,10 +565,10 @@ Figure 5.4: Residual plot indicating that a quadratic term is required
 <p>If your model has more than one x, it is easier to see if an individual input variable has a quadratic relationship with the response when looking at plots like Figure <a href="diag.html#fig:quadpattern">5.4</a> where the input variable is on the x-axis.</p>
 <p><strong>Example</strong></p>
 <p>Let’s take a look at an example of where a quadratic linear regression is needed. This example is studying the effect of a chemical additive on paper strength. The response variable is the amount of force required to break the paper (strength) and the explanatory variable is the amount of chemical additive (amount).</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="diag.html#cb3-1" aria-hidden="true" tabindex="-1"></a> amount<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>)</span>
-<span id="cb3-2"><a href="diag.html#cb3-2" aria-hidden="true" tabindex="-1"></a> strength<span class="ot">=</span><span class="fu">c</span>(<span class="fl">2.4</span>,<span class="fl">2.6</span>,<span class="fl">2.7</span>,<span class="fl">2.5</span>,<span class="fl">2.6</span>,<span class="fl">2.6</span>,<span class="fl">2.7</span>,<span class="fl">2.8</span>,<span class="fl">2.8</span>,<span class="fl">2.8</span>,<span class="fl">3.0</span>,<span class="fl">3.0</span>,<span class="fl">3.0</span>,<span class="fl">2.9</span>,<span class="fl">2.9</span>,<span class="fl">3.0</span>,<span class="fl">3.1</span>,<span class="fl">2.9</span>,<span class="fl">2.9</span>,<span class="fl">3.0</span>,<span class="fl">2.9</span>,<span class="fl">2.8</span>)</span>
-<span id="cb3-3"><a href="diag.html#cb3-3" aria-hidden="true" tabindex="-1"></a> lm.quad<span class="ot">=</span><span class="fu">lm</span>(strength<span class="sc">~</span>amount)</span>
-<span id="cb3-4"><a href="diag.html#cb3-4" aria-hidden="true" tabindex="-1"></a> <span class="fu">summary</span>(lm.quad)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="diag.html#cb10-1" aria-hidden="true" tabindex="-1"></a> amount<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>)</span>
+<span id="cb10-2"><a href="diag.html#cb10-2" aria-hidden="true" tabindex="-1"></a> strength<span class="ot">=</span><span class="fu">c</span>(<span class="fl">2.4</span>,<span class="fl">2.6</span>,<span class="fl">2.7</span>,<span class="fl">2.5</span>,<span class="fl">2.6</span>,<span class="fl">2.6</span>,<span class="fl">2.7</span>,<span class="fl">2.8</span>,<span class="fl">2.8</span>,<span class="fl">2.8</span>,<span class="fl">3.0</span>,<span class="fl">3.0</span>,<span class="fl">3.0</span>,<span class="fl">2.9</span>,<span class="fl">2.9</span>,<span class="fl">3.0</span>,<span class="fl">3.1</span>,<span class="fl">2.9</span>,<span class="fl">2.9</span>,<span class="fl">3.0</span>,<span class="fl">2.9</span>,<span class="fl">2.8</span>)</span>
+<span id="cb10-3"><a href="diag.html#cb10-3" aria-hidden="true" tabindex="-1"></a> lm.quad<span class="ot">=</span><span class="fu">lm</span>(strength<span class="sc">~</span>amount)</span>
+<span id="cb10-4"><a href="diag.html#cb10-4" aria-hidden="true" tabindex="-1"></a> <span class="fu">summary</span>(lm.quad)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = strength ~ amount)
@@ -425,7 +587,7 @@ Figure 5.4: Residual plot indicating that a quadratic term is required
 ## Residual standard error: 0.1283 on 20 degrees of freedom
 ## Multiple R-squared:  0.5462, Adjusted R-squared:  0.5236 
 ## F-statistic: 24.08 on 1 and 20 DF,  p-value: 8.518e-05</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="diag.html#cb5-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(lm.quad,<span class="fu">aes</span>(<span class="at">x=</span>amount,<span class="at">y=</span><span class="fu">resid</span>(lm.quad)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;blue&quot;</span>,<span class="at">size=</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">labs</span>( <span class="at">x=</span><span class="st">&quot;Amount&quot;</span>, <span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="diag.html#cb12-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(lm.quad,<span class="fu">aes</span>(<span class="at">x=</span>amount,<span class="at">y=</span><span class="fu">resid</span>(lm.quad)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;blue&quot;</span>,<span class="at">size=</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">labs</span>( <span class="at">x=</span><span class="st">&quot;Amount&quot;</span>, <span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:quadexample1"></span>
 <img src="bookdownproj_files/figure-html/quadexample1-1.png" alt="Residual Plot Showing a Quadratic Relationship" width="672" />
 <p class="caption">
@@ -435,9 +597,9 @@ Figure 5.5: Residual Plot Showing a Quadratic Relationship
 <p>The above fitted model is
 <span class="math display">\[\hat{Y}_{i} = 2.5 + 0.1x_{i}.\]</span>
 However, after looking at the residual plot and noticing the quadratic shape, we realize that we need a higher order term for amount.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="diag.html#cb6-1" aria-hidden="true" tabindex="-1"></a>lm.quad<span class="ot">=</span><span class="fu">lm</span>(strength<span class="sc">~</span>amount <span class="sc">+</span> <span class="fu">I</span>(amount<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb6-2"><a href="diag.html#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="diag.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.quad)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="diag.html#cb13-1" aria-hidden="true" tabindex="-1"></a>lm.quad<span class="ot">=</span><span class="fu">lm</span>(strength<span class="sc">~</span>amount <span class="sc">+</span> <span class="fu">I</span>(amount<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb13-2"><a href="diag.html#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="diag.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.quad)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = strength ~ amount + I(amount^2))
@@ -457,7 +619,7 @@ However, after looking at the residual plot and noticing the quadratic shape, we
 ## Residual standard error: 0.115 on 19 degrees of freedom
 ## Multiple R-squared:  0.6537, Adjusted R-squared:  0.6173 
 ## F-statistic: 17.93 on 2 and 19 DF,  p-value: 4.212e-05</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="diag.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lm.quad,<span class="fu">aes</span>(<span class="at">x=</span>amount,<span class="at">y=</span><span class="fu">resid</span>(lm.quad)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>,<span class="at">size=</span><span class="dv">2</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Residual plot&quot;</span>, <span class="at">x=</span><span class="st">&quot;Amount&quot;</span>, <span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="diag.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lm.quad,<span class="fu">aes</span>(<span class="at">x=</span>amount,<span class="at">y=</span><span class="fu">resid</span>(lm.quad)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>,<span class="at">size=</span><span class="dv">2</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Residual plot&quot;</span>, <span class="at">x=</span><span class="st">&quot;Amount&quot;</span>, <span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:quadexample2"></span>
 <img src="bookdownproj_files/figure-html/quadexample2-1.png" alt="New Residual Plot after Fitting a Quadratic Term" width="672" />
 <p class="caption">
@@ -467,9 +629,9 @@ Figure 5.6: New Residual Plot after Fitting a Quadratic Term
 <p>The second order polynomial model is
 <span class="math display">\[\hat{Y}_{i} = 2.21 + 0.33x_{i}-0.04x^{2}_{i}\]</span>
 and the residuals from this model are shown in Figure <a href="diag.html#fig:quadexample2">5.6</a>. If you think there might still be some pattern in Figure <a href="diag.html#fig:quadexample2">5.6</a>, you could try a third degree polynomial:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="diag.html#cb9-1" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.3</span><span class="ot">=</span><span class="fu">lm</span>(strength<span class="sc">~</span>amount<span class="sc">+</span><span class="fu">I</span>(amount<span class="sc">^</span><span class="dv">2</span>)<span class="sc">+</span><span class="fu">I</span>(amount<span class="sc">^</span><span class="dv">3</span>))</span>
-<span id="cb9-2"><a href="diag.html#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="diag.html#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="diag.html#cb16-1" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.3</span><span class="ot">=</span><span class="fu">lm</span>(strength<span class="sc">~</span>amount<span class="sc">+</span><span class="fu">I</span>(amount<span class="sc">^</span><span class="dv">2</span>)<span class="sc">+</span><span class="fu">I</span>(amount<span class="sc">^</span><span class="dv">3</span>))</span>
+<span id="cb16-2"><a href="diag.html#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="diag.html#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.3</span>)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = strength ~ amount + I(amount^2) + I(amount^3))
@@ -490,7 +652,7 @@ and the residuals from this model are shown in Figure <a href="diag.html#fig:qua
 ## Residual standard error: 0.1044 on 18 degrees of freedom
 ## Multiple R-squared:  0.7299, Adjusted R-squared:  0.6849 
 ## F-statistic: 16.22 on 3 and 18 DF,  p-value: 2.344e-05</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="diag.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lm<span class="fl">.3</span>,<span class="fu">aes</span>(<span class="at">x=</span>amount,<span class="at">y=</span><span class="fu">resid</span>(lm<span class="fl">.3</span>)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>,<span class="at">size=</span><span class="dv">2</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Amount&quot;</span>, <span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="diag.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lm<span class="fl">.3</span>,<span class="fu">aes</span>(<span class="at">x=</span>amount,<span class="at">y=</span><span class="fu">resid</span>(lm<span class="fl">.3</span>)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>,<span class="at">size=</span><span class="dv">2</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Amount&quot;</span>, <span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:quadexample3"></span>
 <img src="bookdownproj_files/figure-html/quadexample3-1.png" alt="New Residual Plot after Fitting a Cubic Term" width="672" />
 <p class="caption">
@@ -514,6 +676,11 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
 <div id="constant-variance" class="section level2 hasAnchor" number="5.3">
 <h2><span class="header-section-number">5.3</span> Constant Variance<a href="diag.html#constant-variance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Another assumption for linear regression is that the variance is constant about the line. Looking at Figure <a href="diag.html#fig:constvar">5.8</a>, you see that the variation about the line is constant across the line (notice the bands that have been drawn around the line).</p>
+<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## ℹ Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:constvar"></span>
 <img src="bookdownproj_files/figure-html/constvar-1.png" alt="Residual Plot Showing Non-Constant Variance" width="672" />
 <p class="caption">
@@ -530,13 +697,13 @@ Figure 5.9: Residual Plot Showing Non-Constant Variance
 <p>Notice how the variability increases as the predicted values increase (the bands get wider). This is referred to as heteroskedasticity in the variance, which violates the constant variance assumption (homoskedasticity). The homoskedastic assumption is about the regression line, so it is best to look at the plot of residuals versus predicted values (not individual x-values). There are a few tests for this assumption, but they are limited in what they are able to test. Best way to evaluate this assumption is by visualizing the residual plot and make a judgement call. If the variance appears to be heteroskadastic, any inferences under the traditional assumptions will be incorrect. In other words, hypothesis tests and confidence intervals based on the t, F, and <span class="math inline">\(\chi^{2}\)</span> distributions will not be valid.</p>
 <p><strong>Example</strong></p>
 <p>The following fictious salary data set is from the online textbook <a href="https://daviddalpiaz.github.io/appliedstats/index.html"><em>Applied Statistics with R</em></a>. The explanatory variable is number of years employment and the response variable is annual salary.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="diag.html#cb12-1" aria-hidden="true" tabindex="-1"></a>years<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">11</span>,<span class="dv">11</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="dv">13</span>,<span class="dv">13</span>,<span class="dv">13</span>,<span class="dv">13</span>,<span class="dv">14</span>,<span class="dv">14</span>,<span class="dv">14</span>,<span class="dv">14</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">18</span>,<span class="dv">18</span>,<span class="dv">18</span>,<span class="dv">18</span>,<span class="dv">19</span>,<span class="dv">19</span>,<span class="dv">19</span>,<span class="dv">19</span>,<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">21</span>,<span class="dv">21</span>,<span class="dv">21</span>,<span class="dv">21</span>,<span class="dv">22</span>,<span class="dv">22</span>,<span class="dv">22</span>,<span class="dv">22</span>,<span class="dv">23</span>,<span class="dv">23</span>,<span class="dv">23</span>,<span class="dv">23</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">25</span>,<span class="dv">25</span>,<span class="dv">25</span>)</span>
-<span id="cb12-2"><a href="diag.html#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="diag.html#cb12-3" aria-hidden="true" tabindex="-1"></a>salary<span class="ot">=</span><span class="fu">c</span>(<span class="dv">41504</span>,<span class="dv">32619</span>,<span class="dv">44322</span>,<span class="dv">40038</span>,<span class="dv">46147</span>,<span class="dv">38447</span>,<span class="dv">38163</span>,<span class="dv">42104</span>,<span class="dv">25597</span>,<span class="dv">39599</span>,<span class="dv">55698</span>,<span class="dv">47220</span>,<span class="dv">65929</span>,<span class="dv">55794</span>,<span class="dv">45959</span>,<span class="dv">52460</span>,<span class="dv">60308</span>,<span class="dv">61458</span>,<span class="dv">56951</span>,<span class="dv">56174</span>,<span class="dv">59363</span>,<span class="dv">57642</span>,<span class="dv">69792</span>,<span class="dv">59321</span>,<span class="dv">66379</span>,<span class="dv">64282</span>,<span class="dv">48901</span>,<span class="dv">100711</span>,<span class="dv">59324</span>,<span class="dv">54752</span>,<span class="dv">73619</span>,<span class="dv">65382</span>,<span class="dv">58823</span>,<span class="dv">65717</span>,<span class="dv">92816</span>,<span class="dv">72550</span>,<span class="dv">71365</span>,<span class="dv">88888</span>,<span class="dv">62969</span>,<span class="dv">45298</span>,<span class="dv">111292</span>,<span class="dv">91491</span>,<span class="dv">106345</span>,<span class="dv">99009</span>,<span class="dv">73981</span>,<span class="dv">72547</span>,<span class="dv">74991</span>,<span class="dv">139249</span>,<span class="dv">119948</span>,<span class="dv">128962</span>,<span class="dv">98112</span>,<span class="dv">97159</span>,<span class="dv">125246</span>,<span class="dv">89694</span>,<span class="dv">73333</span>,<span class="dv">108710</span>,<span class="dv">97567</span>,<span class="dv">90359</span>,<span class="dv">119806</span>,<span class="dv">101343</span>,<span class="dv">147406</span>,<span class="dv">153020</span>,<span class="dv">143200</span>,<span class="dv">97327</span>,<span class="dv">184807</span>,<span class="dv">146263</span>,<span class="dv">127925</span>,<span class="dv">159785</span>,<span class="dv">174822</span>,<span class="dv">177610</span>,<span class="dv">210984</span>,<span class="dv">160044</span>,<span class="dv">137044</span>,<span class="dv">182996</span>,<span class="dv">184183</span>,<span class="dv">168666</span>,<span class="dv">121350</span>,<span class="dv">193627</span>,<span class="dv">142611</span>,<span class="dv">170131</span>,<span class="dv">134140</span>,<span class="dv">129446</span>,<span class="dv">201469</span>,<span class="dv">202104</span>,<span class="dv">220556</span>,<span class="dv">166419</span>,<span class="dv">149044</span>,<span class="dv">247017</span>,<span class="dv">247730</span>,<span class="dv">252917</span>,<span class="dv">235517</span>,<span class="dv">241276</span>,<span class="dv">197229</span>,<span class="dv">175879</span>,<span class="dv">253682</span>,<span class="dv">262578</span>,<span class="dv">207715</span>,<span class="dv">221179</span>,<span class="dv">212028</span>,<span class="dv">312549</span>)</span>
-<span id="cb12-4"><a href="diag.html#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="diag.html#cb12-5" aria-hidden="true" tabindex="-1"></a>lm.var<span class="ot">=</span><span class="fu">lm</span>(salary<span class="sc">~</span>years)</span>
-<span id="cb12-6"><a href="diag.html#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="diag.html#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lm.var,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">fitted</span>(lm.var),<span class="at">y=</span><span class="fu">resid</span>(lm.var)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;blue&quot;</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Residual Plot&quot;</span>, <span class="at">x=</span><span class="st">&quot;Predicted Values&quot;</span>,<span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="diag.html#cb20-1" aria-hidden="true" tabindex="-1"></a>years<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">11</span>,<span class="dv">11</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="dv">13</span>,<span class="dv">13</span>,<span class="dv">13</span>,<span class="dv">13</span>,<span class="dv">14</span>,<span class="dv">14</span>,<span class="dv">14</span>,<span class="dv">14</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">18</span>,<span class="dv">18</span>,<span class="dv">18</span>,<span class="dv">18</span>,<span class="dv">19</span>,<span class="dv">19</span>,<span class="dv">19</span>,<span class="dv">19</span>,<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">21</span>,<span class="dv">21</span>,<span class="dv">21</span>,<span class="dv">21</span>,<span class="dv">22</span>,<span class="dv">22</span>,<span class="dv">22</span>,<span class="dv">22</span>,<span class="dv">23</span>,<span class="dv">23</span>,<span class="dv">23</span>,<span class="dv">23</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">25</span>,<span class="dv">25</span>,<span class="dv">25</span>)</span>
+<span id="cb20-2"><a href="diag.html#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="diag.html#cb20-3" aria-hidden="true" tabindex="-1"></a>salary<span class="ot">=</span><span class="fu">c</span>(<span class="dv">41504</span>,<span class="dv">32619</span>,<span class="dv">44322</span>,<span class="dv">40038</span>,<span class="dv">46147</span>,<span class="dv">38447</span>,<span class="dv">38163</span>,<span class="dv">42104</span>,<span class="dv">25597</span>,<span class="dv">39599</span>,<span class="dv">55698</span>,<span class="dv">47220</span>,<span class="dv">65929</span>,<span class="dv">55794</span>,<span class="dv">45959</span>,<span class="dv">52460</span>,<span class="dv">60308</span>,<span class="dv">61458</span>,<span class="dv">56951</span>,<span class="dv">56174</span>,<span class="dv">59363</span>,<span class="dv">57642</span>,<span class="dv">69792</span>,<span class="dv">59321</span>,<span class="dv">66379</span>,<span class="dv">64282</span>,<span class="dv">48901</span>,<span class="dv">100711</span>,<span class="dv">59324</span>,<span class="dv">54752</span>,<span class="dv">73619</span>,<span class="dv">65382</span>,<span class="dv">58823</span>,<span class="dv">65717</span>,<span class="dv">92816</span>,<span class="dv">72550</span>,<span class="dv">71365</span>,<span class="dv">88888</span>,<span class="dv">62969</span>,<span class="dv">45298</span>,<span class="dv">111292</span>,<span class="dv">91491</span>,<span class="dv">106345</span>,<span class="dv">99009</span>,<span class="dv">73981</span>,<span class="dv">72547</span>,<span class="dv">74991</span>,<span class="dv">139249</span>,<span class="dv">119948</span>,<span class="dv">128962</span>,<span class="dv">98112</span>,<span class="dv">97159</span>,<span class="dv">125246</span>,<span class="dv">89694</span>,<span class="dv">73333</span>,<span class="dv">108710</span>,<span class="dv">97567</span>,<span class="dv">90359</span>,<span class="dv">119806</span>,<span class="dv">101343</span>,<span class="dv">147406</span>,<span class="dv">153020</span>,<span class="dv">143200</span>,<span class="dv">97327</span>,<span class="dv">184807</span>,<span class="dv">146263</span>,<span class="dv">127925</span>,<span class="dv">159785</span>,<span class="dv">174822</span>,<span class="dv">177610</span>,<span class="dv">210984</span>,<span class="dv">160044</span>,<span class="dv">137044</span>,<span class="dv">182996</span>,<span class="dv">184183</span>,<span class="dv">168666</span>,<span class="dv">121350</span>,<span class="dv">193627</span>,<span class="dv">142611</span>,<span class="dv">170131</span>,<span class="dv">134140</span>,<span class="dv">129446</span>,<span class="dv">201469</span>,<span class="dv">202104</span>,<span class="dv">220556</span>,<span class="dv">166419</span>,<span class="dv">149044</span>,<span class="dv">247017</span>,<span class="dv">247730</span>,<span class="dv">252917</span>,<span class="dv">235517</span>,<span class="dv">241276</span>,<span class="dv">197229</span>,<span class="dv">175879</span>,<span class="dv">253682</span>,<span class="dv">262578</span>,<span class="dv">207715</span>,<span class="dv">221179</span>,<span class="dv">212028</span>,<span class="dv">312549</span>)</span>
+<span id="cb20-4"><a href="diag.html#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="diag.html#cb20-5" aria-hidden="true" tabindex="-1"></a>lm.var<span class="ot">=</span><span class="fu">lm</span>(salary<span class="sc">~</span>years)</span>
+<span id="cb20-6"><a href="diag.html#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="diag.html#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lm.var,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">fitted</span>(lm.var),<span class="at">y=</span><span class="fu">resid</span>(lm.var)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;blue&quot;</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Residual Plot&quot;</span>, <span class="at">x=</span><span class="st">&quot;Predicted Values&quot;</span>,<span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:varexample"></span>
 <img src="bookdownproj_files/figure-html/varexample-1.png" alt="Residuals With Heteroskedasticity" width="672" />
 <p class="caption">
@@ -562,6 +729,10 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
 <p>Another assumption is that the residuals are normally distributed. We can test this assumption through use of visual aids or formal hypothesis tests. visual aids include a histogram of the residuals or Q-Q plot of residuals. A few tests of normality of residuals, include (but not limited to) Shapiro-Wilk, Anderson-Darling, Kolmogorov-Smirnov tests. In addition to the base R package, you should also install and library the nortest package.</p>
 <p><strong>Visualization</strong></p>
 <p>To visually inspect whether or not the residuals are normally distributed, we can either graph the historgram of residuals or create a Q-Q plot of the residuals. In the histogram, we are looking for a bell-shaped curve and in the Q-Q plot, we are looking for a straight line.</p>
+<pre><code>## Warning: `qplot()` was deprecated in ggplot2 3.4.0.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:normalvis"></span>
 <img src="bookdownproj_files/figure-html/normalvis-1.png" alt="Histogram and Q-Q Plot of Residuals" width="672" />
 <p class="caption">
@@ -579,15 +750,15 @@ Figure 5.12: Histogram and Q-Q Plot of Residuals
 <li>Shapiro-Wilk test uses the idea of correlation between the sample data and normal scores. The Shapiro-Wilk is better for smaller data sets.</li>
 </ol>
 <p>With large samples, you will most likely end up rejecting these hypothesis tests (using corrected significance levels is recommended). Keep in mind that you can also get different result from different tests. It is up to you to make the decision on whether or not you are comfortable in the assumption for normality holding in different situations.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="diag.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">55402</span>)</span>
-<span id="cb13-2"><a href="diag.html#cb13-2" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="dv">0</span>,<span class="dv">4</span>)</span>
-<span id="cb13-3"><a href="diag.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ad.test</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="diag.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">55402</span>)</span>
+<span id="cb22-2"><a href="diag.html#cb22-2" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="dv">0</span>,<span class="dv">4</span>)</span>
+<span id="cb22-3"><a href="diag.html#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ad.test</span>(x)</span></code></pre></div>
 <pre><code>## 
 ##  Anderson-Darling normality test
 ## 
 ## data:  x
 ## A = 0.30275, p-value = 0.5742</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="diag.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="diag.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(x)</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -604,9 +775,9 @@ log(y) &amp; if \lambda = 0
 \end{array}\]</span></p>
 <p><strong>Example</strong></p>
 <p>Using the residuls from the originally salary data, we can take a look at the box-cox transformation.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="diag.html#cb17-1" aria-hidden="true" tabindex="-1"></a>lm.var<span class="ot">=</span><span class="fu">lm</span>(salary<span class="sc">~</span>years)</span>
-<span id="cb17-2"><a href="diag.html#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="diag.html#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boxcox</span>(lm.var)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="diag.html#cb26-1" aria-hidden="true" tabindex="-1"></a>lm.var<span class="ot">=</span><span class="fu">lm</span>(salary<span class="sc">~</span>years)</span>
+<span id="cb26-2"><a href="diag.html#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="diag.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boxcox</span>(lm.var)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/boxcox-1.png" width="672" />
 The output from the graph clearly incates that <span class="math inline">\(\lambda\)</span> should be 0, which indicates a log transform.</p>
 <p>In conclusion, to deal with data that is NOT normally distributed, we can either<br />
@@ -650,10 +821,10 @@ where <span class="math inline">\(e\)</span> represents the error terms, or resi
 </p>
 <p><strong>Example</strong>
 The following data set illustrates this test using the Google data set in the TSA package (returns of Google stock from 08/20/04 - 09/13/06).</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="diag.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(google)</span>
-<span id="cb18-2"><a href="diag.html#cb18-2" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="fu">length</span>(google))</span>
-<span id="cb18-3"><a href="diag.html#cb18-3" aria-hidden="true" tabindex="-1"></a>lm.model<span class="ot">=</span><span class="fu">lm</span>(google<span class="sc">~</span>x)</span>
-<span id="cb18-4"><a href="diag.html#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dwtest</span>(lm.model,<span class="at">alternative=</span><span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="diag.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(google)</span>
+<span id="cb27-2"><a href="diag.html#cb27-2" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="fu">length</span>(google))</span>
+<span id="cb27-3"><a href="diag.html#cb27-3" aria-hidden="true" tabindex="-1"></a>lm.model<span class="ot">=</span><span class="fu">lm</span>(google<span class="sc">~</span>x)</span>
+<span id="cb27-4"><a href="diag.html#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dwtest</span>(lm.model,<span class="at">alternative=</span><span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Durbin-Watson test
 ## 
@@ -695,44 +866,44 @@ Time: Record time to complete course<br />
 Distance: Distance in the course<br />
 Climb: Vertical climb in the course<br />
 </p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="diag.html#cb20-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">=</span> <span class="st">&#39;http://www.statsci.org/data/general/hills.txt&#39;</span> </span>
-<span id="cb20-2"><a href="diag.html#cb20-2" aria-hidden="true" tabindex="-1"></a>races.table <span class="ot">=</span> <span class="fu">read.table</span>(url, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>)</span>
-<span id="cb20-3"><a href="diag.html#cb20-3" aria-hidden="true" tabindex="-1"></a>n.index<span class="ot">=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="fu">nrow</span>(races.table))</span>
-<span id="cb20-4"><a href="diag.html#cb20-4" aria-hidden="true" tabindex="-1"></a>races.table<span class="ot">=</span><span class="fu">cbind</span>(races.table,n.index)</span>
-<span id="cb20-5"><a href="diag.html#cb20-5" aria-hidden="true" tabindex="-1"></a>lm.model<span class="ot">=</span><span class="fu">lm</span>(Time<span class="sc">~</span>Distance<span class="sc">+</span>Climb,<span class="at">data=</span>races.table)</span>
-<span id="cb20-6"><a href="diag.html#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-7"><a href="diag.html#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-8"><a href="diag.html#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="do">##Plots of outliers</span></span>
-<span id="cb20-9"><a href="diag.html#cb20-9" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">rstandard</span>(lm.model)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="sc">-</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Internal Studentized Residuals&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span>
-<span id="cb20-10"><a href="diag.html#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-11"><a href="diag.html#cb20-11" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">rstudent</span>(lm.model)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="sc">-</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;External Studentized Residuals&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span>
-<span id="cb20-12"><a href="diag.html#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-13"><a href="diag.html#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="do">##Influential points</span></span>
-<span id="cb20-14"><a href="diag.html#cb20-14" aria-hidden="true" tabindex="-1"></a>c <span class="ot">=</span> <span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">rstandard</span>(lm.model)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="sc">-</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Internal Studentized Residuals&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span>
-<span id="cb20-15"><a href="diag.html#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-16"><a href="diag.html#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="do">##Cook&#39;s D</span></span>
-<span id="cb20-17"><a href="diag.html#cb20-17" aria-hidden="true" tabindex="-1"></a>D.cut<span class="ot">=</span><span class="dv">4</span><span class="sc">/</span>(<span class="fu">nrow</span>(races.table)<span class="sc">-</span><span class="dv">3-1</span>)</span>
-<span id="cb20-18"><a href="diag.html#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-19"><a href="diag.html#cb20-19" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span><span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">cooks.distance</span>(lm.model)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span>D.cut)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Cook&#39;s D&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;Cook&#39;s Distance&quot;</span>)</span>
-<span id="cb20-20"><a href="diag.html#cb20-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-21"><a href="diag.html#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="do">##Dffit</span></span>
-<span id="cb20-22"><a href="diag.html#cb20-22" aria-hidden="true" tabindex="-1"></a>df.cut<span class="ot">=</span><span class="dv">2</span><span class="sc">*</span>(<span class="fu">sqrt</span>((<span class="dv">3</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">/</span><span class="fu">nrow</span>(races.table)))</span>
-<span id="cb20-23"><a href="diag.html#cb20-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-24"><a href="diag.html#cb20-24" aria-hidden="true" tabindex="-1"></a>e <span class="ot">=</span><span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">dffits</span>(lm.model)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span>df.cut)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="sc">-</span>df.cut)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;DFFITS&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;DFFITS&quot;</span>)</span>
-<span id="cb20-25"><a href="diag.html#cb20-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-26"><a href="diag.html#cb20-26" aria-hidden="true" tabindex="-1"></a>db.cut<span class="ot">=</span><span class="dv">2</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">nrow</span>(races.table))</span>
-<span id="cb20-27"><a href="diag.html#cb20-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-28"><a href="diag.html#cb20-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-29"><a href="diag.html#cb20-29" aria-hidden="true" tabindex="-1"></a>f <span class="ot">=</span><span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">dfbetas</span>(lm.model)[,<span class="st">&#39;Climb&#39;</span>]))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span>db.cut)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="sc">-</span>db.cut)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;DFBETA for Climb&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;DFBETAS&quot;</span>)</span>
-<span id="cb20-30"><a href="diag.html#cb20-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-31"><a href="diag.html#cb20-31" aria-hidden="true" tabindex="-1"></a>g <span class="ot">=</span><span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">dfbetas</span>(lm.model)[,<span class="st">&#39;Distance&#39;</span>]))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span>db.cut)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="sc">-</span>db.cut)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;DFBETA for Distance&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;DFBETAS&quot;</span>)</span>
-<span id="cb20-32"><a href="diag.html#cb20-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-33"><a href="diag.html#cb20-33" aria-hidden="true" tabindex="-1"></a><span class="do">##Hat</span></span>
-<span id="cb20-34"><a href="diag.html#cb20-34" aria-hidden="true" tabindex="-1"></a>hat.cut<span class="ot">=</span><span class="dv">2</span><span class="sc">*</span>(<span class="dv">3</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">/</span><span class="fu">nrow</span>(races.table)</span>
-<span id="cb20-35"><a href="diag.html#cb20-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-36"><a href="diag.html#cb20-36" aria-hidden="true" tabindex="-1"></a>h <span class="ot">=</span> <span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">hatvalues</span>(lm.model)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span>hat.cut)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Hat values&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;Hat Values&quot;</span>)</span>
-<span id="cb20-37"><a href="diag.html#cb20-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-38"><a href="diag.html#cb20-38" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(a,b,c,d,e,f,g,<span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="diag.html#cb29-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">=</span> <span class="st">&#39;http://www.statsci.org/data/general/hills.txt&#39;</span> </span>
+<span id="cb29-2"><a href="diag.html#cb29-2" aria-hidden="true" tabindex="-1"></a>races.table <span class="ot">=</span> <span class="fu">read.table</span>(url, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>)</span>
+<span id="cb29-3"><a href="diag.html#cb29-3" aria-hidden="true" tabindex="-1"></a>n.index<span class="ot">=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="fu">nrow</span>(races.table))</span>
+<span id="cb29-4"><a href="diag.html#cb29-4" aria-hidden="true" tabindex="-1"></a>races.table<span class="ot">=</span><span class="fu">cbind</span>(races.table,n.index)</span>
+<span id="cb29-5"><a href="diag.html#cb29-5" aria-hidden="true" tabindex="-1"></a>lm.model<span class="ot">=</span><span class="fu">lm</span>(Time<span class="sc">~</span>Distance<span class="sc">+</span>Climb,<span class="at">data=</span>races.table)</span>
+<span id="cb29-6"><a href="diag.html#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="diag.html#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="diag.html#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="do">##Plots of outliers</span></span>
+<span id="cb29-9"><a href="diag.html#cb29-9" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">rstandard</span>(lm.model)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="sc">-</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Internal Studentized Residuals&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span>
+<span id="cb29-10"><a href="diag.html#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="diag.html#cb29-11" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">rstudent</span>(lm.model)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="sc">-</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;External Studentized Residuals&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span>
+<span id="cb29-12"><a href="diag.html#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-13"><a href="diag.html#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="do">##Influential points</span></span>
+<span id="cb29-14"><a href="diag.html#cb29-14" aria-hidden="true" tabindex="-1"></a>c <span class="ot">=</span> <span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">rstandard</span>(lm.model)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="sc">-</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Internal Studentized Residuals&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span>
+<span id="cb29-15"><a href="diag.html#cb29-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-16"><a href="diag.html#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="do">##Cook&#39;s D</span></span>
+<span id="cb29-17"><a href="diag.html#cb29-17" aria-hidden="true" tabindex="-1"></a>D.cut<span class="ot">=</span><span class="dv">4</span><span class="sc">/</span>(<span class="fu">nrow</span>(races.table)<span class="sc">-</span><span class="dv">3-1</span>)</span>
+<span id="cb29-18"><a href="diag.html#cb29-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-19"><a href="diag.html#cb29-19" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span><span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">cooks.distance</span>(lm.model)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span>D.cut)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Cook&#39;s D&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;Cook&#39;s Distance&quot;</span>)</span>
+<span id="cb29-20"><a href="diag.html#cb29-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-21"><a href="diag.html#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="do">##Dffit</span></span>
+<span id="cb29-22"><a href="diag.html#cb29-22" aria-hidden="true" tabindex="-1"></a>df.cut<span class="ot">=</span><span class="dv">2</span><span class="sc">*</span>(<span class="fu">sqrt</span>((<span class="dv">3</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">/</span><span class="fu">nrow</span>(races.table)))</span>
+<span id="cb29-23"><a href="diag.html#cb29-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-24"><a href="diag.html#cb29-24" aria-hidden="true" tabindex="-1"></a>e <span class="ot">=</span><span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">dffits</span>(lm.model)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span>df.cut)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="sc">-</span>df.cut)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;DFFITS&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;DFFITS&quot;</span>)</span>
+<span id="cb29-25"><a href="diag.html#cb29-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-26"><a href="diag.html#cb29-26" aria-hidden="true" tabindex="-1"></a>db.cut<span class="ot">=</span><span class="dv">2</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">nrow</span>(races.table))</span>
+<span id="cb29-27"><a href="diag.html#cb29-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-28"><a href="diag.html#cb29-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-29"><a href="diag.html#cb29-29" aria-hidden="true" tabindex="-1"></a>f <span class="ot">=</span><span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">dfbetas</span>(lm.model)[,<span class="st">&#39;Climb&#39;</span>]))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span>db.cut)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="sc">-</span>db.cut)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;DFBETA for Climb&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;DFBETAS&quot;</span>)</span>
+<span id="cb29-30"><a href="diag.html#cb29-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-31"><a href="diag.html#cb29-31" aria-hidden="true" tabindex="-1"></a>g <span class="ot">=</span><span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">dfbetas</span>(lm.model)[,<span class="st">&#39;Distance&#39;</span>]))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span>db.cut)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span><span class="sc">-</span>db.cut)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;DFBETA for Distance&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;DFBETAS&quot;</span>)</span>
+<span id="cb29-32"><a href="diag.html#cb29-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-33"><a href="diag.html#cb29-33" aria-hidden="true" tabindex="-1"></a><span class="do">##Hat</span></span>
+<span id="cb29-34"><a href="diag.html#cb29-34" aria-hidden="true" tabindex="-1"></a>hat.cut<span class="ot">=</span><span class="dv">2</span><span class="sc">*</span>(<span class="dv">3</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">/</span><span class="fu">nrow</span>(races.table)</span>
+<span id="cb29-35"><a href="diag.html#cb29-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-36"><a href="diag.html#cb29-36" aria-hidden="true" tabindex="-1"></a>h <span class="ot">=</span> <span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span>n.index,<span class="at">y=</span><span class="fu">hatvalues</span>(lm.model)))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">y=</span>hat.cut)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Hat values&quot;</span>,<span class="at">x=</span><span class="st">&quot;Observation&quot;</span>,<span class="at">y=</span><span class="st">&quot;Hat Values&quot;</span>)</span>
+<span id="cb29-37"><a href="diag.html#cb29-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-38"><a href="diag.html#cb29-38" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(a,b,c,d,e,f,g,<span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:influence"></span>
 <img src="bookdownproj_files/figure-html/influence-1.png" alt="Plots for Exploring Outliers and Influential Points" width="672" />
 <p class="caption">
@@ -741,7 +912,7 @@ Figure 5.14: Plots for Exploring Outliers and Influential Points
 </div>
 <p>Figure <a href="diag.html#fig:influence">5.14</a> shows a number of useful graphics that help us explore outliers and influential points.</p>
 <p>A good graph to explore is looking at the external studentized residuals versus the hat values. An observation that is high leverage AND an outlier is one that needs to be explored.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="diag.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">hatvalues</span>(lm.model),<span class="at">y=</span><span class="fu">rstudent</span>(lm.model))) <span class="sc">+</span>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Hat values&quot;</span>,<span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="diag.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lm.model,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">hatvalues</span>(lm.model),<span class="at">y=</span><span class="fu">rstudent</span>(lm.model))) <span class="sc">+</span>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>)<span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Hat values&quot;</span>,<span class="at">y=</span><span class="st">&quot;Residuals&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:influenceresid"></span>
 <img src="bookdownproj_files/figure-html/influenceresid-1.png" alt="Influential and Outlier Observations" width="672" />
 <p class="caption">
@@ -777,7 +948,7 @@ qsec: 1/4 mile time<br />
 vs: Engine (0 = V-shaped, 1 = straight)<br />
 am: Transmission (0 = automatic, 1 = manual)<br />
 gear: Number of forward gears</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="diag.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mtcars)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="diag.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mtcars)</span></code></pre></div>
 <pre><code>##             mpg        cyl       disp         hp        drat         wt
 ## mpg   1.0000000 -0.8521620 -0.8475514 -0.7761684  0.68117191 -0.8676594
 ## cyl  -0.8521620  1.0000000  0.9020329  0.8324475 -0.69993811  0.7824958
@@ -802,8 +973,8 @@ gear: Number of forward gears</p>
 ## am   -0.22986086  0.1683451  1.00000000  0.7940588  0.05753435
 ## gear -0.21268223  0.2060233  0.79405876  1.0000000  0.27407284
 ## carb -0.65624923 -0.5696071  0.05753435  0.2740728  1.00000000</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="diag.html#cb24-1" aria-hidden="true" tabindex="-1"></a>lm.model<span class="ot">=</span><span class="fu">lm</span>(mpg<span class="sc">~</span>.,<span class="at">data=</span>mtcars)</span>
-<span id="cb24-2"><a href="diag.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(lm.model)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="diag.html#cb33-1" aria-hidden="true" tabindex="-1"></a>lm.model<span class="ot">=</span><span class="fu">lm</span>(mpg<span class="sc">~</span>.,<span class="at">data=</span>mtcars)</span>
+<span id="cb33-2"><a href="diag.html#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(lm.model)</span></code></pre></div>
 <pre><code>##       cyl      disp        hp      drat        wt      qsec        vs        am 
 ## 15.373833 21.620241  9.832037  3.374620 15.164887  7.527958  4.965873  4.648487 
 ##      gear      carb 
@@ -884,7 +1055,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
