@@ -135,3 +135,8 @@ python-code-9
 python-code-10
 python-code-11
 python-code-12
+fig:twomeans
+fig:twomeansint
+tab:centralair
+python-code-13
+python-code-14

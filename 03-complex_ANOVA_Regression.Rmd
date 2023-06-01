@@ -1,3 +1,68 @@
+
+
+```{r include=FALSE}
+library(AmesHousing)
+library(tidyverse)
+library(car)
+library(DescTools)
+library(corrplot)
+library(mosaic)
+library(modelr)
+library(plotly)
+library(ggplot2)
+library(Hmisc)
+library(onehot)
+library(jmuOutlier)
+library(leaps)
+library(glmnet)
+library(nortest)
+library(lmtest)
+library(gmodels)
+library(vcdExtra)
+library(TSA)
+library(carData)
+library(epiDisplay)
+library(gridExtra)
+ames=make_ordinal_ames()
+
+library(tidyverse)
+
+set.seed(123)
+
+ames <- ames %>% mutate(id = row_number())
+
+train <- ames %>% sample_frac(0.7)
+
+test <- anti_join(ames, train, by = 'id')
+library(reticulate)
+use_python("C:\\ProgramData\\Anaconda3\\python.exe")
+```
+
+
+
+```{python include=F}
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import OneHotEncoder
+import seaborn as sns
+import matplotlib.pyplot as plt
+from numpy import random
+import statsmodels.api as sma
+import statsmodels as sm
+import pylab as py
+import scipy.stats as stats
+import scipy as sp
+import statsmodels as statsmodels
+ames_py = r.ames
+ames_py = pd.DataFrame(ames_py)
+train = r.train
+test = r.test
+```
+
+
+
+
+
 # Complex ANOVA and Multiple Linear Regression {#mlr}
 In in Chapter \@ref(slr) we were introduced to the One-Way ANOVA and simple linear regression models. These models only contained a single variable - categorical for ANOVA and continuous for simple linear regression - to explain and predict our target variable. Rarely do we believe that only a single variable will suffice in predicting a variable of interest. Here in this Chapter we will generalize these models to the $n$-Way ANOVA and multiple linear regression models. These models contain multiple sets of variables to explain and predict our target variable.
 
@@ -99,6 +164,35 @@ plot(tukey.ames2, las = 1)
 
 Starting with the variable for central air, we can see there is a statistical difference between the two categories. This is the exact same result as the overall F test for the variable since there are only two categories. For the heating quality variable, we can see some categories are different from each other, while others are not. Noticeably, the combination of poor with fair, good, and typical categories are **not** statistically different. Notice also the different widths of these confidence intervals do to the different combinations of sample sizes for the categories being tested.
 
+
+### Python Code
+
+Two-way ANOVA model
+
+```{python}
+import statsmodels.formula.api as smf
+
+model = smf.ols("Sale_Price ~ C(Heating_QC) + C(Central_Air)", data = train).fit()
+model.summary()
+
+sm.api.stats.anova_lm(model, typ=2)
+```
+
+
+Post-hoc testing
+
+```{python}
+from statsmodels.stats.multicomp import pairwise_tukeyhsd
+
+train['anova_combo'] = train.Heating_QC.astype('string') + " / " + train.Central_Air
+
+mcomp = pairwise_tukeyhsd(endog = train['Sale_Price'], groups = train['anova_combo'], alpha = 0.05)
+
+mcomp.summary()
+mcomp.plot_simultaneous()
+```
+
+
 ## Two-Way ANOVA with Interactions
 What if the relationship between a predictor and target variable changed depending on the value of another predictor variable? For our example, we would say that the average difference in sales price between having central air and not having central changed depending on what level of heating quality the home had. In the bar chart in Figure \@ref(fig:twomeans), a potential interaction effect is displayed when the differences between the two bars within each heating category is different across heating category. If the difference, was the same, then there is no interaction present. In other words, no matter the heating quality rating of the home, the average difference in sales price between having central air and not having central air is the same.
 
@@ -184,6 +278,46 @@ ames_res <- residuals(ames_aov_int)
 shapiro.test(x = ames_res)
 ```
 Neither of the normality or equal variance assumptions appear to be met here. This would be a good scenario to have a non-parametric approach. Unfortunately, the Kruskal-Wallis approach is not applicable to $n$-Way ANOVA where $n > 1$. These approaches would need more non-parametric versions of multiple regression models to account for them.
+
+
+### Python Code
+
+Two-way ANOVA with interactions
+
+```{python}
+model = smf.ols("Sale_Price ~ C(Heating_QC)*C(Central_Air)", data = train).fit()
+model.summary()
+
+sm.api.stats.anova_lm(model, typ=2)
+
+train['resid_anova_2way'] = model.resid
+```
+
+
+Post-hoc testing
+
+```{python}
+model_slice1 = smf.ols("Sale_Price ~ C(Heating_QC)", data = train[train["Central_Air"] == 'Y']).fit()
+model_slice1.summary()
+
+sm.api.stats.anova_lm(model_slice1, typ=2)
+
+model_slice2 = smf.ols("Sale_Price ~ C(Heating_QC)", data = train[train["Central_Air"] == 'N']).fit()
+model_slice2.summary()
+
+sm.api.stats.anova_lm(model_slice2, typ=2)
+```
+
+
+Assumptions
+
+```{python}
+sm.api.qqplot(train['resid_anova_2way'])
+plt.show()
+
+sp.stats.shapiro(model.resid)
+```
+
 
 ## Randomized Block Design
 There are two typical groups of data analysis studies that are conducted. The first are observational/retrospective studies which are the typical data problems people try to solve. The primary characteristic of these analysis are looking at what already happened (retrospective) and potentially inferring those results to further data. These studies have little control over other factors contributing to the target of interest because data is collected after the fact.
