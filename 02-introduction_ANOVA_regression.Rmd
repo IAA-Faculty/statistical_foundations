@@ -1,9 +1,51 @@
 # Introduction to ANOVA and Linear Regression {#slr}
 
-```{r echo=F}
+```{r include=FALSE}
 library(AmesHousing)
+library(tidyverse)
+library(car)
+library(DescTools)
+library(corrplot)
+library(mosaic)
+library(modelr)
+library(plotly)
+library(ggplot2)
+library(Hmisc)
+library(onehot)
+library(jmuOutlier)
+library(leaps)
+library(glmnet)
+library(nortest)
+library(lmtest)
+library(gmodels)
+library(vcdExtra)
+library(TSA)
+library(carData)
+library(epiDisplay)
+library(gridExtra)
 ames=make_ordinal_ames()
+library(reticulate)
+use_python("C:\\ProgramData\\Anaconda3\\python.exe")
 ```
+
+```{python include=F}
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import OneHotEncoder
+import seaborn as sns
+import matplotlib.pyplot as plt
+from numpy import random
+import statsmodels.api as sma
+import statsmodels as sm
+import pylab as py
+import scipy.stats as stats
+import scipy as sp
+import statsmodels as statsmodels
+ames_py = r.ames
+ames_py = pd.DataFrame(ames_py)
+```
+
+
 This Chapter aims to answer the following questions:
 </ul>
   <li> What is a predictive model versus an explanative model? 

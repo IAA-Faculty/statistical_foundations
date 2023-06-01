@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Introduction to ANOVA and Linear Regression | Statistical Foundations</title>
   <meta name="description" content="Chapter 2 Introduction to ANOVA and Linear Regression | Statistical Foundations" />
-  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Introduction to ANOVA and Linear Regression | Statistical Foundations" />
   <meta property="og:type" content="book" />
@@ -90,7 +90,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -103,7 +103,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -117,6 +117,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -151,19 +155,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1.4" data-path="intro-stat.html"><a href="intro-stat.html#skew"><i class="fa fa-check"></i><b>1.1.4</b> Skewness</a></li>
 <li class="chapter" data-level="1.1.5" data-path="intro-stat.html"><a href="intro-stat.html#kurt"><i class="fa fa-check"></i><b>1.1.5</b> Kurtosis</a></li>
 <li class="chapter" data-level="1.1.6" data-path="intro-stat.html"><a href="intro-stat.html#graphdist"><i class="fa fa-check"></i><b>1.1.6</b> Graphical Displays of Distributions</a></li>
+<li class="chapter" data-level="1.1.7" data-path="intro-stat.html"><a href="intro-stat.html#python-code"><i class="fa fa-check"></i><b>1.1.7</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="intro-stat.html"><a href="intro-stat.html#pointest"><i class="fa fa-check"></i><b>1.2</b> Point Estimates</a></li>
-<li class="chapter" data-level="1.3" data-path="intro-stat.html"><a href="intro-stat.html#ci"><i class="fa fa-check"></i><b>1.3</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="1.3" data-path="intro-stat.html"><a href="intro-stat.html#ci"><i class="fa fa-check"></i><b>1.3</b> Confidence Intervals</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="intro-stat.html"><a href="intro-stat.html#python-code-1"><i class="fa fa-check"></i><b>1.3.1</b> Python Code</a></li>
+</ul></li>
 <li class="chapter" data-level="1.4" data-path="intro-stat.html"><a href="intro-stat.html#hypotest"><i class="fa fa-check"></i><b>1.4</b> Hypothesis Testing</a>
 <ul>
 <li class="chapter" data-level="1.4.1" data-path="intro-stat.html"><a href="intro-stat.html#onesample"><i class="fa fa-check"></i><b>1.4.1</b> One-Sample T-Test</a></li>
+<li class="chapter" data-level="1.4.2" data-path="intro-stat.html"><a href="intro-stat.html#python-code-2"><i class="fa fa-check"></i><b>1.4.2</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="intro-stat.html"><a href="intro-stat.html#two-sample-t-tests"><i class="fa fa-check"></i><b>1.5</b> Two-Sample t-tests</a>
 <ul>
 <li class="chapter" data-level="1.5.1" data-path="intro-stat.html"><a href="intro-stat.html#testnorm"><i class="fa fa-check"></i><b>1.5.1</b> Testing Normality of Groups</a></li>
 <li class="chapter" data-level="1.5.2" data-path="intro-stat.html"><a href="intro-stat.html#ftest"><i class="fa fa-check"></i><b>1.5.2</b> Testing Equality of Variances</a></li>
 <li class="chapter" data-level="1.5.3" data-path="intro-stat.html"><a href="intro-stat.html#tsttest"><i class="fa fa-check"></i><b>1.5.3</b> Testing Equality of Means</a></li>
-<li class="chapter" data-level="1.5.4" data-path="intro-stat.html"><a href="intro-stat.html#wilcoxon"><i class="fa fa-check"></i><b>1.5.4</b> Mann-Whitney-Wilcoxon Test</a></li>
+<li class="chapter" data-level="1.5.4" data-path="intro-stat.html"><a href="intro-stat.html#python-code-3"><i class="fa fa-check"></i><b>1.5.4</b> Python Code</a></li>
+<li class="chapter" data-level="1.5.5" data-path="intro-stat.html"><a href="intro-stat.html#wilcoxon"><i class="fa fa-check"></i><b>1.5.5</b> Mann-Whitney-Wilcoxon Test</a></li>
+<li class="chapter" data-level="1.5.6" data-path="intro-stat.html"><a href="intro-stat.html#python-code-4"><i class="fa fa-check"></i><b>1.5.6</b> Python Code</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="slr.html"><a href="slr.html"><i class="fa fa-check"></i><b>2</b> Introduction to ANOVA and Linear Regression</a>
@@ -479,6 +490,7 @@ The variances for each group are equal
 y=\beta_0 + \beta_ax_a+\beta_bx_b+\beta_cx_c + \varepsilon \tag{2.2}
 \end{equation}\]</span></p>
 If we define <span class="math inline">\(x_a\)</span> as 1 if the observation belongs to level <code>a</code> and 0 otherwise, and the same definition for <span class="math inline">\(x_b\)</span> and <span class="math inline">\(x_c\)</span>, then this is called <em>reference-level coding</em> (this will change for effects-level coding). The predicted values in <a href="slr.html#eq:anova1">(2.2)</a> is basically the predicted mean of the response within the 4 levels of the predictor variable.<br />
+
 <ul>
 <li>
 <span class="math inline">\(\beta_0\)</span> represents the mean of reference group, group <code>d</code>.
@@ -534,7 +546,7 @@ Both the <code>lm()</code> function and the <code>aov()</code> function will pro
 <span id="cb16-3"><a href="slr.html#cb16-3" aria-hidden="true" tabindex="-1"></a>train<span class="sc">$</span>resid_anova <span class="ot">&lt;-</span> <span class="fu">resid</span>(ames_lm, <span class="at">data =</span> train)</span>
 <span id="cb16-4"><a href="slr.html#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-5"><a href="slr.html#cb16-5" aria-hidden="true" tabindex="-1"></a>(<span class="at">model_output =</span> train <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Sale_Price, pred_anova, resid_anova))</span></code></pre></div>
-<pre><code>## # A tibble: 2,051 x 3
+<pre><code>## # A tibble: 2,051 × 3
 ##    Sale_Price pred_anova resid_anova
 ##         &lt;int&gt;      &lt;dbl&gt;       &lt;dbl&gt;
 ##  1     232600    228910.       3690.
@@ -547,7 +559,7 @@ Both the <code>lm()</code> function and the <code>aov()</code> function will pro
 ##  8     118500    142107.     -23607.
 ##  9      94000    142107.     -48107.
 ## 10     111250    142107.     -30857.
-## # ... with 2,041 more rows</code></pre>
+## # ℹ 2,041 more rows</code></pre>
 <div id="testing-assumptions" class="section level3 hasAnchor" number="2.4.1">
 <h3><span class="header-section-number">2.4.1</span> Testing Assumptions<a href="slr.html#testing-assumptions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can use the default plots from the <code>lm()</code> function to check the normality assumption.</p>
@@ -709,7 +721,7 @@ If we can reject the null hypothesis, then we declare a significant linear assoc
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
-## data:  train$Gr_Liv_Area and train$Sale_Price
+## data:  x and y
 ## t = 44.185, df = 2049, p-value &lt; 2.2e-16
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
@@ -782,7 +794,7 @@ Figure 2.10: A single anomalous observation creates strong correlation (0.73) wh
 ## Sale_Price     0.5668889     0.6276502    0.6085229   0.6985090  1.0000000</code></pre>
 <p>Not surprisingly, we see strong positive correlation between the square footage of the basement and that of the first floor, and also between all of the area variables and the sale price. As demonstrated by Figures <a href="slr.html#fig:correlation">2.8</a> and <a href="slr.html#fig:extremenocor">2.10</a>, raw correlation values can be misleading and it’s unwise to calculate them without a scatter plot for context. The <code>pairs()</code> function in base R provides a simple matrix of scatterplots for this purpose.</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="slr.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(train[, <span class="fu">c</span>(<span class="st">&#39;Year_Built&#39;</span>,<span class="st">&#39;Total_Bsmt_SF&#39;</span>,<span class="st">&#39;First_Flr_SF&#39;</span>,<span class="st">&#39;Gr_Liv_Area&#39;</span>,<span class="st">&#39;Sale_Price&#39;</span>)])</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 </div>
 </div>
 <div id="simple-linear-regression" class="section level2 hasAnchor" number="2.7">
@@ -817,12 +829,11 @@ The random errors have equal variance (homoskedasticity).
 </ol>
 <p>It must now be noted that these assumptions are also in effect for the test of Pearson’s correlation in Section <a href="slr.html#testcor">2.6.1</a>, because the tests in simple linear regression are mathematically equivalent to that test. When these assumptions are not met, another approach to testing the significance of a linear relationship should be considered. The most common non-parametric approach to testing for an association between two continuous variables is Spearman’s correlation. Spearman’s correlation does not limit its findings to linear relationships; any monotonic relationship (one that is always increasing or always decreasing) will cause Spearman’s correlation to be significant. Similar to the approach taken by Kruskal-Wallis, Spearman’s correlation replaces the data with its ranks and computes Pearson’s correlation on the ranks. The same <code>cor</code> and <code>cor.test()</code> functions can be used; simply specify the <code>method='spearman'</code> option.</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="slr.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(train<span class="sc">$</span>Gr_Liv_Area,train<span class="sc">$</span>Sale_Price, <span class="at">method =</span> <span class="st">&#39;spearman&#39;</span>)</span></code></pre></div>
-<pre><code>## Warning in cor.test.default(train$Gr_Liv_Area, train$Sale_Price, method =
-## &quot;spearman&quot;): Cannot compute exact p-value with ties</code></pre>
+<pre><code>## Warning in cor.test.default(x, y, ...): Cannot compute exact p-value with ties</code></pre>
 <pre><code>## 
 ##  Spearman&#39;s rank correlation rho
 ## 
-## data:  train$Gr_Liv_Area and train$Sale_Price
+## data:  x and y
 ## S = 408364087, p-value &lt; 2.2e-16
 ## alternative hypothesis: true rho is not equal to 0
 ## sample estimates:
@@ -945,7 +956,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
