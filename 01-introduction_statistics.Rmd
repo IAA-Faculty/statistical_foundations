@@ -1,37 +1,26 @@
----
-output:
-  word_document: default
-  html_document: default
----
+
 # Introduction to Statistics {#intro-stat}
 
 Welcome to your introduction to statistics.  You will be learning the basics of statistics, along with applications of statistics within the R language.  This book will provide fundamentals of the concepts and the code to apply these concepts in R.  At the end of each section, you will also find the Python code that will perform a comparable analysis (however, in class, we will be discussing the R code).\
 This Chapter aims to answer the following questions:
-<ul>
-  <li> What type of data is being analyzed? 
-    <ul> 
-      <li> Nominal 
-      <li> Ordinal
-      <li> Continuous/Discrete
-</ul>
-  <li> How do we describe distributions of these variables?
-    <ul> 
-      <li> Center 
-      <li> Spread
-      <li> Shape
-      <li> Graphical Display
-</ul>
-  <li> How do we create confidence intervals for parameters?
-    <ul> 
-</ul>
-  <li> How do we perform hypothesis testing?
-    <ul> 
-      <li> One sample t-test 
-      <li> Two sample t-test
-          <li> Testing Normality
-          <li> Testing Equality of Variances
-          <li> Testing Equality of Means
-          <li> Mann-Whitney-Wilcoxon Test
+
+* What type of data is being analyzed?   
+  + Nominal 
+  + Ordinal
+  + Continuous/Discrete
+* How do we describe distributions of these variables?
+  + Center 
+  + Spread
+  + Shape
+  + Graphical Display
+* How do we create confidence intervals for parameters?
+* How do we perform hypothesis testing?
+  + One sample t-test 
+  + Two sample t-test
+  + Testing Normality
+  + Testing Equality of Variances
+  + Testing Equality of Means
+  + Mann-Whitney-Wilcoxon Test
 
 
 The following packages will be used in this textbook. Below we install and add the packages to our libraries so that any version issues can be dealt with at the beginning of the course. Sometimes packages require that you update to the latest version of R; if you see an error that indicates that situation, download the latest version of R from [CRAN](https://cran.r-project.org) and install it. 
@@ -147,7 +136,7 @@ The columns of a data set are referred to by the following __equivalent terms__:
 
 This book may use any of these words interchangeably to refer to a quality or quantity of interest in our data. 
 
-#### Nominal Variables {-}
+#### Nominal Variables 
 
 A __nominal__ or __categorical variable__ is a _quality of interest_ whose values have no logical ordering.  Color ("blue", "red", "green"...), ethnicity ("African-American", "Asian", "Caucasian",...), and style of house ("ranch", "two-story", "duplex", ...) are all examples of nominal attributes. The categories or values that these variables can take on - those words listed in quotes and parenthesis - are called the __levels__ of the variable. 
 
