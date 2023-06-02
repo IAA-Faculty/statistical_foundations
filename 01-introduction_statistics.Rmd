@@ -82,34 +82,27 @@ library(gridExtra)
 ## Exploratory Data Analysis (EDA) {#eda}
 
 The crucial first step to any data science problem is exploratory data analysis (EDA). Before you attempt to run any models, or jump towards any formal statistical analysis, you must ___explore your data___. Many unexpected frustrations arise when exploratory analysis is overlooked; knowing your data is critical to your ability to make necessary assumptions about it. This preliminary analysis will help inform our decisions for data manipulation, give us a base-level understanding of our variables and the relationships between them, and help determine which statistical analyses might be appropriate for the questions we are trying to answer. Some of the questions we aim to answer through exploratory analysis are:
-<ul>
-<li> What kind of variables to you have? 
-<ul> 
-<li> Continuous
-<li> Nominal
-<li> Ordinal
-</ul>
-<li> How are the attributes stored?
-<ul>
-<li> Strings
-<li> Integers
-<li> Floats/Numeric
-<li> Dates
-</ul>
-<li> What do their distributions look like?
-<ul>
-<li> Center/Location
-<li> Spread
-<li> Shape
-</ul>
-<li> Are there any anomolies?
-<ul>
-<li> Outliers
-<li> Leverage points
-<li> Missing values
-<li> Low-frequency categories
-</ul>
-</ul>
+
+* What kind of variables to you have? 
+  + Continuous
+  + Nominal
+  + Ordinal
+* How are the attributes stored?
+  + Strings
+  + Integers
+  + Floats/Numeric
+  + Dates
+* What do their distributions look like?
+  + Center/Location
+  + Spread
+  + Shape
+* Are there any anomolies?
+  + Outliers
+  + Leverage points
+  + Missing values
+  + Low-frequency categories  
+  
+
 
  Throughout the textbook, we will continue to use a real-estate data set that contains the `sale_price` and numerous physical attributes of nearly 3,000 homes in Ames, Iowa in the early 2000s. To access this data, we first add the `AmesHousing` package to our library and create the nicely formatted data with the `make_ordinal_ames()` function. 
 
@@ -125,14 +118,15 @@ str(ames)
 
 The columns of a data set are referred to by the following __equivalent terms__:
 
-</ul>
-<li> Variables
-<li> Features
-<li> Attributes
-<li> Predictors/Targets
-<li> Factors
-<li> Inputs/Outputs
-</ul> 
+
+* Variables
+* Features
+* Attributes
+* Predictors/Targets
+* Factors
+* Inputs/Outputs  
+
+
 
 This book may use any of these words interchangeably to refer to a quality or quantity of interest in our data. 
 
@@ -169,9 +163,12 @@ dat <- data.frame(y = c(rnorm(10,2), rnorm(10,1),rnorm(10,0)),
                 x2 = factor(rep(c("Z", "X", "Y","W","V","U"), each = 5)))
 print(dat)
 ```
-Unlike reference and effects coding, which are typically specified within the `lm()` function as we will see in Chapter \@ref(slr), one-hot encoding is most quickly achieved through use of the `onehot` package in R, which first creates an "encoder" to do the job quickly. 
+
+
+Unlike reference and effects coding, which are used in linear regression models, one-hot encoding is most quickly achieved through use of the `onehot` package in R, which first creates an "encoder" to do the job quickly. 
 
 The speed of this function has been tested against both the base R `model.matrix()` function and the `dummyVars()` function in the `caret` package and is _substantially_ faster than either. 
+
 ```{r message=FALSE}
 library(onehot)
 
@@ -180,9 +177,10 @@ dummies = predict(encoder,dat)
 head(dummies)
 ```
 
+
 __Reference-level coding __
 
-Reference-level coding is similar to one-hot encoding except one of the levels of the attribute, called the __reference level__, is omitted. Notice that the 4 dummy columns from Table \@ref(tab:onehot) collectively form a linearly dependent set; that is, if you know the values of 3 of the 4 dummy variables you can determine the $4^{th}$ with complete certainty. This would be a problem for linear regression, where we assume our input attributes are not linearly dependent as we will discuss in Chapter \@ref(slr).  
+Reference-level coding is similar to one-hot encoding except one of the levels of the attribute, called the __reference level__, is omitted. Notice that the 4 dummy columns from Table \@ref(tab:onehot) collectively form a linearly dependent set; that is, if you know the values of 3 of the 4 dummy variables you can determine the $4^{th}$ with complete certainty. This would be a problem for linear regression, where we assume our input attributes are not linearly dependent as we will discuss when we get to Simple Linear Regression.  
 
 A reference level of the attribute is often specified by the user to be a particular level worthy of comparison (a baseline), as the estimates in the regression output will be interpreted in a way that compares each non-reference level to the reference level. If a reference level is not specified by the user, one will be picked by the software by default either using the order in which the levels were encountered in the data, or their alphabetical ordering. Users should check the documentation of the associated function to understand what to expect.
 
@@ -220,11 +218,11 @@ Effects coding still requires a _reference level_, however the purpose of the re
 </table>
 <caption> (\#tab:effcoding) Effects coding for the categorical attribute _color_ and the reference level of "blue" </caption>
 
-#### Interval Variables {-}
+#### Interval Variables
 
 An interval variable is a _quantity of interest_ on which the mathematical operations of addition, subtraction, multiplication and division can be performed. Time, temperature and age are all examples of interval attributes. To illustrate the definition, note that "15 minutes" divided by "5 minutes" is 3, which indicates that 15 minutes is 3 times as long as 5 minutes. The sensible interpretation of this simple arithmetic sentence demonstrates the nature of interval attributes. One should note that such arithmetic would not make sense in the treatment of nominal variables. 
 
-#### Ordinal Variables {-}
+#### Ordinal Variables 
 
 __Ordinal variables__ are attributes that are qualitative in nature but have some natural ordering. _Level of education_ is a common example, with a level of 'PhD' indicating _more_ education than 'Bachelors' but lacking a numerical framework to quantify _how much more_. The treatment of ordinal variables will depend on the application. Survey responses on a Likert scale are also ordinal - a response of 4="somewhat agree" on a 1-to-5 scale of agreement cannot reliably be said to be twice as enthusiastic as a response of 2="somewhat disagree". These are not interval measurements, though they are often treated as such in a trade-off for computational efficiency. 
 
@@ -269,8 +267,6 @@ If we were modeling the effect of education on something like salary, it seems r
 __Target Level Encoding__
 
 The values in Table \@ref(tab:educationscaled) might have struck the reader as logical but arbitrary. To be more scientific about the determination of those numeric values, one might wish to use information from the response variable to obtain a more precise expected change in salary for each level increase in education. At first hearing this, one might question the validity of the technique; isn't the goal to _predict_ salary? This line of thought is natural, which is why having a holdout sample is extremely important in this situation. To implement Target level encoding, we can simply create a look-up table that matches each level of education to the average or median salary obtained for that level. These values can be used just as readily as the arbitrary levels created in Table \@ref(tab:educationscaled) to encode the ordinal attribute!
-
-
 
 
 ### Distributions {#dist}

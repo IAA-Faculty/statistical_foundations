@@ -169,3 +169,5 @@ python-code-25
 fig:kCV
 python-code-26
 nominal-variables
+interval-variables
+ordinal-variables

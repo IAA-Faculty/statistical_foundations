@@ -425,52 +425,34 @@ This Chapter aims to answer the following questions:</p>
 <span id="cb2-22"><a href="intro-stat.html#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span></code></pre></div>
 <div id="eda" class="section level2 hasAnchor" number="1.1">
 <h2><span class="header-section-number">1.1</span> Exploratory Data Analysis (EDA)<a href="intro-stat.html#eda" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-The crucial first step to any data science problem is exploratory data analysis (EDA). Before you attempt to run any models, or jump towards any formal statistical analysis, you must <strong><em>explore your data</em></strong>. Many unexpected frustrations arise when exploratory analysis is overlooked; knowing your data is critical to your ability to make necessary assumptions about it. This preliminary analysis will help inform our decisions for data manipulation, give us a base-level understanding of our variables and the relationships between them, and help determine which statistical analyses might be appropriate for the questions we are trying to answer. Some of the questions we aim to answer through exploratory analysis are:
+<p>The crucial first step to any data science problem is exploratory data analysis (EDA). Before you attempt to run any models, or jump towards any formal statistical analysis, you must <strong><em>explore your data</em></strong>. Many unexpected frustrations arise when exploratory analysis is overlooked; knowing your data is critical to your ability to make necessary assumptions about it. This preliminary analysis will help inform our decisions for data manipulation, give us a base-level understanding of our variables and the relationships between them, and help determine which statistical analyses might be appropriate for the questions we are trying to answer. Some of the questions we aim to answer through exploratory analysis are:</p>
 <ul>
-<li>
-What kind of variables to you have?
+<li>What kind of variables to you have?
 <ul>
-<li>
-Continuous
-<li>
-Nominal
-<li>
-Ordinal
-</ul>
-<li>
-How are the attributes stored?
+<li>Continuous</li>
+<li>Nominal</li>
+<li>Ordinal</li>
+</ul></li>
+<li>How are the attributes stored?
 <ul>
-<li>
-Strings
-<li>
-Integers
-<li>
-Floats/Numeric
-<li>
-Dates
-</ul>
-<li>
-What do their distributions look like?
+<li>Strings</li>
+<li>Integers</li>
+<li>Floats/Numeric</li>
+<li>Dates</li>
+</ul></li>
+<li>What do their distributions look like?
 <ul>
-<li>
-Center/Location
-<li>
-Spread
-<li>
-Shape
-</ul>
-<li>
-Are there any anomolies?
+<li>Center/Location</li>
+<li>Spread</li>
+<li>Shape</li>
+</ul></li>
+<li>Are there any anomolies?
 <ul>
-<li>
-Outliers
-<li>
-Leverage points
-<li>
-Missing values
-<li>
-Low-frequency categories
-</ul>
+<li>Outliers</li>
+<li>Leverage points</li>
+<li>Missing values</li>
+<li>Low-frequency categories</li>
+</ul></li>
 </ul>
 <p>Throughout the textbook, we will continue to use a real-estate data set that contains the <code>sale_price</code> and numerous physical attributes of nearly 3,000 homes in Ames, Iowa in the early 2000s. To access this data, we first add the <code>AmesHousing</code> package to our library and create the nicely formatted data with the <code>make_ordinal_ames()</code> function.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="intro-stat.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AmesHousing)</span>
@@ -480,19 +462,13 @@ Low-frequency categories
 <div id="vartypes" class="section level3 hasAnchor" number="1.1.1">
 <h3><span class="header-section-number">1.1.1</span> Types of Variables<a href="intro-stat.html#vartypes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The columns of a data set are referred to by the following <strong>equivalent terms</strong>:</p>
-</ul>
-<li>
-Variables
-<li>
-Features
-<li>
-Attributes
-<li>
-Predictors/Targets
-<li>
-Factors
-<li>
-Inputs/Outputs
+<ul>
+<li>Variables</li>
+<li>Features</li>
+<li>Attributes</li>
+<li>Predictors/Targets</li>
+<li>Factors</li>
+<li>Inputs/Outputs</li>
 </ul>
 <p>This book may use any of these words interchangeably to refer to a quality or quantity of interest in our data.</p>
 <div id="nominal-variables" class="section level4 hasAnchor" number="1.1.1.1">
@@ -660,7 +636,7 @@ Other
 ## 28 -1.3039296  C  U
 ## 29 -0.4520359  C  U
 ## 30 -1.7739919  C  U</code></pre>
-<p>Unlike reference and effects coding, which are typically specified within the <code>lm()</code> function as we will see in Chapter <a href="slr.html#slr">2</a>, one-hot encoding is most quickly achieved through use of the <code>onehot</code> package in R, which first creates an “encoder” to do the job quickly.</p>
+<p>Unlike reference and effects coding, which are used in linear regression models, one-hot encoding is most quickly achieved through use of the <code>onehot</code> package in R, which first creates an “encoder” to do the job quickly.</p>
 <p>The speed of this function has been tested against both the base R <code>model.matrix()</code> function and the <code>dummyVars()</code> function in the <code>caret</code> package and is <em>substantially</em> faster than either.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="intro-stat.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(onehot)</span>
 <span id="cb6-2"><a href="intro-stat.html#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -675,7 +651,7 @@ Other
 ## [5,] 2.905753    1    0    0    0    0    0    0    0    1
 ## [6,] 2.493667    1    0    0    0    0    0    1    0    0</code></pre>
 <p><strong>Reference-level coding </strong></p>
-<p>Reference-level coding is similar to one-hot encoding except one of the levels of the attribute, called the <strong>reference level</strong>, is omitted. Notice that the 4 dummy columns from Table <a href="intro-stat.html#tab:onehot">1.1</a> collectively form a linearly dependent set; that is, if you know the values of 3 of the 4 dummy variables you can determine the <span class="math inline">\(4^{th}\)</span> with complete certainty. This would be a problem for linear regression, where we assume our input attributes are not linearly dependent as we will discuss in Chapter <a href="slr.html#slr">2</a>.</p>
+<p>Reference-level coding is similar to one-hot encoding except one of the levels of the attribute, called the <strong>reference level</strong>, is omitted. Notice that the 4 dummy columns from Table <a href="intro-stat.html#tab:onehot">1.1</a> collectively form a linearly dependent set; that is, if you know the values of 3 of the 4 dummy variables you can determine the <span class="math inline">\(4^{th}\)</span> with complete certainty. This would be a problem for linear regression, where we assume our input attributes are not linearly dependent as we will discuss when we get to Simple Linear Regression.</p>
 <p>A reference level of the attribute is often specified by the user to be a particular level worthy of comparison (a baseline), as the estimates in the regression output will be interpreted in a way that compares each non-reference level to the reference level. If a reference level is not specified by the user, one will be picked by the software by default either using the order in which the levels were encountered in the data, or their alphabetical ordering. Users should check the documentation of the associated function to understand what to expect.</p>
 <p>Table <a href="intro-stat.html#tab:refcoding">1.2</a> transforms the one-hot encoding from Table <a href="intro-stat.html#tab:onehot">1.1</a> into reference-level coding with the color “blue” as the reference level. Notice the absence of the column indicating “blue” and how each blue observation exists as a row of zeros.</p>
 <table>
@@ -899,12 +875,12 @@ Other
 <span id="tab:effcoding">Table 1.3: </span> Effects coding for the categorical attribute <em>color</em> and the reference level of “blue”
 </caption>
 </div>
-<div id="interval-variables" class="section level4 unnumbered hasAnchor">
-<h4>Interval Variables<a href="intro-stat.html#interval-variables" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="interval-variables" class="section level4 hasAnchor" number="1.1.1.2">
+<h4><span class="header-section-number">1.1.1.2</span> Interval Variables<a href="intro-stat.html#interval-variables" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>An interval variable is a <em>quantity of interest</em> on which the mathematical operations of addition, subtraction, multiplication and division can be performed. Time, temperature and age are all examples of interval attributes. To illustrate the definition, note that “15 minutes” divided by “5 minutes” is 3, which indicates that 15 minutes is 3 times as long as 5 minutes. The sensible interpretation of this simple arithmetic sentence demonstrates the nature of interval attributes. One should note that such arithmetic would not make sense in the treatment of nominal variables.</p>
 </div>
-<div id="ordinal-variables" class="section level4 unnumbered hasAnchor">
-<h4>Ordinal Variables<a href="intro-stat.html#ordinal-variables" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="ordinal-variables" class="section level4 hasAnchor" number="1.1.1.3">
+<h4><span class="header-section-number">1.1.1.3</span> Ordinal Variables<a href="intro-stat.html#ordinal-variables" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Ordinal variables</strong> are attributes that are qualitative in nature but have some natural ordering. <em>Level of education</em> is a common example, with a level of ‘PhD’ indicating <em>more</em> education than ‘Bachelors’ but lacking a numerical framework to quantify <em>how much more</em>. The treatment of ordinal variables will depend on the application. Survey responses on a Likert scale are also ordinal - a response of 4=“somewhat agree” on a 1-to-5 scale of agreement cannot reliably be said to be twice as enthusiastic as a response of 2=“somewhat disagree”. These are not interval measurements, though they are often treated as such in a trade-off for computational efficiency.</p>
 <p><strong>Ordinal variables will either be given some numeric value and treated as interval variables or they will be treated as categorical variables and dummy variables will be created. The choice of solution is up to the analyst.</strong> When numeric values are assigned to ordinal variables, the possibilities are many. For example, consider <em>level of education</em>. The simplest ordinal treatment for such an attribute might be something like Table <a href="intro-stat.html#tab:educationint">1.4</a>.</p>
 <table>
