@@ -1172,27 +1172,19 @@ Figure 1.4: Example of a Bimodal Distribution
 </div>
 <div id="normal" class="section level3 hasAnchor" number="1.1.3">
 <h3><span class="header-section-number">1.1.3</span> The Normal Distribution<a href="intro-stat.html#normal" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-The normal distribution, also known as the Gaussian distribution, is one of the most fundamental concepts in statistics. It is one that arises naturally out of many applications and settings. The normal distribution has the following characteristics:
-<ol>
-<li>
-Symmetric
-<li>
-Fully defined by mean and standard deviation (equivalently, variance)
-<li>
-Bell-shaped/Unimodal
-<li>
-Mean = Median = Mode
-<li>
-Assymptotic to the x-axis (theoretical bounds are <span class="math inline">\(-\infty\)</span> to <span class="math inline">\(\infty\)</span>)
-</ol>
+<p>The normal distribution, also known as the Gaussian distribution, is one of the most fundamental concepts in statistics. It is one that arises naturally out of many applications and settings. The normal distribution has the following characteristics:</p>
+<ul>
+<li>Symmetric</li>
+<li>Fully defined by mean and standard deviation (equivalently, variance)</li>
+<li>Bell-shaped/Unimodal</li>
+<li>Mean = Median = Mode</li>
+<li>Assymptotic to the x-axis (theoretical bounds are <span class="math inline">\(-\infty\)</span> to <span class="math inline">\(\infty\)</span>)</li>
+</ul>
 <p>Much of the normal distributions utility can be summarized in the <strong>empirical rule</strong>, which states that:</p>
 <ul>
-<li>
-<span class="math inline">\(\approx\)</span> 68% of data in normal distribution lies within 1 standard deviation of the mean.
-<li>
-<span class="math inline">\(\approx\)</span> 95% of data in normal distribution lies within 2 standard deviations of the mean.
-<li>
-<span class="math inline">\(\approx\)</span> 99.7% of data in normal distribution lies within 3 standard deviations of the mean.
+<li><span class="math inline">\(\approx\)</span> 68% of data in normal distribution lies within 1 standard deviation of the mean.</li>
+<li><span class="math inline">\(\approx\)</span> 95% of data in normal distribution lies within 2 standard deviations of the mean.</li>
+<li><span class="math inline">\(\approx\)</span> 99.7% of data in normal distribution lies within 3 standard deviations of the mean.</li>
 </ul>
 <p>We can thus conclude that observations found outside of 3 standard deviations from the mean are quite rare, expected less than 1% of the time.</p>
 </div>
@@ -1213,16 +1205,14 @@ Figure 1.5: The Laplace distribution (top left) is leptokurtic because it has mo
 </div>
 <div id="graphdist" class="section level3 hasAnchor" number="1.1.6">
 <h3><span class="header-section-number">1.1.6</span> Graphical Displays of Distributions<a href="intro-stat.html#graphdist" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-There are three types of plots for examining the distribution of your data values:
-<ol>
-<li>
-Histograms
-<li>
-Normal Probability Plots (QQ-plots)
-<li>
-<p>Box Plots</p>
-<div id="histograms" class="section level4 unnumbered hasAnchor">
-<h4>Histograms<a href="intro-stat.html#histograms" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>There are three types of plots for examining the distribution of your data values:</p>
+<ol style="list-style-type: decimal">
+<li>Histograms</li>
+<li>Normal Probability Plots (QQ-plots)</li>
+<li>Box Plots</li>
+</ol>
+<div id="histograms" class="section level4 hasAnchor" number="1.1.6.1">
+<h4><span class="header-section-number">1.1.6.1</span> Histograms<a href="intro-stat.html#histograms" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>A histogram shows the shape of a univariate distribution. Each bar in the histogram represents a group of values (a <em>bin</em>). The height of the bar represents the either the frequency of or the percent of values in the bin. The width and number of bins is determined automatically, but the user can adjust them to see more or less detail in the histogram. Figure <a href="intro-stat.html#fig:histogram">1.2</a> demonstrated a histogram of sale price. Sometimes it’s nice to overlay a continuous approximation to the underlying distribution using a <em>kernal density estimator</em> with the <code>geom_density</code> plot, demonstrated in Figure <a href="intro-stat.html#fig:histwithkernal">1.6</a>.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="intro-stat.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ames,<span class="fu">aes</span>(<span class="at">x=</span>Sale_Price<span class="sc">/</span><span class="dv">1000</span>)) <span class="sc">+</span> </span>
 <span id="cb18-2"><a href="intro-stat.html#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density..), <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">geom_density</span>( <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
@@ -1274,8 +1264,8 @@ Figure 1.9: Histogram: Density of Sale_Price for varying qualities of Central_Ai
 </p>
 </div>
 </div>
-<div id="normal-probability-plots-qq-plots" class="section level4 unnumbered hasAnchor">
-<h4>Normal probability plots (QQ Plots)<a href="intro-stat.html#normal-probability-plots-qq-plots" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="normal-probability-plots-qq-plots" class="section level4 hasAnchor" number="1.1.6.2">
+<h4><span class="header-section-number">1.1.6.2</span> Normal probability plots (QQ Plots)<a href="intro-stat.html#normal-probability-plots-qq-plots" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>A <strong>normal probability plot</strong> graphs the sorted data values against the values that one would expect if the same number of observations came from a theoretical normal distribution. The resulting image would look close to a straight line if the data was generated by a normal distribution. Strong deviations from a straight line indicate that the data distribution is not normal.</p>
 <p>Figure <a href="intro-stat.html#fig:qqplot">1.10</a> shows a QQ plot for <code>Sale_Price</code>, and we can conclude that the variable is not normally distributed (in fact it is right skewed).</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="intro-stat.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ames, <span class="fu">aes</span>(<span class="at">sample =</span> Sale_Price<span class="sc">/</span><span class="dv">1000</span>)) <span class="sc">+</span></span>
@@ -1287,12 +1277,10 @@ Figure 1.9: Histogram: Density of Sale_Price for varying qualities of Central_Ai
 Figure 1.10: QQ-Plot: Quantiles of Sale_Price vs. quantiles of a theoretical normal distribution with same mean and standard deviation. Conclusion: Sale_Price is <em>not</em> normally distributed due to a problem with skew.
 </p>
 </div>
-There are two main patterns that we expect to find when examining QQ-plots:
-<ol>
-<li>
-A quadratic shape, as seen in Figure <a href="intro-stat.html#fig:qqplot">1.10</a>. This pattern indicates a deviation from normality due to skewness to the data.
-<li>
-An S-shape (or cubic shape), as seen in Figure <a href="intro-stat.html#fig:qqplotKurt">1.11</a>. This pattern indicates deviation from normality due to kurtosis.
+<p>There are two main patterns that we expect to find when examining QQ-plots:</p>
+<ol style="list-style-type: decimal">
+<li>A quadratic shape, as seen in Figure <a href="intro-stat.html#fig:qqplot">1.10</a>. This pattern indicates a deviation from normality due to skewness to the data.</li>
+<li>An S-shape (or cubic shape), as seen in Figure <a href="intro-stat.html#fig:qqplotKurt">1.11</a>. This pattern indicates deviation from normality due to kurtosis.</li>
 </ol>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="intro-stat.html#cb25-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">j1 =</span> <span class="fu">rlaplace</span>(<span class="dv">10000</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
 <span id="cb25-2"><a href="intro-stat.html#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1306,8 +1294,8 @@ Figure 1.11: QQ-Plot: Quantiles of the Laplace distribution vs. quantiles of a 
 </p>
 </div>
 </div>
-<div id="box-plots" class="section level4 unnumbered hasAnchor">
-<h4>Box Plots<a href="intro-stat.html#box-plots" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="box-plots" class="section level4 hasAnchor" number="1.1.6.3">
+<h4><span class="header-section-number">1.1.6.3</span> Box Plots<a href="intro-stat.html#box-plots" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Box plots (sometimes called box-and-whisker plots) will not necessarily tell you about the <em>shape</em> of your distribution (for instance a bimodal distribution could have a similar box plot to a unimodal one), but it will give you a sense of the distribution’s location and spread and potential skewness.</p>
 <p>Many of us have become familiar with the <em>idea</em> of a box plot, but when pressed for the specific steps to create one, we realize our familiarity fades. The diagram in Figure <a href="intro-stat.html#fig:boxplot">1.12</a> will remind the reader the precise information conveyed by a box plot.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:boxplot"></span>
@@ -1687,12 +1675,11 @@ Figure 1.16: Null Distribution: Number of heads for fair coin tossed 100 times
 ##    p 
 ## 0.65</code></pre>
 <hr />
-The nice thing about a simulation study like the one above is that it allows the user to explore how changes in the underlying procedure might affect the outcome. We’ll next consider two pieces that of the simulation study and how they affect the p-value: the <em>sample size</em> (the number of coin flips) and the <em>effect size</em> (the observed deviation from 50% heads).
-<ol>
-<li>
-What happens if we increase/decrease the number of coin flips in our experiment, but keep the effect size the same, fixed at 65% heads? If we only flipped the coin 10 times, would 6-7 heads be improbable to witness from a fair coin? If we flipped the coin 1000 times, would 650 heads be <em>more</em> or <em>less</em> improbable than that same ratio in 10 tosses? In other words, which of these situations would entail a smaller p-value? We hope that the reader now has some intuition to answer this question. If not, we encourage them to answer it by altering the value of <code>n</code> in the simulation code, and seeing how the changes affect the distribution of the null hypothesis.
-<li>
-<p>What happens if we fix the sample size at 100 tosses and decrease the effect size from 65 heads to 60 heads? We’ve already generated the data to answer this question - our p-value would <em>increase</em> because it would be <em>more</em> probable to obtain a smaller effect size from a fair coin. On the flip side (pun intended) the p-value would <em>decrease</em> for a larger effect size.</p>
+<p>The nice thing about a simulation study like the one above is that it allows the user to explore how changes in the underlying procedure might affect the outcome. We’ll next consider two pieces that of the simulation study and how they affect the p-value: the <em>sample size</em> (the number of coin flips) and the <em>effect size</em> (the observed deviation from 50% heads).</p>
+<ol style="list-style-type: decimal">
+<li>What happens if we increase/decrease the number of coin flips in our experiment, but keep the effect size the same, fixed at 65% heads? If we only flipped the coin 10 times, would 6-7 heads be improbable to witness from a fair coin? If we flipped the coin 1000 times, would 650 heads be <em>more</em> or <em>less</em> improbable than that same ratio in 10 tosses? In other words, which of these situations would entail a smaller p-value? We hope that the reader now has some intuition to answer this question. If not, we encourage them to answer it by altering the value of <code>n</code> in the simulation code, and seeing how the changes affect the distribution of the null hypothesis.</li>
+<li>What happens if we fix the sample size at 100 tosses and decrease the effect size from 65 heads to 60 heads? We’ve already generated the data to answer this question - our p-value would <em>increase</em> because it would be <em>more</em> probable to obtain a smaller effect size from a fair coin. On the flip side (pun intended) the p-value would <em>decrease</em> for a larger effect size.</li>
+</ol>
 <div id="onesample" class="section level3 hasAnchor" number="1.4.1">
 <h3><span class="header-section-number">1.4.1</span> One-Sample T-Test<a href="intro-stat.html#onesample" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If we want to test whether the mean of continuous variable is equal to hypothesized value, we can use the <code>t.test()</code> function. The following code tests whether the average sale price of homes from Ames, Iowa over the data time period is $178,000. For now, we’ll use the classic <span class="math inline">\(\alpha=0.05\)</span> as our significance level. If we have enough evidence to reject this null hypothesis, we will conclude that the mean sale price is significantly different than $178,000 for a two-tailed test (the default):</p>
@@ -1745,14 +1732,11 @@ What happens if we increase/decrease the number of coin flips in our experiment,
 <div id="two-sample-t-tests" class="section level2 hasAnchor" number="1.5">
 <h2><span class="header-section-number">1.5</span> Two-Sample t-tests<a href="intro-stat.html#two-sample-t-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>If we have a hypothesis about a difference in the means of two groups of observations, a <strong>two-sample t-test</strong> can tell us whether that difference is statistically significant. By <em>statistically significant</em>, we mean the observed difference in sample means is greater than what we would expect to find if the population means were truly equal. In other words, statistical significance is a phrase that describes when our p-value falls below our significance level, <span class="math inline">\(\alpha\)</span>. Typically, the groups of interest are formed by levels of a binary variable, and the t-test is a way of testing whether there is a relationship between that binary variable and the continuous variable.</p>
-To conduct a two-sample t-test, our data should satisfy 3 fundamental assumptions:
-<ol>
-<li>
-The observations are independent
-<li>
-The data from each group is normally distributed
-<li>
-The variances for each group are equal
+<p>To conduct a two-sample t-test, our data should satisfy 3 fundamental assumptions:</p>
+<ol style="list-style-type: decimal">
+<li>The observations are independent</li>
+<li>The data from each group is normally distributed</li>
+<li>The variances for each group are equal</li>
 </ol>
 <p>If our data does not satisfy these assumptions, we must adapt our test to the situation. If the <span class="math inline">\(3^{rd}\)</span> assumption of equal variances is not met, we simply add the option <code>var.equal=F</code> to the <code>t.test()</code> function to use the Welch or Satterthwaite approximation to degrees of freedom (it’s becoming increasingly common for practitioners to use this option even when variances are equal).</p>
 <p>If the <span class="math inline">\(2^{nd}\)</span> assumption is not met, one must opt for a <em>nonparametric</em> test like the Mann-Whitney-U test (also called the Mann–Whitney–Wilcoxon or the Wilcoxon rank-sum test).</p>

@@ -174,3 +174,6 @@ ordinal-variables
 location
 spread
 shape
+histograms
+normal-probability-plots-qq-plots
+box-plots
