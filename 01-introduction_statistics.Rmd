@@ -281,11 +281,17 @@ library(tidyverse)
 ggplot(data = ames) +
   geom_bar(mapping = aes(x = Heating_QC),fill="orange") + labs(x="Heating System Quality",y="Frequency",title="Bar Graph of Heating System")
 ```
+
+
 To summon the same information in tabular form, we can use the `count()` function to create a table:
+
+
 ```{r}
 ames %>% 
   count(Heating_QC)
 ```
+
+
 You'll notice that very few houses (3) have heating systems in `Poor` condition, and the majority of houses have systems rated `Excellent`. __It will likely make sense to combine the categories of `Fair` and `Poor` in our eventual analysis, a decision we will later revisit.__
 
 Next we create a __histogram__ for an interval attribute like `Sale_Price`:
@@ -296,19 +302,20 @@ ggplot(data = ames) +
   labs(x = "Sales Price (Thousands $)",y="Frequency",title="Histogram of Sales Price in Thousands of Dollars")
 ```
 
+
 From this initial inspection, we can conclude that most of the houses sell for less than $200,000 and there are a number of expensive anomalies. To more concretely describe and quantify a statistical distribution, we use statistics that describe the _location, spread, and shape_ of the data.
 
-#### Location {-}
+#### Location 
 
 The _location_ is a measure of central tendency for a distribution. Most common measures of central tendency are __mean__, __median__, and __mode__. 
 
 
 We define each of these terms below for a variable $\mathbf{x}$ having n observations with values $\{x_i\}_{i=1}^n$, sorted in order of magnitude such that $x_1 \leq x_2 \leq \dots \leq x_n$:
 
-<ul>
-<li>  Mean: The __average__ of the observations, $\bar{\mathbf{x}}= \frac{1}{n}\sum_{i=1}^n x_i$
-<li>  Median: The "middle value" of the data. Formally, when $n$ is odd, the median is the observation value, $x_m = x_{\frac{(n+1)}{2}}$ for which $x_i < x_m$ for 50% of the observations (excluding $x_m$). When $n$ is even, $x_m$ is the average of $x_\frac{n}{2}$ and $x_{(\frac{n}{2}+1)}$. The median is also known as the $2^{nd}$ __quartile__ (see next section).
-<li>  Mode: The most commonly occurring value in the data. Most commonly used to describe nominal attributes.
+
+* Mean: The __average__ of the observations, $\bar{\mathbf{x}}= \frac{1}{n}\sum_{i=1}^n x_i$
+* Median: The "middle value" of the data. Formally, when $n$ is odd, the median is the observation value, $x_m = x_{\frac{(n+1)}{2}}$ for which $x_i < x_m$ for 50% of the observations (excluding $x_m$). When $n$ is even, $x_m$ is the average of $x_\frac{n}{2}$ and $x_{(\frac{n}{2}+1)}$. The median is also known as the $2^{nd}$ __quartile__ (see next section).
+* Mode: The most commonly occurring value in the data. Most commonly used to describe nominal attributes.
 
 
 __Example__
@@ -331,27 +338,27 @@ The following table contains the heights of 10 students randomly sampled from NC
 
 __Solution:__
 
-<ul>
-<li> The mean is `(60+62+63+65+67+67+67+68+68+69)/10` = 65.6.
-<li> The median (second quartile) is `(67+67)/2` = 67.
-<li> The mode is 67.
-</ul>
 
-#### Spread {-}
+* The mean is `(60+62+63+65+67+67+67+68+68+69)/10` = 65.6.
+* The median (second quartile) is `(67+67)/2` = 67.
+* The mode is 67.
+
+
+#### Spread 
 
 Once we have an understanding of the central tendency of a data set, we move on to describing the spread (the dispersion or variation) of the data. __Range__, __interquartile range__, __variance__, and __standard deviation__ are all statistics that describe spread. 
 
-<ul> 
-<li> Range: The difference between the maximum and minimum data values.
-<li> Sample variance: The sum of squared differences between each data point and the mean, divided by (n-1). $\frac{1}{n-1}\sum_{i=1}^n (x_i-\bar{x})^2$
-<li> Standard deviation: The square root of the sample variance. \
+
+* Range: The difference between the maximum and minimum data values.
+* Sample variance: The sum of squared differences between each data point and the mean, divided by (n-1). $\frac{1}{n-1}\sum_{i=1}^n (x_i-\bar{x})^2$
+* Standard deviation: The square root of the sample variance. \
 
 
 In order to define __interquartile range__, we must first define __percentiles__ and __quartiles__.
 
-<li>  Percentiles: The 99 intermediate values of the data which divide the observations into 100 equally-sized groups.  The $r^{th}$ percentile of the data, $P_{r}$ is the number for which $r$% of the data is less than $P_{r}$.
-<li>  Quartiles: The quartiles of the data are the $25^{th}$, $50^{th}$ and $75^{th}$ percentiles.  They are denoted as $Q_{1}$ ($1^{st}$ quartile), $Q_{2}$ ($2^{nd}$ quartile = median) and $Q_{3}$ ($3^{rd}$ quartile), respectively.
-<li> Interquartile range (IQR): The difference between the $25^{th}$ and $75^{th}$ percentiles.
+* Percentiles: The 99 intermediate values of the data which divide the observations into 100 equally-sized groups.  The $r^{th}$ percentile of the data, $P_{r}$ is the number for which $r$% of the data is less than $P_{r}$.
+* Quartiles: The quartiles of the data are the $25^{th}$, $50^{th}$ and $75^{th}$ percentiles.  They are denoted as $Q_{1}$ ($1^{st}$ quartile), $Q_{2}$ ($2^{nd}$ quartile = median) and $Q_{3}$ ($3^{rd}$ quartile), respectively.
+* Interquartile range (IQR): The difference between the $25^{th}$ and $75^{th}$ percentiles.
 
 
 
@@ -376,16 +383,16 @@ Let's again use the table of heights from the previous example, this time comput
 
 __Solution:__
 
-<ul>
-<li> The range `69-60` = 9.
-<li> The variance is `((60-65.6)^2+(62-65.6)^2+(63-65.6)^2+(65-65.6)^2+(67-65.6)^2+(67-65.6)^2+(67-65.6)^2+(68-65.6)^2+(68-65.6)^2+(69-65.6)^2)/9` = 8.933
-<li> The standard deviation is `sqrt(8.933)` = 2.989
-<li> The first quartile is `(62+63)/2` = 62.5
-<li> The third quartile is `(68+68)/2` = 68
-<li> The IQR is `68 - 62.5` = 5.5.
-</ul>
 
-#### Shape {-}
+* The range `69-60` = 9.
+* The variance is `((60-65.6)^2+(62-65.6)^2+(63-65.6)^2+(65-65.6)^2+(67-65.6)^2+(67-65.6)^2+(67-65.6)^2+(68-65.6)^2+(68-65.6)^2+(69-65.6)^2)/9` = 8.933
+* The standard deviation is `sqrt(8.933)` = 2.989
+* The first quartile is `(62+63)/2` = 62.5
+* The third quartile is `(68+68)/2` = 68
+* The IQR is `68 - 62.5` = 5.5.
+
+
+#### Shape 
 
 The final description we will want to give to distributions regards their shape. Is the histogram _symmetric_? Is it _unimodal_ (having a single large "heap" of data) or _multimodal_ (having multiple heaps")? Does it have a longer tail on one side than the other (_skew_)? Is there a lot more or less data in the tails than you might expect? 
 
@@ -406,20 +413,23 @@ knitr::include_graphics("img/bimodal.png")
 
 There are many ways to obtain all of the statistics described in the preceding sections, below we highlight 3:
 
-<ol>
-<li> The `describe` function from the `Hmisc` package which can work on the entire dataset or a subset of columns.
+
+* The `describe` function from the `Hmisc` package which can work on the entire dataset or a subset of columns.
 ```{r message=FALSE}
 library(Hmisc)
 
 Hmisc::describe(ames$Sale_Price)
 ```
 
-<li> The tidyverse `summarise` function, in this case obtaining statistics for each `Exter_Qual` separately.
+* The tidyverse `summarise` function, in this case obtaining statistics for each `Exter_Qual` separately.
+
 ```{r} 
 library(tidyverse)
 ames %>% group_by(Exter_Qual) %>% dplyr::summarise(average = mean(Sale_Price), st.dev = sd(Sale_Price), maximum = max(Sale_Price), minimum = min(Sale_Price))
 ```
-<li> The base R `summary` function, which can work on the entire dataset or an individual variable
+
+* The base R `summary` function, which can work on the entire dataset or an individual variable
+
 ```{r} 
 summary(ames$Sale_Price)
 ```

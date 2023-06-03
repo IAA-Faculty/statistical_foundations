@@ -1020,17 +1020,15 @@ Figure 1.2: Distribution of Interval Variable Sale_Price
 </p>
 </div>
 <p>From this initial inspection, we can conclude that most of the houses sell for less than $200,000 and there are a number of expensive anomalies. To more concretely describe and quantify a statistical distribution, we use statistics that describe the <em>location, spread, and shape</em> of the data.</p>
-<div id="location" class="section level4 unnumbered hasAnchor">
-<h4>Location<a href="intro-stat.html#location" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="location" class="section level4 hasAnchor" number="1.1.2.1">
+<h4><span class="header-section-number">1.1.2.1</span> Location<a href="intro-stat.html#location" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The <em>location</em> is a measure of central tendency for a distribution. Most common measures of central tendency are <strong>mean</strong>, <strong>median</strong>, and <strong>mode</strong>.</p>
 <p>We define each of these terms below for a variable <span class="math inline">\(\mathbf{x}\)</span> having n observations with values <span class="math inline">\(\{x_i\}_{i=1}^n\)</span>, sorted in order of magnitude such that <span class="math inline">\(x_1 \leq x_2 \leq \dots \leq x_n\)</span>:</p>
 <ul>
-<li>
-Mean: The <strong>average</strong> of the observations, <span class="math inline">\(\bar{\mathbf{x}}= \frac{1}{n}\sum_{i=1}^n x_i\)</span>
-<li>
-Median: The “middle value” of the data. Formally, when <span class="math inline">\(n\)</span> is odd, the median is the observation value, <span class="math inline">\(x_m = x_{\frac{(n+1)}{2}}\)</span> for which <span class="math inline">\(x_i &lt; x_m\)</span> for 50% of the observations (excluding <span class="math inline">\(x_m\)</span>). When <span class="math inline">\(n\)</span> is even, <span class="math inline">\(x_m\)</span> is the average of <span class="math inline">\(x_\frac{n}{2}\)</span> and <span class="math inline">\(x_{(\frac{n}{2}+1)}\)</span>. The median is also known as the <span class="math inline">\(2^{nd}\)</span> <strong>quartile</strong> (see next section).
-<li>
-<p>Mode: The most commonly occurring value in the data. Most commonly used to describe nominal attributes.</p>
+<li>Mean: The <strong>average</strong> of the observations, <span class="math inline">\(\bar{\mathbf{x}}= \frac{1}{n}\sum_{i=1}^n x_i\)</span></li>
+<li>Median: The “middle value” of the data. Formally, when <span class="math inline">\(n\)</span> is odd, the median is the observation value, <span class="math inline">\(x_m = x_{\frac{(n+1)}{2}}\)</span> for which <span class="math inline">\(x_i &lt; x_m\)</span> for 50% of the observations (excluding <span class="math inline">\(x_m\)</span>). When <span class="math inline">\(n\)</span> is even, <span class="math inline">\(x_m\)</span> is the average of <span class="math inline">\(x_\frac{n}{2}\)</span> and <span class="math inline">\(x_{(\frac{n}{2}+1)}\)</span>. The median is also known as the <span class="math inline">\(2^{nd}\)</span> <strong>quartile</strong> (see next section).</li>
+<li>Mode: The most commonly occurring value in the data. Most commonly used to describe nominal attributes.</li>
+</ul>
 <p><strong>Example</strong></p>
 <p>The following table contains the heights of 10 students randomly sampled from NC State’s campus. Compute the mean, median, mode and quartiles of this variable.</p>
 <table style="width:auto; margin-left: auto; margin-right: auto;" >
@@ -1060,32 +1058,26 @@ height
 </table>
 <p><strong>Solution:</strong></p>
 <ul>
-<li>
-The mean is <code>(60+62+63+65+67+67+67+68+68+69)/10</code> = 65.6.
-<li>
-The median (second quartile) is <code>(67+67)/2</code> = 67.
-<li>
-The mode is 67.
+<li>The mean is <code>(60+62+63+65+67+67+67+68+68+69)/10</code> = 65.6.</li>
+<li>The median (second quartile) is <code>(67+67)/2</code> = 67.</li>
+<li>The mode is 67.</li>
 </ul>
 </div>
-<div id="spread" class="section level4 unnumbered hasAnchor">
-<h4>Spread<a href="intro-stat.html#spread" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="spread" class="section level4 hasAnchor" number="1.1.2.2">
+<h4><span class="header-section-number">1.1.2.2</span> Spread<a href="intro-stat.html#spread" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Once we have an understanding of the central tendency of a data set, we move on to describing the spread (the dispersion or variation) of the data. <strong>Range</strong>, <strong>interquartile range</strong>, <strong>variance</strong>, and <strong>standard deviation</strong> are all statistics that describe spread.</p>
 <ul>
-<li>
-Range: The difference between the maximum and minimum data values.
-<li>
-Sample variance: The sum of squared differences between each data point and the mean, divided by (n-1). <span class="math inline">\(\frac{1}{n-1}\sum_{i=1}^n (x_i-\bar{x})^2\)</span>
-<li>
-<p>Standard deviation: The square root of the sample variance.<br />
-</p>
+<li>Range: The difference between the maximum and minimum data values.</li>
+<li>Sample variance: The sum of squared differences between each data point and the mean, divided by (n-1). <span class="math inline">\(\frac{1}{n-1}\sum_{i=1}^n (x_i-\bar{x})^2\)</span></li>
+<li>Standard deviation: The square root of the sample variance.<br />
+</li>
+</ul>
 <p>In order to define <strong>interquartile range</strong>, we must first define <strong>percentiles</strong> and <strong>quartiles</strong>.</p>
-<li>
-Percentiles: The 99 intermediate values of the data which divide the observations into 100 equally-sized groups. The <span class="math inline">\(r^{th}\)</span> percentile of the data, <span class="math inline">\(P_{r}\)</span> is the number for which <span class="math inline">\(r\)</span>% of the data is less than <span class="math inline">\(P_{r}\)</span>.
-<li>
-Quartiles: The quartiles of the data are the <span class="math inline">\(25^{th}\)</span>, <span class="math inline">\(50^{th}\)</span> and <span class="math inline">\(75^{th}\)</span> percentiles. They are denoted as <span class="math inline">\(Q_{1}\)</span> (<span class="math inline">\(1^{st}\)</span> quartile), <span class="math inline">\(Q_{2}\)</span> (<span class="math inline">\(2^{nd}\)</span> quartile = median) and <span class="math inline">\(Q_{3}\)</span> (<span class="math inline">\(3^{rd}\)</span> quartile), respectively.
-<li>
-<p>Interquartile range (IQR): The difference between the <span class="math inline">\(25^{th}\)</span> and <span class="math inline">\(75^{th}\)</span> percentiles.</p>
+<ul>
+<li>Percentiles: The 99 intermediate values of the data which divide the observations into 100 equally-sized groups. The <span class="math inline">\(r^{th}\)</span> percentile of the data, <span class="math inline">\(P_{r}\)</span> is the number for which <span class="math inline">\(r\)</span>% of the data is less than <span class="math inline">\(P_{r}\)</span>.</li>
+<li>Quartiles: The quartiles of the data are the <span class="math inline">\(25^{th}\)</span>, <span class="math inline">\(50^{th}\)</span> and <span class="math inline">\(75^{th}\)</span> percentiles. They are denoted as <span class="math inline">\(Q_{1}\)</span> (<span class="math inline">\(1^{st}\)</span> quartile), <span class="math inline">\(Q_{2}\)</span> (<span class="math inline">\(2^{nd}\)</span> quartile = median) and <span class="math inline">\(Q_{3}\)</span> (<span class="math inline">\(3^{rd}\)</span> quartile), respectively.</li>
+<li>Interquartile range (IQR): The difference between the <span class="math inline">\(25^{th}\)</span> and <span class="math inline">\(75^{th}\)</span> percentiles.</li>
+</ul>
 <p>One should note that standard deviation is more frequently reported than variance because it shares the same units as the original data, and because of the guidance provided by the empirical rule. If we’re exploring something like <code>Sale_Price</code>, which has the unit “dollars”, then the variance would be measured in “square-dollars”, which hampers the intuition. Standard deviation, on the other hand, would share the unit “dollars”, aiding our fundamental understanding.</p>
 <p><strong>Example </strong>
 Let’s again use the table of heights from the previous example, this time computing the range, IQR, sample variance and standard deviation.</p>
@@ -1116,22 +1108,16 @@ height
 </table>
 <p><strong>Solution:</strong></p>
 <ul>
-<li>
-The range <code>69-60</code> = 9.
-<li>
-The variance is <code>((60-65.6)^2+(62-65.6)^2+(63-65.6)^2+(65-65.6)^2+(67-65.6)^2+(67-65.6)^2+(67-65.6)^2+(68-65.6)^2+(68-65.6)^2+(69-65.6)^2)/9</code> = 8.933
-<li>
-The standard deviation is <code>sqrt(8.933)</code> = 2.989
-<li>
-The first quartile is <code>(62+63)/2</code> = 62.5
-<li>
-The third quartile is <code>(68+68)/2</code> = 68
-<li>
-The IQR is <code>68 - 62.5</code> = 5.5.
+<li>The range <code>69-60</code> = 9.</li>
+<li>The variance is <code>((60-65.6)^2+(62-65.6)^2+(63-65.6)^2+(65-65.6)^2+(67-65.6)^2+(67-65.6)^2+(67-65.6)^2+(68-65.6)^2+(68-65.6)^2+(69-65.6)^2)/9</code> = 8.933</li>
+<li>The standard deviation is <code>sqrt(8.933)</code> = 2.989</li>
+<li>The first quartile is <code>(62+63)/2</code> = 62.5</li>
+<li>The third quartile is <code>(68+68)/2</code> = 68</li>
+<li>The IQR is <code>68 - 62.5</code> = 5.5.</li>
 </ul>
 </div>
-<div id="shape" class="section level4 unnumbered hasAnchor">
-<h4>Shape<a href="intro-stat.html#shape" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="shape" class="section level4 hasAnchor" number="1.1.2.3">
+<h4><span class="header-section-number">1.1.2.3</span> Shape<a href="intro-stat.html#shape" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The final description we will want to give to distributions regards their shape. Is the histogram <em>symmetric</em>? Is it <em>unimodal</em> (having a single large “heap” of data) or <em>multimodal</em> (having multiple heaps”)? Does it have a longer tail on one side than the other (<em>skew</em>)? Is there a lot more or less data in the tails than you might expect?</p>
 <p>We’ll formalize these ideas with some illustrations. A distribution is right (left) skewed if it has a longer tail on its right (left) side, as shown in Figure <a href="intro-stat.html#fig:skewdiagram">1.3</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:skewdiagram"></span>
@@ -1151,9 +1137,9 @@ Figure 1.4: Example of a Bimodal Distribution
 <div id="summary-functions-in-r" class="section level4 unnumbered hasAnchor">
 <h4>Summary Functions in R<a href="intro-stat.html#summary-functions-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>There are many ways to obtain all of the statistics described in the preceding sections, below we highlight 3:</p>
-<ol>
-<li>
-<p>The <code>describe</code> function from the <code>Hmisc</code> package which can work on the entire dataset or a subset of columns.</p>
+<ul>
+<li>The <code>describe</code> function from the <code>Hmisc</code> package which can work on the entire dataset or a subset of columns.</li>
+</ul>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="intro-stat.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Hmisc)</span>
 <span id="cb12-2"><a href="intro-stat.html#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="intro-stat.html#cb12-3" aria-hidden="true" tabindex="-1"></a>Hmisc<span class="sc">::</span><span class="fu">describe</span>(ames<span class="sc">$</span>Sale_Price)</span></code></pre></div>
@@ -1164,8 +1150,9 @@ Figure 1.4: Example of a Bimodal Distribution
 ##   129500   160000   213500   281242   335000 
 ## 
 ## lowest :  12789  13100  34900  35000  35311, highest: 611657 615000 625000 745000 755000</code></pre>
-<li>
-<p>The tidyverse <code>summarise</code> function, in this case obtaining statistics for each <code>Exter_Qual</code> separately.</p>
+<ul>
+<li>The tidyverse <code>summarise</code> function, in this case obtaining statistics for each <code>Exter_Qual</code> separately.</li>
+</ul>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="intro-stat.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb14-2"><a href="intro-stat.html#cb14-2" aria-hidden="true" tabindex="-1"></a>ames <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Exter_Qual) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">average =</span> <span class="fu">mean</span>(Sale_Price), <span class="at">st.dev =</span> <span class="fu">sd</span>(Sale_Price), <span class="at">maximum =</span> <span class="fu">max</span>(Sale_Price), <span class="at">minimum =</span> <span class="fu">min</span>(Sale_Price))</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 5
@@ -1175,8 +1162,9 @@ Figure 1.4: Example of a Bimodal Distribution
 ## 2 Typical    143374.  41504.  415000   12789
 ## 3 Good       230756.  70411.  745000   52000
 ## 4 Excellent  377919. 106988.  755000  160000</code></pre>
-<li>
-<p>The base R <code>summary</code> function, which can work on the entire dataset or an individual variable</p>
+<ul>
+<li>The base R <code>summary</code> function, which can work on the entire dataset or an individual variable</li>
+</ul>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="intro-stat.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ames<span class="sc">$</span>Sale_Price)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   12789  129500  160000  180796  213500  755000</code></pre>

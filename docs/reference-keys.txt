@@ -171,3 +171,6 @@ python-code-26
 nominal-variables
 interval-variables
 ordinal-variables
+location
+spread
+shape
