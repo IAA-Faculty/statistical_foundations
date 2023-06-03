@@ -47,32 +47,31 @@ ames_py = pd.DataFrame(ames_py)
 
 
 This Chapter aims to answer the following questions:
-</ul>
-  <li> What is a predictive model versus an explanative model? 
-</ul>
-  <li> How to perform an honest assessment of a model. 
-</ul>
-  <li> How to estimate associations. 
-    <ul> 
-      <li> Continuous-Continuous 
-      <li> Continuous-Categorical
-      <li> Pearson's correlation
-        <ul>
-        <li> Test of Hypothesis
-        <li> Effect of outliers
-        <li> Correlation Matrix
-</ul>
-  <li> How to perform ANOVA. 
-    <ul> 
-      <li> Testing assumptions 
-      <li> Kruskal-Wallis
-      <li> Post-hoc tests
-</ul>
-  <li> How to perform Simple Linear Regression. 
-    <ul> 
-      <li> Assumptions 
-      <li> Inference
-</ul>
+
+* What is a predictive model versus an explanatory model? 
+
+* How to perform an honest assessment of a model. 
+
+* How to estimate associations. 
+ 
+  + Continuous-Continuous 
+  + Continuous-Categorical
+  + Pearson's correlation
+  + Test of Hypothesis
+  + Effect of outliers
+  + Correlation Matrix
+
+* How to perform ANOVA. 
+
+  + Testing assumptions 
+  + Kruskal-Wallis
+  + Post-hoc tests
+
+* How to perform Simple Linear Regression. 
+
+  + Assumptions 
+  + Inference
+
 
 In this chapter, we introduce one of the most commonly used tools in data science: the linear model. We'll start with some basic terminology. A __linear model__ is an equation that typically takes the form 
 \begin{equation}
@@ -82,12 +81,12 @@ In this chapter, we introduce one of the most commonly used tools in data scienc
 
 The left-hand side of this equation, $\mathbf{y}$ is equivalently called the __target__, __response__, or __dependent__ variable. The right-hand side is a linear combination of the columns $\{\mathbf{x_i}\}_{i=1}^{k}$ which are commonly referred to as __explanatory__, __input__, __predictor__, or __independent__ variables. 
 
-## Prediction vs. Explanation {#evp}
+## Predictive vs. Explanatory {#evp}
 
 The purpose of a linear model like Equation \@ref(eq:linmod) is generally two-fold: 
-<ol>
-<li> The model is __predictive__ in that it can estimate the value of $y$ for a given combination of the $x$ attributes.
-<li> The model is __explanatory__ in that it can estimate how $y$ changes for a unit increase in a given $x$ attribute, holding all else constant (via the slope parameters $\beta$).
+
+1. The model is __predictive__ in that it can estimate the value of $y$ for a given combination of the $x$ attributes.
+2. The model is __explanatory__ in that it can estimate how $y$ changes for a unit increase in a given $x$ attribute, holding all else constant (via the slope parameters $\beta$).
 
 However, it's common for _one_ of these purposes to be more aligned with the specific goals of your project, and it is common to approach the building of such a model differently for each purpose. 
 
@@ -121,18 +120,7 @@ test <- anti_join(ames, train, by = 'id')
 dim(train)
 dim(test)
 ```
-<!-- <li> Sampling via old-fashioned local indexing. This method creates a logical vector (containing the values `TRUE` or `FALSE`) that indicates the training set observations. The opposite vector, `!train_obs` then indicates the test set. The benefit of this method is the storage of this vector that permanently identifies which observations were placed in the training set.  -->
-<!-- ```{r eval=F} -->
-<!-- set.seed(1234) -->
-<!-- train_obs = sample(c(T,F), nrow(ames),replace=T, prob = c(70,30)) -->
-<!-- train = ames[train_obs, ] -->
-<!-- test = ames[!train_obs, ] -->
 
-<!-- dim(train) -->
-<!-- dim(test) -->
-<!-- ``` -->
-<!-- </ol> -->
-<!-- It's important to note that _even with the same seed_, these two methods will not produce the same result as the randomization contained within them is fundamentally different.  -->
 
 ### Python Code
 
@@ -273,11 +261,11 @@ plt.show()
 
 __One-way ANOVA__ aims to determine whether there is a difference in the mean of a continuous attribute across levels of a categorical attribute. Sound like a two-sample t-test? Indeed, it's the extension of that test to more than two groups. Performing ANOVA with a binary input variable is mathematically identical to the two-sample t-test, as are it's __assumptions__:
 
-<ol>
-<li> The observations are independent
-<li> The model residuals are normally distributed
-<li> The variances for each group are equal 
-</ol>
+
+1. The observations are independent
+2. The model residuals are normally distributed
+3. The variances for each group are equal 
+
 
 A one-way ANOVA refers to a single hypothesis test, which is $H_{0}: \mu_{1}=\mu_{2}=...\mu_{k}$ for a predictor variable with $k$ levels against the alternative of at least one difference. Although a one-way ANOVA is designed to assess whether or not there is a significant difference within the mean values of the response with respect to the different levels of the predictor variable, we can draw some parallel to the regression model.  For example, if we have $k$=4, then we can let \(x_a\), \(x_b\), and \(x_c\) be 3 reference-coded dummy variables for the levels: `a`, `b`, `c`, and `d`. Note that we only have 3 dummy variables because one gets left out for the reference level, in this case it is `d`. The linear model is of the following form:
 
@@ -286,11 +274,11 @@ y=\beta_0 + \beta_ax_a+\beta_bx_b+\beta_cx_c + \varepsilon (\#eq:anova1)
 \end{equation}
 
 If we define $x_a$ as 1 if the observation belongs to level `a` and 0 otherwise, and the same definition for $x_b$ and $x_c$, then this is called _reference-level coding_ (this will change for effects-level coding). The predicted values in \@ref(eq:anova1) is basically the predicted mean of the response within the 4 levels of the predictor variable.  
-<ul>
-<li> $\beta_0$ represents the mean of reference group, group `d`. 
-<li> $\beta_a, \beta_b, \beta_c$ all represent the _difference_ in the respective group means compared to the reference level. Positive values thus reflect a group mean that is higher than the reference group, and negative values reflect a group mean lower than the reference group. 
-<li> $\varepsilon$ is called the __error__. 
-</ul>
+
+* $\beta_0$ represents the mean of reference group, group `d`. 
+* $\beta_a, \beta_b, \beta_c$ all represent the _difference_ in the respective group means compared to the reference level. Positive values thus reflect a group mean that is higher than the reference group, and negative values reflect a group mean lower than the reference group. 
+* $\varepsilon$ is called the __error__. 
+
 
 A _one-way_ ANOVA model only contains a single input variable of interest. Equation \@ref(eq:anova1), while it has 3 dummy variable inputs, only contains a single nominal attribute. In \@ref(mlr), we will add more inputs to the equation via two-way ANOVA and multivariate regression models. 
 
@@ -640,22 +628,22 @@ where $\beta_0$, the __intercept__, gives the expected value of $y$ when $x=0$ a
 We should note that SSE is not the _only_ loss function at our disposal. Minimizing the _mean absolute error_ (MAE) is common in situations with a highly skewed response variable (squaring very large errors gives those observations in the tail too much influence on the regression as we will later discuss). Using MAE to drive our loss function gives us predictions that are conditional _medians_ of the response, given the input data. Other loss functions, like Huber's M function, are also used to handle problems with influential observations as discussed in Chapter 5.
 
 As we mentioned in Section \@ref(evp), a simple linear regression serves two purposes:
-<ol>
-<li> to predict the expected value of $y$ for each value of $x$ and 
-<li> to explain _how_ $y$ is expected to change for a unit change in $x$. 
-</ol>
+
+1.  to predict the expected value of $y$ for each value of $x$ and 
+2.  to explain _how_ $y$ is expected to change for a unit change in $x$. 
+
 In order to accurately use a regression for the second purpose, however, we must first meet assumptions with our data. 
 
 ### Assumptions of Linear Regression {#slrassumptions}
 
 Linear regression, in particular the hypothesis tests that are generally performed as part of linear regression, has 4 assumptions:
 
-<ol> 
-<li> The expected value of $y$ is linear in $x$ (proper model specification).
-<li> The random errors are independent.
-<li> The random errors are normally distributed.
-<li> The random errors have equal variance (homoskedasticity).
-</ol>
+ 
+1. The expected value of $y$ is linear in $x$ (proper model specification).
+2. The random errors are independent.
+3. The random errors are normally distributed.
+4. The random errors have equal variance (homoskedasticity).
+
 
 It must now be noted that these assumptions are also in effect for the test of Pearson's correlation in Section \@ref(testcor), because the tests in simple linear regression are mathematically equivalent to that test. When these assumptions are not met, another approach to testing the significance of a linear relationship should be considered. The most common non-parametric approach to testing for an association between two continuous variables is Spearman's correlation. Spearman's correlation does not limit its findings to linear relationships; any monotonic relationship (one that is always increasing or always decreasing) will cause Spearman's correlation to be significant. Similar to the approach taken by Kruskal-Wallis, Spearman's correlation replaces the data with its ranks and computes Pearson's correlation on the ranks. The same `cor` and `cor.test()` functions can be used; simply specify the `method='spearman'` option. 
 
