@@ -60,51 +60,54 @@ ames_py = pd.DataFrame(ames_py)
 train = r.train
 test = r.test
 
+
+from sklearn.linear_model import Ridge
+from sklearn.linear_model import Lasso
+from sklearn.linear_model import ElasticNet
+from sklearn.metrics import mean_squared_error
+
 ```
 
 
 
+# Model Building & Scoring for Prediction
 
+In the preceding chapters, we have only scratched the surface of model building. Linear regression is a great initial approach to take to model building. In fact, in the realm of statistical models, linear regression (calculated by ordinary least squares) is the **best linear unbiased estimator**. The two key pieces to that previous statement are "best" and "unbiased." 
 
+What does it mean to be **unbiased**? Each of the sample coefficients ($\hat{\beta}$'s) in the regression model are estimates of the true coefficients. Just like the statistics back in the EDA section, these sample coefficients have sampling distributions - specifically, normally distributed sampling distributions. The mean of the sampling distribution of $\hat{\beta}_j$ is the true (known) coefficient $\beta_j$. This means the coefficient is unbiased.
 
-
-# Model Building & Scoring for Prediction {#model}
-Chapters \@ref(slr) and \@ref(mlr) only scratch the surface of model building. Linear regression is a great initial approach to take to model building. In fact, in the realm of statistical models, linear regression (calculated by ordinary least squares) is the **best linear unbiased estimator**. The two key pieces to that previous statement are "best" and "unbiased." 
-
-What does it mean to be **unbiased**? Each of the sample coefficients ($\hat{\beta}$'s) in the regression model are estimates of the true coefficients. Just like the statistics back in Chapter \@ref(eda), these sample coefficients have sampling distributions - specifically, normally distributed sampling distributions. The mean of the sampling distribution of $\hat{\beta}_j$ is the true (known) coefficient $\beta_j$. This means the coefficient is unbiased.
-
-In the preceding chapters, we have only scratched the surface of model building. Linear regression is a great initial approach to model building. In fact, in the realm of statistical models, linear regression (calculated by ordinary least squares) is the **best linear unbiased estimator**. The two key pieces to that previous statement are "best" and "unbiased." 
-
-What does it mean to be **unbiased**? Each of the sample coefficients ($\hat{\beta}$'s) in the regression model are estimates of the true coefficients. Just like the statistics back in Chapter \@ref(intro-stat), these sample coefficients have sampling distributions - specifically, normally distributed sampling distributions. The mean of the sampling distribution of $\hat{\beta}_j$ is the true (known) coefficient $\beta_j$. This means the coefficient is unbiased.
 
 What does it mean to be **best**? *IF* the assumptions of ordinary least squares are met fully, then the sampling distributions of the coefficients in the model have the **minimum** variance of all unbiased estimators. 
 
 These two things combined seem like what we want in a model - estimating what we want (unbiased) and doing it in a way that has the minimum amount of variation (best among the unbiased). Again, these rely on the assumptions of linear regression holding true. Another approach to regression would be to use **regularized regression** instead as a different approach to building the model.
 
 This Chapter aims to answer the following questions:
-<ul>
-  <li> What is regularized regression? 
-    <ul> 
-      <li> Penalties in Modeling
-      <li> Ridge Regression
-      <li> LASSO
-      <li> Elastic Net
-    </ul>
-  <li> How do you optimize the penalty term?
-    <ul>
-      <li> Overfitting
-      <li> Cross-Validation (CV)
-      <li> CV in Regularized Regression
-    </ul>
-  <li> How do you compare different types of models?
-    <ul>
-      <li> Model Metric
-      <li> Model Scoring
-      <li> Test Dataset Comparison
-    </ul>
-</ul>
+
+* What is regularized regression? 
+
+  + Penalties in Modeling
+  + Ridge Regression
+  + LASSO
+  + Elastic Net
+
+* How do you optimize the penalty term?
+    
+  + Overfitting
+  + Cross-Validation (CV)
+  + CV in Regularized Regression
+    
+* How do you compare different types of models?
+    
+  + Model Metric
+  + Model Scoring
+  + Test Dataset Comparison
+
+
+
 
 ## Regularized Regression
+
+
 As the number of variables in a linear regression model increase, the chances of having a model that meets all of the assumptions starts to diminish. Multicollinearity can pose a large problem with bigger regression models. As previously seen in Chapter \@ref(diag), the coefficients of a linear regression vary widely in the presence of multicollinearity. These variations lead to overfitting of a regression model. **Overfitting** occurs when a dataset predicts the training data it was built off of really well, but does not generalize to the test dataset or the population in general. More formally, these models have higher variance than desired. In those scenarios, moving out of the realm of unbiased estimates may provide a lower variance in the model, even though the model is no longer unbiased as described above. We wouldn't want to be too biased, but some small degree of bias might improve the model's fit overall.
 
 Another potential problem for linear regression is when we have more variables than observations in our dataset. This is a common problem in the space of genetic modeling. In this scenario, the ordinary least squares approach leads to multiple solutions instead of just one. Unfortunately, most of these infinite solutions overfit the problem at hand anyway.
@@ -112,6 +115,8 @@ Another potential problem for linear regression is when we have more variables t
 Regularized (or penalized or shrinkage) regression techniques potentially alleviate these problems. Regularized regression puts constraints on the estimated coefficients in our model and *shrink* these estimates to zero. This helps reduce the variation in the coefficients (improving the variance of the model), but at the cost of biasing the coefficients. The specific constraints that are put on the regression inform the three common approaches - **ridge regression**, **LASSO**, and **elastic nets**.
 
 ### Penalties in Models
+
+
 In ordinary least squares linear regression, we minimize the sum of the squared residuals (or errors) as laid out in Chapter @\ref(slr). 
 
 In ordinary least squares linear regression, we minimize the sum of the squared residuals (or errors) as laid out in Chapter \@ref(slr). 
@@ -278,7 +283,7 @@ What $\lambda$ term is best? What is the proper balance between ridge and LASSO 
 
 ### Python Code
 
-Ridge Regression
+*Ridge Regression*
 
 ```{python}
 train = train[['Sale_Price', 'Lot_Area', 'Street', 'Bldg_Type',
@@ -305,6 +310,97 @@ train_dummy = pd.get_dummies(train, columns = ['Street', 'Bldg_Type', 'House_Sty
 print(train_dummy)
 ```
 
+
+```{python}
+y = train_dummy['Sale_Price']
+
+X = train_dummy.loc[:, train_dummy.columns != 'Sale_Price']
+
+ames_ridge = Ridge(alpha = 1.0).fit(X, y)
+```
+
+
+```{python}
+n_alphas = 200
+alphas = np.logspace(0.1, 5, n_alphas)
+
+coefs = []
+for a in alphas:
+    ridge = Ridge(alpha=a)
+    ridge.fit(X, y)
+    coefs.append(ridge.coef_)
+    
+ax = plt.gca()
+
+ax.plot(alphas, coefs)
+ax.set_xscale("log")
+plt.xlabel("alpha")
+plt.ylabel("weights")
+plt.title("Ridge coefficients as a function of the regularization")
+plt.axis("tight")
+plt.show()
+```
+
+
+*LASSO Regression*
+
+```{python}
+ames_lasso = Lasso(alpha = 2, max_iter = 5000).fit(X, y)
+```
+
+
+```{python}
+n_alphas = 100
+alphas2 = np.logspace(2, 5, n_alphas)
+
+coefs2 = []
+for a in alphas2:
+    lasso = Lasso(alpha = a, max_iter = 5000)
+    lasso.fit(X, y)
+    coefs2.append(lasso.coef_)
+
+plt.cla()
+ax2 = plt.gca()
+
+ax2.plot(alphas2, coefs2)
+ax2.set_xscale("log")
+plt.xlabel("alpha")
+plt.ylabel("weights")
+plt.title("LASSO coefficients as a function of the regularization")
+plt.axis("tight")
+plt.show()
+```
+
+
+* Elastic Net*
+
+```{python}
+ames_en = ElasticNet(alpha = 1, l1_ratio=0.5)
+```
+
+
+
+```{python}
+n_alphas = 100
+alphas3 = np.logspace(1, 8, n_alphas)
+
+coefs3 = []
+for a in alphas3:
+    en = ElasticNet(alpha = a, l1_ratio=0.5)
+    en.fit(X, y)
+    coefs3.append(en.coef_)
+
+plt.cla()
+ax3 = plt.gca()
+
+ax3.plot(alphas3, coefs3)
+ax3.set_xscale("log")
+plt.xlabel("alpha")
+plt.ylabel("weights")
+plt.title("ElasticNet coefficients as a function of the regularization")
+plt.axis("tight")
+plt.show()
+```
 
 ## Optimizing Penalties
 No matter the approach listed above, a penatly term $\lambda$ needs to be picked. However, we do not want to get caught overfitting our training data by minimizing the variance so much that it is not generalizable to the overall pattern and other similar data. Take the following plot:
@@ -437,3 +533,52 @@ Now we need to calculate the MAE and MAPE for each model for comparison.
 From the above results, the linear regression from LASSO has a lower MAPE. 
 
 Once we have scored models with the test dataset, we should **not** go back to try and rebuild any models. We will use the model with the lowest MAE or MAPE. This number is also the number that we report on how well our model performs. No metrics on the training dataset should be reported for the performance of the model.
+
+
+### Python Code
+
+*CV in Regularized Regression*
+
+```{python}
+from sklearn.linear_model import LassoCV
+
+ames_lasso2 = LassoCV(cv = 10, random_state = 0).fit(X, y)
+
+ames_lasso2.alpha_
+```
+
+```{python}
+import time
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LassoLarsIC
+from sklearn.pipeline import make_pipeline
+
+start_time = time.time()
+model = make_pipeline(StandardScaler(), LassoCV(cv = 10)).fit(X, y)
+fit_time = time.time() - start_time
+```
+
+
+```{python}
+
+lasso = model[-1]
+plt.semilogx(lasso.alphas_, lasso.mse_path_, linestyle=":")
+plt.plot(
+    lasso.alphas_,
+    lasso.mse_path_.mean(axis=-1),
+    color="black",
+    label="Average across the folds",
+    linewidth=2,
+)
+plt.axvline(lasso.alpha_, linestyle="--", color="black", label="alpha: CV estimate")
+
+plt.xlabel(r"$\alpha$")
+plt.ylabel("Mean square error")
+plt.legend()
+_ = plt.title(
+    f"Mean square error on each fold: coordinate descent (train time: {fit_time:.2f}s)"
+)
+
+plt.show()
+```
+
