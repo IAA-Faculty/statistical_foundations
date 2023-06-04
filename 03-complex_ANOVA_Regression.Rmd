@@ -60,10 +60,8 @@ test = r.test
 ```
 
 
+# Complex ANOVA and Multiple Linear Regression 
 
-
-
-# Complex ANOVA and Multiple Linear Regression {#mlr}
 In the One-Way ANOVA and simple linear regression models, there was only one variable - categorical for ANOVA and continuous for simple linear regression - to explain and predict our target variable. Rarely do we believe that only a single variable will suffice in predicting a variable of interest. Here in this Chapter we will generalize these models to the $n$-Way ANOVA and multiple linear regression models. These models contain multiple sets of variables to explain and predict our target variable.
 
 This Chapter aims to answer the following questions:
@@ -91,9 +89,11 @@ This Chapter aims to answer the following questions:
 
 
 ## Two-Way ANOVA
+
 In the One-Way ANOVA model, we used a single categorical predictor variable with $k$ levels to predict our continuous target variable. Now we will generalize this model to include $n$ categorical variables that each have different numbers of levels ($k_1, k_2, ..., k_n$).
 
 ### Exploration
+
 Let's use the basic example of two categorical predictor variables in a Two-Way ANOVA. Previously, we talked about using heating quality as a factor to explain and predict sale price of homes in Ames, Iowa. Now, we also consider whether the home has central air. Although similar in nature, these two factors potentially provide important, unique pieces of information about the home. Similar to previous data science problems, let us first explore our variables and their potential relationships.
 
 Now that we have two variables that we will use to explain and predict sale price, here are some summary statistics (mean, standard deviation, minimum, and maximum) for each combination of category. We will use the ```group_by``` function on both predictor variables of interest to split the data and then the ```summarise``` function to calculate the metrics we are interested in.
@@ -126,9 +126,11 @@ ggplot(data = CA_heat, aes(x = Heating_QC, y = mean/1000, fill = Central_Air)) +
   scale_fill_brewer(palette = "Paired") +
   theme_minimal()
 ```
+
 As before, visually looking at bar charts and mean calculations only goes so far. We need to statistically be sure of any differences that exist between average sale price in categories.
 
 ### Model
+
 We are going to do this with the same approach as in the One-Way ANOVA, just with more variables as shown in the following equation:
 
 $$
@@ -145,9 +147,11 @@ ames_aov2 <- aov(Sale_Price ~ Heating_QC + Central_Air, data = train)
 
 summary(ames_aov2)
 ```
+
 From the above results, we have low p-values for each of the variables' F test. Heating quality had 4 degrees of freedom, derived from the 5 categories $(4 = 5-1)$. Similarly, central air's 2 categories produce 1 $(= 2-1)$ degree of freedom. The F values are calculated the exact same way as described before with the mean square for each variable divided by the mean square error. Based on these tests, at least one category in each variable is statistically different than the rest.
 
 ### Post-Hoc Testing
+
 As with the One-Way ANOVA, the next logical question is which of these categories is different. We will use the same post-hoc tests as before with the ```TukeyHSD``` function.
 
 ```{r}
@@ -189,6 +193,7 @@ mcomp.plot_simultaneous()
 
 
 ## Two-Way ANOVA with Interactions
+
 What if the relationship between a predictor and target variable changed depending on the value of another predictor variable? For our example, we would say that the average difference in sales price between having central air and not having central changed depending on what level of heating quality the home had. In the bar chart in Figure \@ref(fig:twomeans), a potential interaction effect is displayed when the differences between the two bars within each heating category is different across heating category. If the difference, was the same, then there is no interaction present. In other words, no matter the heating quality rating of the home, the average difference in sales price between having central air and not having central air is the same.
 
 This interaction model is represented as follows:
@@ -225,9 +230,11 @@ ames_aov_int <- aov(Sale_Price ~ Heating_QC*Central_Air, data = train)
 
 summary(ames_aov_int)
 ```
+
 As seen by the output above, the interaction effect between heating quality and central air is **not** significant at the 0.05 level. Again, this implies that the average difference in sale price of the home between having central air and not does not differ depending on which category of heating quality the home belongs to. If our interaction was significant (say a 0.02 p-value instead) then we would keep it in our model, but here we would remove the interaction term from our model and rerun the analysis.
 
 ### Post-Hoc Testing
+
 Post-hoc tests are also available for interaction models as well to determine where the statistical differences exist in all the combinations of possible categories. We evaluate these post-hoc tests using the same ```TukeyHSD``` function and its corresponding ```plot``` element.
 
 ```{r}
@@ -255,6 +262,7 @@ print(CA_aov$aov)
 We can see that both of these results are significant at the 0.05 level. This implies that there are statistical differences in average sale price across heating quality within homes that have central air as well as those that don't have central air. 
 
 ### Assumptions
+
 The assumptions for the $n$-Way ANOVA are the same as with the One-Way ANOVA - independence of observations, normality for each category of variable, and equal variances. With the inclusion of two or more variables ($n$-Way ANOVA with $n > 1$), these assumptions can be harder to evaluate and test. These assumptions are then applied to the residuals of the model. 
 
 For equal variances, we can still apply the Levene Test for equal variances using the same ```leveneTest``` function as in Chapter \@ref(slr).
@@ -317,11 +325,13 @@ sp.stats.shapiro(model.resid)
 
 
 ## Randomized Block Design
+
 There are two typical groups of data analysis studies that are conducted. The first are observational/retrospective studies which are the typical data problems people try to solve. The primary characteristic of these analysis are looking at what already happened (retrospective) and potentially inferring those results to further data. These studies have little control over other factors contributing to the target of interest because data is collected after the fact.
 
 The other type of data analysis study are controlled experiments. In these situations, you often want to look at the outcome measure prospectively. The focus of the controlled experiment is to control for other factors that might contribute to the target variable. By manipulating these factors of interest, one can more reasonably claim causation. We can more reasonably claim causation when random assignment is used to eliminate potential **nuisance factors**. Nuisance factors are variables that can potentially impact the target variable, but are not of interest in the analysis directly. 
 
 ### Garlic Bulb Weight Example
+
 For this analysis we will use a new dataset. This dataset contains the average garlic bulb weight from different plots of land. We want to compare the effects of fertilizer on average bulb weight. However, different plots of land could have different levels of sun exposure, pH for the soil, and rain amounts. Since we cannot alter the pH of the soil easily, or control the sun and rain, we can use blocking to account for these nuisance factors. Each fertilizer was randomly applied in quadrants of 8 plots of land. These 8 plots have different values for sun exposure, pH, and rain amount. Therefore, if we only put one fertilizer on each plot, we would not know if the fertilizer was the reason the garlic crop grew or if it was one of the nuisance factors. Since we **blocked** these 8 plots and applied all four fertilizers in each we have essentially accounted for (or removed the effect of) the nuisance factors. 
 
 Let's briefly explore this new dataset by looking at all 32 values using the ```print``` function.
@@ -355,6 +365,7 @@ plot(tukey.block, las = 1)
 ```
 
 ### Assumptions
+
 Outside of the typical assumptions for ANOVA that still hold here, there are two additional assumptions to be met:
 
 * Treatments are randomly assigned within each block
@@ -383,9 +394,11 @@ sm.api.stats.anova_lm(model_b, typ=2)
 
 
 ## Multiple Linear Regression
+
 Most practical applications of of regression modeling involve using more complicated models than a simple linear regression with only one predictor variable to predict your target. Additional variables in a model can lead to better explanations and predictions of the target. These linear regressions with more than one variable are called **multiple linear regression** models. However, as we will see in this section and the following chapters, with more variables comes much more complication.
 
 ### Model Structure
+
 Multiple linear regression models have the same structure as simple linear regression models, only with more variables. The multiple linear regression model with $k$ variables is structured like the following:
 
 $$
@@ -498,6 +511,7 @@ plot_ly() %>% add_surface(x = ~ 300:6000,
 This model is still a linear regression model. The structure of the model did not change. The model is still a linear combination of predictor variables related to the target variable. The predictor variables just do not all have a linear effect in terms of their relationship with $y$. However, mathematically, it is still a linear combination and a linear regression model. 
 
 ### Global & Local Inference
+
 In simple linear regression we could just look at the t-test for our slope parameter estimate to determine the utility of our model. With multiple parameter estimates comes multiple t-tests. Instead of looking at every individual parameter estimate initially, there is a way to determine the model adequacy for predicting the target variable overall.
 
 The utility of a multiple regression model can be tested with a single test that encompasses all the coefficients from the model. This kind of test is called a **global test** since it tests all $\beta$'s simultaneously. The **Global F-Test** uses the F-distribution to do just that for multiple linear regression models. The hypotheses for this test are the following:
@@ -545,6 +559,7 @@ summary(ames_lm2)
 At the bottom of the above output is the result of the global F-test. Since the p-value on this test is lower than the significance level of 0.05, we have statistical evidence that at least of the two variables - ```Gr_Liv_Area``` and ```TotRms_AbvGrd``` - is significant at predicting the sale price of the home. By looking at the individual t-tests in the output above, we can see that both variables are actually significant.
 
 ### Assumptions
+
 The **main** assumptions for the multiple linear regression model are the same as with the simple linear regression model:
 
 1. The expected value of $y$ is linear in the $x$'s (proper model specification).
@@ -569,6 +584,7 @@ par(mfrow=c(1,1))
 These will again be covered in much more detail in Diagnostic Chapter.
 
 ### Multiple Coefficients of Determination
+
 One of the main advantages of multiple linear regression is that the complexity of the model enables us to investigate the relationship among $y$ and several predictor variables simultaneously. However, this increased complexity makes it more difficult to not only interpret the models, but also ascertain which model is "best."
 
 One example of this would be the coefficient of determination, $R^2$, that we discussed earlier. The calculation for $R^2$ is the exact same:
@@ -605,6 +621,7 @@ summary(ames_lm3)
 Notice that the $R^2$ of this model actually increased to 0.5028 from 0.5024. However, the $R^2_a$ value stayed approximately the same at 0.502 since the addition of this new variable did not provide enough predictive power to outweigh the penalty of adding it.
 
 ### Categorical Predictor Variables
+
 As mentioned in EDA Section, there are two types of variables typically used in modeling:
 
 * Quantitative (or numeric)
