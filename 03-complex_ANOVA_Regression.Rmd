@@ -64,39 +64,34 @@ test = r.test
 
 
 # Complex ANOVA and Multiple Linear Regression {#mlr}
-In in Chapter \@ref(slr) we were introduced to the One-Way ANOVA and simple linear regression models. These models only contained a single variable - categorical for ANOVA and continuous for simple linear regression - to explain and predict our target variable. Rarely do we believe that only a single variable will suffice in predicting a variable of interest. Here in this Chapter we will generalize these models to the $n$-Way ANOVA and multiple linear regression models. These models contain multiple sets of variables to explain and predict our target variable.
+In the One-Way ANOVA and simple linear regression models, there was only one variable - categorical for ANOVA and continuous for simple linear regression - to explain and predict our target variable. Rarely do we believe that only a single variable will suffice in predicting a variable of interest. Here in this Chapter we will generalize these models to the $n$-Way ANOVA and multiple linear regression models. These models contain multiple sets of variables to explain and predict our target variable.
 
 This Chapter aims to answer the following questions:
-<ul>
-  <li> How do we include multiple variables in ANOVA? 
-    <ul> 
-      <li> Exploration
-      <li> Assumptions
-      <li> Predictions
-    </ul>
-  <li> What is an interaction between two predictor variables?
-    <ul>
-      <li> Interpretation
-      <li> Evaluation
-      <li> Within Category Effects
-    </ul>
-  <li> What is blocking in ANOVA?
-    <ul>
-      <li> Nuisance Factors
-      <li> Differences Between Blocking and Two-Way ANOVA
-    </ul>
-  <li> How do we include multiple variables in regression?
-    <ul>
-      <li> Model Structure
-      <li> Global & Local Inference
-      <li> Assumptions
-      <li> Adjusted $R^2$
-      <li> Categorical Variables in Regression
-    </ul>
-</ul>
+
+* How do we include multiple variables in ANOVA? 
+  + Exploration
+  + Assumptions
+  + Predictions
+
+* What is an interaction between two predictor variables?
+  + Interpretation
+  + Evaluation
+  + Within Category Effects
+
+* What is blocking in ANOVA?
+  + Nuisance Factors
+  + Differences Between Blocking and Two-Way ANOVA
+
+* How do we include multiple variables in regression?
+  + Model Structure
+  + Global & Local Inference
+  + Assumptions
+  + Adjusted $R^2$
+  + Categorical Variables in Regression
+
 
 ## Two-Way ANOVA
-Section \@ref(slr) details the One-Way ANOVA model using a single categorical predictor variable with $k$ levels to predict our continuous target variable. Now we will generalize this model to include $n$ categorical variables that each have different numbers of levels ($k_1, k_2, ..., k_n$).
+In the One-Way ANOVA model, we used a single categorical predictor variable with $k$ levels to predict our continuous target variable. Now we will generalize this model to include $n$ categorical variables that each have different numbers of levels ($k_1, k_2, ..., k_n$).
 
 ### Exploration
 Let's use the basic example of two categorical predictor variables in a Two-Way ANOVA. Previously, we talked about using heating quality as a factor to explain and predict sale price of homes in Ames, Iowa. Now, we also consider whether the home has central air. Although similar in nature, these two factors potentially provide important, unique pieces of information about the home. Similar to previous data science problems, let us first explore our variables and their potential relationships.
@@ -134,7 +129,7 @@ ggplot(data = CA_heat, aes(x = Heating_QC, y = mean/1000, fill = Central_Air)) +
 As before, visually looking at bar charts and mean calculations only goes so far. We need to statistically be sure of any differences that exist between average sale price in categories.
 
 ### Model
-We are going to do this with the same approach as in the One-Way ANOVA of Chapter \@ref(slr), just with more variables as shown in the following equation:
+We are going to do this with the same approach as in the One-Way ANOVA, just with more variables as shown in the following equation:
 
 $$
 Y_{ijk} = \mu + \alpha_i + \beta_j + \varepsilon_{ijk}
@@ -212,6 +207,7 @@ fake_mean <- c(100, 150, 150, 100)
 fake_df <- as.data.frame(cbind(fake_HQ, fake_CA, fake_mean))
 ```
 
+
 ```{r fig=T, fig.align='center', fig.cap = 'Distribution of Variables Heating_QC and Central_Air', label='twomeansint'}
 ggplot(data = fake_df, aes(x = fake_HQ, y = as.numeric(fake_mean), fill = fake_CA)) +
   geom_bar(stat = "identity", position = position_dodge()) +
@@ -266,9 +262,10 @@ For equal variances, we can still apply the Levene Test for equal variances usin
 ```{r}
 leveneTest(Sale_Price ~ Heating_QC*Central_Air, data = train)
 ```
+
 From this test, we can see that we **do not** meet our assumption of equal variance. 
 
-Let's explore the normality assumption. Again, we will assume this normality on the random error component, $\varepsilon_{ijk}$, of the ANOVA model. More details are found for diagnostic testing using the error component in Chapter \@ref(diag). We can check normality using the same approaches of the QQ-plot or statistical testing as in Chapter \@ref(eda). Here we will use the ```plot``` function on the ```aov``` object. Specifically, we want the second plot which is why we have a ```2``` in the ```plot``` function option. We then use the ```shapiro.test``` function on the error component. The estimate of the error component is calculated using the ```residuals``` function.
+Let's explore the normality assumption. Again, we will assume this normality on the random error component, $\varepsilon_{ijk}$, of the ANOVA model. More details are found for diagnostic testing using the error component in Diagnostic chapter. We can check normality using the same approaches of the QQ-plot or statistical testing as in the section on EDA. Here we will use the ```plot``` function on the ```aov``` object. Specifically, we want the second plot which is why we have a ```2``` in the ```plot``` function option. We then use the ```shapiro.test``` function on the error component. The estimate of the error component is calculated using the ```residuals``` function.
 
 ```{r}
 plot(ames_aov_int, 2)
@@ -359,8 +356,9 @@ plot(tukey.block, las = 1)
 
 ### Assumptions
 Outside of the typical assumptions for ANOVA that still hold here, there are two additional assumptions to be met:
-- Treatments are randomly assigned within each block
-- The effects of the treatment variable are constant across the levels of the blocking variable
+
+* Treatments are randomly assigned within each block
+* The effects of the treatment variable are constant across the levels of the blocking variable
 
 The first, new assumption of randomness deals with the reliability of the analysis. Randomness is key to removing the impact of the nuisance factors. The second, new assumption implies there is **no interaction** between the treatment variable and the blocking variable. For example, we are implying that the fertilizers' impacts ob garlic bulb weight are not changed depending on what block you are on. In other words, fertilizers have the same impact regardless of sun exposure, pH levels, rain fall, etc. We are **not** saying these nuisance factors do not impact the target variable or bulb weight of garlic, just that they do not change the effect of the fertilizer on bulb weight.
 
@@ -497,7 +495,7 @@ plot_ly() %>% add_surface(x = ~ 300:6000,
 
 ```
 
-This model is still a linear regression model. The structure of the model did not change. The model is still a linear combination of predictor variables related to the target variable. The predictor variables just do not all have a linear effect in terms of their relationship with $y$. However, mathematically, it is still a linear combination and a linear regression model. Logistic regression on the other hand, which will be covered in Chapter \@ref(cat) is an example of a **nonlinear** regression model.
+This model is still a linear regression model. The structure of the model did not change. The model is still a linear combination of predictor variables related to the target variable. The predictor variables just do not all have a linear effect in terms of their relationship with $y$. However, mathematically, it is still a linear combination and a linear regression model. 
 
 ### Global & Local Inference
 In simple linear regression we could just look at the t-test for our slope parameter estimate to determine the utility of our model. With multiple parameter estimates comes multiple t-tests. Instead of looking at every individual parameter estimate initially, there is a way to determine the model adequacy for predicting the target variable overall.
@@ -512,9 +510,10 @@ $$
 In simpler terms, the null hypothesis is that none of the variables are useful in predicting the target variable. The alternative hypothesis is that **at least one** of these variables is useful in predicting the target variable.
 
 The F-distribution is a distribution that has the following characteristics:
-- Bounded below by 0
-- Right-skewed
-- Both **numerator** and **denominator** degrees of freedom
+
+* Bounded below by 0
+* Right-skewed
+* Both **numerator** and **denominator** degrees of freedom
 
 A plot of a variety of F distributions is shown here:
 
@@ -554,9 +553,10 @@ The **main** assumptions for the multiple linear regression model are the same a
 4. The random errors have equal variance (homoskedasticity).
 
 However, with multiple variables there is an additional assumption that people tend to add to multiple linear regression modeling:
+
 5. No **perfect** collinearity (also called multicollinearity)
 
-The new assumption means that no combination of predictor variables is a perfect linear combination with any other predictor variables. Collinearity, also called multicollinearity, occurs when predictor variables are correlated with each other. People often misstate this additional assumption as having no collinearity at all. This is too restrictive and basically impossible to meet in a realistic setting. Only when collinearity has a drastic impact on the linear regression do we need to concern ourselves. In fact, linear regression only completely breaks when that collinearity is perfect. Dealing with multicollinearity is the subject of Chapter \@ref(diag).
+The new assumption means that no combination of predictor variables is a perfect linear combination with any other predictor variables. Collinearity, also called multicollinearity, occurs when predictor variables are correlated with each other. People often misstate this additional assumption as having no collinearity at all. This is too restrictive and basically impossible to meet in a realistic setting. Only when collinearity has a drastic impact on the linear regression do we need to concern ourselves. In fact, linear regression only completely breaks when that collinearity is perfect. Dealing with multicollinearity is discussed later.
 
 Similar to simple linear regression, we can evaluate the assumptions by looking at residual plots. The ```plot``` function on the ```lm``` object provides these.
 
@@ -566,12 +566,12 @@ plot(ames_lm2)
 par(mfrow=c(1,1))
 ```
 
-These will again be covered in much more detail in Chapter \@ref(diag).
+These will again be covered in much more detail in Diagnostic Chapter.
 
 ### Multiple Coefficients of Determination
 One of the main advantages of multiple linear regression is that the complexity of the model enables us to investigate the relationship among $y$ and several predictor variables simultaneously. However, this increased complexity makes it more difficult to not only interpret the models, but also ascertain which model is "best."
 
-One example of this would be the coefficient of determination, $R^2$, that we discussed in Chapter \@ref(slr). The calculation for $R^2$ is the exact same:
+One example of this would be the coefficient of determination, $R^2$, that we discussed earlier. The calculation for $R^2$ is the exact same:
 
 $$
 R^2 = 1 - \frac{SSE}{TSS}
@@ -585,7 +585,7 @@ $$
 R^2_a = 1 - [(\frac{n-1}{n-(k+1)})\times (\frac{SSE}{TSS})]
 $$
 
-Notice what the calculation is doing. It takes the original ratio on the right hand side of the $R^2$ equation, $SSE/TSS$, and penalizes it. It multiplies this number by a ratio that is always greater than 1 if $k > 0$. Remember, $k$ is the number of variables in the model. Therefore, as the number of variables increases, the calculation penalizes the model more and more. However, if the reduction of SSE from adding a useful variable is low enough, then even with the additional penalization, the $R^2_a$ will increase **if the variable is a useful addition to the model**. If the variable is not a useful addition to the model, the $R^2_a$ will decrease. The $R^2_a$ is only one of many ways to select the "best" model for multiple linear regression. Many more metrics will be discussed in model selection in Chapter \@ref(sel).
+Notice what the calculation is doing. It takes the original ratio on the right hand side of the $R^2$ equation, $SSE/TSS$, and penalizes it. It multiplies this number by a ratio that is always greater than 1 if $k > 0$. Remember, $k$ is the number of variables in the model. Therefore, as the number of variables increases, the calculation penalizes the model more and more. However, if the reduction of SSE from adding a useful variable is low enough, then even with the additional penalization, the $R^2_a$ will increase **if the variable is a useful addition to the model**. If the variable is not a useful addition to the model, the $R^2_a$ will decrease. The $R^2_a$ is only one of many ways to select the "best" model for multiple linear regression. 
 
 One downside of this new metric is that the $R^2_a$ loses its interpretation. Since $R^2_a \le R^2$, it is no longer bounded below by zero. Therefore, it can no longer be the proportion of variation explained in the target variable by the model. However, we can easily use $R^2_a$ to select a model correctly and interpret that model with $R^2$. Both of these numbers can be found using the ```summary``` function on the ```lm``` object from the previous model.
 
@@ -605,11 +605,12 @@ summary(ames_lm3)
 Notice that the $R^2$ of this model actually increased to 0.5028 from 0.5024. However, the $R^2_a$ value stayed approximately the same at 0.502 since the addition of this new variable did not provide enough predictive power to outweigh the penalty of adding it.
 
 ### Categorical Predictor Variables
-As mentioned in Chapter \@ref(eda), there are two types of variables typically used in modeling:
-- Quantitative (or numeric)
-- Qualitative )or categorical)
+As mentioned in EDA Section, there are two types of variables typically used in modeling:
 
-Categorical variables need to be coded differently because they are not numerical in nature. As mentioned in Chapter \@ref(eda), two common coding techniques for linear regression are **reference** and **effects** coding. The interpretation of the coefficients ($\beta$'s) of these variables in a regression model depend on the specific coding used. The predictions from the model, however, will remain the same regardless of the specific coding that is used.
+* Quantitative (or numeric)
+* Qualitative (or categorical)
+
+Categorical variables need to be coded differently because they are not numerical in nature. As mentioned in EDA Section, two common coding techniques for linear regression are **reference** and **effects** coding. The interpretation of the coefficients ($\beta$'s) of these variables in a regression model depend on the specific coding used. The predictions from the model, however, will remain the same regardless of the specific coding that is used.
 
 Let's use the example of the ```Central_Air``` variable with 2 categories - Y and N. Using reference coding, the **reference** coded variable to describe these 2 categories (with N as the reference level) would be the following:
 
