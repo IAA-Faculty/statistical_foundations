@@ -179,3 +179,9 @@ normal-probability-plots-qq-plots
 box-plots
 python-code-27
 model-building-scoring-for-prediction
+fig:logistic
+categorical-data-analysis
+python-code-28
+python-code-29
+python-code-30
+python-code-31

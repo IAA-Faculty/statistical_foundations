@@ -1,24 +1,99 @@
-# Categorical Data Analysis {#cat}
+
+
+```{r include=FALSE}
+library(AmesHousing)
+library(tidyverse)
+library(car)
+library(DescTools)
+library(corrplot)
+library(mosaic)
+library(modelr)
+library(plotly)
+library(ggplot2)
+library(Hmisc)
+library(onehot)
+library(jmuOutlier)
+library(leaps)
+library(glmnet)
+library(nortest)
+library(lmtest)
+library(gmodels)
+library(vcdExtra)
+library(TSA)
+library(carData)
+library(epiDisplay)
+library(gridExtra)
+ames=make_ordinal_ames()
+
+library(tidyverse)
+
+set.seed(123)
+
+ames <- ames %>% mutate(id = row_number())
+
+train <- ames %>% sample_frac(0.7)
+
+test <- anti_join(ames, train, by = 'id')
+library(reticulate)
+use_python("C:\\ProgramData\\Anaconda3\\python.exe")
+```
+
+
+
+```{python include=F}
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import OneHotEncoder
+import seaborn as sns
+import matplotlib.pyplot as plt
+from numpy import random
+import statsmodels.api as sma
+import statsmodels as sm
+import pylab as py
+import scipy.stats as stats
+import scipy as sp
+import statsmodels as statsmodels
+import statsmodels.formula.api as smf
+import sklearn
+ames_py = r.ames
+ames_py = pd.DataFrame(ames_py)
+train = r.train
+test = r.test
+
+
+from sklearn.linear_model import Ridge
+from sklearn.linear_model import Lasso
+from sklearn.linear_model import ElasticNet
+from sklearn.metrics import mean_squared_error
+
+```
+
+
+
+
+# Categorical Data Analysis 
+
 Everything analysis covered so far has used a continuous variable as a target variable of interest. What if our target variable was categorical instead of continuous? Our analysis must change to adjust. 
 
 This Chapter aims to answer the following questions:
-<ul>
-  <li> How do you explore categorical variables? 
-    <ul> 
-      <li> Nominal vs. Ordinal
-      <li> Tests of Association
-      <li> Measures of Association
-    </ul>
-  <li> How do you model a categorical target variable?
-    <ul>
-      <li> Logistic Regression
-      <li> Interpreting Logistic Regression
-      <li> Assessing Logistic Regression
-    </ul>
-</ul>
+
+* How do you explore categorical variables? 
+    
+  + Nominal vs. Ordinal
+  + Tests of Association
+  + Measures of Association
+  
+* How do you model a categorical target variable?
+  
+  + Logistic Regression
+  + Interpreting Logistic Regression
+  + Assessing Logistic Regression
+  
+
 
 ## Describing Categorical Data
-Similar to Chapter \@ref(eda), we need to first explore our data before building any models to try and explain/predict our categorical target variable. With categorical variables, we can look at the distribution of the categories as well as see if this distribution has any association with other variables. For this analysis we are going to still use our Ames housing data. Imagine you worked for a real estate agency and got a bonus check if you sold a house above \$175,000 in value. Let's create this variable in our data:
+
+We need to first explore our data before building any models to try and explain/predict our categorical target variable. With categorical variables, we can look at the distribution of the categories as well as see if this distribution has any association with other variables. For this analysis we are going to still use our Ames housing data. Imagine you worked for a real estate agency and got a bonus check if you sold a house above \$175,000 in value. Let's create this variable in our data:
 
 ```{r}
 train <- train %>%
@@ -68,15 +143,61 @@ CrossTable(train$Central_Air, train$Bonus)
 
 The advantage of the ```CrossTable``` function is that we can easily get not only the frequencies, but the cell, row, and column proportions. For example, the third number in each cell gives us the row proportion. For homes without central air, 96.6% of them are not bonus eligible, while 3.4% of them are. For homes with central air, 56.1% of the homes are not bonus eligible, while 43.9% of them are. This would appear that the distribution of bonus eligible homes changes across levels of central air - a relationship between the two variables. This expected relationship needs to be tested statistically for verification.
 
+### Python Code
+
+```{python}
+train['Bonus'] = np.where(train['Sale_Price'] > 175000, 1, 0)
+```
+
+
+```{python}
+train['Bonus'].value_counts()
+
+ax = sns.countplot(x = "Bonus", data = train, color = "blue")
+ax.set(xlabel = 'Bonus Eligible',
+       ylabel = 'Frequency',
+       title = 'Bar Graph of Bonus Eligibility')
+plt.show()
+```
+
+
+```{python}
+train['Central_Air'].value_counts()
+
+plt.cla()
+ax = sns.countplot(x = "Central_Air", data = train, color = "blue")
+ax.set(xlabel = 'Central Air',
+       ylabel = 'Frequency',
+       title = 'Bar Graph of Central Air Availability')
+plt.show()
+```
+
+
+```{python}
+plt.cla()
+ax = sns.countplot(x = "Bonus", data = train, hue = "Central_Air")
+ax.set(xlabel = 'Central Air',
+       ylabel = 'Frequency',
+       title = 'Bar Graph of Central Air Availability')
+plt.show()
+```
+
+
+```{python}
+pd.crosstab(index = train['Central_Air'], columns = train['Bonus'])
+```
+
+
 ## Tests of Association
+
 Much like in Chapter \@ref(slr) we have statistical tests to evaluate relationships between two categorical variables. The null hypothesis for these statistical tests is that the two variables have no association - the distribution of one variable does not change across levels of another variable. The alternative hypothesis is an association between the two variables - the distribution of one variable changes across levels of another variable.
 
 These statistical tests follow a $\chi^2$-distribution. The $\chi^2$-distribution is a distribution that has the following characteristics:
-  <ul> 
-    <li> Bounded below by 0
-    <li> Right-skewed
-    <li> One set of degrees of freedom
-  </ul>
+
+* Bounded below by 0
+* Right-skewed
+* One set of degrees of freedom
+  
 
 A plot of a variety of $\chi^2$-distributions is shown here:
 
@@ -147,10 +268,30 @@ CMHtest(table(train$Central_Air, train$Bonus))$table[1,]
 
 From here we can see another extremely small p-value as we saw in earlier, more general $\chi^2$ tests. 
 
+### Python Code
+
+```{python}
+from scipy.stats import chi2_contingency
+
+chi2_contingency(pd.crosstab(index = train['Central_Air'], columns = train['Bonus']), correction = True)
+```
+
+
+```{python}
+from scipy.stats import fisher_exact
+
+fisher_exact(pd.crosstab(index = train['Central_Air'], columns = train['Bonus']))
+```
+
+
+No real Mantel-Haenszel options in Python that work for anything more than a 2x2 table so I wouldn't trust them.
+
 ## Measures of Association
+
 Tests of association are best designed for just that, testing the existence of an association between two categorical variables. However, just like we saw in Chapter \@ref(eda), hypothesis tests are impacted by sample size. When we have the same sample size, tests of association can rank significance of variables with p-values. However, when sample sizes are not the same between two tests, the tests of association are not best for comparing the strength of an association. In those scenarios, we have measures of strength of association that can be compared across any sample size. 
 
 Measures of association were not designed to test if an association exists, as that is what statistical testing is for. They are designed to measure the strength of association. There are dozens of these measures. Three of the most common are the following:
+
 - Odds Ratios (only for comparing two binary variables)
 - Cramer's V (able to compare nominal variables with any number of categories)
 - Spearman's Correlation (able to compare ordinal variables with any number of categories)
@@ -203,7 +344,40 @@ cor.test(x = as.numeric(ordered(train$Central_Air)),
 
 As previously mentioned, these are only a few of the dozens of different measures of association that exist. However, they are the most used ones.
 
+### Python Code
+
+Odds Ratios are the statistic calculated from the Fisher's Exact test from the previous code:
+
+```{python}
+from scipy.stats import fisher_exact
+
+fisher_exact(pd.crosstab(index = train['Central_Air'], columns = train['Bonus']))
+```
+
+
+```{python}
+from scipy.stats import fisher_exact
+
+fisher_exact(pd.crosstab(index = train['Central_Air'], columns = train['Bonus']))
+```
+
+
+```{python}
+from scipy.stats.contingency import association
+
+association(pd.crosstab(index = train['Central_Air'], columns = train['Bonus']), method = "cramer")
+```
+
+
+```{python}
+from scipy.stats import spearmanr
+
+spearmanr(train['Central_Air'], train['Bonus'])
+```
+
+
 ## Introduction to Logistic Regression
+
 After exploring the categorical target variable, we can move on to modeling the categorical target variable. Logistic regression is a fundamental statistical analysis for data science and analytics. It part of a class of modeling techniques known as classification models since they are trying to predict categorical target variables. This target variable can be binary, ordinal, or even nominal in its structure. The primary focus will be binary logistic regression. It is the most common type of logistic regression, and sets up the foundation for both ordinal and nominal logistic regression.
 
 Ordinary least squares regression is not the best approach to modeling categorical target variables. Mathematically, it can be shown that with a binary target variable coded as 0 and 1, an OLS linear regression model will produce the **linear probability model**.
@@ -311,15 +485,15 @@ To find concordant, discordant, and tied pairs, we must compare all of the 0's i
 We can use the ```Concordance``` function to obtain these values on our predictions from the ```predict``` function.
 
 ```{r}
-library(InformationValue)
+#library(InformationValue)
 
-Concordance(train$Bonus, predict(ames_logit, type = "response"))
+#Concordance(train$Bonus, predict(ames_logit, type = "response"))
 ```
 
 From the above output we have a concordance of 86.3% for our model. There is no good or bad value as this can only be compared with another model to see which is better. Let's compare this to our model with the categorical variables.
 
 ```{r}
-Concordance(train$Bonus, predict(ames_logit2, type = "response"))
+#Concordance(train$Bonus, predict(ames_logit2, type = "response"))
 ```
 
 We can see that the model with categorical predictors added to it has a higher concordance at 88.4%. That implies that our model is correctly able to rank our observations 88.4% of the time. This is **NOT** the same thing as saying our model is 88.4% accurate. Accuracy (which is not covered here) deals with a prediction being correct or incorrect. Concordance is only measuring how often we are able to predict 1's with higher probability than 0's - again, correctly ranking the observations.
@@ -369,9 +543,83 @@ back.model <- step(full.model,
 In the above two approaches we used the BIC selection criteria. Here both forward and backward selection actually picked the same model. Let's check the concordance of this model.
 
 ```{r}
-Concordance(train$Bonus, predict(back.model, type = "response"))
+#Concordance(train$Bonus, predict(back.model, type = "response"))
 ```
 
 Not surprisingly, this model outperforms the previous model that we had with a concordance of 96.1%. 
 
 Although not covered in detail here, regularized regression can also be applied to logistic regression to get a different view. This might be helpful with the multicollinearity present in these predictor variables. Again, we can use the ```glmnet``` function with the addition of a ```family = "binomial"``` option. 
+
+### Python Code
+
+*Linear Probability Model*
+
+```{python}
+import statsmodels.formula.api as smf
+
+lp_model = smf.ols("Bonus ~ Gr_Liv_Area", data = train).fit()
+lp_model.summary()
+```
+
+
+```{python}
+sm.api.qqplot(lp_model.resid)
+plt.show()
+```
+
+
+```{python}
+train['pred_lp'] = lp_model.predict()
+train['resid_lp'] = lp_model.resid
+
+train[['Bonus', 'pred_lp', 'resid_lp']].head(n = 10)
+```
+
+
+
+```{python}
+plt.cla()
+ax = sns.relplot(data = train, y = "resid_lp", x = "pred_lp")
+ax.set(ylabel = 'Residuals',
+       xlabel = 'Predicted Probability of Bonus')
+plt.show()
+```
+
+
+*Binary Logistic Regression*
+
+```{python}
+log_model = smf.logit("Bonus ~ Gr_Liv_Area", data = train).fit()
+log_model.summary()
+```
+
+
+```{python}
+odds_ratio = 100*(np.exp(log_model.params) - 1)
+
+print(odds_ratio)
+```
+
+
+*Adding Categorical Variables*
+
+```{python}
+log_model2 = smf.logit("Bonus ~ Gr_Liv_Area + C(Central_Air) + C(Fireplaces)", data = train).fit()
+log_model2.summary()
+```
+
+
+```{python}
+odds_ratio = 100*(np.exp(log_model2.params) - 1)
+
+print(odds_ratio)
+```
+
+
+*Model Assessment*
+
+Python doesn't have concordant / discordant pair calculations. We will learn in Fall semester other metrics to evaluate a logistic regression model that Python does have.
+
+*Variable Selection and Regularized Regression*
+
+Python does NOT have nice capabilities to do variable selection automatically in statsmodels, scikitlearn, or scipy. All resources I can find involve downloading and installing a package (mlxtend) that is not included by default in anaconda or writing your own function. Scikit learn has something similar but uses the model's coefficients (!!!) to select, not p-values. Scikit learn can do this by evaluating a metric on cross-validation, but that is not covered until machine learning in Fall 3.
