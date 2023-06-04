@@ -67,21 +67,17 @@ test = r.test
 
 In this Chapter, we will take a look at each of the assumptions in a linear model.  We will discuss what tools you will use to assess these assumptions, how to diagnose if the assumptions are met, some common problems often encountered when these assumptions do not hold and finally some remedies to fix these common issues.  You will notice that a variety of data sets are used throughout this Chapter. This is to help visualize and test for various assumptions and how to identify when these assumptions are not met.
 
-<ul>
+
 This Chapter aims to answer the following questions:
-</ul>
-  <li> How to use residuals from a multiple linear regression model to assess the assumptions.
-</ul>
-  <ul>
-  <li> Does the mean of the response have a linear pattern in the explanatory variables?
-  <li> Do the residuals have a constant variance? 
-  <li> Are the residuals normally distributed? 
-  <li> Are the residuals independent?
-</ul>
-  <li> How to identify potential outliers and influential points.
-</ul> 
-  <li> How to identify potential multicolliearity.
-<ul>
+
+* How to use residuals from a multiple linear regression model to assess the assumptions.
+  + Does the mean of the response have a linear pattern in the explanatory variables?
+  + Do the residuals have a constant variance? 
+  + Are the residuals normally distributed? 
+  + Are the residuals independent?
+  + How to identify potential outliers and influential points.
+  + How to identify potential multicolliearity.
+
 
 In multiple linear regression, the assumptions are as follows:
 
@@ -95,14 +91,14 @@ Before exploring the assumptions of a linear model, it is always good to visuall
   
 To illustrate this, we will use the Salaries data set in the package carData in R that has 397 observations of salaries for professors.  The explanatory variables include:
 
-<ul> 
-<li> _rank_: a factor with levels AssocProf, AsstProf, Prof
-<li> _discipline_: a factor with levels A (“theoretical” departments) or B (“applied” departments)
-<li> _yrs.since.phd_: years since PhD
-<li> _yrs.service_: years of service
-<li> _sex_: a factor with levels Female and Male
-<li> _salary_: nine-month salary, in dollars
-</ul>
+
+* _rank_: a factor with levels AssocProf, AsstProf, Prof
+* _discipline_: a factor with levels A (“theoretical” departments) or B (“applied” departments)
+* _yrs.since.phd_: years since PhD
+* _yrs.service_: years of service
+* _sex_: a factor with levels Female and Male
+* _salary_: nine-month salary, in dollars
+
 Using this data set, let's take a look at the relationship between each pair of variables in Figure \@ref(fig:pairsex).
 
 
@@ -120,6 +116,7 @@ library(car)
 pairs(Salaries)
 
 ```
+
 If there are not too many variables, this plot is a nice way to see all the relationships in the data set.  The variables are listed along the diagonal and each off diagonal plot is a scatterplot of the variables represented by that row and column.  For example, the first row of plots have rank on the y-axis.  The first column of plots have rank along the x-axis.
 
 ### Python Code
@@ -136,7 +133,7 @@ plt.show()
 
 ## Examining Residuals
 
-As you can see from the above list of assumptions that most of them involve the error term which is estimated by the residuals.  We will be using the residuals for many of these diagnostics.  One of the most useful plot is referred as the residual plot.  This plot will have the residuals along the y-axis and either the predicted values or individual x-values along the x-axis.  Figure \ref@(fig:salresid) is an example using the residuals from a linear model predicting salary using all of the explanatory variables. 
+As you can see from the above list of assumptions that most of them involve the error term which is estimated by the residuals.  We will be using the residuals for many of these diagnostics.  One of the most useful plot is referred as the residual plot.  This plot will have the residuals along the y-axis and either the predicted values or individual x-values along the x-axis.  The following figure is an example using the residuals from a linear model predicting salary using all of the explanatory variables. 
 
 ```{r label='salresid', fig=T, prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE, fig.cap = 'Residuals vs. Predicted Values for Salary Model'}
 
@@ -303,7 +300,7 @@ plt.show()
 
 Another assumption for linear regression is that the variance is constant about the line.  Looking at Figure \@ref(fig:constvar), you see that the variation about the line is constant across the line (notice the bands that have been drawn around the line).
 
-```{r fig=T, fig.align='center',fig.cap ='Residual Plot Showing Non-Constant Variance', label='constvar', prompt=FALSE, eval=TRUE, message = FALSE, echo=FALSE}
+```{r fig=T, fig.align='center',fig.cap ='Residual Plot Showing Non-Constant Variance', label='constvar', prompt=FALSE, eval=TRUE, message = FALSE, warning=FALSE,echo=FALSE}
 
 
 x=seq(1,50)
@@ -369,9 +366,10 @@ ggplot(lm.var,aes(x=fitted(lm.var),y=resid(lm.var)))+geom_point(color="orange")+
 The log transform stabilized the variance and produces a better residual plot.
 
 If the assumption of Homoskadicity of variance is violated, there are a few remedies you can try:
-  1. Use Weighted Least Squares (WLS) or iteratively reweighted least squares (IRLS).\
-  2. Transform data.\
-  3. Use a different distribution (for example if the response is count data, use Poisson distribution).\
+
+  1. Use Weighted Least Squares (WLS) or iteratively reweighted least squares (IRLS).
+  2. Transform data.
+  3. Use a different distribution (for example if the response is count data, use Poisson distribution).
 
 
 ### Python Code
@@ -420,7 +418,7 @@ Another assumption is that the residuals are normally distributed.  We can test 
 
 To visually inspect whether or not the residuals are normally distributed, we can either graph the historgram of residuals or create a Q-Q plot of the residuals. In the histogram, we are looking for a bell-shaped curve and in the Q-Q plot, we are looking for a straight line.
 
-```{r fig=T,fig.align='center',label ='normalvis',fig.cap = 'Histogram and Q-Q Plot of Residuals', prompt=FALSE, eval=TRUE, message = FALSE, echo=FALSE}
+```{r fig=T,fig.align='center',label ='normalvis',fig.cap = 'Histogram and Q-Q Plot of Residuals', prompt=FALSE, eval=TRUE, message = FALSE, warning=FALSE,echo=FALSE}
 
 x=rnorm(1000,0,4)
 h=qplot(x, geom="histogram", 
@@ -484,9 +482,10 @@ boxcox(lm.var)
 ```
 The output from the graph clearly incates that $\lambda$ should be 0, which indicates a log transform.
 
-In conclusion, to deal with data that is NOT normally distributed, we can either\
-1. Use a robust regression (quantile regression or nonparametric)\
-2. Transform either response or predictor variables or both to obtain normality in the residuals.\
+In conclusion, to deal with data that is NOT normally distributed, we can either
+
+1. Use a robust regression (quantile regression or nonparametric)
+2. Transform either response or predictor variables or both to obtain normality in the residuals.
 
 
 ### Python Code
@@ -507,16 +506,16 @@ bc[2] # CI for lambda value
 
 
 ## Correlated Errors
-Another important assumption is that the observations are independent.  There are a couple of ways in which we assess this assumtpion:\
+Another important assumption is that the observations are independent.  There are a couple of ways in which we assess this assumtpion:
 
-1. Experimental design or collection of data\
-2. Explore residual plots\
+1. Experimental design or collection of data
+2. Explore residual plots
 
 Depending on how the data was collected or the experimental design, there could be potential correlation in the observations.  For example, if the data collected information on multiple family members (include husband and wife and kids).  Or if multiple observations were collected on the same subject.  There are various models that exists that can account for this dependence (longitudinal analysis, hierarchical models, etc).  However, this type of analysis will be covered later throughout the year.  There is no diagnostic measures to indicate this correlation structure.  Your best way of knowing it is there is to know the experimental design or collection of data.\  
-We will focus our attention on a form of dependence that is evident from the residual plots, which is autocorrelation.  This happens when ordered observations are dependent on prior observations.  One of the most common instances of this correlation structure is through data that is collected over time, also referred to as time series.  You will learn more about time series data in the Fall semester, but for now, let's explore how to recognize if it is an issue in the analysis.  To diagnose autocorrelation in data, you can \
+We will focus our attention on a form of dependence that is evident from the residual plots, which is autocorrelation.  This happens when ordered observations are dependent on prior observations.  One of the most common instances of this correlation structure is through data that is collected over time, also referred to as time series.  You will learn more about time series data in the Fall semester, but for now, let's explore how to recognize if it is an issue in the analysis.  To diagnose autocorrelation in data, you can 
 
-1. Visually inspect the plot of residuals by time (see a pattern over time...usually cyclical)\
-2. Conduct a Durbin-Watson test\
+1. Visually inspect the plot of residuals by time (see a pattern over time...usually cyclical)
+2. Conduct a Durbin-Watson test
 
 In visually inspecting a plot of residuals across time, you would expect to see a type of cyclical pattern if autocorrelation exists as it does in Figure \@ref(fig:autoplot).
 
@@ -580,14 +579,17 @@ Influential points and outliers play a large role in the estimation of the model
 
 In the this section we will cover the following statistics to help us detect outliers and influential observations respectively. 
 
-*Outliers*\
-rstandard\
-rstudent\
-*Influential observations*\
-dffits\
-dfbetas\
-cooks.distance\
-hatvalues\
+*Outliers*
+
+* rstandard
+* rstudent
+
+*Influential observations*
+
+* dffits
+* dfbetas
+* cooks.distance
+* hatvalues
 
 
 
@@ -598,7 +600,9 @@ where $\hat\sigma$ is the square root of the MSE and $H_{ii}$ is from the diagon
 $$ t_{i}=\frac{e_{i}}{\hat\sigma_{(i)}\sqrt{1-H_{ii}}},$$
 where $\hat\sigma_{(i)}$ is the square root of the MSE calculated when observation *i* is deleted and $H_{ii}$ is from the diagonal of the hat matrix.  The externally studentized residuals follow a t-distribution with $n-k-2$, where $k$ is the number of explanatory variables(notice that this has one less degree of freedom than the usual error in regression which is due to the one deleted observation).  The R code to obtain externally studentized residuals is rstudent.
 
-*Influential observations*\
+*Influential observations*
+
+
 Influential observations are observations that can dramatically change the model's estimates.  It is important to identify and understand these where these observations are.  There are a number of different measures to aid in identifying influential observations, which will be discussed below.   
 
 Cook's distance, also referred to as Cook's D, measures the difference in the regression estimates when the $i^{th}$ observation is left out.  A rough rule of thumb used as a cutoff is if $D_{i}$  is greater than $\frac{4}{n-p-1}$.   
@@ -608,6 +612,8 @@ Dfbetas follows the same idea as dffits.  The difference in the estimated betas 
 The hat values $H_{ii}$ are the diagonal values of $$\boldsymbol{X(X^{T}X)^{-1.}X^{T}}.$$  Hat values can identify high leverage points in a regression.  A general rule of thumb are hat values greater than $\frac{2(p+1)}{n}$.
 
 **Example**
+
+
 We will use the Scottish hill races as an example to illustrate how to calculate and visualize these values.  The Scottish hill races include the following variables:\
 Time:	Record time to complete course\
 Distance:	Distance in the course\
@@ -719,16 +725,16 @@ We will use the mtcars data set dealing with fuel consumption and automobile des
 
 A data frame with 32 observations on 11 (numeric) variables.
 
-mpg:	Miles/(US) gallon   
-cyl:	Number of cylinders   
-disp:	Displacement (cu.in.)   
-hp:	Gross horsepower   
-drat:	Rear axle ratio   
-wt:	Weight (1000 lbs)   
-qsec:	1/4 mile time   
-vs:	Engine (0 = V-shaped, 1 = straight)   
-am:	Transmission (0 = automatic, 1 = manual)   
-gear:	Number of forward gears   
+* mpg:	Miles/(US) gallon   
+* cyl:	Number of cylinders   
+* disp:	Displacement (cu.in.)   
+* hp:	Gross horsepower   
+* drat:	Rear axle ratio   
+* wt:	Weight (1000 lbs)   
+* qsec:	1/4 mile time   
+* vs:	Engine (0 = V-shaped, 1 = straight)   
+* am:	Transmission (0 = automatic, 1 = manual)   
+* gear:	Number of forward gears   
 
 ```{r mult_coll, prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
 

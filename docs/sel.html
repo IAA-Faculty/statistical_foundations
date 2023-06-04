@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Model Selection | Statistical Foundations</title>
   <meta name="description" content="Chapter 4 Model Selection | Statistical Foundations" />
-  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Model Selection | Statistical Foundations" />
   <meta property="og:type" content="book" />
@@ -90,7 +90,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -103,7 +103,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -117,6 +117,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -151,50 +155,67 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1.4" data-path="intro-stat.html"><a href="intro-stat.html#skew"><i class="fa fa-check"></i><b>1.1.4</b> Skewness</a></li>
 <li class="chapter" data-level="1.1.5" data-path="intro-stat.html"><a href="intro-stat.html#kurt"><i class="fa fa-check"></i><b>1.1.5</b> Kurtosis</a></li>
 <li class="chapter" data-level="1.1.6" data-path="intro-stat.html"><a href="intro-stat.html#graphdist"><i class="fa fa-check"></i><b>1.1.6</b> Graphical Displays of Distributions</a></li>
+<li class="chapter" data-level="1.1.7" data-path="intro-stat.html"><a href="intro-stat.html#python-code"><i class="fa fa-check"></i><b>1.1.7</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="intro-stat.html"><a href="intro-stat.html#pointest"><i class="fa fa-check"></i><b>1.2</b> Point Estimates</a></li>
-<li class="chapter" data-level="1.3" data-path="intro-stat.html"><a href="intro-stat.html#ci"><i class="fa fa-check"></i><b>1.3</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="1.3" data-path="intro-stat.html"><a href="intro-stat.html#ci"><i class="fa fa-check"></i><b>1.3</b> Confidence Intervals</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="intro-stat.html"><a href="intro-stat.html#python-code-1"><i class="fa fa-check"></i><b>1.3.1</b> Python Code</a></li>
+</ul></li>
 <li class="chapter" data-level="1.4" data-path="intro-stat.html"><a href="intro-stat.html#hypotest"><i class="fa fa-check"></i><b>1.4</b> Hypothesis Testing</a>
 <ul>
 <li class="chapter" data-level="1.4.1" data-path="intro-stat.html"><a href="intro-stat.html#onesample"><i class="fa fa-check"></i><b>1.4.1</b> One-Sample T-Test</a></li>
+<li class="chapter" data-level="1.4.2" data-path="intro-stat.html"><a href="intro-stat.html#python-code-2"><i class="fa fa-check"></i><b>1.4.2</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="intro-stat.html"><a href="intro-stat.html#two-sample-t-tests"><i class="fa fa-check"></i><b>1.5</b> Two-Sample t-tests</a>
 <ul>
 <li class="chapter" data-level="1.5.1" data-path="intro-stat.html"><a href="intro-stat.html#testnorm"><i class="fa fa-check"></i><b>1.5.1</b> Testing Normality of Groups</a></li>
 <li class="chapter" data-level="1.5.2" data-path="intro-stat.html"><a href="intro-stat.html#ftest"><i class="fa fa-check"></i><b>1.5.2</b> Testing Equality of Variances</a></li>
 <li class="chapter" data-level="1.5.3" data-path="intro-stat.html"><a href="intro-stat.html#tsttest"><i class="fa fa-check"></i><b>1.5.3</b> Testing Equality of Means</a></li>
-<li class="chapter" data-level="1.5.4" data-path="intro-stat.html"><a href="intro-stat.html#wilcoxon"><i class="fa fa-check"></i><b>1.5.4</b> Mann-Whitney-Wilcoxon Test</a></li>
+<li class="chapter" data-level="1.5.4" data-path="intro-stat.html"><a href="intro-stat.html#python-code-3"><i class="fa fa-check"></i><b>1.5.4</b> Python Code</a></li>
+<li class="chapter" data-level="1.5.5" data-path="intro-stat.html"><a href="intro-stat.html#wilcoxon"><i class="fa fa-check"></i><b>1.5.5</b> Mann-Whitney-Wilcoxon Test</a></li>
+<li class="chapter" data-level="1.5.6" data-path="intro-stat.html"><a href="intro-stat.html#python-code-4"><i class="fa fa-check"></i><b>1.5.6</b> Python Code</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="slr.html"><a href="slr.html"><i class="fa fa-check"></i><b>2</b> Introduction to ANOVA and Linear Regression</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="slr.html"><a href="slr.html#evp"><i class="fa fa-check"></i><b>2.1</b> Prediction vs. Explanation</a></li>
-<li class="chapter" data-level="2.2" data-path="slr.html"><a href="slr.html#trainvalidtest"><i class="fa fa-check"></i><b>2.2</b> Honest Assessment</a></li>
+<li class="chapter" data-level="2.1" data-path="slr.html"><a href="slr.html#evp"><i class="fa fa-check"></i><b>2.1</b> Predictive vs. Explanatory</a></li>
+<li class="chapter" data-level="2.2" data-path="slr.html"><a href="slr.html#trainvalidtest"><i class="fa fa-check"></i><b>2.2</b> Honest Assessment</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="slr.html"><a href="slr.html#python-code-5"><i class="fa fa-check"></i><b>2.2.1</b> Python Code</a></li>
+</ul></li>
 <li class="chapter" data-level="2.3" data-path="slr.html"><a href="slr.html#bivariate-eda"><i class="fa fa-check"></i><b>2.3</b> Bivariate EDA</a>
 <ul>
 <li class="chapter" data-level="2.3.1" data-path="slr.html"><a href="slr.html#continuous-continuous-associations"><i class="fa fa-check"></i><b>2.3.1</b> Continuous-Continuous Associations</a></li>
 <li class="chapter" data-level="2.3.2" data-path="slr.html"><a href="slr.html#continuous-categorical-associations"><i class="fa fa-check"></i><b>2.3.2</b> Continuous-Categorical Associations</a></li>
+<li class="chapter" data-level="2.3.3" data-path="slr.html"><a href="slr.html#python-code-6"><i class="fa fa-check"></i><b>2.3.3</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="slr.html"><a href="slr.html#oneway"><i class="fa fa-check"></i><b>2.4</b> One-Way ANOVA</a>
 <ul>
-<li class="chapter" data-level="2.4.1" data-path="slr.html"><a href="slr.html#testing-assumptions"><i class="fa fa-check"></i><b>2.4.1</b> Testing Assumptions</a></li>
-<li class="chapter" data-level="2.4.2" data-path="slr.html"><a href="slr.html#kruskal"><i class="fa fa-check"></i><b>2.4.2</b> Kruskal-Wallis</a></li>
+<li class="chapter" data-level="2.4.1" data-path="slr.html"><a href="slr.html#python-code-7"><i class="fa fa-check"></i><b>2.4.1</b> Python Code</a></li>
+<li class="chapter" data-level="2.4.2" data-path="slr.html"><a href="slr.html#testing-assumptions"><i class="fa fa-check"></i><b>2.4.2</b> Testing Assumptions</a></li>
+<li class="chapter" data-level="2.4.3" data-path="slr.html"><a href="slr.html#python-code-8"><i class="fa fa-check"></i><b>2.4.3</b> Python Code</a></li>
+<li class="chapter" data-level="2.4.4" data-path="slr.html"><a href="slr.html#kruskal"><i class="fa fa-check"></i><b>2.4.4</b> Kruskal-Wallis</a></li>
+<li class="chapter" data-level="2.4.5" data-path="slr.html"><a href="slr.html#python-code-9"><i class="fa fa-check"></i><b>2.4.5</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="slr.html"><a href="slr.html#posthoc"><i class="fa fa-check"></i><b>2.5</b> ANOVA Post-hoc Testing</a>
 <ul>
 <li class="chapter" data-level="2.5.1" data-path="slr.html"><a href="slr.html#tukey"><i class="fa fa-check"></i><b>2.5.1</b> Tukey-Kramer</a></li>
 <li class="chapter" data-level="2.5.2" data-path="slr.html"><a href="slr.html#dunnett"><i class="fa fa-check"></i><b>2.5.2</b> Dunnett’s Test</a></li>
+<li class="chapter" data-level="2.5.3" data-path="slr.html"><a href="slr.html#python-code-10"><i class="fa fa-check"></i><b>2.5.3</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="slr.html"><a href="slr.html#cor"><i class="fa fa-check"></i><b>2.6</b> Pearson Correlation</a>
 <ul>
 <li class="chapter" data-level="2.6.1" data-path="slr.html"><a href="slr.html#testcor"><i class="fa fa-check"></i><b>2.6.1</b> Statistical Test</a></li>
 <li class="chapter" data-level="2.6.2" data-path="slr.html"><a href="slr.html#effect-of-anomalous-observations"><i class="fa fa-check"></i><b>2.6.2</b> Effect of Anomalous Observations</a></li>
 <li class="chapter" data-level="2.6.3" data-path="slr.html"><a href="slr.html#the-correlation-matrix"><i class="fa fa-check"></i><b>2.6.3</b> The Correlation Matrix</a></li>
+<li class="chapter" data-level="2.6.4" data-path="slr.html"><a href="slr.html#python-code-11"><i class="fa fa-check"></i><b>2.6.4</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="2.7" data-path="slr.html"><a href="slr.html#simple-linear-regression"><i class="fa fa-check"></i><b>2.7</b> Simple Linear Regression</a>
 <ul>
 <li class="chapter" data-level="2.7.1" data-path="slr.html"><a href="slr.html#slrassumptions"><i class="fa fa-check"></i><b>2.7.1</b> Assumptions of Linear Regression</a></li>
 <li class="chapter" data-level="2.7.2" data-path="slr.html"><a href="slr.html#testing-for-association"><i class="fa fa-check"></i><b>2.7.2</b> Testing for Association</a></li>
+<li class="chapter" data-level="2.7.3" data-path="slr.html"><a href="slr.html#python-code-12"><i class="fa fa-check"></i><b>2.7.3</b> Python Code</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Complex ANOVA and Multiple Linear Regression</a>
@@ -204,16 +225,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1.1" data-path="mlr.html"><a href="mlr.html#exploration"><i class="fa fa-check"></i><b>3.1.1</b> Exploration</a></li>
 <li class="chapter" data-level="3.1.2" data-path="mlr.html"><a href="mlr.html#model"><i class="fa fa-check"></i><b>3.1.2</b> Model</a></li>
 <li class="chapter" data-level="3.1.3" data-path="mlr.html"><a href="mlr.html#post-hoc-testing"><i class="fa fa-check"></i><b>3.1.3</b> Post-Hoc Testing</a></li>
+<li class="chapter" data-level="3.1.4" data-path="mlr.html"><a href="mlr.html#python-code-13"><i class="fa fa-check"></i><b>3.1.4</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="mlr.html"><a href="mlr.html#two-way-anova-with-interactions"><i class="fa fa-check"></i><b>3.2</b> Two-Way ANOVA with Interactions</a>
 <ul>
 <li class="chapter" data-level="3.2.1" data-path="mlr.html"><a href="mlr.html#post-hoc-testing-1"><i class="fa fa-check"></i><b>3.2.1</b> Post-Hoc Testing</a></li>
 <li class="chapter" data-level="3.2.2" data-path="mlr.html"><a href="mlr.html#assumptions"><i class="fa fa-check"></i><b>3.2.2</b> Assumptions</a></li>
+<li class="chapter" data-level="3.2.3" data-path="mlr.html"><a href="mlr.html#python-code-14"><i class="fa fa-check"></i><b>3.2.3</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="mlr.html"><a href="mlr.html#randomized-block-design"><i class="fa fa-check"></i><b>3.3</b> Randomized Block Design</a>
 <ul>
 <li class="chapter" data-level="3.3.1" data-path="mlr.html"><a href="mlr.html#garlic-bulb-weight-example"><i class="fa fa-check"></i><b>3.3.1</b> Garlic Bulb Weight Example</a></li>
 <li class="chapter" data-level="3.3.2" data-path="mlr.html"><a href="mlr.html#assumptions-1"><i class="fa fa-check"></i><b>3.3.2</b> Assumptions</a></li>
+<li class="chapter" data-level="3.3.3" data-path="mlr.html"><a href="mlr.html#python-code-15"><i class="fa fa-check"></i><b>3.3.3</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="mlr.html"><a href="mlr.html#multiple-linear-regression"><i class="fa fa-check"></i><b>3.4</b> Multiple Linear Regression</a>
 <ul>
@@ -222,6 +246,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4.3" data-path="mlr.html"><a href="mlr.html#assumptions-2"><i class="fa fa-check"></i><b>3.4.3</b> Assumptions</a></li>
 <li class="chapter" data-level="3.4.4" data-path="mlr.html"><a href="mlr.html#multiple-coefficients-of-determination"><i class="fa fa-check"></i><b>3.4.4</b> Multiple Coefficients of Determination</a></li>
 <li class="chapter" data-level="3.4.5" data-path="mlr.html"><a href="mlr.html#categorical-predictor-variables"><i class="fa fa-check"></i><b>3.4.5</b> Categorical Predictor Variables</a></li>
+<li class="chapter" data-level="3.4.6" data-path="mlr.html"><a href="mlr.html#python-code-16"><i class="fa fa-check"></i><b>3.4.6</b> Python Code</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="sel.html"><a href="sel.html"><i class="fa fa-check"></i><b>4</b> Model Selection</a>
@@ -233,17 +258,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="sel.html"><a href="sel.html#backward"><i class="fa fa-check"></i>Backward</a></li>
 <li class="chapter" data-level="" data-path="sel.html"><a href="sel.html#stepwise"><i class="fa fa-check"></i>Stepwise</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="sel.html"><a href="sel.html#significance-levels"><i class="fa fa-check"></i><b>4.3</b> Significance Levels</a></li>
+<li class="chapter" data-level="4.3" data-path="sel.html"><a href="sel.html#significance-levels"><i class="fa fa-check"></i><b>4.3</b> Significance Levels</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="sel.html"><a href="sel.html#python-code-17"><i class="fa fa-check"></i><b>4.3.1</b> Python Code</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="diag.html"><a href="diag.html"><i class="fa fa-check"></i><b>5</b> Diagnostics</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="diag.html"><a href="diag.html#examining-residuals"><i class="fa fa-check"></i><b>5.1</b> Examining Residuals</a></li>
-<li class="chapter" data-level="5.2" data-path="diag.html"><a href="diag.html#misspecified-model"><i class="fa fa-check"></i><b>5.2</b> Misspecified Model</a></li>
-<li class="chapter" data-level="5.3" data-path="diag.html"><a href="diag.html#constant-variance"><i class="fa fa-check"></i><b>5.3</b> Constant Variance</a></li>
-<li class="chapter" data-level="5.4" data-path="diag.html"><a href="diag.html#normality"><i class="fa fa-check"></i><b>5.4</b> Normality</a></li>
-<li class="chapter" data-level="5.5" data-path="diag.html"><a href="diag.html#correlated-errors"><i class="fa fa-check"></i><b>5.5</b> Correlated Errors</a></li>
-<li class="chapter" data-level="5.6" data-path="diag.html"><a href="diag.html#influential-observations-and-outliers"><i class="fa fa-check"></i><b>5.6</b> Influential Observations and Outliers</a></li>
-<li class="chapter" data-level="5.7" data-path="diag.html"><a href="diag.html#multicollinearity"><i class="fa fa-check"></i><b>5.7</b> Multicollinearity</a></li>
+<li class="chapter" data-level="5.0.1" data-path="diag.html"><a href="diag.html#python-code-18"><i class="fa fa-check"></i><b>5.0.1</b> Python Code</a></li>
+<li class="chapter" data-level="5.1" data-path="diag.html"><a href="diag.html#examining-residuals"><i class="fa fa-check"></i><b>5.1</b> Examining Residuals</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="diag.html"><a href="diag.html#python-code-19"><i class="fa fa-check"></i><b>5.1.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="diag.html"><a href="diag.html#misspecified-model"><i class="fa fa-check"></i><b>5.2</b> Misspecified Model</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="diag.html"><a href="diag.html#python-code-20"><i class="fa fa-check"></i><b>5.2.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="diag.html"><a href="diag.html#constant-variance"><i class="fa fa-check"></i><b>5.3</b> Constant Variance</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="diag.html"><a href="diag.html#python-code-21"><i class="fa fa-check"></i><b>5.3.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="diag.html"><a href="diag.html#normality"><i class="fa fa-check"></i><b>5.4</b> Normality</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="diag.html"><a href="diag.html#python-code-22"><i class="fa fa-check"></i><b>5.4.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="diag.html"><a href="diag.html#correlated-errors"><i class="fa fa-check"></i><b>5.5</b> Correlated Errors</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="diag.html"><a href="diag.html#python-code-23"><i class="fa fa-check"></i><b>5.5.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="diag.html"><a href="diag.html#influential-observations-and-outliers"><i class="fa fa-check"></i><b>5.6</b> Influential Observations and Outliers</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="diag.html"><a href="diag.html#python-code-24"><i class="fa fa-check"></i><b>5.6.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="diag.html"><a href="diag.html#multicollinearity"><i class="fa fa-check"></i><b>5.7</b> Multicollinearity</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="diag.html"><a href="diag.html#python-code-25"><i class="fa fa-check"></i><b>5.7.1</b> Python Code</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="mlr.html"><a href="mlr.html#model"><i class="fa fa-check"></i><b>6</b> Model Building &amp; Scoring for Prediction</a>
 <ul>
@@ -253,6 +303,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1.2" data-path="model.html"><a href="model.html#ridge-regression"><i class="fa fa-check"></i><b>6.1.2</b> Ridge Regression</a></li>
 <li class="chapter" data-level="6.1.3" data-path="model.html"><a href="model.html#lasso"><i class="fa fa-check"></i><b>6.1.3</b> LASSO</a></li>
 <li class="chapter" data-level="6.1.4" data-path="model.html"><a href="model.html#elastic-net"><i class="fa fa-check"></i><b>6.1.4</b> Elastic Net</a></li>
+<li class="chapter" data-level="6.1.5" data-path="model.html"><a href="model.html#python-code-26"><i class="fa fa-check"></i><b>6.1.5</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="model.html"><a href="model.html#optimizing-penalties"><i class="fa fa-check"></i><b>6.2</b> Optimizing Penalties</a>
 <ul>
@@ -301,6 +352,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="sel" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Model Selection<a href="sel.html#sel" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 This section will dive into some basic foundations in model selection, or finding the best model for a data set. In most data sets, there will most likely be variables that are informative and ones that are uninformative in predicting the response. With many explanatory variables, it could be extremely time consuming to try all potential models by hand, and the use of automatic procedures can greatly assist in obtaining subsets of variables in which to focus your attention.<br />
+
 <ul>
 This Chapter aims to answer the following questions:
 </ul>
@@ -338,12 +390,14 @@ Considerations when looking at p-values.
 <p>For forward selection, we start with a null model (only the intercept) and add one variable at a time until no other variables can be added based on a given criterion. The algorithm is as follows:</p>
 <ol start="0" style="list-style-type: decimal">
 <li>Start with a null model, this is the base model (just the intercept)<br />
+
 <ol style="list-style-type: decimal">
 <li>For each variable not in model, create a linear regression model with the base model plus this one variable<br />
 </li>
 <li>See which linear regression is best (based on criterion)<br />
 </li>
 <li>Is this regression better than the base model?<br />
+
 <ol style="list-style-type: lower-alpha">
 <li>Yes, then continue on to step 4<br />
 </li>
@@ -669,12 +723,14 @@ Bldg_Type, Fireplaces, Full_Bath, Half_Bath, Lot_Area, Roof_Style, Central_Air, 
 <p>Backward elimination starts with the “base” model as the full model (i.e. all variables are contained within the model). We remove only one variable and we do this for each variable in the model. We want to see if the any of the models improve over the “base model” (in other words, is the model better with that one variable removed based on a given criterion?). If this new model (with that one variable removed) is better than the previous model, then we remove that variable and this new model now becomes the base model. We are looking for the best improvement, therefore we look at the model that would be the best over the base model. The algorithm continues in this fashion until no other variables can be removed, based on the chosen criterion.</p>
 <ol start="0" style="list-style-type: decimal">
 <li>Start with full model with all predictor variables in it, this is the base model and calculate the criterion on this model<br />
+
 <ol style="list-style-type: decimal">
 <li>Create models such that each model has exactly one predictor variable removed from it and calculate the criterion for each model<br />
 </li>
 <li>In step 1, find the best model based on the criterion<br />
 </li>
 <li>Is this regression model better than the base model?<br />
+
 <ol style="list-style-type: lower-alpha">
 <li>Yes, then continue on to step 4<br />
 </li>
@@ -956,12 +1012,14 @@ Sale_Price ~ Lot_Area + Bldg_Type + House_Style + Overall_Qual +
 <p>Stepwise selection is a combination of both of these methods. In this algorithm, we start with the “base model” as the empty model (i.e. just the intercept) and will add variables (as in forward selection). However, as we add new variables, we will also check that the variables in the model are still contributing (in other words, after a new variable is added, we check to see if the model would be better if we drop one of the other variables in the model). Keep in mind that this algorithm is similar to forward selection and backward elimination in that only one variable may either enter or be removed at each step. The algorithm stops when no more variables can be added to nor taken away from the model (in other words, the current “base model” is better than adding any single addition of one variable or any single extraction of one variable). The addition and removal of variables is again based upon the criteria specified. See the algorithm below:</p>
 <ol start="0" style="list-style-type: decimal">
 <li>Start with empty model with only the intercept in it, this is the base model and calculate the criterion on this model<br />
+
 <ol style="list-style-type: decimal">
 <li>For each variable not in model, create a linear regression model with the base model plus this variable; create additional models with the base model taking away one variable at a time<br />
 </li>
 <li>See which linear regression is best (based on criterion)<br />
 </li>
 <li>Is this regression better than the base model?<br />
+
 <ol style="list-style-type: lower-alpha">
 <li>Yes, then continue on to step 4<br />
 </li>
@@ -1545,7 +1603,11 @@ Sale_Price ~ Overall_Qual + House_Style + Garage_Area + Bldg_Type +
 </tbody>
 </table>
 <p>You can quickly see that for even sample sizes of 1000, one should consider the value of alpha that is used to determine significance. One thing that most researchers agree on is that considerations need to be taken for larger sample size. However, what those considerations should be and exactly how to do that is not agreed upon. You should consider your sample size when you are determining what level of significance you want to choose for your analysis (also take into account which is worse….a type I error or a type II error). There is no quick answer to this question and each decision will depend on the analysis being conducted.</p>
+<div id="python-code-17" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Python Code<a href="sel.html#python-code-17" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Python does NOT have nice capabilities to do this automatically in statsmodels, scikitlearn, or scipy. All resources I can find involve downloading and installing a package (mlxtend) that is not included by default in anaconda or writing your own function. Scikit learn has something similar but uses the model’s coefficients (!!!) to select, not p-values. Scikit learn can do this by evaluating a metric on cross-validation, but that is not covered until machine learning in Fall 3.</p>
 
+</div>
 </div>
 </div>
             </section>
@@ -1615,7 +1677,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
