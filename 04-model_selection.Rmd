@@ -1,19 +1,19 @@
-# Model Selection {#sel}
+# Model Selection 
 
 This section will dive into some basic foundations in model selection, or finding the best model for a data set.  In most data sets, there will most likely be variables that are informative and ones that are uninformative in predicting the response.  With many explanatory variables, it could be extremely time consuming to try all potential models by hand, and the use of automatic procedures can greatly assist in obtaining subsets of variables in which to focus your attention.  
-<ul>
+
 This Chapter aims to answer the following questions:
-</ul>
-  <li> What are the different selection criteria that can be used in model selection? 
-</ul>
-  <li> How to perform a stepwise search algorithm. 
-    <ul>
-    <li> Forward Selection 
-    <li> Backward Elimination
-    <li> Stepwise Selection
-</ul>
-  <li> Considerations when looking at p-values.
-<ul>
+
+* What are the different selection criteria that can be used in model selection? 
+
+* How to perform a stepwise search algorithm. 
+
+  + Forward Selection 
+  + Backward Elimination
+  + Stepwise Selection
+
+* Considerations when looking at p-values.
+
 
 CAUTION: you should NEVER just use the final model created from an automatic procedure!  _Always_ explore your data (both automatically selected _and_ excluded variables), and use domain knowledge, diagnostics, and critical thought to decide on your final model.
 
@@ -36,12 +36,6 @@ The three different algorithms in the stepwise selection search are forward, bac
 
 ```{r prompt=FALSE, eval=TRUE, message = FALSE, echo=FALSE}
 library(tidyverse)
-library(AmesHousing)
-ames=make_ordinal_ames()
-set.seed(123)
-ames <- ames %>% mutate(id = row_number())
-train <- ames %>% sample_frac(0.7)
-test <- anti_join(ames, train, by = 'id')
 
 train_sel = train %>% dplyr::select('Sale_Price', 
                               'Lot_Area',

@@ -269,7 +269,7 @@ __Target Level Encoding__
 The values in Table \@ref(tab:educationscaled) might have struck the reader as logical but arbitrary. To be more scientific about the determination of those numeric values, one might wish to use information from the response variable to obtain a more precise expected change in salary for each level increase in education. At first hearing this, one might question the validity of the technique; isn't the goal to _predict_ salary? This line of thought is natural, which is why having a holdout sample is extremely important in this situation. To implement Target level encoding, we can simply create a look-up table that matches each level of education to the average or median salary obtained for that level. These values can be used just as readily as the arbitrary levels created in Table \@ref(tab:educationscaled) to encode the ordinal attribute!
 
 
-### Distributions {#dist}
+### Distributions 
 
 After reviewing the types and formats of the data inputs, we move on to some basic __univariate__ (one variable at a time) analysis. We start by describing the distribution of values that each variable takes on. For nominal variables, this amounts to frequency tables and bar charts of how often each level of the variable appears in the data set.
 
@@ -409,7 +409,7 @@ A distribution is called _bimodal_ if it has two "heaps", as shown in Figure \@r
 knitr::include_graphics("img/bimodal.png")
 ```
 
-#### Summary Functions in R {-}
+#### Summary Functions in R 
 
 There are many ways to obtain all of the statistics described in the preceding sections, below we highlight 3:
 
@@ -614,7 +614,12 @@ import statsmodels as sm
 import pylab as py
 import scipy.stats as stats
 import scipy as sp
-import statsmodels as statsmodels
+import statsmodels.formula.api as smf
+import sklearn
+from sklearn.linear_model import Ridge
+from sklearn.linear_model import Lasso
+from sklearn.linear_model import ElasticNet
+from sklearn.metrics import mean_squared_error
 
 ```
 
