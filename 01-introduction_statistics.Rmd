@@ -595,8 +595,8 @@ ggplot(data = ames, aes(y = Sale_Price/1000, x = Central_Air, fill = Central_Air
 
 ```{r, echo=FALSE, message=FALSE}
 library(reticulate)
+#use_python("C:\\Users\\sjsimmo2\\AppData\\Local\\Programs\\Python/Python39\\python.exe")
 use_python("C:\\ProgramData\\Anaconda3\\python.exe")
-
 ```
 
 For all of the Python code throughout the book, you will need to use the following libraries:
