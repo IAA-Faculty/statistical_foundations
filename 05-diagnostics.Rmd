@@ -528,7 +528,8 @@ In the this section we will cover the following statistics to help us detect out
 
 
 
-*Outliers*\
+*Outliers*
+
 In using residuals to detect outliers, we first need to "standardize" them, or divide by their standard errors.  In this sense, we can think of these "standardized" residuals as an approximate z-score.  Therefore, we look for residuals greater in magnitude than 3 as potential outliers.  R calculates two different types of standardized residuals: 1. internally studentized residuals and 2. externally studentized residuals.  Internally studentized residuals are definied as
 $$ r_{i}=\frac{e_{i}}{\hat\sigma\sqrt{1-H_{ii}}},$$
 where $\hat\sigma$ is the square root of the MSE and $H_{ii}$ is from the diagonal of the hat matrix (hat matrix will be discussed in influential observations).  In R, these are denoted by rstandard.  Externally studentized residuals are definied as
@@ -549,10 +550,11 @@ The hat values $H_{ii}$ are the diagonal values of $$\boldsymbol{X(X^{T}X)^{-1.}
 **Example**
 
 
-We will use the Scottish hill races as an example to illustrate how to calculate and visualize these values.  The Scottish hill races include the following variables:\
-Time:	Record time to complete course\
-Distance:	Distance in the course\
-Climb:	Vertical climb in the course\
+We will use the Scottish hill races as an example to illustrate how to calculate and visualize these values.  The Scottish hill races include the following variables:
+
+* Time:	Record time to complete course
+* Distance:	Distance in the course
+* Climb:	Vertical climb in the course
 
 ```{r influence, fig=T, fig.align='center',fig.cap = 'Plots for Exploring Outliers and Influential Points',label='influence', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
 
@@ -647,7 +649,8 @@ The variance inflation factor (also referred to as VIF) will take each explanato
 $$\widehat{Y}_{i}=b_{0} + b_{1}x_{1}+ b_{2}x_{2}+ b_{3}x_{3}.$$
 There are only 3 explanatory variables in this regression.  A VIF will be calculated on each $x_{i}$ in the following manner:   
 
-1. A regression is fit on each $x_{i}$ with the remaining $x_{i}$'s as the explanatory variables.  For example, to calculate the VIF for $x_{1}$, we fit the following model:   
+1. A regression is fit on each $x_{i}$ with the remaining $x_{i}$'s as the explanatory variables.  For example, to calculate the VIF for $x_{1}$, we fit the following model:  
+
 $$\widehat{x}_{1}=b_{0} + b_{1}x_{2}+ b_{2}x_{3},$$ 
 and obtain the $R^2$ value from this model (call it $R_{1}^2$).   
 2.  The VIF for $x_{1}$ is calculated by 
