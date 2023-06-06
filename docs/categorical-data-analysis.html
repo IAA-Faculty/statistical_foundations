@@ -390,7 +390,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="categorical-data-analysis.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(train<span class="sc">$</span>Bonus)</span></code></pre></div>
 <pre><code>## 
 ##    0    1 
-## 1204  847</code></pre>
+## 1168  883</code></pre>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="categorical-data-analysis.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train) <span class="sc">+</span></span>
 <span id="cb4-2"><a href="categorical-data-analysis.html#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Bonus))</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
@@ -406,13 +406,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="categorical-data-analysis.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(train<span class="sc">$</span>Central_Air, train<span class="sc">$</span>Bonus)</span></code></pre></div>
 <pre><code>##    
 ##        0    1
-##   N  131    4
-##   Y 1073  843</code></pre>
+##   N  130    5
+##   Y 1038  878</code></pre>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="categorical-data-analysis.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(train<span class="sc">$</span>Central_Air, train<span class="sc">$</span>Bonus))</span></code></pre></div>
 <pre><code>##    
 ##               0           1
-##   N 0.063871282 0.001950268
-##   Y 0.523159434 0.411019015</code></pre>
+##   N 0.063383715 0.002437835
+##   Y 0.506094588 0.428083862</code></pre>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="categorical-data-analysis.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train) <span class="sc">+</span></span>
 <span id="cb12-2"><a href="categorical-data-analysis.html#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Bonus, <span class="at">fill =</span> Central_Air))</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
@@ -438,20 +438,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##                   | train$Bonus 
 ## train$Central_Air |         0 |         1 | Row Total | 
 ## ------------------|-----------|-----------|-----------|
-##                 N |       131 |         4 |       135 | 
-##                   |    33.794 |    48.038 |           | 
-##                   |     0.970 |     0.030 |     0.066 | 
-##                   |     0.109 |     0.005 |           | 
-##                   |     0.064 |     0.002 |           | 
+##                 N |       130 |         5 |       135 | 
+##                   |    36.704 |    48.551 |           | 
+##                   |     0.963 |     0.037 |     0.066 | 
+##                   |     0.111 |     0.006 |           | 
+##                   |     0.063 |     0.002 |           | 
 ## ------------------|-----------|-----------|-----------|
-##                 Y |      1073 |       843 |      1916 | 
-##                   |     2.381 |     3.385 |           | 
-##                   |     0.560 |     0.440 |     0.934 | 
-##                   |     0.891 |     0.995 |           | 
-##                   |     0.523 |     0.411 |           | 
+##                 Y |      1038 |       878 |      1916 | 
+##                   |     2.586 |     3.421 |           | 
+##                   |     0.542 |     0.458 |     0.934 | 
+##                   |     0.889 |     0.994 |           | 
+##                   |     0.506 |     0.428 |           | 
 ## ------------------|-----------|-----------|-----------|
-##      Column Total |      1204 |       847 |      2051 | 
-##                   |     0.587 |     0.413 |           | 
+##      Column Total |      1168 |       883 |      2051 | 
+##                   |     0.569 |     0.431 |           | 
 ## ------------------|-----------|-----------|-----------|
 ## 
 ## </code></pre>
@@ -460,8 +460,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">7.1.1</span> Python Code<a href="categorical-data-analysis.html#python-code-28" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="categorical-data-analysis.html#cb15-1" aria-hidden="true" tabindex="-1"></a>train[<span class="st">&#39;Bonus&#39;</span>] <span class="op">=</span> np.where(train[<span class="st">&#39;Sale_Price&#39;</span>] <span class="op">&gt;</span> <span class="dv">175000</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="categorical-data-analysis.html#cb16-1" aria-hidden="true" tabindex="-1"></a>train[<span class="st">&#39;Bonus&#39;</span>].value_counts()</span></code></pre></div>
-<pre><code>## 0    1204
-## 1     847
+<pre><code>## 0    1168
+## 1     883
 ## Name: Bonus, dtype: int64</code></pre>
 <div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="categorical-data-analysis.html#cb18-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.countplot(x <span class="op">=</span> <span class="st">&quot;Bonus&quot;</span>, data <span class="op">=</span> train, color <span class="op">=</span> <span class="st">&quot;blue&quot;</span>)</span>
 <span id="cb18-2"><a href="categorical-data-analysis.html#cb18-2" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">&#39;Bonus Eligible&#39;</span>,</span>
@@ -490,8 +490,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="categorical-data-analysis.html#cb23-1" aria-hidden="true" tabindex="-1"></a>pd.crosstab(index <span class="op">=</span> train[<span class="st">&#39;Central_Air&#39;</span>], columns <span class="op">=</span> train[<span class="st">&#39;Bonus&#39;</span>])</span></code></pre></div>
 <pre><code>## Bonus           0    1
 ## Central_Air           
-## N             131    4
-## Y            1073  843</code></pre>
+## N             130    5
+## Y            1038  878</code></pre>
 </div>
 </div>
 <div id="tests-of-association" class="section level2 hasAnchor" number="7.2">
@@ -517,7 +517,7 @@ From the equation above, the closer that the observed count of each cross-tabula
 ##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
 ## 
 ## data:  table(train$Central_Air, train$Bonus)
-## X-squared = 85.913, df = 1, p-value &lt; 2.2e-16</code></pre>
+## X-squared = 89.552, df = 1, p-value &lt; 2.2e-16</code></pre>
 <p>The above results shows an extremely small p-value that is below any reasonable significance level. This implies that we have statistical evidence for a relationship between having central air and bonus eligibility of homes. The p-value comes from a <span class="math inline">\(\chi^2\)</span>-distribution with degrees of freedom that equal the product of the number of rows minus one and the number of columns minus one.</p>
 <p>Another common test is the Likelihood Ratio test. The test statistic for this is the following:</p>
 <p><span class="math display">\[
@@ -534,10 +534,10 @@ than 5.</p>
 ## p-value &lt; 2.2e-16
 ## alternative hypothesis: true odds ratio is not equal to 1
 ## 95 percent confidence interval:
-##   9.743122 96.430982
+##   9.115466 69.125214
 ## sample estimates:
 ## odds ratio 
-##   25.70857</code></pre>
+##   21.97444</code></pre>
 <p>We see the same results as with the Pearson test because the assumptions were met for sample size.</p>
 <p>Both the Pearson and Likelihood Ratio <span class="math inline">\(\chi^2\)</span> tests can handle any type of categorical variable either ordinal, nominal, or both. However, ordinal variables provide us extra information since the order of the categories actually matters compared to nominal. We can test for even more with ordinal variables against other ordinal variables whether two ordinal variables have a <strong>linear relationship</strong> as compared to just a general one. An ordinal test for association is the Mantel-Haenszel <span class="math inline">\(\chi^2\)</span> test. The test statistic for the Mantel-Haenszel <span class="math inline">\(\chi^2\)</span> test is the following:</p>
 <p><span class="math display">\[
@@ -549,19 +549,19 @@ where <span class="math inline">\(r^2\)</span> is the Pearson correlation betwee
 <span id="cb29-2"><a href="categorical-data-analysis.html#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="categorical-data-analysis.html#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">CMHtest</span>(<span class="fu">table</span>(train<span class="sc">$</span>Central_Air, train<span class="sc">$</span>Bonus))<span class="sc">$</span>table[<span class="dv">1</span>,]</span></code></pre></div>
 <pre><code>##        Chisq           Df         Prob 
-## 8.755502e+01 1.000000e+00 8.196775e-21</code></pre>
+## 9.121694e+01 1.000000e+00 1.287531e-21</code></pre>
 <p>From here we can see another extremely small p-value as we saw in earlier, more general <span class="math inline">\(\chi^2\)</span> tests.</p>
 <div id="python-code-29" class="section level3 hasAnchor" number="7.2.1">
 <h3><span class="header-section-number">7.2.1</span> Python Code<a href="categorical-data-analysis.html#python-code-29" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="categorical-data-analysis.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> chi2_contingency</span>
 <span id="cb31-2"><a href="categorical-data-analysis.html#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-3"><a href="categorical-data-analysis.html#cb31-3" aria-hidden="true" tabindex="-1"></a>chi2_contingency(pd.crosstab(index <span class="op">=</span> train[<span class="st">&#39;Central_Air&#39;</span>], columns <span class="op">=</span> train[<span class="st">&#39;Bonus&#39;</span>]), correction <span class="op">=</span> <span class="va">True</span>)</span></code></pre></div>
-<pre><code>## (85.91322281072186, 1.8800742958311418e-20, 1, array([[  79.24914676,   55.75085324],
-##        [1124.75085324,  791.24914676]]))</code></pre>
+<pre><code>## (89.55151374239, 2.987571259286868e-21, 1, array([[  76.87957094,   58.12042906],
+##        [1091.12042906,  824.87957094]]))</code></pre>
 <div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="categorical-data-analysis.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> fisher_exact</span>
 <span id="cb33-2"><a href="categorical-data-analysis.html#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-3"><a href="categorical-data-analysis.html#cb33-3" aria-hidden="true" tabindex="-1"></a>fisher_exact(pd.crosstab(index <span class="op">=</span> train[<span class="st">&#39;Central_Air&#39;</span>], columns <span class="op">=</span> train[<span class="st">&#39;Bonus&#39;</span>]))</span></code></pre></div>
-<pre><code>## (25.72996272134203, 1.3141728461393805e-26)</code></pre>
+<pre><code>## (21.992292870905587, 6.316364105830547e-27)</code></pre>
 <p>No real Mantel-Haenszel options in Python that work for anything more than a 2x2 table so I wouldn’t trust them.</p>
 </div>
 </div>
@@ -597,20 +597,20 @@ Odds = \frac{p}{1-p}
 ##                   | train$Bonus 
 ## train$Central_Air |         0 |         1 | Row Total | 
 ## ------------------|-----------|-----------|-----------|
-##                 N |       131 |         4 |       135 | 
-##                   |    33.794 |    48.038 |           | 
-##                   |     0.970 |     0.030 |     0.066 | 
-##                   |     0.109 |     0.005 |           | 
-##                   |     0.064 |     0.002 |           | 
+##                 N |       130 |         5 |       135 | 
+##                   |    36.704 |    48.551 |           | 
+##                   |     0.963 |     0.037 |     0.066 | 
+##                   |     0.111 |     0.006 |           | 
+##                   |     0.063 |     0.002 |           | 
 ## ------------------|-----------|-----------|-----------|
-##                 Y |      1073 |       843 |      1916 | 
-##                   |     2.381 |     3.385 |           | 
-##                   |     0.560 |     0.440 |     0.934 | 
-##                   |     0.891 |     0.995 |           | 
-##                   |     0.523 |     0.411 |           | 
+##                 Y |      1038 |       878 |      1916 | 
+##                   |     2.586 |     3.421 |           | 
+##                   |     0.542 |     0.458 |     0.934 | 
+##                   |     0.889 |     0.994 |           | 
+##                   |     0.506 |     0.428 |           | 
 ## ------------------|-----------|-----------|-----------|
-##      Column Total |      1204 |       847 |      2051 | 
-##                   |     0.587 |     0.413 |           | 
+##      Column Total |      1168 |       883 |      2051 | 
+##                   |     0.569 |     0.431 |           | 
 ## ------------------|-----------|-----------|-----------|
 ## 
 ## </code></pre>
@@ -619,7 +619,7 @@ Odds = \frac{p}{1-p}
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="categorical-data-analysis.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DescTools)</span>
 <span id="cb36-2"><a href="categorical-data-analysis.html#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-3"><a href="categorical-data-analysis.html#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">OddsRatio</span>(<span class="fu">table</span>(train<span class="sc">$</span>Central_Air, train<span class="sc">$</span>Bonus))</span></code></pre></div>
-<pre><code>## [1] 25.72996</code></pre>
+<pre><code>## [1] 21.99229</code></pre>
 <p><strong>Cramer’s V</strong> is another measure of strength of association. Cramer’s V is calculated as follows:</p>
 <p><span class="math display">\[
 V = \sqrt{\frac{\chi^2_P/n}{\min(Rows-1, Columns-1)}}
@@ -628,12 +628,12 @@ V = \sqrt{\frac{\chi^2_P/n}{\min(Rows-1, Columns-1)}}
 <p>We use the <code>assocstats</code> function to get the Cramer’s V value. This function also provides the Pearson and Likelihood Ratio <span class="math inline">\(\chi^2\)</span> tests as well.</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="categorical-data-analysis.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">assocstats</span>(<span class="fu">table</span>(train<span class="sc">$</span>Central_Air, train<span class="sc">$</span>Bonus))</span></code></pre></div>
 <pre><code>##                      X^2 df P(&gt; X^2)
-## Likelihood Ratio 116.336  1        0
-## Pearson           87.598  1        0
+## Likelihood Ratio 118.025  1        0
+## Pearson           91.261  1        0
 ## 
-## Phi-Coefficient   : 0.207 
-## Contingency Coeff.: 0.202 
-## Cramer&#39;s V        : 0.207</code></pre>
+## Phi-Coefficient   : 0.211 
+## Contingency Coeff.: 0.206 
+## Cramer&#39;s V        : 0.211</code></pre>
 <p>Lastly, we have Spearman’s correlation. Much like the Mantel-Haenszel test of association was specifically designed for comparing two ordinal variables, Spearman correlation measures the strength of association between two ordinal variables. Spearman is not limited to only categorical data analysis as it was also seen back in Chapter <a href="diag.html#diag">5</a> with detecting heteroskedasticity. Remember, Spearman correlation is a correlation on the ranks of the observations as compared to the actual values of the observations.</p>
 <p>The <code>cor.test</code> function that gave us Pearson’s correlation also provides Spearman’s correlation.</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="categorical-data-analysis.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(<span class="at">x =</span> <span class="fu">as.numeric</span>(<span class="fu">ordered</span>(train<span class="sc">$</span>Central_Air)), </span>
@@ -643,11 +643,11 @@ V = \sqrt{\frac{\chi^2_P/n}{\min(Rows-1, Columns-1)}}
 ##  Spearman&#39;s rank correlation rho
 ## 
 ## data:  x and y
-## S = 1140783190, p-value &lt; 2.2e-16
+## S = 1134632325, p-value &lt; 2.2e-16
 ## alternative hypothesis: true rho is not equal to 0
 ## sample estimates:
 ##       rho 
-## 0.2066634</code></pre>
+## 0.2109409</code></pre>
 <p>As previously mentioned, these are only a few of the dozens of different measures of association that exist. However, they are the most used ones.</p>
 <div id="python-code-30" class="section level3 hasAnchor" number="7.3.1">
 <h3><span class="header-section-number">7.3.1</span> Python Code<a href="categorical-data-analysis.html#python-code-30" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -655,19 +655,19 @@ V = \sqrt{\frac{\chi^2_P/n}{\min(Rows-1, Columns-1)}}
 <div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="categorical-data-analysis.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> fisher_exact</span>
 <span id="cb42-2"><a href="categorical-data-analysis.html#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-3"><a href="categorical-data-analysis.html#cb42-3" aria-hidden="true" tabindex="-1"></a>fisher_exact(pd.crosstab(index <span class="op">=</span> train[<span class="st">&#39;Central_Air&#39;</span>], columns <span class="op">=</span> train[<span class="st">&#39;Bonus&#39;</span>]))</span></code></pre></div>
-<pre><code>## (25.72996272134203, 1.3141728461393805e-26)</code></pre>
+<pre><code>## (21.992292870905587, 6.316364105830547e-27)</code></pre>
 <div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="categorical-data-analysis.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> fisher_exact</span>
 <span id="cb44-2"><a href="categorical-data-analysis.html#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb44-3"><a href="categorical-data-analysis.html#cb44-3" aria-hidden="true" tabindex="-1"></a>fisher_exact(pd.crosstab(index <span class="op">=</span> train[<span class="st">&#39;Central_Air&#39;</span>], columns <span class="op">=</span> train[<span class="st">&#39;Bonus&#39;</span>]))</span></code></pre></div>
-<pre><code>## (25.72996272134203, 1.3141728461393805e-26)</code></pre>
+<pre><code>## (21.992292870905587, 6.316364105830547e-27)</code></pre>
 <div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="categorical-data-analysis.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats.contingency <span class="im">import</span> association</span>
 <span id="cb46-2"><a href="categorical-data-analysis.html#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb46-3"><a href="categorical-data-analysis.html#cb46-3" aria-hidden="true" tabindex="-1"></a>association(pd.crosstab(index <span class="op">=</span> train[<span class="st">&#39;Central_Air&#39;</span>], columns <span class="op">=</span> train[<span class="st">&#39;Bonus&#39;</span>]), method <span class="op">=</span> <span class="st">&quot;cramer&quot;</span>)</span></code></pre></div>
-<pre><code>## 0.20666340936161873</code></pre>
+<pre><code>## 0.21094091464325487</code></pre>
 <div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="categorical-data-analysis.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> spearmanr</span>
 <span id="cb48-2"><a href="categorical-data-analysis.html#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-3"><a href="categorical-data-analysis.html#cb48-3" aria-hidden="true" tabindex="-1"></a>spearmanr(train[<span class="st">&#39;Central_Air&#39;</span>], train[<span class="st">&#39;Bonus&#39;</span>])</span></code></pre></div>
-<pre><code>## SpearmanrResult(correlation=0.20666340936161873, pvalue=3.2020441857969055e-21)
+<pre><code>## SpearmanrResult(correlation=0.2109409146432549, pvalue=4.631215546188166e-22)
 ## 
 ## C:\PROGRA~3\ANACON~1\lib\site-packages\scipy\stats\_stats_py.py:112: RuntimeWarning: The input array could not be properly checked for nan values. nan values will be ignored.
 ##   warnings.warn(&quot;The input array could not be properly &quot;</code></pre>
@@ -697,19 +697,19 @@ V = \sqrt{\frac{\chi^2_P/n}{\min(Rows-1, Columns-1)}}
 ## lm(formula = Bonus ~ Gr_Liv_Area, data = train)
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -1.28466 -0.28916 -0.09293  0.37723  0.88530 
+##     Min      1Q  Median      3Q     Max 
+## -2.7306 -0.2993 -0.1011  0.4069  0.8567 
 ## 
 ## Coefficients:
 ##               Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) -4.666e-01  2.762e-02  -16.89   &lt;2e-16 ***
-## Gr_Liv_Area  5.884e-04  1.753e-05   33.57   &lt;2e-16 ***
+## (Intercept) -4.059e-01  2.847e-02  -14.26   &lt;2e-16 ***
+## Gr_Liv_Area  5.559e-04  1.794e-05   30.98   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.3957 on 2049 degrees of freedom
-## Multiple R-squared:  0.3548, Adjusted R-squared:  0.3545 
-## F-statistic:  1127 on 1 and 2049 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 0.4088 on 2049 degrees of freedom
+## Multiple R-squared:  0.319,  Adjusted R-squared:  0.3187 
+## F-statistic: 959.9 on 1 and 2049 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="categorical-data-analysis.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">rstandard</span>(lp.model),</span>
 <span id="cb53-2"><a href="categorical-data-analysis.html#cb53-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">&quot;Standardized Residuals&quot;</span>,</span>
 <span id="cb53-3"><a href="categorical-data-analysis.html#cb53-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;Normal Scores&quot;</span>,</span>
@@ -758,24 +758,24 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
 ## 
 ## Coefficients:
 ##               Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept) -6.7028838  0.2971562  -22.56   &lt;2e-16 ***
-## Gr_Liv_Area  0.0042241  0.0001939   21.78   &lt;2e-16 ***
+## (Intercept) -5.9299285  0.2711751  -21.87   &lt;2e-16 ***
+## Gr_Liv_Area  0.0037615  0.0001778   21.16   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 2780.8  on 2050  degrees of freedom
-## Residual deviance: 1844.2  on 2049  degrees of freedom
-## AIC: 1848.2
+##     Null deviance: 2803.6  on 2050  degrees of freedom
+## Residual deviance: 1974.0  on 2049  degrees of freedom
+## AIC: 1978
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
 <p>Let’s examine the above output. Scanning down the output, you can see the actual logistic regression equation for the variable <code>Gr_Liv_Area</code>. Here we can see that it appears to be a significant variable at predicting bonus eligibility. However, the coefficient reported does not have the same usable interpretation as in linear regression. An increase of one unit of greater living area square footage is linearly related to the logit <strong>not</strong> the probability of bonus eligibility. We can transform this coefficient to make it more interpretable. A single unit increase in greater living area square footage <strong>does</strong> have a <span class="math inline">\(100 \times (e^\hat{\beta}-1)\%\)</span> increase in the average <strong>odds</strong> of bonus eligibility. We can use a combination of the <code>exp</code> and <code>coef</code> functions to obtain this number.</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="categorical-data-analysis.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span>(<span class="fu">exp</span>(<span class="fu">cbind</span>(<span class="fu">coef</span>(ames_logit), <span class="fu">confint</span>(ames_logit)))<span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## Waiting for profiling to be done...</code></pre>
-<pre><code>##                              2.5 %      97.5 %
-## (Intercept) -99.8772633 -99.932471 -99.7834111
-## Gr_Liv_Area   0.4232987   0.386085   0.4624538</code></pre>
+<pre><code>##                               2.5 %      97.5 %
+## (Intercept) -99.7341328 -99.8457566 -99.5532392
+## Gr_Liv_Area   0.3768579   0.3427238   0.4127002</code></pre>
 <p>In other words, every additional square foot in greater living area in the home leads to an average increase in odds of 0.385% to be bonus eligible.</p>
 </div>
 <div id="adding-categorical-variables" class="section level3 hasAnchor" number="7.4.3">
@@ -791,31 +791,33 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
 ## 
 ## Coefficients:
 ##                       Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)         -1.144e+01  7.858e-01 -14.557  &lt; 2e-16 ***
-## Gr_Liv_Area          4.161e-03  2.185e-04  19.046  &lt; 2e-16 ***
-## Central_AirY         4.402e+00  6.466e-01   6.808 9.86e-12 ***
-## factor(Fireplaces)1  1.022e+00  1.291e-01   7.919 2.40e-15 ***
-## factor(Fireplaces)2  6.179e-01  2.349e-01   2.631  0.00852 ** 
-## factor(Fireplaces)3  1.540e-01  9.046e-01   0.170  0.86487    
+## (Intercept)         -1.009e+01  6.845e-01 -14.746  &lt; 2e-16 ***
+## Gr_Liv_Area          3.686e-03  2.011e-04  18.327  &lt; 2e-16 ***
+## Central_AirY         3.841e+00  5.591e-01   6.870  6.4e-12 ***
+## factor(Fireplaces)1  1.049e+00  1.241e-01   8.452  &lt; 2e-16 ***
+## factor(Fireplaces)2  5.996e-01  2.298e-01   2.609  0.00908 ** 
+## factor(Fireplaces)3 -2.909e-02  1.151e+00  -0.025  0.97983    
+## factor(Fireplaces)4  9.064e+00  3.247e+02   0.028  0.97773    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 2780.8  on 2050  degrees of freedom
-## Residual deviance: 1664.2  on 2045  degrees of freedom
-## AIC: 1676.2
+##     Null deviance: 2803.6  on 2050  degrees of freedom
+## Residual deviance: 1778.1  on 2044  degrees of freedom
+## AIC: 1792.1
 ## 
-## Number of Fisher Scoring iterations: 6</code></pre>
+## Number of Fisher Scoring iterations: 11</code></pre>
 <p>Just like with linear regression, categorical predictor variables are a comparison between two categories. Again, the coefficients from the logistic regression model need to be transformed to be interpreted.</p>
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="categorical-data-analysis.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span>(<span class="fu">exp</span>(<span class="fu">cbind</span>(<span class="fu">coef</span>(ames_logit2), <span class="fu">confint</span>(ames_logit2)))<span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>##                                         2.5 %        97.5 %
-## (Intercept)          -99.9989222  -99.9997943   -99.9954385
-## Gr_Liv_Area            0.4169371    0.3750008     0.4610364
-## Central_AirY        8063.5592688 2456.9384522 33152.9025752
-## factor(Fireplaces)1  177.9997937  115.9724737   258.3547397
-## factor(Fireplaces)2   85.4952536   17.0083745   194.1605262
-## factor(Fireplaces)3   16.6434043  -78.0472870   797.6492557</code></pre>
+## (Intercept)            -99.995864  -99.999020   -99.9854303
+## Gr_Liv_Area              0.369311    0.330681     0.4098519
+## Central_AirY          4558.752989 1606.907138 15562.8101471
+## factor(Fireplaces)1    185.461129  123.956983   264.3565589
+## factor(Fireplaces)2     82.134665   16.129048   186.2369073
+## factor(Fireplaces)3     -2.866930  -89.674170   965.2093862
+## factor(Fireplaces)4 863747.190478 -100.000000            NA</code></pre>
 <p>Let’s use the first fireplace variable as an example. A home with one fireplace has, on average, 167.04% higher odds of being bonus eligible as compared to a home with zero fireplaces.</p>
 </div>
 <div id="model-assessment" class="section level3 hasAnchor" number="7.4.4">
@@ -830,18 +832,18 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
 ## concordance.lm(object = ames_logit)
 ## 
 ## n= 2051 
-## Concordance= 0.8715 se= 0.007463
+## Concordance= 0.8584 se= 0.00791
 ## concordant discordant     tied.x     tied.y    tied.xy 
-##     888418     130772        598    1080386       2101</code></pre>
+##     884991     145814        539    1069022       1909</code></pre>
 <p>From the above output we have a concordance of 86.3% for our model. There is no good or bad value as this can only be compared with another model to see which is better. Let’s compare this to our model with the categorical variables.</p>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="categorical-data-analysis.html#cb66-1" aria-hidden="true" tabindex="-1"></a>survival<span class="sc">::</span><span class="fu">concordance</span>(ames_logit2)</span></code></pre></div>
 <pre><code>## Call:
 ## concordance.lm(object = ames_logit2)
 ## 
 ## n= 2051 
-## Concordance= 0.8921 se= 0.006757
+## Concordance= 0.8819 se= 0.007135
 ## concordant discordant     tied.x     tied.y    tied.xy 
-##     909661     109870        257    1081261       1226</code></pre>
+##     909389     121737        218    1069852       1079</code></pre>
 <p>We can see that the model with categorical predictors added to it has a higher concordance at 88.4%. That implies that our model is correctly able to rank our observations 88.4% of the time. This is <strong>NOT</strong> the same thing as saying our model is 88.4% accurate. Accuracy (which is not covered here) deals with a prediction being correct or incorrect. Concordance is only measuring how often we are able to predict 1’s with higher probability than 0’s - again, correctly ranking the observations.</p>
 </div>
 <div id="variable-selection-and-regularized-regression" class="section level3 hasAnchor" number="7.4.5">
@@ -873,314 +875,317 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
 <span id="cb69-2"><a href="categorical-data-analysis.html#cb69-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> <span class="fu">formula</span>(empty.model),</span>
 <span id="cb69-3"><a href="categorical-data-analysis.html#cb69-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">upper =</span> <span class="fu">formula</span>(full.model)),</span>
 <span id="cb69-4"><a href="categorical-data-analysis.html#cb69-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="at">k =</span> <span class="fu">log</span>(<span class="fu">dim</span>(train_sel_log)[<span class="dv">1</span>]))</span></code></pre></div>
-<pre><code>## Start:  AIC=2923.72
+<pre><code>## Start:  AIC=2946.83
 ## Bonus ~ 1
 ## 
 ##                 Df Deviance    AIC
-## + Overall_Qual   9   230.38 1414.5
-## + Full_Bath      1   319.29 2022.9
-## + Gr_Liv_Area    1   320.81 2032.6
-## + Garage_Area    1   364.89 2296.7
-## + First_Flr_SF   1   382.53 2393.5
-## + Fireplaces     1   415.86 2564.9
-## + TotRms_AbvGrd  1   417.64 2573.6
-## + House_Style    7   442.69 2738.9
-## + Half_Bath      1   462.18 2781.5
-## + Second_Flr_SF  1   462.39 2782.4
-## + Lot_Area       1   472.15 2825.3
-## + Central_Air    1   475.98 2841.8
-## + Bldg_Type      4   478.36 2874.9
-## &lt;none&gt;               497.22 2923.7
-## + Street         1   496.89 2930.0
-## + Roof_Style     5   490.51 2934.0
+## + Overall_Qual   9   238.05 1481.7
+## + Full_Bath      1   337.19 2134.8
+## + Gr_Liv_Area    1   342.43 2166.4
+## + Garage_Area    1   372.19 2337.4
+## + First_Flr_SF   1   396.47 2467.0
+## + Fireplaces     1   423.45 2602.0
+## + TotRms_AbvGrd  1   433.21 2648.7
+## + House_Style    7   447.93 2763.0
+## + Half_Bath      1   465.65 2796.8
+## + Second_Flr_SF  1   470.16 2816.6
+## + Central_Air    1   480.47 2861.1
+## + Lot_Area       1   485.78 2883.6
+## + Bldg_Type      4   484.94 2902.9
+## &lt;none&gt;               502.85 2946.8
+## + Street         1   502.46 2952.9
+## + Roof_Style     5   497.52 2963.1
 ## 
-## Step:  AIC=1414.55
+## Step:  AIC=1481.67
 ## Bonus ~ Overall_Qual
 ## 
 ##                 Df Deviance    AIC
-## + Gr_Liv_Area    1   202.44 1157.0
-## + Full_Bath      1   203.86 1171.3
-## + First_Flr_SF   1   210.24 1234.5
-## + Lot_Area       1   214.95 1280.0
-## + Fireplaces     1   218.11 1309.9
-## + Garage_Area    1   219.50 1323.0
-## + TotRms_AbvGrd  1   219.56 1323.5
-## + Bldg_Type      4   223.29 1381.0
-## + House_Style    7   222.49 1396.5
-## + Second_Flr_SF  1   227.72 1398.4
-## + Half_Bath      1   228.47 1405.1
-## + Central_Air    1   229.32 1412.7
-## &lt;none&gt;               230.38 1414.5
-## + Street         1   230.14 1420.0
-## + Roof_Style     5   228.82 1438.8
+## + Gr_Liv_Area    1   213.77 1268.7
+## + Full_Bath      1   214.91 1279.6
+## + First_Flr_SF   1   220.34 1330.8
+## + Garage_Area    1   225.43 1377.6
+## + Fireplaces     1   226.35 1386.0
+## + TotRms_AbvGrd  1   228.02 1401.0
+## + Lot_Area       1   228.53 1405.6
+## + Half_Bath      1   234.29 1456.7
+## + Bldg_Type      4   232.70 1465.6
+## + Second_Flr_SF  1   235.35 1465.9
+## + House_Style    7   230.67 1470.5
+## + Central_Air    1   236.56 1476.5
+## &lt;none&gt;               238.05 1481.7
+## + Street         1   237.98 1488.7
+## + Roof_Style     5   237.87 1518.3
 ## 
-## Step:  AIC=1157.01
+## Step:  AIC=1268.65
 ## Bonus ~ Overall_Qual + Gr_Liv_Area
 ## 
 ##                 Df Deviance    AIC
-## + House_Style    7   188.39 1062.9
-## + Full_Bath      1   193.95 1076.7
-## + First_Flr_SF   1   195.18 1089.7
-## + Second_Flr_SF  1   195.91 1097.4
-## + Lot_Area       1   196.12 1099.6
-## + Garage_Area    1   197.85 1117.6
-## + Fireplaces     1   198.88 1128.2
-## + Bldg_Type      4   197.25 1134.3
-## + TotRms_AbvGrd  1   201.01 1150.1
-## + Central_Air    1   201.03 1150.3
-## &lt;none&gt;               202.44 1157.0
-## + Half_Bath      1   202.12 1161.3
-## + Street         1   202.13 1161.4
-## + Roof_Style     5   201.46 1185.1
+## + House_Style    7   200.44 1190.0
+## + Full_Bath      1   206.15 1201.8
+## + First_Flr_SF   1   207.39 1214.1
+## + Garage_Area    1   207.62 1216.5
+## + Second_Flr_SF  1   208.20 1222.1
+## + Fireplaces     1   209.85 1238.3
+## + Lot_Area       1   210.18 1241.5
+## + Central_Air    1   211.83 1257.6
+## + Bldg_Type      4   209.52 1258.0
+## + TotRms_AbvGrd  1   212.29 1262.1
+## &lt;none&gt;               213.77 1268.7
+## + Street         1   213.61 1274.8
+## + Half_Bath      1   213.76 1276.2
+## + Roof_Style     5   212.90 1298.4
 ## 
-## Step:  AIC=1062.9
+## Step:  AIC=1189.97
 ## Bonus ~ Overall_Qual + Gr_Liv_Area + House_Style
 ## 
 ##                 Df Deviance    AIC
-## + Full_Bath      1   182.07 1000.5
-## + Lot_Area       1   184.00 1022.1
-## + Bldg_Type      4   183.59 1040.5
-## + Fireplaces     1   185.73 1041.3
-## + Garage_Area    1   186.47 1049.4
-## + TotRms_AbvGrd  1   187.47 1060.5
-## &lt;none&gt;               188.39 1062.9
-## + First_Flr_SF   1   187.81 1064.2
-## + Central_Air    1   187.85 1064.6
-## + Street         1   188.09 1067.2
-## + Second_Flr_SF  1   188.12 1067.6
-## + Half_Bath      1   188.29 1069.5
-## + Roof_Style     5   186.89 1084.6
+## + Full_Bath      1   194.27 1133.5
+## + Garage_Area    1   197.27 1164.9
+## + Fireplaces     1   197.66 1169.0
+## + Lot_Area       1   198.26 1175.2
+## + Bldg_Type      4   196.28 1177.5
+## + Central_Air    1   199.56 1188.7
+## + TotRms_AbvGrd  1   199.56 1188.7
+## + Half_Bath      1   199.59 1188.9
+## &lt;none&gt;               200.44 1190.0
+## + First_Flr_SF   1   200.01 1193.2
+## + Second_Flr_SF  1   200.25 1195.7
+## + Street         1   200.28 1196.0
+## + Roof_Style     5   198.31 1206.3
 ## 
-## Step:  AIC=1000.46
+## Step:  AIC=1133.51
 ## Bonus ~ Overall_Qual + Gr_Liv_Area + House_Style + Full_Bath
 ## 
-##                 Df Deviance     AIC
-## + Bldg_Type      4   173.88  936.56
-## + Lot_Area       1   177.25  953.03
-## + Fireplaces     1   177.76  959.03
-## + TotRms_AbvGrd  1   180.53  990.69
-## + Garage_Area    1   180.55  990.94
-## + Half_Bath      1   181.10  997.12
-## + First_Flr_SF   1   181.34  999.84
-## &lt;none&gt;               182.07 1000.46
-## + Central_Air    1   181.54 1002.11
-## + Second_Flr_SF  1   181.66 1003.47
-## + Street         1   181.73 1004.33
-## + Roof_Style     5   180.94 1025.80
+##                 Df Deviance    AIC
+## + Bldg_Type      4   187.53 1091.6
+## + Fireplaces     1   189.82 1093.6
+## + Garage_Area    1   191.38 1110.4
+## + Half_Bath      1   191.55 1112.2
+## + Lot_Area       1   191.67 1113.5
+## + TotRms_AbvGrd  1   192.67 1124.1
+## + Central_Air    1   193.37 1131.7
+## &lt;none&gt;               194.27 1133.5
+## + First_Flr_SF   1   193.73 1135.5
+## + Second_Flr_SF  1   194.00 1138.3
+## + Street         1   194.07 1139.0
+## + Roof_Style     5   192.70 1155.0
 ## 
-## Step:  AIC=936.56
+## Step:  AIC=1091.58
 ## Bonus ~ Overall_Qual + Gr_Liv_Area + House_Style + Full_Bath + 
 ##     Bldg_Type
 ## 
 ##                 Df Deviance    AIC
-## + Lot_Area       1   170.62 905.45
-## + Fireplaces     1   170.85 908.21
-## + Half_Bath      1   172.55 928.49
-## + Garage_Area    1   172.73 930.58
-## + First_Flr_SF   1   172.77 931.06
-## + TotRms_AbvGrd  1   172.86 932.19
-## + Second_Flr_SF  1   173.17 935.86
-## &lt;none&gt;               173.88 936.56
-## + Street         1   173.34 937.88
-## + Central_Air    1   173.66 941.67
-## + Roof_Style     5   172.66 960.34
+## + Fireplaces     1   184.20 1062.4
+## + Half_Bath      1   184.45 1065.2
+## + Garage_Area    1   185.54 1077.4
+## + Lot_Area       1   185.82 1080.5
+## + TotRms_AbvGrd  1   186.63 1089.3
+## + First_Flr_SF   1   186.70 1090.1
+## &lt;none&gt;               187.53 1091.6
+## + Second_Flr_SF  1   187.06 1094.1
+## + Central_Air    1   187.12 1094.8
+## + Street         1   187.28 1096.5
+## + Roof_Style     5   185.91 1111.9
 ## 
-## Step:  AIC=905.45
+## Step:  AIC=1062.44
 ## Bonus ~ Overall_Qual + Gr_Liv_Area + House_Style + Full_Bath + 
-##     Bldg_Type + Lot_Area
+##     Bldg_Type + Fireplaces
 ## 
 ##                 Df Deviance    AIC
-## + Fireplaces     1   168.41 886.32
-## + Half_Bath      1   169.39 898.21
-## + TotRms_AbvGrd  1   169.78 902.93
-## + Garage_Area    1   169.79 903.04
-## + First_Flr_SF   1   169.89 904.19
-## &lt;none&gt;               170.62 905.45
-## + Second_Flr_SF  1   170.19 907.86
-## + Central_Air    1   170.49 911.44
-## + Street         1   170.52 911.87
-## + Roof_Style     5   169.65 931.88
+## + Half_Bath      1   181.47 1039.5
+## + Garage_Area    1   182.28 1048.6
+## + Lot_Area       1   183.10 1057.8
+## + TotRms_AbvGrd  1   183.42 1061.4
+## &lt;none&gt;               184.20 1062.4
+## + First_Flr_SF   1   183.65 1064.0
+## + Second_Flr_SF  1   183.91 1066.9
+## + Central_Air    1   183.92 1067.0
+## + Street         1   184.00 1067.9
+## + Roof_Style     5   182.52 1081.8
 ## 
-## Step:  AIC=886.32
+## Step:  AIC=1039.49
 ## Bonus ~ Overall_Qual + Gr_Liv_Area + House_Style + Full_Bath + 
-##     Bldg_Type + Lot_Area + Fireplaces
+##     Bldg_Type + Fireplaces + Half_Bath
 ## 
 ##                 Df Deviance    AIC
-## + Half_Bath      1   167.35 880.98
-## + Garage_Area    1   167.53 883.14
-## + TotRms_AbvGrd  1   167.59 883.96
-## &lt;none&gt;               168.41 886.32
-## + First_Flr_SF   1   167.85 887.13
-## + Second_Flr_SF  1   168.09 890.06
-## + Street         1   168.31 892.68
-## + Central_Air    1   168.32 892.81
-## + Roof_Style     5   167.48 913.03
+## + Garage_Area    1   179.78 1027.9
+## + Lot_Area       1   180.32 1034.1
+## + First_Flr_SF   1   180.42 1035.2
+## + Second_Flr_SF  1   180.78 1039.3
+## + TotRms_AbvGrd  1   180.78 1039.3
+## &lt;none&gt;               181.47 1039.5
+## + Street         1   181.27 1044.8
+## + Central_Air    1   181.39 1046.2
+## + Roof_Style     5   179.91 1059.9
 ## 
-## Step:  AIC=880.98
+## Step:  AIC=1027.87
 ## Bonus ~ Overall_Qual + Gr_Liv_Area + House_Style + Full_Bath + 
-##     Bldg_Type + Lot_Area + Fireplaces + Half_Bath
+##     Bldg_Type + Fireplaces + Half_Bath + Garage_Area
 ## 
 ##                 Df Deviance    AIC
-## + First_Flr_SF   1   166.53 878.56
-## + Garage_Area    1   166.59 879.21
-## + TotRms_AbvGrd  1   166.60 879.44
-## &lt;none&gt;               167.35 880.98
-## + Second_Flr_SF  1   166.81 881.97
-## + Street         1   167.25 887.33
-## + Central_Air    1   167.31 888.14
-## + Roof_Style     5   166.37 907.05
+## + Lot_Area       1   178.81 1024.5
+## + First_Flr_SF   1   178.93 1025.8
+## &lt;none&gt;               179.78 1027.9
+## + Second_Flr_SF  1   179.23 1029.2
+## + TotRms_AbvGrd  1   179.24 1029.4
+## + Street         1   179.64 1033.9
+## + Central_Air    1   179.77 1035.5
+## + Roof_Style     5   178.26 1048.7
 ## 
-## Step:  AIC=878.56
+## Step:  AIC=1024.46
 ## Bonus ~ Overall_Qual + Gr_Liv_Area + House_Style + Full_Bath + 
-##     Bldg_Type + Lot_Area + Fireplaces + Half_Bath + First_Flr_SF
+##     Bldg_Type + Fireplaces + Half_Bath + Garage_Area + Lot_Area
 ## 
 ##                 Df Deviance    AIC
-## + TotRms_AbvGrd  1   165.72 876.21
-## + Garage_Area    1   165.90 878.32
-## &lt;none&gt;               166.53 878.56
-## + Second_Flr_SF  1   166.29 883.15
-## + Street         1   166.42 884.82
-## + Central_Air    1   166.50 885.84
-## + Roof_Style     5   165.49 903.78
-## 
-## Step:  AIC=876.21
-## Bonus ~ Overall_Qual + Gr_Liv_Area + House_Style + Full_Bath + 
-##     Bldg_Type + Lot_Area + Fireplaces + Half_Bath + First_Flr_SF + 
-##     TotRms_AbvGrd
-## 
-##                 Df Deviance    AIC
-## &lt;none&gt;               165.72 876.21
-## + Garage_Area    1   165.14 876.56
-## + Second_Flr_SF  1   165.49 880.94
-## + Street         1   165.63 882.63
-## + Central_Air    1   165.69 883.40
-## + Roof_Style     5   164.76 902.38</code></pre>
+## &lt;none&gt;               178.81 1024.5
+## + First_Flr_SF   1   178.16 1024.6
+## + TotRms_AbvGrd  1   178.37 1027.0
+## + Second_Flr_SF  1   178.41 1027.4
+## + Street         1   178.77 1031.6
+## + Central_Air    1   178.81 1032.1
+## + Roof_Style     5   177.29 1045.1</code></pre>
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="categorical-data-analysis.html#cb71-1" aria-hidden="true" tabindex="-1"></a>back.model <span class="ot">&lt;-</span> <span class="fu">step</span>(full.model,</span>
 <span id="cb71-2"><a href="categorical-data-analysis.html#cb71-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> <span class="fu">formula</span>(empty.model),</span>
 <span id="cb71-3"><a href="categorical-data-analysis.html#cb71-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">upper =</span> <span class="fu">formula</span>(full.model)),</span>
 <span id="cb71-4"><a href="categorical-data-analysis.html#cb71-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="at">k =</span> <span class="fu">log</span>(<span class="fu">dim</span>(train_sel_log)[<span class="dv">1</span>]))</span></code></pre></div>
-<pre><code>## Start:  AIC=921.3
+<pre><code>## Start:  AIC=1068.82
 ## Bonus ~ Lot_Area + Street + Bldg_Type + House_Style + Overall_Qual + 
 ##     Roof_Style + Central_Air + First_Flr_SF + Second_Flr_SF + 
 ##     Full_Bath + Half_Bath + Fireplaces + Garage_Area + Gr_Liv_Area + 
 ##     TotRms_AbvGrd
 ## 
-##                 Df Deviance     AIC
-## - Roof_Style     5   164.83  895.59
-## - Central_Air    1   163.84  913.73
-## - Gr_Liv_Area    1   163.90  914.56
-## - Street         1   163.94  914.95
-## - Second_Flr_SF  1   164.06  916.46
-## - First_Flr_SF   1   164.32  919.81
-## - Garage_Area    1   164.38  920.45
-## &lt;none&gt;               163.83  921.30
-## - TotRms_AbvGrd  1   164.49  921.87
-## - Half_Bath      1   164.94  927.52
-## - Lot_Area       1   165.18  930.46
-## - Fireplaces     1   165.58  935.47
-## - House_Style    7   169.74  940.53
-## - Bldg_Type      4   169.59  961.58
-## - Full_Bath      1   175.11 1050.15
-## - Overall_Qual   9   208.19 1344.11
+##                 Df Deviance    AIC
+## - Roof_Style     5   177.51 1047.6
+## - Central_Air    1   176.05 1061.2
+## - Gr_Liv_Area    1   176.07 1061.4
+## - Street         1   176.11 1061.9
+## - Second_Flr_SF  1   176.19 1062.8
+## - First_Flr_SF   1   176.42 1065.4
+## - TotRms_AbvGrd  1   176.48 1066.2
+## - Lot_Area       1   176.66 1068.2
+## &lt;none&gt;               176.05 1068.8
+## - Garage_Area    1   177.19 1074.4
+## - House_Style    7   181.36 1076.4
+## - Fireplaces     1   178.18 1085.8
+## - Bldg_Type      4   180.60 1090.7
+## - Half_Bath      1   178.71 1091.9
+## - Full_Bath      1   187.54 1190.9
+## - Overall_Qual   9   220.95 1466.1
 ## 
-## Step:  AIC=895.59
+## Step:  AIC=1047.6
 ## Bonus ~ Lot_Area + Street + Bldg_Type + House_Style + Overall_Qual + 
 ##     Central_Air + First_Flr_SF + Second_Flr_SF + Full_Bath + 
 ##     Half_Bath + Fireplaces + Garage_Area + Gr_Liv_Area + TotRms_AbvGrd
 ## 
-##                 Df Deviance     AIC
-## - Central_Air    1   164.84  888.05
-## - Gr_Liv_Area    1   164.90  888.86
-## - Street         1   164.91  888.92
-## - Second_Flr_SF  1   165.05  890.76
-## - First_Flr_SF   1   165.31  893.94
-## - Garage_Area    1   165.36  894.58
-## &lt;none&gt;               164.83  895.59
-## - TotRms_AbvGrd  1   165.57  897.12
-## - Half_Bath      1   165.84  900.57
-## - Lot_Area       1   166.34  906.67
-## - Fireplaces     1   166.62  910.19
-## - House_Style    7   170.66  913.50
-## - Bldg_Type      4   170.48  934.18
-## - Full_Bath      1   176.53 1028.60
-## - Overall_Qual   9   209.12 1315.06
+##                 Df Deviance    AIC
+## - Central_Air    1   177.51 1040.0
+## - Gr_Liv_Area    1   177.54 1040.3
+## - Street         1   177.56 1040.5
+## - Second_Flr_SF  1   177.65 1041.5
+## - First_Flr_SF   1   177.89 1044.4
+## - TotRms_AbvGrd  1   177.96 1045.2
+## - Lot_Area       1   178.10 1046.8
+## &lt;none&gt;               177.51 1047.6
+## - House_Style    7   182.54 1051.5
+## - Garage_Area    1   178.67 1053.3
+## - Fireplaces     1   179.60 1064.0
+## - Bldg_Type      4   182.11 1069.6
+## - Half_Bath      1   180.25 1071.4
+## - Full_Bath      1   189.71 1176.3
+## - Overall_Qual   9   222.70 1444.1
 ## 
-## Step:  AIC=888.05
+## Step:  AIC=1039.97
 ## Bonus ~ Lot_Area + Street + Bldg_Type + House_Style + Overall_Qual + 
 ##     First_Flr_SF + Second_Flr_SF + Full_Bath + Half_Bath + Fireplaces + 
 ##     Garage_Area + Gr_Liv_Area + TotRms_AbvGrd
 ## 
-##                 Df Deviance     AIC
-## - Gr_Liv_Area    1   164.91  881.33
-## - Street         1   164.91  881.34
-## - Second_Flr_SF  1   165.06  883.23
-## - First_Flr_SF   1   165.32  886.42
-## - Garage_Area    1   165.40  887.41
-## &lt;none&gt;               164.84  888.05
-## - TotRms_AbvGrd  1   165.57  889.54
-## - Half_Bath      1   165.88  893.36
-## - Lot_Area       1   166.36  899.26
-## - Fireplaces     1   166.64  902.77
-## - House_Style    7   170.71  906.43
-## - Bldg_Type      4   170.54  927.37
-## - Full_Bath      1   176.59 1021.74
-## - Overall_Qual   9   209.12 1307.43
+##                 Df Deviance    AIC
+## - Gr_Liv_Area    1   177.54 1032.7
+## - Street         1   177.56 1032.9
+## - Second_Flr_SF  1   177.65 1033.9
+## - First_Flr_SF   1   177.89 1036.7
+## - TotRms_AbvGrd  1   177.96 1037.5
+## - Lot_Area       1   178.10 1039.2
+## &lt;none&gt;               177.51 1040.0
+## - House_Style    7   182.56 1044.1
+## - Garage_Area    1   178.71 1046.1
+## - Fireplaces     1   179.60 1056.4
+## - Bldg_Type      4   182.14 1062.3
+## - Half_Bath      1   180.31 1064.5
+## - Full_Bath      1   189.78 1169.4
+## - Overall_Qual   9   222.70 1436.5
 ## 
-## Step:  AIC=881.33
+## Step:  AIC=1032.67
 ## Bonus ~ Lot_Area + Street + Bldg_Type + House_Style + Overall_Qual + 
 ##     First_Flr_SF + Second_Flr_SF + Full_Bath + Half_Bath + Fireplaces + 
 ##     Garage_Area + TotRms_AbvGrd
 ## 
-##                 Df Deviance     AIC
-## - Street         1   164.99  874.65
-## - Garage_Area    1   165.47  880.66
-## &lt;none&gt;               164.91  881.33
-## - Second_Flr_SF  1   165.61  882.38
-## - TotRms_AbvGrd  1   165.70  883.48
-## - Half_Bath      1   165.96  886.70
-## - Lot_Area       1   166.43  892.47
-## - Fireplaces     1   166.72  896.05
-## - House_Style    7   170.71  898.81
-## - Bldg_Type      4   170.60  920.40
-## - First_Flr_SF   1   169.97  935.66
-## - Full_Bath      1   176.65 1014.74
-## - Overall_Qual   9   209.14 1300.01
+##                 Df Deviance    AIC
+## - Street         1   177.58 1025.6
+## - Second_Flr_SF  1   178.00 1030.4
+## - TotRms_AbvGrd  1   178.03 1030.7
+## - Lot_Area       1   178.13 1031.9
+## &lt;none&gt;               177.54 1032.7
+## - House_Style    7   182.60 1036.9
+## - Garage_Area    1   178.73 1038.8
+## - Fireplaces     1   179.62 1049.0
+## - Bldg_Type      4   182.15 1054.8
+## - Half_Bath      1   180.33 1057.1
+## - First_Flr_SF   1   181.61 1071.5
+## - Full_Bath      1   189.78 1161.8
+## - Overall_Qual   9   222.76 1429.4
 ## 
-## Step:  AIC=874.65
+## Step:  AIC=1025.59
 ## Bonus ~ Lot_Area + Bldg_Type + House_Style + Overall_Qual + First_Flr_SF + 
 ##     Second_Flr_SF + Full_Bath + Half_Bath + Fireplaces + Garage_Area + 
 ##     TotRms_AbvGrd
 ## 
-##                 Df Deviance     AIC
-## - Garage_Area    1   165.56  874.22
-## &lt;none&gt;               164.99  874.65
-## - Second_Flr_SF  1   165.68  875.61
-## - TotRms_AbvGrd  1   165.79  876.97
-## - Half_Bath      1   166.03  879.99
-## - Lot_Area       1   166.75  888.86
-## - Fireplaces     1   166.79  889.35
-## - House_Style    7   170.79  892.18
-## - Bldg_Type      4   170.60  912.80
-## - First_Flr_SF   1   169.99  928.37
-## - Full_Bath      1   176.68 1007.46
-## - Overall_Qual   9   209.30 1293.98
+##                 Df Deviance    AIC
+## - Second_Flr_SF  1   178.04 1023.3
+## - TotRms_AbvGrd  1   178.08 1023.7
+## &lt;none&gt;               177.58 1025.6
+## - Lot_Area       1   178.26 1025.8
+## - House_Style    7   182.65 1029.9
+## - Garage_Area    1   178.81 1032.0
+## - Fireplaces     1   179.67 1041.9
+## - Bldg_Type      4   182.16 1047.3
+## - Half_Bath      1   180.37 1049.9
+## - First_Flr_SF   1   181.62 1064.1
+## - Full_Bath      1   189.79 1154.3
+## - Overall_Qual   9   222.81 1422.3
 ## 
-## Step:  AIC=874.22
+## Step:  AIC=1023.26
 ## Bonus ~ Lot_Area + Bldg_Type + House_Style + Overall_Qual + First_Flr_SF + 
-##     Second_Flr_SF + Full_Bath + Half_Bath + Fireplaces + TotRms_AbvGrd
+##     Full_Bath + Half_Bath + Fireplaces + Garage_Area + TotRms_AbvGrd
 ## 
-##                 Df Deviance     AIC
-## &lt;none&gt;               165.56  874.22
-## - Second_Flr_SF  1   166.31  875.85
-## - TotRms_AbvGrd  1   166.42  877.14
-## - Half_Bath      1   166.74  881.09
-## - Fireplaces     1   167.31  888.10
-## - Lot_Area       1   167.51  890.55
-## - House_Style    7   171.61  894.35
-## - Bldg_Type      4   171.42  914.95
-## - First_Flr_SF   1   171.42  937.91
-## - Full_Bath      1   177.86 1013.55
-## - Overall_Qual   9   214.87 1340.23</code></pre>
+##                 Df Deviance    AIC
+## - TotRms_AbvGrd  1   178.29 1018.5
+## &lt;none&gt;               178.04 1023.3
+## - Lot_Area       1   178.76 1023.8
+## - House_Style    7   182.81 1024.1
+## - Garage_Area    1   179.40 1031.2
+## - Fireplaces     1   180.40 1042.6
+## - Bldg_Type      4   182.92 1048.2
+## - Half_Bath      1   181.57 1055.9
+## - First_Flr_SF   1   181.64 1056.6
+## - Full_Bath      1   192.31 1173.8
+## - Overall_Qual   9   223.59 1421.8
+## 
+## Step:  AIC=1018.47
+## Bonus ~ Lot_Area + Bldg_Type + House_Style + Overall_Qual + First_Flr_SF + 
+##     Full_Bath + Half_Bath + Fireplaces + Garage_Area
+## 
+##                Df Deviance    AIC
+## &lt;none&gt;              178.29 1018.5
+## - Lot_Area      1   179.06 1019.7
+## - House_Style   7   183.22 1021.1
+## - Garage_Area   1   179.70 1027.0
+## - Fireplaces    1   180.62 1037.4
+## - Bldg_Type     4   183.34 1045.3
+## - Half_Bath     1   181.71 1049.8
+## - First_Flr_SF  1   181.88 1051.8
+## - Full_Bath     1   192.38 1166.8
+## - Overall_Qual  9   224.36 1421.2</code></pre>
 <p>In the above two approaches we used the BIC selection criteria. Here both forward and backward selection actually picked the same model. Let’s check the concordance of this model.</p>
 <div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="categorical-data-analysis.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Concordance(train$Bonus, predict(back.model, type = &quot;response&quot;))</span></span></code></pre></div>
 <p>Not surprisingly, this model outperforms the previous model that we had with a concordance of 96.1%.</p>
@@ -1196,25 +1201,25 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
 <table class="simpletable">
 <caption>OLS Regression Results</caption>
 <tr>
-  <th>Dep. Variable:</th>          <td>Bonus</td>      <th>  R-squared:         </th> <td>   0.355</td> 
+  <th>Dep. Variable:</th>          <td>Bonus</td>      <th>  R-squared:         </th> <td>   0.319</td> 
 </tr>
 <tr>
-  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared:    </th> <td>   0.354</td> 
+  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared:    </th> <td>   0.319</td> 
 </tr>
 <tr>
-  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   1127.</td> 
+  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   959.9</td> 
 </tr>
 <tr>
-  <th>Date:</th>             <td>Mon, 05 Jun 2023</td> <th>  Prob (F-statistic):</th> <td>3.23e-197</td>
+  <th>Date:</th>             <td>Tue, 06 Jun 2023</td> <th>  Prob (F-statistic):</th> <td>3.42e-173</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>13:40:54</td>     <th>  Log-Likelihood:    </th> <td> -1007.7</td> 
+  <th>Time:</th>                 <td>14:58:04</td>     <th>  Log-Likelihood:    </th> <td> -1074.6</td> 
 </tr>
 <tr>
-  <th>No. Observations:</th>      <td>  2051</td>      <th>  AIC:               </th> <td>   2019.</td> 
+  <th>No. Observations:</th>      <td>  2051</td>      <th>  AIC:               </th> <td>   2153.</td> 
 </tr>
 <tr>
-  <th>Df Residuals:</th>          <td>  2049</td>      <th>  BIC:               </th> <td>   2031.</td> 
+  <th>Df Residuals:</th>          <td>  2049</td>      <th>  BIC:               </th> <td>   2164.</td> 
 </tr>
 <tr>
   <th>Df Model:</th>              <td>     1</td>      <th>                     </th>     <td> </td>    
@@ -1228,26 +1233,26 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
        <td></td>          <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
 </tr>
 <tr>
-  <th>Intercept</th>   <td>   -0.4666</td> <td>    0.028</td> <td>  -16.893</td> <td> 0.000</td> <td>   -0.521</td> <td>   -0.412</td>
+  <th>Intercept</th>   <td>   -0.4059</td> <td>    0.028</td> <td>  -14.259</td> <td> 0.000</td> <td>   -0.462</td> <td>   -0.350</td>
 </tr>
 <tr>
-  <th>Gr_Liv_Area</th> <td>    0.0006</td> <td> 1.75e-05</td> <td>   33.567</td> <td> 0.000</td> <td>    0.001</td> <td>    0.001</td>
+  <th>Gr_Liv_Area</th> <td>    0.0006</td> <td> 1.79e-05</td> <td>   30.983</td> <td> 0.000</td> <td>    0.001</td> <td>    0.001</td>
 </tr>
 </table>
 <table class="simpletable">
 <tr>
-  <th>Omnibus:</th>       <td>182.684</td> <th>  Durbin-Watson:     </th> <td>   1.967</td>
+  <th>Omnibus:</th>       <td> 0.691</td> <th>  Durbin-Watson:     </th> <td>   1.974</td>
 </tr>
 <tr>
-  <th>Prob(Omnibus):</th> <td> 0.000</td>  <th>  Jarque-Bera (JB):  </th> <td>  68.143</td>
+  <th>Prob(Omnibus):</th> <td> 0.708</td> <th>  Jarque-Bera (JB):  </th> <td>   0.755</td>
 </tr>
 <tr>
-  <th>Skew:</th>          <td> 0.200</td>  <th>  Prob(JB):          </th> <td>1.60e-15</td>
+  <th>Skew:</th>          <td> 0.030</td> <th>  Prob(JB):          </th> <td>   0.685</td>
 </tr>
 <tr>
-  <th>Kurtosis:</th>      <td> 2.202</td>  <th>  Cond. No.          </th> <td>4.98e+03</td>
+  <th>Kurtosis:</th>      <td> 2.928</td> <th>  Cond. No.          </th> <td>5.00e+03</td>
 </tr>
-</table><br/><br/>Notes:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.<br/>[2] The condition number is large, 4.98e+03. This might indicate that there are<br/>strong multicollinearity or other numerical problems.
+</table><br/><br/>Notes:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.<br/>[2] The condition number is large,  5e+03. This might indicate that there are<br/>strong multicollinearity or other numerical problems.
 <div class="sourceCode" id="cb75"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb75-1"><a href="categorical-data-analysis.html#cb75-1" aria-hidden="true" tabindex="-1"></a>sm.api.qqplot(lp_model.resid)</span>
 <span id="cb75-2"><a href="categorical-data-analysis.html#cb75-2" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
@@ -1256,16 +1261,16 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
 <span id="cb76-3"><a href="categorical-data-analysis.html#cb76-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb76-4"><a href="categorical-data-analysis.html#cb76-4" aria-hidden="true" tabindex="-1"></a>train[[<span class="st">&#39;Bonus&#39;</span>, <span class="st">&#39;pred_lp&#39;</span>, <span class="st">&#39;resid_lp&#39;</span>]].head(n <span class="op">=</span> <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##    Bonus   pred_lp  resid_lp
-## 0      0  0.050566 -0.050566
-## 1      0  0.401830 -0.401830
-## 2      0 -0.002389  0.002389
-## 3      0  0.401242 -0.401242
-## 4      1  0.411245  0.588755
-## 5      1  0.263560  0.736440
-## 6      0  0.266502 -0.266502
-## 7      1  0.571285  0.428715
-## 8      0  0.032326 -0.032326
-## 9      0  0.225315 -0.225315</code></pre>
+## 0      1  0.459673  0.540327
+## 1      0  0.347376 -0.347376
+## 2      1  0.580865  0.419135
+## 3      0  0.665921 -0.665921
+## 4      0  0.085536 -0.085536
+## 5      0  0.096655 -0.096655
+## 6      0  0.181155 -0.181155
+## 7      1  0.351268  0.648732
+## 8      1  0.866054  0.133946
+## 9      1  0.557516  0.442484</code></pre>
 <div class="sourceCode" id="cb78"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb78-1"><a href="categorical-data-analysis.html#cb78-1" aria-hidden="true" tabindex="-1"></a>plt.cla()</span>
 <span id="cb78-2"><a href="categorical-data-analysis.html#cb78-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.relplot(data <span class="op">=</span> train, y <span class="op">=</span> <span class="st">&quot;resid_lp&quot;</span>, x <span class="op">=</span> <span class="st">&quot;pred_lp&quot;</span>)</span>
 <span id="cb78-3"><a href="categorical-data-analysis.html#cb78-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(ylabel <span class="op">=</span> <span class="st">&#39;Residuals&#39;</span>,</span>
@@ -1276,7 +1281,7 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
 <p><em>Binary Logistic Regression</em></p>
 <div class="sourceCode" id="cb80"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb80-1"><a href="categorical-data-analysis.html#cb80-1" aria-hidden="true" tabindex="-1"></a>log_model <span class="op">=</span> smf.logit(<span class="st">&quot;Bonus ~ Gr_Liv_Area&quot;</span>, data <span class="op">=</span> train).fit()</span></code></pre></div>
 <pre><code>## Optimization terminated successfully.
-##          Current function value: 0.449595
+##          Current function value: 0.481217
 ##          Iterations 7</code></pre>
 <div class="sourceCode" id="cb82"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb82-1"><a href="categorical-data-analysis.html#cb82-1" aria-hidden="true" tabindex="-1"></a>log_model.summary()</span></code></pre></div>
 <table class="simpletable">
@@ -1291,16 +1296,16 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
   <th>Method:</th>                 <td>MLE</td>       <th>  Df Model:          </th>   <td>     1</td>  
 </tr>
 <tr>
-  <th>Date:</th>            <td>Mon, 05 Jun 2023</td> <th>  Pseudo R-squ.:     </th>   <td>0.3368</td>  
+  <th>Date:</th>            <td>Tue, 06 Jun 2023</td> <th>  Pseudo R-squ.:     </th>   <td>0.2959</td>  
 </tr>
 <tr>
-  <th>Time:</th>                <td>13:40:57</td>     <th>  Log-Likelihood:    </th>  <td> -922.12</td> 
+  <th>Time:</th>                <td>14:58:07</td>     <th>  Log-Likelihood:    </th>  <td> -986.98</td> 
 </tr>
 <tr>
-  <th>converged:</th>             <td>True</td>       <th>  LL-Null:           </th>  <td> -1390.4</td> 
+  <th>converged:</th>             <td>True</td>       <th>  LL-Null:           </th>  <td> -1401.8</td> 
 </tr>
 <tr>
-  <th>Covariance Type:</th>     <td>nonrobust</td>    <th>  LLR p-value:       </th> <td>1.090e-205</td>
+  <th>Covariance Type:</th>     <td>nonrobust</td>    <th>  LLR p-value:       </th> <td>1.975e-182</td>
 </tr>
 </table>
 <table class="simpletable">
@@ -1308,23 +1313,26 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
        <td></td>          <th>coef</th>     <th>std err</th>      <th>z</th>      <th>P>|z|</th>  <th>[0.025</th>    <th>0.975]</th>  
 </tr>
 <tr>
-  <th>Intercept</th>   <td>   -6.7029</td> <td>    0.297</td> <td>  -22.556</td> <td> 0.000</td> <td>   -7.285</td> <td>   -6.120</td>
+  <th>Intercept</th>   <td>   -5.9299</td> <td>    0.271</td> <td>  -21.867</td> <td> 0.000</td> <td>   -6.461</td> <td>   -5.398</td>
 </tr>
 <tr>
-  <th>Gr_Liv_Area</th> <td>    0.0042</td> <td>    0.000</td> <td>   21.783</td> <td> 0.000</td> <td>    0.004</td> <td>    0.005</td>
+  <th>Gr_Liv_Area</th> <td>    0.0038</td> <td>    0.000</td> <td>   21.159</td> <td> 0.000</td> <td>    0.003</td> <td>    0.004</td>
 </tr>
 </table>
 <div class="sourceCode" id="cb83"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb83-1"><a href="categorical-data-analysis.html#cb83-1" aria-hidden="true" tabindex="-1"></a>odds_ratio <span class="op">=</span> <span class="dv">100</span><span class="op">*</span>(np.exp(log_model.params) <span class="op">-</span> <span class="dv">1</span>)</span>
 <span id="cb83-2"><a href="categorical-data-analysis.html#cb83-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb83-3"><a href="categorical-data-analysis.html#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(odds_ratio)</span></code></pre></div>
-<pre><code>## Intercept     -99.877263
-## Gr_Liv_Area     0.423299
+<pre><code>## Intercept     -99.734133
+## Gr_Liv_Area     0.376858
 ## dtype: float64</code></pre>
 <p><em>Adding Categorical Variables</em></p>
 <div class="sourceCode" id="cb85"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb85-1"><a href="categorical-data-analysis.html#cb85-1" aria-hidden="true" tabindex="-1"></a>log_model2 <span class="op">=</span> smf.logit(<span class="st">&quot;Bonus ~ Gr_Liv_Area + C(Central_Air) + C(Fireplaces)&quot;</span>, data <span class="op">=</span> train).fit()</span></code></pre></div>
-<pre><code>## Optimization terminated successfully.
-##          Current function value: 0.405698
-##          Iterations 8</code></pre>
+<pre><code>## Warning: Maximum number of iterations has been exceeded.
+##          Current function value: 0.433476
+##          Iterations: 35
+## 
+## C:\PROGRA~3\ANACON~1\lib\site-packages\statsmodels\base\model.py:604: ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals
+##   warnings.warn(&quot;Maximum Likelihood optimization failed to &quot;</code></pre>
 <div class="sourceCode" id="cb87"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb87-1"><a href="categorical-data-analysis.html#cb87-1" aria-hidden="true" tabindex="-1"></a>log_model2.summary()</span></code></pre></div>
 <table class="simpletable">
 <caption>Logit Regression Results</caption>
@@ -1332,22 +1340,22 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
   <th>Dep. Variable:</th>         <td>Bonus</td>      <th>  No. Observations:  </th>   <td>  2051</td>  
 </tr>
 <tr>
-  <th>Model:</th>                 <td>Logit</td>      <th>  Df Residuals:      </th>   <td>  2045</td>  
+  <th>Model:</th>                 <td>Logit</td>      <th>  Df Residuals:      </th>   <td>  2044</td>  
 </tr>
 <tr>
-  <th>Method:</th>                 <td>MLE</td>       <th>  Df Model:          </th>   <td>     5</td>  
+  <th>Method:</th>                 <td>MLE</td>       <th>  Df Model:          </th>   <td>     6</td>  
 </tr>
 <tr>
-  <th>Date:</th>            <td>Mon, 05 Jun 2023</td> <th>  Pseudo R-squ.:     </th>   <td>0.4016</td>  
+  <th>Date:</th>            <td>Tue, 06 Jun 2023</td> <th>  Pseudo R-squ.:     </th>   <td>0.3658</td>  
 </tr>
 <tr>
-  <th>Time:</th>                <td>13:40:58</td>     <th>  Log-Likelihood:    </th>  <td> -832.09</td> 
+  <th>Time:</th>                <td>14:58:08</td>     <th>  Log-Likelihood:    </th>  <td> -889.06</td> 
 </tr>
 <tr>
-  <th>converged:</th>             <td>True</td>       <th>  LL-Null:           </th>  <td> -1390.4</td> 
+  <th>converged:</th>             <td>False</td>      <th>  LL-Null:           </th>  <td> -1401.8</td> 
 </tr>
 <tr>
-  <th>Covariance Type:</th>     <td>nonrobust</td>    <th>  LLR p-value:       </th> <td>3.302e-239</td>
+  <th>Covariance Type:</th>     <td>nonrobust</td>    <th>  LLR p-value:       </th> <td>2.811e-218</td>
 </tr>
 </table>
 <table class="simpletable">
@@ -1355,33 +1363,37 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
            <td></td>              <th>coef</th>     <th>std err</th>      <th>z</th>      <th>P>|z|</th>  <th>[0.025</th>    <th>0.975]</th>  
 </tr>
 <tr>
-  <th>Intercept</th>           <td>  -11.4380</td> <td>    0.786</td> <td>  -14.552</td> <td> 0.000</td> <td>  -12.978</td> <td>   -9.897</td>
+  <th>Intercept</th>           <td>  -10.0932</td> <td>    0.684</td> <td>  -14.746</td> <td> 0.000</td> <td>  -11.435</td> <td>   -8.752</td>
 </tr>
 <tr>
-  <th>C(Central_Air)[T.Y]</th> <td>    4.4023</td> <td>    0.647</td> <td>    6.806</td> <td> 0.000</td> <td>    3.134</td> <td>    5.670</td>
+  <th>C(Central_Air)[T.Y]</th> <td>    3.8413</td> <td>    0.559</td> <td>    6.870</td> <td> 0.000</td> <td>    2.745</td> <td>    4.937</td>
 </tr>
 <tr>
-  <th>C(Fireplaces)[T.1]</th>  <td>    1.0225</td> <td>    0.129</td> <td>    7.919</td> <td> 0.000</td> <td>    0.769</td> <td>    1.276</td>
+  <th>C(Fireplaces)[T.1]</th>  <td>    1.0489</td> <td>    0.124</td> <td>    8.452</td> <td> 0.000</td> <td>    0.806</td> <td>    1.292</td>
 </tr>
 <tr>
-  <th>C(Fireplaces)[T.2]</th>  <td>    0.6179</td> <td>    0.235</td> <td>    2.631</td> <td> 0.009</td> <td>    0.158</td> <td>    1.078</td>
+  <th>C(Fireplaces)[T.2]</th>  <td>    0.5996</td> <td>    0.230</td> <td>    2.609</td> <td> 0.009</td> <td>    0.149</td> <td>    1.050</td>
 </tr>
 <tr>
-  <th>C(Fireplaces)[T.3]</th>  <td>    0.1540</td> <td>    0.905</td> <td>    0.170</td> <td> 0.865</td> <td>   -1.619</td> <td>    1.927</td>
+  <th>C(Fireplaces)[T.3]</th>  <td>   -0.0291</td> <td>    1.151</td> <td>   -0.025</td> <td> 0.980</td> <td>   -2.284</td> <td>    2.226</td>
 </tr>
 <tr>
-  <th>Gr_Liv_Area</th>         <td>    0.0042</td> <td>    0.000</td> <td>   19.045</td> <td> 0.000</td> <td>    0.004</td> <td>    0.005</td>
+  <th>C(Fireplaces)[T.4]</th>  <td>   17.6705</td> <td> 3.96e+04</td> <td>    0.000</td> <td> 1.000</td> <td>-7.76e+04</td> <td> 7.76e+04</td>
+</tr>
+<tr>
+  <th>Gr_Liv_Area</th>         <td>    0.0037</td> <td>    0.000</td> <td>   18.327</td> <td> 0.000</td> <td>    0.003</td> <td>    0.004</td>
 </tr>
 </table>
 <div class="sourceCode" id="cb88"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb88-1"><a href="categorical-data-analysis.html#cb88-1" aria-hidden="true" tabindex="-1"></a>odds_ratio <span class="op">=</span> <span class="dv">100</span><span class="op">*</span>(np.exp(log_model2.params) <span class="op">-</span> <span class="dv">1</span>)</span>
 <span id="cb88-2"><a href="categorical-data-analysis.html#cb88-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb88-3"><a href="categorical-data-analysis.html#cb88-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(odds_ratio)</span></code></pre></div>
-<pre><code>## Intercept               -99.998922
-## C(Central_Air)[T.Y]    8063.564714
-## C(Fireplaces)[T.1]      177.999796
-## C(Fireplaces)[T.2]       85.495254
-## C(Fireplaces)[T.3]       16.643404
-## Gr_Liv_Area               0.416937
+<pre><code>## Intercept             -9.999586e+01
+## C(Central_Air)[T.Y]    4.558753e+03
+## C(Fireplaces)[T.1]     1.854611e+02
+## C(Fireplaces)[T.2]     8.213467e+01
+## C(Fireplaces)[T.3]    -2.866930e+00
+## C(Fireplaces)[T.4]     4.722795e+09
+## Gr_Liv_Area            3.693110e-01
 ## dtype: float64</code></pre>
 <p><em>Model Assessment</em></p>
 <p>Python doesn’t have concordant / discordant pair calculations. We will learn in Fall semester other metrics to evaluate a logistic regression model that Python does have.</p>
