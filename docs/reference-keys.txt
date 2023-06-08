@@ -100,7 +100,7 @@ assumptions-2
 multiple-coefficients-of-determination
 categorical-predictor-variables
 python-code-16
-sel
+model-selection
 selection-criteria
 stepwise-selection
 significance-levels
@@ -121,7 +121,7 @@ influential-observations-and-outliers
 python-code-24
 multicollinearity
 python-code-25
-model-building-scoring-for-prediction
+model-building-and-scoring-for-prediction
 regularized-regression
 penalties-in-models
 ridge-regression
@@ -149,6 +149,3 @@ adding-categorical-variables
 model-assessment
 variable-selection-and-regularized-regression
 python-code-31
-model-selection
-fig:logistic
-model-building-and-scoring-for-prediction

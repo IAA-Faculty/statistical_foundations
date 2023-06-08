@@ -391,14 +391,14 @@ To investigate which variables are important at a $\lambda$ value, we can view t
 
 ```{r, warning=FALSE}
 library(broom)
-coef(ames_lasso, s = ames_lasso_cv$lambda.1se) %>%
-  broom::tidy() %>%
-  filter(row != "(Intercept)") %>%
-  ggplot(aes(value, reorder(row, value))) +
-  geom_point() +
-  ggtitle("Influential Variables") +
-  xlab("Coefficient") +
-  ylab(NULL)
+#coef(ames_lasso, s = ames_lasso_cv$lambda.1se) %>%
+#  broom::tidy() %>%
+#  filter(row != "(Intercept)") %>%
+#  ggplot(aes(value, reorder(row, value))) +
+#  geom_point() +
+#  ggtitle("Influential Variables") +
+#  xlab("Coefficient") +
+#  ylab(NULL)
 ```
 
 The variable describing the overall quality of the home is the driving factor of this model as well as the other variables listed above.
@@ -457,13 +457,13 @@ head(test_reg$pred_lasso)
 Now we need to calculate the MAE and MAPE for each model for comparison.
 
 ```{r}
-test %>%
-  mutate(lm_APE = 100*abs((Sale_Price - pred_lm)/Sale_Price)) %>%
-  dplyr::summarise(MAPE_lm = mean(lm_APE))
+#test %>%
+#  mutate(lm_APE = 100*abs((Sale_Price - pred_lm)/Sale_Price)) %>%
+#  dplyr::summarise(MAPE_lm = mean(lm_APE))
 
-test_reg %>%
-  mutate(lasso_APE = 100*abs((Sale_Price - pred_lasso)/Sale_Price)) %>%
-  dplyr::summarise(MAPE_lasso = mean(lasso_APE))
+#test_reg %>%
+#  mutate(lasso_APE = 100*abs((Sale_Price - pred_lasso)/Sale_Price)) %>%
+#  dplyr::summarise(MAPE_lasso = mean(lasso_APE))
 
 ```
 
