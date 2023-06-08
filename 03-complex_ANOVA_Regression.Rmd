@@ -1,4 +1,4 @@
-# Complex ANOVA and Multiple Linear Regression 
+# Complex ANOVA and Multiple Linear Regression {#mlr}
 
 In the One-Way ANOVA and simple linear regression models, there was only one variable - categorical for ANOVA and continuous for simple linear regression - to explain and predict our target variable. Rarely do we believe that only a single variable will suffice in predicting a variable of interest. Here in this Chapter we will generalize these models to the $n$-Way ANOVA and multiple linear regression models. These models contain multiple sets of variables to explain and predict our target variable.
 
