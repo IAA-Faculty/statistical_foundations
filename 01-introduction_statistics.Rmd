@@ -1,7 +1,10 @@
 
 # Introduction to Statistics {#intro-stat}
 
-Welcome to your introduction to statistics.  You will be learning the basics of statistics, along with applications of statistics within the R language.  This book will provide fundamentals of the concepts and the code to apply these concepts in R.  At the end of each section, you will also find the Python code that will perform a comparable analysis (however, in class, we will be discussing the R code).\
+Welcome to your introduction to statistics.  You will be learning the basics of statistics, along with applications of statistics within the R language.  This book will provide fundamentals of the concepts and the code to apply these concepts in R.  At the end of each section, you will also find the Python code that will perform a comparable analysis (however, in class, we will be discussing and focusing on the R code).\  
+
+
+
 This Chapter aims to answer the following questions:
 
 * What type of data is being analyzed?   
@@ -23,7 +26,10 @@ This Chapter aims to answer the following questions:
   + Mann-Whitney-Wilcoxon Test
 
 
-The following packages will be used in this textbook. Below we install and add the packages to our libraries so that any version issues can be dealt with at the beginning of the course. Sometimes packages require that you update to the latest version of R; if you see an error that indicates that situation, download the latest version of R from [CRAN](https://cran.r-project.org) and install it. 
+The following packages will be used in this textbook (there are some sections that add more later in the textbook, so keep your eyes open for those). In order to use a library in the R session, you will first need to install it on your local drive (this only needs to be done once....however, you should periodically check for updates to packages). You should also periodically check to see if R or RStudio needs to be updated as well. 
+
+
+Installing packages:  
 
 ```{r eval=F, message=F}
 install.packages('AmesHousing')
@@ -50,7 +56,7 @@ install.packages('epiDisplay')
 install.packages('gridExtra')
 ```
 
-
+Bringing the package into your currently opened R session (will need to be done whenever you open a new session):
 
 ```{r message=F}
 library(AmesHousing)
@@ -81,9 +87,9 @@ library(gridExtra)
 
 ## Exploratory Data Analysis (EDA) {#eda}
 
-The crucial first step to any data science problem is exploratory data analysis (EDA). Before you attempt to run any models, or jump towards any formal statistical analysis, you must ___explore your data___. Many unexpected frustrations arise when exploratory analysis is overlooked; knowing your data is critical to your ability to make necessary assumptions about it. This preliminary analysis will help inform our decisions for data manipulation, give us a base-level understanding of our variables and the relationships between them, and help determine which statistical analyses might be appropriate for the questions we are trying to answer. Some of the questions we aim to answer through exploratory analysis are:
+The crucial first step to any data science problem is exploratory data analysis (EDA). Before you attempt to run any models, or jump towards any formal statistical analysis, you must ___explore your data___. Many unexpected frustrations arise when exploratory analysis is overlooked; knowing your data is critical to your ability to make necessary assumptions about it and analyzing it appropriately. This preliminary analysis will help inform our decisions for data manipulation, give us a base-level understanding of our variables and the relationships between them, and help determine which statistical analyses might be appropriate for the questions we are trying to answer. Some of the questions we aim to answer through exploratory analysis are:
 
-* What kind of variables to you have? 
+* What kind of variables do you have? 
   + Continuous
   + Nominal
   + Ordinal
@@ -104,15 +110,15 @@ The crucial first step to any data science problem is exploratory data analysis 
   
 
 
- Throughout the textbook, we will continue to use a real-estate data set that contains the `sale_price` and numerous physical attributes of nearly 3,000 homes in Ames, Iowa in the early 2000s. To access this data, we first add the `AmesHousing` package to our library and create the nicely formatted data with the `make_ordinal_ames()` function. 
+ Throughout the textbook, we will continue to use a real-estate data set that contains the `sale_price` and numerous physical attributes of nearly 3,000 homes in Ames, Iowa in the early 2000s. You should have already loaded the `AmesHousing` package which has the data set, so now we will create a nicely formatted data set with the `make_ordinal_ames()` function. The function `str()` is a good way to see what variables are in the data set and how they are currently formatted.  Take a look at some of the variables within the AmesHousing data set.
 
 
 ```{r results='hide', message=FALSE}
-library(AmesHousing)
 
 ames <- make_ordinal_ames() 
 str(ames)
 ```
+
 
 ### Types of Variables {#vartypes}
 
@@ -134,7 +140,7 @@ This book may use any of these words interchangeably to refer to a quality or qu
 
 A __nominal__ or __categorical variable__ is a _quality of interest_ whose values have no logical ordering.  Color ("blue", "red", "green"...), ethnicity ("African-American", "Asian", "Caucasian",...), and style of house ("ranch", "two-story", "duplex", ...) are all examples of nominal attributes. The categories or values that these variables can take on - those words listed in quotes and parenthesis - are called the __levels__ of the variable. 
 
-In modeling, nominal attributes are commonly transformed into __dummy variables__. Dummy variables are binary columns that indicate the presence or absence of a quality. There is more than one way to create dummy variables, and the treatment will be different depending on what type of model you are using. Linear regression models will use either __reference-level__ or __effects coding__, whereas other machine learning models are more likely to use one-hot encoding or a variation thereof. 
+In modeling, nominal attributes are commonly transformed into __dummy variables__. Dummy variables are binary columns that indicate the presence or absence of a quality. There is more than one way to create dummy variables, and the treatment/estimates will be different depending on what type of model you are using. Linear regression models will use either __reference-level__ or __effects coding__, whereas other machine learning models are more likely to use one-hot encoding or a variation thereof. 
 
 __One-hot encoding__
 
