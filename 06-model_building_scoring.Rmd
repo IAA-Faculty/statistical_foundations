@@ -1,6 +1,6 @@
 
 
-# Model Building & Scoring for Prediction
+# Model Building and Scoring for Prediction
 
 In the preceding chapters, we have only scratched the surface of model building. Linear regression is a great initial approach to take to model building. In fact, in the realm of statistical models, linear regression (calculated by ordinary least squares) is the **best linear unbiased estimator**. The two key pieces to that previous statement are "best" and "unbiased." 
 
