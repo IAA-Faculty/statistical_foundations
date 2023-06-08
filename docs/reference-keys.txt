@@ -151,3 +151,4 @@ variable-selection-and-regularized-regression
 python-code-31
 model-selection
 fig:logistic
+model-building-and-scoring-for-prediction
