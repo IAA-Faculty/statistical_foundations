@@ -56,7 +56,7 @@ install.packages('epiDisplay')
 install.packages('gridExtra')
 ```
 
-Bringing the package into your currently opened R session (will need to be done whenever you open a new session):
+Bringing the packages into your currently opened R session (will need to be done whenever you open a new session):
 
 ```{r message=F}
 library(AmesHousing)
@@ -158,7 +158,8 @@ For machine learning applications, it is common to create a binary dummy column 
 <tr> <td> 7<td> Yellow<td> 0<td> 0<td> 1<td> 0
 <tr><td> 8<td> Other<td> 0<td> 0<td> 0<td> 1
 </table>
-<caption> (\#tab:onehot)One-hot dummy variable coding for the categorical attribute _color_ </caption>
+<caption> (\#tab:onehot)One-hot dummy variable coding for the categorical attribute _color_ </caption>  
+
 
 We will demonstrate the creation of this data using some simple random categorical data:
 
@@ -190,7 +191,8 @@ Reference-level coding is similar to one-hot encoding except one of the levels o
 
 A reference level of the attribute is often specified by the user to be a particular level worthy of comparison (a baseline), as the estimates in the regression output will be interpreted in a way that compares each non-reference level to the reference level. If a reference level is not specified by the user, one will be picked by the software by default either using the order in which the levels were encountered in the data, or their alphabetical ordering. Users should check the documentation of the associated function to understand what to expect.
 
-Table \@ref(tab:refcoding) transforms the one-hot encoding from Table \@ref(tab:onehot) into reference-level coding with the color "blue" as the reference level. Notice the absence of the column indicating "blue" and how each blue observation exists as a row of zeros. 
+Table \@ref(tab:refcoding) transforms the one-hot encoding from Table \@ref(tab:onehot) into reference-level coding with the color "blue" as the reference level. Notice the absence of the column indicating "blue" and how each blue observation exists as a row of zeros.  
+
 
 <table>
 <tr><td> Observation<td> Color<td> Red<td> Yellow<td> Other</tr>
@@ -203,13 +205,15 @@ Table \@ref(tab:refcoding) transforms the one-hot encoding from Table \@ref(tab:
 <tr><td> 7<td> Yellow<td> 0<td> 1<td> 0</tr>
 <tr><td> 8<td> Other<td> 0<td> 0<td> 1</tr>
 </table>
-<caption> (\#tab:refcoding) Reference-level dummy variable coding for the categorical attribute _color_ and the reference level of "blue" </caption>
+<caption> (\#tab:refcoding) Reference-level dummy variable coding for the categorical attribute _color_ and the reference level of "blue" </caption>  
+
 
 __Effects coding__
 
 Effects coding is useful for obtaining a more general comparative interpretation when you have approximately equal sample sizes across each level of your categorical attribute. Effects coding is designed to allow the user to compare each level to _all_ of the other levels. More specifically the mean of each level is compared to the __overall mean__ of your data. However, the comparison is actually to the so-called _grand mean_, which is the mean of the means of each group. When sample sizes are equal, the grand mean and the overall sample mean are equivalent. When sample sizes are _not_ equal, the parameter estimates for effects coding should not be used for interpretation or explanation. 
 
-Effects coding still requires a _reference level_, however the purpose of the reference level is not the same as it was in reference-level coding. Here, the reference level is left out in the sense that no comparison is made between it and the overall mean. Table \@ref(tab:effcoding) shows our same example with effects coding. Again we notice the absence of the column indicating "blue"  but now the reference level receives values of `-1` rather than `0` for all 3 dummy columns.  We will revisit the interpretation of linear regression coefficients under this coding scheme in Chapter \@ref(slr). 
+Effects coding still requires a _reference level_, however the purpose of the reference level is not the same as it was in reference-level coding. Here, the reference level is left out in the sense that no comparison is made between it and the overall mean. Table \@ref(tab:effcoding) shows our same example with effects coding. Again we notice the absence of the column indicating "blue"  but now the reference level receives values of `-1` rather than `0` for all 3 dummy columns.  We will revisit the interpretation of linear regression coefficients under this coding scheme in the Simple Linear Regression Section.  
+
 
 <table>
 <tr><td> Observation<td> Color<td> Red<td> Yellow<td> Other
@@ -222,7 +226,8 @@ Effects coding still requires a _reference level_, however the purpose of the re
 <tr> <td> 7<td> Yellow<td> 0<td> 1<td> 0
 <tr><td> 8<td> Other<td> 0<td> 0<td> 1
 </table>
-<caption> (\#tab:effcoding) Effects coding for the categorical attribute _color_ and the reference level of "blue" </caption>
+<caption> (\#tab:effcoding) Effects coding for the categorical attribute _color_ and the reference level of "blue" </caption>  
+
 
 #### Interval Variables
 
@@ -244,9 +249,11 @@ __Ordinal variables will either be given some numeric value and treated as inter
 <tr> <td> Masters <td> 6
 <tr> <td> PhD <td> 7
 </table>
-<caption> (\#tab:educationint) One potential approach to scaling the ordinal attribute level of education </caption>
+<caption> (\#tab:educationint) One potential approach to scaling the ordinal attribute level of education </caption>  
 
-While numeric values have been assigned and this data and _could_ be used like an interval attribute, it's important to realize that the notion of a "one-unit increase" is qualitative in nature rather than quantitative. However, if we're interested in learning whether there is a _linear_ type of relationship between education and another attribute (meaning as education level increases, the value of another attribute increases or decreases), this would be the path to get us there. However we're making an assumption in this model that the difference between a H.S. Diploma and an Associates degree (a difference of "1 unit") is the same as the difference between a Master's degree and a PhD (also a difference of "1 unit"). These types of assumptions can be flawed, and it is often desirable to develop an alternative system of measurement based either on domain expertise or the target variable of interest. This is the notion behind __optimal scaling__ and __target-level encoding__.
+
+While numeric values have been assigned and this data and _could_ be used like an interval attribute, it's important to realize that the notion of a "one-unit increase" is qualitative in nature rather than quantitative. However, if we're interested in learning whether there is a _linear_ type of relationship between education and another attribute (meaning as education level increases, the value of another attribute increases or decreases), this would be the path to get us there. However we're making an assumption in this model that the difference between a H.S. Diploma and an Associates degree (a difference of "1 unit") is the same as the difference between a Master's degree and a PhD (also a difference of "1 unit"). These types of assumptions can be flawed, and it is often desirable to develop an alternative system of measurement based either on domain expertise or the target variable of interest. This is the notion behind __optimal scaling__ and __target-level encoding__.  
+
 
 __Optimal Scaling__
 
@@ -266,9 +273,11 @@ If we re-consider the ordinal attribute level of education, we might decide to r
 <tr> <td> Master's <td> 6
 <tr> <td> PhD <td> 8
 </table>
-<caption> (\#tab:educationscaled) One potential approach to scaling the ordinal attribute level of education </caption>
+<caption> (\#tab:educationscaled) One potential approach to scaling the ordinal attribute level of education </caption>  
 
-If we were modeling the effect of education on something like salary, it seems reasonable to assume that the jumps between levels should not have equal distance like they did in \@ref(tab:educationint). It seems reasonable to assume that one would experience a larger salary lift from Associate's to Bachelor's degree than they would from No H.S. Diploma to GED. The most common way to determine the numeric values for categories is to use information from the response variable. This is commonly referred to as __target level encoding__.
+
+If we were modeling the effect of education on something like salary, it seems reasonable to assume that the jumps between levels should not have equal distance like they did in \@ref(tab:educationint). It seems reasonable to assume that one would experience a larger salary lift from Associate's to Bachelor's degree than they would from No H.S. Diploma to GED. The most common way to determine the numeric values for categories is to use information from the response variable. This is commonly referred to as __target level encoding__.  
+
 
 __Target Level Encoding__
 
@@ -703,7 +712,7 @@ x=r.ames["Sale_Price"]/1000
 sns.histplot(x, kde=True, color = 'blue')
 ```
 
-Showing overlay of histograms for Sales Price by Central Air:
+
 
 ```{python}
 ax = sns.displot(data = ames_py, x = ames_py['Sale_Price']/1000, kde = True)
