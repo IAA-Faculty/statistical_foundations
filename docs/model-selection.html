@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Model Selection | Statistical Foundations</title>
   <meta name="description" content="Chapter 4 Model Selection | Statistical Foundations" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Model Selection | Statistical Foundations" />
   <meta property="og:type" content="book" />
-  
   
   
   <meta name="github-repo" content="IAA-Faculty/statistical_foundations" />
@@ -29,9 +28,10 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="mlr.html"/>
+<link rel="prev" href="complex-anova-and-multiple-linear-regression.html"/>
 <link rel="next" href="diag.html"/>
-<script src="libs/jquery-3.5.1/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -47,38 +47,40 @@
 
 
 
-
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.4/plotly.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.57.1/plotly-latest.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -87,15 +89,15 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -108,7 +110,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -122,6 +124,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -136,126 +142,210 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a style="font-weight:bold" href="https://github.com/IAA-Faculty/statistical_foundations/">Statistical Foundations</a>
+<li><a style="font-weight:bold, text-align:center" href="https://github.com/IAA-Faculty/statistical_foundations/">Statistical Foundations</a>
 <img src="./img/iaaicon.png" alt="IAA"  class="center"</li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a>
+<ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#authors"><i class="fa fa-check"></i>Authors</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#structure-of-the-book"><i class="fa fa-check"></i>Structure of the book</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="intro-stat.html"><a href="intro-stat.html"><i class="fa fa-check"></i><b>1</b> Introduction to Statistics</a><ul>
-<li class="chapter" data-level="1.1" data-path="intro-stat.html"><a href="intro-stat.html#eda"><i class="fa fa-check"></i><b>1.1</b> Exploratory Data Analysis (EDA)</a><ul>
+<li class="chapter" data-level="1" data-path="intro-stat.html"><a href="intro-stat.html"><i class="fa fa-check"></i><b>1</b> Introduction to Statistics</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="intro-stat.html"><a href="intro-stat.html#eda"><i class="fa fa-check"></i><b>1.1</b> Exploratory Data Analysis (EDA)</a>
+<ul>
 <li class="chapter" data-level="1.1.1" data-path="intro-stat.html"><a href="intro-stat.html#vartypes"><i class="fa fa-check"></i><b>1.1.1</b> Types of Variables</a></li>
-<li class="chapter" data-level="1.1.2" data-path="intro-stat.html"><a href="intro-stat.html#dist"><i class="fa fa-check"></i><b>1.1.2</b> Distributions</a></li>
+<li class="chapter" data-level="1.1.2" data-path="intro-stat.html"><a href="intro-stat.html#distributions"><i class="fa fa-check"></i><b>1.1.2</b> Distributions</a></li>
 <li class="chapter" data-level="1.1.3" data-path="intro-stat.html"><a href="intro-stat.html#normal"><i class="fa fa-check"></i><b>1.1.3</b> The Normal Distribution</a></li>
 <li class="chapter" data-level="1.1.4" data-path="intro-stat.html"><a href="intro-stat.html#skew"><i class="fa fa-check"></i><b>1.1.4</b> Skewness</a></li>
 <li class="chapter" data-level="1.1.5" data-path="intro-stat.html"><a href="intro-stat.html#kurt"><i class="fa fa-check"></i><b>1.1.5</b> Kurtosis</a></li>
 <li class="chapter" data-level="1.1.6" data-path="intro-stat.html"><a href="intro-stat.html#graphdist"><i class="fa fa-check"></i><b>1.1.6</b> Graphical Displays of Distributions</a></li>
+<li class="chapter" data-level="1.1.7" data-path="intro-stat.html"><a href="intro-stat.html#python-code"><i class="fa fa-check"></i><b>1.1.7</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="intro-stat.html"><a href="intro-stat.html#pointest"><i class="fa fa-check"></i><b>1.2</b> Point Estimates</a></li>
-<li class="chapter" data-level="1.3" data-path="intro-stat.html"><a href="intro-stat.html#ci"><i class="fa fa-check"></i><b>1.3</b> Confidence Intervals</a></li>
-<li class="chapter" data-level="1.4" data-path="intro-stat.html"><a href="intro-stat.html#hypotest"><i class="fa fa-check"></i><b>1.4</b> Hypothesis Testing</a><ul>
-<li class="chapter" data-level="1.4.1" data-path="intro-stat.html"><a href="intro-stat.html#onesample"><i class="fa fa-check"></i><b>1.4.1</b> One-Sample T-Test</a></li>
+<li class="chapter" data-level="1.3" data-path="intro-stat.html"><a href="intro-stat.html#ci"><i class="fa fa-check"></i><b>1.3</b> Confidence Intervals</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="intro-stat.html"><a href="intro-stat.html#python-code-1"><i class="fa fa-check"></i><b>1.3.1</b> Python Code</a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="intro-stat.html"><a href="intro-stat.html#two-sample-t-tests"><i class="fa fa-check"></i><b>1.5</b> Two-Sample t-tests</a><ul>
+<li class="chapter" data-level="1.4" data-path="intro-stat.html"><a href="intro-stat.html#hypotest"><i class="fa fa-check"></i><b>1.4</b> Hypothesis Testing</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="intro-stat.html"><a href="intro-stat.html#onesample"><i class="fa fa-check"></i><b>1.4.1</b> One-Sample T-Test</a></li>
+<li class="chapter" data-level="1.4.2" data-path="intro-stat.html"><a href="intro-stat.html#python-code-2"><i class="fa fa-check"></i><b>1.4.2</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="intro-stat.html"><a href="intro-stat.html#two-sample-t-tests"><i class="fa fa-check"></i><b>1.5</b> Two-Sample t-tests</a>
+<ul>
 <li class="chapter" data-level="1.5.1" data-path="intro-stat.html"><a href="intro-stat.html#testnorm"><i class="fa fa-check"></i><b>1.5.1</b> Testing Normality of Groups</a></li>
 <li class="chapter" data-level="1.5.2" data-path="intro-stat.html"><a href="intro-stat.html#ftest"><i class="fa fa-check"></i><b>1.5.2</b> Testing Equality of Variances</a></li>
 <li class="chapter" data-level="1.5.3" data-path="intro-stat.html"><a href="intro-stat.html#tsttest"><i class="fa fa-check"></i><b>1.5.3</b> Testing Equality of Means</a></li>
-<li class="chapter" data-level="1.5.4" data-path="intro-stat.html"><a href="intro-stat.html#wilcoxon"><i class="fa fa-check"></i><b>1.5.4</b> Mann-Whitney-Wilcoxon Test</a></li>
+<li class="chapter" data-level="1.5.4" data-path="intro-stat.html"><a href="intro-stat.html#python-code-3"><i class="fa fa-check"></i><b>1.5.4</b> Python Code</a></li>
+<li class="chapter" data-level="1.5.5" data-path="intro-stat.html"><a href="intro-stat.html#wilcoxon"><i class="fa fa-check"></i><b>1.5.5</b> Mann-Whitney-Wilcoxon Test</a></li>
+<li class="chapter" data-level="1.5.6" data-path="intro-stat.html"><a href="intro-stat.html#python-code-4"><i class="fa fa-check"></i><b>1.5.6</b> Python Code</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="slr.html"><a href="slr.html"><i class="fa fa-check"></i><b>2</b> Introduction to ANOVA and Linear Regression</a><ul>
-<li class="chapter" data-level="2.1" data-path="slr.html"><a href="slr.html#evp"><i class="fa fa-check"></i><b>2.1</b> Prediction vs. Explanation</a></li>
-<li class="chapter" data-level="2.2" data-path="slr.html"><a href="slr.html#trainvalidtest"><i class="fa fa-check"></i><b>2.2</b> Honest Assessment</a></li>
-<li class="chapter" data-level="2.3" data-path="slr.html"><a href="slr.html#bivariate-eda"><i class="fa fa-check"></i><b>2.3</b> Bivariate EDA</a><ul>
+<li class="chapter" data-level="2" data-path="slr.html"><a href="slr.html"><i class="fa fa-check"></i><b>2</b> Introduction to ANOVA and Linear Regression</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="slr.html"><a href="slr.html#evp"><i class="fa fa-check"></i><b>2.1</b> Predictive vs. Explanatory</a></li>
+<li class="chapter" data-level="2.2" data-path="slr.html"><a href="slr.html#trainvalidtest"><i class="fa fa-check"></i><b>2.2</b> Honest Assessment</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="slr.html"><a href="slr.html#python-code-5"><i class="fa fa-check"></i><b>2.2.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="slr.html"><a href="slr.html#bivariate-eda"><i class="fa fa-check"></i><b>2.3</b> Bivariate EDA</a>
+<ul>
 <li class="chapter" data-level="2.3.1" data-path="slr.html"><a href="slr.html#continuous-continuous-associations"><i class="fa fa-check"></i><b>2.3.1</b> Continuous-Continuous Associations</a></li>
 <li class="chapter" data-level="2.3.2" data-path="slr.html"><a href="slr.html#continuous-categorical-associations"><i class="fa fa-check"></i><b>2.3.2</b> Continuous-Categorical Associations</a></li>
+<li class="chapter" data-level="2.3.3" data-path="slr.html"><a href="slr.html#python-code-6"><i class="fa fa-check"></i><b>2.3.3</b> Python Code</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="slr.html"><a href="slr.html#oneway"><i class="fa fa-check"></i><b>2.4</b> One-Way ANOVA</a><ul>
-<li class="chapter" data-level="2.4.1" data-path="slr.html"><a href="slr.html#testing-assumptions"><i class="fa fa-check"></i><b>2.4.1</b> Testing Assumptions</a></li>
-<li class="chapter" data-level="2.4.2" data-path="slr.html"><a href="slr.html#kruskal"><i class="fa fa-check"></i><b>2.4.2</b> Kruskal-Wallis</a></li>
+<li class="chapter" data-level="2.4" data-path="slr.html"><a href="slr.html#oneway"><i class="fa fa-check"></i><b>2.4</b> One-Way ANOVA</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="slr.html"><a href="slr.html#python-code-7"><i class="fa fa-check"></i><b>2.4.1</b> Python Code</a></li>
+<li class="chapter" data-level="2.4.2" data-path="slr.html"><a href="slr.html#testing-assumptions"><i class="fa fa-check"></i><b>2.4.2</b> Testing Assumptions</a></li>
+<li class="chapter" data-level="2.4.3" data-path="slr.html"><a href="slr.html#python-code-8"><i class="fa fa-check"></i><b>2.4.3</b> Python Code</a></li>
+<li class="chapter" data-level="2.4.4" data-path="slr.html"><a href="slr.html#kruskal"><i class="fa fa-check"></i><b>2.4.4</b> Kruskal-Wallis</a></li>
+<li class="chapter" data-level="2.4.5" data-path="slr.html"><a href="slr.html#python-code-9"><i class="fa fa-check"></i><b>2.4.5</b> Python Code</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="slr.html"><a href="slr.html#posthoc"><i class="fa fa-check"></i><b>2.5</b> ANOVA Post-hoc Testing</a><ul>
+<li class="chapter" data-level="2.5" data-path="slr.html"><a href="slr.html#posthoc"><i class="fa fa-check"></i><b>2.5</b> ANOVA Post-hoc Testing</a>
+<ul>
 <li class="chapter" data-level="2.5.1" data-path="slr.html"><a href="slr.html#tukey"><i class="fa fa-check"></i><b>2.5.1</b> Tukey-Kramer</a></li>
 <li class="chapter" data-level="2.5.2" data-path="slr.html"><a href="slr.html#dunnett"><i class="fa fa-check"></i><b>2.5.2</b> Dunnett’s Test</a></li>
+<li class="chapter" data-level="2.5.3" data-path="slr.html"><a href="slr.html#python-code-10"><i class="fa fa-check"></i><b>2.5.3</b> Python Code</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="slr.html"><a href="slr.html#cor"><i class="fa fa-check"></i><b>2.6</b> Pearson Correlation</a><ul>
+<li class="chapter" data-level="2.6" data-path="slr.html"><a href="slr.html#cor"><i class="fa fa-check"></i><b>2.6</b> Pearson Correlation</a>
+<ul>
 <li class="chapter" data-level="2.6.1" data-path="slr.html"><a href="slr.html#testcor"><i class="fa fa-check"></i><b>2.6.1</b> Statistical Test</a></li>
 <li class="chapter" data-level="2.6.2" data-path="slr.html"><a href="slr.html#effect-of-anomalous-observations"><i class="fa fa-check"></i><b>2.6.2</b> Effect of Anomalous Observations</a></li>
 <li class="chapter" data-level="2.6.3" data-path="slr.html"><a href="slr.html#the-correlation-matrix"><i class="fa fa-check"></i><b>2.6.3</b> The Correlation Matrix</a></li>
+<li class="chapter" data-level="2.6.4" data-path="slr.html"><a href="slr.html#python-code-11"><i class="fa fa-check"></i><b>2.6.4</b> Python Code</a></li>
 </ul></li>
-<li class="chapter" data-level="2.7" data-path="slr.html"><a href="slr.html#simple-linear-regression"><i class="fa fa-check"></i><b>2.7</b> Simple Linear Regression</a><ul>
+<li class="chapter" data-level="2.7" data-path="slr.html"><a href="slr.html#simple-linear-regression"><i class="fa fa-check"></i><b>2.7</b> Simple Linear Regression</a>
+<ul>
 <li class="chapter" data-level="2.7.1" data-path="slr.html"><a href="slr.html#slrassumptions"><i class="fa fa-check"></i><b>2.7.1</b> Assumptions of Linear Regression</a></li>
 <li class="chapter" data-level="2.7.2" data-path="slr.html"><a href="slr.html#testing-for-association"><i class="fa fa-check"></i><b>2.7.2</b> Testing for Association</a></li>
+<li class="chapter" data-level="2.7.3" data-path="slr.html"><a href="slr.html#python-code-12"><i class="fa fa-check"></i><b>2.7.3</b> Python Code</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Complex ANOVA and Multiple Linear Regression</a><ul>
-<li class="chapter" data-level="3.1" data-path="mlr.html"><a href="mlr.html#two-way-anova"><i class="fa fa-check"></i><b>3.1</b> Two-Way ANOVA</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="mlr.html"><a href="mlr.html#exploration"><i class="fa fa-check"></i><b>3.1.1</b> Exploration</a></li>
-<li class="chapter" data-level="3.1.2" data-path="mlr.html"><a href="mlr.html#model"><i class="fa fa-check"></i><b>3.1.2</b> Model</a></li>
-<li class="chapter" data-level="3.1.3" data-path="mlr.html"><a href="mlr.html#post-hoc-testing"><i class="fa fa-check"></i><b>3.1.3</b> Post-Hoc Testing</a></li>
+<li class="chapter" data-level="3" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html"><i class="fa fa-check"></i><b>3</b> Complex ANOVA and Multiple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#two-way-anova"><i class="fa fa-check"></i><b>3.1</b> Two-Way ANOVA</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#exploration"><i class="fa fa-check"></i><b>3.1.1</b> Exploration</a></li>
+<li class="chapter" data-level="3.1.2" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#model"><i class="fa fa-check"></i><b>3.1.2</b> Model</a></li>
+<li class="chapter" data-level="3.1.3" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#post-hoc-testing"><i class="fa fa-check"></i><b>3.1.3</b> Post-Hoc Testing</a></li>
+<li class="chapter" data-level="3.1.4" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#python-code-13"><i class="fa fa-check"></i><b>3.1.4</b> Python Code</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="mlr.html"><a href="mlr.html#two-way-anova-with-interactions"><i class="fa fa-check"></i><b>3.2</b> Two-Way ANOVA with Interactions</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="mlr.html"><a href="mlr.html#post-hoc-testing-1"><i class="fa fa-check"></i><b>3.2.1</b> Post-Hoc Testing</a></li>
-<li class="chapter" data-level="3.2.2" data-path="mlr.html"><a href="mlr.html#assumptions"><i class="fa fa-check"></i><b>3.2.2</b> Assumptions</a></li>
+<li class="chapter" data-level="3.2" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#two-way-anova-with-interactions"><i class="fa fa-check"></i><b>3.2</b> Two-Way ANOVA with Interactions</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#post-hoc-testing-1"><i class="fa fa-check"></i><b>3.2.1</b> Post-Hoc Testing</a></li>
+<li class="chapter" data-level="3.2.2" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#assumptions"><i class="fa fa-check"></i><b>3.2.2</b> Assumptions</a></li>
+<li class="chapter" data-level="3.2.3" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#python-code-14"><i class="fa fa-check"></i><b>3.2.3</b> Python Code</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="mlr.html"><a href="mlr.html#randomized-block-design"><i class="fa fa-check"></i><b>3.3</b> Randomized Block Design</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="mlr.html"><a href="mlr.html#garlic-bulb-weight-example"><i class="fa fa-check"></i><b>3.3.1</b> Garlic Bulb Weight Example</a></li>
-<li class="chapter" data-level="3.3.2" data-path="mlr.html"><a href="mlr.html#assumptions-1"><i class="fa fa-check"></i><b>3.3.2</b> Assumptions</a></li>
+<li class="chapter" data-level="3.3" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#randomized-block-design"><i class="fa fa-check"></i><b>3.3</b> Randomized Block Design</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#garlic-bulb-weight-example"><i class="fa fa-check"></i><b>3.3.1</b> Garlic Bulb Weight Example</a></li>
+<li class="chapter" data-level="3.3.2" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#assumptions-1"><i class="fa fa-check"></i><b>3.3.2</b> Assumptions</a></li>
+<li class="chapter" data-level="3.3.3" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#python-code-15"><i class="fa fa-check"></i><b>3.3.3</b> Python Code</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="mlr.html"><a href="mlr.html#multiple-linear-regression"><i class="fa fa-check"></i><b>3.4</b> Multiple Linear Regression</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="mlr.html"><a href="mlr.html#model-structure"><i class="fa fa-check"></i><b>3.4.1</b> Model Structure</a></li>
-<li class="chapter" data-level="3.4.2" data-path="mlr.html"><a href="mlr.html#global-local-inference"><i class="fa fa-check"></i><b>3.4.2</b> Global &amp; Local Inference</a></li>
-<li class="chapter" data-level="3.4.3" data-path="mlr.html"><a href="mlr.html#assumptions-2"><i class="fa fa-check"></i><b>3.4.3</b> Assumptions</a></li>
-<li class="chapter" data-level="3.4.4" data-path="mlr.html"><a href="mlr.html#multiple-coefficients-of-determination"><i class="fa fa-check"></i><b>3.4.4</b> Multiple Coefficients of Determination</a></li>
-<li class="chapter" data-level="3.4.5" data-path="mlr.html"><a href="mlr.html#categorical-predictor-variables"><i class="fa fa-check"></i><b>3.4.5</b> Categorical Predictor Variables</a></li>
+<li class="chapter" data-level="3.4" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>3.4</b> Multiple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#model-structure"><i class="fa fa-check"></i><b>3.4.1</b> Model Structure</a></li>
+<li class="chapter" data-level="3.4.2" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#global-local-inference"><i class="fa fa-check"></i><b>3.4.2</b> Global &amp; Local Inference</a></li>
+<li class="chapter" data-level="3.4.3" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#assumptions-2"><i class="fa fa-check"></i><b>3.4.3</b> Assumptions</a></li>
+<li class="chapter" data-level="3.4.4" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#multiple-coefficients-of-determination"><i class="fa fa-check"></i><b>3.4.4</b> Multiple Coefficients of Determination</a></li>
+<li class="chapter" data-level="3.4.5" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#categorical-predictor-variables"><i class="fa fa-check"></i><b>3.4.5</b> Categorical Predictor Variables</a></li>
+<li class="chapter" data-level="3.4.6" data-path="complex-anova-and-multiple-linear-regression.html"><a href="complex-anova-and-multiple-linear-regression.html#python-code-16"><i class="fa fa-check"></i><b>3.4.6</b> Python Code</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="model-selection.html"><a href="model-selection.html"><i class="fa fa-check"></i><b>4</b> Model Selection</a><ul>
+<li class="chapter" data-level="4" data-path="model-selection.html"><a href="model-selection.html"><i class="fa fa-check"></i><b>4</b> Model Selection</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="model-selection.html"><a href="model-selection.html#selection-criteria"><i class="fa fa-check"></i><b>4.1</b> Selection Criteria</a></li>
-<li class="chapter" data-level="4.2" data-path="model-selection.html"><a href="model-selection.html#stepwise-selection"><i class="fa fa-check"></i><b>4.2</b> Stepwise Selection</a><ul>
+<li class="chapter" data-level="4.2" data-path="model-selection.html"><a href="model-selection.html#stepwise-selection"><i class="fa fa-check"></i><b>4.2</b> Stepwise Selection</a>
+<ul>
 <li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#forward"><i class="fa fa-check"></i>Forward</a></li>
 <li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#backward"><i class="fa fa-check"></i>Backward</a></li>
 <li class="chapter" data-level="" data-path="model-selection.html"><a href="model-selection.html#stepwise"><i class="fa fa-check"></i>Stepwise</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="model-selection.html"><a href="model-selection.html#significance-levels"><i class="fa fa-check"></i><b>4.3</b> Significance Levels</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="diag.html"><a href="diag.html"><i class="fa fa-check"></i><b>5</b> Diagnostics</a><ul>
-<li class="chapter" data-level="5.1" data-path="diag.html"><a href="diag.html#examining-residuals"><i class="fa fa-check"></i><b>5.1</b> Examining Residuals</a></li>
-<li class="chapter" data-level="5.2" data-path="diag.html"><a href="diag.html#misspecified-model"><i class="fa fa-check"></i><b>5.2</b> Misspecified Model</a></li>
-<li class="chapter" data-level="5.3" data-path="diag.html"><a href="diag.html#constant-variance"><i class="fa fa-check"></i><b>5.3</b> Constant Variance</a></li>
-<li class="chapter" data-level="5.4" data-path="diag.html"><a href="diag.html#normality"><i class="fa fa-check"></i><b>5.4</b> Normality</a></li>
-<li class="chapter" data-level="5.5" data-path="diag.html"><a href="diag.html#correlated-errors"><i class="fa fa-check"></i><b>5.5</b> Correlated Errors</a></li>
-<li class="chapter" data-level="5.6" data-path="diag.html"><a href="diag.html#influential-observations-and-outliers"><i class="fa fa-check"></i><b>5.6</b> Influential Observations and Outliers</a></li>
-<li class="chapter" data-level="5.7" data-path="diag.html"><a href="diag.html#multicollinearity"><i class="fa fa-check"></i><b>5.7</b> Multicollinearity</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html"><i class="fa fa-check"></i><b>6</b> Model Building &amp; Scoring for Prediction</a><ul>
-<li class="chapter" data-level="6.1" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#regularized-regression"><i class="fa fa-check"></i><b>6.1</b> Regularized Regression</a><ul>
-<li class="chapter" data-level="6.1.1" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#penalties-in-models"><i class="fa fa-check"></i><b>6.1.1</b> Penalties in Models</a></li>
-<li class="chapter" data-level="6.1.2" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#ridge-regression"><i class="fa fa-check"></i><b>6.1.2</b> Ridge Regression</a></li>
-<li class="chapter" data-level="6.1.3" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#lasso"><i class="fa fa-check"></i><b>6.1.3</b> LASSO</a></li>
-<li class="chapter" data-level="6.1.4" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#elastic-net"><i class="fa fa-check"></i><b>6.1.4</b> Elastic Net</a></li>
-</ul></li>
-<li class="chapter" data-level="6.2" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#optimizing-penalties"><i class="fa fa-check"></i><b>6.2</b> Optimizing Penalties</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#cross-validation"><i class="fa fa-check"></i><b>6.2.1</b> Cross-Validation</a></li>
-<li class="chapter" data-level="6.2.2" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#cv-in-regularized-regression"><i class="fa fa-check"></i><b>6.2.2</b> CV in Regularized Regression</a></li>
-</ul></li>
-<li class="chapter" data-level="6.3" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#model-comparisons"><i class="fa fa-check"></i><b>6.3</b> Model Comparisons</a><ul>
-<li class="chapter" data-level="6.3.1" data-path="model-building-scoring-for-prediction.html"><a href="model-building-scoring-for-prediction.html#test-dataset-comparison"><i class="fa fa-check"></i><b>6.3.1</b> Test Dataset Comparison</a></li>
+<li class="chapter" data-level="4.3" data-path="model-selection.html"><a href="model-selection.html#significance-levels"><i class="fa fa-check"></i><b>4.3</b> Significance Levels</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="model-selection.html"><a href="model-selection.html#python-code-17"><i class="fa fa-check"></i><b>4.3.1</b> Python Code</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html"><i class="fa fa-check"></i><b>7</b> Categorical Data Analysis</a><ul>
-<li class="chapter" data-level="7.1" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#describing-categorical-data"><i class="fa fa-check"></i><b>7.1</b> Describing Categorical Data</a></li>
-<li class="chapter" data-level="7.2" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#tests-of-association"><i class="fa fa-check"></i><b>7.2</b> Tests of Association</a></li>
-<li class="chapter" data-level="7.3" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#measures-of-association"><i class="fa fa-check"></i><b>7.3</b> Measures of Association</a></li>
-<li class="chapter" data-level="7.4" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#introduction-to-logistic-regression"><i class="fa fa-check"></i><b>7.4</b> Introduction to Logistic Regression</a><ul>
+<li class="chapter" data-level="5" data-path="diag.html"><a href="diag.html"><i class="fa fa-check"></i><b>5</b> Diagnostics</a>
+<ul>
+<li class="chapter" data-level="5.0.1" data-path="diag.html"><a href="diag.html#python-code-18"><i class="fa fa-check"></i><b>5.0.1</b> Python Code</a></li>
+<li class="chapter" data-level="5.1" data-path="diag.html"><a href="diag.html#examining-residuals"><i class="fa fa-check"></i><b>5.1</b> Examining Residuals</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="diag.html"><a href="diag.html#python-code-19"><i class="fa fa-check"></i><b>5.1.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="diag.html"><a href="diag.html#misspecified-model"><i class="fa fa-check"></i><b>5.2</b> Misspecified Model</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="diag.html"><a href="diag.html#python-code-20"><i class="fa fa-check"></i><b>5.2.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="diag.html"><a href="diag.html#constant-variance"><i class="fa fa-check"></i><b>5.3</b> Constant Variance</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="diag.html"><a href="diag.html#python-code-21"><i class="fa fa-check"></i><b>5.3.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="diag.html"><a href="diag.html#normality"><i class="fa fa-check"></i><b>5.4</b> Normality</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="diag.html"><a href="diag.html#python-code-22"><i class="fa fa-check"></i><b>5.4.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="diag.html"><a href="diag.html#correlated-errors"><i class="fa fa-check"></i><b>5.5</b> Correlated Errors</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="diag.html"><a href="diag.html#python-code-23"><i class="fa fa-check"></i><b>5.5.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="diag.html"><a href="diag.html#influential-observations-and-outliers"><i class="fa fa-check"></i><b>5.6</b> Influential Observations and Outliers</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="diag.html"><a href="diag.html#python-code-24"><i class="fa fa-check"></i><b>5.6.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="diag.html"><a href="diag.html#multicollinearity"><i class="fa fa-check"></i><b>5.7</b> Multicollinearity</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="diag.html"><a href="diag.html#python-code-25"><i class="fa fa-check"></i><b>5.7.1</b> Python Code</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html"><i class="fa fa-check"></i><b>6</b> Model Building and Scoring for Prediction</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#regularized-regression"><i class="fa fa-check"></i><b>6.1</b> Regularized Regression</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#penalties-in-models"><i class="fa fa-check"></i><b>6.1.1</b> Penalties in Models</a></li>
+<li class="chapter" data-level="6.1.2" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#ridge-regression"><i class="fa fa-check"></i><b>6.1.2</b> Ridge Regression</a></li>
+<li class="chapter" data-level="6.1.3" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#lasso"><i class="fa fa-check"></i><b>6.1.3</b> LASSO</a></li>
+<li class="chapter" data-level="6.1.4" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#elastic-net"><i class="fa fa-check"></i><b>6.1.4</b> Elastic Net</a></li>
+<li class="chapter" data-level="6.1.5" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#python-code-26"><i class="fa fa-check"></i><b>6.1.5</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#optimizing-penalties"><i class="fa fa-check"></i><b>6.2</b> Optimizing Penalties</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#cross-validation"><i class="fa fa-check"></i><b>6.2.1</b> Cross-Validation</a></li>
+<li class="chapter" data-level="6.2.2" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#cv-in-regularized-regression"><i class="fa fa-check"></i><b>6.2.2</b> CV in Regularized Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#model-comparisons"><i class="fa fa-check"></i><b>6.3</b> Model Comparisons</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#model-metrics"><i class="fa fa-check"></i><b>6.3.1</b> Model Metrics</a></li>
+<li class="chapter" data-level="6.3.2" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#test-dataset-comparison"><i class="fa fa-check"></i><b>6.3.2</b> Test Dataset Comparison</a></li>
+<li class="chapter" data-level="6.3.3" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#python-code-27"><i class="fa fa-check"></i><b>6.3.3</b> Python Code</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html"><i class="fa fa-check"></i><b>7</b> Categorical Data Analysis</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#describing-categorical-data"><i class="fa fa-check"></i><b>7.1</b> Describing Categorical Data</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#python-code-28"><i class="fa fa-check"></i><b>7.1.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#tests-of-association"><i class="fa fa-check"></i><b>7.2</b> Tests of Association</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#python-code-29"><i class="fa fa-check"></i><b>7.2.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#measures-of-association"><i class="fa fa-check"></i><b>7.3</b> Measures of Association</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#python-code-30"><i class="fa fa-check"></i><b>7.3.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#introduction-to-logistic-regression"><i class="fa fa-check"></i><b>7.4</b> Introduction to Logistic Regression</a>
+<ul>
 <li class="chapter" data-level="7.4.1" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#linear-probability-model"><i class="fa fa-check"></i><b>7.4.1</b> Linear Probability Model</a></li>
 <li class="chapter" data-level="7.4.2" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#binary-logistic-regression"><i class="fa fa-check"></i><b>7.4.2</b> Binary Logistic Regression</a></li>
 <li class="chapter" data-level="7.4.3" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#adding-categorical-variables"><i class="fa fa-check"></i><b>7.4.3</b> Adding Categorical Variables</a></li>
 <li class="chapter" data-level="7.4.4" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#model-assessment"><i class="fa fa-check"></i><b>7.4.4</b> Model Assessment</a></li>
 <li class="chapter" data-level="7.4.5" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#variable-selection-and-regularized-regression"><i class="fa fa-check"></i><b>7.4.5</b> Variable Selection and Regularized Regression</a></li>
+<li class="chapter" data-level="7.4.6" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html#python-code-31"><i class="fa fa-check"></i><b>7.4.6</b> Python Code</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -277,30 +367,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="model-selection" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Model Selection</h1>
+<div id="model-selection" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Model Selection<a href="model-selection.html#model-selection" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This section will dive into some basic foundations in model selection, or finding the best model for a data set. In most data sets, there will most likely be variables that are informative and ones that are uninformative in predicting the response. With many explanatory variables, it could be extremely time consuming to try all potential models by hand, and the use of automatic procedures can greatly assist in obtaining subsets of variables in which to focus your attention.</p>
+<p>This Chapter aims to answer the following questions:</p>
+<ul>
+<li><p>What are the different selection criteria that can be used in model selection?</p></li>
+<li><p>How to perform a stepwise search algorithm.</p>
+<ul>
+<li>Forward Selection</li>
+<li>Backward Elimination</li>
+<li>Stepwise Selection</li>
+</ul></li>
+<li><p>Considerations when looking at p-values.</p></li>
+</ul>
 <p>CAUTION: you should NEVER just use the final model created from an automatic procedure! <em>Always</em> explore your data (both automatically selected <em>and</em> excluded variables), and use domain knowledge, diagnostics, and critical thought to decide on your final model.</p>
 <p>We will focus on two techniques for automatic variable selection: stepwise procedures and LASSO. Within the stepwise procedures, we will discuss forward, backward and stepwise searches using several different selection criteria. We will end this section discussing important considerations in use of p-values when dealing with large data sets.</p>
-<div id="selection-criteria" class="section level2">
-<h2><span class="header-section-number">4.1</span> Selection Criteria</h2>
-<p>When trying to find the best model, there are many selection criteria at our disposal. For example, you have already been introduced to <span class="math inline">\(R^{2}\)</span> (the larger value of <span class="math inline">\(R^{2}\)</span> the better the model). However, when comparing multivariate models, the adjusted <span class="math inline">\(R^{2}\)</span> is better due to the fact that <span class="math inline">\(R^{2}\)</span> can potentially increase even when adding noise. The adjusted <span class="math inline">\(R^{2}\)</span> can be thought of as <span class="math inline">\(R^{2}\)</span> with penalty (for every additional variable added to the model, we add a penalty). This allows us to weigh the contribution of adding new variables against the added complexity of more variables in the model. There are other selection criteria that are also used in selecting the “best model” (or variable selection). As you will notice, these selection criteria also have a penalty to take into account the addition of variables. We will use two of the most common ones: AIC and BIC (or also referred to as SBC).</p>
-<p>The AIC, or <strong>Akaike information criterion</strong>, was developed by statistician Hirotugu Akaike in the 1970’s and is defined by
+<div id="selection-criteria" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Selection Criteria<a href="model-selection.html#selection-criteria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>When trying to find the best model, there are many selection criteria at our disposal. For example, you have already been introduced to <span class="math inline">\(R^{2}\)</span> (the larger the value of <span class="math inline">\(R^{2}\)</span>, the better the model). However, when comparing multivariate models, the adjusted <span class="math inline">\(R^{2}\)</span> is better due to the fact that <span class="math inline">\(R^{2}\)</span> can potentially increase even when adding noise. The adjusted <span class="math inline">\(R^{2}\)</span> can be thought of as <span class="math inline">\(R^{2}\)</span> with penalty (for every additional variable added to the model, we add a penalty). This allows us to weigh the contribution of adding new variables against the added complexity of more variables in the model. There are other selection criteria that are also used in selecting the “best model” (or variable selection). As you will notice, these selection criteria also have a penalty to take into account the addition of variables. We will use two of the most common ones: AIC and BIC (can also be referred to as SBC).</p>
+<p>The AIC, or <strong>Akaike Information Criterion</strong>, was developed by statistician Hirotugu Akaike in the 1970’s and is defined by
 <span class="math display">\[ AIC = -2log(Likelihood) + 2p.  \]</span> In this case, “Likelihood” is the likelihood of the data and <span class="math inline">\(2p\)</span> is the “penalty”, where <span class="math inline">\(p\)</span> is the number of parameters in the model. A smaller AIC indicates a better model.</p>
-<p>BIC, also known as the Bayesian Information Criterion (also called SBC or Schwarz Bayesian Information) was first developed by Gideon E. Schwarz, also back in the 1970’s and is defined by
-<span class="math display">\[BIC = -2log(Likelihood) + plog(n). \]</span> In this case, “Likelihood” is the likelihood of the data and plog(n) is the “penalty”, where p is the number of parameters in the model and n is the sample size. A smaller BIC indicates a better model. Notice that both penalties have a common term of p in them (this will be important to remember when we start discussing the R code).</p>
+<p>BIC, also known as the <strong>Bayesian Information Criterion</strong> (also called SBC or <strong>Schwarz Bayesian Information</strong>) was first developed by Gideon E. Schwarz, also back in the 1970’s and is defined by
+<span class="math display">\[BIC = -2log(Likelihood) + plog(n). \]</span> In this case, “Likelihood” is the likelihood of the data and <span class="math inline">\(plog(n)\)</span> is the “penalty”, where <span class="math inline">\(p\)</span> is the number of parameters in the model and <span class="math inline">\(n\)</span> is the sample size. A smaller BIC indicates a better model. Notice that both penalties have a common term of <span class="math inline">\(p\)</span> in them (this will be important to remember when we start discussing the R code).</p>
 </div>
-<div id="stepwise-selection" class="section level2">
-<h2><span class="header-section-number">4.2</span> Stepwise Selection</h2>
+<div id="stepwise-selection" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Stepwise Selection<a href="model-selection.html#stepwise-selection" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The three different algorithms in the stepwise selection search are forward, backward and stepwise. Each of these algorithms either add or take away one variable at a time based on a given criterion until this criterion can no longer be met. At which point the algorithm stops.</p>
-<div id="forward" class="section level3 unnumbered">
-<h3>Forward</h3>
+<div id="forward" class="section level3 unnumbered hasAnchor">
+<h3>Forward<a href="model-selection.html#forward" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>For forward selection, we start with a null model (only the intercept) and add one variable at a time until no other variables can be added based on a given criterion. The algorithm is as follows:</p>
 <ol start="0" style="list-style-type: decimal">
-<li>Start with a null model, this is the base model<br />
+<li>Start with a null model, this is the base model (just the intercept)<br />
 
 <ol style="list-style-type: decimal">
-<li>For each variable not in model, create a linear regression model with the base model plus this variable<br />
+<li>For each variable not in model, create a linear regression model with the base model plus this one variable<br />
 </li>
 <li>See which linear regression is best (based on criterion)<br />
 </li>
@@ -316,20 +417,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
 </ol></li>
 </ol>
-<p>To do forward selection in R, you will use the step function. The “empty model” should be used as your initial model (which is just the intercept). For the scope of the model, you need to put the “smallest model” (just the intercept) to the “largest model” (full model). The direction is forward. The penalty can be controlled by defining “k”. Using a value of 2 for “k” will use the AIC criterion (remember AIC penalty was <span class="math inline">\(2p\)</span>) and using <span class="math inline">\(log(n)\)</span> for “k” will use the BIC criterion (remember BIC penalty was plog(n)). If you do not specify anything for “k”, the default is AIC. You can also define “k” as the upper <span class="math inline">\(\alpha\)</span>-quantile of a <span class="math inline">\(\chi^{2}\)</span> distribution with one degree of freedom, which will use p-value for its selection of variables. In this case, the best “model” is the one with the lowest p-value for the new variable. In order to enter the model, the p-value of this variable will need to be lower than the “cut-off” for the p-values (<span class="math inline">\(\alpha\)</span>), which means that the criterion to enter the model would be that the variable has a p-value smaller than <span class="math inline">\(\alpha\)</span>.</p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" data-line-number="1"><span class="co"># Create full model and empty model</span></a>
-<a class="sourceLine" id="cb163-2" data-line-number="2">full.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>. , <span class="dt">data =</span> train_sel)</a>
-<a class="sourceLine" id="cb163-3" data-line-number="3">empty.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> train_sel)</a>
-<a class="sourceLine" id="cb163-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb163-5" data-line-number="5"><span class="co"># k = 2 for AIC selection</span></a>
-<a class="sourceLine" id="cb163-6" data-line-number="6">for.model &lt;-<span class="st"> </span><span class="kw">step</span>(empty.model,</a>
-<a class="sourceLine" id="cb163-7" data-line-number="7">                  <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
-<a class="sourceLine" id="cb163-8" data-line-number="8">                               <span class="dt">upper =</span> full.model),</a>
-<a class="sourceLine" id="cb163-9" data-line-number="9">                  <span class="dt">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="dt">k =</span> <span class="dv">2</span>) </a></code></pre></div>
-<p>Below is edited output with comments to lead you through the forward selection. Notice that the above code has k=2, which means we are using AIC as our selection criterion. The first information R provides is for the initial model, which is <span class="math display">\[Y_{i}=\beta_{0} + \varepsilon_{i}.\]</span> The “empty model” has an AIC of 46,323.64 (in order for ANY variable to be added, that model must be better, or in other words have a smaller AIC than this initial model).</p>
+<p>To do forward selection in R, you will use the step function. The “empty model” should be used as your initial model (which is just the intercept). For the scope of the model, you need to put the “smallest model” (just the intercept) to the “largest model” (full model). The direction is forward. The penalty can be controlled by defining “<span class="math inline">\(k\)</span>”. Using a value of 2 for “<span class="math inline">\(k\)</span>” will use the AIC criterion (remember AIC penalty was <span class="math inline">\(2p\)</span>) and using <span class="math inline">\(log(n)\)</span> for “<span class="math inline">\(k\)</span>” will use the BIC criterion (remember BIC penalty was <span class="math inline">\(plog(n)\)</span>). If you do not specify anything for “<span class="math inline">\(k\)</span>”, the default is AIC. You can also define “<span class="math inline">\(k\)</span>” as the upper <span class="math inline">\(\alpha\)</span>-quantile of a <span class="math inline">\(\chi^{2}\)</span> distribution with one degree of freedom, which will use p-value for its selection of variables. In this case, the best “model” is the one with the lowest p-value for the new variable. In order to enter the model, the p-value of this variable will need to be lower than the “cut-off” for the p-values (<span class="math inline">\(\alpha\)</span>), which means that the criterion to enter the model would be that the variable has a p-value smaller than <span class="math inline">\(\alpha\)</span>.</p>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="model-selection.html#cb285-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create full model and empty model</span></span>
+<span id="cb285-2"><a href="model-selection.html#cb285-2" aria-hidden="true" tabindex="-1"></a>full.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> . , <span class="at">data =</span> train_sel)</span>
+<span id="cb285-3"><a href="model-selection.html#cb285-3" aria-hidden="true" tabindex="-1"></a>empty.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> train_sel)</span>
+<span id="cb285-4"><a href="model-selection.html#cb285-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb285-5"><a href="model-selection.html#cb285-5" aria-hidden="true" tabindex="-1"></a><span class="co"># k = 2 for AIC selection</span></span>
+<span id="cb285-6"><a href="model-selection.html#cb285-6" aria-hidden="true" tabindex="-1"></a>for.model <span class="ot">&lt;-</span> <span class="fu">step</span>(empty.model,</span>
+<span id="cb285-7"><a href="model-selection.html#cb285-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
+<span id="cb285-8"><a href="model-selection.html#cb285-8" aria-hidden="true" tabindex="-1"></a>                               <span class="at">upper =</span> full.model),</span>
+<span id="cb285-9"><a href="model-selection.html#cb285-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="at">k =</span> <span class="dv">2</span>) </span></code></pre></div>
+<p>Below is edited output with comments to lead you through the forward selection. Notice that the above code has <span class="math inline">\(k\)</span>=2, which means we are using AIC as our selection criterion. The first information R provides is for the initial model, which is <span class="math display">\[Y_{i}=\beta_{0} + \varepsilon_{i}.\]</span> The “empty model” has an AIC of 46,323.64 (in order for ANY variable to be added, that model must be better, or in other words have a smaller AIC than this initial model).</p>
 <pre><code>Start:  AIC=46323.64
 Sale_Price ~ 1</code></pre>
-<p>R then displays all simple linear regressions with their corresponding AIC values. Notice that R put the information in ascending AIC values (so, best simple linear regression is 43,817 which is indeed smaller than 46,323.64). You will also see a line with a blank for the variable (this is the current “base model”). This is the “base model”. In this first step, it is just the intercept. Therefore, we will add the variable Overall_Qual.</p>
+<p>R then displays all simple linear regressions with their corresponding AIC values. Notice that R puts the information in ascending AIC values (so, the best simple linear regression is 43,817 which is indeed smaller than 46,323.64). You will also see a line with a blank for the “variable”, this is the current “base model”. In this first step, it is just the intercept. Therefore, we will add the variable Overall_Qual.</p>
 <table>
 <thead>
 <tr class="header">
@@ -455,7 +556,7 @@ Sale_Price ~ 1</code></pre>
 </tr>
 </tbody>
 </table>
-<p>Now, R shows you the new “base model”, which includes Overall_Qual (and of course the intercept is still included) and the new AIC value to beat 43816.66).</p>
+<p>Now, R shows you the new “base model”, which includes Overall_Qual (and of course the intercept is still included) and the new AIC value to beat which is 43816.66.</p>
 <pre><code>Step:  AIC=43816.66
 Sale_Price ~ Overall_Qual</code></pre>
 <p>Using this as our base model, we now try adding each of the remaining variables in separate regression models, output is shown below:</p>
@@ -614,20 +715,20 @@ Sale_Price ~ Overall_Qual + Gr_Liv_Area + House_Style + Garage_Area + Bldg_Type 
 </table>
 <p>Notice that the previous step had a model with the intercept, Overall_Qual, Gr_Liv_Area, House_Style, Garage_Area,
 Bldg_Type, Fireplaces, Full_Bath, Half_Bath, Lot_Area, Roof_Style, Central_Air, Second_Flr_SF, TotRms_AbvGrd, and First_Flr_SF (as illustrated by the above formula). The AIC for this model is 42676.1. There is only one variable left that could be added (Street). However, when we add street to the model, the AIC now becomes 42677 (in other words AIC increases, which is a worse model). The algorithm stops here.</p>
-<p>The code below illustrates how to do forward selection with BIC and p-values. In the output from R, it still says “AIC”, but now these values are calculated by using the BIC formula or the corresponding “k” values for p-values (take a look at the values R has for the “AIC” column and you will see that it has changed!).</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1"><span class="co"># k = log(n) for BIC selection</span></a>
-<a class="sourceLine" id="cb168-2" data-line-number="2">for.model2 &lt;-<span class="st"> </span><span class="kw">step</span>(empty.model,</a>
-<a class="sourceLine" id="cb168-3" data-line-number="3">                   <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
-<a class="sourceLine" id="cb168-4" data-line-number="4">                               <span class="dt">upper =</span> full.model),</a>
-<a class="sourceLine" id="cb168-5" data-line-number="5">                   <span class="dt">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="dt">k =</span> <span class="kw">log</span>(<span class="kw">nrow</span>(train_sel))) <span class="co"># k = qchisq(alpha, 1, lower.tail = FALSE) for p-value with alpha selection</span></a>
-<a class="sourceLine" id="cb168-6" data-line-number="6">alpha.f=<span class="fl">0.05</span></a>
-<a class="sourceLine" id="cb168-7" data-line-number="7">for.model3 &lt;-<span class="st"> </span><span class="kw">step</span>(empty.model,</a>
-<a class="sourceLine" id="cb168-8" data-line-number="8">                   <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
-<a class="sourceLine" id="cb168-9" data-line-number="9">                                <span class="dt">upper =</span> full.model),</a>
-<a class="sourceLine" id="cb168-10" data-line-number="10">                   <span class="dt">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="dt">k =</span> <span class="kw">qchisq</span>(alpha.f, <span class="dv">1</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)) </a></code></pre></div>
+<p>The code below illustrates how to do forward selection with BIC and p-values. In the output from R, it still says “AIC”, but now these values are calculated by using the BIC formula or the corresponding “<span class="math inline">\(k\)</span>” values for p-values (take a look at the values R has for the “AIC” column and you will see that it has changed!).</p>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="model-selection.html#cb290-1" aria-hidden="true" tabindex="-1"></a><span class="co"># k = log(n) for BIC selection</span></span>
+<span id="cb290-2"><a href="model-selection.html#cb290-2" aria-hidden="true" tabindex="-1"></a>for.model2 <span class="ot">&lt;-</span> <span class="fu">step</span>(empty.model,</span>
+<span id="cb290-3"><a href="model-selection.html#cb290-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
+<span id="cb290-4"><a href="model-selection.html#cb290-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">upper =</span> full.model),</span>
+<span id="cb290-5"><a href="model-selection.html#cb290-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="at">k =</span> <span class="fu">log</span>(<span class="fu">nrow</span>(train_sel))) <span class="co"># k = qchisq(alpha, 1, lower.tail = FALSE) for p-value with alpha selection</span></span>
+<span id="cb290-6"><a href="model-selection.html#cb290-6" aria-hidden="true" tabindex="-1"></a>alpha.f<span class="ot">=</span><span class="fl">0.05</span></span>
+<span id="cb290-7"><a href="model-selection.html#cb290-7" aria-hidden="true" tabindex="-1"></a>for.model3 <span class="ot">&lt;-</span> <span class="fu">step</span>(empty.model,</span>
+<span id="cb290-8"><a href="model-selection.html#cb290-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
+<span id="cb290-9"><a href="model-selection.html#cb290-9" aria-hidden="true" tabindex="-1"></a>                                <span class="at">upper =</span> full.model),</span>
+<span id="cb290-10"><a href="model-selection.html#cb290-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="at">k =</span> <span class="fu">qchisq</span>(alpha.f, <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)) </span></code></pre></div>
 </div>
-<div id="backward" class="section level3 unnumbered">
-<h3>Backward</h3>
+<div id="backward" class="section level3 unnumbered hasAnchor">
+<h3>Backward<a href="model-selection.html#backward" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Backward elimination starts with the “base” model as the full model (i.e. all variables are contained within the model). We remove only one variable and we do this for each variable in the model. We want to see if the any of the models improve over the “base model” (in other words, is the model better with that one variable removed based on a given criterion?). If this new model (with that one variable removed) is better than the previous model, then we remove that variable and this new model now becomes the base model. We are looking for the best improvement, therefore we look at the model that would be the best over the base model. The algorithm continues in this fashion until no other variables can be removed, based on the chosen criterion.</p>
 <ol start="0" style="list-style-type: decimal">
 <li>Start with full model with all predictor variables in it, this is the base model and calculate the criterion on this model<br />
@@ -649,17 +750,17 @@ Bldg_Type, Fireplaces, Full_Bath, Half_Bath, Lot_Area, Roof_Style, Central_Air, 
 </li>
 </ol></li>
 </ol>
-<p>To do backward elimination in R, you will use the step function. The “full model” should be used as your initial model (which is the model with all the predictor variables in it). For the scope of the model, you need to put the “smallest model” (just the intercept) to the “largest model” (full model). The direction is backward. The penalty (which indicates the criteria) can be controlled by defining “k”. As discussed before, a value of 2 will use the AIC criterion, a value of <span class="math inline">\(log(n)\)</span> will produce the BIC penalty, and finally the upper <span class="math inline">\(\alpha\)</span>-quantile of a <span class="math inline">\(\chi^{2}\)</span> distribution with one degree of freedom will use p-value for its removal of variables.</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1"><span class="co"># Create full model and empty model</span></a>
-<a class="sourceLine" id="cb169-2" data-line-number="2">full.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>. , <span class="dt">data =</span> train_sel)</a>
-<a class="sourceLine" id="cb169-3" data-line-number="3">empty.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> train_sel)</a>
-<a class="sourceLine" id="cb169-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb169-5" data-line-number="5"><span class="co"># k = 2 for AIC selection</span></a>
-<a class="sourceLine" id="cb169-6" data-line-number="6">back.model &lt;-<span class="st"> </span><span class="kw">step</span>(full.model,</a>
-<a class="sourceLine" id="cb169-7" data-line-number="7">                  <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
-<a class="sourceLine" id="cb169-8" data-line-number="8">                               <span class="dt">upper =</span> full.model),</a>
-<a class="sourceLine" id="cb169-9" data-line-number="9">                  <span class="dt">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="dt">k =</span> <span class="dv">2</span>) </a></code></pre></div>
-<p>Below is edited output with comments to lead you through the backward elimination. Notice that the above code has k=2, which means we are using AIC as our selection criterion. The first information R provides is for the initial model, which is <span class="math display">\[Y_{i}=\beta_{0} + \beta_{1}x_{i,1}+\beta_{2}x_{i,2}+\beta_{3}x_{i,3}+\beta_{4}x_{i,4}+\beta_{5}x_{i,5}+\beta_{6}x_{i,6}+\beta_{i,7}x_{7}+\beta_{8}x_{i,8}+\beta_{9}x_{i,9}+\beta_{10}x_{i,10}+\beta_{11}x_{i,11}+\beta_{12}x_{i,12}+\beta_{13}x_{i,13}+\beta_{14}x_{i,14}+\beta_{15}x_{i,15}+\varepsilon_{i}.\]</span> The “full model” has an AIC of 42,677.12 (in order for ANY variable to be removed, that model must be better, or in other words have a smaller AIC than this initial model).</p>
+<p>To do backward elimination in R, you will use the step function. The “full model” should be used as your initial model (which is the model with all the predictor variables in it). For the scope of the model, you need to put the “smallest model” (just the intercept) to the “largest model” (full model). The direction is backward. The penalty (which indicates the criteria) can be controlled by defining “<span class="math inline">\(k\)</span>”. As discussed before, a value of 2 will use the AIC criterion, a value of <span class="math inline">\(log(n)\)</span> will produce the BIC penalty, and finally the upper <span class="math inline">\(\alpha\)</span>-quantile of a <span class="math inline">\(\chi^{2}\)</span> distribution with one degree of freedom will use p-value for its removal of variables.</p>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="model-selection.html#cb291-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create full model and empty model</span></span>
+<span id="cb291-2"><a href="model-selection.html#cb291-2" aria-hidden="true" tabindex="-1"></a>full.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> . , <span class="at">data =</span> train_sel)</span>
+<span id="cb291-3"><a href="model-selection.html#cb291-3" aria-hidden="true" tabindex="-1"></a>empty.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> train_sel)</span>
+<span id="cb291-4"><a href="model-selection.html#cb291-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb291-5"><a href="model-selection.html#cb291-5" aria-hidden="true" tabindex="-1"></a><span class="co"># k = 2 for AIC selection</span></span>
+<span id="cb291-6"><a href="model-selection.html#cb291-6" aria-hidden="true" tabindex="-1"></a>back.model <span class="ot">&lt;-</span> <span class="fu">step</span>(full.model,</span>
+<span id="cb291-7"><a href="model-selection.html#cb291-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
+<span id="cb291-8"><a href="model-selection.html#cb291-8" aria-hidden="true" tabindex="-1"></a>                               <span class="at">upper =</span> full.model),</span>
+<span id="cb291-9"><a href="model-selection.html#cb291-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="at">k =</span> <span class="dv">2</span>) </span></code></pre></div>
+<p>Below is edited output with comments to lead you through the backward elimination. Notice that the above code has <span class="math inline">\(k\)</span>=2, which means we are using AIC as our selection criterion. The first information R provides is for the initial model, which is <span class="math display">\[Y_{i}=\beta_{0} + \beta_{1}x_{i,1}+\beta_{2}x_{i,2}+\beta_{3}x_{i,3}+\beta_{4}x_{i,4}+\beta_{5}x_{i,5}+\beta_{6}x_{i,6}+\beta_{i,7}x_{7}+\beta_{8}x_{i,8}+\beta_{9}x_{i,9}+\beta_{10}x_{i,10}+\beta_{11}x_{i,11}+\beta_{12}x_{i,12}+\beta_{13}x_{i,13}+\beta_{14}x_{i,14}+\beta_{15}x_{i,15}+\varepsilon_{i}.\]</span> The “full model” has an AIC of 42,677.12 (in order for ANY variable to be removed, that model must be better, or in other words have a smaller AIC than this initial model).</p>
 <p>R then displays linear regression models with one variable removed and their corresponding AIC values. For example, if we remove Street (just that one variable), the AIC of that model will be 42675. Notice that R put the information in ascending AIC values (so, best linear regression is at the top with an AIC value of 42,675 which is indeed smaller than 42,677.12, so Street will be removed). You will also see a line with <none>. This is the “base model”, or in this case the full model.</p>
 <table>
 <thead>
@@ -898,26 +999,26 @@ Bldg_Type, Fireplaces, Full_Bath, Half_Bath, Lot_Area, Roof_Style, Central_Air, 
 </tr>
 </tbody>
 </table>
-<p>Notice that none of the removal of variables is better than the “base model” based on the AIC (best one is TotRms_AbvGrd and that has an AIC of 42675, which is not better than the base model). Since none of the removals improve the model, the algorithm stops here with all variables in the model except Street. Therefore, the final model is:</p>
+<p>Notice that none of the removal of variables is better than the “base model” based on the AIC (best one is TotRms_AbvGrd and that has an AIC of 42675, which is not better than the base model). Since none of the removals improve the model, the algorithm stops here with all variables in the model except Street. A quick note here: notice that backward elimination selected the same model as forward selection. This will not always be the case! Therefore, the final model is:</p>
 <pre><code>Step:  AIC=42674.6
 Sale_Price ~ Lot_Area + Bldg_Type + House_Style + Overall_Qual + 
     Roof_Style + Central_Air + First_Flr_SF + Second_Flr_SF + 
     Full_Bath + Half_Bath + Fireplaces + Garage_Area + TotRms_AbvGrd</code></pre>
 <p>The code below illustrates how to do backward elimination with BIC and p-values.</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" data-line-number="1"><span class="co"># k = log(n) for BIC selection</span></a>
-<a class="sourceLine" id="cb171-2" data-line-number="2">back.model2 &lt;-<span class="st"> </span><span class="kw">step</span>(full.model,</a>
-<a class="sourceLine" id="cb171-3" data-line-number="3">                   <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
-<a class="sourceLine" id="cb171-4" data-line-number="4">                               <span class="dt">upper =</span> full.model),</a>
-<a class="sourceLine" id="cb171-5" data-line-number="5">                   <span class="dt">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="dt">k =</span> <span class="kw">log</span>(<span class="kw">nrow</span>(train_sel))) <span class="co"># k = qchisq(alpha, 1, lower.tail = FALSE) for p-value with alpha selection</span></a>
-<a class="sourceLine" id="cb171-6" data-line-number="6">alpha.f=<span class="fl">0.05</span></a>
-<a class="sourceLine" id="cb171-7" data-line-number="7">back.model3 &lt;-<span class="st"> </span><span class="kw">step</span>(full.model,</a>
-<a class="sourceLine" id="cb171-8" data-line-number="8">                   <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
-<a class="sourceLine" id="cb171-9" data-line-number="9">                                <span class="dt">upper =</span> full.model),</a>
-<a class="sourceLine" id="cb171-10" data-line-number="10">                   <span class="dt">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="dt">k =</span> <span class="kw">qchisq</span>(alpha.f, <span class="dv">1</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)) </a></code></pre></div>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="model-selection.html#cb293-1" aria-hidden="true" tabindex="-1"></a><span class="co"># k = log(n) for BIC selection</span></span>
+<span id="cb293-2"><a href="model-selection.html#cb293-2" aria-hidden="true" tabindex="-1"></a>back.model2 <span class="ot">&lt;-</span> <span class="fu">step</span>(full.model,</span>
+<span id="cb293-3"><a href="model-selection.html#cb293-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
+<span id="cb293-4"><a href="model-selection.html#cb293-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">upper =</span> full.model),</span>
+<span id="cb293-5"><a href="model-selection.html#cb293-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="at">k =</span> <span class="fu">log</span>(<span class="fu">nrow</span>(train_sel))) <span class="co"># k = qchisq(alpha, 1, lower.tail = FALSE) for p-value with alpha selection</span></span>
+<span id="cb293-6"><a href="model-selection.html#cb293-6" aria-hidden="true" tabindex="-1"></a>alpha.f<span class="ot">=</span><span class="fl">0.05</span></span>
+<span id="cb293-7"><a href="model-selection.html#cb293-7" aria-hidden="true" tabindex="-1"></a>back.model3 <span class="ot">&lt;-</span> <span class="fu">step</span>(full.model,</span>
+<span id="cb293-8"><a href="model-selection.html#cb293-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
+<span id="cb293-9"><a href="model-selection.html#cb293-9" aria-hidden="true" tabindex="-1"></a>                                <span class="at">upper =</span> full.model),</span>
+<span id="cb293-10"><a href="model-selection.html#cb293-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="at">k =</span> <span class="fu">qchisq</span>(alpha.f, <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)) </span></code></pre></div>
 </div>
-<div id="stepwise" class="section level3 unnumbered">
-<h3>Stepwise</h3>
-<p>Stepwise selection is a combination of both of these methods. We will start with the “base model” as the empty model (i.e. just the intercept) and will add variables (as in forward selection). However, as we add new variables, we will also check that the variables in the model are still contributing (in other words, we check to see if the model would be better if we drop one of the variables in the model. Keep in mind that this algorithm is similar to forward selection and backward elimination in that only one variable may either enter or be removed at each step. The algorithm stops when no more variables can be added to nor taken away from the model (in other words, the current “base model” is better than adding any single variable or taking away any single variable). The addition and removal of variables is again based upon the criteria specified. See the algorithm below:</p>
+<div id="stepwise" class="section level3 unnumbered hasAnchor">
+<h3>Stepwise<a href="model-selection.html#stepwise" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Stepwise selection is a combination of both of these methods. In this algorithm, we start with the “base model” as the empty model (i.e. just the intercept) and will add variables (as in forward selection). However, as we add new variables, we will also check that the variables in the model are still contributing (in other words, after a new variable is added, we check to see if the model would be better if we drop one of the other variables in the model). Keep in mind that this algorithm is similar to forward selection and backward elimination in that only one variable may either enter or be removed at each step. The algorithm stops when no more variables can be added to nor taken away from the model (in other words, the current “base model” is better than adding any single addition of one variable or any single extraction of one variable). The addition and removal of variables is again based upon the criteria specified. See the algorithm below:</p>
 <ol start="0" style="list-style-type: decimal">
 <li>Start with empty model with only the intercept in it, this is the base model and calculate the criterion on this model<br />
 
@@ -938,16 +1039,16 @@ Sale_Price ~ Lot_Area + Bldg_Type + House_Style + Overall_Qual +
 </li>
 </ol></li>
 </ol>
-<p>To do stepwise selection in R, you will use the step function. The “empty model” should be used as your initial model. For the scope of the model, you need to put the “smallest model” (just the intercept) to the “largest model” (full model). The direction is both. The penalty (which indicates the criteria) can be controlled by defining “k”. As discussed before, a value of 2 will use the AIC criterion, a value of <span class="math inline">\(log(n)\)</span> will produce the BIC penalty, and finally the upper <span class="math inline">\(\alpha\)</span>-quantile of a <span class="math inline">\(\chi^{2}\)</span> distribution with one degree of freedom will use p-value for its removal of variables.</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" data-line-number="1"><span class="co"># Create full model and empty model</span></a>
-<a class="sourceLine" id="cb172-2" data-line-number="2">full.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>. , <span class="dt">data =</span> train_sel)</a>
-<a class="sourceLine" id="cb172-3" data-line-number="3">empty.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> train_sel)</a>
-<a class="sourceLine" id="cb172-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb172-5" data-line-number="5"><span class="co"># k = 2 for AIC selection</span></a>
-<a class="sourceLine" id="cb172-6" data-line-number="6">step.model &lt;-<span class="st"> </span><span class="kw">step</span>(empty.model,</a>
-<a class="sourceLine" id="cb172-7" data-line-number="7">                  <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower =</span> empty.model,</a>
-<a class="sourceLine" id="cb172-8" data-line-number="8">                               <span class="dt">upper =</span> full.model),</a>
-<a class="sourceLine" id="cb172-9" data-line-number="9">                  <span class="dt">direction =</span> <span class="st">&quot;both&quot;</span>, <span class="dt">k =</span> <span class="dv">2</span>) </a></code></pre></div>
+<p>To do stepwise selection in R, you will use the step function. The “empty model” should be used as your initial model. For the scope of the model, you need to put the “smallest model” (just the intercept) to the “largest model” (full model). The direction is both. The penalty (which indicates the criteria) can be controlled by defining “<span class="math inline">\(k\)</span>”. As discussed before, a value of 2 will use the AIC criterion, a value of <span class="math inline">\(log(n)\)</span> will produce the BIC penalty, and finally the upper <span class="math inline">\(\alpha\)</span>-quantile of a <span class="math inline">\(\chi^{2}\)</span> distribution with one degree of freedom will use p-value for its removal of variables.</p>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="model-selection.html#cb294-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create full model and empty model</span></span>
+<span id="cb294-2"><a href="model-selection.html#cb294-2" aria-hidden="true" tabindex="-1"></a>full.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> . , <span class="at">data =</span> train_sel)</span>
+<span id="cb294-3"><a href="model-selection.html#cb294-3" aria-hidden="true" tabindex="-1"></a>empty.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> train_sel)</span>
+<span id="cb294-4"><a href="model-selection.html#cb294-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb294-5"><a href="model-selection.html#cb294-5" aria-hidden="true" tabindex="-1"></a><span class="co"># k = 2 for AIC selection</span></span>
+<span id="cb294-6"><a href="model-selection.html#cb294-6" aria-hidden="true" tabindex="-1"></a>step.model <span class="ot">&lt;-</span> <span class="fu">step</span>(empty.model,</span>
+<span id="cb294-7"><a href="model-selection.html#cb294-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty.model,</span>
+<span id="cb294-8"><a href="model-selection.html#cb294-8" aria-hidden="true" tabindex="-1"></a>                               <span class="at">upper =</span> full.model),</span>
+<span id="cb294-9"><a href="model-selection.html#cb294-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">direction =</span> <span class="st">&quot;both&quot;</span>, <span class="at">k =</span> <span class="dv">2</span>) </span></code></pre></div>
 <p>As you can see, the initial base model is just the intercept (AIC=46,323.64). From this initial model, all simple linear regressions are created and the AIC is observed.</p>
 <pre><code>Start:  AIC=46323.64
 Sale_Price ~ 1</code></pre>
@@ -1466,9 +1567,9 @@ Sale_Price ~ Overall_Qual + House_Style + Garage_Area + Bldg_Type +
 <p>As you can see from the above stepwise procedures of forward, backward and stepwise, the algorithms attempt to find the “best model” by either adding one variable or taking away one variable at at a time. There is no guarantee that these algorithms will find the best model, but they do provide some guidance in terms of potential significance variables and can provide assistance when the number of variables under consideration is very large. As a caution though, you should always do further investigation once you have found models through these algorithms. These algorithms can give the same models or different models as their final selection based on the algorithm selected and the criteria used.</p>
 </div>
 </div>
-<div id="significance-levels" class="section level2">
-<h2><span class="header-section-number">4.3</span> Significance Levels</h2>
-<p>If you are going to use the “p-value” method, you need to be aware of some considerations due to sample size. The larger the sample size, the smaller the p-values will be and the more likely it is that you will end up seeing many “significant” p-values due to the relationship between p-values (not necessarily because that variable was informative). The paper by Raftery on the Moodle page sums up the problem nicely and provides at least some guidance in terms of potential alpha-levels to use for different sample sizes. A summary of the table is provided below.</p>
+<div id="significance-levels" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Significance Levels<a href="model-selection.html#significance-levels" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If you are going to use the “p-value” method, you need to be aware of some considerations due to sample size. The larger the sample size, the smaller the p-values will be and the more likely it is that you will end up seeing many “significant” p-values due to the relationship between p-values and sample size (not necessarily because that variable was informative). The paper by Raftery on the Moodle page sums up the problem nicely and provides at least some guidance in terms of potential alpha-levels to use for different sample sizes. A summary of the table is provided below.</p>
 <table>
 <thead>
 <tr class="header">
@@ -1511,7 +1612,11 @@ Sale_Price ~ Overall_Qual + House_Style + Garage_Area + Bldg_Type +
 </tbody>
 </table>
 <p>You can quickly see that for even sample sizes of 1000, one should consider the value of alpha that is used to determine significance. One thing that most researchers agree on is that considerations need to be taken for larger sample size. However, what those considerations should be and exactly how to do that is not agreed upon. You should consider your sample size when you are determining what level of significance you want to choose for your analysis (also take into account which is worse….a type I error or a type II error). There is no quick answer to this question and each decision will depend on the analysis being conducted.</p>
+<div id="python-code-17" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Python Code<a href="model-selection.html#python-code-17" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Python does NOT have nice capabilities to do this automatically in statsmodels, scikitlearn, or scipy. All resources I can find involve downloading and installing a package (mlxtend) that is not included by default in anaconda or writing your own function. Scikit learn has something similar but uses the model’s coefficients (!!!) to select, not p-values. Scikit learn can do this by evaluating a metric on cross-validation, but that is not covered until machine learning in Fall 3.</p>
 
+</div>
 </div>
 </div>
             </section>
@@ -1519,12 +1624,11 @@ Sale_Price ~ Overall_Qual + House_Style + Garage_Area + Bldg_Type +
           </div>
         </div>
       </div>
-<a href="mlr.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="complex-anova-and-multiple-linear-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="diag.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -1564,6 +1668,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section",
 "toc": null
@@ -1578,7 +1686,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
