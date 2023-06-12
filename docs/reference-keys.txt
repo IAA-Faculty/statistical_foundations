@@ -115,7 +115,7 @@ simple-linear-regression
 slrassumptions
 testing-for-association
 python-code-12
-complex-anova-and-multiple-linear-regression
+mlr
 two-way-anova
 exploration
 model
@@ -185,4 +185,3 @@ adding-categorical-variables
 model-assessment
 variable-selection-and-regularized-regression
 python-code-31
-mlr
