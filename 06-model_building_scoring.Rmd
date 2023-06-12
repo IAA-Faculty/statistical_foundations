@@ -1,5 +1,3 @@
-
-
 # Model Building and Scoring for Prediction
 
 In the preceding chapters, we have only scratched the surface of model building. Linear regression is a great initial approach to take to model building. In fact, in the realm of statistical models, linear regression (calculated by ordinary least squares) is the **best linear unbiased estimator**. The two key pieces to that previous statement are "best" and "unbiased." 
@@ -391,7 +389,7 @@ To investigate which variables are important at a $\lambda$ value, we can view t
 
 ```{r, warning=FALSE}
 library(broom)
-#coef(ames_lasso, s = ames_lasso_cv$lambda.1se) %>%
+coef(ames_lasso, s = ames_lasso_cv$lambda.1se) #%>%
 #  broom::tidy() %>%
 #  filter(row != "(Intercept)") %>%
 #  ggplot(aes(value, reorder(row, value))) +
@@ -441,9 +439,9 @@ The MAPE gives the average absolute *percentage* difference between our predicti
 The final model we had from Chapter \@ref(diag) had the variables . From this model we can use the ```predict``` function with the ```newdata = ``` option to use score the ```test``` dataset. 
 
 ```{r}
-#test$pred_lm <- predict(ames_lm, newdata = test)
+test$pred_lm <- predict(ames_lm, newdata = test)
 
-#head(test$pred_lm)
+head(test$pred_lm)
 ```
 
 To get predictions from the regularized regression models, a $\lambda$ value must be selected. For the previous LASSO regression we will choose the largest $\lambda$ value within one standard error of the minimum $\lambda$ value to help reduce the number of variables. Again, we will use the ```predict``` function. The ```s = ``` option is where we input the $\lambda$ value. The ```newx = ``` option is where we specify the ```test``` dataset. 
@@ -457,13 +455,13 @@ head(test_reg$pred_lasso)
 Now we need to calculate the MAE and MAPE for each model for comparison.
 
 ```{r}
-#test %>%
-#  mutate(lm_APE = 100*abs((Sale_Price - pred_lm)/Sale_Price)) %>%
-#  dplyr::summarise(MAPE_lm = mean(lm_APE))
+test %>%
+  mutate(lm_APE = 100*abs((Sale_Price - pred_lm)/Sale_Price)) %>%
+  dplyr::summarise(MAPE_lm = mean(lm_APE))
 
-#test_reg %>%
-#  mutate(lasso_APE = 100*abs((Sale_Price - pred_lasso)/Sale_Price)) %>%
-#  dplyr::summarise(MAPE_lasso = mean(lasso_APE))
+test_reg %>%
+  mutate(lasso_APE = 100*abs((Sale_Price - pred_lasso)/Sale_Price)) %>%
+  dplyr::summarise(MAPE_lasso = mean(lasso_APE))
 
 ```
 
