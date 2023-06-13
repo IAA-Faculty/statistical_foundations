@@ -388,15 +388,7 @@ abline(v = log(ames_lasso_cv$lambda.min), col = "black", lty = "dashed")
 To investigate which variables are important at a $\lambda$ value, we can view the coefficients using the ```coef``` function. They are ranked here:
 
 ```{r, warning=FALSE}
-library(broom)
-coef(ames_lasso, s = ames_lasso_cv$lambda.1se) #%>%
-#  broom::tidy() %>%
-#  filter(row != "(Intercept)") %>%
-#  ggplot(aes(value, reorder(row, value))) +
-#  geom_point() +
-#  ggtitle("Influential Variables") +
-#  xlab("Coefficient") +
-#  ylab(NULL)
+coef(ames_lasso, s = c(ames_lasso_cv$lambda.min, ames_lasso_cv$lambda.1se))
 ```
 
 The variable describing the overall quality of the home is the driving factor of this model as well as the other variables listed above.
