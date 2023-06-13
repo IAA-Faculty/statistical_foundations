@@ -50,6 +50,13 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -1155,10 +1162,10 @@ Figure 1.4: Example of a Bimodal Distribution
 <span id="cb12-2"><a href="intro-stat.html#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="intro-stat.html#cb12-3" aria-hidden="true" tabindex="-1"></a>Hmisc<span class="sc">::</span><span class="fu">describe</span>(ames<span class="sc">$</span>Sale_Price)</span></code></pre></div>
 <pre><code>## ames$Sale_Price 
-##        n  missing distinct     Info     Mean      Gmd      .05      .10 
-##     2930        0     1032        1   180796    81960    87500   105450 
-##      .25      .50      .75      .90      .95 
-##   129500   160000   213500   281242   335000 
+##        n  missing distinct     Info     Mean      Gmd      .05      .10      .25      .50      .75 
+##     2930        0     1032        1   180796    81960    87500   105450   129500   160000   213500 
+##      .90      .95 
+##   281242   335000 
 ## 
 ## lowest :  12789  13100  34900  35000  35311, highest: 611657 615000 625000 745000 755000</code></pre>
 <ul>
@@ -1231,8 +1238,7 @@ Figure 1.5: The Laplace distribution (top left) is leptokurtic because it has mo
 <pre><code>## Warning: The dot-dot notation (`..density..`) was deprecated in ggplot2 3.4.0.
 ## ℹ Please use `after_stat(density)` instead.
 ## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-## generated.</code></pre>
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:histwithkernal"></span>
 <img src="bookdownproj_files/figure-html/histwithkernal-1.png" alt="Histogram of Sale_Price with kernal density estimator" width="672" />
 <p class="caption">
@@ -1600,8 +1606,8 @@ This will be the subject of interest in the next section.</p>
 ## [1] 0.95</code></pre>
 <p>To learn the labels of the various pieces of output, you can list them with the <code>ls()</code> function, or by saving the output as an object (below, <code>results</code> is the object that stores the output) and exploring it in your environment (upper right panel in RStudio):</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="intro-stat.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>(<span class="fu">t.test</span>(ames<span class="sc">$</span>Sale_Price, <span class="at">conf.level =</span> <span class="fl">0.95</span>))</span></code></pre></div>
-<pre><code>##  [1] &quot;alternative&quot; &quot;conf.int&quot;    &quot;data.name&quot;   &quot;estimate&quot;    &quot;method&quot;     
-##  [6] &quot;null.value&quot;  &quot;p.value&quot;     &quot;parameter&quot;   &quot;statistic&quot;   &quot;stderr&quot;</code></pre>
+<pre><code>##  [1] &quot;alternative&quot; &quot;conf.int&quot;    &quot;data.name&quot;   &quot;estimate&quot;    &quot;method&quot;      &quot;null.value&quot;  &quot;p.value&quot;    
+##  [8] &quot;parameter&quot;   &quot;statistic&quot;   &quot;stderr&quot;</code></pre>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="intro-stat.html#cb61-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(ames<span class="sc">$</span>Sale_Price, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <div id="python-code-1" class="section level3 hasAnchor" number="1.3.1">
 <h3><span class="header-section-number">1.3.1</span> Python Code<a href="intro-stat.html#python-code-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1662,8 +1668,7 @@ Suppose we flip the coin 100 times and count 65 heads. How likely is it that we 
 <pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ## ℹ Please use `linewidth` instead.
 ## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-## generated.</code></pre>
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:cointossht"></span>
 <img src="bookdownproj_files/figure-html/cointossht-1.png" alt="Null Distribution: Number of heads for fair coin tossed 100 times " width="672" />
 <p class="caption">
