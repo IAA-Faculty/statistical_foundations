@@ -1108,7 +1108,7 @@ We summarize this information in the following table:
 <tr> <td> Conditions <td> Interpretation of Significant <br> Mann-Whitney-Wilcoxon Test 
 <tr> <td> Group distributions are identical in shape,<br> variance, and symmetric <td> Difference in means 
 <tr> <td> Group distributions are identical in shape,<br> variance, but not symmetric <td> Difference in medians 
-<tr> <td> Group distributions are identical in shape,<br> variance, but not symmetric <td> Difference in location. <br> (distributional dominance) </tr>
+<tr> <td> Group distributions are not identical in shape,<br> variance, and are not symmetric <td> Difference in location. <br> (distributional dominance) </tr>
 </table>
 
 To perform this test, we use the `wilcox.test()` function, whose inputs are identical to the `t.test()` function.
