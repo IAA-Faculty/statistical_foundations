@@ -253,6 +253,7 @@ summary(ames_lm)
 # summary(ames_aov) # R-squared not reported here. 
 
 ```
+
 The p-value for the ANOVA hypothesis that all the groups have the same mean sale price is incredibly small, at $2.2\times10^{-16}$. This means it is extraordinarily improbable that we would have observed these differences in means, or a more extreme difference, if the population group means were equal. Thus, we reject our null hypothesis and conclude that there is an association between the exterior quality of a home and the price of the home. 
 
 We note, based on the $R^2$ statistics, that the exterior quality rating can account for almost half the variation in sales price! Adjusted $R^2$ is a statistic that takes into account the number of variables in the model. The difference between $R^2$ and adjusted $R^2$ will be more thoroughly discussed in Chapter \@ref(mlr).
@@ -324,6 +325,7 @@ plot(ames_lm)
 par(mfrow=c(1,1))
 
 ```
+
 In the top-right plot in Figure \@ref(fig:anovaplots) we verify again the _approximate_ normality of sale price.  To test for the third assumption of equal variances, we opt for a formal test like Levene's (which depends on normality and can be found in the `car` package) or Fligner's (which does not depend on normality and exists in the `stats` package). In both cases, the null hypothesis is equal variances:
 $$H_0: \sigma_a^2 =\sigma_b^2 =\sigma_c^2=\sigma_d^2 \quad  \text{i.e., the groups have equal variance}$$
 $$H_a: \text{at least one group's variance is different}$$
@@ -337,7 +339,14 @@ leveneTest(Sale_Price ~ Exter_Qual, data = train) # Most popular, but depends on
 fligner.test(Sale_Price ~ Exter_Qual, data = train) # DOES NOT depend on Normality
 
 ```
-And in both cases, we're forced to reject the null hypothesis of equal variances. A non-parametric version of the ANOVA test, the Kruskal-Wallis test, is more suitable to this particular case. Non-parametric tests do not have the same _statistical power_ to detect differences between groups. __Statistical power__ is the probability of detecting an effect, if there is a true effect present to detect. We should opt for these tests in situations where our data is ordinal or otherwise violates the assumptions of normality or equal variances in ways that cannot be fixed by logarithmic or other similar transformation. 
+
+And in both cases, we're forced to reject the null hypothesis of equal variances. The Welch's ANOVA is a better alternative when the variances are not equal (still assumes normality).
+
+```{r}
+oneway.test(Sale_Price ~ Exter_Qual, data = train, var.equal = FALSE)
+```
+
+A non-parametric version of the ANOVA test, the Kruskal-Wallis test, is also available. This test does NOT assume normality, but does need *similar* distributions among the different levels.  Non-parametric tests do not have the same _statistical power_ to detect differences between groups. __Statistical power__ is the probability of detecting an effect, if there is a true effect present to detect. We should opt for these tests in situations where our data is ordinal or otherwise violates the assumptions of normality in ways that cannot be fixed by logarithmic or other similar transformation. 
 
 ### Python Code
 

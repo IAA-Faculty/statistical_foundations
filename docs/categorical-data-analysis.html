@@ -388,45 +388,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="describing-categorical-data" class="section level2 hasAnchor" number="7.1">
 <h2><span class="header-section-number">7.1</span> Describing Categorical Data<a href="categorical-data-analysis.html#describing-categorical-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We need to first explore our data before building any models to try and explain/predict our categorical target variable. With categorical variables, we can look at the distribution of the categories as well as see if this distribution has any association with other variables. For this analysis we are going to still use our Ames housing data. Imagine you worked for a real estate agency and got a bonus check if you sold a house above $175,000 in value. Let’s create this variable in our data:</p>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="categorical-data-analysis.html#cb412-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb412-2"><a href="categorical-data-analysis.html#cb412-2" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> train <span class="sc">%&gt;%</span></span>
-<span id="cb412-3"><a href="categorical-data-analysis.html#cb412-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Bonus =</span> <span class="fu">ifelse</span>(Sale_Price <span class="sc">&gt;</span> <span class="dv">175000</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="categorical-data-analysis.html#cb414-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb414-2"><a href="categorical-data-analysis.html#cb414-2" tabindex="-1"></a>train <span class="ot">&lt;-</span> train <span class="sc">%&gt;%</span></span>
+<span id="cb414-3"><a href="categorical-data-analysis.html#cb414-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Bonus =</span> <span class="fu">ifelse</span>(Sale_Price <span class="sc">&gt;</span> <span class="dv">175000</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span></code></pre></div>
 <p>You are interested in what variables might be associated with obtaining a higher chance of getting a bonus (selling a house above $175,000). An association exists between two categorical variables if the distribution of one variable changes when the value of the other categorical changes. If there is no association, the distribution of the first variable is the same regardless of the value of the other variable. For example, if we wanted to know if obtaining a bonus on selling a house in Ames, Iowa was associated with whether the house had central air we could look at the distribution of bonus eligible houses. If we observe that 42% of homes with central air are bonus eligible and 42% of homes without central air are bonus eligible, then it appears that central air has no bearing on whether the home is bonus eligible. However, if instead we observe that only 3% of homes without central air are bonus eligible, but 44% of home with central air are bonus eligible, then it appears that having central air might be related to a home being bonus eligible.</p>
 <p>To understand the distribution of categorical variables we need to look at frequency tables. A frequency table shows the number of observations that occur in certain categories or intervals. A one way frequency table examines all the categories of one variable. These are easily visualized with bar charts.</p>
 <p>Let’s look at the distribution of both bonus eligibility and central air using the <code>table</code> function. The <code>ggplot</code> function with the <code>geom_bar</code> function allows us to view our data in a bar chart.</p>
-<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="categorical-data-analysis.html#cb413-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(train<span class="sc">$</span>Bonus)</span></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="categorical-data-analysis.html#cb415-1" tabindex="-1"></a><span class="fu">table</span>(train<span class="sc">$</span>Bonus)</span></code></pre></div>
 <pre><code>## 
 ##    0    1 
 ## 1187  864</code></pre>
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="categorical-data-analysis.html#cb415-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train) <span class="sc">+</span></span>
-<span id="cb415-2"><a href="categorical-data-analysis.html#cb415-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Bonus))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-170-1.png" width="672" /></p>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="categorical-data-analysis.html#cb416-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(train<span class="sc">$</span>Central_Air)</span></code></pre></div>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="categorical-data-analysis.html#cb417-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train) <span class="sc">+</span></span>
+<span id="cb417-2"><a href="categorical-data-analysis.html#cb417-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Bonus))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-171-1.png" width="672" /></p>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="categorical-data-analysis.html#cb418-1" tabindex="-1"></a><span class="fu">table</span>(train<span class="sc">$</span>Central_Air)</span></code></pre></div>
 <pre><code>## 
 ##    N    Y 
 ##  139 1912</code></pre>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="categorical-data-analysis.html#cb418-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train) <span class="sc">+</span></span>
-<span id="cb418-2"><a href="categorical-data-analysis.html#cb418-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Central_Air))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-171-1.png" width="672" /></p>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="categorical-data-analysis.html#cb420-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train) <span class="sc">+</span></span>
+<span id="cb420-2"><a href="categorical-data-analysis.html#cb420-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Central_Air))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-172-1.png" width="672" /></p>
 <p>Frequency tables show single variables, but if we want to explore two variables together we look at <strong>cross-tabulation</strong> tables. A cross-tabulation table shows the number of observations for each combination of the row and column variables.</p>
 <p>Let’s again examine bonus eligibility, but this time across levels of central air. Again, we can use the <code>table</code> function. The <code>prop.table</code> function allows us to compare two variables in terms of proportions instead of frequencies.</p>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="categorical-data-analysis.html#cb419-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(train<span class="sc">$</span>Central_Air, train<span class="sc">$</span>Bonus)</span></code></pre></div>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="categorical-data-analysis.html#cb421-1" tabindex="-1"></a><span class="fu">table</span>(train<span class="sc">$</span>Central_Air, train<span class="sc">$</span>Bonus)</span></code></pre></div>
 <pre><code>##    
 ##        0    1
 ##   N  132    7
 ##   Y 1055  857</code></pre>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="categorical-data-analysis.html#cb421-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(train<span class="sc">$</span>Central_Air, train<span class="sc">$</span>Bonus))</span></code></pre></div>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="categorical-data-analysis.html#cb423-1" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(train<span class="sc">$</span>Central_Air, train<span class="sc">$</span>Bonus))</span></code></pre></div>
 <pre><code>##    
 ##               0           1
 ##   N 0.064358849 0.003412969
 ##   Y 0.514383228 0.417844954</code></pre>
-<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="categorical-data-analysis.html#cb423-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train) <span class="sc">+</span></span>
-<span id="cb423-2"><a href="categorical-data-analysis.html#cb423-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Bonus, <span class="at">fill =</span> Central_Air))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-172-1.png" width="672" /></p>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="categorical-data-analysis.html#cb425-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train) <span class="sc">+</span></span>
+<span id="cb425-2"><a href="categorical-data-analysis.html#cb425-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Bonus, <span class="at">fill =</span> Central_Air))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-173-1.png" width="672" /></p>
 <p>From the above output we can see that 147 homes have no central air with only 5 of them being bonus eligible. However, there are 1904 homes that have central air with 835 of them being bonus eligible. For an even more detailed breakdown we can use the <code>CrossTable</code> function.</p>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="categorical-data-analysis.html#cb424-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span>
-<span id="cb424-2"><a href="categorical-data-analysis.html#cb424-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb424-3"><a href="categorical-data-analysis.html#cb424-3" aria-hidden="true" tabindex="-1"></a><span class="fu">CrossTable</span>(train<span class="sc">$</span>Central_Air, train<span class="sc">$</span>Bonus)</span></code></pre></div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="categorical-data-analysis.html#cb426-1" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span>
+<span id="cb426-2"><a href="categorical-data-analysis.html#cb426-2" tabindex="-1"></a></span>
+<span id="cb426-3"><a href="categorical-data-analysis.html#cb426-3" tabindex="-1"></a><span class="fu">CrossTable</span>(train<span class="sc">$</span>Central_Air, train<span class="sc">$</span>Bonus)</span></code></pre></div>
 <pre><code>## 
 ##  
 ##    Cell Contents
@@ -465,34 +465,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The advantage of the <code>CrossTable</code> function is that we can easily get not only the frequencies, but the cell, row, and column proportions. For example, the third number in each cell gives us the row proportion. For homes without central air, 96.6% of them are not bonus eligible, while 3.4% of them are. For homes with central air, 56.1% of the homes are not bonus eligible, while 43.9% of them are. This would appear that the distribution of bonus eligible homes changes across levels of central air - a relationship between the two variables. This expected relationship needs to be tested statistically for verification.</p>
 <div id="python-code-28" class="section level3 hasAnchor" number="7.1.1">
 <h3><span class="header-section-number">7.1.1</span> Python Code<a href="categorical-data-analysis.html#python-code-28" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb426"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb426-1"><a href="categorical-data-analysis.html#cb426-1" aria-hidden="true" tabindex="-1"></a>train[<span class="st">&#39;Bonus&#39;</span>] <span class="op">=</span> np.where(train[<span class="st">&#39;Sale_Price&#39;</span>] <span class="op">&gt;</span> <span class="dv">175000</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-174-1.png" width="672" /></p>
-<div class="sourceCode" id="cb427"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb427-1"><a href="categorical-data-analysis.html#cb427-1" aria-hidden="true" tabindex="-1"></a>train[<span class="st">&#39;Bonus&#39;</span>].value_counts()</span>
-<span id="cb427-2"><a href="categorical-data-analysis.html#cb427-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb427-3"><a href="categorical-data-analysis.html#cb427-3" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.countplot(x <span class="op">=</span> <span class="st">&quot;Bonus&quot;</span>, data <span class="op">=</span> train, color <span class="op">=</span> <span class="st">&quot;blue&quot;</span>)</span>
-<span id="cb427-4"><a href="categorical-data-analysis.html#cb427-4" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">&#39;Bonus Eligible&#39;</span>,</span>
-<span id="cb427-5"><a href="categorical-data-analysis.html#cb427-5" aria-hidden="true" tabindex="-1"></a>       ylabel <span class="op">=</span> <span class="st">&#39;Frequency&#39;</span>,</span>
-<span id="cb427-6"><a href="categorical-data-analysis.html#cb427-6" aria-hidden="true" tabindex="-1"></a>       title <span class="op">=</span> <span class="st">&#39;Bar Graph of Bonus Eligibility&#39;</span>)</span>
-<span id="cb427-7"><a href="categorical-data-analysis.html#cb427-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-175-3.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-175-4.png" width="672" /></p>
-<div class="sourceCode" id="cb428"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb428-1"><a href="categorical-data-analysis.html#cb428-1" aria-hidden="true" tabindex="-1"></a>train[<span class="st">&#39;Central_Air&#39;</span>].value_counts()</span>
-<span id="cb428-2"><a href="categorical-data-analysis.html#cb428-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb428-3"><a href="categorical-data-analysis.html#cb428-3" aria-hidden="true" tabindex="-1"></a>plt.cla()</span>
-<span id="cb428-4"><a href="categorical-data-analysis.html#cb428-4" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.countplot(x <span class="op">=</span> <span class="st">&quot;Central_Air&quot;</span>, data <span class="op">=</span> train, color <span class="op">=</span> <span class="st">&quot;blue&quot;</span>)</span>
-<span id="cb428-5"><a href="categorical-data-analysis.html#cb428-5" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">&#39;Central Air&#39;</span>,</span>
-<span id="cb428-6"><a href="categorical-data-analysis.html#cb428-6" aria-hidden="true" tabindex="-1"></a>       ylabel <span class="op">=</span> <span class="st">&#39;Frequency&#39;</span>,</span>
-<span id="cb428-7"><a href="categorical-data-analysis.html#cb428-7" aria-hidden="true" tabindex="-1"></a>       title <span class="op">=</span> <span class="st">&#39;Bar Graph of Central Air Availability&#39;</span>)</span>
-<span id="cb428-8"><a href="categorical-data-analysis.html#cb428-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-176-7.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-176-8.png" width="672" /></p>
-<div class="sourceCode" id="cb429"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb429-1"><a href="categorical-data-analysis.html#cb429-1" aria-hidden="true" tabindex="-1"></a>plt.cla()</span>
-<span id="cb429-2"><a href="categorical-data-analysis.html#cb429-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.countplot(x <span class="op">=</span> <span class="st">&quot;Bonus&quot;</span>, data <span class="op">=</span> train, hue <span class="op">=</span> <span class="st">&quot;Central_Air&quot;</span>)</span>
-<span id="cb429-3"><a href="categorical-data-analysis.html#cb429-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">&#39;Central Air&#39;</span>,</span>
-<span id="cb429-4"><a href="categorical-data-analysis.html#cb429-4" aria-hidden="true" tabindex="-1"></a>       ylabel <span class="op">=</span> <span class="st">&#39;Frequency&#39;</span>,</span>
-<span id="cb429-5"><a href="categorical-data-analysis.html#cb429-5" aria-hidden="true" tabindex="-1"></a>       title <span class="op">=</span> <span class="st">&#39;Bar Graph of Central Air Availability&#39;</span>)</span>
-<span id="cb429-6"><a href="categorical-data-analysis.html#cb429-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-177-11.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-177-12.png" width="672" /></p>
-<div class="sourceCode" id="cb430"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb430-1"><a href="categorical-data-analysis.html#cb430-1" aria-hidden="true" tabindex="-1"></a>pd.crosstab(index <span class="op">=</span> train[<span class="st">&#39;Central_Air&#39;</span>], columns <span class="op">=</span> train[<span class="st">&#39;Bonus&#39;</span>])</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-178-15.png" width="672" /></p>
+<div class="sourceCode" id="cb428"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb428-1"><a href="categorical-data-analysis.html#cb428-1" tabindex="-1"></a>train[<span class="st">&#39;Bonus&#39;</span>] <span class="op">=</span> np.where(train[<span class="st">&#39;Sale_Price&#39;</span>] <span class="op">&gt;</span> <span class="dv">175000</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-175-1.png" width="672" /></p>
+<div class="sourceCode" id="cb429"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb429-1"><a href="categorical-data-analysis.html#cb429-1" tabindex="-1"></a>train[<span class="st">&#39;Bonus&#39;</span>].value_counts()</span>
+<span id="cb429-2"><a href="categorical-data-analysis.html#cb429-2" tabindex="-1"></a></span>
+<span id="cb429-3"><a href="categorical-data-analysis.html#cb429-3" tabindex="-1"></a>ax <span class="op">=</span> sns.countplot(x <span class="op">=</span> <span class="st">&quot;Bonus&quot;</span>, data <span class="op">=</span> train, color <span class="op">=</span> <span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb429-4"><a href="categorical-data-analysis.html#cb429-4" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">&#39;Bonus Eligible&#39;</span>,</span>
+<span id="cb429-5"><a href="categorical-data-analysis.html#cb429-5" tabindex="-1"></a>       ylabel <span class="op">=</span> <span class="st">&#39;Frequency&#39;</span>,</span>
+<span id="cb429-6"><a href="categorical-data-analysis.html#cb429-6" tabindex="-1"></a>       title <span class="op">=</span> <span class="st">&#39;Bar Graph of Bonus Eligibility&#39;</span>)</span>
+<span id="cb429-7"><a href="categorical-data-analysis.html#cb429-7" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-176-3.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-176-4.png" width="672" /></p>
+<div class="sourceCode" id="cb430"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb430-1"><a href="categorical-data-analysis.html#cb430-1" tabindex="-1"></a>train[<span class="st">&#39;Central_Air&#39;</span>].value_counts()</span>
+<span id="cb430-2"><a href="categorical-data-analysis.html#cb430-2" tabindex="-1"></a></span>
+<span id="cb430-3"><a href="categorical-data-analysis.html#cb430-3" tabindex="-1"></a>plt.cla()</span>
+<span id="cb430-4"><a href="categorical-data-analysis.html#cb430-4" tabindex="-1"></a>ax <span class="op">=</span> sns.countplot(x <span class="op">=</span> <span class="st">&quot;Central_Air&quot;</span>, data <span class="op">=</span> train, color <span class="op">=</span> <span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb430-5"><a href="categorical-data-analysis.html#cb430-5" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">&#39;Central Air&#39;</span>,</span>
+<span id="cb430-6"><a href="categorical-data-analysis.html#cb430-6" tabindex="-1"></a>       ylabel <span class="op">=</span> <span class="st">&#39;Frequency&#39;</span>,</span>
+<span id="cb430-7"><a href="categorical-data-analysis.html#cb430-7" tabindex="-1"></a>       title <span class="op">=</span> <span class="st">&#39;Bar Graph of Central Air Availability&#39;</span>)</span>
+<span id="cb430-8"><a href="categorical-data-analysis.html#cb430-8" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-177-7.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-177-8.png" width="672" /></p>
+<div class="sourceCode" id="cb431"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb431-1"><a href="categorical-data-analysis.html#cb431-1" tabindex="-1"></a>plt.cla()</span>
+<span id="cb431-2"><a href="categorical-data-analysis.html#cb431-2" tabindex="-1"></a>ax <span class="op">=</span> sns.countplot(x <span class="op">=</span> <span class="st">&quot;Bonus&quot;</span>, data <span class="op">=</span> train, hue <span class="op">=</span> <span class="st">&quot;Central_Air&quot;</span>)</span>
+<span id="cb431-3"><a href="categorical-data-analysis.html#cb431-3" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">&#39;Central Air&#39;</span>,</span>
+<span id="cb431-4"><a href="categorical-data-analysis.html#cb431-4" tabindex="-1"></a>       ylabel <span class="op">=</span> <span class="st">&#39;Frequency&#39;</span>,</span>
+<span id="cb431-5"><a href="categorical-data-analysis.html#cb431-5" tabindex="-1"></a>       title <span class="op">=</span> <span class="st">&#39;Bar Graph of Central Air Availability&#39;</span>)</span>
+<span id="cb431-6"><a href="categorical-data-analysis.html#cb431-6" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-178-11.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-178-12.png" width="672" /></p>
+<div class="sourceCode" id="cb432"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb432-1"><a href="categorical-data-analysis.html#cb432-1" tabindex="-1"></a>pd.crosstab(index <span class="op">=</span> train[<span class="st">&#39;Central_Air&#39;</span>], columns <span class="op">=</span> train[<span class="st">&#39;Bonus&#39;</span>])</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-179-15.png" width="672" /></p>
 </div>
 </div>
 <div id="tests-of-association" class="section level2 hasAnchor" number="7.2">
@@ -505,7 +505,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>One set of degrees of freedom</li>
 </ul>
 <p>A plot of a variety of <span class="math inline">\(\chi^2\)</span>-distributions is shown here:</p>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-179-17.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-180-17.png" width="672" /></p>
 <p>Two common <span class="math inline">\(\chi^2\)</span> tests are the Pearson and Likelihood Ratio <span class="math inline">\(\chi^2\)</span> tests. They compare the observed count of observations in each cell of a cross-tabulation table between two variables to their expected count <strong>if</strong> there was no relationship. The expected cell count applies the overall distribution of one variable across all the levels of the other variable. For example, overall 59% of all homes are not bonus eligible. <strong>If</strong> that were to apply to every level of central air, then the 140 homes without central air would be expected to have 86.73 ( $ = 147 $ ) of them would be bonus eligible while 60.27 ( $ = 147 $ ) of them would not be bonus eligible. We actually observe 142 and 5 homes for each of these categories respectively. The further the observed data is from the expected data, the more evidence we have that there is a relationship between the two variables.</p>
 <p>The test statistic for the Pearson <span class="math inline">\(\chi^2\)</span> test is the following:</p>
 <p><span class="math display">\[
@@ -513,9 +513,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 \]</span>
 From the equation above, the closer that the observed count of each cross-tabulation table cell to the expected count, the smaller the test statistic. As with all previous hypothesis tests, the smaller the test statistic, the larger the p-value, implying less evidence for the alternative hypothesis.</p>
 <p>Let’s examine the relationship between central air and bonus eligibility using the <code>chisq.test</code> function.</p>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="categorical-data-analysis.html#cb431-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(train<span class="sc">$</span>Central_Air, train<span class="sc">$</span>Bonus))</span></code></pre></div>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="categorical-data-analysis.html#cb433-1" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(train<span class="sc">$</span>Central_Air, train<span class="sc">$</span>Bonus))</span></code></pre></div>
 <pre><code>## 
-##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+##  Pearson&#39;s Chi-squared test with Yates&#39; continuity
+##  correction
 ## 
 ## data:  table(train$Central_Air, train$Bonus)
 ## X-squared = 82.509, df = 1, p-value &lt; 2.2e-16</code></pre>
@@ -527,7 +528,7 @@ From the equation above, the closer that the observed count of each cross-tabula
 <p>The p-value comes from a <span class="math inline">\(\chi^2\)</span>-distribution with degrees of freedom that equal the product of the number of rows minus one and the number of columns minus one. Both of the above tests have a sample size requirement. The sample size requirement is 80% or more of the cells in the cross-tabulation table need <strong>expected</strong> count larger
 than 5.</p>
 <p>For smaller sample sizes, this might be hard to meet. In those situations, we can use a more computationally expensive test called Fisher’s exact test. This test calculates every possible permutation of the data being evaluated to calculate the p-value without any distributional assumptions. To perform this test we can use the <code>fisher.test</code> function.</p>
-<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="categorical-data-analysis.html#cb433-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fisher.test</span>(<span class="fu">table</span>(train<span class="sc">$</span>Central_Air, train<span class="sc">$</span>Bonus))</span></code></pre></div>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="categorical-data-analysis.html#cb435-1" tabindex="-1"></a><span class="fu">fisher.test</span>(<span class="fu">table</span>(train<span class="sc">$</span>Central_Air, train<span class="sc">$</span>Bonus))</span></code></pre></div>
 <pre><code>## 
 ##  Fisher&#39;s Exact Test for Count Data
 ## 
@@ -546,22 +547,22 @@ than 5.</p>
 \]</span>
 where <span class="math inline">\(r^2\)</span> is the Pearson correlation between the column and row variables. This test follows a <span class="math inline">\(\chi^2\)</span>-distribution with only one degree of freedom.</p>
 <p>Since both the central air and bonus eligibility variables are binary, they are ordinal. Since they are both ordinal, we should use the Mantel-Haenszel <span class="math inline">\(\chi^2\)</span> test with the <code>CMHtest</code> function. In the main output table, the first row is the Mantel-Haenszel <span class="math inline">\(\chi^2\)</span> test.</p>
-<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="categorical-data-analysis.html#cb435-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span>
-<span id="cb435-2"><a href="categorical-data-analysis.html#cb435-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb435-3"><a href="categorical-data-analysis.html#cb435-3" aria-hidden="true" tabindex="-1"></a><span class="fu">CMHtest</span>(<span class="fu">table</span>(train<span class="sc">$</span>Central_Air, train<span class="sc">$</span>Bonus))<span class="sc">$</span>table[<span class="dv">1</span>,]</span></code></pre></div>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="categorical-data-analysis.html#cb437-1" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span>
+<span id="cb437-2"><a href="categorical-data-analysis.html#cb437-2" tabindex="-1"></a></span>
+<span id="cb437-3"><a href="categorical-data-analysis.html#cb437-3" tabindex="-1"></a><span class="fu">CMHtest</span>(<span class="fu">table</span>(train<span class="sc">$</span>Central_Air, train<span class="sc">$</span>Bonus))<span class="sc">$</span>table[<span class="dv">1</span>,]</span></code></pre></div>
 <pre><code>##        Chisq           Df         Prob 
 ## 8.409247e+01 1.000000e+00 4.721656e-20</code></pre>
 <p>From here we can see another extremely small p-value as we saw in earlier, more general <span class="math inline">\(\chi^2\)</span> tests.</p>
 <div id="python-code-29" class="section level3 hasAnchor" number="7.2.1">
 <h3><span class="header-section-number">7.2.1</span> Python Code<a href="categorical-data-analysis.html#python-code-29" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb437"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb437-1"><a href="categorical-data-analysis.html#cb437-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> chi2_contingency</span>
-<span id="cb437-2"><a href="categorical-data-analysis.html#cb437-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb437-3"><a href="categorical-data-analysis.html#cb437-3" aria-hidden="true" tabindex="-1"></a>chi2_contingency(pd.crosstab(index <span class="op">=</span> train[<span class="st">&#39;Central_Air&#39;</span>], columns <span class="op">=</span> train[<span class="st">&#39;Bonus&#39;</span>]), correction <span class="op">=</span> <span class="va">True</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-183-1.png" width="672" /></p>
-<div class="sourceCode" id="cb438"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb438-1"><a href="categorical-data-analysis.html#cb438-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> fisher_exact</span>
-<span id="cb438-2"><a href="categorical-data-analysis.html#cb438-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb438-3"><a href="categorical-data-analysis.html#cb438-3" aria-hidden="true" tabindex="-1"></a>fisher_exact(pd.crosstab(index <span class="op">=</span> train[<span class="st">&#39;Central_Air&#39;</span>], columns <span class="op">=</span> train[<span class="st">&#39;Bonus&#39;</span>]))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-184-3.png" width="672" /></p>
+<div class="sourceCode" id="cb439"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb439-1"><a href="categorical-data-analysis.html#cb439-1" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> chi2_contingency</span>
+<span id="cb439-2"><a href="categorical-data-analysis.html#cb439-2" tabindex="-1"></a></span>
+<span id="cb439-3"><a href="categorical-data-analysis.html#cb439-3" tabindex="-1"></a>chi2_contingency(pd.crosstab(index <span class="op">=</span> train[<span class="st">&#39;Central_Air&#39;</span>], columns <span class="op">=</span> train[<span class="st">&#39;Bonus&#39;</span>]), correction <span class="op">=</span> <span class="va">True</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-184-1.png" width="672" /></p>
+<div class="sourceCode" id="cb440"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb440-1"><a href="categorical-data-analysis.html#cb440-1" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> fisher_exact</span>
+<span id="cb440-2"><a href="categorical-data-analysis.html#cb440-2" tabindex="-1"></a></span>
+<span id="cb440-3"><a href="categorical-data-analysis.html#cb440-3" tabindex="-1"></a>fisher_exact(pd.crosstab(index <span class="op">=</span> train[<span class="st">&#39;Central_Air&#39;</span>], columns <span class="op">=</span> train[<span class="st">&#39;Bonus&#39;</span>]))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-185-3.png" width="672" /></p>
 <p>No real Mantel-Haenszel options in Python that work for anything more than a 2x2 table so I wouldn’t trust them.</p>
 </div>
 </div>
@@ -616,9 +617,9 @@ Odds = \frac{p}{1-p}
 ## </code></pre>
 <p>Let’s look at the row without central air. The probability that a home without central air is not bonus eligible is 96.6%. That implies that the odds of not being bonus eligible in homes without central air is 28.41 (= 0.966/0.034). For homes with central air, the odds of not being bonus eligible are 1.28 (= 0.561/0.439). The odds ratio between these two would be approximately 22.2 (= 28.41/1.28). In other words, homes without central air are 22.2 times more likely (in terms of odds) to not be bonus eligible as compared to homes with central air. This relationship is intuitive based on the numbers we have seen. Without going into details, it can also be shown that homes with central air are 22.2 times as likely (in terms of odds) to be bonus eligible.</p>
 <p>We can use the <code>OddsRatio</code> function to get these same results.</p>
-<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="categorical-data-analysis.html#cb440-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DescTools)</span>
-<span id="cb440-2"><a href="categorical-data-analysis.html#cb440-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb440-3"><a href="categorical-data-analysis.html#cb440-3" aria-hidden="true" tabindex="-1"></a><span class="fu">OddsRatio</span>(<span class="fu">table</span>(train<span class="sc">$</span>Central_Air, train<span class="sc">$</span>Bonus))</span></code></pre></div>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="categorical-data-analysis.html#cb442-1" tabindex="-1"></a><span class="fu">library</span>(DescTools)</span>
+<span id="cb442-2"><a href="categorical-data-analysis.html#cb442-2" tabindex="-1"></a></span>
+<span id="cb442-3"><a href="categorical-data-analysis.html#cb442-3" tabindex="-1"></a><span class="fu">OddsRatio</span>(<span class="fu">table</span>(train<span class="sc">$</span>Central_Air, train<span class="sc">$</span>Bonus))</span></code></pre></div>
 <pre><code>## [1] 15.31808</code></pre>
 <p><strong>Cramer’s V</strong> is another measure of strength of association. Cramer’s V is calculated as follows:</p>
 <p><span class="math display">\[
@@ -626,7 +627,7 @@ V = \sqrt{\frac{\chi^2_P/n}{\min(Rows-1, Columns-1)}}
 \]</span></p>
 <p>Cramer’s V is bounded between 0 and 1 for every comparison other than two binary variables. For two binary variables being compared the bounds are -1 to 1. The idea is still the same for both. The further the value is from 0, the stronger the relationship. Unfortunately, unlike <span class="math inline">\(R^2\)</span>, Cramer’s V has no interpretative value. It can only be used for comparison.</p>
 <p>We use the <code>assocstats</code> function to get the Cramer’s V value. This function also provides the Pearson and Likelihood Ratio <span class="math inline">\(\chi^2\)</span> tests as well.</p>
-<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="categorical-data-analysis.html#cb442-1" aria-hidden="true" tabindex="-1"></a><span class="fu">assocstats</span>(<span class="fu">table</span>(train<span class="sc">$</span>Central_Air, train<span class="sc">$</span>Bonus))</span></code></pre></div>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="categorical-data-analysis.html#cb444-1" tabindex="-1"></a><span class="fu">assocstats</span>(<span class="fu">table</span>(train<span class="sc">$</span>Central_Air, train<span class="sc">$</span>Bonus))</span></code></pre></div>
 <pre><code>##                      X^2 df P(&gt; X^2)
 ## Likelihood Ratio 106.675  1        0
 ## Pearson           84.133  1        0
@@ -636,9 +637,9 @@ V = \sqrt{\frac{\chi^2_P/n}{\min(Rows-1, Columns-1)}}
 ## Cramer&#39;s V        : 0.203</code></pre>
 <p>Lastly, we have Spearman’s correlation. Much like the Mantel-Haenszel test of association was specifically designed for comparing two ordinal variables, Spearman correlation measures the strength of association between two ordinal variables. Spearman is not limited to only categorical data analysis as it was also seen back in Chapter <a href="diag.html#diag">5</a> with detecting heteroskedasticity. Remember, Spearman correlation is a correlation on the ranks of the observations as compared to the actual values of the observations.</p>
 <p>The <code>cor.test</code> function that gave us Pearson’s correlation also provides Spearman’s correlation.</p>
-<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="categorical-data-analysis.html#cb444-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(<span class="at">x =</span> <span class="fu">as.numeric</span>(<span class="fu">ordered</span>(train<span class="sc">$</span>Central_Air)), </span>
-<span id="cb444-2"><a href="categorical-data-analysis.html#cb444-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> <span class="fu">as.numeric</span>(<span class="fu">ordered</span>(train<span class="sc">$</span>Bonus)), </span>
-<span id="cb444-3"><a href="categorical-data-analysis.html#cb444-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="categorical-data-analysis.html#cb446-1" tabindex="-1"></a><span class="fu">cor.test</span>(<span class="at">x =</span> <span class="fu">as.numeric</span>(<span class="fu">ordered</span>(train<span class="sc">$</span>Central_Air)), </span>
+<span id="cb446-2"><a href="categorical-data-analysis.html#cb446-2" tabindex="-1"></a>         <span class="at">y =</span> <span class="fu">as.numeric</span>(<span class="fu">ordered</span>(train<span class="sc">$</span>Bonus)), </span>
+<span id="cb446-3"><a href="categorical-data-analysis.html#cb446-3" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Spearman&#39;s rank correlation rho
 ## 
@@ -652,22 +653,22 @@ V = \sqrt{\frac{\chi^2_P/n}{\min(Rows-1, Columns-1)}}
 <div id="python-code-30" class="section level3 hasAnchor" number="7.3.1">
 <h3><span class="header-section-number">7.3.1</span> Python Code<a href="categorical-data-analysis.html#python-code-30" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Odds Ratios are the statistic calculated from the Fisher’s Exact test from the previous code:</p>
-<div class="sourceCode" id="cb446"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb446-1"><a href="categorical-data-analysis.html#cb446-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> fisher_exact</span>
-<span id="cb446-2"><a href="categorical-data-analysis.html#cb446-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb446-3"><a href="categorical-data-analysis.html#cb446-3" aria-hidden="true" tabindex="-1"></a>fisher_exact(pd.crosstab(index <span class="op">=</span> train[<span class="st">&#39;Central_Air&#39;</span>], columns <span class="op">=</span> train[<span class="st">&#39;Bonus&#39;</span>]))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-189-1.png" width="672" /></p>
-<div class="sourceCode" id="cb447"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb447-1"><a href="categorical-data-analysis.html#cb447-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> fisher_exact</span>
-<span id="cb447-2"><a href="categorical-data-analysis.html#cb447-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb447-3"><a href="categorical-data-analysis.html#cb447-3" aria-hidden="true" tabindex="-1"></a>fisher_exact(pd.crosstab(index <span class="op">=</span> train[<span class="st">&#39;Central_Air&#39;</span>], columns <span class="op">=</span> train[<span class="st">&#39;Bonus&#39;</span>]))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-190-3.png" width="672" /></p>
-<div class="sourceCode" id="cb448"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb448-1"><a href="categorical-data-analysis.html#cb448-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats.contingency <span class="im">import</span> association</span>
-<span id="cb448-2"><a href="categorical-data-analysis.html#cb448-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb448-3"><a href="categorical-data-analysis.html#cb448-3" aria-hidden="true" tabindex="-1"></a>association(pd.crosstab(index <span class="op">=</span> train[<span class="st">&#39;Central_Air&#39;</span>], columns <span class="op">=</span> train[<span class="st">&#39;Bonus&#39;</span>]), method <span class="op">=</span> <span class="st">&quot;cramer&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-191-5.png" width="672" /></p>
-<div class="sourceCode" id="cb449"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb449-1"><a href="categorical-data-analysis.html#cb449-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> spearmanr</span>
-<span id="cb449-2"><a href="categorical-data-analysis.html#cb449-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb449-3"><a href="categorical-data-analysis.html#cb449-3" aria-hidden="true" tabindex="-1"></a>spearmanr(train[<span class="st">&#39;Central_Air&#39;</span>], train[<span class="st">&#39;Bonus&#39;</span>])</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-192-7.png" width="672" /></p>
+<div class="sourceCode" id="cb448"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb448-1"><a href="categorical-data-analysis.html#cb448-1" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> fisher_exact</span>
+<span id="cb448-2"><a href="categorical-data-analysis.html#cb448-2" tabindex="-1"></a></span>
+<span id="cb448-3"><a href="categorical-data-analysis.html#cb448-3" tabindex="-1"></a>fisher_exact(pd.crosstab(index <span class="op">=</span> train[<span class="st">&#39;Central_Air&#39;</span>], columns <span class="op">=</span> train[<span class="st">&#39;Bonus&#39;</span>]))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-190-1.png" width="672" /></p>
+<div class="sourceCode" id="cb449"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb449-1"><a href="categorical-data-analysis.html#cb449-1" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> fisher_exact</span>
+<span id="cb449-2"><a href="categorical-data-analysis.html#cb449-2" tabindex="-1"></a></span>
+<span id="cb449-3"><a href="categorical-data-analysis.html#cb449-3" tabindex="-1"></a>fisher_exact(pd.crosstab(index <span class="op">=</span> train[<span class="st">&#39;Central_Air&#39;</span>], columns <span class="op">=</span> train[<span class="st">&#39;Bonus&#39;</span>]))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-191-3.png" width="672" /></p>
+<div class="sourceCode" id="cb450"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb450-1"><a href="categorical-data-analysis.html#cb450-1" tabindex="-1"></a><span class="im">from</span> scipy.stats.contingency <span class="im">import</span> association</span>
+<span id="cb450-2"><a href="categorical-data-analysis.html#cb450-2" tabindex="-1"></a></span>
+<span id="cb450-3"><a href="categorical-data-analysis.html#cb450-3" tabindex="-1"></a>association(pd.crosstab(index <span class="op">=</span> train[<span class="st">&#39;Central_Air&#39;</span>], columns <span class="op">=</span> train[<span class="st">&#39;Bonus&#39;</span>]), method <span class="op">=</span> <span class="st">&quot;cramer&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-192-5.png" width="672" /></p>
+<div class="sourceCode" id="cb451"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb451-1"><a href="categorical-data-analysis.html#cb451-1" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> spearmanr</span>
+<span id="cb451-2"><a href="categorical-data-analysis.html#cb451-2" tabindex="-1"></a></span>
+<span id="cb451-3"><a href="categorical-data-analysis.html#cb451-3" tabindex="-1"></a>spearmanr(train[<span class="st">&#39;Central_Air&#39;</span>], train[<span class="st">&#39;Bonus&#39;</span>])</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-193-7.png" width="672" /></p>
 </div>
 </div>
 <div id="introduction-to-logistic-regression" class="section level2 hasAnchor" number="7.4">
@@ -677,18 +678,18 @@ V = \sqrt{\frac{\chi^2_P/n}{\min(Rows-1, Columns-1)}}
 <div id="linear-probability-model" class="section level3 hasAnchor" number="7.4.1">
 <h3><span class="header-section-number">7.4.1</span> Linear Probability Model<a href="categorical-data-analysis.html#linear-probability-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The linear probability model is not as widely used since probabilities do not tend to follow the properties of linearity in relation to their predictors. Also, the linear probability model possibly produces predictions outside of the bounds of 0 and 1 (where probabilities should be!). For completeness sake however, here is the linear probability model using the <code>lm</code> function to try and predict bonus eligibility.</p>
-<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="categorical-data-analysis.html#cb450-1" aria-hidden="true" tabindex="-1"></a>lp.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Bonus <span class="sc">~</span> Gr_Liv_Area, <span class="at">data =</span> train)</span>
-<span id="cb450-2"><a href="categorical-data-analysis.html#cb450-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb450-3"><a href="categorical-data-analysis.html#cb450-3" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(train, <span class="fu">plot</span>(<span class="at">x =</span> Gr_Liv_Area, <span class="at">y =</span> Bonus,</span>
-<span id="cb450-4"><a href="categorical-data-analysis.html#cb450-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">main =</span> <span class="st">&#39;OLS Regression?&#39;</span>,</span>
-<span id="cb450-5"><a href="categorical-data-analysis.html#cb450-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">xlab =</span> <span class="st">&#39;Greater Living Area (Sqft)&#39;</span>,</span>
-<span id="cb450-6"><a href="categorical-data-analysis.html#cb450-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">ylab =</span> <span class="st">&#39;Bonus Eligibility&#39;</span>))</span>
-<span id="cb450-7"><a href="categorical-data-analysis.html#cb450-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lp.model)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-193-9.png" width="672" /></p>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="categorical-data-analysis.html#cb452-1" tabindex="-1"></a>lp.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Bonus <span class="sc">~</span> Gr_Liv_Area, <span class="at">data =</span> train)</span>
+<span id="cb452-2"><a href="categorical-data-analysis.html#cb452-2" tabindex="-1"></a></span>
+<span id="cb452-3"><a href="categorical-data-analysis.html#cb452-3" tabindex="-1"></a><span class="fu">with</span>(train, <span class="fu">plot</span>(<span class="at">x =</span> Gr_Liv_Area, <span class="at">y =</span> Bonus,</span>
+<span id="cb452-4"><a href="categorical-data-analysis.html#cb452-4" tabindex="-1"></a>               <span class="at">main =</span> <span class="st">&#39;OLS Regression?&#39;</span>,</span>
+<span id="cb452-5"><a href="categorical-data-analysis.html#cb452-5" tabindex="-1"></a>               <span class="at">xlab =</span> <span class="st">&#39;Greater Living Area (Sqft)&#39;</span>,</span>
+<span id="cb452-6"><a href="categorical-data-analysis.html#cb452-6" tabindex="-1"></a>               <span class="at">ylab =</span> <span class="st">&#39;Bonus Eligibility&#39;</span>))</span>
+<span id="cb452-7"><a href="categorical-data-analysis.html#cb452-7" tabindex="-1"></a><span class="fu">abline</span>(lp.model)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-194-9.png" width="672" /></p>
 <p>Even though it doesn’t appear to really look like our data, let’s fit this linear probability model anyway for completeness sake.</p>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="categorical-data-analysis.html#cb451-1" aria-hidden="true" tabindex="-1"></a>lp.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Bonus <span class="sc">~</span> Gr_Liv_Area, <span class="at">data =</span> train)</span>
-<span id="cb451-2"><a href="categorical-data-analysis.html#cb451-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb451-3"><a href="categorical-data-analysis.html#cb451-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lp.model)</span></code></pre></div>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="categorical-data-analysis.html#cb453-1" tabindex="-1"></a>lp.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Bonus <span class="sc">~</span> Gr_Liv_Area, <span class="at">data =</span> train)</span>
+<span id="cb453-2"><a href="categorical-data-analysis.html#cb453-2" tabindex="-1"></a></span>
+<span id="cb453-3"><a href="categorical-data-analysis.html#cb453-3" tabindex="-1"></a><span class="fu">summary</span>(lp.model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Bonus ~ Gr_Liv_Area, data = train)
@@ -707,17 +708,17 @@ V = \sqrt{\frac{\chi^2_P/n}{\min(Rows-1, Columns-1)}}
 ## Residual standard error: 0.3926 on 2049 degrees of freedom
 ## Multiple R-squared:  0.3682, Adjusted R-squared:  0.3679 
 ## F-statistic:  1194 on 1 and 2049 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="categorical-data-analysis.html#cb453-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">rstandard</span>(lp.model),</span>
-<span id="cb453-2"><a href="categorical-data-analysis.html#cb453-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">&quot;Standardized Residuals&quot;</span>,</span>
-<span id="cb453-3"><a href="categorical-data-analysis.html#cb453-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;Normal Scores&quot;</span>,</span>
-<span id="cb453-4"><a href="categorical-data-analysis.html#cb453-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">&quot;QQ-Plot of Residuals&quot;</span>)</span>
-<span id="cb453-5"><a href="categorical-data-analysis.html#cb453-5" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">rstandard</span>(lp.model))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-194-1.png" width="672" /></p>
-<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="categorical-data-analysis.html#cb454-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">predict</span>(lp.model), <span class="fu">resid</span>(lp.model), </span>
-<span id="cb454-2"><a href="categorical-data-analysis.html#cb454-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Residuals&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;Predicted Values&quot;</span>, </span>
-<span id="cb454-3"><a href="categorical-data-analysis.html#cb454-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">&quot;Residuals of Linear Probability Model&quot;</span>) </span>
-<span id="cb454-4"><a href="categorical-data-analysis.html#cb454-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">0</span>) </span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-194-2.png" width="672" /></p>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="categorical-data-analysis.html#cb455-1" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">rstandard</span>(lp.model),</span>
+<span id="cb455-2"><a href="categorical-data-analysis.html#cb455-2" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">&quot;Standardized Residuals&quot;</span>,</span>
+<span id="cb455-3"><a href="categorical-data-analysis.html#cb455-3" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;Normal Scores&quot;</span>,</span>
+<span id="cb455-4"><a href="categorical-data-analysis.html#cb455-4" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">&quot;QQ-Plot of Residuals&quot;</span>)</span>
+<span id="cb455-5"><a href="categorical-data-analysis.html#cb455-5" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">rstandard</span>(lp.model))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-195-1.png" width="672" /></p>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="categorical-data-analysis.html#cb456-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">predict</span>(lp.model), <span class="fu">resid</span>(lp.model), </span>
+<span id="cb456-2"><a href="categorical-data-analysis.html#cb456-2" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Residuals&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;Predicted Values&quot;</span>, </span>
+<span id="cb456-3"><a href="categorical-data-analysis.html#cb456-3" tabindex="-1"></a>     <span class="at">main=</span><span class="st">&quot;Residuals of Linear Probability Model&quot;</span>) </span>
+<span id="cb456-4"><a href="categorical-data-analysis.html#cb456-4" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">0</span>) </span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-195-2.png" width="672" /></p>
 <p>As we can see from the charts above, the assumptions of ordinary least squares don’t really hold in this situation. Therefore, we should be careful interpreting the results of the model. Maybe a better model won’t have these problems?</p>
 </div>
 <div id="binary-logistic-regression" class="section level3 hasAnchor" number="7.4.2">
@@ -745,9 +746,9 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
 </ol>
 <p>The first assumption of independence is the same as we had for linear regression. The second assumption implies that the logistic function transformation (the logit) actually makes a linear relationship with our predictor variables. This assumption can be tested, but will not be covered in this brief introduction to logistic regression.</p>
 <p>Let’s build a logistic regression model. We will use the <code>glm</code> function to do this. The <code>glm</code> function has a similar structure to the <code>lm</code> function. The main difference is the <code>family = binomial(link = "logit")</code> option to specify that we are uses a logistic regression model. Again, there are many different link functions, but only the logistic link function (the logit) is being used here.</p>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="categorical-data-analysis.html#cb455-1" aria-hidden="true" tabindex="-1"></a>ames_logit <span class="ot">&lt;-</span> <span class="fu">glm</span>(Bonus <span class="sc">~</span> Gr_Liv_Area, </span>
-<span id="cb455-2"><a href="categorical-data-analysis.html#cb455-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> train, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb455-3"><a href="categorical-data-analysis.html#cb455-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ames_logit)</span></code></pre></div>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="categorical-data-analysis.html#cb457-1" tabindex="-1"></a>ames_logit <span class="ot">&lt;-</span> <span class="fu">glm</span>(Bonus <span class="sc">~</span> Gr_Liv_Area, </span>
+<span id="cb457-2"><a href="categorical-data-analysis.html#cb457-2" tabindex="-1"></a>                   <span class="at">data =</span> train, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb457-3"><a href="categorical-data-analysis.html#cb457-3" tabindex="-1"></a><span class="fu">summary</span>(ames_logit)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Bonus ~ Gr_Liv_Area, family = binomial(link = &quot;logit&quot;), 
@@ -768,7 +769,7 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
 <p>Let’s examine the above output. Scanning down the output, you can see the actual logistic regression equation for the variable <code>Gr_Liv_Area</code>. Here we can see that it appears to be a significant variable at predicting bonus eligibility. However, the coefficient reported does not have the same usable interpretation as in linear regression. An increase of one unit of greater living area square footage is linearly related to the logit <strong>not</strong> the probability of bonus eligibility. We can transform this coefficient to make it more interpretable. A single unit increase in greater living area square footage <strong>does</strong> have a <span class="math inline">\(100 \times (e^\hat{\beta}-1)\%\)</span> increase in the average <strong>odds</strong> of bonus eligibility. We can use a combination of the <code>exp</code> and <code>coef</code> functions to obtain this number.</p>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="categorical-data-analysis.html#cb457-1" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span>(<span class="fu">exp</span>(<span class="fu">cbind</span>(<span class="fu">coef</span>(ames_logit), <span class="fu">confint</span>(ames_logit)))<span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="categorical-data-analysis.html#cb459-1" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span>(<span class="fu">exp</span>(<span class="fu">cbind</span>(<span class="fu">coef</span>(ames_logit), <span class="fu">confint</span>(ames_logit)))<span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## Waiting for profiling to be done...</code></pre>
 <pre><code>##                               2.5 %      97.5 %
 ## (Intercept) -99.8824266 -99.9353803 -99.7923687
@@ -778,9 +779,9 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
 <div id="adding-categorical-variables" class="section level3 hasAnchor" number="7.4.3">
 <h3><span class="header-section-number">7.4.3</span> Adding Categorical Variables<a href="categorical-data-analysis.html#adding-categorical-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Similar to linear regression as we learned in Chapter <a href="mlr.html#mlr">3</a>, logistic regression can have both continuous and categorical predictors for our categorical target variable. Let’s add both central air as well as number of fireplaces to our logistic regression model.</p>
-<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="categorical-data-analysis.html#cb460-1" aria-hidden="true" tabindex="-1"></a>ames_logit2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Bonus <span class="sc">~</span> Gr_Liv_Area <span class="sc">+</span> Central_Air <span class="sc">+</span> <span class="fu">factor</span>(Fireplaces), </span>
-<span id="cb460-2"><a href="categorical-data-analysis.html#cb460-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> train, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb460-3"><a href="categorical-data-analysis.html#cb460-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ames_logit2)</span></code></pre></div>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="categorical-data-analysis.html#cb462-1" tabindex="-1"></a>ames_logit2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Bonus <span class="sc">~</span> Gr_Liv_Area <span class="sc">+</span> Central_Air <span class="sc">+</span> <span class="fu">factor</span>(Fireplaces), </span>
+<span id="cb462-2"><a href="categorical-data-analysis.html#cb462-2" tabindex="-1"></a>                  <span class="at">data =</span> train, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb462-3"><a href="categorical-data-analysis.html#cb462-3" tabindex="-1"></a><span class="fu">summary</span>(ames_logit2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Bonus ~ Gr_Liv_Area + Central_Air + factor(Fireplaces), 
@@ -806,7 +807,7 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
 ## 
 ## Number of Fisher Scoring iterations: 11</code></pre>
 <p>Just like with linear regression, categorical predictor variables are a comparison between two categories. Again, the coefficients from the logistic regression model need to be transformed to be interpreted.</p>
-<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="categorical-data-analysis.html#cb462-1" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span>(<span class="fu">exp</span>(<span class="fu">cbind</span>(<span class="fu">coef</span>(ames_logit2), <span class="fu">confint</span>(ames_logit2)))<span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="categorical-data-analysis.html#cb464-1" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span>(<span class="fu">exp</span>(<span class="fu">cbind</span>(<span class="fu">coef</span>(ames_logit2), <span class="fu">confint</span>(ames_logit2)))<span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>##                                          2.5 %       97.5 %
 ## (Intercept)         -9.999547e+01  -99.9987897  -99.9852995
 ## Gr_Liv_Area          4.114595e-01    0.3703791    0.4546903
@@ -822,9 +823,9 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
 <p>There are dozens of different ways to evaluate a logistic regression model. We will cover one popular way here - concordance. Counting the number of <strong>concordant</strong>, <strong>discordant</strong>, and <strong>tied</strong> pairs is a way to to assess how well the model fits the data.</p>
 <p>To find concordant, discordant, and tied pairs, we must compare all of the 0’s in the target variable to all of the 1’s. For our example, we will compare every pair of homes where one home is bonus eligible and one is not (every 0 and 1 pair). A <strong>concordant</strong> pair is a 0 and 1 pair where the bonus eligible home (the 1 in our model) has a higher predicted probability than the non-bonus eligible home (the 0 in our model) - our model successfully ordered these two observations by probability. It does not matter what the actual predicted probability values are as long as the bonus eligible home has a higher predicted probability than the non-bonus eligible home. A <strong>discordant</strong> pair is a 0 and 1 pair where the bonus eligible home (the 1 in our model) has a lower predicted probability than the non-bonus eligible home (the 0 in our model) - our model unsuccessfully ordered the homes. It does not matter what the actual predicted probability values are as long as the bonus eligible home has a lower predicted probability than the non-bonus eligible home. A <strong>tied</strong> pair is a 0 and 1 pair where the bonus eligible home has the same predicted probability as the non-bonus eligible home - the model is confused and sees these two different things as the same. In general, you want a high percentage of concordant pairs and low percentages of discordant and tied pairs.</p>
 <p>We can use the <code>Concordance</code> function to obtain these values on our predictions from the <code>predict</code> function.</p>
-<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="categorical-data-analysis.html#cb464-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
-<span id="cb464-2"><a href="categorical-data-analysis.html#cb464-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb464-3"><a href="categorical-data-analysis.html#cb464-3" aria-hidden="true" tabindex="-1"></a>survival<span class="sc">::</span><span class="fu">concordance</span>(ames_logit)</span></code></pre></div>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="categorical-data-analysis.html#cb466-1" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
+<span id="cb466-2"><a href="categorical-data-analysis.html#cb466-2" tabindex="-1"></a></span>
+<span id="cb466-3"><a href="categorical-data-analysis.html#cb466-3" tabindex="-1"></a>survival<span class="sc">::</span><span class="fu">concordance</span>(ames_logit)</span></code></pre></div>
 <pre><code>## Call:
 ## concordance.lm(object = ames_logit)
 ## 
@@ -833,7 +834,7 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
 ## concordant discordant     tied.x     tied.y    tied.xy 
 ##     898616     126370        582    1074637       2070</code></pre>
 <p>From the above output we have a concordance of 86.3% for our model. There is no good or bad value as this can only be compared with another model to see which is better. Let’s compare this to our model with the categorical variables.</p>
-<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="categorical-data-analysis.html#cb466-1" aria-hidden="true" tabindex="-1"></a>survival<span class="sc">::</span><span class="fu">concordance</span>(ames_logit2)</span></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="categorical-data-analysis.html#cb468-1" tabindex="-1"></a>survival<span class="sc">::</span><span class="fu">concordance</span>(ames_logit2)</span></code></pre></div>
 <pre><code>## Call:
 ## concordance.lm(object = ames_logit2)
 ## 
@@ -846,32 +847,32 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
 <div id="variable-selection-and-regularized-regression" class="section level3 hasAnchor" number="7.4.5">
 <h3><span class="header-section-number">7.4.5</span> Variable Selection and Regularized Regression<a href="categorical-data-analysis.html#variable-selection-and-regularized-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>As with linear regression in Chapters <a href="#reg"><strong>??</strong></a> and <a href="#sel"><strong>??</strong></a>, logistic regression uses the same approaches to doing variable selection. In fact, the same function are used as well. Let’s use the <code>step</code> function to apply a forward and backward selection to the logistic regression model.</p>
-<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="categorical-data-analysis.html#cb468-1" aria-hidden="true" tabindex="-1"></a>train_sel_log <span class="ot">&lt;-</span> train <span class="sc">%&gt;%</span> </span>
-<span id="cb468-2"><a href="categorical-data-analysis.html#cb468-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Bonus, </span>
-<span id="cb468-3"><a href="categorical-data-analysis.html#cb468-3" aria-hidden="true" tabindex="-1"></a>         Lot_Area,</span>
-<span id="cb468-4"><a href="categorical-data-analysis.html#cb468-4" aria-hidden="true" tabindex="-1"></a>         Street,</span>
-<span id="cb468-5"><a href="categorical-data-analysis.html#cb468-5" aria-hidden="true" tabindex="-1"></a>         Bldg_Type,</span>
-<span id="cb468-6"><a href="categorical-data-analysis.html#cb468-6" aria-hidden="true" tabindex="-1"></a>         House_Style,</span>
-<span id="cb468-7"><a href="categorical-data-analysis.html#cb468-7" aria-hidden="true" tabindex="-1"></a>         Overall_Qual,</span>
-<span id="cb468-8"><a href="categorical-data-analysis.html#cb468-8" aria-hidden="true" tabindex="-1"></a>         Roof_Style,</span>
-<span id="cb468-9"><a href="categorical-data-analysis.html#cb468-9" aria-hidden="true" tabindex="-1"></a>         Central_Air,</span>
-<span id="cb468-10"><a href="categorical-data-analysis.html#cb468-10" aria-hidden="true" tabindex="-1"></a>         First_Flr_SF,</span>
-<span id="cb468-11"><a href="categorical-data-analysis.html#cb468-11" aria-hidden="true" tabindex="-1"></a>         Second_Flr_SF,</span>
-<span id="cb468-12"><a href="categorical-data-analysis.html#cb468-12" aria-hidden="true" tabindex="-1"></a>         Full_Bath,</span>
-<span id="cb468-13"><a href="categorical-data-analysis.html#cb468-13" aria-hidden="true" tabindex="-1"></a>         Half_Bath,</span>
-<span id="cb468-14"><a href="categorical-data-analysis.html#cb468-14" aria-hidden="true" tabindex="-1"></a>         Fireplaces,</span>
-<span id="cb468-15"><a href="categorical-data-analysis.html#cb468-15" aria-hidden="true" tabindex="-1"></a>         Garage_Area,</span>
-<span id="cb468-16"><a href="categorical-data-analysis.html#cb468-16" aria-hidden="true" tabindex="-1"></a>         Gr_Liv_Area, </span>
-<span id="cb468-17"><a href="categorical-data-analysis.html#cb468-17" aria-hidden="true" tabindex="-1"></a>         TotRms_AbvGrd) <span class="sc">%&gt;%</span></span>
-<span id="cb468-18"><a href="categorical-data-analysis.html#cb468-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace</span>(<span class="fu">is.na</span>(.), <span class="dv">0</span>)</span>
-<span id="cb468-19"><a href="categorical-data-analysis.html#cb468-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb468-20"><a href="categorical-data-analysis.html#cb468-20" aria-hidden="true" tabindex="-1"></a>full.model <span class="ot">&lt;-</span> <span class="fu">glm</span>(Bonus <span class="sc">~</span> . , <span class="at">data =</span> train_sel_log)</span>
-<span id="cb468-21"><a href="categorical-data-analysis.html#cb468-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb468-22"><a href="categorical-data-analysis.html#cb468-22" aria-hidden="true" tabindex="-1"></a>empty.model <span class="ot">&lt;-</span> <span class="fu">glm</span>(Bonus <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> train_sel_log)</span></code></pre></div>
-<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="categorical-data-analysis.html#cb469-1" aria-hidden="true" tabindex="-1"></a>for.model <span class="ot">&lt;-</span> <span class="fu">step</span>(empty.model,</span>
-<span id="cb469-2"><a href="categorical-data-analysis.html#cb469-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> <span class="fu">formula</span>(empty.model),</span>
-<span id="cb469-3"><a href="categorical-data-analysis.html#cb469-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">upper =</span> <span class="fu">formula</span>(full.model)),</span>
-<span id="cb469-4"><a href="categorical-data-analysis.html#cb469-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="at">k =</span> <span class="fu">log</span>(<span class="fu">dim</span>(train_sel_log)[<span class="dv">1</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="categorical-data-analysis.html#cb470-1" tabindex="-1"></a>train_sel_log <span class="ot">&lt;-</span> train <span class="sc">%&gt;%</span> </span>
+<span id="cb470-2"><a href="categorical-data-analysis.html#cb470-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Bonus, </span>
+<span id="cb470-3"><a href="categorical-data-analysis.html#cb470-3" tabindex="-1"></a>         Lot_Area,</span>
+<span id="cb470-4"><a href="categorical-data-analysis.html#cb470-4" tabindex="-1"></a>         Street,</span>
+<span id="cb470-5"><a href="categorical-data-analysis.html#cb470-5" tabindex="-1"></a>         Bldg_Type,</span>
+<span id="cb470-6"><a href="categorical-data-analysis.html#cb470-6" tabindex="-1"></a>         House_Style,</span>
+<span id="cb470-7"><a href="categorical-data-analysis.html#cb470-7" tabindex="-1"></a>         Overall_Qual,</span>
+<span id="cb470-8"><a href="categorical-data-analysis.html#cb470-8" tabindex="-1"></a>         Roof_Style,</span>
+<span id="cb470-9"><a href="categorical-data-analysis.html#cb470-9" tabindex="-1"></a>         Central_Air,</span>
+<span id="cb470-10"><a href="categorical-data-analysis.html#cb470-10" tabindex="-1"></a>         First_Flr_SF,</span>
+<span id="cb470-11"><a href="categorical-data-analysis.html#cb470-11" tabindex="-1"></a>         Second_Flr_SF,</span>
+<span id="cb470-12"><a href="categorical-data-analysis.html#cb470-12" tabindex="-1"></a>         Full_Bath,</span>
+<span id="cb470-13"><a href="categorical-data-analysis.html#cb470-13" tabindex="-1"></a>         Half_Bath,</span>
+<span id="cb470-14"><a href="categorical-data-analysis.html#cb470-14" tabindex="-1"></a>         Fireplaces,</span>
+<span id="cb470-15"><a href="categorical-data-analysis.html#cb470-15" tabindex="-1"></a>         Garage_Area,</span>
+<span id="cb470-16"><a href="categorical-data-analysis.html#cb470-16" tabindex="-1"></a>         Gr_Liv_Area, </span>
+<span id="cb470-17"><a href="categorical-data-analysis.html#cb470-17" tabindex="-1"></a>         TotRms_AbvGrd) <span class="sc">%&gt;%</span></span>
+<span id="cb470-18"><a href="categorical-data-analysis.html#cb470-18" tabindex="-1"></a>  <span class="fu">replace</span>(<span class="fu">is.na</span>(.), <span class="dv">0</span>)</span>
+<span id="cb470-19"><a href="categorical-data-analysis.html#cb470-19" tabindex="-1"></a></span>
+<span id="cb470-20"><a href="categorical-data-analysis.html#cb470-20" tabindex="-1"></a>full.model <span class="ot">&lt;-</span> <span class="fu">glm</span>(Bonus <span class="sc">~</span> . , <span class="at">data =</span> train_sel_log)</span>
+<span id="cb470-21"><a href="categorical-data-analysis.html#cb470-21" tabindex="-1"></a></span>
+<span id="cb470-22"><a href="categorical-data-analysis.html#cb470-22" tabindex="-1"></a>empty.model <span class="ot">&lt;-</span> <span class="fu">glm</span>(Bonus <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> train_sel_log)</span></code></pre></div>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="categorical-data-analysis.html#cb471-1" tabindex="-1"></a>for.model <span class="ot">&lt;-</span> <span class="fu">step</span>(empty.model,</span>
+<span id="cb471-2"><a href="categorical-data-analysis.html#cb471-2" tabindex="-1"></a>                  <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> <span class="fu">formula</span>(empty.model),</span>
+<span id="cb471-3"><a href="categorical-data-analysis.html#cb471-3" tabindex="-1"></a>                               <span class="at">upper =</span> <span class="fu">formula</span>(full.model)),</span>
+<span id="cb471-4"><a href="categorical-data-analysis.html#cb471-4" tabindex="-1"></a>                  <span class="at">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="at">k =</span> <span class="fu">log</span>(<span class="fu">dim</span>(train_sel_log)[<span class="dv">1</span>]))</span></code></pre></div>
 <pre><code>## Start:  AIC=2935.31
 ## Bonus ~ 1
 ## 
@@ -1052,10 +1053,10 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
 ## + Central_Air    1   172.38 918.86
 ## + Roof_Style     5   170.66 928.75
 ## + House_Style    7   170.15 937.89</code></pre>
-<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="categorical-data-analysis.html#cb471-1" aria-hidden="true" tabindex="-1"></a>back.model <span class="ot">&lt;-</span> <span class="fu">step</span>(full.model,</span>
-<span id="cb471-2"><a href="categorical-data-analysis.html#cb471-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> <span class="fu">formula</span>(empty.model),</span>
-<span id="cb471-3"><a href="categorical-data-analysis.html#cb471-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">upper =</span> <span class="fu">formula</span>(full.model)),</span>
-<span id="cb471-4"><a href="categorical-data-analysis.html#cb471-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="at">k =</span> <span class="fu">log</span>(<span class="fu">dim</span>(train_sel_log)[<span class="dv">1</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="categorical-data-analysis.html#cb473-1" tabindex="-1"></a>back.model <span class="ot">&lt;-</span> <span class="fu">step</span>(full.model,</span>
+<span id="cb473-2"><a href="categorical-data-analysis.html#cb473-2" tabindex="-1"></a>                   <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> <span class="fu">formula</span>(empty.model),</span>
+<span id="cb473-3"><a href="categorical-data-analysis.html#cb473-3" tabindex="-1"></a>                                <span class="at">upper =</span> <span class="fu">formula</span>(full.model)),</span>
+<span id="cb473-4"><a href="categorical-data-analysis.html#cb473-4" tabindex="-1"></a>                   <span class="at">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="at">k =</span> <span class="fu">log</span>(<span class="fu">dim</span>(train_sel_log)[<span class="dv">1</span>]))</span></code></pre></div>
 <pre><code>## Start:  AIC=974.27
 ## Bonus ~ Lot_Area + Street + Bldg_Type + House_Style + Overall_Qual + 
 ##     Roof_Style + Central_Air + First_Flr_SF + Second_Flr_SF + 
@@ -1180,48 +1181,48 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
 ## - Full_Bath      1   185.24 1051.18
 ## - Overall_Qual   9   220.15 1344.27</code></pre>
 <p>In the above two approaches we used the BIC selection criteria. Here both forward and backward selection actually picked the same model. Let’s check the concordance of this model.</p>
-<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="categorical-data-analysis.html#cb473-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Concordance(train$Bonus, predict(back.model, type = &quot;response&quot;))</span></span></code></pre></div>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="categorical-data-analysis.html#cb475-1" tabindex="-1"></a><span class="co">#Concordance(train$Bonus, predict(back.model, type = &quot;response&quot;))</span></span></code></pre></div>
 <p>Not surprisingly, this model outperforms the previous model that we had with a concordance of 96.1%.</p>
 <p>Although not covered in detail here, regularized regression can also be applied to logistic regression to get a different view. This might be helpful with the multicollinearity present in these predictor variables. Again, we can use the <code>glmnet</code> function with the addition of a <code>family = "binomial"</code> option.</p>
 </div>
 <div id="python-code-31" class="section level3 hasAnchor" number="7.4.6">
 <h3><span class="header-section-number">7.4.6</span> Python Code<a href="categorical-data-analysis.html#python-code-31" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><em>Linear Probability Model</em></p>
-<div class="sourceCode" id="cb474"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb474-1"><a href="categorical-data-analysis.html#cb474-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
-<span id="cb474-2"><a href="categorical-data-analysis.html#cb474-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb474-3"><a href="categorical-data-analysis.html#cb474-3" aria-hidden="true" tabindex="-1"></a>lp_model <span class="op">=</span> smf.ols(<span class="st">&quot;Bonus ~ Gr_Liv_Area&quot;</span>, data <span class="op">=</span> train).fit()</span>
-<span id="cb474-4"><a href="categorical-data-analysis.html#cb474-4" aria-hidden="true" tabindex="-1"></a>lp_model.summary()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-205-1.png" width="672" /></p>
-<div class="sourceCode" id="cb475"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb475-1"><a href="categorical-data-analysis.html#cb475-1" aria-hidden="true" tabindex="-1"></a>sm.api.qqplot(lp_model.resid)</span>
-<span id="cb475-2"><a href="categorical-data-analysis.html#cb475-2" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-206-3.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-206-4.png" width="672" /></p>
-<div class="sourceCode" id="cb476"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb476-1"><a href="categorical-data-analysis.html#cb476-1" aria-hidden="true" tabindex="-1"></a>train[<span class="st">&#39;pred_lp&#39;</span>] <span class="op">=</span> lp_model.predict()</span>
-<span id="cb476-2"><a href="categorical-data-analysis.html#cb476-2" aria-hidden="true" tabindex="-1"></a>train[<span class="st">&#39;resid_lp&#39;</span>] <span class="op">=</span> lp_model.resid</span>
-<span id="cb476-3"><a href="categorical-data-analysis.html#cb476-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb476-4"><a href="categorical-data-analysis.html#cb476-4" aria-hidden="true" tabindex="-1"></a>train[[<span class="st">&#39;Bonus&#39;</span>, <span class="st">&#39;pred_lp&#39;</span>, <span class="st">&#39;resid_lp&#39;</span>]].head(n <span class="op">=</span> <span class="dv">10</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-207-7.png" width="672" /></p>
-<div class="sourceCode" id="cb477"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb477-1"><a href="categorical-data-analysis.html#cb477-1" aria-hidden="true" tabindex="-1"></a>plt.cla()</span>
-<span id="cb477-2"><a href="categorical-data-analysis.html#cb477-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.relplot(data <span class="op">=</span> train, y <span class="op">=</span> <span class="st">&quot;resid_lp&quot;</span>, x <span class="op">=</span> <span class="st">&quot;pred_lp&quot;</span>)</span>
-<span id="cb477-3"><a href="categorical-data-analysis.html#cb477-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(ylabel <span class="op">=</span> <span class="st">&#39;Residuals&#39;</span>,</span>
-<span id="cb477-4"><a href="categorical-data-analysis.html#cb477-4" aria-hidden="true" tabindex="-1"></a>       xlabel <span class="op">=</span> <span class="st">&#39;Predicted Probability of Bonus&#39;</span>)</span>
-<span id="cb477-5"><a href="categorical-data-analysis.html#cb477-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-208-9.png" width="480" /><img src="bookdownproj_files/figure-html/unnamed-chunk-208-10.png" width="480" /></p>
+<div class="sourceCode" id="cb476"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb476-1"><a href="categorical-data-analysis.html#cb476-1" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb476-2"><a href="categorical-data-analysis.html#cb476-2" tabindex="-1"></a></span>
+<span id="cb476-3"><a href="categorical-data-analysis.html#cb476-3" tabindex="-1"></a>lp_model <span class="op">=</span> smf.ols(<span class="st">&quot;Bonus ~ Gr_Liv_Area&quot;</span>, data <span class="op">=</span> train).fit()</span>
+<span id="cb476-4"><a href="categorical-data-analysis.html#cb476-4" tabindex="-1"></a>lp_model.summary()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-206-1.png" width="672" /></p>
+<div class="sourceCode" id="cb477"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb477-1"><a href="categorical-data-analysis.html#cb477-1" tabindex="-1"></a>sm.api.qqplot(lp_model.resid)</span>
+<span id="cb477-2"><a href="categorical-data-analysis.html#cb477-2" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-207-3.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-207-4.png" width="672" /></p>
+<div class="sourceCode" id="cb478"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb478-1"><a href="categorical-data-analysis.html#cb478-1" tabindex="-1"></a>train[<span class="st">&#39;pred_lp&#39;</span>] <span class="op">=</span> lp_model.predict()</span>
+<span id="cb478-2"><a href="categorical-data-analysis.html#cb478-2" tabindex="-1"></a>train[<span class="st">&#39;resid_lp&#39;</span>] <span class="op">=</span> lp_model.resid</span>
+<span id="cb478-3"><a href="categorical-data-analysis.html#cb478-3" tabindex="-1"></a></span>
+<span id="cb478-4"><a href="categorical-data-analysis.html#cb478-4" tabindex="-1"></a>train[[<span class="st">&#39;Bonus&#39;</span>, <span class="st">&#39;pred_lp&#39;</span>, <span class="st">&#39;resid_lp&#39;</span>]].head(n <span class="op">=</span> <span class="dv">10</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-208-7.png" width="672" /></p>
+<div class="sourceCode" id="cb479"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb479-1"><a href="categorical-data-analysis.html#cb479-1" tabindex="-1"></a>plt.cla()</span>
+<span id="cb479-2"><a href="categorical-data-analysis.html#cb479-2" tabindex="-1"></a>ax <span class="op">=</span> sns.relplot(data <span class="op">=</span> train, y <span class="op">=</span> <span class="st">&quot;resid_lp&quot;</span>, x <span class="op">=</span> <span class="st">&quot;pred_lp&quot;</span>)</span>
+<span id="cb479-3"><a href="categorical-data-analysis.html#cb479-3" tabindex="-1"></a>ax.<span class="bu">set</span>(ylabel <span class="op">=</span> <span class="st">&#39;Residuals&#39;</span>,</span>
+<span id="cb479-4"><a href="categorical-data-analysis.html#cb479-4" tabindex="-1"></a>       xlabel <span class="op">=</span> <span class="st">&#39;Predicted Probability of Bonus&#39;</span>)</span>
+<span id="cb479-5"><a href="categorical-data-analysis.html#cb479-5" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-209-9.png" width="480" /><img src="bookdownproj_files/figure-html/unnamed-chunk-209-10.png" width="480" /></p>
 <p><em>Binary Logistic Regression</em></p>
-<div class="sourceCode" id="cb478"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb478-1"><a href="categorical-data-analysis.html#cb478-1" aria-hidden="true" tabindex="-1"></a>log_model <span class="op">=</span> smf.logit(<span class="st">&quot;Bonus ~ Gr_Liv_Area&quot;</span>, data <span class="op">=</span> train).fit()</span>
-<span id="cb478-2"><a href="categorical-data-analysis.html#cb478-2" aria-hidden="true" tabindex="-1"></a>log_model.summary()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-209-13.png" width="480" /></p>
-<div class="sourceCode" id="cb479"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb479-1"><a href="categorical-data-analysis.html#cb479-1" aria-hidden="true" tabindex="-1"></a>odds_ratio <span class="op">=</span> <span class="dv">100</span><span class="op">*</span>(np.exp(log_model.params) <span class="op">-</span> <span class="dv">1</span>)</span>
-<span id="cb479-2"><a href="categorical-data-analysis.html#cb479-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb479-3"><a href="categorical-data-analysis.html#cb479-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(odds_ratio)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-210-15.png" width="480" /></p>
+<div class="sourceCode" id="cb480"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb480-1"><a href="categorical-data-analysis.html#cb480-1" tabindex="-1"></a>log_model <span class="op">=</span> smf.logit(<span class="st">&quot;Bonus ~ Gr_Liv_Area&quot;</span>, data <span class="op">=</span> train).fit()</span>
+<span id="cb480-2"><a href="categorical-data-analysis.html#cb480-2" tabindex="-1"></a>log_model.summary()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-210-13.png" width="480" /></p>
+<div class="sourceCode" id="cb481"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb481-1"><a href="categorical-data-analysis.html#cb481-1" tabindex="-1"></a>odds_ratio <span class="op">=</span> <span class="dv">100</span><span class="op">*</span>(np.exp(log_model.params) <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb481-2"><a href="categorical-data-analysis.html#cb481-2" tabindex="-1"></a></span>
+<span id="cb481-3"><a href="categorical-data-analysis.html#cb481-3" tabindex="-1"></a><span class="bu">print</span>(odds_ratio)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-211-15.png" width="480" /></p>
 <p><em>Adding Categorical Variables</em></p>
-<div class="sourceCode" id="cb480"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb480-1"><a href="categorical-data-analysis.html#cb480-1" aria-hidden="true" tabindex="-1"></a>log_model2 <span class="op">=</span> smf.logit(<span class="st">&quot;Bonus ~ Gr_Liv_Area + C(Central_Air) + C(Fireplaces)&quot;</span>, data <span class="op">=</span> train).fit()</span>
-<span id="cb480-2"><a href="categorical-data-analysis.html#cb480-2" aria-hidden="true" tabindex="-1"></a>log_model2.summary()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-211-17.png" width="480" /></p>
-<div class="sourceCode" id="cb481"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb481-1"><a href="categorical-data-analysis.html#cb481-1" aria-hidden="true" tabindex="-1"></a>odds_ratio <span class="op">=</span> <span class="dv">100</span><span class="op">*</span>(np.exp(log_model2.params) <span class="op">-</span> <span class="dv">1</span>)</span>
-<span id="cb481-2"><a href="categorical-data-analysis.html#cb481-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb481-3"><a href="categorical-data-analysis.html#cb481-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(odds_ratio)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-212-19.png" width="480" /></p>
+<div class="sourceCode" id="cb482"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb482-1"><a href="categorical-data-analysis.html#cb482-1" tabindex="-1"></a>log_model2 <span class="op">=</span> smf.logit(<span class="st">&quot;Bonus ~ Gr_Liv_Area + C(Central_Air) + C(Fireplaces)&quot;</span>, data <span class="op">=</span> train).fit()</span>
+<span id="cb482-2"><a href="categorical-data-analysis.html#cb482-2" tabindex="-1"></a>log_model2.summary()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-212-17.png" width="480" /></p>
+<div class="sourceCode" id="cb483"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb483-1"><a href="categorical-data-analysis.html#cb483-1" tabindex="-1"></a>odds_ratio <span class="op">=</span> <span class="dv">100</span><span class="op">*</span>(np.exp(log_model2.params) <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb483-2"><a href="categorical-data-analysis.html#cb483-2" tabindex="-1"></a></span>
+<span id="cb483-3"><a href="categorical-data-analysis.html#cb483-3" tabindex="-1"></a><span class="bu">print</span>(odds_ratio)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-213-19.png" width="480" /></p>
 <p><em>Model Assessment</em></p>
 <p>Python doesn’t have concordant / discordant pair calculations. We will learn in Fall semester other metrics to evaluate a logistic regression model that Python does have.</p>
 <p><em>Variable Selection and Regularized Regression</em></p>
