@@ -530,18 +530,18 @@ In the this section we will cover the following statistics to help us detect out
 
 *Outliers*
 
-In using residuals to detect outliers, we first need to "standardize" them, or divide by their standard errors.  In this sense, we can think of these "standardized" residuals as an approximate z-score.  Therefore, we look for residuals greater in magnitude than 3 as potential outliers.  R calculates two different types of standardized residuals: 1. internally studentized residuals and 2. externally studentized residuals.  Internally studentized residuals are definied as
+In using residuals to detect outliers, we first need to "standardize" them, or divide by their standard errors.  In this sense, we can think of these "standardized" residuals as an approximate z-score.  Therefore, we look for residuals greater in magnitude than 3 as potential outliers.  R calculates two different types of standardized residuals: 1. standardized residuals (rstandard) and 2. studentized residuals (rstudent).  Standardized residuals are definied as
 $$ r_{i}=\frac{e_{i}}{\hat\sigma\sqrt{1-H_{ii}}},$$
-where $\hat\sigma$ is the square root of the MSE and $H_{ii}$ is from the diagonal of the hat matrix (hat matrix will be discussed in influential observations).  In R, these are denoted by rstandard.  Externally studentized residuals are definied as
+where $\hat\sigma$ is the square root of the MSE and $H_{ii}$ is from the diagonal of the hat matrix (hat matrix will be discussed in influential observations).  Studentized residuals are definied as
 $$ t_{i}=\frac{e_{i}}{\hat\sigma_{(i)}\sqrt{1-H_{ii}}},$$
-where $\hat\sigma_{(i)}$ is the square root of the MSE calculated when observation *i* is deleted and $H_{ii}$ is from the diagonal of the hat matrix.  The externally studentized residuals follow a t-distribution with $n-k-2$, where $k$ is the number of explanatory variables(notice that this has one less degree of freedom than the usual error in regression which is due to the one deleted observation).  The R code to obtain externally studentized residuals is rstudent.
+where $\hat\sigma_{(i)}$ is the square root of the MSE calculated when observation *i* is deleted and $H_{ii}$ is from the diagonal of the hat matrix.  The studentized residuals follow a t-distribution with $n-k-2$, where $k$ is the number of explanatory variables(notice that this has one less degree of freedom than the usual error in regression which is due to the one deleted observation).  
 
 *Influential observations*
 
 
 Influential observations are observations that can dramatically change the model's estimates.  It is important to identify and understand these where these observations are.  There are a number of different measures to aid in identifying influential observations, which will be discussed below.   
 
-Cook's distance, also referred to as Cook's D, measures the difference in the regression estimates when the $i^{th}$ observation is left out.  A rough rule of thumb used as a cutoff is if $D_{i}$  is greater than $\frac{4}{n-p-1}$.   
+Cook's distance, also referred to as Cook's D, measures the difference in the regression estimates when the $i^{th}$ observation is left out.  A rough rule of thumb is to use the quantile of the $F$ distribution with numerator degrees of freedom $p$ and denominator degrees of freedom $n-p$ where $n$ is the number of observations and $p$ is the number of parameters in the regression equation.   
 
 Dffits calculates the difference of fitted values for each point in the regression versus the fit of the regression line for that point if it was removed.  Large values of dffits indicate that the point is influential in the calculation of the estimated regression line. As a general rule of thumb, a cutoff of $2\sqrt{(p+1)/n}$ is used to identify potential influential points.\
 Dfbetas follows the same idea as dffits.  The difference in the estimated betas is calculated for each observation (observation included in the estimated beta and observation NOT included in estimating the beta).  This is done for each individual observation and each estimated beta. For small data sets, a value greater than 1 is suspect of an influential observation.  For large data sets, the cutoff is $\frac{2}{\sqrt{n}}$.\
@@ -575,12 +575,12 @@ b = ggplot(lm.model,aes(x=n.index,y=rstudent(lm.model)))+geom_point(color="orang
 c = ggplot(lm.model,aes(x=n.index,y=rstandard(lm.model)))+geom_point(color="orange")+geom_line(y=-3)+geom_line(y=3)+labs(title = "Internal Studentized Residuals",x="Observation",y="Residuals")
 
 ##Cook's D
-D.cut=4/(nrow(races_table)-3-1)
+D.cut=0.5
 
 d =ggplot(lm.model,aes(x=n.index,y=cooks.distance(lm.model)))+geom_point(color="orange")+geom_line(y=D.cut)+labs(title = "Cook's D",x="Observation",y="Cook's Distance")
 
 ##Dffit
-df.cut=2*(sqrt((3+1)/nrow(races_table)))
+df.cut=2*(sqrt(3/nrow(races_table)))
 
 e =ggplot(lm.model,aes(x=n.index,y=dffits(lm.model)))+geom_point(color="orange")+geom_line(y=df.cut)+geom_line(y=-df.cut)+labs(title = "DFFITS",x="Observation",y="DFFITS")
 
@@ -592,7 +592,7 @@ f =ggplot(lm.model,aes(x=n.index,y=dfbetas(lm.model)[,'Climb']))+geom_point(colo
 g =ggplot(lm.model,aes(x=n.index,y=dfbetas(lm.model)[,'Distance']))+geom_point(color="orange")+geom_line(y=db.cut)+geom_line(y=-db.cut)+labs(title = "DFBETA for Distance",x="Observation",y="DFBETAS")
 
 ##Hat
-hat.cut=2*(3+1)/nrow(races_table)
+hat.cut=2*(3)/nrow(races_table)
 
 h = ggplot(lm.model,aes(x=n.index,y=hatvalues(lm.model)))+geom_point(color="orange")+geom_line(y=hat.cut)+labs(title = "Hat values",x="Observation",y="Hat Values")
 
@@ -601,7 +601,7 @@ grid.arrange(a,b,c,d,e,f,g,ncol=2)
 
 Figure \@ref(fig:influence) shows a number of useful graphics that help us explore outliers and influential points. 
 
-A good graph to explore is looking at the external studentized residuals versus the hat values.  An observation that is high leverage AND an outlier is one that needs to be explored.
+A good graph to explore is looking at the studentized residuals versus the hat values.  An observation that is high leverage AND an outlier is one that needs to be explored.
 
 ```{r fig=T, fig.align='center',fig.cap = 'Influential and Outlier Observations',label='influenceresid', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
 ggplot(lm.model,aes(x=hatvalues(lm.model),y=rstudent(lm.model))) +  geom_point(color="orange")+ labs(x="Hat values",y="Residuals")

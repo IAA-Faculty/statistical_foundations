@@ -703,7 +703,8 @@ V = \sqrt{\frac{\chi^2_P/n}{\min(Rows-1, Columns-1)}}
 ## (Intercept) -4.758e-01  2.737e-02  -17.39   &lt;2e-16 ***
 ## Gr_Liv_Area  5.981e-04  1.731e-05   34.56   &lt;2e-16 ***
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 0.3926 on 2049 degrees of freedom
 ## Multiple R-squared:  0.3682, Adjusted R-squared:  0.3679 
@@ -759,7 +760,8 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
 ## (Intercept) -6.7458627  0.2976119  -22.67   &lt;2e-16 ***
 ## Gr_Liv_Area  0.0042721  0.0001943   21.98   &lt;2e-16 ***
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
@@ -788,16 +790,25 @@ logit(p_i) = \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_{1,i} + \cdots + \beta
 ##     family = binomial(link = &quot;logit&quot;), data = train)
 ## 
 ## Coefficients:
-##                       Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)         -1.000e+01  6.341e-01 -15.771  &lt; 2e-16 ***
-## Gr_Liv_Area          4.106e-03  2.141e-04  19.179  &lt; 2e-16 ***
-## Central_AirY         3.026e+00  4.971e-01   6.088 1.15e-09 ***
-## factor(Fireplaces)1  1.092e+00  1.292e-01   8.451  &lt; 2e-16 ***
-## factor(Fireplaces)2  6.016e-01  2.419e-01   2.487   0.0129 *  
-## factor(Fireplaces)3 -4.183e-01  9.345e-01  -0.448   0.6544    
-## factor(Fireplaces)4  8.676e+00  3.247e+02   0.027   0.9787    
+##                       Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept)         -1.000e+01  6.341e-01 -15.771  &lt; 2e-16
+## Gr_Liv_Area          4.106e-03  2.141e-04  19.179  &lt; 2e-16
+## Central_AirY         3.026e+00  4.971e-01   6.088 1.15e-09
+## factor(Fireplaces)1  1.092e+00  1.292e-01   8.451  &lt; 2e-16
+## factor(Fireplaces)2  6.016e-01  2.419e-01   2.487   0.0129
+## factor(Fireplaces)3 -4.183e-01  9.345e-01  -0.448   0.6544
+## factor(Fireplaces)4  8.676e+00  3.247e+02   0.027   0.9787
+##                        
+## (Intercept)         ***
+## Gr_Liv_Area         ***
+## Central_AirY        ***
+## factor(Fireplaces)1 ***
+## factor(Fireplaces)2 *  
+## factor(Fireplaces)3    
+## factor(Fireplaces)4    
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 

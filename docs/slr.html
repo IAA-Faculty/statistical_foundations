@@ -590,7 +590,8 @@ Both the <code>lm()</code> function and the <code>aov()</code> function will pro
 ## Exter_Qual    3 6.6913e+12 2.2304e+12  701.83 &lt; 2.2e-16 ***
 ## Residuals  2047 6.5054e+12 3.1780e+09                      
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="slr.html#cb140-1" tabindex="-1"></a><span class="fu">summary</span>(ames_lm)</span></code></pre></div>
 <pre><code>## 
 ## Call:
@@ -607,7 +608,8 @@ Both the <code>lm()</code> function and the <code>aov()</code> function will pro
 ## Exter_Qual.Q    44553       6353   7.013 3.15e-12 ***
 ## Exter_Qual.C     6994       3308   2.114   0.0346 *  
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 56370 on 2047 degrees of freedom
 ## Multiple R-squared:  0.507,  Adjusted R-squared:  0.5063 
@@ -655,10 +657,10 @@ Both the <code>lm()</code> function and the <code>aov()</code> function will pro
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   701.8</td> 
 </tr>
 <tr>
-  <th>Date:</th>             <td>Wed, 21 Jun 2023</td> <th>  Prob (F-statistic):</th> <td>1.00e-313</td>
+  <th>Date:</th>             <td>Sat, 15 Jul 2023</td> <th>  Prob (F-statistic):</th> <td>1.00e-313</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>15:42:16</td>     <th>  Log-Likelihood:    </th> <td> -25346.</td> 
+  <th>Time:</th>                 <td>15:20:34</td>     <th>  Log-Likelihood:    </th> <td> -25346.</td> 
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>  2051</td>      <th>  AIC:               </th> <td>5.070e+04</td>
@@ -770,7 +772,8 @@ Figure 2.6: Of the 4 default plots from lm(), we are presently interested in the
 ## group    3  76.879 &lt; 2.2e-16 ***
 ##       2047                      
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="slr.html#cb158-1" tabindex="-1"></a><span class="fu">fligner.test</span>(Sale_Price <span class="sc">~</span> Exter_Qual, <span class="at">data =</span> train) <span class="co"># DOES NOT depend on Normality</span></span></code></pre></div>
 <pre><code>## 
 ##  Fligner-Killeen test of homogeneity of variances
@@ -785,8 +788,8 @@ Figure 2.6: Of the 4 default plots from lm(), we are presently interested in the
 ##  variances)
 ## 
 ## data:  Sale_Price and Exter_Qual
-## F = 431.82, num df = 3.00, denom df = 102.11, p-value &lt;
-## 2.2e-16</code></pre>
+## F = 431.82, num df = 3.00, denom df = 102.11, p-value
+## &lt; 2.2e-16</code></pre>
 <p>A non-parametric version of the ANOVA test, the Kruskal-Wallis test, is also available. This test does NOT assume normality, but does need <em>similar</em> distributions among the different levels. Non-parametric tests do not have the same <em>statistical power</em> to detect differences between groups. <strong>Statistical power</strong> is the probability of detecting an effect, if there is a true effect present to detect. We should opt for these tests in situations where our data is ordinal or otherwise violates the assumptions of normality in ways that cannot be fixed by logarithmic or other similar transformation.</p>
 </div>
 <div id="python-code-8" class="section level3 hasAnchor" number="2.4.3">
@@ -840,8 +843,8 @@ Difference in location. <br> (distributional dominance)
 ##  Kruskal-Wallis rank sum test
 ## 
 ## data:  Sale_Price by Exter_Qual
-## Kruskal-Wallis chi-squared = 975.98, df = 3, p-value &lt;
-## 2.2e-16</code></pre>
+## Kruskal-Wallis chi-squared = 975.98, df = 3, p-value
+## &lt; 2.2e-16</code></pre>
 <p>Our conclusion would be that the distribution of sale price is different across different levels of exterior quality.</p>
 </div>
 <div id="python-code-9" class="section level3 hasAnchor" number="2.4.5">
@@ -1153,7 +1156,8 @@ Figure 2.11: The variables x and y have no correlation
 ## (Intercept) 14045.872   3942.503   3.563 0.000375 ***
 ## Gr_Liv_Area   110.726      2.506  44.185  &lt; 2e-16 ***
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 57430 on 2049 degrees of freedom
 ## Multiple R-squared:  0.4879, Adjusted R-squared:  0.4877 
@@ -1180,10 +1184,10 @@ Figure 2.11: The variables x and y have no correlation
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   1952.</td> 
 </tr>
 <tr>
-  <th>Date:</th>             <td>Wed, 21 Jun 2023</td> <th>  Prob (F-statistic):</th> <td>4.20e-300</td>
+  <th>Date:</th>             <td>Sat, 15 Jul 2023</td> <th>  Prob (F-statistic):</th> <td>4.20e-300</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>15:42:33</td>     <th>  Log-Likelihood:    </th> <td> -25385.</td> 
+  <th>Time:</th>                 <td>15:20:47</td>     <th>  Log-Likelihood:    </th> <td> -25385.</td> 
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>  2051</td>      <th>  AIC:               </th> <td>5.077e+04</td>

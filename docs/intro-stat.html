@@ -50,6 +50,13 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -1155,12 +1162,15 @@ Figure 1.4: Example of a Bimodal Distribution
 <span id="cb12-2"><a href="intro-stat.html#cb12-2" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="intro-stat.html#cb12-3" tabindex="-1"></a>Hmisc<span class="sc">::</span><span class="fu">describe</span>(ames<span class="sc">$</span>Sale_Price)</span></code></pre></div>
 <pre><code>## ames$Sale_Price 
-##        n  missing distinct     Info     Mean      Gmd      .05      .10 
-##     2930        0     1032        1   180796    81960    87500   105450 
-##      .25      .50      .75      .90      .95 
-##   129500   160000   213500   281242   335000 
+##        n  missing distinct     Info     Mean      Gmd 
+##     2930        0     1032        1   180796    81960 
+##      .05      .10      .25      .50      .75      .90 
+##    87500   105450   129500   160000   213500   281242 
+##      .95 
+##   335000 
 ## 
-## lowest :  12789  13100  34900  35000  35311, highest: 611657 615000 625000 745000 755000</code></pre>
+## lowest :  12789  13100  34900  35000  35311
+## highest: 611657 615000 625000 745000 755000</code></pre>
 <ul>
 <li>The tidyverse <code>summarise</code> function, in this case obtaining statistics for each <code>Exter_Qual</code> separately.</li>
 </ul>
@@ -1228,11 +1238,12 @@ Figure 1.5: The Laplace distribution (top left) is leptokurtic because it has mo
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="intro-stat.html#cb18-1" tabindex="-1"></a><span class="fu">ggplot</span>(ames,<span class="fu">aes</span>(<span class="at">x=</span>Sale_Price<span class="sc">/</span><span class="dv">1000</span>)) <span class="sc">+</span> </span>
 <span id="cb18-2"><a href="intro-stat.html#cb18-2" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density..), <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">geom_density</span>( <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
 <span id="cb18-3"><a href="intro-stat.html#cb18-3" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>)  </span></code></pre></div>
-<pre><code>## Warning: The dot-dot notation (`..density..`) was deprecated in ggplot2 3.4.0.
+<pre><code>## Warning: The dot-dot notation (`..density..`) was deprecated in
+## ggplot2 3.4.0.
 ## ℹ Please use `after_stat(density)` instead.
 ## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-## generated.</code></pre>
+## Call `lifecycle::last_lifecycle_warnings()` to see where
+## this warning was generated.</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:histwithkernal"></span>
 <img src="bookdownproj_files/figure-html/histwithkernal-1.png" alt="Histogram of Sale_Price with kernal density estimator" width="672" />
 <p class="caption">
@@ -1255,8 +1266,10 @@ Figure 1.7: Histogram: Frequency of Sale_Price for Each value of Central_Air
 <span id="cb21-2"><a href="intro-stat.html#cb21-2" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">data=</span><span class="fu">subset</span>(ames,Central_Air <span class="sc">==</span> <span class="st">&#39;Y&#39;</span>),<span class="fu">aes</span>(<span class="at">y=</span>..density..,<span class="at">fill=</span>Central_Air), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
 <span id="cb21-3"><a href="intro-stat.html#cb21-3" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">data=</span><span class="fu">subset</span>(ames,Central_Air <span class="sc">==</span> <span class="st">&#39;N&#39;</span>),<span class="fu">aes</span>(<span class="at">y=</span>..density..,<span class="at">fill=</span>Central_Air), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
 <span id="cb21-4"><a href="intro-stat.html#cb21-4" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>) </span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:overhistogramdensityAC"></span>
 <img src="bookdownproj_files/figure-html/overhistogramdensityAC-1.png" alt="Histogram: Density of Sale_Price for varying qualities of  Central_Air" width="672" />
 <p class="caption">
@@ -1600,8 +1613,9 @@ This will be the subject of interest in the next section.</p>
 ## [1] 0.95</code></pre>
 <p>To learn the labels of the various pieces of output, you can list them with the <code>ls()</code> function, or by saving the output as an object (below, <code>results</code> is the object that stores the output) and exploring it in your environment (upper right panel in RStudio):</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="intro-stat.html#cb59-1" tabindex="-1"></a><span class="fu">ls</span>(<span class="fu">t.test</span>(ames<span class="sc">$</span>Sale_Price, <span class="at">conf.level =</span> <span class="fl">0.95</span>))</span></code></pre></div>
-<pre><code>##  [1] &quot;alternative&quot; &quot;conf.int&quot;    &quot;data.name&quot;   &quot;estimate&quot;    &quot;method&quot;     
-##  [6] &quot;null.value&quot;  &quot;p.value&quot;     &quot;parameter&quot;   &quot;statistic&quot;   &quot;stderr&quot;</code></pre>
+<pre><code>##  [1] &quot;alternative&quot; &quot;conf.int&quot;    &quot;data.name&quot;   &quot;estimate&quot;   
+##  [5] &quot;method&quot;      &quot;null.value&quot;  &quot;p.value&quot;     &quot;parameter&quot;  
+##  [9] &quot;statistic&quot;   &quot;stderr&quot;</code></pre>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="intro-stat.html#cb61-1" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(ames<span class="sc">$</span>Sale_Price, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <div id="python-code-1" class="section level3 hasAnchor" number="1.3.1">
 <h3><span class="header-section-number">1.3.1</span> Python Code<a href="intro-stat.html#python-code-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1659,11 +1673,12 @@ Our alternative hypothesis is the opposite of this:
 <span class="math display">\[H_0 = \text{The coin is not fair:}\quad P(Heads) \neq 0.5\]</span>
 Suppose we flip the coin 100 times and count 65 heads. How likely is it that we would have obtained a result as extreme or more extreme than this if the coin was fair? Here we introduce the notion of a <strong>two-tailed hypothesis test</strong>. Since our hypothesis is that the coin is simply unfair, we want to know how likely it is that we obtained a result <em>so different from 50</em>. This is quantified by the <em>absolute</em> difference between what we observed and what we expected. Thus, when considering our null distribution, we want to look at the probability we’d obtain something greater than or equal to 65 (<span class="math inline">\(=50+15\)</span>) heads, <em>or</em> less than or equal to 35 (<span class="math inline">\(=50-15\)</span>) heads.</p>
 <p>Let’s take a look at this graphically through our simulated data:</p>
-<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2
+## 3.4.0.
 ## ℹ Please use `linewidth` instead.
 ## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-## generated.</code></pre>
+## Call `lifecycle::last_lifecycle_warnings()` to see where
+## this warning was generated.</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:cointossht"></span>
 <img src="bookdownproj_files/figure-html/cointossht-1.png" alt="Null Distribution: Number of heads for fair coin tossed 100 times " width="672" />
 <p class="caption">
@@ -1679,7 +1694,8 @@ Figure 1.16: Null Distribution: Number of heads for fair coin tossed 100 times
 <span id="cb75-2"><a href="intro-stat.html#cb75-2" tabindex="-1"></a>           <span class="at">alternative =</span> <span class="fu">c</span>(<span class="st">&quot;two.sided&quot;</span>),</span>
 <span id="cb75-3"><a href="intro-stat.html#cb75-3" tabindex="-1"></a>           <span class="at">conf.level =</span> <span class="fl">0.99</span>,<span class="at">correct=</span>F)</span></code></pre></div>
 <pre><code>## 
-##  1-sample proportions test without continuity correction
+##  1-sample proportions test without continuity
+##  correction
 ## 
 ## data:  65 out of 100
 ## X-squared = 9, df = 1, p-value = 0.0027
@@ -1799,7 +1815,8 @@ We conduct formal tests as follows:</p>
 ##  F test to compare two variances
 ## 
 ## data:  Sale_Price by Central_Air
-## F = 0.2258, num df = 195, denom df = 2733, p-value &lt; 2.2e-16
+## F = 0.2258, num df = 195, denom df = 2733, p-value &lt;
+## 2.2e-16
 ## alternative hypothesis: true ratio of variances is not equal to 1
 ## 95 percent confidence interval:
 ##  0.1854873 0.2800271
