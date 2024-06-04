@@ -32,7 +32,7 @@ $$BIC = -2log(Likelihood) + plog(n). $$ In this case, "Likelihood" is the likeli
 
 ## Stepwise Selection
 
-The three different algorithms in the stepwise selection search are forward, backward and stepwise.  Each of these algorithms either add or take away one variable at a time based on a given criterion until this criterion can no longer be met.  At which point the algorithm stops.  
+The three different algorithms in the stepwise selection search are forward, backward and stepwise. Each of these algorithms either add or take away one variable at a time based on a given criterion until this criterion can no longer be met. At which point the algorithm stops.  
 
 ```{r prompt=FALSE, eval=TRUE, message = FALSE, echo=FALSE}
 library(tidyverse)
@@ -69,7 +69,7 @@ For forward selection, we start with a null model (only the intercept) and add o
         b. No, exit the algorithm with the base model as the chosen model\
     4.  The base model is now the previous base model plus the variable selected in step 3.  Using this as your new base model, go back to step 1 and continue.\
  
-To do forward selection in R, you will use the step function.  The "empty model" should be used as your initial model (which is just the intercept).  For the scope of the model, you need to put the "smallest model" (just the intercept) to the "largest model" (full model).  The direction is forward.  The penalty can be controlled by defining "$k$".  Using a value of 2 for "$k$" will use the AIC criterion (remember AIC penalty was $2p$) and using $log(n)$ for "$k$" will use the BIC criterion (remember BIC penalty was $plog(n)$).  If you do not specify anything for "$k$", the default is AIC.  You can also define "$k$" as the upper $\alpha$-quantile of a $\chi^{2}$ distribution with one degree of freedom, which will use p-value for its selection of variables.  In this case, the best "model" is the one with the lowest p-value for the new variable.  In order to enter the model, the p-value of this variable will need to be lower than the "cut-off" for the p-values ($\alpha$), which means that the criterion to enter the model would be that the variable has a p-value smaller than $\alpha$.
+To do forward selection in R, you will use the step function.  The "empty model" should be used as your initial model (which is just the intercept).  For the scope of the model, you need to put the "smallest model" (just the intercept) to the "largest model" (full model).  The direction is forward.  The penalty can be controlled by defining "$k$".  Using a value of 2 for "$k$" will use the AIC criterion (remember AIC penalty was $2p$) and using $log(n)$ for "$k$" will use the BIC criterion (remember BIC penalty was $plog(n)$).  If you do not specify anything for "$k$", the default is AIC.  You can also define "$k$" as the upper $\alpha$-quantile of a $\chi^{2}$ distribution with one degree of freedom, which will use p-value for its selection of variables.  In this case, the best "model" is the one with the lowest p-value for the new variable.  In order to enter the model, the p-value of this variable will need to be lower than the "cut-off" for the p-values ($\alpha$), which means that the criterion to enter the model would be that the variable has a p-value smaller than $\alpha$. Here we use a trimmed down version of the training dataset that contains variables we want to bring to the model after initial data exploration.
 
 ```{r forward, prompt=FALSE, eval=FALSE}
 # Create full model and empty model
