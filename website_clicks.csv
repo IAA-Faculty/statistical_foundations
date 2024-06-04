@@ -1,121 +1,121 @@
 Obs,x1,x2,y
-1,1,1,50
-2,2,1,52
-3,3,1,52
-4,4,1,52
-5,1,1,54
-6,2,1,59
-7,3,1,57
-8,4,1,53
-9,1,1,53
-10,2,1,55
-11,3,1,53
-12,4,1,54
-13,1,1,54
-14,2,1,53
-15,3,1,55
-16,4,1,46
-17,1,1,54
-18,2,1,54
-19,3,1,53
-20,4,1,53
-21,1,1,55
-22,2,1,57
-23,3,1,54
-24,4,1,49
-25,1,1,52
-26,2,1,55
-27,3,1,59
-28,4,1,47
-29,1,1,55
-30,2,1,54
-31,3,1,52
-32,4,1,53
-33,1,1,54
-34,2,1,59
-35,3,1,52
-36,4,1,47
-37,1,1,51
-38,2,1,52
-39,3,1,55
-40,4,1,52
-41,1,2,54
-42,2,2,51
-43,3,2,56
-44,4,2,53
-45,1,2,55
-46,2,2,49
-47,3,2,52
-48,4,2,51
-49,1,2,55
-50,2,2,48
-51,3,2,56
-52,4,2,48
-53,1,2,52
-54,2,2,49
-55,3,2,53
-56,4,2,43
-57,1,2,53
-58,2,2,48
-59,3,2,52
-60,4,2,47
-61,1,2,52
-62,2,2,49
-63,3,2,56
-64,4,2,52
-65,1,2,54
-66,2,2,45
-67,3,2,55
-68,4,2,45
-69,1,2,58
-70,2,2,50
-71,3,2,51
-72,4,2,50
-73,1,2,53
-74,2,2,53
-75,3,2,57
-76,4,2,40
-77,1,2,55
-78,2,2,45
-79,3,2,56
-80,4,2,46
-81,1,3,51
-82,2,3,51
-83,3,3,56
-84,4,3,49
-85,1,3,58
-86,2,3,46
-87,3,3,49
-88,4,3,48
-89,1,3,50
-90,2,3,51
-91,3,3,51
-92,4,3,44
-93,1,3,50
-94,2,3,46
-95,3,3,53
-96,4,3,52
-97,1,3,53
-98,2,3,55
-99,3,3,50
-100,4,3,51
-101,1,3,49
-102,2,3,55
-103,3,3,50
-104,4,3,49
-105,1,3,51
-106,2,3,56
-107,3,3,48
-108,4,3,51
-109,1,3,52
-110,2,3,52
-111,3,3,52
-112,4,3,47
-113,1,3,46
-114,2,3,55
-115,3,3,56
-116,4,3,48
-117,1,3,56
-118,2,3,52
-119,3,3,50
-120,4,3,52
+1,Upper Left,Classic,50
+2,Upper Right,Classic,52
+3,Lower Left,Classic,52
+4,Lower Right,Classic,52
+5,Upper Left,Classic,54
+6,Upper Right,Classic,59
+7,Lower Left,Classic,57
+8,Lower Right,Classic,53
+9,Upper Left,Classic,53
+10,Upper Right,Classic,55
+11,Lower Left,Classic,53
+12,Lower Right,Classic,54
+13,Upper Left,Classic,54
+14,Upper Right,Classic,53
+15,Lower Left,Classic,55
+16,Lower Right,Classic,46
+17,Upper Left,Classic,54
+18,Upper Right,Classic,54
+19,Lower Left,Classic,53
+20,Lower Right,Classic,53
+21,Upper Left,Classic,55
+22,Upper Right,Classic,57
+23,Lower Left,Classic,54
+24,Lower Right,Classic,49
+25,Upper Left,Classic,52
+26,Upper Right,Classic,55
+27,Lower Left,Classic,59
+28,Lower Right,Classic,47
+29,Upper Left,Classic,55
+30,Upper Right,Classic,54
+31,Lower Left,Classic,52
+32,Lower Right,Classic,53
+33,Upper Left,Classic,54
+34,Upper Right,Classic,59
+35,Lower Left,Classic,52
+36,Lower Right,Classic,47
+37,Upper Left,Classic,51
+38,Upper Right,Classic,52
+39,Lower Left,Classic,55
+40,Lower Right,Classic,52
+41,Upper Left,Modern,54
+42,Upper Right,Modern,51
+43,Lower Left,Modern,56
+44,Lower Right,Modern,53
+45,Upper Left,Modern,55
+46,Upper Right,Modern,49
+47,Lower Left,Modern,52
+48,Lower Right,Modern,51
+49,Upper Left,Modern,55
+50,Upper Right,Modern,48
+51,Lower Left,Modern,56
+52,Lower Right,Modern,48
+53,Upper Left,Modern,52
+54,Upper Right,Modern,49
+55,Lower Left,Modern,53
+56,Lower Right,Modern,43
+57,Upper Left,Modern,53
+58,Upper Right,Modern,48
+59,Lower Left,Modern,52
+60,Lower Right,Modern,47
+61,Upper Left,Modern,52
+62,Upper Right,Modern,49
+63,Lower Left,Modern,56
+64,Lower Right,Modern,52
+65,Upper Left,Modern,54
+66,Upper Right,Modern,45
+67,Lower Left,Modern,55
+68,Lower Right,Modern,45
+69,Upper Left,Modern,58
+70,Upper Right,Modern,50
+71,Lower Left,Modern,51
+72,Lower Right,Modern,50
+73,Upper Left,Modern,53
+74,Upper Right,Modern,53
+75,Lower Left,Modern,57
+76,Lower Right,Modern,40
+77,Upper Left,Modern,55
+78,Upper Right,Modern,45
+79,Lower Left,Modern,56
+80,Lower Right,Modern,46
+81,Upper Left,Mix,51
+82,Upper Right,Mix,51
+83,Lower Left,Mix,56
+84,Lower Right,Mix,49
+85,Upper Left,Mix,58
+86,Upper Right,Mix,46
+87,Lower Left,Mix,49
+88,Lower Right,Mix,48
+89,Upper Left,Mix,50
+90,Upper Right,Mix,51
+91,Lower Left,Mix,51
+92,Lower Right,Mix,44
+93,Upper Left,Mix,50
+94,Upper Right,Mix,46
+95,Lower Left,Mix,53
+96,Lower Right,Mix,52
+97,Upper Left,Mix,53
+98,Upper Right,Mix,55
+99,Lower Left,Mix,50
+100,Lower Right,Mix,51
+101,Upper Left,Mix,49
+102,Upper Right,Mix,55
+103,Lower Left,Mix,50
+104,Lower Right,Mix,49
+105,Upper Left,Mix,51
+106,Upper Right,Mix,56
+107,Lower Left,Mix,48
+108,Lower Right,Mix,51
+109,Upper Left,Mix,52
+110,Upper Right,Mix,52
+111,Lower Left,Mix,52
+112,Lower Right,Mix,47
+113,Upper Left,Mix,46
+114,Upper Right,Mix,55
+115,Lower Left,Mix,56
+116,Lower Right,Mix,48
+117,Upper Left,Mix,56
+118,Upper Right,Mix,52
+119,Lower Left,Mix,50
+120,Lower Right,Mix,52
