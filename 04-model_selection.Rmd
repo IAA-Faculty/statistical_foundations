@@ -53,7 +53,7 @@ train_sel = train %>% dplyr::select('Sale_Price',
                               'Garage_Area',
                               'Gr_Liv_Area', 
                               'TotRms_AbvGrd') %>%
-                      replace(is.na(.), 0)
+                      mutate_if(is.numeric, ~replace_na(.,mean(., na.rm = TRUE)))
 
 ```
 
