@@ -70,7 +70,7 @@ $$
 
 This penalty is controlled by the **tuning parameter** $\lambda$. If $\lambda = 0$, then we have typical OLS linear regression. However, as $\lambda \rightarrow \infty$, the coefficients in the model shrink to zero. This makes intuitive sense. Since the estimated coefficients, $\hat{\beta}_j$'s, are the only thing changing to minimize this equation, then as $\lambda \rightarrow \infty$, the equation is best minimized by forcing the coefficients to be smaller and smaller. We will see how to optimize this penalty term in a later section.
 
-Let's build a regularized regression for our Ames dataset. To build a ridge regression we need separate data matrices for our predictors and our target variable. First, we isolate out the variables we are interested in using the ```select``` function. From there the ```model.matrix``` function will create any categorical dummy variables needed. We also isolate the target variable into its own vector.
+Let's build a regularized regression for our Ames dataset. To build a ridge regression we need separate data matrices for our predictors and our target variable. First, we isolate out the variables we are interested in using the ```select``` function. These functions cannot handle missing values in our dataset, so the last line of code using the ```mutate_if``` function which replaces missing values with the average of variable it is in. From there the ```model.matrix``` function will create any categorical dummy variables needed. We also isolate the target variable into its own vector.
 
 ```{r}
 train_reg <- train %>% 
@@ -90,7 +90,7 @@ train_reg <- train %>%
          Garage_Area,
          Gr_Liv_Area, 
          TotRms_AbvGrd) %>%
-  replace(is.na(.), 0)
+  mutate_if(is.numeric, ~replace_na(.,mean(., na.rm = TRUE)))
 
 train_x <- model.matrix(Sale_Price ~ ., data = train_reg)[, -1]
 train_y <- train_reg$Sale_Price
@@ -116,7 +116,7 @@ test_reg <- test %>%
          Garage_Area,
          Gr_Liv_Area, 
          TotRms_AbvGrd) %>%
-  replace(is.na(.), 0)
+  mutate_if(is.numeric, ~replace_na(.,mean(., na.rm = TRUE)))
 
 test_x <- model.matrix(Sale_Price ~ ., data = test_reg)[, -1]
 test_y <- test_reg$Sale_Price
