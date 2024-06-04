@@ -42,11 +42,12 @@ train %>%
   dplyr::summarise(mean = mean(Sale_Price), 
             sd = sd(Sale_Price), 
             max = max(Sale_Price), 
-            min = min(Sale_Price))
+            min = min(Sale_Price),
+            n = n())
 
 ```
 
-We can already see above that there appears to be some differences in average sale price across the categories overall. Within each grouping of heating quality, homes with central air appear to have a higher sale price than homes without. Also, similar to before, homes with higher heating quality appear to have higher sale prices compared to homes with lower heating quality. 
+We can already see above that there appears to be some differences in average sale price across the categories overall. Within each grouping of heating quality, homes with central air appear to have a higher sale price than homes without. Also, similar to before, homes with higher heating quality appear to have higher sale prices compared to homes with lower heating quality. Careful about samepl size in these situations though!
 
 We also see these relationships in the bar chart in Figure \@ref(fig:twomeans).
 
@@ -56,7 +57,8 @@ CA_heat <- train %>%
   dplyr::summarise(mean = mean(Sale_Price), 
             sd = sd(Sale_Price), 
             max = max(Sale_Price), 
-            min = min(Sale_Price))
+            min = min(Sale_Price), 
+            n = n())
 
 ggplot(data = CA_heat, aes(x = Heating_QC, y = mean/1000, fill = Central_Air)) +
   geom_bar(stat = "identity", position = position_dodge()) +
