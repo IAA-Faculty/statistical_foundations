@@ -804,12 +804,6 @@ py.show()
 Boxplots:
 
 ```{python}
-# Creating plot
-#ax = sns.boxplot(data = ames_py, x = ames_py['Sale_Price']/1000)
-#ax.set(xlabel = 'Sales Price (Thousands $)',
-#       title = 'Boxplot of Sales Price in Thousands of Dollars')
-#plt.show()
-
 
 # Create the boxplot
 fig, ax = plt.subplots()
@@ -826,8 +820,28 @@ plt.show()
 
 
 ```{python}
-#ax = sns.catplot(data = ames_py, x = "Central_Air", y = "Sale_Price", kind = "box")
-#plt.show()
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Assuming 'ames_py' is your DataFrame containing the 'Central_Air' and 'Sale_Price' columns
+# Create a list of data to plot
+data_to_plot = [ames_py[ames_py['Central_Air'] == category]['Sale_Price'] for category in ames_py['Central_Air'].unique()]
+
+# Create the box plot
+fig, ax = plt.subplots()
+ax.boxplot(data_to_plot, patch_artist=True, boxprops=dict(facecolor='blue'))
+
+# Set the x-tick labels
+ax.set_xticklabels(ames_py['Central_Air'].unique())
+
+# Set the labels and title
+ax.set_xlabel('Central Air')
+ax.set_ylabel('Sale Price')
+ax.set_title('Boxplot of Sale Price by Central Air')
+
+# Display the plot
+plt.show()
+
 ```
 
 
