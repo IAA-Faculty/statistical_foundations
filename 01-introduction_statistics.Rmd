@@ -717,7 +717,24 @@ Overlay a density plot on top of a the Sales Price histogram:
 ```{python}
 
 x=r.ames["Sale_Price"]/1000
-#sns.histplot(x, kde=True, color = 'blue')
+from scipy.stats import gaussian_kde
+
+
+# Create the histogram
+fig, ax = plt.subplots()
+ax.hist(x, bins=30, density=True, color='blue', alpha=0.6, edgecolor='black')
+
+# Add a KDE
+kde = gaussian_kde(x)
+x_vals = np.linspace(min(x), max(x), 1000)
+kde_vals = kde(x_vals)
+ax.plot(x_vals, kde_vals, color='blue')
+
+# Set labels and title
+ax.set_xlabel('Value')
+ax.set_ylabel('Density')
+ax.set_title('Histogram with KDE')
+
 ```
 
 
