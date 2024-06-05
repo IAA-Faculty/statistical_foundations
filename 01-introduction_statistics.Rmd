@@ -767,11 +767,6 @@ plt.show()
 
 
 ```{python}
-#ax = sns.displot(data = ames_py, x = ames_py['Sale_Price']/1000, hue = "Central_Air", common_norm = False, kind = "kde", fill = True)
-#ax.set(xlabel = 'Sales Price (Thousands $)',
-#       ylabel = 'Density')
-#plt.show()
-
 
 # Get unique categories in 'Central_Air'
 unique_categories = central_air.unique()
@@ -814,6 +809,19 @@ Boxplots:
 #ax.set(xlabel = 'Sales Price (Thousands $)',
 #       title = 'Boxplot of Sales Price in Thousands of Dollars')
 #plt.show()
+
+
+# Create the boxplot
+fig, ax = plt.subplots()
+ax.boxplot(sale_prices, vert=False, patch_artist=True, boxprops=dict(facecolor='blue'))
+
+# Set the labels and title
+ax.set_xlabel('Sales Price (Thousands $)')
+ax.set_title('Boxplot of Sales Price in Thousands of Dollars')
+
+# Display the plot
+plt.show()
+
 ```
 
 
