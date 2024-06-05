@@ -742,11 +742,6 @@ ax.set_title('Histogram with KDE')
 Overlay of density plots (for Sales Price broken down by Central Air):
 
 ```{python}
-#ax = sns.displot(data = ames_py, x = ames_py['Sale_Price']/1000, hue = "Central_Air")
-#ax.set(xlabel = 'Sales Price (Thousands $)',
-#       ylabel = 'Frequency')
-#plt.show()
-
 
 sale_prices = ames_py['Sale_Price'] / 1000
 central_air = ames_py['Central_Air']
@@ -772,18 +767,36 @@ plt.show()
 
 
 ```{python}
-#ax = sns.displot(data = ames_py, x = ames_py['Sale_Price']/1000, hue = "Central_Air", stat = #"density", common_norm = False)
-#ax.set(xlabel = 'Sales Price (Thousands $)',
-#       ylabel = 'Density')
-#plt.show()
-```
-
-
-```{python}
 #ax = sns.displot(data = ames_py, x = ames_py['Sale_Price']/1000, hue = "Central_Air", common_norm = False, kind = "kde", fill = True)
 #ax.set(xlabel = 'Sales Price (Thousands $)',
 #       ylabel = 'Density')
 #plt.show()
+
+
+# Get unique categories in 'Central_Air'
+unique_categories = central_air.unique()
+colors = ['blue', 'orange']  # Define colors for each category
+
+# Create a figure and axis
+fig, ax = plt.subplots()
+
+# Plot KDE for each category
+for category, color in zip(unique_categories, colors):
+    subset = sale_prices[central_air == category]
+    kde = gaussian_kde(subset, bw_method='scott')
+    x_vals = np.linspace(subset.min(), subset.max(), 1000)
+    kde_vals = kde(x_vals)
+    ax.fill_between(x_vals, kde_vals, alpha=0.6, color=color, label=f'Central Air: {category}')
+
+# Set the labels and title
+ax.set_xlabel('Sales Price (Thousands $)')
+ax.set_ylabel('Density')
+ax.set_title('KDE of Sales Price in Thousands of Dollars')
+ax.legend()
+
+# Display the plot
+plt.show()
+
 ```
 
 QQ plots: 
