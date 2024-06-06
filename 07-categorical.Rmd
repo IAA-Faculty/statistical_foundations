@@ -476,7 +476,7 @@ There are dozens of different ways to evaluate a logistic regression model. We w
 
 To find concordant, discordant, and tied pairs, we must compare all of the 0's in the target variable to all of the 1's. For our example, we will compare every pair of homes where one home is bonus eligible and one is not (every 0 and 1 pair). A **concordant** pair is a 0 and 1 pair where the bonus eligible home (the 1 in our model) has a higher predicted probability than the non-bonus eligible home (the 0 in our model) - our model successfully ordered these two observations by probability. It does not matter what the actual predicted probability values are as long as the bonus eligible home has a higher predicted probability than the non-bonus eligible home. A **discordant** pair is a 0 and 1 pair where the bonus eligible home (the 1 in our model) has a lower predicted probability than the non-bonus eligible home (the 0 in our model) - our model unsuccessfully ordered the homes. It does not matter what the actual predicted probability values are as long as the bonus eligible home has a lower predicted probability than the non-bonus eligible home. A **tied** pair is a 0 and 1 pair where the bonus eligible home has the same predicted probability as the non-bonus eligible home - the model is confused and sees these two different things as the same. In general, you want a high percentage of concordant pairs and low percentages of discordant and tied pairs. 
 
-We can use the ```Concordance``` function to obtain these values on our predictions from the ```predict``` function.
+We can use the ```concordance``` function from the ```survival``` package to obtain these values on our predictions from the ```predict``` function.
 
 ```{r}
 library(survival)
@@ -513,7 +513,7 @@ train_sel_log <- train %>%
          Garage_Area,
          Gr_Liv_Area, 
          TotRms_AbvGrd) %>%
-  replace(is.na(.), 0)
+  mutate_if(is.numeric, ~replace_na(.,mean(., na.rm = TRUE)))
 
 full.model <- glm(Bonus ~ . , data = train_sel_log)
 
@@ -537,7 +537,7 @@ back.model <- step(full.model,
 In the above two approaches we used the BIC selection criteria. Here both forward and backward selection actually picked the same model. Let's check the concordance of this model.
 
 ```{r}
-#Concordance(train$Bonus, predict(back.model, type = "response"))
+survival::concordance(back.model)
 ```
 
 Not surprisingly, this model outperforms the previous model that we had with a concordance of 96.1%. 
