@@ -53,10 +53,10 @@ install.packages('vcdExtra')
 install.packages('TSA')
 install.packages('carData')
 install.packages('epiDisplay')
-install.packages('gridExtra')
+
 ```
 
-Bringing the packages into your currently opened R session (will need to be done whenever you open a new session):
+You will need to bring the packages into your currently opened R session (this will need to be done whenever you open a new session):
 
 ```{r message=F}
 library(AmesHousing)
@@ -245,9 +245,8 @@ __Ordinal variables will either be given some numeric value and treated as inter
 <tr> <td> H.S. Diploma or GED <td> 2
 <tr> <td> Associates or Certificate <td> 3
 <tr> <td> Bachelors <td> 4
-<tr> <td> Graduate Certificate <td> 5
-<tr> <td> Masters <td> 6
-<tr> <td> PhD <td> 7
+<tr> <td> Masters <td> 5
+<tr> <td> PhD <td> 6
 </table>
 <caption> (\#tab:educationint) One potential approach to scaling the ordinal attribute level of education </caption>  
 
@@ -265,18 +264,17 @@ If we re-consider the ordinal attribute level of education, we might decide to r
 
 <table>
 <tr> <td> Level of Education <td> Numeric Value
-<tr> <td> No H.S. Diploma <td> -1
-<tr> <td> H.S. Diploma or GED <td> 0
-<tr> <td> Associate's or Certificate <td> 2
-<tr> <td> Bachelor's <td> 4
-<tr> <td> Graduate Certificate <td> 5
-<tr> <td> Master's <td> 6
-<tr> <td> PhD <td> 8
+<tr> <td> No H.S. Diploma <td> 8
+<tr> <td> H.S. Diploma or GED <td> 13
+<tr> <td> Associates or Certificate <td> 15
+<tr> <td> Bachelors <td> 17
+<tr> <td> Masters <td> 19
+<tr> <td> PhD <td> 22
 </table>
-<caption> (\#tab:educationscaled) One potential approach to scaling the ordinal attribute level of education </caption>  
+<caption> (\#tab:educationint) One potential approach to scaling the ordinal attribute level of education </caption>  
 
 
-If we were modeling the effect of education on something like salary, it seems reasonable to assume that the jumps between levels should not have equal distance like they did in \@ref(tab:educationint). It seems reasonable to assume that one would experience a larger salary lift from Associate's to Bachelor's degree than they would from No H.S. Diploma to GED. The most common way to determine the numeric values for categories is to use information from the response variable. This is commonly referred to as __target level encoding__.  
+If we were modeling the effect of education on something like salary, it seems reasonable to assume that the jumps between levels should not have equal distance like they did in \@ref(tab:educationint). It seems reasonable to assume that one would experience a larger salary lift from Associate's to Bachelor's degree than they would from No H.S. Diploma to H.S Diploma. The most common way to determine the numeric values for categories is to use information from the response variable. This is commonly referred to as __target level encoding__.  
 
 
 __Target Level Encoding__
@@ -371,7 +369,7 @@ Once we have an understanding of the central tendency of a data set, we move on 
 
 In order to define __interquartile range__, we must first define __percentiles__ and __quartiles__.
 
-* Percentiles: The 99 intermediate values of the data which divide the observations into 100 equally-sized groups.  The $r^{th}$ percentile of the data, $P_{r}$ is the number for which $r$% of the data is less than $P_{r}$.
+* Percentiles: The 99 intermediate values of the data which divide the observations into 100 equally-sized groups.  The $r^{th}$ percentile of the data, $P_{r}$ is the number for which $r$% of the data is less than $P_{r}$. Percentiles are also called Quantiles.
 * Quartiles: The quartiles of the data are the $25^{th}$, $50^{th}$ and $75^{th}$ percentiles.  They are denoted as $Q_{1}$ ($1^{st}$ quartile), $Q_{2}$ ($2^{nd}$ quartile = median) and $Q_{3}$ ($3^{rd}$ quartile), respectively.
 * Interquartile range (IQR): The difference between the $25^{th}$ and $75^{th}$ percentiles.
 
@@ -402,9 +400,13 @@ __Solution:__
 * The range `69-60` = 9.
 * The variance is `((60-65.6)^2+(62-65.6)^2+(63-65.6)^2+(65-65.6)^2+(67-65.6)^2+(67-65.6)^2+(67-65.6)^2+(68-65.6)^2+(68-65.6)^2+(69-65.6)^2)/9` = 8.933
 * The standard deviation is `sqrt(8.933)` = 2.989
-* The first quartile is `(62+63)/2` = 62.5
-* The third quartile is `(68+68)/2` = 68
-* The IQR is `68 - 62.5` = 5.5.
+* The first quartile is 63.5
+* The third quartile is 67.75
+* The IQR is `68 - 62.5` = 4.25.  
+
+
+
+Note: In R, to find the quartiles, you should ask for the 0.25, 0.5 and 0.75 quantiles.  
 
 
 #### Shape 
@@ -424,12 +426,14 @@ A distribution is called _bimodal_ if it has two "heaps", as shown in Figure \@r
 knitr::include_graphics("img/bimodal.png")
 ```
 
+
 #### Summary Functions in R 
 
 There are many ways to obtain all of the statistics described in the preceding sections, below we highlight 3:
 
 
 * The `describe` function from the `Hmisc` package which can work on the entire dataset or a subset of columns.
+
 ```{r message=FALSE}
 library(Hmisc)
 
@@ -448,6 +452,7 @@ ames %>% group_by(Exter_Qual) %>% dplyr::summarise(average = mean(Sale_Price), s
 ```{r} 
 summary(ames$Sale_Price)
 ```
+
 
 ### The Normal Distribution {#normal}
 

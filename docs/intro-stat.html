@@ -411,9 +411,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-18"><a href="intro-stat.html#cb1-18" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;vcdExtra&#39;</span>)</span>
 <span id="cb1-19"><a href="intro-stat.html#cb1-19" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;TSA&#39;</span>)</span>
 <span id="cb1-20"><a href="intro-stat.html#cb1-20" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;carData&#39;</span>)</span>
-<span id="cb1-21"><a href="intro-stat.html#cb1-21" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;epiDisplay&#39;</span>)</span>
-<span id="cb1-22"><a href="intro-stat.html#cb1-22" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;gridExtra&#39;</span>)</span></code></pre></div>
-<p>Bringing the packages into your currently opened R session (will need to be done whenever you open a new session):</p>
+<span id="cb1-21"><a href="intro-stat.html#cb1-21" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;epiDisplay&#39;</span>)</span></code></pre></div>
+<p>You will need to bring the packages into your currently opened R session (this will need to be done whenever you open a new session):</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro-stat.html#cb2-1" tabindex="-1"></a><span class="fu">library</span>(AmesHousing)</span></code></pre></div>
 <pre><code>## Warning: package &#39;AmesHousing&#39; was built under R version 4.3.3</code></pre>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro-stat.html#cb4-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
@@ -938,19 +937,14 @@ Bachelors
 4
 <tr>
 <td>
-Graduate Certificate
+Masters
 <td>
 5
 <tr>
 <td>
-Masters
-<td>
-6
-<tr>
-<td>
 PhD
 <td>
-7
+6
 </table>
 <caption>
 <span id="tab:educationint">Table 1.4: </span> One potential approach to scaling the ordinal attribute level of education
@@ -959,7 +953,7 @@ PhD
 <p><strong>Optimal Scaling</strong></p>
 <p>The primary idea behind optimal scaling is to transform an ordinal attribute into an interval one in a way that doesn’t restrict the numeric values to simply the integers <span class="math inline">\(1,2,3, \dots\)</span>. It’s reasonable for a data scientist to use domain expertise to develop an alternative scheme.</p>
 <p>For example, if analyzing movie theater concessions with ordinal drink sizes {small, medium, large}, one is not restricted to the numeric valuation of 1=small, 2=medium, and 3=large just because it’s an ordinal variable with 3 levels. Perhaps it would make more sense to use the drink size in fluid ounces to represent the ordinality. If the small drink is 12 ounces, the medium is 20 ounces, and the large is 48 ounces, then using those values as the numerical representation would be every bit as (if not more) reasonable than using the standard integers 1, 2, and 3.</p>
-<p>If we re-consider the ordinal attribute level of education, we might decide to represent the approximate years of post-secondary schooling required to obtain a given level. This might lead us to something like the attribute values in Table <a href="intro-stat.html#tab:educationscaled">1.5</a>.</p>
+<p>If we re-consider the ordinal attribute level of education, we might decide to represent the approximate years of post-secondary schooling required to obtain a given level. This might lead us to something like the attribute values in Table <a href="#tab:educationscaled"><strong>??</strong></a>.</p>
 <table>
 <tr>
 <td>
@@ -970,44 +964,39 @@ Numeric Value
 <td>
 No H.S. Diploma
 <td>
--1
+8
 <tr>
 <td>
 H.S. Diploma or GED
 <td>
-0
+13
 <tr>
 <td>
-Associate’s or Certificate
+Associates or Certificate
 <td>
-2
+15
 <tr>
 <td>
-Bachelor’s
+Bachelors
 <td>
-4
+17
 <tr>
 <td>
-Graduate Certificate
+Masters
 <td>
-5
-<tr>
-<td>
-Master’s
-<td>
-6
+19
 <tr>
 <td>
 PhD
 <td>
-8
+22
 </table>
 <caption>
-<span id="tab:educationscaled">Table 1.5: </span> One potential approach to scaling the ordinal attribute level of education
+<span id="tab:educationint">Table 1.4: </span> One potential approach to scaling the ordinal attribute level of education
 </caption>
-<p>If we were modeling the effect of education on something like salary, it seems reasonable to assume that the jumps between levels should not have equal distance like they did in <a href="intro-stat.html#tab:educationint">1.4</a>. It seems reasonable to assume that one would experience a larger salary lift from Associate’s to Bachelor’s degree than they would from No H.S. Diploma to GED. The most common way to determine the numeric values for categories is to use information from the response variable. This is commonly referred to as <strong>target level encoding</strong>.</p>
+<p>If we were modeling the effect of education on something like salary, it seems reasonable to assume that the jumps between levels should not have equal distance like they did in <a href="intro-stat.html#tab:educationint">1.4</a>. It seems reasonable to assume that one would experience a larger salary lift from Associate’s to Bachelor’s degree than they would from No H.S. Diploma to H.S Diploma. The most common way to determine the numeric values for categories is to use information from the response variable. This is commonly referred to as <strong>target level encoding</strong>.</p>
 <p><strong>Target Level Encoding</strong></p>
-<p>The values in Table <a href="intro-stat.html#tab:educationscaled">1.5</a> might have struck the reader as logical but arbitrary. To be more scientific about the determination of those numeric values, one might wish to use information from the response variable to obtain a more precise expected change in salary for each level increase in education. At first hearing this, one might question the validity of the technique; isn’t the goal to <em>predict</em> salary? This line of thought is natural, which is why having a holdout sample is extremely important in this situation. To implement Target level encoding, we can simply create a look-up table that matches each level of education to the average or median salary obtained for that level. These values can be used just as readily as the arbitrary levels created in Table <a href="intro-stat.html#tab:educationscaled">1.5</a> to encode the ordinal attribute!</p>
+<p>The values in Table <a href="#tab:educationscaled"><strong>??</strong></a> might have struck the reader as logical but arbitrary. To be more scientific about the determination of those numeric values, one might wish to use information from the response variable to obtain a more precise expected change in salary for each level increase in education. At first hearing this, one might question the validity of the technique; isn’t the goal to <em>predict</em> salary? This line of thought is natural, which is why having a holdout sample is extremely important in this situation. To implement Target level encoding, we can simply create a look-up table that matches each level of education to the average or median salary obtained for that level. These values can be used just as readily as the arbitrary levels created in Table <a href="#tab:educationscaled"><strong>??</strong></a> to encode the ordinal attribute!</p>
 </div>
 </div>
 <div id="distributions" class="section level3 hasAnchor" number="1.1.2">
@@ -1101,7 +1090,7 @@ height
 </ul>
 <p>In order to define <strong>interquartile range</strong>, we must first define <strong>percentiles</strong> and <strong>quartiles</strong>.</p>
 <ul>
-<li>Percentiles: The 99 intermediate values of the data which divide the observations into 100 equally-sized groups. The <span class="math inline">\(r^{th}\)</span> percentile of the data, <span class="math inline">\(P_{r}\)</span> is the number for which <span class="math inline">\(r\)</span>% of the data is less than <span class="math inline">\(P_{r}\)</span>.</li>
+<li>Percentiles: The 99 intermediate values of the data which divide the observations into 100 equally-sized groups. The <span class="math inline">\(r^{th}\)</span> percentile of the data, <span class="math inline">\(P_{r}\)</span> is the number for which <span class="math inline">\(r\)</span>% of the data is less than <span class="math inline">\(P_{r}\)</span>. Percentiles are also called Quantiles.</li>
 <li>Quartiles: The quartiles of the data are the <span class="math inline">\(25^{th}\)</span>, <span class="math inline">\(50^{th}\)</span> and <span class="math inline">\(75^{th}\)</span> percentiles. They are denoted as <span class="math inline">\(Q_{1}\)</span> (<span class="math inline">\(1^{st}\)</span> quartile), <span class="math inline">\(Q_{2}\)</span> (<span class="math inline">\(2^{nd}\)</span> quartile = median) and <span class="math inline">\(Q_{3}\)</span> (<span class="math inline">\(3^{rd}\)</span> quartile), respectively.</li>
 <li>Interquartile range (IQR): The difference between the <span class="math inline">\(25^{th}\)</span> and <span class="math inline">\(75^{th}\)</span> percentiles.</li>
 </ul>
@@ -1138,10 +1127,11 @@ height
 <li>The range <code>69-60</code> = 9.</li>
 <li>The variance is <code>((60-65.6)^2+(62-65.6)^2+(63-65.6)^2+(65-65.6)^2+(67-65.6)^2+(67-65.6)^2+(67-65.6)^2+(68-65.6)^2+(68-65.6)^2+(69-65.6)^2)/9</code> = 8.933</li>
 <li>The standard deviation is <code>sqrt(8.933)</code> = 2.989</li>
-<li>The first quartile is <code>(62+63)/2</code> = 62.5</li>
-<li>The third quartile is <code>(68+68)/2</code> = 68</li>
-<li>The IQR is <code>68 - 62.5</code> = 5.5.</li>
+<li>The first quartile is 63.5</li>
+<li>The third quartile is 67.75</li>
+<li>The IQR is <code>68 - 62.5</code> = 4.25.</li>
 </ul>
+<p>Note: In R, to find the quartiles, you should ask for the 0.25, 0.5 and 0.75 quantiles.</p>
 </div>
 <div id="shape" class="section level4 hasAnchor" number="1.1.2.3">
 <h4><span class="header-section-number">1.1.2.3</span> Shape<a href="intro-stat.html#shape" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1651,7 +1641,7 @@ Figure 1.14: Box Plots of Sale_Price for each level of Exter_Qual
 <span id="cb89-4"><a href="intro-stat.html#cb89-4" tabindex="-1"></a>ax.boxplot(sale_prices, vert<span class="op">=</span><span class="va">False</span>, patch_artist<span class="op">=</span><span class="va">True</span>, boxprops<span class="op">=</span><span class="bu">dict</span>(facecolor<span class="op">=</span><span class="st">&#39;blue&#39;</span>))</span>
 <span id="cb89-5"><a href="intro-stat.html#cb89-5" tabindex="-1"></a></span>
 <span id="cb89-6"><a href="intro-stat.html#cb89-6" tabindex="-1"></a><span class="co"># Set the labels and title</span></span></code></pre></div>
-<pre><code>## {&#39;whiskers&#39;: [&lt;matplotlib.lines.Line2D object at 0x0000019ED92E0430&gt;, &lt;matplotlib.lines.Line2D object at 0x0000019ED92E0130&gt;], &#39;caps&#39;: [&lt;matplotlib.lines.Line2D object at 0x0000019ED92E0670&gt;, &lt;matplotlib.lines.Line2D object at 0x0000019ED92E0910&gt;], &#39;boxes&#39;: [&lt;matplotlib.patches.PathPatch object at 0x0000019ED92D4DC0&gt;], &#39;medians&#39;: [&lt;matplotlib.lines.Line2D object at 0x0000019ED92E0BB0&gt;], &#39;fliers&#39;: [&lt;matplotlib.lines.Line2D object at 0x0000019ED92E0E50&gt;], &#39;means&#39;: []}</code></pre>
+<pre><code>## {&#39;whiskers&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001EDE55B1040&gt;, &lt;matplotlib.lines.Line2D object at 0x000001EDE55B12E0&gt;], &#39;caps&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001EDE55B1580&gt;, &lt;matplotlib.lines.Line2D object at 0x000001EDE55B1820&gt;], &#39;boxes&#39;: [&lt;matplotlib.patches.PathPatch object at 0x000001EDE55A4E20&gt;], &#39;medians&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001EDE55B1AC0&gt;], &#39;fliers&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001EDE55B1D60&gt;], &#39;means&#39;: []}</code></pre>
 <div class="sourceCode" id="cb91"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb91-1"><a href="intro-stat.html#cb91-1" tabindex="-1"></a>ax.set_xlabel(<span class="st">&#39;Sales Price (Thousands $)&#39;</span>)</span>
 <span id="cb91-2"><a href="intro-stat.html#cb91-2" tabindex="-1"></a>ax.set_title(<span class="st">&#39;Boxplot of Sales Price in Thousands of Dollars&#39;</span>)</span>
 <span id="cb91-3"><a href="intro-stat.html#cb91-3" tabindex="-1"></a></span>
@@ -1670,7 +1660,7 @@ Figure 1.14: Box Plots of Sale_Price for each level of Exter_Qual
 <span id="cb92-10"><a href="intro-stat.html#cb92-10" tabindex="-1"></a>ax.boxplot(data_to_plot, patch_artist<span class="op">=</span><span class="va">True</span>, boxprops<span class="op">=</span><span class="bu">dict</span>(facecolor<span class="op">=</span><span class="st">&#39;blue&#39;</span>))</span>
 <span id="cb92-11"><a href="intro-stat.html#cb92-11" tabindex="-1"></a></span>
 <span id="cb92-12"><a href="intro-stat.html#cb92-12" tabindex="-1"></a><span class="co"># Set the x-tick labels</span></span></code></pre></div>
-<pre><code>## {&#39;whiskers&#39;: [&lt;matplotlib.lines.Line2D object at 0x0000019EDAA69B50&gt;, &lt;matplotlib.lines.Line2D object at 0x0000019EDACF2070&gt;, &lt;matplotlib.lines.Line2D object at 0x0000019EDACF2FA0&gt;, &lt;matplotlib.lines.Line2D object at 0x0000019EDAD00280&gt;], &#39;caps&#39;: [&lt;matplotlib.lines.Line2D object at 0x0000019EDACF2310&gt;, &lt;matplotlib.lines.Line2D object at 0x0000019EDACF25B0&gt;, &lt;matplotlib.lines.Line2D object at 0x0000019EDAD00520&gt;, &lt;matplotlib.lines.Line2D object at 0x0000019EDAD007C0&gt;], &#39;boxes&#39;: [&lt;matplotlib.patches.PathPatch object at 0x0000019EDAA69BE0&gt;, &lt;matplotlib.patches.PathPatch object at 0x0000019EDACF2C70&gt;], &#39;medians&#39;: [&lt;matplotlib.lines.Line2D object at 0x0000019EDACF2850&gt;, &lt;matplotlib.lines.Line2D object at 0x0000019EDAD00A60&gt;], &#39;fliers&#39;: [&lt;matplotlib.lines.Line2D object at 0x0000019EDACF2AF0&gt;, &lt;matplotlib.lines.Line2D object at 0x0000019EDAD00D00&gt;], &#39;means&#39;: []}</code></pre>
+<pre><code>## {&#39;whiskers&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001EDE6D47A60&gt;, &lt;matplotlib.lines.Line2D object at 0x000001EDE6D47F40&gt;, &lt;matplotlib.lines.Line2D object at 0x000001EDE6FE3EB0&gt;, &lt;matplotlib.lines.Line2D object at 0x000001EDE6FF2190&gt;], &#39;caps&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001EDE6FE3220&gt;, &lt;matplotlib.lines.Line2D object at 0x000001EDE6FE34C0&gt;, &lt;matplotlib.lines.Line2D object at 0x000001EDE6FF2430&gt;, &lt;matplotlib.lines.Line2D object at 0x000001EDE6FF26D0&gt;], &#39;boxes&#39;: [&lt;matplotlib.patches.PathPatch object at 0x000001EDE6D47AF0&gt;, &lt;matplotlib.patches.PathPatch object at 0x000001EDE6FE3B80&gt;], &#39;medians&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001EDE6FE3760&gt;, &lt;matplotlib.lines.Line2D object at 0x000001EDE6FF2970&gt;], &#39;fliers&#39;: [&lt;matplotlib.lines.Line2D object at 0x000001EDE6FE3A00&gt;, &lt;matplotlib.lines.Line2D object at 0x000001EDE6FF2C10&gt;], &#39;means&#39;: []}</code></pre>
 <div class="sourceCode" id="cb94"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb94-1"><a href="intro-stat.html#cb94-1" tabindex="-1"></a>ax.set_xticklabels(ames_py[<span class="st">&#39;Central_Air&#39;</span>].unique())</span>
 <span id="cb94-2"><a href="intro-stat.html#cb94-2" tabindex="-1"></a></span>
 <span id="cb94-3"><a href="intro-stat.html#cb94-3" tabindex="-1"></a><span class="co"># Set the labels and title</span></span>
