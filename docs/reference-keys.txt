@@ -149,3 +149,4 @@ adding-categorical-variables
 model-assessment
 variable-selection-and-regularized-regression
 python-code-31
+fig:qqplotcars

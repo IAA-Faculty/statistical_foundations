@@ -80,7 +80,7 @@ library(vcdExtra)
 library(TSA)
 library(carData)
 library(epiDisplay)
-library(gridExtra)
+
 ```
 
 
@@ -1060,8 +1060,11 @@ The $1^{st}$ assumption is not easily checked unless the data is generated over 
 
 We can test the normality assumption either graphically or through formal statistical tests. The best graphical test of normality is a QQ-Plot, though histograms are often used as well. We saw in Figures \@ref(fig:qqplot) and \@ref(fig:histogram) that the distribution of `Sale_Price` was not perfectly normal, however the deviations from normality were not egregious. In Figure \@ref(fig:qqplotcentralair) we again examine the normality of Sale Price, this time for each value of `Central_Air`:
 
-```{r label='qqplotcentralair',fig.align='center',fig.cap="QQ-Plot: Quantiles of Sale_Price vs. quantiles of a theoretical normal distribution with same mean and standard deviation, for each level of Central_Air. Conclusion: Sale_Price is _not_ normally distributed for Central_Air='Yes' and is _more_ normally distributed for Central_Air = 'No'."}
-ggplot(data = ames, aes(sample = Sale_Price, color = Central_Air)) +
+```{r label='qqplotcars',fig.align='center',fig.cap="QQ-Plot: Quantiles of MPG vs. quantiles of a theoretical normal distribution with same mean and standard deviation, for each Country. "}
+
+cars<-read.csv("https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/master/cars.csv")
+
+ggplot(data = cars, aes(sample = MPG, color = Country)) +
      stat_qq() +
      stat_qq_line()
 ```
@@ -1073,8 +1076,8 @@ $$H_a: \text{ the data is NOT normally distributed}$$
 We conduct formal tests as follows:
 
 ```{r}
-shapiro.test(ames$Sale_Price[ames$Central_Air=='Y'])
-shapiro.test(ames$Sale_Price[ames$Central_Air=='N'])
+shapiro.test(cars$MPG[cars$Country=='US'])
+shapiro.test(cars$MPG[cars$Country=='Japanese'])
 ```
 The formal test rejects the null hypotheses of normality and confirms what we saw in our visual analysis.
 
@@ -1091,7 +1094,7 @@ The F-Test is invoked with the `var.test` function, which takes as input a `form
 The following code checks whether the distributions of Sale_Price for houses with and without central air have the same variance. 
 
 ```{r}
-var.test(Sale_Price ~ Central_Air, data = ames)
+var.test(MPG~Country,data=cars)
 ```
 They do not. Thus, we must opt for the `var.equal=FALSE` option in the `t.test()` procedure.
 
@@ -1102,7 +1105,7 @@ $$H_0: \mu_1 = \mu_2$$
 $$H_a: \mu_1 \neq \mu_2$$
 
 ```{r}
-t.test(Sale_Price ~ Central_Air, data = ames, var.equal = FALSE)
+t.test(MPG~Country, data=cars, var.equal = FALSE)
 ```
 
 Our final conclusion from the t-test is the _rejection of the null hypothesis_ and the conclusion that _houses with and without central air should be expected to sell for different prices. _
@@ -1184,6 +1187,15 @@ We summarize this information in the following table:
 <tr> <td> Group distributions are identical in shape,<br> variance, but not symmetric <td> Difference in medians 
 <tr> <td> Group distributions are not identical in shape,<br> variance, and are not symmetric <td> Difference in location. <br> (distributional dominance) </tr>
 </table>
+
+```{r label='qqplotcentralair',fig.align='center',fig.cap="QQ-Plot: Quantiles of Sales Price vs. quantiles of a theoretical normal distribution with same mean and standard deviation, for each level of Central Air. "}
+
+
+ggplot(data = ames, aes(sample = Sale_Price, color = Central_Air)) +
+     stat_qq() +
+     stat_qq_line()
+```
+
 
 To perform this test, we use the `wilcox.test()` function, whose inputs are identical to the `t.test()` function.
 
