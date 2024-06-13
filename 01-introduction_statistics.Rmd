@@ -1114,24 +1114,7 @@ sp.stats.ttest_ind(py_cars[py_cars["Country"] == 'US']['MPG'], py_cars[py_cars["
 
 ### Mann-Whitney-Wilcoxon Test {#wilcoxon}
 
-We saw in Figures \@ref(fig:qqplot) and \@ref(fig:histogram) that the distribution of `Sale_Price` was not perfectly normal, however the deviations from normality were not egregious. In Figure \@ref(fig:qqplotcentralair) we again examine the normality of Sale Price, this time for each value of `Central_Air`:
-
-
-As we pointed out in Section \@ref(testnorm), the distribution of `Sale_Price` was not precisely normal. The most principled way to proceed in this case would be with a non-parametric test. The Mann-Whitney-Wilcoxon test is not identical to the t-test in its null and alternative hypotheses, but it aims to answer the same question about an association between the binary attribute and the continuous attribute.
-
-The null and alternative hypotheses for this test are typically defined as follows, so long as the two groups _are_ identically distributed (having the same _shape_ and variance):
-$$H_0: \text{ the medians of the two groups are equal }  $$
-$$H_a: \text{ the medians of the two groups are NOT equal }   $$
-If those identical distributions are also symmetric, then Mann-Whitney-Wilcoxon can be interpretted as testing for a difference in means. When the data is not identically distributed, or when the distributions are not symmetric, Mann-Whitney-Wilcoxon is a test of __dominance__ between distributions. __Distributional dominance__ is the notion that one group's distribution is located at larger values than another, probabilistically speaking.  Formally, a random variable A has dominance over random variable B if $P(A x) \geq P(B\geq x)$ for all $x$, and for some $x$, $P(A\geq x) > P(B\geq x)$.
-
-We summarize this information in the following table:
-
-<table style="width:auto; margin-left: auto; margin-right: auto;">
-<tr> <td> Conditions <td> Interpretation of Significant <br> Mann-Whitney-Wilcoxon Test 
-<tr> <td> Group distributions are identical in shape,<br> variance, and symmetric <td> Difference in means 
-<tr> <td> Group distributions are identical in shape,<br> variance, but not symmetric <td> Difference in medians 
-<tr> <td> Group distributions are not identical in shape,<br> variance, and are not symmetric <td> Difference in location. <br> (distributional dominance) </tr>
-</table>
+Looking at Figure \@ref(fig:qqplotcentralair) we see that the Normality assumption within each level of Central Air does not hold:
 
 ```{r label='qqplotcentralair',fig.align='center',fig.cap="QQ-Plot: Quantiles of Sales Price vs. quantiles of a theoretical normal distribution with same mean and standard deviation, for each level of Central Air. "}
 
@@ -1141,13 +1124,30 @@ ggplot(data = ames, aes(sample = Sale_Price, color = Central_Air)) +
      stat_qq_line()
 ```
 
+In this situation, the best way to proceed would be with a non-parametric test. The Mann-Whitney-Wilcoxon test is not identical to the t-test in its null and alternative hypotheses, but it aims to answer the same question about an association between the binary attribute and the continuous attribute.
+
+The null and alternative hypotheses for this test are typically defined as follows, so long as the two groups _have_ the same shape:
+$$H_0: \text{ the medians of the two groups are equal }  $$
+$$H_a: \text{ the medians of the two groups are NOT equal }   $$
+If those distributions are also symmetric and have similar variance, then Mann-Whitney-Wilcoxon can be interpretted as testing for a difference in means. When the data does not have the same shape, Mann-Whitney-Wilcoxon is a test of __dominance__ between distributions. __Distributional dominance__ is the notion that one group's distribution is located at larger values than another, probabilistically speaking.  Formally, a random variable A has dominance over random variable B if $P(A x) \geq P(B\geq x)$ for all $x$, and for some $x$, $P(A\geq x) > P(B\geq x)$.
+
+We summarize this information in the following table:
+
+<table style="width:auto; margin-left: auto; margin-right: auto;">
+<tr> <td> Conditions <td> Interpretation of Significant <br> Mann-Whitney-Wilcoxon Test 
+<tr> <td> Group distributions are identical in shape,<br> variance, and symmetric <td> Difference in means 
+<tr> <td> Group distributions are identical in shape, but not symmetric <td> Difference in medians 
+<tr> <td> Group distributions are not identical in shape,<br> variance, and are not symmetric <td> Difference in location. <br> (distributional dominance) </tr>
+</table>
+
+
 
 To perform this test, we use the `wilcox.test()` function, whose inputs are identical to the `t.test()` function.
 
 ```{r}
 wilcox.test(Sale_Price ~ Central_Air, data = ames)
 ```
-Thus, we make the same conclusion with our non-parametric test. Houses with and without central air should be expected to sell for different prices. 
+
 
 ### Python Code
 
