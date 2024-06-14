@@ -367,18 +367,65 @@ model<-aov(MPG~Country, data=cars2)
 ggqqplot(residuals(model))
 ```
 
-Yes, we do have to run the model first to get the residuals, but we should NOT look at the output of the model until we are comforable that the assumptions hold.  Since Normality is fine here, we move on to testing the variances are equal using the Levene test.
+Based on residual plot, Normality appears to be a reasonable assumption.
+
+We can also perform an hypothesis test for Normality on the residuals:
+
+$$ H_{0}: The \; residuals \;  are\;  Normally\;  distributed $$
+$$ H_{A}: The\;residuals\;are\;not \; Normally \;distributed$$
+
+```{r}
+
+shapiro.test(residuals(model))
+```
+
+
+Same conclusion as QQ-plot (although, they can differ!!).
+
+Yes, we do have to run the model first to get the residuals, but we should NOT look at the output of the model until we are comforable that the assumptions hold.  Since Normality is fine here, we move on to testing the variances are equal using the Levene test.  The hypothesis test is:  
+
+
+$$ H_0: \sigma_a^2 =\sigma_b^2 =\sigma_c^2=\sigma_d^2 \quad  \text{i.e., the groups have equal variance}$$
+$$H_a: \text{at least one group's variance is different}$$
+
+
 
 ```{r}
 library(car)
 library(stats)
 
-leveneTest(MPG~Country,data=cars2) # Most popular, but depends on Normality
+leveneTest(MPG~factor(Country),data=cars2) # Most popular, but depends on Normality
 
-fligner.test(MPG~Country, data = cars2) # DOES NOT depend on Normality
+```
+
+According to the Levene test, we reject the null hypothesis and would conclude that at least one variance is significantly different.  We can also look at the residual plot.
+
+```{r}
+ggplot(model, aes(.fitted, .resid)) +
+     geom_point() +
+     geom_hline(yintercept = 0)+
+     labs(title='Residual vs. Fitted Values Plot', x='Fitted Values', y='Residuals')
 ```
 
 
+IF we were able to FAIL TO REJECT this hypothesis and felt comfortable, we could do the ANOVA:
+
+
+```{r}
+model<-aov(MPG~Country, data=cars2)
+summary(model)
+```
+
+Our conclusion would be to reject the null hypothesis and assume that there is at least one mean that is significantly different. But remember, this test is NOT accurate since our variance are not the same.
+
+A more appropriate test would be to perform the Welch's One-way ANOVA.  Just as with testing two means, Welch also did an extension to the ANOVA with unequal variances (this does assume Normality or at least not a too big of a departure from Normality): 
+
+
+```{r}
+oneway.test(MPG~Country, data = cars2, var.equal = FALSE)
+```
+
+This is still testing if there is a significant difference in the means, however, it is designed for unequal variances.  We arrive at the same conclusion here...there is at least one significant difference in the mean MPG for cars made in US, Japan and Germany.
 
 Although a one-way ANOVA is designed to assess whether or not there is a significant difference within the mean values of the response with respect to the different levels of the predictor variable, we can draw some parallel to the regression model.  For example, if we have $k$=4, then we can let \(x_a\), \(x_b\), and \(x_c\) be 3 reference-coded dummy variables for the levels: `a`, `b`, `c`, and `d`. Note that we only have 3 dummy variables because one gets left out for the reference level, in this case it is `d`. The linear model is of the following form:
 
@@ -402,29 +449,30 @@ Both the `lm()` function and the `aov()` function will provide the p-values to t
 
 ```{r }
 
-ames_lm <- lm(Sale_Price ~ Exter_Qual, data = train)
+cars_lm <- lm(MPG ~ factor(Country), data = cars2)
+summary(cars_lm)
 
-anova(ames_lm)
-summary(ames_lm)
-
-# ames_aov <- aov(Sale_Price ~ Exter_Qual, data = train) # Same thing with aov() function instead
-# summary(ames_aov) # R-squared not reported here. 
 
 ```
 
-The p-value for the ANOVA hypothesis that all the groups have the same mean sale price is incredibly small, at $2.2\times10^{-16}$. This means it is extraordinarily improbable that we would have observed these differences in means, or a more extreme difference, if the population group means were equal. Thus, we reject our null hypothesis and conclude that there is an association between the exterior quality of a home and the price of the home. 
 
-We note, based on the $R^2$ statistics, that the exterior quality rating can account for almost half the variation in sales price! Adjusted $R^2$ is a statistic that takes into account the number of variables in the model. The difference between $R^2$ and adjusted $R^2$ will be more thoroughly discussed in Chapter \@ref(mlr).
 
 We can also confirm what we know about the predictions from ANOVA, that there are only $k$ unique predictions from an ANOVA with $k$ groups (the predictions being the group means), using the `predict` function.
 
 ```{r}
-train$pred_anova <- predict(ames_lm, data = train)
+cars2$predict <- predict(cars_lm, data = cars2)
 
-train$resid_anova <- resid(ames_lm, data = train)
+cars2$resid_anova <- resid(cars_lm, data = cars2)
 
-(model_output = train %>% dplyr::select(Sale_Price, pred_anova, resid_anova))
+model_output<-cars2 %>% dplyr::select(Country, predict, resid_anova)
+
+rbind(model_output[1:3,],model_output[255:257,],model_output[375:377,])
 ```
+
+
+A non-parametric version of the ANOVA test, the Kruskal-Wallis test, is also available. This test does NOT assume normality, but does need *similar* distributions among the different levels.  Non-parametric tests do not have the same _statistical power_ to detect differences between groups. __Statistical power__ is the probability of detecting an effect, if there is a true effect present to detect. We should opt for these tests in situations where our data is ordinal or otherwise violates the assumptions of normality in ways that cannot be fixed by logarithmic or other similar transformation. 
+
+
 
 ### Python Code
 
@@ -471,43 +519,6 @@ train[['Sale_Price', 'pred_anova', 'resid_anova']].head(n = 10)
 ```
 
 
-
-### Testing Assumptions
-
-We can use the default plots from the `lm()` function to check the normality assumption.
-
-```{r label='anovaplots',fig.align='center',fig.cap='Of the 4 default plots from lm(), we are presently interested in the top-right QQ plot that tests our assumption of normally distributed residuals.'}
-
-par(mfrow=c(2,2))
-plot(ames_lm)
-par(mfrow=c(1,1))
-
-```
-
-In the top-right plot in Figure \@ref(fig:anovaplots) we verify again the _approximate_ normality of sale price.  To test for the third assumption of equal variances, we opt for a formal test like Levene's (which depends on normality and can be found in the `car` package) or Fligner's (which does not depend on normality and exists in the `stats` package). In both cases, the null hypothesis is equal variances:
-$$H_0: \sigma_a^2 =\sigma_b^2 =\sigma_c^2=\sigma_d^2 \quad  \text{i.e., the groups have equal variance}$$
-$$H_a: \text{at least one group's variance is different}$$
-
-```{r message=F}
-library(car)
-library(stats)
-
-leveneTest(Sale_Price ~ Exter_Qual, data = train) # Most popular, but depends on Normality
-
-fligner.test(Sale_Price ~ Exter_Qual, data = train) # DOES NOT depend on Normality
-
-```
-
-And in both cases, we're forced to reject the null hypothesis of equal variances. The Welch's ANOVA is a better alternative when the variances are not equal (still assumes normality).
-
-```{r}
-oneway.test(Sale_Price ~ Exter_Qual, data = train, var.equal = FALSE)
-```
-
-A non-parametric version of the ANOVA test, the Kruskal-Wallis test, is also available. This test does NOT assume normality, but does need *similar* distributions among the different levels.  Non-parametric tests do not have the same _statistical power_ to detect differences between groups. __Statistical power__ is the probability of detecting an effect, if there is a true effect present to detect. We should opt for these tests in situations where our data is ordinal or otherwise violates the assumptions of normality in ways that cannot be fixed by logarithmic or other similar transformation. 
-
-### Python Code
-
 ```{python}
 sm.api.qqplot(train['resid_anova'])
 plt.show()
@@ -534,6 +545,8 @@ sp.stats.fligner(train['Sale_Price'][train['Exter_Qual'] == 'Excellent'],
 
 ### Kruskal-Wallis {#kruskal}
 
+
+
 The Kruskal-Wallis test, proposed in 1952, is equivalent to a parametric one-way ANOVA where the data values have been replaced with their ranks (i.e. largest value = 1, second largest value = 2, etc.). When the data _is not_ normally distributed but _is_ identically distributed (having the same shape and variance), the Kruskal-Wallis test can be considered a test for differences in medians. If those identical distributions are also symmetric, then Kruskal-Wallis can be interpretted as testing for a difference in means. When the data is not identically distributed, or when the distributions are not symmetric, Kruskal-Wallis is a test of __dominance__ between distributions. __Distributional dominance__ is the notion that one group's distribution is located at larger values than another, probabilistically speaking.  Formally, a random variable A has dominance over random variable B if $P(A\geq x) \geq P(B\geq x)$ for all $x$, and for some $x$, $P(A\geq x) > P(B\geq x)$.
 
 We summarize this information in the following table:
@@ -541,15 +554,31 @@ We summarize this information in the following table:
 <table style="width:auto; margin-left: auto; margin-right: auto;">
 <tr> <td> Conditions <td> Interpretation of Significant <br> Kruskal-Wallis Test 
 <tr> <td> Group distributions are identical in shape,<br> variance, and symmetric <td> Difference in means 
-<tr> <td> Group distributions are identical in shape,<br> variance, but not symmetric <td> Difference in medians 
+<tr> <td> Group distributions are identical in shape,<br> but not symmetric <td> Difference in medians 
 <tr> <td> Group distributions are not identical in shape,<br> variance, and are not symmetric <td> Difference in location. <br> (distributional dominance) </tr>
 </table>
 
 Implementing the Kruskal-Wallis test in R is simple:
 
+
+
 ```{r}
-kruskal.test(Sale_Price ~ Exter_Qual, data = train)
+ggdensity(train, x = "Sale_Price",
+           add = "mean", rug = TRUE,
+           color = "Exter_Qual", fill = "Exter_Qual")
+
+model<-aov(Sale_Price ~ Exter_Qual, data = train)
+
+ggqqplot(residuals(model))
+
+
+fligner.test(Sale_Price ~ Exter_Qual, data = train) # DOES NOT depend on Normality
+
+kruskal.test(MPG~factor(Country),data=cars2)
+
 ```
+
+
 Our conclusion would be that the distribution of sale price is different across different levels of exterior quality. 
 
 
