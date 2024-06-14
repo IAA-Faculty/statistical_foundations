@@ -214,7 +214,7 @@ plt.show()
 
 ## One-Way ANOVA {#oneway}
 
-__One-way ANOVA__ aims to determine whether there is a difference in the mean of a continuous attribute across levels of a categorical attribute. Sound like a two-sample t-test? Indeed, it's the extension of that test to more than two groups. Performing ANOVA with a binary input variable is mathematically identical to the two-sample t-test, as are it's __assumptions__:
+__One-way ANOVA__ aims to determine whether there is a difference in the mean of a continuous attribute across levels of a categorical attribute. Sound like a two-sample t-test? Indeed, it's the extension of that test to more than two groups. Performing ANOVA with a binary input variable is mathematically identical to the two-sample t-test, assuming the variances are equal:
 
 
 1. The observations are independent
@@ -222,7 +222,24 @@ __One-way ANOVA__ aims to determine whether there is a difference in the mean of
 3. The variances for each group are equal 
 
 
-A one-way ANOVA refers to a single hypothesis test, which is $H_{0}: \mu_{1}=\mu_{2}=...\mu_{k}$ for a predictor variable with $k$ levels against the alternative of at least one difference. Although a one-way ANOVA is designed to assess whether or not there is a significant difference within the mean values of the response with respect to the different levels of the predictor variable, we can draw some parallel to the regression model.  For example, if we have $k$=4, then we can let \(x_a\), \(x_b\), and \(x_c\) be 3 reference-coded dummy variables for the levels: `a`, `b`, `c`, and `d`. Note that we only have 3 dummy variables because one gets left out for the reference level, in this case it is `d`. The linear model is of the following form:
+A one-way ANOVA refers to a single hypothesis test, which is $H_{0}: \mu_{1}=\mu_{2}=...\mu_{k}$ for a predictor variable with $k$ levels against the alternative of at least one difference. We will go back to the cars data set.  There is another cars data set called "cars2" that adds cars from Germany.  We can visualize this information via boxplots and density plots:
+
+```{r}
+library(ggpubr)
+
+cars2<-read.csv("https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/master/cars2.csv")
+
+ggboxplot(cars2,x="Country",y="MPG", add="mean",color="Country",fill="Country")
+
+ggdensity(cars2, x = "MPG",
+           add = "mean", rug = TRUE,
+           color = "Country", fill = "Country")
+```
+
+
+
+
+Although a one-way ANOVA is designed to assess whether or not there is a significant difference within the mean values of the response with respect to the different levels of the predictor variable, we can draw some parallel to the regression model.  For example, if we have $k$=4, then we can let \(x_a\), \(x_b\), and \(x_c\) be 3 reference-coded dummy variables for the levels: `a`, `b`, `c`, and `d`. Note that we only have 3 dummy variables because one gets left out for the reference level, in this case it is `d`. The linear model is of the following form:
 
 \begin{equation}
 y=\beta_0 + \beta_ax_a+\beta_bx_b+\beta_cx_c + \varepsilon (\#eq:anova1) 
