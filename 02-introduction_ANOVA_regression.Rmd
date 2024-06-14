@@ -1,6 +1,62 @@
 # Introduction to ANOVA and Linear Regression {#slr}
 
 
+```{r include=F}
+library(AmesHousing)
+library(tidyverse)
+library(car)
+library(DescTools)
+library(corrplot)
+library(mosaic)
+library(modelr)
+library(plotly)
+library(ggplot2)
+library(Hmisc)
+library(onehot)
+library(jmuOutlier)
+library(leaps)
+library(glmnet)
+library(nortest)
+library(lmtest)
+library(gmodels)
+library(TSA)
+library(carData)
+
+ames <- make_ordinal_ames() 
+
+library(reticulate)
+#use_python("C:\\Users\\sjsimmo2\\AppData\\Local\\Programs\\Python/Python39\\python.exe")
+use_python("C:\\ProgramData\\Anaconda3\\python.exe")
+
+```
+
+
+
+```{python,echo=F}
+
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import OneHotEncoder
+import seaborn as sns
+import matplotlib.pyplot as plt
+from numpy import random
+import statsmodels.api as sma
+import statsmodels as sm
+import pylab as py
+import scipy.stats as stats
+import scipy as sp
+import statsmodels.formula.api as smf
+import sklearn
+from sklearn.linear_model import Ridge
+from sklearn.linear_model import Lasso
+from sklearn.linear_model import ElasticNet
+from sklearn.metrics import mean_squared_error
+ames_py = r.ames
+ames_py = pd.DataFrame(ames_py)
+
+```
+
+
 This Chapter aims to answer the following questions:
 
 * What is a predictive model versus an explanatory model? 
@@ -162,6 +218,7 @@ ggplot(data = train, aes(y = Sale_Price/1000, x = `Exter_Qual`, fill = `Exter_Qu
   stat_summary(fun = mean, geom = "point", shape = 20, size = 5, color = "red", fill = "red") +
   scale_fill_brewer(palette="Blues") + theme_classic() + coord_flip()
 ```  
+
 Notice that we've highlighted the mean on each box-plot for the purposes of comparison. We now have a hypothesis that we may want to formally test. After all, it is not good practice to look at Figures \@ref(fig:overhistogramdensitykernel) and \@ref(fig:multiboxplot) and _declare_ that a statistical difference exists. While we do, over time, get a feel for which visually apparent relationships turn out to be statistically significant, it's _imperative_ that we conduct formal testing before declaring such insights to a colleague or stakeholder. 
 
 If we want to test whether the `Sale_Price` is different for the different values of `Exter_Qual`, we have to reach for the multi-group alternative to the 2-sample t-test. This is called __Analysis of Variance__, or __ANOVA__ for short. 
@@ -171,43 +228,108 @@ If we want to test whether the `Sale_Price` is different for the different value
 For Continuous-Continuous Associations:
 
 ```{python}
-ax = sns.relplot(data = train, y = train['Sale_Price']/1000, x = "Gr_Liv_Area")
-ax.set(ylabel = 'Sales Price (Thousands $)',
-       xlabel = 'Greater Living Area (Sqft)')
+from scipy.stats import gaussian_kde
+
+plt.scatter(train['Gr_Liv_Area'], [price/1000 for price in train['Sale_Price']])
+
+# Setting labels
+plt.xlabel('Greater Living Area (Sqft)')
+plt.ylabel('Sales Price (Thousands $)')
+
+# Showing the plot
 plt.show()
+
+
 ```
 
 
 For Continuous-Categorical Associations:
 
 ```{python}
+# Calculate mean Sale Price for each Exterior Quality
 train['Exter_Qual'] = train['Exter_Qual'].cat.remove_unused_categories()
 
-ax = sns.catplot(data = train, y = "Sale_Price", x = "Exter_Qual", kind = "bar")
-ax.set(ylabel = 'Sales Price (Thousands $)',
-       xlabel = 'Exterior Quality')
+mean_prices = train.groupby('Exter_Qual')['Sale_Price'].mean()
+
+# Plotting the data
+fig, ax = plt.subplots()
+mean_prices.plot(kind='bar', ax=ax)
+
+# Setting labels
+ax.set_ylabel('Sales Price (Thousands $)')
+ax.set_xlabel('Exterior Quality')
+ax.set_title('Average Sale Price by Exterior Quality')
+
+# Displaying the plot
 plt.show()
 ```
 
 
 ```{python}
-ax = sns.displot(data = ames_py, x = ames_py['Sale_Price']/1000, hue = "Exter_Qual")
-ax.set(xlabel = 'Sales Price (Thousands $)',
-       ylabel = 'Frequency')
+ames_py['Sale_Price2'] = ames_py['Sale_Price'] / 1000
+
+# Get unique categories for coloring
+unique_categories = ames_py['Exter_Qual'].unique()
+colors = plt.cm.viridis(np.linspace(0, 1, len(unique_categories)))
+
+# Plotting the data
+fig, ax = plt.subplots()
+
+for category, color in zip(unique_categories, colors):
+    subset = ames_py[ames_py['Exter_Qual'] == category]
+    ax.hist(subset['Sale_Price2'], bins=10, alpha=0.5, label=category, color=color)
+
+# Setting labels
+ax.set_xlabel('Sales Price (Thousands $)')
+ax.set_ylabel('Frequency')
+ax.legend(title='Exter_Qual')
+
+# Displaying the plot
 plt.show()
 ```
 
 
 ```{python}
-ax = sns.displot(data = ames_py, x = ames_py['Sale_Price']/1000, hue = "Exter_Qual", common_norm = False, kind = "kde", fill = True)
-ax.set(xlabel = 'Sales Price (Thousands $)',
-       ylabel = 'Density')
+# Get unique categories for coloring
+unique_categories = ames_py['Exter_Qual'].unique()
+colors = plt.cm.viridis(np.linspace(0, 1, len(unique_categories)))
+
+# Plotting the data
+fig, ax = plt.subplots()
+
+for category, color in zip(unique_categories, colors):
+    subset = ames_py[ames_py['Exter_Qual'] == category]
+    kde = gaussian_kde(subset['Sale_Price2'])
+    x = np.linspace(subset['Sale_Price2'].min(), subset['Sale_Price'].max(), 1000)
+    y = kde(x)
+    ax.fill_between(x, y, alpha=0.5, label=category, color=color)
+
+# Setting labels
+ax.set_xlabel('Sales Price (Thousands $)')
+ax.set_ylabel('Density')
+ax.legend(title='Exter_Qual')
+
+# Displaying the plot
 plt.show()
 ```
 
 
 ```{python}
-ax = sns.catplot(data = ames_py, x = "Exter_Qual", y = "Sale_Price", kind = "box")
+# Plotting the data
+fig, ax = plt.subplots()
+
+# Create box plot
+ames_py.boxplot(column='Sale_Price', by='Exter_Qual', ax=ax)
+
+# Set labels
+ax.set_xlabel('Exter_Qual')
+ax.set_ylabel('Sale Price')
+ax.set_title('Sale Price by Exterior Quality')
+
+# Remove the automatic 'Boxplot grouped by Exter_Qual' title
+plt.suptitle('')
+
+# Display the plot
 plt.show()
 ```
 
@@ -236,6 +358,25 @@ ggdensity(cars2, x = "MPG",
            color = "Country", fill = "Country")
 ```
 
+
+
+To test that the means are equal, we can use the function aov.  However, we must first assess the assumptions (normality within each group and variances are equal).  We can assess the normality assumption by using a QQ-plot on the residuals:
+
+```{r}
+model<-aov(MPG~Country, data=cars2)
+ggqqplot(residuals(model))
+```
+
+Yes, we do have to run the model first to get the residuals, but we should NOT look at the output of the model until we are comforable that the assumptions hold.  Since Normality is fine here, we move on to testing the variances are equal using the Levene test.
+
+```{r}
+library(car)
+library(stats)
+
+leveneTest(MPG~Country,data=cars2) # Most popular, but depends on Normality
+
+fligner.test(MPG~Country, data = cars2) # DOES NOT depend on Normality
+```
 
 
 
@@ -592,7 +733,26 @@ np.corrcoef(train[['Year_Built', 'Total_Bsmt_SF', 'First_Flr_SF', 'Gr_Liv_Area',
 
 
 ```{python}
-ax = sns.pairplot(data = train[['Year_Built', 'Total_Bsmt_SF', 'First_Flr_SF', 'Gr_Liv_Area', 'Sale_Price']])
+
+import itertools
+# Selecting relevant columns
+columns = ['Year_Built', 'Total_Bsmt_SF', 'First_Flr_SF', 'Gr_Liv_Area', 'Sale_Price']
+
+# Create a pair plot
+fig, axes = plt.subplots(nrows=len(columns), ncols=len(columns), figsize=(12, 12))
+
+for i, col1 in enumerate(columns):
+    for j, col2 in enumerate(columns):
+        ax = axes[i, j]
+        if i == j:
+            ax.hist(train[col1], bins=20)
+            ax.set_ylabel(col1)
+        else:
+            ax.scatter(train[col2], train[col1])
+        if i == len(columns) - 1:
+            ax.set_xlabel(col2)
+
+plt.tight_layout()
 plt.show()
 ```
 

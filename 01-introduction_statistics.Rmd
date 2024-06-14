@@ -49,10 +49,8 @@ install.packages('glmnet')
 install.packages('nortest')
 install.packages('lmtest')
 install.packages('gmodels')
-install.packages('vcdExtra')
 install.packages('TSA')
 install.packages('carData')
-install.packages('epiDisplay')
 
 ```
 
@@ -76,10 +74,9 @@ library(glmnet)
 library(nortest)
 library(lmtest)
 library(gmodels)
-library(vcdExtra)
 library(TSA)
 library(carData)
-library(epiDisplay)
+
 
 ```
 
