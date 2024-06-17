@@ -363,7 +363,7 @@ ggdensity(cars2, x = "MPG",
 To test that the means are equal, we can use the function aov.  However, we must first assess the assumptions (normality within each group and variances are equal).  We can assess the normality assumption by using a QQ-plot on the residuals:
 
 ```{r}
-model<-aov(MPG~Country, data=cars2)
+model<-aov(MPG~factor(Country), data=cars2)
 ggqqplot(residuals(model))
 ```
 
@@ -412,7 +412,7 @@ IF we were able to FAIL TO REJECT this hypothesis and felt comfortable, we could
 
 
 ```{r}
-model<-aov(MPG~Country, data=cars2)
+model<-aov(MPG~factor(Country), data=cars2)
 summary(model)
 ```
 
@@ -422,7 +422,7 @@ A more appropriate test would be to perform the Welch's One-way ANOVA.  Just as 
 
 
 ```{r}
-oneway.test(MPG~Country, data = cars2, var.equal = FALSE)
+oneway.test(MPG~factor(Country), data = cars2, var.equal = FALSE)
 ```
 
 This is still testing if there is a significant difference in the means, however, it is designed for unequal variances.  We arrive at the same conclusion here...there is at least one significant difference in the mean MPG for cars made in US, Japan and Germany.
@@ -567,7 +567,7 @@ ggdensity(train, x = "Sale_Price",
            add = "mean", rug = TRUE,
            color = "Exter_Qual", fill = "Exter_Qual")
 
-model<-aov(Sale_Price ~ Exter_Qual, data = train)
+model<-aov(Sale_Price ~ factor(Exter_Qual), data = train)
 
 ggqqplot(residuals(model))
 
@@ -598,23 +598,54 @@ After performing an ANOVA and learning that there is a difference between the gr
 
 Let's suppose we are comparing grocery spending on 4 different credit card rewards programs. If we'd like to compare the rewards programs pairwise, that entails 6 different hypothesis tests (each is a two-sample t-test). If we keep a confidence level of $\alpha = 0.05$ and subsequently view "being wrong in one test" as a random event happening with probability $p=0.05$ then our probability of being wrong _in at least_ one test out of 6 could be as great as 0.26! 
 
-To control this experiment-wise error rate, we must lower our significance thresholds to account for it. Alternatively, we can view this as an adjustment of our p-values higher while keeping our significance threshold fixed as usual. This is typically the approach taken, as we prefer to fix our significance thresholds in accordance with previous literature or industry standards. There are many methods of adjustment that have been proposed over the years for this purpose. Here, we consider two popular methods: Tukey's test for pairwise comparisons and Dunnett's test for control group comparisons. If the reader finds themselves in a situation that doesn't fit the prescription of either of these methods, we suggest looking next at the modified Bonferroni correction or the notion of false discovery rates proposed by Benjamini and Hochberg in 1995. 
+To control this experiment-wise error rate, we must lower our significance thresholds to account for it. Alternatively, we can view this as an adjustment of our p-values higher while keeping our significance threshold fixed as usual. This is typically the approach taken, as we prefer to fix our significance thresholds in accordance with previous literature or industry standards. There are many methods of adjustment that have been proposed over the years for this purpose. Here, we consider a few popular methods: Tukey's test (when a basic ANOVA is done), Games-Howell test (when Welch's ANOVA is done), Dunn's test (when Kruskal-Wallis test is done) for pairwise comparisons and Dunnett's test (or Mann-Whitney test with Bonferroni correction) for control group comparisons. 
 
 ### Tukey-Kramer {#tukey}
 
-If our objective is to compare each group to every other group then Tukey's test of honest significant differences, also known as the Tukey-Kramer test is probably the most widely-available and popular corrections in practice. However, it should be noted that Tukey's test _should not_ be used if one does not plan to make all pairwise comparisons. If only a subset of comparisons are of interest to the user (like comparisons only to a control group) then one should opt for the Dunnett or a modified Bonferroni correction. 
+If our objective is to compare each group to every other group then Tukey's test of honest significant differences, also known as the Tukey-Kramer test is probably the most widely-available and popular corrections in practice (should ONLY be used if you do the basic ANOVA). However, it should be noted that Tukey's test _should not_ be used if one does not plan to make all pairwise comparisons. If only a subset of comparisons are of interest to the user (like comparisons only to a control group) then one should opt for the Dunnett or a modified Bonferroni correction. 
 
 To employ Tukey's HSD in R, we must use the `aov()` function to create our ANOVA object rather than the `lm()` function. The output of the test shows the difference in means and the p-value for testing the null hypothesis that the means are equal (i.e. that the differences are equal to 0). 
 
 ```{r label='tukey', fig.align='center', fig.cap = 'Confidence intervals for mean differences adjusted via Tukey-Kramer'}
-ames_aov <- aov(Sale_Price ~ Exter_Qual, data = train)
-tukey.ames <- TukeyHSD(ames_aov)
-print(tukey.ames)
+cars_aov <- aov(MPG~factor(Country), data = cars2)
+tukey.cars <- TukeyHSD(cars_aov)
+print(tukey.cars)
 
 par(mar=c(4,10,4,2))
-plot(tukey.ames, las = 1)
+plot(tukey.cars, las = 1)
 ```
-The p-values in this table have been adjusted higher to account for the possible experimentwise error rate. For every pairwise comparison shown, we reject the null hypothesis and conclude that the mean sales price of the homes is different for each level of `Exter_Qual`. Furthermore, Figure \@ref(fig:tukey) shows us experiment-wise (family-wise) adjusted confidence intervals for the differences in means for each pair.  The plot option `las=1` guides the axis labels. Type `?par` for a list of plot options for base R, including an explanation of `las`. 
+
+The p-values in this table have been adjusted higher to account for the possible experimentwise error rate. For every pairwise comparison shown, we reject the null hypothesis and conclude that the mean MPG is different among the US, Japanese and German made cars. Furthermore, Figure \@ref(fig:tukey) shows us experiment-wise (family-wise) adjusted confidence intervals for the differences in means for each pair.  The plot option `las=1` guides the axis labels. Type `?par` for a list of plot options for base R, including an explanation of `las`.  
+
+
+If we utilized the Welch's ANOVA (assumed variances were NOT equal), then we would use the Games-Howell test:
+
+```{r label='gameshowell', fig.align='center', fig.cap = 'Confidence intervals for mean differences adjusted via Games-Howell'}
+
+library(PMCMRplus)
+cars_aov <- aov(MPG~factor(Country), data=cars2)
+gh.cars <- gamesHowellTest(cars_aov)
+summary(gh.cars)
+
+
+```
+
+The conclusion from the Games-Howell test is similar to Tukey's test.  
+
+
+However, if we use Kruskal-Wallis test, then we would use the Dunn's test for multiple comparisons:
+
+
+```{r label='dunn', fig.align='center', fig.cap = 'Confidence intervals for mean differences adjusted via Dunn'}
+
+library(dunn.test)
+dunn.cars <- dunn.test(cars2$MPG,cars2$Country,kw=T,method="bonferroni")
+
+
+
+```
+
+This is a nonparametric test and does not have as much power as the previous multiple comparisons.  Be sure you use the correct test based on what you see in the data.
 
 ### Dunnett's Test {#dunnett}
 
