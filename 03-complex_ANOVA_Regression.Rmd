@@ -1,5 +1,52 @@
 # Complex ANOVA and Multiple Linear Regression {#mlr}
 
+
+```{r include=F}
+library(AmesHousing)
+library(tidyverse)
+library(car)
+library(DescTools)
+library(corrplot)
+library(mosaic)
+library(modelr)
+library(plotly)
+library(ggplot2)
+library(Hmisc)
+library(onehot)
+library(jmuOutlier)
+library(leaps)
+library(glmnet)
+library(nortest)
+library(lmtest)
+library(gmodels)
+library(TSA)
+library(carData)
+
+ames <- make_ordinal_ames() 
+
+library(reticulate)
+#use_python("C:\\Users\\sjsimmo2\\AppData\\Local\\Programs\\Python/Python39\\python.exe")
+use_python("C:\\ProgramData\\Anaconda3\\python.exe")
+
+```
+
+
+```{r  message=FALSE}
+library(tidyverse)
+
+set.seed(123)
+
+ames <- ames %>% mutate(id = row_number())
+
+train <- ames %>% sample_frac(0.7)
+
+test <- anti_join(ames, train, by = 'id')
+
+dim(train)
+dim(test)
+```
+
+
 In the One-Way ANOVA and simple linear regression models, there was only one variable - categorical for ANOVA and continuous for simple linear regression - to explain and predict our target variable. Rarely do we believe that only a single variable will suffice in predicting a variable of interest. Here in this Chapter we will generalize these models to the $n$-Way ANOVA and multiple linear regression models. These models contain multiple sets of variables to explain and predict our target variable.
 
 This Chapter aims to answer the following questions:
@@ -110,11 +157,14 @@ Two-way ANOVA model
 
 ```{python}
 import statsmodels.formula.api as smf
+import statsmodels.api as sm
+
+train=r.train
 
 model = smf.ols("Sale_Price ~ C(Heating_QC) + C(Central_Air)", data = train).fit()
 model.summary()
 
-sm.api.stats.anova_lm(model, typ=2)
+sm.stats.anova_lm(model, typ=2)
 ```
 
 
@@ -230,10 +280,17 @@ Neither of the normality or equal variance assumptions appear to be met here. Th
 Two-way ANOVA with interactions
 
 ```{python}
+train=r.train
+import matplotlib.pyplot as plt
+import scipy as sp
+import pandas as pd
+import numpy as np
+
+
 model = smf.ols("Sale_Price ~ C(Heating_QC)*C(Central_Air)", data = train).fit()
 model.summary()
 
-sm.api.stats.anova_lm(model, typ=2)
+sm.stats.anova_lm(model, typ=2)
 
 train['resid_anova_2way'] = model.resid
 ```
@@ -245,19 +302,19 @@ Post-hoc testing
 model_slice1 = smf.ols("Sale_Price ~ C(Heating_QC)", data = train[train["Central_Air"] == 'Y']).fit()
 model_slice1.summary()
 
-sm.api.stats.anova_lm(model_slice1, typ=2)
+sm.stats.anova_lm(model_slice1, typ=2)
 
 model_slice2 = smf.ols("Sale_Price ~ C(Heating_QC)", data = train[train["Central_Air"] == 'N']).fit()
 model_slice2.summary()
 
-sm.api.stats.anova_lm(model_slice2, typ=2)
+sm.stats.anova_lm(model_slice2, typ=2)
 ```
 
 
 Assumptions
 
 ```{python}
-sm.api.qqplot(train['resid_anova_2way'])
+sm.qqplot(train['resid_anova_2way'])
 plt.show()
 
 sp.stats.shapiro(model.resid)
@@ -329,7 +386,7 @@ import statsmodels.formula.api as smf
 model_b = smf.ols("BulbWt ~ C(Fertilizer) + C(Sector)", data = block).fit()
 model_b.summary()
 
-sm.api.stats.anova_lm(model_b, typ=2)
+sm.stats.anova_lm(model_b, typ=2)
 ```
 
 
@@ -656,7 +713,7 @@ train['resid_mlr'] = model_mlr.resid
 
 train[['Sale_Price', 'pred_mlr', 'resid_mlr']].head(n = 10)
 
-sm.api.qqplot(train['resid_mlr'])
+sm.qqplot(train['resid_mlr'])
 plt.show()
 ```
 

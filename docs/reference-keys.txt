@@ -166,3 +166,6 @@ fig:nocor
 fig:extremenocor
 eq:slr
 fig:slrplots
+fig:twomeans
+fig:twomeansint
+tab:centralair
