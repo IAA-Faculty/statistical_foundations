@@ -31,7 +31,7 @@ use_python("C:\\ProgramData\\Anaconda3\\python.exe")
 ```
 
 
-```{r  message=FALSE}
+```{r  include=FALSE}
 library(tidyverse)
 
 set.seed(123)
