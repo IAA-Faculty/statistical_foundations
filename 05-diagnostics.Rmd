@@ -1,5 +1,53 @@
 # Diagnostics {#diag}
 
+
+
+```{r include=F}
+library(AmesHousing)
+library(tidyverse)
+library(car)
+library(DescTools)
+library(corrplot)
+library(mosaic)
+library(modelr)
+library(plotly)
+library(ggplot2)
+library(Hmisc)
+library(onehot)
+library(jmuOutlier)
+library(leaps)
+library(glmnet)
+library(nortest)
+library(lmtest)
+library(gmodels)
+library(TSA)
+library(carData)
+
+ames <- make_ordinal_ames() 
+
+library(reticulate)
+#use_python("C:\\Users\\sjsimmo2\\AppData\\Local\\Programs\\Python/Python39\\python.exe")
+use_python("C:\\ProgramData\\Anaconda3\\python.exe")
+
+```
+
+
+```{r  include=FALSE}
+library(tidyverse)
+
+set.seed(123)
+
+ames <- ames %>% mutate(id = row_number())
+
+train <- ames %>% sample_frac(0.7)
+
+test <- anti_join(ames, train, by = 'id')
+
+
+```
+
+
+
 In this Chapter, we will take a look at each of the assumptions in a linear model.  We will discuss what tools you will use to assess these assumptions, how to diagnose if the assumptions are met, some common problems often encountered when these assumptions do not hold and finally some remedies to fix these common issues.  You will notice that a variety of data sets are used throughout this Chapter. This is to help visualize and test for various assumptions and how to identify when these assumptions are not met.
 
 
@@ -57,7 +105,17 @@ If there are not too many variables, this plot is a nice way to see all the rela
 ### Python Code
 
 ```{python}
+import statsmodels.formula.api as smf
+import statsmodels.api as sm
+import statsmodels.stats as ss
+import matplotlib.pyplot as plt
+import scipy as sp
+import pandas as pd
+import numpy as np
+import seaborn as sns
+
 Salaries = r.Salaries
+train=r.train
 
 Salaries = Salaries.rename(columns={"yrs.since.phd": "yrs_since_phd", "yrs.service": "yrs_service"})
 
@@ -426,7 +484,7 @@ In conclusion, to deal with data that is NOT normally distributed, we can either
 ### Python Code
 
 ```{python}
-sm.api.qqplot(experience['resid_mlr'])
+sm.qqplot(experience['resid_mlr'])
 plt.show()
 
 sp.stats.shapiro(model_var.resid)
@@ -619,14 +677,14 @@ model_io.summary()
 
 
 ```{python}
-sma.graphics.influence_plot(model_io)
+sm.graphics.influence_plot(model_io)
 plt.show()
 
 ```
 
 
 ```{python}
-sma.graphics.plot_leverage_resid2(model_io)
+sm.graphics.plot_leverage_resid2(model_io)
 plt.show()
 ```
 
@@ -701,7 +759,7 @@ X = mtcars.loc[:, mtcars.columns!='mpg']
 X = X.assign(const=1)
 
 vif = pd.DataFrame()
-vif['VIF'] = [sm.stats.outliers_influence.variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
+vif['VIF'] = [ss.outliers_influence.variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
 vif['variable'] = X.columns
 
 print(vif)
