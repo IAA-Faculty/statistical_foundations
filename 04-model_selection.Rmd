@@ -1,5 +1,52 @@
 # Model Selection 
 
+
+```{r include=F}
+library(AmesHousing)
+library(tidyverse)
+library(car)
+library(DescTools)
+library(corrplot)
+library(mosaic)
+library(modelr)
+library(plotly)
+library(ggplot2)
+library(Hmisc)
+library(onehot)
+library(jmuOutlier)
+library(leaps)
+library(glmnet)
+library(nortest)
+library(lmtest)
+library(gmodels)
+library(TSA)
+library(carData)
+
+ames <- make_ordinal_ames() 
+
+library(reticulate)
+#use_python("C:\\Users\\sjsimmo2\\AppData\\Local\\Programs\\Python/Python39\\python.exe")
+use_python("C:\\ProgramData\\Anaconda3\\python.exe")
+
+```
+
+
+```{r  message=FALSE}
+library(tidyverse)
+
+set.seed(123)
+
+ames <- ames %>% mutate(id = row_number())
+
+train <- ames %>% sample_frac(0.7)
+
+test <- anti_join(ames, train, by = 'id')
+
+
+```
+
+
+
 This section will dive into some basic foundations in model selection, or finding the best model for a data set.  In most data sets, there will most likely be variables that are informative and ones that are uninformative in predicting the response.  With many explanatory variables, it could be extremely time consuming to try all potential models by hand, and the use of automatic procedures can greatly assist in obtaining subsets of variables in which to focus your attention.  
 
 This Chapter aims to answer the following questions:
