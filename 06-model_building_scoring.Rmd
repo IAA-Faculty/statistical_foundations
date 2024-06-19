@@ -493,6 +493,8 @@ The MAPE gives the average absolute *percentage* difference between our predicti
 The final model we had from Chapter \@ref(diag) had the variables . From this model we can use the ```predict``` function with the ```newdata = ``` option to use score the ```test``` dataset. 
 
 ```{r}
+
+ames_lm <- lm(Sale_Price ~ . , data = train_reg)
 test$pred_lm <- predict(ames_lm, newdata = test)
 
 head(test$pred_lm)
