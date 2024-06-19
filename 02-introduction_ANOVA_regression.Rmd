@@ -874,17 +874,43 @@ In the top left plot, we are visually checking for homoskedasticity. We'd like t
 
 In the top right plot, we are visually checking for normality of errors. We'd like to see the QQ-plot indicate normality with all the points roughly following the line. Unfortunately, we do not see that here. The errors do not appear to be normally distributed. 
 
-```{r fig=T, fig.align='center', fig.cap = 'The variables x and y have no correlation', label='slrplots'}
+```{r}
 slr <- lm(Sale_Price ~ Gr_Liv_Area, data=train)
-par(mfrow=c(2,2))
+
 plot(slr)
-par(mfrow=c(1,1))
+
 ```
+
+
 Despite the violation of assumptions, let's continue examining the output from this regression in order to practice our interpretation of it. 
+
+
 ```{r}
 summary(slr)
 ```
-The first thing we're likely to examine in the coefficient table is the p-value for `Gr_Liv_Area`. It is strongly significant (in fact, it's the same t-value and p-value as we saw for the `cor.test` as these tests are mathematically equivalent), indicating that there is an association between the size of the home and the sale price. Furthermore, the _parameter estimate_ is 115.5 indicating that we'd expect the price of a home to increase by \$115.5 for every additional square foot of living space. Because of the linearity of the model, we can extend this slope estimate to any unit change in $x$. For example, it might be difficult to think in terms of single square feet when comparing houses, so we might prefer to use a 100 square-foot change and report our conclusion as follows: For each additional 100 square feet of living area, we expect the house price to increase by \$11,550. 
+
+
+The first thing we're likely to examine in the coefficient table is the p-value for `Gr_Liv_Area`. It is strongly significant (in fact, it's the same t-value and p-value as we saw for the `cor.test` as these tests are mathematically equivalent), indicating that there is an association between the size of the home and the sale price. Furthermore, the _parameter estimate_ is 110.73 indicating that we'd expect the price of a home to increase by \$110.73 for every additional square foot of living space. Because of the linearity of the model, we can extend this slope estimate to any unit change in $x$. For example, it might be difficult to think in terms of single square feet when comparing houses, so we might prefer to use a 100 square-foot change and report our conclusion as follows: For each additional 100 square feet of living area, we expect the house price to increase by \$11,0726. 
+
+
+If we want to do this for a categorical variable with two levels (for example with Central Air), we would use the following code: 
+
+
+```{r}
+slr <- lm(Sale_Price ~ factor(Central_Air), data=train)
+
+plot(slr)
+
+```
+
+The variance does NOT look constant and Normality is not a good assumption here.  However, just for illustration purposes, here is the output:
+
+
+
+```{r}
+summary(slr)
+```
+We see that Central does indeed have a significant linear relationship with Sales Price.  Looking at the above output, we see that X took on the value of 1 if the category was "Yes" and 0 if it was "No".  Therefore, we can interpret the coefficient as we expect the sales price of a home in Ames, Iowa to be on average $83,938 higher if they have central air compared to those homes that do not have central air.
 
 
 ### Python Code
@@ -912,5 +938,35 @@ train[['Sale_Price', 'pred_anova', 'pred_slr']].head(n = 10)
 ```{python}
 sm.api.qqplot(train['resid_slr'])
 plt.show()
+```
+
+
+
+```{python}
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import OneHotEncoder
+
+
+encoder = OneHotEncoder(drop='first')  # drop='first' to avoid dummy variable trap
+central_air_encoded = encoder.fit_transform(train[['Central_Air']])
+
+# Convert encoded variable to DataFrame
+central_air_encoded_df = pd.DataFrame(central_air_encoded.toarray(), columns=encoder.get_feature_names_out(['Central_Air']))
+
+# Concatenate the encoded variable with the original DataFrame
+train_encoded = pd.concat([train[['Sale_Price']], central_air_encoded_df], axis=1)
+
+# Define the feature matrix (X) and target variable (y)
+X = train_encoded[['Central_Air_Y']]  # Selecting the encoded column
+y = train_encoded['Sale_Price']
+
+# Initialize and fit the linear regression model
+model = LinearRegression()
+model.fit(X, y)
+
+# Output the coefficients
+print("Intercept:", model.intercept_)
+print("Coefficient for Central_Air_Y:", model.coef_[0])
 ```
 

@@ -1,5 +1,52 @@
 # Model Building and Scoring for Prediction
 
+
+```{r include=F}
+library(AmesHousing)
+library(tidyverse)
+library(car)
+library(DescTools)
+library(corrplot)
+library(mosaic)
+library(modelr)
+library(plotly)
+library(ggplot2)
+library(Hmisc)
+library(onehot)
+library(jmuOutlier)
+library(leaps)
+library(glmnet)
+library(nortest)
+library(lmtest)
+library(gmodels)
+library(TSA)
+library(carData)
+
+ames <- make_ordinal_ames() 
+
+library(reticulate)
+#use_python("C:\\Users\\sjsimmo2\\AppData\\Local\\Programs\\Python/Python39\\python.exe")
+use_python("C:\\ProgramData\\Anaconda3\\python.exe")
+
+```
+
+
+```{r  include=FALSE}
+library(tidyverse)
+
+set.seed(123)
+
+ames <- ames %>% mutate(id = row_number())
+
+train <- ames %>% sample_frac(0.7)
+
+test <- anti_join(ames, train, by = 'id')
+
+
+```
+
+
+
 In the preceding chapters, we have only scratched the surface of model building. Linear regression is a great initial approach to take to model building. In fact, in the realm of statistical models, linear regression (calculated by ordinary least squares) is the **best linear unbiased estimator**. The two key pieces to that previous statement are "best" and "unbiased." 
 
 What does it mean to be **unbiased**? Each of the sample coefficients ($\hat{\beta}$'s) in the regression model are estimates of the true coefficients. Just like the statistics back in the EDA section, these sample coefficients have sampling distributions - specifically, normally distributed sampling distributions. The mean of the sampling distribution of $\hat{\beta}_j$ is the true (known) coefficient $\beta_j$. This means the coefficient is unbiased.
@@ -214,13 +261,28 @@ What $\lambda$ term is best? What is the proper balance between ridge and LASSO 
 *Ridge Regression*
 
 ```{python}
+
+import scipy as sp
+import pandas as pd
+import numpy as np
+import statsmodels.formula.api as smf
+import statsmodels.api as sm
+import matplotlib.pyplot as plt
+from sklearn.linear_model import Ridge
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+from sklearn.linear_model import Lasso
+from sklearn.linear_model import ElasticNet
+
+train=r.train
+test=r.test
 train = train[['Sale_Price', 'Lot_Area', 'Street', 'Bldg_Type',
                'House_Style', 'Overall_Qual', 'Roof_Style', 
                'Central_Air', 'First_Flr_SF', 'Second_Flr_SF', 
                'Full_Bath', 'Half_Bath', 'Fireplaces', 
                'Garage_Area', 'Gr_Liv_Area', 'TotRms_AbvGrd']]
                
-train = train.fillna(0)
+#train = train.fillna(0,inplace=True)
                
 test = test[['Sale_Price', 'Lot_Area', 'Street', 'Bldg_Type',
              'House_Style', 'Overall_Qual', 'Roof_Style', 
@@ -228,7 +290,7 @@ test = test[['Sale_Price', 'Lot_Area', 'Street', 'Bldg_Type',
              'Full_Bath', 'Half_Bath', 'Fireplaces', 
              'Garage_Area', 'Gr_Liv_Area', 'TotRms_AbvGrd']]
 
-test = test.fillna(0)
+#test = test.fillna(0,inplace=True)
 ```
 
 
