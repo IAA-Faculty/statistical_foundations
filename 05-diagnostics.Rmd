@@ -183,6 +183,7 @@ y=2-0.00001*(x-500)^2+rnorm(1000)
 temp=data.frame(cbind(x,y))
 ggplot(temp,aes(x=x,y=y))+geom_point(color="blue")+labs(x="X",y="Residuals")
 ```
+
 If your model has more than one x, it is easier to see if an individual input variable has a quadratic relationship with the response when looking at plots like Figure \@ref(fig:quadpattern) where the input variable is on the x-axis. 
 
 **Example**
@@ -207,28 +208,34 @@ However, after looking at the residual plot and noticing the quadratic shape, we
 
 ```{r fig=T, fig.align='center', fig.cap = 'New Residual Plot after Fitting a Quadratic Term', label='quadexample2', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
 
-lm.quad=lm(strength~amount + I(amount^2))
+amount.c<-scale(amount,scale=F)
+
+lm.quad=lm(strength~amount.c + I(amount.c^2))
 
 summary(lm.quad)
 ggplot(lm.quad,aes(x=amount,y=resid(lm.quad)))+geom_point(color="orange",size=2)+labs(title="Residual plot", x="Amount", y="Residuals")
 
 ```
+
+
 The second order polynomial model is 
-$$\hat{Y}_{i} = 2.21 + 0.33x_{i}-0.04x^{2}_{i}$$
+$$\hat{Y}_{i} = 2.88 + 0.09(x_{i}-\bar{x})-0.04(x_{i}-\bar{x})^{2}$$
 and the residuals from this model are shown in Figure \@ref(fig:quadexample2). If you think there might still be some pattern in Figure \@ref(fig:quadexample2), you could try a third degree polynomial:
 
 
 ```{r fig=T, fig.align='center', fig.cap = 'New Residual Plot after Fitting a Cubic Term', label='quadexample3', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
 
 
-lm.3=lm(strength~amount+I(amount^2)+I(amount^3))
+lm.3=lm(strength~amount.c+I(amount.c^2)+I(amount.c^3))
 
 summary(lm.3)
 ggplot(lm.3,aes(x=amount,y=resid(lm.3)))+geom_point(color="orange",size=2)+labs(x="Amount", y="Residuals")
 
 ```
+
+
 The new regression equation is now
-$$\hat{Y}_{i} = 2.73 - 0.37x_{i}+0.22x^{2}_{i}-0.03x^{3}_{i}.$$
+$$\hat{Y}_{i} = 2.9 + 0.18(x_{i}-\bar{x}) - 0.05(x_{i}-\bar{x})^{2}-0.03(x_{i}-\bar{x})^{3}.$$
 
 In wrapping up the misspecified model, if a linear model does not look appropriate (there is a pattern in the residual plot), then you can try the following remedies:
 

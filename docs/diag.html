@@ -470,10 +470,10 @@ Figure 5.2: Residuals vs. Predicted Values for Salary Model
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   54.20</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Tue, 18 Jun 2024</td> <th>  Prob (F-statistic):</th> <td>1.79e-48</td>
+  <th>Date:</th>             <td>Thu, 20 Jun 2024</td> <th>  Prob (F-statistic):</th> <td>1.79e-48</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>16:45:41</td>     <th>  Log-Likelihood:    </th> <td> -4538.9</td>
+  <th>Time:</th>                 <td>14:28:58</td>     <th>  Log-Likelihood:    </th> <td> -4538.9</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   397</td>      <th>  AIC:               </th> <td>   9092.</td>
@@ -604,22 +604,24 @@ Figure 5.5: Residual Plot Showing a Quadratic Relationship
 <p>The above fitted model is
 <span class="math display">\[\hat{Y}_{i} = 2.5 + 0.1x_{i}.\]</span>
 However, after looking at the residual plot and noticing the quadratic shape, we realize that we need a higher order term for amount.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="diag.html#cb20-1" tabindex="-1"></a>lm.quad<span class="ot">=</span><span class="fu">lm</span>(strength<span class="sc">~</span>amount <span class="sc">+</span> <span class="fu">I</span>(amount<span class="sc">^</span><span class="dv">2</span>))</span>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="diag.html#cb20-1" tabindex="-1"></a>amount.c<span class="ot">&lt;-</span><span class="fu">scale</span>(amount,<span class="at">scale=</span>F)</span>
 <span id="cb20-2"><a href="diag.html#cb20-2" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="diag.html#cb20-3" tabindex="-1"></a><span class="fu">summary</span>(lm.quad)</span></code></pre></div>
+<span id="cb20-3"><a href="diag.html#cb20-3" tabindex="-1"></a>lm.quad<span class="ot">=</span><span class="fu">lm</span>(strength<span class="sc">~</span>amount.c <span class="sc">+</span> <span class="fu">I</span>(amount.c<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb20-4"><a href="diag.html#cb20-4" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="diag.html#cb20-5" tabindex="-1"></a><span class="fu">summary</span>(lm.quad)</span></code></pre></div>
 <pre><code>## 
 ## Call:
-## lm(formula = strength ~ amount + I(amount^2))
+## lm(formula = strength ~ amount.c + I(amount.c^2))
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
 ## -0.22276 -0.06562 -0.02763  0.07602  0.19466 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  2.21334    0.13399  16.519 9.97e-13 ***
-## amount       0.32928    0.09690   3.398  0.00302 ** 
-## I(amount^2) -0.03728    0.01535  -2.428  0.02526 *  
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    2.88358    0.03783  76.228  &lt; 2e-16 ***
+## amount.c       0.09202    0.01807   5.091 6.49e-05 ***
+## I(amount.c^2) -0.03728    0.01535  -2.428   0.0253 *  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -634,25 +636,25 @@ Figure 5.6: New Residual Plot after Fitting a Quadratic Term
 </p>
 </div>
 <p>The second order polynomial model is
-<span class="math display">\[\hat{Y}_{i} = 2.21 + 0.33x_{i}-0.04x^{2}_{i}\]</span>
+<span class="math display">\[\hat{Y}_{i} = 2.88 + 0.09(x_{i}-\bar{x})-0.04(x_{i}-\bar{x})^{2}\]</span>
 and the residuals from this model are shown in Figure <a href="diag.html#fig:quadexample2">5.6</a>. If you think there might still be some pattern in Figure <a href="diag.html#fig:quadexample2">5.6</a>, you could try a third degree polynomial:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="diag.html#cb23-1" tabindex="-1"></a>lm<span class="fl">.3</span><span class="ot">=</span><span class="fu">lm</span>(strength<span class="sc">~</span>amount<span class="sc">+</span><span class="fu">I</span>(amount<span class="sc">^</span><span class="dv">2</span>)<span class="sc">+</span><span class="fu">I</span>(amount<span class="sc">^</span><span class="dv">3</span>))</span>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="diag.html#cb23-1" tabindex="-1"></a>lm<span class="fl">.3</span><span class="ot">=</span><span class="fu">lm</span>(strength<span class="sc">~</span>amount.c<span class="sc">+</span><span class="fu">I</span>(amount.c<span class="sc">^</span><span class="dv">2</span>)<span class="sc">+</span><span class="fu">I</span>(amount.c<span class="sc">^</span><span class="dv">3</span>))</span>
 <span id="cb23-2"><a href="diag.html#cb23-2" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="diag.html#cb23-3" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.3</span>)</span></code></pre></div>
 <pre><code>## 
 ## Call:
-## lm(formula = strength ~ amount + I(amount^2) + I(amount^3))
+## lm(formula = strength ~ amount.c + I(amount.c^2) + I(amount.c^3))
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
 ## -0.15941 -0.06360  0.00272  0.08579  0.14142 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  2.73280    0.26060  10.487 4.28e-09 ***
-## amount      -0.36900    0.32208  -1.146   0.2669    
-## I(amount^2)  0.22339    0.11651   1.917   0.0712 .  
-## I(amount^3) -0.02862    0.01270  -2.254   0.0369 *  
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    2.89841    0.03495  82.934  &lt; 2e-16 ***
+## amount.c       0.18335    0.04372   4.194 0.000546 ***
+## I(amount.c^2) -0.04979    0.01500  -3.320 0.003805 ** 
+## I(amount.c^3) -0.02862    0.01270  -2.254 0.036927 *  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -667,7 +669,7 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
 </p>
 </div>
 <p>The new regression equation is now
-<span class="math display">\[\hat{Y}_{i} = 2.73 - 0.37x_{i}+0.22x^{2}_{i}-0.03x^{3}_{i}.\]</span></p>
+<span class="math display">\[\hat{Y}_{i} = 2.9 + 0.18(x_{i}-\bar{x}) - 0.05(x_{i}-\bar{x})^{2}-0.03(x_{i}-\bar{x})^{3}.\]</span></p>
 <p>In wrapping up the misspecified model, if a linear model does not look appropriate (there is a pattern in the residual plot), then you can try the following remedies:</p>
 <ol style="list-style-type: decimal">
 <li>Fit a polynomial or more complex regression model.<br />
@@ -699,10 +701,10 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   24.08</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Tue, 18 Jun 2024</td> <th>  Prob (F-statistic):</th> <td>8.52e-05</td>
+  <th>Date:</th>             <td>Thu, 20 Jun 2024</td> <th>  Prob (F-statistic):</th> <td>8.52e-05</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>16:45:44</td>     <th>  Log-Likelihood:    </th> <td>  15.001</td>
+  <th>Time:</th>                 <td>14:29:01</td>     <th>  Log-Likelihood:    </th> <td>  15.001</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    22</td>      <th>  AIC:               </th> <td>  -26.00</td>
@@ -767,10 +769,10 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   17.93</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Tue, 18 Jun 2024</td> <th>  Prob (F-statistic):</th> <td>4.21e-05</td>
+  <th>Date:</th>             <td>Thu, 20 Jun 2024</td> <th>  Prob (F-statistic):</th> <td>4.21e-05</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>16:45:45</td>     <th>  Log-Likelihood:    </th> <td>  17.974</td>
+  <th>Time:</th>                 <td>14:29:03</td>     <th>  Log-Likelihood:    </th> <td>  17.974</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    22</td>      <th>  AIC:               </th> <td>  -29.95</td>
@@ -838,10 +840,10 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   16.22</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Tue, 18 Jun 2024</td> <th>  Prob (F-statistic):</th> <td>2.34e-05</td>
+  <th>Date:</th>             <td>Thu, 20 Jun 2024</td> <th>  Prob (F-statistic):</th> <td>2.34e-05</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>16:45:46</td>     <th>  Log-Likelihood:    </th> <td>  20.708</td>
+  <th>Time:</th>                 <td>14:29:04</td>     <th>  Log-Likelihood:    </th> <td>  20.708</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    22</td>      <th>  AIC:               </th> <td>  -33.42</td>
@@ -965,10 +967,10 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   492.8</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Tue, 18 Jun 2024</td> <th>  Prob (F-statistic):</th> <td>5.16e-40</td>
+  <th>Date:</th>             <td>Thu, 20 Jun 2024</td> <th>  Prob (F-statistic):</th> <td>5.16e-40</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>16:45:48</td>     <th>  Log-Likelihood:    </th> <td> -1162.5</td>
+  <th>Time:</th>                 <td>14:29:05</td>     <th>  Log-Likelihood:    </th> <td> -1162.5</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   100</td>      <th>  AIC:               </th> <td>   2329.</td>
@@ -1035,10 +1037,10 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   805.2</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Tue, 18 Jun 2024</td> <th>  Prob (F-statistic):</th> <td>4.63e-49</td>
+  <th>Date:</th>             <td>Thu, 20 Jun 2024</td> <th>  Prob (F-statistic):</th> <td>4.63e-49</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>16:45:50</td>     <th>  Log-Likelihood:    </th> <td>  22.359</td>
+  <th>Time:</th>                 <td>14:29:07</td>     <th>  Log-Likelihood:    </th> <td>  22.359</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   100</td>      <th>  AIC:               </th> <td>  -40.72</td>
@@ -1223,10 +1225,10 @@ The following data set illustrates this test using the Google data set in the TS
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   3.733</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Tue, 18 Jun 2024</td> <th>  Prob (F-statistic):</th>  <td>0.0539</td> 
+  <th>Date:</th>             <td>Thu, 20 Jun 2024</td> <th>  Prob (F-statistic):</th>  <td>0.0539</td> 
 </tr>
 <tr>
-  <th>Time:</th>                 <td>16:45:54</td>     <th>  Log-Likelihood:    </th> <td>  1209.3</td>
+  <th>Time:</th>                 <td>14:29:10</td>     <th>  Log-Likelihood:    </th> <td>  1209.3</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   521</td>      <th>  AIC:               </th> <td>  -2415.</td>
@@ -1376,10 +1378,10 @@ Figure 5.15: Influential and Outlier Observations
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   181.7</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Tue, 18 Jun 2024</td> <th>  Prob (F-statistic):</th> <td>3.40e-18</td>
+  <th>Date:</th>             <td>Thu, 20 Jun 2024</td> <th>  Prob (F-statistic):</th> <td>3.40e-18</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>16:45:56</td>     <th>  Log-Likelihood:    </th> <td> -142.11</td>
+  <th>Time:</th>                 <td>14:29:13</td>     <th>  Log-Likelihood:    </th> <td> -142.11</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    35</td>      <th>  AIC:               </th> <td>   290.2</td>
