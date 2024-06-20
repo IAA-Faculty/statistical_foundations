@@ -269,7 +269,9 @@ plt.show()
 
 
 ```{python}
-model_quad2 = smf.ols("strength ~ amount + I(amount**2)", data = chemical).fit()
+
+chemical['amount_c'] = chemical['amount'] - np.mean(chemical['amount'])
+model_quad2 = smf.ols("strength ~ amount_c + I(amount_c**2)", data = chemical).fit()
 model_quad2.summary()
 
 chemical['pred_mlr2'] = model_quad2.predict()
@@ -283,7 +285,7 @@ plt.show()
 
 
 ```{python}
-model_quad3 = smf.ols("strength ~ amount + I(amount**2) + I(amount**3)", data = chemical).fit()
+model_quad3 = smf.ols("strength ~ amount_c + I(amount_c**2) + I(amount_c**3)", data = chemical).fit()
 model_quad3.summary()
 
 chemical['pred_mlr3'] = model_quad3.predict()

@@ -473,7 +473,7 @@ Figure 5.2: Residuals vs. Predicted Values for Salary Model
   <th>Date:</th>             <td>Thu, 20 Jun 2024</td> <th>  Prob (F-statistic):</th> <td>1.79e-48</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>14:28:58</td>     <th>  Log-Likelihood:    </th> <td> -4538.9</td>
+  <th>Time:</th>                 <td>14:36:25</td>     <th>  Log-Likelihood:    </th> <td> -4538.9</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   397</td>      <th>  AIC:               </th> <td>   9092.</td>
@@ -704,7 +704,7 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
   <th>Date:</th>             <td>Thu, 20 Jun 2024</td> <th>  Prob (F-statistic):</th> <td>8.52e-05</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>14:29:01</td>     <th>  Log-Likelihood:    </th> <td>  15.001</td>
+  <th>Time:</th>                 <td>14:36:27</td>     <th>  Log-Likelihood:    </th> <td>  15.001</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    22</td>      <th>  AIC:               </th> <td>  -26.00</td>
@@ -755,8 +755,10 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-8-1.png" width="245" /></p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="diag.html#cb30-1" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-8-2.png" width="480" /></p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="diag.html#cb31-1" tabindex="-1"></a>model_quad2 <span class="op">=</span> smf.ols(<span class="st">&quot;strength ~ amount + I(amount**2)&quot;</span>, data <span class="op">=</span> chemical).fit()</span>
-<span id="cb31-2"><a href="diag.html#cb31-2" tabindex="-1"></a>model_quad2.summary()</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="diag.html#cb31-1" tabindex="-1"></a></span>
+<span id="cb31-2"><a href="diag.html#cb31-2" tabindex="-1"></a>chemical[<span class="st">&#39;amount_c&#39;</span>] <span class="op">=</span> chemical[<span class="st">&#39;amount&#39;</span>] <span class="op">-</span> np.mean(chemical[<span class="st">&#39;amount&#39;</span>])</span>
+<span id="cb31-3"><a href="diag.html#cb31-3" tabindex="-1"></a>model_quad2 <span class="op">=</span> smf.ols(<span class="st">&quot;strength ~ amount_c + I(amount_c**2)&quot;</span>, data <span class="op">=</span> chemical).fit()</span>
+<span id="cb31-4"><a href="diag.html#cb31-4" tabindex="-1"></a>model_quad2.summary()</span></code></pre></div>
 <table class="simpletable">
 <caption>OLS Regression Results</caption>
 <tr>
@@ -772,7 +774,7 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
   <th>Date:</th>             <td>Thu, 20 Jun 2024</td> <th>  Prob (F-statistic):</th> <td>4.21e-05</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>14:29:03</td>     <th>  Log-Likelihood:    </th> <td>  17.974</td>
+  <th>Time:</th>                 <td>14:36:29</td>     <th>  Log-Likelihood:    </th> <td>  17.974</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    22</td>      <th>  AIC:               </th> <td>  -29.95</td>
@@ -789,16 +791,16 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
 </table>
 <table class="simpletable">
 <tr>
-         <td></td>           <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+          <td></td>            <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
 </tr>
 <tr>
-  <th>Intercept</th>      <td>    2.2133</td> <td>    0.134</td> <td>   16.519</td> <td> 0.000</td> <td>    1.933</td> <td>    2.494</td>
+  <th>Intercept</th>        <td>    2.8836</td> <td>    0.038</td> <td>   76.228</td> <td> 0.000</td> <td>    2.804</td> <td>    2.963</td>
 </tr>
 <tr>
-  <th>amount</th>         <td>    0.3293</td> <td>    0.097</td> <td>    3.398</td> <td> 0.003</td> <td>    0.126</td> <td>    0.532</td>
+  <th>amount_c</th>         <td>    0.0920</td> <td>    0.018</td> <td>    5.091</td> <td> 0.000</td> <td>    0.054</td> <td>    0.130</td>
 </tr>
 <tr>
-  <th>I(amount ** 2)</th> <td>   -0.0373</td> <td>    0.015</td> <td>   -2.428</td> <td> 0.025</td> <td>   -0.069</td> <td>   -0.005</td>
+  <th>I(amount_c ** 2)</th> <td>   -0.0373</td> <td>    0.015</td> <td>   -2.428</td> <td> 0.025</td> <td>   -0.069</td> <td>   -0.005</td>
 </tr>
 </table>
 <table class="simpletable">
@@ -812,7 +814,7 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
   <th>Skew:</th>          <td> 0.013</td> <th>  Prob(JB):          </th> <td>   0.757</td>
 </tr>
 <tr>
-  <th>Kurtosis:</th>      <td> 2.221</td> <th>  Cond. No.          </th> <td>    102.</td>
+  <th>Kurtosis:</th>      <td> 2.221</td> <th>  Cond. No.          </th> <td>    4.21</td>
 </tr>
 </table><br/><br/>Notes:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
 <div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="diag.html#cb32-1" tabindex="-1"></a>chemical[<span class="st">&#39;pred_mlr2&#39;</span>] <span class="op">=</span> model_quad2.predict()</span>
@@ -826,7 +828,7 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-9-5.png" width="244" /></p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="diag.html#cb35-1" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-9-6.png" width="480" /></p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="diag.html#cb36-1" tabindex="-1"></a>model_quad3 <span class="op">=</span> smf.ols(<span class="st">&quot;strength ~ amount + I(amount**2) + I(amount**3)&quot;</span>, data <span class="op">=</span> chemical).fit()</span>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="diag.html#cb36-1" tabindex="-1"></a>model_quad3 <span class="op">=</span> smf.ols(<span class="st">&quot;strength ~ amount_c + I(amount_c**2) + I(amount_c**3)&quot;</span>, data <span class="op">=</span> chemical).fit()</span>
 <span id="cb36-2"><a href="diag.html#cb36-2" tabindex="-1"></a>model_quad3.summary()</span></code></pre></div>
 <table class="simpletable">
 <caption>OLS Regression Results</caption>
@@ -843,7 +845,7 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
   <th>Date:</th>             <td>Thu, 20 Jun 2024</td> <th>  Prob (F-statistic):</th> <td>2.34e-05</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>14:29:04</td>     <th>  Log-Likelihood:    </th> <td>  20.708</td>
+  <th>Time:</th>                 <td>14:36:29</td>     <th>  Log-Likelihood:    </th> <td>  20.708</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    22</td>      <th>  AIC:               </th> <td>  -33.42</td>
@@ -860,19 +862,19 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
 </table>
 <table class="simpletable">
 <tr>
-         <td></td>           <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+          <td></td>            <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
 </tr>
 <tr>
-  <th>Intercept</th>      <td>    2.7328</td> <td>    0.261</td> <td>   10.487</td> <td> 0.000</td> <td>    2.185</td> <td>    3.280</td>
+  <th>Intercept</th>        <td>    2.8984</td> <td>    0.035</td> <td>   82.934</td> <td> 0.000</td> <td>    2.825</td> <td>    2.972</td>
 </tr>
 <tr>
-  <th>amount</th>         <td>   -0.3690</td> <td>    0.322</td> <td>   -1.146</td> <td> 0.267</td> <td>   -1.046</td> <td>    0.308</td>
+  <th>amount_c</th>         <td>    0.1834</td> <td>    0.044</td> <td>    4.194</td> <td> 0.001</td> <td>    0.091</td> <td>    0.275</td>
 </tr>
 <tr>
-  <th>I(amount ** 2)</th> <td>    0.2234</td> <td>    0.117</td> <td>    1.917</td> <td> 0.071</td> <td>   -0.021</td> <td>    0.468</td>
+  <th>I(amount_c ** 2)</th> <td>   -0.0498</td> <td>    0.015</td> <td>   -3.320</td> <td> 0.004</td> <td>   -0.081</td> <td>   -0.018</td>
 </tr>
 <tr>
-  <th>I(amount ** 3)</th> <td>   -0.0286</td> <td>    0.013</td> <td>   -2.254</td> <td> 0.037</td> <td>   -0.055</td> <td>   -0.002</td>
+  <th>I(amount_c ** 3)</th> <td>   -0.0286</td> <td>    0.013</td> <td>   -2.254</td> <td> 0.037</td> <td>   -0.055</td> <td>   -0.002</td>
 </tr>
 </table>
 <table class="simpletable">
@@ -886,9 +888,9 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
   <th>Skew:</th>          <td> 0.064</td> <th>  Prob(JB):          </th> <td>   0.572</td>
 </tr>
 <tr>
-  <th>Kurtosis:</th>      <td> 1.903</td> <th>  Cond. No.          </th> <td>1.34e+03</td>
+  <th>Kurtosis:</th>      <td> 1.903</td> <th>  Cond. No.          </th> <td>    10.6</td>
 </tr>
-</table><br/><br/>Notes:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.<br/>[2] The condition number is large, 1.34e+03. This might indicate that there are<br/>strong multicollinearity or other numerical problems.
+</table><br/><br/>Notes:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
 <div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="diag.html#cb37-1" tabindex="-1"></a>chemical[<span class="st">&#39;pred_mlr3&#39;</span>] <span class="op">=</span> model_quad3.predict()</span>
 <span id="cb37-2"><a href="diag.html#cb37-2" tabindex="-1"></a>chemical[<span class="st">&#39;resid_mlr3&#39;</span>] <span class="op">=</span> model_quad3.resid</span>
 <span id="cb37-3"><a href="diag.html#cb37-3" tabindex="-1"></a></span>
@@ -970,7 +972,7 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
   <th>Date:</th>             <td>Thu, 20 Jun 2024</td> <th>  Prob (F-statistic):</th> <td>5.16e-40</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>14:29:05</td>     <th>  Log-Likelihood:    </th> <td> -1162.5</td>
+  <th>Time:</th>                 <td>14:36:31</td>     <th>  Log-Likelihood:    </th> <td> -1162.5</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   100</td>      <th>  AIC:               </th> <td>   2329.</td>
@@ -1040,7 +1042,7 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
   <th>Date:</th>             <td>Thu, 20 Jun 2024</td> <th>  Prob (F-statistic):</th> <td>4.63e-49</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>14:29:07</td>     <th>  Log-Likelihood:    </th> <td>  22.359</td>
+  <th>Time:</th>                 <td>14:36:33</td>     <th>  Log-Likelihood:    </th> <td>  22.359</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   100</td>      <th>  AIC:               </th> <td>  -40.72</td>
@@ -1228,7 +1230,7 @@ The following data set illustrates this test using the Google data set in the TS
   <th>Date:</th>             <td>Thu, 20 Jun 2024</td> <th>  Prob (F-statistic):</th>  <td>0.0539</td> 
 </tr>
 <tr>
-  <th>Time:</th>                 <td>14:29:10</td>     <th>  Log-Likelihood:    </th> <td>  1209.3</td>
+  <th>Time:</th>                 <td>14:36:37</td>     <th>  Log-Likelihood:    </th> <td>  1209.3</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   521</td>      <th>  AIC:               </th> <td>  -2415.</td>
@@ -1381,7 +1383,7 @@ Figure 5.15: Influential and Outlier Observations
   <th>Date:</th>             <td>Thu, 20 Jun 2024</td> <th>  Prob (F-statistic):</th> <td>3.40e-18</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>14:29:13</td>     <th>  Log-Likelihood:    </th> <td> -142.11</td>
+  <th>Time:</th>                 <td>14:36:39</td>     <th>  Log-Likelihood:    </th> <td> -142.11</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    35</td>      <th>  AIC:               </th> <td>   290.2</td>
