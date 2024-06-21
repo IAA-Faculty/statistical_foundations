@@ -447,6 +447,26 @@ plt.show()
 ```
 
 
+```{python}
+x=r.x
+y=r.y
+weights=r.weights
+
+x = sm.add_constant(x)
+model = sm.WLS(y, x, weights=weights)
+results = model.fit()
+
+# Print regression results
+print(results.summary())
+
+model2 = sm.OLS(y,x)
+results = model2.fit(cov_type='HC2')
+print(results.summary())
+
+
+```
+
+
 ## Normality
 
 Another assumption is that the residuals are normally distributed.  We can test this assumption through use of visual aids or formal hypothesis tests. visual aids include a histogram of the residuals or Q-Q plot of residuals.  A few tests of normality of residuals, include (but not limited to) Shapiro-Wilk, Anderson-Darling, Kolmogorov-Smirnov tests.  In addition to the base R package, you should also install and library the nortest package.
