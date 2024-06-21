@@ -338,6 +338,7 @@ ggplot(temp,aes(x=x,y=y,color = "blue")) +
 
 ```
  
+ 
 Notice how the variability increases as the predicted values increase (the bands get wider).  This is referred to as heteroskedasticity in the variance, which violates the constant variance assumption (homoskedasticity).  The homoskedastic assumption is about the regression line, so it is best to look at the plot of residuals versus predicted values (not individual x-values).  There are a few tests for this assumption, but they are limited in what they are able to test.  Best way to evaluate this assumption is by visualizing the residual plot and make a judgement call.  If the variance appears to be heteroskadastic, any inferences under the traditional assumptions will be incorrect.  In other words, hypothesis tests and confidence intervals based on the t, F, and $\chi^{2}$ distributions will not be valid.
 
 **Example**
@@ -367,11 +368,45 @@ ggplot(lm.var,aes(x=fitted(lm.var),y=resid(lm.var)))+geom_point(color="orange")+
 
 The log transform stabilized the variance and produces a better residual plot.
 
-If the assumption of Homoskadicity of variance is violated, there are a few remedies you can try:
+Another way to handle heteroscedacity is to perform a Weighted Least Squares.  The hardest part of WLS is how to identify the weights.  For example:
 
-  1. Use Weighted Least Squares (WLS) or iteratively reweighted least squares (IRLS).
-  2. Transform data.
-  3. Use a different distribution (for example if the response is count data, use Poisson distribution).
+```{r}
+
+
+x<-c(rep(2:10,each=5))
+set.seed(26785)
+error<-rnorm(length(x),0,x)
+y<-50 + 1.2*x + error
+model1<-lm(y~x)
+ggplot(model1, aes(x = .fitted, y = .resid)) +
+  geom_point()
+
+summary(model1)
+weights<-1/sqrt(x)
+model2<-lm(y~x,weights = weights)
+summary(model2)
+
+
+```
+
+
+Notice that the estimates do NOT change from OLS to WLS!!  Just the standard errors.  Another technique is to use robust standard errors.  This can be done within the estimatr package:
+
+```{r}
+library(estimatr)
+model3<-lm_robust(y~x,se_type = "HC1")
+summary(model3)
+model4<-lm_robust(y~x)
+summary(model4)
+
+```
+
+In conclusion, if the assumption of Homoskadicity of variance is violated, you can try:
+
+  1. Transform data.
+  2. Use Weighted Least Squares (WLS) or iteratively reweighted least squares (IRLS).
+  3. Use robust standard errors.
+  4. Use a different distribution (for example if the response is count data, use Poisson distribution).
 
 
 ### Python Code
