@@ -678,9 +678,9 @@ Influential observations are observations that can dramatically change the model
 
 Cook's distance, also referred to as Cook's D, measures the difference in the regression estimates when the $i^{th}$ observation is left out.  A rough rule of thumb is to use the quantile of the $F$ distribution with numerator degrees of freedom $p$ and denominator degrees of freedom $n-p$ where $n$ is the number of observations and $p$ is the number of parameters in the regression equation.   
 
-Dffits calculates the difference of fitted values for each point in the regression versus the fit of the regression line for that point if it was removed.  Large values of dffits indicate that the point is influential in the calculation of the estimated regression line. As a general rule of thumb, a cutoff of $2\sqrt{(p+1)/n}$ is used to identify potential influential points.\
+Dffits calculates the difference of fitted values for each point in the regression versus the fit of the regression line for that point if it was removed.  Large values of dffits indicate that the point is influential in the calculation of the estimated regression line. As a general rule of thumb, a cutoff of $2\sqrt{p/n}$ is used to identify potential influential points.\
 Dfbetas follows the same idea as dffits.  The difference in the estimated betas is calculated for each observation (observation included in the estimated beta and observation NOT included in estimating the beta).  This is done for each individual observation and each estimated beta. For small data sets, a value greater than 1 is suspect of an influential observation.  For large data sets, the cutoff is $\frac{2}{\sqrt{n}}$.\
-The hat values $H_{ii}$ are the diagonal values of $$\boldsymbol{X(X^{T}X)^{-1.}X^{T}}.$$  Hat values can identify high leverage points in a regression.  A general rule of thumb are hat values greater than $\frac{2(p+1)}{n}$.
+The hat values $H_{ii}$ are the diagonal values of $$\boldsymbol{X(X^{T}X)^{-1.}X^{T}}.$$  Hat values can identify high leverage points in a regression.  A general rule of thumb are hat values greater than $\frac{2p}{n}$.
 
 **Example**
 
@@ -710,7 +710,7 @@ b = ggplot(lm.model,aes(x=n.index,y=rstudent(lm.model)))+geom_point(color="orang
 c = ggplot(lm.model,aes(x=n.index,y=rstandard(lm.model)))+geom_point(color="orange")+geom_line(y=-3)+geom_line(y=3)+labs(title = "Internal Studentized Residuals",x="Observation",y="Residuals")
 
 ##Cook's D
-D.cut=0.5
+D.cut=4/(nrow(races_table)-3)
 
 d =ggplot(lm.model,aes(x=n.index,y=cooks.distance(lm.model)))+geom_point(color="orange")+geom_line(y=D.cut)+labs(title = "Cook's D",x="Observation",y="Cook's Distance")
 
