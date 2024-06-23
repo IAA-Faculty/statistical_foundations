@@ -355,6 +355,7 @@ lm.var=lm(salary~years)
 ggplot(lm.var,aes(x=fitted(lm.var),y=resid(lm.var)))+geom_point(color="blue")+labs(title="Residual Plot", x="Predicted Values",y="Residuals")
 
 ```
+
 As you can see from the residual plot in Figure \@ref(fig:varexample), the graph exhibits a fan-shape and the variance is increasing as the predicted values get larger.  We can apply a logarithmic transform to try to stabilize the variance, the result of which is shown in Figure \@ref(fig:correctexam).
 
 ```{r fig=T, fig.align='center',fig.cap ='Residual Plot Showing Stabilized Variance after Log Transform', label='correctexam', prompt=FALSE, eval=TRUE, message = FALSE, echo=FALSE}
@@ -382,9 +383,17 @@ ggplot(model1, aes(x = .fitted, y = .resid)) +
   geom_point()
 
 summary(model1)
-weights<-1/sqrt(x)
-model2<-lm(y~x,weights = weights)
+# weights using standard deviations (not usually known)
+weights1<-1/x^2
+model2<-lm(y~x,weights = weights1)
 summary(model2)
+ggplot(model2, aes(x = .fitted, y = .resid)) +
+  geom_point()
+
+# weights using fitted values 
+weights2<-1/model1$fitted.values^2
+model3<-lm(y~x,weights=weights2)
+summary(model3)
 
 
 ```
@@ -450,14 +459,18 @@ plt.show()
 ```{python}
 x=r.x
 y=r.y
-weights=r.weights
+weights1=r.weights1
+weights2 = r.weights2
 
 x = sm.add_constant(x)
-model = sm.WLS(y, x, weights=weights)
-results = model.fit()
+model1 = sm.WLS(y, x, weights=weights1)
+results1 = model1.fit()
+model2 = sm.WLS(y, x, weights=weights2)
+results2 = model2.fit()
 
 # Print regression results
-print(results.summary())
+print(results1.summary())
+print(results2.summary())
 
 model2 = sm.OLS(y,x)
 results = model2.fit(cov_type='HC2')
