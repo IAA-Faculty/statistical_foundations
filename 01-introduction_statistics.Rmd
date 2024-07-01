@@ -31,7 +31,7 @@ The following packages will be used in this textbook (there are some sections th
 
 Installing packages:  
 
-```{r eval=F, message=F}
+```{r eval=F, message=F,warning=FALSE}
 install.packages('AmesHousing')
 install.packages('tidyverse')
 install.packages('car')
@@ -861,7 +861,7 @@ For the remainder of this text, we will assume our sample is representative of t
 |:------------------------------------:|:---------------------------:|
 |Mean ($\mu$)                          |Sample Average($\bar{x}$)   |
 |Variance ($\sigma^{2}$)               |Sample Variance($s^{2}_{x}$)|
-|Standard deviation ($\sigma^{2}$)     |Sample standard deviation($s_{x}$)|
+|Standard deviation ($\sigma$)     |Sample standard deviation($s_{x}$)|
 
 
 
