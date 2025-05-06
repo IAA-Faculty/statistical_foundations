@@ -185,3 +185,6 @@ fig:autoplot
 fig:influence
 fig:influenceresid
 fig:kCV
+python
+r-code
+r-code-1

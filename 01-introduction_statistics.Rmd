@@ -1,7 +1,7 @@
 
 # Introduction to Statistics {#intro-stat}
 
-Welcome to your introduction to statistics.  You will be learning the basics of statistics, along with applications of statistics within the R language.  This book will provide fundamentals of the concepts and the code to apply these concepts in R.  At the end of each section, you will also find the Python code that will perform a comparable analysis (however, in class, we will be discussing and focusing on the R code).\  
+Welcome to your introduction to statistics.  You will be learning the basics of statistics, along with applications of statistics within the Python and R languages.  This book will provide fundamentals of the concepts and the code to apply these concepts in both languages. \  
 
 
 
@@ -26,10 +26,48 @@ This Chapter aims to answer the following questions:
   + Mann-Whitney-Wilcoxon Test
 
 
-The following packages will be used in this textbook (there are some sections that add more later in the textbook, so keep your eyes open for those). In order to use a library in the R session, you will first need to install it on your local drive (this only needs to be done once....however, you should periodically check for updates to packages). You should also periodically check to see if R or RStudio needs to be updated as well. 
+The following packages will be used in this textbook (there are some sections that add more later in the textbook, so keep your eyes open for those). 
 
 
 Installing packages:  
+
+
+```{r, echo=FALSE, message=FALSE}
+library(reticulate)
+#use_python("C:\\Users\\sjsimmo2\\AppData\\Local\\Programs\\Python/Python39\\python.exe")
+use_python("C:\\ProgramData\\Anaconda3\\python.exe")
+```
+
+### Python Code:
+
+```{python}
+
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import OneHotEncoder
+import seaborn as sns
+import matplotlib.pyplot as plt
+from numpy import random
+import statsmodels.api as sma
+import statsmodels as sm
+import pylab as py
+import scipy.stats as stats
+import scipy as sp
+import statsmodels.formula.api as smf
+import sklearn
+from sklearn.linear_model import Ridge
+from sklearn.linear_model import Lasso
+from sklearn.linear_model import ElasticNet
+from sklearn.metrics import mean_squared_error
+
+
+## This brings in the Ames housing data
+
+ames_py = pd.read_csv('Q:/My Drive/Summer II - Statistics Bootcamp/Summer2022/statistical_foundations/Ames.csv')
+
+```
+
+### R code:
 
 ```{r eval=F, message=F,warning=FALSE}
 install.packages('AmesHousing')
@@ -52,34 +90,17 @@ install.packages('gmodels')
 install.packages('TSA')
 install.packages('carData')
 
+
+
 ```
 
-You will need to bring the packages into your currently opened R session (this will need to be done whenever you open a new session):
 
-```{r message=F}
+```{r}
+## This brings in the Ames housing data
 library(AmesHousing)
-library(tidyverse)
-library(car)
-library(DescTools)
-library(corrplot)
-library(mosaic)
-library(modelr)
-library(plotly)
-library(ggplot2)
-library(Hmisc)
-library(onehot)
-library(jmuOutlier)
-library(leaps)
-library(glmnet)
-library(nortest)
-library(lmtest)
-library(gmodels)
-library(TSA)
-library(carData)
-
-
+ames <- make_ordinal_ames() 
+str(ames)
 ```
-
 
 
 ## Exploratory Data Analysis (EDA) {#eda}
@@ -107,14 +128,12 @@ The crucial first step to any data science problem is exploratory data analysis 
   
 
 
- Throughout the textbook, we will continue to use a real-estate data set that contains the `sale_price` and numerous physical attributes of nearly 3,000 homes in Ames, Iowa in the early 2000s. You should have already loaded the `AmesHousing` package which has the data set, so now we will create a nicely formatted data set with the `make_ordinal_ames()` function. The function `str()` is a good way to see what variables are in the data set and how they are currently formatted.  Take a look at some of the variables within the AmesHousing data set.
+ Throughout the textbook, we will continue to use a real-estate data set that contains the `sale_price` and numerous physical attributes of nearly 3,000 homes in Ames, Iowa in the early 2000s. The chunks above provide the code to import the Ames housing data into both Python and R.
 
 
-```{r results='hide', message=FALSE}
 
-ames <- make_ordinal_ames() 
-str(ames)
-```
+
+
 
 
 ### Types of Variables {#vartypes}
@@ -158,6 +177,9 @@ For machine learning applications, it is common to create a binary dummy column 
 <caption> (\#tab:onehot)One-hot dummy variable coding for the categorical attribute _color_ </caption>  
 
 
+
+
+
 We will demonstrate the creation of this data using some simple random categorical data:
 
 ```{r}
@@ -173,6 +195,36 @@ Unlike reference and effects coding, which are used in linear regression models,
 
 The speed of this function has been tested against both the base R `model.matrix()` function and the `dummyVars()` function in the `caret` package and is _substantially_ faster than either. 
 
+### R code:
+
+You will need to bring the packages into your currently opened R session (this will need to be done whenever you open a new session):
+
+```{r message=F}
+library(AmesHousing)
+library(tidyverse)
+library(car)
+library(DescTools)
+library(corrplot)
+library(mosaic)
+library(modelr)
+library(plotly)
+library(ggplot2)
+library(Hmisc)
+library(onehot)
+library(jmuOutlier)
+library(leaps)
+library(glmnet)
+library(nortest)
+library(lmtest)
+library(gmodels)
+library(TSA)
+library(carData)
+
+
+```
+
+To create one-hot encoding in R:
+
 ```{r message=FALSE}
 library(onehot)
 
@@ -181,6 +233,27 @@ dummies = predict(encoder,dat)
 head(dummies)
 ```
 
+
+### Python Code
+
+
+For one-hot encoding in Python:
+
+```{python}
+
+x1=np.repeat(["A","B","C"],10)
+x2=np.repeat(["Z", "X", "Y","W","V","U"],5)
+random.seed(41)
+y=np.concatenate([np.random.normal(loc=2.0, scale=1.0, size=10),np.random.normal(loc=1.0, scale=1.0, size=10),np.random.normal(loc=0.0, scale=1.0, size=10)])
+array=np.array([x1,x2,y])
+array2=np.transpose(array)
+column_values=["x1","x2","y"]
+df = pd.DataFrame(data = array2, 
+                  columns = column_values)
+print(df)
+one_hot_encoded_data = pd.get_dummies(df, columns = ['x1', 'x2'])
+print(one_hot_encoded_data)
+```
 
 __Reference-level coding __
 
@@ -609,63 +682,11 @@ ggplot(data = ames, aes(y = Sale_Price/1000, x = Central_Air, fill = Central_Air
 
 
 
-### Python Code
 
 
-
-```{r, echo=FALSE, message=FALSE}
-library(reticulate)
-#use_python("C:\\Users\\sjsimmo2\\AppData\\Local\\Programs\\Python/Python39\\python.exe")
-use_python("C:\\ProgramData\\Anaconda3\\python.exe")
-```
-
-For all of the Python code throughout the book, you will need to use the following libraries:
+Summary information for the the Ames data set:
 
 ```{python}
-
-import pandas as pd
-import numpy as np
-from sklearn.preprocessing import OneHotEncoder
-import seaborn as sns
-import matplotlib.pyplot as plt
-from numpy import random
-import statsmodels.api as sma
-import statsmodels as sm
-import pylab as py
-import scipy.stats as stats
-import scipy as sp
-import statsmodels.formula.api as smf
-import sklearn
-from sklearn.linear_model import Ridge
-from sklearn.linear_model import Lasso
-from sklearn.linear_model import ElasticNet
-from sklearn.metrics import mean_squared_error
-
-```
-
-For one-hot encoding in Python:
-
-```{python}
-
-x1=np.repeat(["A","B","C"],10)
-x2=np.repeat(["Z", "X", "Y","W","V","U"],5)
-random.seed(41)
-y=np.concatenate([np.random.normal(loc=2.0, scale=1.0, size=10),np.random.normal(loc=1.0, scale=1.0, size=10),np.random.normal(loc=0.0, scale=1.0, size=10)])
-array=np.array([x1,x2,y])
-array2=np.transpose(array)
-column_values=["x1","x2","y"]
-df = pd.DataFrame(data = array2, 
-                  columns = column_values)
-print(df)
-one_hot_encoded_data = pd.get_dummies(df, columns = ['x1', 'x2'])
-print(one_hot_encoded_data)
-```
-
-Bring the r data set over to Python (if you are writing this in an R Markdown document).
-
-```{python}
-ames_py = r.ames
-ames_py = pd.DataFrame(ames_py)
 
 ames_py.describe()
 ```
