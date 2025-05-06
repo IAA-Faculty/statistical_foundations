@@ -703,7 +703,7 @@ knitr::include_graphics("img/correlation.png")
 The population correlation parameter is denoted $\rho$ and estimated by the sample correlation, denoted as $r$. The formula for the sample correlation between columns of data $\mathbf{x}$ and $\mathbf{y}$ is
 
 \begin{equation}
-r = \frac{\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{x})}{\sqrt{\sum_{i=1}^n (x_i-\bar{x})^2\sum_{i=1}^n(y_i-\bar{x})^2}}.
+r = \frac{\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{i=1}^n (x_i-\bar{x})^2\sum_{i=1}^n(y_i-\bar{y})^2}}.
 (\#eq:correlation)
 \end{equation}
 
