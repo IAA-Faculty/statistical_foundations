@@ -38,7 +38,7 @@ library(reticulate)
 use_python("C:\\ProgramData\\Anaconda3\\python.exe")
 ```
 
-### Python Code:
+#### Python Code:
 
 ```{python}
 
@@ -63,11 +63,12 @@ from sklearn.metrics import mean_squared_error
 
 ## This brings in the Ames housing data
 
-ames_py = pd.read_csv('Q:/My Drive/Summer II - Statistics Bootcamp/Summer2022/statistical_foundations/Ames.csv')
+ames_py = pd.read_csv('https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/refs/heads/master/Ames.csv')
 
+ames_py
 ```
 
-### R code:
+#### R code:
 
 ```{r eval=F, message=F,warning=FALSE}
 install.packages('AmesHousing')
@@ -152,7 +153,7 @@ The columns of a data set are referred to by the following __equivalent terms__:
 
 This book may use any of these words interchangeably to refer to a quality or quantity of interest in our data. 
 
-#### Nominal Variables 
+### Nominal Variables 
 
 A __nominal__ or __categorical variable__ is a _quality of interest_ whose values have no logical ordering.  Color ("blue", "red", "green"...), ethnicity ("African-American", "Asian", "Caucasian",...), and style of house ("ranch", "two-story", "duplex", ...) are all examples of nominal attributes. The categories or values that these variables can take on - those words listed in quotes and parenthesis - are called the __levels__ of the variable. 
 
@@ -195,7 +196,7 @@ Unlike reference and effects coding, which are used in linear regression models,
 
 The speed of this function has been tested against both the base R `model.matrix()` function and the `dummyVars()` function in the `caret` package and is _substantially_ faster than either. 
 
-### R code:
+#### R code:
 
 You will need to bring the packages into your currently opened R session (this will need to be done whenever you open a new session):
 
@@ -234,7 +235,7 @@ head(dummies)
 ```
 
 
-### Python Code
+#### Python Code
 
 
 For one-hot encoding in Python:
@@ -251,7 +252,7 @@ column_values=["x1","x2","y"]
 df = pd.DataFrame(data = array2, 
                   columns = column_values)
 print(df)
-one_hot_encoded_data = pd.get_dummies(df, columns = ['x1', 'x2'])
+one_hot_encoded_data = pd.get_dummies(df, columns = ['x1', 'x2'],dtype=int)
 print(one_hot_encoded_data)
 ```
 
@@ -299,11 +300,11 @@ Effects coding still requires a _reference level_, however the purpose of the re
 <caption> (\#tab:effcoding) Effects coding for the categorical attribute _color_ and the reference level of "blue" </caption>  
 
 
-#### Interval Variables
+### Interval Variables
 
 An interval variable is a _quantity of interest_ on which the mathematical operations of addition, subtraction, multiplication and division can be performed. Time, temperature and age are all examples of interval attributes. To illustrate the definition, note that "15 minutes" divided by "5 minutes" is 3, which indicates that 15 minutes is 3 times as long as 5 minutes. The sensible interpretation of this simple arithmetic sentence demonstrates the nature of interval attributes. One should note that such arithmetic would not make sense in the treatment of nominal variables. 
 
-#### Ordinal Variables 
+### Ordinal Variables 
 
 __Ordinal variables__ are attributes that are qualitative in nature but have some natural ordering. _Level of education_ is a common example, with a level of 'PhD' indicating _more_ education than 'Bachelors' but lacking a numerical framework to quantify _how much more_. The treatment of ordinal variables will depend on the application. Survey responses on a Likert scale are also ordinal - a response of 4="somewhat agree" on a 1-to-5 scale of agreement cannot reliably be said to be twice as enthusiastic as a response of 2="somewhat disagree". These are not interval measurements, though they are often treated as such in a trade-off for computational efficiency. 
 
@@ -330,7 +331,7 @@ The primary idea behind optimal scaling is to transform an ordinal attribute int
 
 For example, if analyzing movie theater concessions with ordinal drink sizes {small, medium, large}, one is not restricted to the numeric valuation of 1=small, 2=medium, and 3=large just because it's an ordinal variable with 3 levels. Perhaps it would make more sense to use the drink size in fluid ounces to represent the ordinality. If the small drink is 12 ounces, the medium is 20 ounces, and the large is 48 ounces, then using those values as the numerical representation would be every bit as (if not more) reasonable than using the standard integers 1, 2, and 3. 
 
-If we re-consider the ordinal attribute level of education, we might decide to represent the approximate years of post-secondary  schooling required to obtain a given level. This might lead us to something like the attribute values in Table \@ref(tab:educationscaled).
+If we re-consider the ordinal attribute level of education, we might decide to represent the approximate years of post-secondary  schooling required to obtain a given level. This might lead us to something like the attribute values in Table \@ref(tab:educationint2).
 
 <table>
 <tr> <td> Level of Education <td> Numeric Value
@@ -341,7 +342,7 @@ If we re-consider the ordinal attribute level of education, we might decide to r
 <tr> <td> Masters <td> 19
 <tr> <td> PhD <td> 22
 </table>
-<caption> (\#tab:educationint) One potential approach to scaling the ordinal attribute level of education </caption>  
+<caption> (\#tab:educationint2) One potential approach to scaling the ordinal attribute level of education </caption>  
 
 
 If we were modeling the effect of education on something like salary, it seems reasonable to assume that the jumps between levels should not have equal distance like they did in \@ref(tab:educationint). It seems reasonable to assume that one would experience a larger salary lift from Associate's to Bachelor's degree than they would from No H.S. Diploma to H.S Diploma. The most common way to determine the numeric values for categories is to use information from the response variable. This is commonly referred to as __target level encoding__.  
@@ -349,7 +350,7 @@ If we were modeling the effect of education on something like salary, it seems r
 
 __Target Level Encoding__
 
-The values in Table \@ref(tab:educationscaled) might have struck the reader as logical but arbitrary. To be more scientific about the determination of those numeric values, one might wish to use information from the response variable to obtain a more precise expected change in salary for each level increase in education. At first hearing this, one might question the validity of the technique; isn't the goal to _predict_ salary? This line of thought is natural, which is why having a holdout sample is extremely important in this situation. To implement Target level encoding, we can simply create a look-up table that matches each level of education to the average or median salary obtained for that level. These values can be used just as readily as the arbitrary levels created in Table \@ref(tab:educationscaled) to encode the ordinal attribute!
+The values in Table \@ref(tab:educationint2) might have struck the reader as logical but arbitrary. To be more scientific about the determination of those numeric values, one might wish to use information from the response variable to obtain a more precise expected change in salary for each level increase in education. At first hearing this, one might question the validity of the technique; isn't the goal to _predict_ salary? This line of thought is natural, which is why having a holdout sample is extremely important in this situation. To implement Target level encoding, we can simply create a look-up table that matches each level of education to the average or median salary obtained for that level. These values can be used just as readily as the arbitrary levels created in Table \@ref(tab:educationint2) to encode the ordinal attribute!
 
 
 ### Distributions 
@@ -357,6 +358,8 @@ The values in Table \@ref(tab:educationscaled) might have struck the reader as l
 After reviewing the types and formats of the data inputs, we move on to some basic __univariate__ (one variable at a time) analysis. We start by describing the distribution of values that each variable takes on. For nominal variables, this amounts to frequency tables and bar charts of how often each level of the variable appears in the data set.
 
 We'll begin by exploring one of our nominal features, `Heating_QC` which categorizes the quality and condition of a home's heating system. To create plots in R, we will use the popular `ggplot2` library. At the same time, we will load the `tidyverse` library which we will use in the next chunk of code. 
+
+#### R code:
 
 ```{r message=F,fig=T, fig.align='center', fig.cap = 'Distribution of Nominal Variable Heating_QC', label='barchart'}
 library(ggplot2)
@@ -388,7 +391,54 @@ ggplot(data = ames) +
 
 From this initial inspection, we can conclude that most of the houses sell for less than $200,000 and there are a number of expensive anomalies. To more concretely describe and quantify a statistical distribution, we use statistics that describe the _location, spread, and shape_ of the data.
 
-#### Location 
+#### Python code:
+
+Summary information for the the Ames data set:
+
+```{python}
+
+ames_py.describe()
+```
+
+Creating a frequency bar plot for Heating Quality:
+
+```{python}
+
+ax = sns.countplot(x = "Heating_QC", data = ames_py, color = "orange")
+ax.set(xlabel = 'Heating Quality',
+       ylabel = 'Frequency',
+       title = 'Bar Graph of Heating System')
+plt.show()
+
+```
+
+Creating a table of frequencies for Heating Quality:
+
+```{python}
+ames_py['Heating_QC'].value_counts()
+```
+
+Creating a frequency histogram of Sales Price:
+
+```{python}
+
+sale_prices = ames_py['Sale_Price'] / 1000
+
+# Create the histogram
+plt.hist(sale_prices, bins=30, color='blue', edgecolor='black')
+
+# Set the labels and title
+plt.xlabel('Sales Price (Thousands $)')
+plt.ylabel('Frequency')
+plt.title('Histogram of Sales Price in Thousands of Dollars')
+
+# Display the plot
+plt.show()
+```
+
+
+
+### Location 
 
 The _location_ is a measure of central tendency for a distribution. Most common measures of central tendency are __mean__, __median__, and __mode__. 
 
@@ -427,7 +477,7 @@ __Solution:__
 * The mode is 67.
 
 
-#### Spread 
+### Spread 
 
 Once we have an understanding of the central tendency of a data set, we move on to describing the spread (the dispersion or variation) of the data. __Range__, __interquartile range__, __variance__, and __standard deviation__ are all statistics that describe spread. 
 
@@ -479,7 +529,7 @@ __Solution:__
 Note: In R, to find the quartiles, you should ask for the 0.25, 0.5 and 0.75 quantiles.  
 
 
-#### Shape 
+### Shape 
 
 The final description we will want to give to distributions regards their shape. Is the histogram _symmetric_? Is it _unimodal_ (having a single large "heap" of data) or _multimodal_ (having multiple heaps")? Does it have a longer tail on one side than the other (_skew_)? Is there a lot more or less data in the tails than you might expect? 
 
@@ -496,8 +546,6 @@ A distribution is called _bimodal_ if it has two "heaps", as shown in Figure \@r
 knitr::include_graphics("img/bimodal.png")
 ```
 
-
-#### Summary Functions in R 
 
 There are many ways to obtain all of the statistics described in the preceding sections, below we highlight 3:
 
@@ -522,6 +570,8 @@ ames %>% group_by(Exter_Qual) %>% dplyr::summarise(average = mean(Sale_Price), s
 ```{r} 
 summary(ames$Sale_Price)
 ```
+
+
 
 
 ### The Normal Distribution {#normal}
@@ -577,7 +627,7 @@ Three common plots for examining the distribution of your data values:
 2.  Normal Probability Plots (QQ-plots)
 3.  Box Plots
 
-#### Histograms 
+### Histograms 
 
 A histogram shows the shape of a univariate distribution. Each bar in the histogram represents a group of values (a _bin_). The height of the bar represents the either the frequency of or the percent of values in the bin. The width and number of bins is determined automatically, but the user can adjust them to see more or less detail in the histogram. Figure \@ref(fig:histogram) demonstrated a histogram of sale price. Sometimes it's nice to overlay a continuous approximation to the underlying distribution using a _kernal density estimator_  with the `geom_density` plot, demonstrated in Figure \@ref(fig:histwithkernal).
 
@@ -625,7 +675,7 @@ ggplot(ames,aes(x=Sale_Price/1000)) +
 
 
 
-#### Normal probability plots (QQ Plots) 
+### Normal probability plots (QQ Plots) 
 
 A __normal probability plot__ (or QQ plot) graphs the sorted data values against the values that one would expect if the same number of observations came from a theoretical Normal distribution. The resulting image would look close to a straight line if the data was generated by a Normal distribution. Strong deviations from a straight line indicate that the data distribution is not Normal. 
 
@@ -650,7 +700,7 @@ ggplot(data = df, aes(sample=j1)) +
   stat_qq_line()
 ```
 
-#### Box Plots 
+### Box Plots 
 
 Box plots (sometimes called box-and-whisker plots) will not necessarily tell you about the _shape_ of your distribution (for instance a bimodal distribution could have a similar box plot to a unimodal one), but it will give you a sense of the distribution's location and spread and potential skewness. 
 
@@ -681,54 +731,7 @@ ggplot(data = ames, aes(y = Sale_Price/1000, x = Central_Air, fill = Central_Air
 ```  
 
 
-
-
-
-Summary information for the the Ames data set:
-
-```{python}
-
-ames_py.describe()
-```
-
-
-Creating a frequency bar plot for Heating Quality:
-
-```{python}
-
-ax = sns.countplot(x = "Heating_QC", data = ames_py, color = "orange")
-ax.set(xlabel = 'Heating Quality',
-       ylabel = 'Frequency',
-       title = 'Bar Graph of Heating System')
-plt.show()
-
-```
-
-Creating a table of frequencies for Heating Quality:
-
-```{python}
-ames_py['Heating_QC'].value_counts()
-```
-
-Creating a frequency histogram of Sales Price:
-
-```{python}
-
-sale_prices = ames_py['Sale_Price'] / 1000
-
-# Create the histogram
-plt.hist(sale_prices, bins=30, color='blue', edgecolor='black')
-
-# Set the labels and title
-plt.xlabel('Sales Price (Thousands $)')
-plt.ylabel('Frequency')
-plt.title('Histogram of Sales Price in Thousands of Dollars')
-
-# Display the plot
-plt.show()
-```
-
-
+#### Python Code
 
 Getting summary statistics by Sales Price and External Quality:
 
@@ -819,6 +822,7 @@ ax.legend()
 plt.show()
 
 ```
+
 
 QQ plots: 
 

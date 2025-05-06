@@ -188,3 +188,7 @@ fig:kCV
 python
 r-code
 r-code-1
+tab:educationint2
+r-code-2
+python-code-32
+python-code-33
