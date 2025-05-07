@@ -192,3 +192,9 @@ tab:educationint2
 r-code-2
 python-code-32
 python-code-33
+r-code-3
+r-code-4
+r-code-5
+python-code-34
+python-code-35
+python-code-36
