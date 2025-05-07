@@ -94,7 +94,7 @@ from sklearn.linear_model import Ridge
 from sklearn.linear_model import Lasso
 from sklearn.linear_model import ElasticNet
 from sklearn.metrics import mean_squared_error
-
+from plotnine import *
 
 ## This brings in the Ames housing data
 
@@ -400,12 +400,9 @@ Creating a frequency bar plot for Heating Quality:
 
 ```{python}
 
-ax = sns.countplot(x = "Heating_QC", data = ames_py, color = "orange")
-ax.set(xlabel = 'Heating Quality',
-       ylabel = 'Frequency',
-       title = 'Bar Graph of Heating System')
-plt.show()
+p=ggplot(ames_py,aes(x = "Heating_QC")) + geom_bar(fill="orange") + labs(x="Heating System Quality",y="Frequency",title="Bar Graph of Heating System")
 
+p.show()
 ```
 
 Creating a table of frequencies for Heating Quality:
@@ -418,18 +415,11 @@ Creating a frequency histogram of Sales Price:
 
 ```{python}
 
-sale_prices = ames_py['Sale_Price'] / 1000
+ames_py["Sales"] = ames_py["Sale_Price"]/1000
 
-# Create the histogram
-plt.hist(sale_prices, bins=30, color='blue', edgecolor='black')
+p=ggplot(ames_py,aes(x = "Sales")) + geom_histogram(fill="blue") + labs(x = "Sales Price (Thousands $)",y="Frequency",title="Histogram of Sales Price in Thousands of Dollars")
 
-# Set the labels and title
-plt.xlabel('Sales Price (Thousands $)')
-plt.ylabel('Frequency')
-plt.title('Histogram of Sales Price in Thousands of Dollars')
-
-# Display the plot
-plt.show()
+p.show()
 ```
 
 
@@ -689,25 +679,28 @@ ggplot(ames,aes(x=Sale_Price/1000)) +
 Overlay a density plot on top of a the Sales Price histogram:
 
 ```{python}
+p = (
+    ggplot(ames_py, aes(x='Sales')) +
+    geom_histogram(aes(y='..density..'), bins=30, fill='lightgray', color='black') +
+    geom_density(color='black', size=1.5) +
+    labs(x='Sales Price (Thousands $)') 
+)
 
-x=ames_py["Sale_Price"]/1000
-from scipy.stats import gaussian_kde
+p.show()
+```
 
+Showing overlaid histograms:
 
-# Create the histogram
-fig, ax = plt.subplots()
-ax.hist(x, bins=30, density=True, color='blue', alpha=0.6, edgecolor='black')
+```{python}
 
-# Add a KDE
-kde = gaussian_kde(x)
-x_vals = np.linspace(min(x), max(x), 1000)
-kde_vals = kde(x_vals)
-ax.plot(x_vals, kde_vals, color='blue')
+p = (
+    ggplot(ames_py, aes(x="Sale_Price", fill="Central_Air")) +
+    geom_histogram(position="identity", alpha=0.5, bins=30) +
+    labs(x="Sale Price (Thousands $)", fill="Central Air") +
+    scale_fill_manual(values={"N": "red", "Y": "blue"}, labels=["No", "Yes"]) 
+)
 
-# Set labels and title
-ax.set_xlabel('Value')
-ax.set_ylabel('Density')
-ax.set_title('Histogram with KDE')
+p.show()
 
 ```
 
@@ -717,54 +710,34 @@ Overlay of density plots (for Sales Price broken down by Central Air):
 
 ```{python}
 
-sale_prices = ames_py['Sale_Price'] / 1000
-central_air = ames_py['Central_Air']
+p = (
+    ggplot(ames_py, aes(x="Sale_Price", fill="Central_Air")) +
+    geom_histogram(aes(y='..density..'), position="identity", alpha=0.5, bins=30) +
+    labs(x="Sale Price (Thousands $)", y="Density", fill="Central Air") +
+    scale_fill_manual(values={"N": "red", "Y": "blue"}, labels=["No", "Yes"]) 
+)
 
-# Plotting histograms for each category in 'Central_Air'
-unique_categories = central_air.unique()
-colors = ['blue', 'orange']  # Define colors for each category
-
-for category, color in zip(unique_categories, colors):
-    subset = sale_prices[central_air == category]
-    plt.hist(subset, bins=30, alpha=0.6, color=color, label=f'Central Air: {category}', edgecolor='black')
-
-# Set the labels and title
-plt.xlabel('Sales Price (Thousands $)')
-plt.ylabel('Frequency')
-plt.legend()
-plt.title('Histogram of Sales Price in Thousands of Dollars')
-
-# Display the plot
-plt.show()
+p.show()
 
 ```
 
+With Kernel density overlaid:
 
 ```{python}
 
-# Get unique categories in 'Central_Air'
-unique_categories = central_air.unique()
-colors = ['blue', 'orange']  # Define colors for each category
+p = (
+    ggplot(ames_py, aes(x="Sale_Price", fill="Central_Air")) +
+    
+    # Histogram with density scaling
+    geom_histogram(aes(y='..density..'), position="identity", alpha=0.4, bins=30) +
+    
+    # KDE overlay, grouped by Central_Air
+    geom_density(aes(color="Central_Air"), alpha=0.2) +
+    
+    labs(x="Sale Price (Thousands $)", y="Density", fill="Central Air", color="Central Air") 
+)
 
-# Create a figure and axis
-fig, ax = plt.subplots()
-
-# Plot KDE for each category
-for category, color in zip(unique_categories, colors):
-    subset = sale_prices[central_air == category]
-    kde = gaussian_kde(subset, bw_method='scott')
-    x_vals = np.linspace(subset.min(), subset.max(), 1000)
-    kde_vals = kde(x_vals)
-    ax.fill_between(x_vals, kde_vals, alpha=0.6, color=color, label=f'Central Air: {category}')
-
-# Set the labels and title
-ax.set_xlabel('Sales Price (Thousands $)')
-ax.set_ylabel('Density')
-ax.set_title('KDE of Sales Price in Thousands of Dollars')
-ax.legend()
-
-# Display the plot
-plt.show()
+p.show()
 
 ```
 
@@ -788,8 +761,13 @@ ggplot(data = ames, aes(sample = Sale_Price/1000)) +
 
 
 ```{python}
-sma.qqplot(ames_py['Sale_Price']/1000, line='45',fit=True)
-py.show()
+p = (
+  ggplot(ames_py, aes(sample = "Sales")) +
+  stat_qq() +
+  stat_qq_line()
+  )
+
+p.show()
 ```
 
 
@@ -839,49 +817,37 @@ ggplot(data = ames, aes(y = Sale_Price/1000, x = Central_Air, fill = Central_Air
 ```  
 
 
-#### Python Code
 
+#### Python Code
 
 Boxplots:
 
 ```{python}
 
-# Create the boxplot
-fig, ax = plt.subplots()
-ax.boxplot(sale_prices, vert=False, patch_artist=True, boxprops=dict(facecolor='blue'))
+p= (
+  ggplot(ames_py, aes(y = "Sales")) + 
+  geom_boxplot() + 
+  labs(y = "Sales Price (Thousands $)")
+  )
 
-# Set the labels and title
-ax.set_xlabel('Sales Price (Thousands $)')
-ax.set_title('Boxplot of Sales Price in Thousands of Dollars')
-
-# Display the plot
-plt.show()
+p.show()
 
 ```
 
+Boxplots by Central Air:
 
 ```{python}
-import pandas as pd
-import matplotlib.pyplot as plt
+p = (
+  ggplot(ames_py, aes(y = "Sales", x = "Central_Air", fill = "Central_Air")) + 
+  geom_boxplot() + 
+  labs(y = "Sales Price (Thousands $)", x = "Central Air") +
+   theme_classic() + coord_flip()
+  )
 
-data_to_plot = [ames_py[ames_py['Central_Air'] == category]['Sale_Price'] for category in ames_py['Central_Air'].unique()]
-
-# Create the box plot
-fig, ax = plt.subplots()
-ax.boxplot(data_to_plot, patch_artist=True, boxprops=dict(facecolor='blue'))
-
-# Set the x-tick labels
-ax.set_xticklabels(ames_py['Central_Air'].unique())
-
-# Set the labels and title
-ax.set_xlabel('Central Air')
-ax.set_ylabel('Sale Price')
-ax.set_title('Boxplot of Sale Price by Central Air')
-
-# Display the plot
-plt.show()
+p.show()
 
 ```
+
 
 
 
@@ -1100,15 +1066,13 @@ For testing the cars data set:
 
 ```{python}
 py_cars = pd.read_csv("https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/master/cars.csv")
-US = py_cars[py_cars["Country"]=="US"]
-sma.qqplot(US["MPG"], line='45',fit=True)
+p = (
+    ggplot(py_cars, aes(sample='MPG', color='Country')) +
+    stat_qq() +
+    stat_qq_line()
+)
 
-```
-
-
-```{python}
-Jap = py_cars[py_cars["Country"]=="Japanese"]
-sma.qqplot(Jap["MPG"], line='45',fit=True)
+p.show
 
 ```
 
