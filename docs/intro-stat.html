@@ -177,6 +177,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.5.2" data-path="intro-stat.html"><a href="intro-stat.html#ftest"><i class="fa fa-check"></i><b>1.5.2</b> Testing Equality of Variances</a></li>
 <li class="chapter" data-level="1.5.3" data-path="intro-stat.html"><a href="intro-stat.html#tsttest"><i class="fa fa-check"></i><b>1.5.3</b> Testing Equality of Means</a></li>
 <li class="chapter" data-level="1.5.4" data-path="intro-stat.html"><a href="intro-stat.html#wilcoxon"><i class="fa fa-check"></i><b>1.5.4</b> Mann-Whitney-Wilcoxon Test</a></li>
+<li class="chapter" data-level="1.5.5" data-path="intro-stat.html"><a href="intro-stat.html#bootstrap"><i class="fa fa-check"></i><b>1.5.5</b> Bootstrap</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="slr.html"><a href="slr.html"><i class="fa fa-check"></i><b>2</b> Introduction to ANOVA and Linear Regression</a>
@@ -2197,6 +2198,82 @@ Difference in location. <br> (distributional dominance)
 <p>Mann-Whitney Wilcoxon test:</p>
 <div class="sourceCode" id="cb111"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb111-1"><a href="intro-stat.html#cb111-1" tabindex="-1"></a>sp.stats.mannwhitneyu(ames_py[ames_py[<span class="st">&quot;Central_Air&quot;</span>] <span class="op">==</span> <span class="st">&#39;Y&#39;</span>][<span class="st">&#39;Sale_Price&#39;</span>], ames_py[ames_py[<span class="st">&quot;Central_Air&quot;</span>] <span class="op">==</span> <span class="st">&#39;N&#39;</span>][<span class="st">&#39;Sale_Price&#39;</span>])</span></code></pre></div>
 <pre><code>## MannwhitneyuResult(statistic=472700.0, pvalue=1.2086496396714786e-71)</code></pre>
+</div>
+</div>
+<div id="bootstrap" class="section level3 hasAnchor" number="1.5.5">
+<h3><span class="header-section-number">1.5.5</span> Bootstrap<a href="intro-stat.html#bootstrap" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Another nonparametric test we can perform is the bootstrap. This test does not make any assumptions about the distribution of the data. In fact, it uses the data to generate the distribution under the null hypothesis. The biggest difficulty in performing the bootstrap algorithm is correctly identifying how the random samples should be drawn and what information should be calculated. We will demonstrate the bootstrap for testing the difference between two medians. This test is appropriate when Normality is not met (it is still fine to use when Normality is met, but it is less powerful).</p>
+<p>The null and alternative hypotheses for this test are defined as follows:
+<span class="math display">\[H_0: \text{ the medians of the two groups are equal }  \]</span>
+<span class="math display">\[H_a: \text{ the medians of the two groups are NOT equal }   \]</span></p>
+<div id="r-function" class="section level4 hasAnchor" number="1.5.5.1">
+<h4><span class="header-section-number">1.5.5.1</span> R function:<a href="intro-stat.html#r-function" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="intro-stat.html#cb113-1" tabindex="-1"></a>boot<span class="ot">&lt;-</span><span class="cf">function</span>(x1,x2,direction,alpha){</span>
+<span id="cb113-2"><a href="intro-stat.html#cb113-2" tabindex="-1"></a> x1_boot<span class="ot">&lt;-</span><span class="fu">matrix</span>(<span class="fu">sample</span>(x1,<span class="at">size=</span><span class="dv">10000</span><span class="sc">*</span><span class="fu">length</span>(x1),<span class="at">replace =</span> T),<span class="at">nrow=</span><span class="dv">10000</span>)</span>
+<span id="cb113-3"><a href="intro-stat.html#cb113-3" tabindex="-1"></a> x2_boot<span class="ot">&lt;-</span><span class="fu">matrix</span>(<span class="fu">sample</span>(x2,<span class="at">size=</span><span class="dv">10000</span><span class="sc">*</span><span class="fu">length</span>(x2),<span class="at">replace =</span> T),<span class="at">nrow=</span><span class="dv">10000</span>)</span>
+<span id="cb113-4"><a href="intro-stat.html#cb113-4" tabindex="-1"></a>test_boot<span class="ot">&lt;-</span><span class="fu">apply</span>(x1_boot,<span class="dv">1</span>,median)<span class="sc">-</span><span class="fu">apply</span>(x2_boot,<span class="dv">1</span>,median)</span>
+<span id="cb113-5"><a href="intro-stat.html#cb113-5" tabindex="-1"></a><span class="cf">if</span> (direction <span class="sc">==</span><span class="st">&quot;greater&quot;</span>) {</span>
+<span id="cb113-6"><a href="intro-stat.html#cb113-6" tabindex="-1"></a>   result <span class="ot">&lt;-</span><span class="fu">ifelse</span>(<span class="dv">0</span> <span class="sc">&gt;=</span> <span class="fu">quantile</span>(test_boot,alpha),<span class="st">&quot;not significant&quot;</span>, <span class="st">&quot;significant&quot;</span>)</span>
+<span id="cb113-7"><a href="intro-stat.html#cb113-7" tabindex="-1"></a>   p_value <span class="ot">&lt;-</span> <span class="fu">sum</span>(test_boot <span class="sc">&lt;=</span> <span class="dv">0</span>)<span class="sc">/</span><span class="dv">10000</span></span>
+<span id="cb113-8"><a href="intro-stat.html#cb113-8" tabindex="-1"></a>}</span>
+<span id="cb113-9"><a href="intro-stat.html#cb113-9" tabindex="-1"></a><span class="cf">if</span> (direction <span class="sc">==</span><span class="st">&quot;less&quot;</span>) {</span>
+<span id="cb113-10"><a href="intro-stat.html#cb113-10" tabindex="-1"></a>   result <span class="ot">&lt;-</span><span class="fu">ifelse</span>(<span class="dv">0</span> <span class="sc">&lt;=</span> <span class="fu">quantile</span>(test_boot,(<span class="dv">1</span><span class="sc">-</span>alpha)),<span class="st">&quot;not significant&quot;</span>, <span class="st">&quot;significant&quot;</span>)</span>
+<span id="cb113-11"><a href="intro-stat.html#cb113-11" tabindex="-1"></a>   p_value <span class="ot">&lt;-</span><span class="fu">sum</span>(test_boot <span class="sc">&gt;=</span> <span class="dv">0</span>)<span class="sc">/</span><span class="dv">10000</span></span>
+<span id="cb113-12"><a href="intro-stat.html#cb113-12" tabindex="-1"></a>}</span>
+<span id="cb113-13"><a href="intro-stat.html#cb113-13" tabindex="-1"></a><span class="cf">if</span> (direction <span class="sc">==</span><span class="st">&quot;ne&quot;</span>) {</span>
+<span id="cb113-14"><a href="intro-stat.html#cb113-14" tabindex="-1"></a>   result <span class="ot">&lt;-</span><span class="fu">ifelse</span>((<span class="dv">0</span> <span class="sc">&gt;=</span> <span class="fu">quantile</span>(test_boot,alpha)) <span class="sc">&amp;</span> (<span class="dv">0</span> <span class="sc">&lt;=</span> <span class="fu">quantile</span>(test_boot,<span class="dv">1</span><span class="sc">-</span>alpha)),<span class="st">&quot;not significant&quot;</span>, <span class="st">&quot;significant&quot;</span>)</span>
+<span id="cb113-15"><a href="intro-stat.html#cb113-15" tabindex="-1"></a>   p_value <span class="ot">&lt;-</span><span class="dv">2</span> <span class="sc">*</span> <span class="fu">min</span>(<span class="fu">sum</span>(test_boot <span class="sc">&lt;=</span> <span class="dv">0</span>)<span class="sc">/</span><span class="dv">10000</span>, <span class="fu">sum</span>(test_boot <span class="sc">&gt;=</span> <span class="dv">0</span>)<span class="sc">/</span><span class="dv">10000</span>)</span>
+<span id="cb113-16"><a href="intro-stat.html#cb113-16" tabindex="-1"></a>}</span>
+<span id="cb113-17"><a href="intro-stat.html#cb113-17" tabindex="-1"></a> <span class="fu">return</span>(<span class="fu">list</span>(<span class="fu">as.character</span>(result),p_value))</span>
+<span id="cb113-18"><a href="intro-stat.html#cb113-18" tabindex="-1"></a>}</span>
+<span id="cb113-19"><a href="intro-stat.html#cb113-19" tabindex="-1"></a></span>
+<span id="cb113-20"><a href="intro-stat.html#cb113-20" tabindex="-1"></a><span class="do">#### Now run the test:</span></span>
+<span id="cb113-21"><a href="intro-stat.html#cb113-21" tabindex="-1"></a></span>
+<span id="cb113-22"><a href="intro-stat.html#cb113-22" tabindex="-1"></a>x1<span class="ot">&lt;-</span>ames<span class="sc">$</span>Sale_Price[ames<span class="sc">$</span>Central_Air<span class="sc">==</span><span class="st">&quot;Y&quot;</span>]</span>
+<span id="cb113-23"><a href="intro-stat.html#cb113-23" tabindex="-1"></a>x2<span class="ot">&lt;-</span>ames<span class="sc">$</span>Sale_Price[ames<span class="sc">$</span>Central_Air<span class="sc">==</span><span class="st">&quot;N&quot;</span>]</span>
+<span id="cb113-24"><a href="intro-stat.html#cb113-24" tabindex="-1"></a><span class="fu">boot</span>(x1,x2,<span class="st">&#39;ne&#39;</span>,<span class="fl">0.05</span>)</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;significant&quot;
+## 
+## [[2]]
+## [1] 0</code></pre>
+</div>
+<div id="python-function" class="section level4 hasAnchor" number="1.5.5.2">
+<h4><span class="header-section-number">1.5.5.2</span> Python function:<a href="intro-stat.html#python-function" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb115"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb115-1"><a href="intro-stat.html#cb115-1" tabindex="-1"></a><span class="kw">def</span> boot(x1, x2, direction, alpha):</span>
+<span id="cb115-2"><a href="intro-stat.html#cb115-2" tabindex="-1"></a>    x1 <span class="op">=</span> np.array(x1)</span>
+<span id="cb115-3"><a href="intro-stat.html#cb115-3" tabindex="-1"></a>    x2 <span class="op">=</span> np.array(x2)</span>
+<span id="cb115-4"><a href="intro-stat.html#cb115-4" tabindex="-1"></a></span>
+<span id="cb115-5"><a href="intro-stat.html#cb115-5" tabindex="-1"></a>    <span class="co"># Bootstrap resampling</span></span>
+<span id="cb115-6"><a href="intro-stat.html#cb115-6" tabindex="-1"></a>    x1_boot <span class="op">=</span> np.random.choice(x1, size<span class="op">=</span>(<span class="dv">10000</span>, <span class="bu">len</span>(x1)), replace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb115-7"><a href="intro-stat.html#cb115-7" tabindex="-1"></a>    x2_boot <span class="op">=</span> np.random.choice(x2, size<span class="op">=</span>(<span class="dv">10000</span>, <span class="bu">len</span>(x2)), replace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb115-8"><a href="intro-stat.html#cb115-8" tabindex="-1"></a></span>
+<span id="cb115-9"><a href="intro-stat.html#cb115-9" tabindex="-1"></a>    <span class="co"># Compute bootstrapped differences in medians</span></span>
+<span id="cb115-10"><a href="intro-stat.html#cb115-10" tabindex="-1"></a>    test_boot <span class="op">=</span> np.median(x1_boot, axis<span class="op">=</span><span class="dv">1</span>) <span class="op">-</span> np.median(x2_boot, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb115-11"><a href="intro-stat.html#cb115-11" tabindex="-1"></a></span>
+<span id="cb115-12"><a href="intro-stat.html#cb115-12" tabindex="-1"></a>    <span class="co"># Compute p-value and decision</span></span>
+<span id="cb115-13"><a href="intro-stat.html#cb115-13" tabindex="-1"></a>    <span class="cf">if</span> direction <span class="op">==</span> <span class="st">&quot;greater&quot;</span>:</span>
+<span id="cb115-14"><a href="intro-stat.html#cb115-14" tabindex="-1"></a>        p_value <span class="op">=</span> np.mean(test_boot <span class="op">&lt;=</span> <span class="dv">0</span>)</span>
+<span id="cb115-15"><a href="intro-stat.html#cb115-15" tabindex="-1"></a>        result <span class="op">=</span> <span class="st">&quot;significant&quot;</span> <span class="cf">if</span> p_value <span class="op">&lt;</span> alpha <span class="cf">else</span> <span class="st">&quot;not significant&quot;</span></span>
+<span id="cb115-16"><a href="intro-stat.html#cb115-16" tabindex="-1"></a>    <span class="cf">elif</span> direction <span class="op">==</span> <span class="st">&quot;less&quot;</span>:</span>
+<span id="cb115-17"><a href="intro-stat.html#cb115-17" tabindex="-1"></a>        p_value <span class="op">=</span> np.mean(test_boot <span class="op">&gt;=</span> <span class="dv">0</span>)</span>
+<span id="cb115-18"><a href="intro-stat.html#cb115-18" tabindex="-1"></a>        result <span class="op">=</span> <span class="st">&quot;significant&quot;</span> <span class="cf">if</span> p_value <span class="op">&lt;</span> alpha <span class="cf">else</span> <span class="st">&quot;not significant&quot;</span></span>
+<span id="cb115-19"><a href="intro-stat.html#cb115-19" tabindex="-1"></a>    <span class="cf">elif</span> direction <span class="op">==</span> <span class="st">&quot;ne&quot;</span>:</span>
+<span id="cb115-20"><a href="intro-stat.html#cb115-20" tabindex="-1"></a>        p_value <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> <span class="bu">min</span>(np.mean(test_boot <span class="op">&lt;=</span> <span class="dv">0</span>), np.mean(test_boot <span class="op">&gt;=</span> <span class="dv">0</span>))</span>
+<span id="cb115-21"><a href="intro-stat.html#cb115-21" tabindex="-1"></a>        result <span class="op">=</span> <span class="st">&quot;significant&quot;</span> <span class="cf">if</span> p_value <span class="op">&lt;</span> alpha <span class="cf">else</span> <span class="st">&quot;not significant&quot;</span></span>
+<span id="cb115-22"><a href="intro-stat.html#cb115-22" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb115-23"><a href="intro-stat.html#cb115-23" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;direction must be &#39;greater&#39;, &#39;less&#39;, or &#39;ne&#39;&quot;</span>)</span>
+<span id="cb115-24"><a href="intro-stat.html#cb115-24" tabindex="-1"></a></span>
+<span id="cb115-25"><a href="intro-stat.html#cb115-25" tabindex="-1"></a>    <span class="cf">return</span> result, p_value</span>
+<span id="cb115-26"><a href="intro-stat.html#cb115-26" tabindex="-1"></a>  </span>
+<span id="cb115-27"><a href="intro-stat.html#cb115-27" tabindex="-1"></a>  </span>
+<span id="cb115-28"><a href="intro-stat.html#cb115-28" tabindex="-1"></a><span class="co">### Now run the test:</span></span>
+<span id="cb115-29"><a href="intro-stat.html#cb115-29" tabindex="-1"></a></span>
+<span id="cb115-30"><a href="intro-stat.html#cb115-30" tabindex="-1"></a>x1 <span class="op">=</span> ames_py.loc[ames_py[<span class="st">&#39;Central_Air&#39;</span>] <span class="op">==</span> <span class="st">&#39;Y&#39;</span>, <span class="st">&#39;Sale_Price&#39;</span>].to_numpy()</span>
+<span id="cb115-31"><a href="intro-stat.html#cb115-31" tabindex="-1"></a>x2 <span class="op">=</span> ames_py.loc[ames_py[<span class="st">&#39;Central_Air&#39;</span>] <span class="op">==</span> <span class="st">&#39;N&#39;</span>, <span class="st">&#39;Sale_Price&#39;</span>].to_numpy()</span>
+<span id="cb115-32"><a href="intro-stat.html#cb115-32" tabindex="-1"></a></span>
+<span id="cb115-33"><a href="intro-stat.html#cb115-33" tabindex="-1"></a>boot(x1, x2, <span class="st">&#39;ne&#39;</span>, <span class="fl">0.05</span>)</span></code></pre></div>
+<pre><code>## (&#39;significant&#39;, 0.0)</code></pre>
 
 </div>
 </div>

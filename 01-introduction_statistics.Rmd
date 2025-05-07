@@ -1182,3 +1182,83 @@ Mann-Whitney Wilcoxon test:
 sp.stats.mannwhitneyu(ames_py[ames_py["Central_Air"] == 'Y']['Sale_Price'], ames_py[ames_py["Central_Air"] == 'N']['Sale_Price'])
 ```
 
+
+### Bootstrap
+
+Another nonparametric test we can perform is the bootstrap.  This test does not make any assumptions about the distribution of the data.  In fact, it uses the data to generate the distribution under the null hypothesis.  The biggest difficulty in performing the bootstrap algorithm is correctly identifying how the random samples should be drawn and what information should be calculated.  We will demonstrate the bootstrap for testing the difference between two medians.  This test is appropriate when Normality is not met (it is still fine to use when Normality is met, but it is less powerful).
+
+The null and alternative hypotheses for this test are defined as follows:
+$$H_0: \text{ the medians of the two groups are equal }  $$
+$$H_a: \text{ the medians of the two groups are NOT equal }   $$
+
+
+#### R function:
+
+```{r}
+boot<-function(x1,x2,direction,alpha){
+ x1_boot<-matrix(sample(x1,size=10000*length(x1),replace = T),nrow=10000)
+ x2_boot<-matrix(sample(x2,size=10000*length(x2),replace = T),nrow=10000)
+test_boot<-apply(x1_boot,1,median)-apply(x2_boot,1,median)
+if (direction =="greater") {
+   result <-ifelse(0 >= quantile(test_boot,alpha),"not significant", "significant")
+   p_value <- sum(test_boot <= 0)/10000
+}
+if (direction =="less") {
+   result <-ifelse(0 <= quantile(test_boot,(1-alpha)),"not significant", "significant")
+   p_value <-sum(test_boot >= 0)/10000
+}
+if (direction =="ne") {
+   result <-ifelse((0 >= quantile(test_boot,alpha)) & (0 <= quantile(test_boot,1-alpha)),"not significant", "significant")
+   p_value <-2 * min(sum(test_boot <= 0)/10000, sum(test_boot >= 0)/10000)
+}
+ return(list(as.character(result),p_value))
+}
+
+#### Now run the test:
+
+x1<-ames$Sale_Price[ames$Central_Air=="Y"]
+x2<-ames$Sale_Price[ames$Central_Air=="N"]
+boot(x1,x2,'ne',0.05)
+
+
+```
+
+
+#### Python function:
+
+```{python}
+def boot(x1, x2, direction, alpha):
+    x1 = np.array(x1)
+    x2 = np.array(x2)
+
+    # Bootstrap resampling
+    x1_boot = np.random.choice(x1, size=(10000, len(x1)), replace=True)
+    x2_boot = np.random.choice(x2, size=(10000, len(x2)), replace=True)
+
+    # Compute bootstrapped differences in medians
+    test_boot = np.median(x1_boot, axis=1) - np.median(x2_boot, axis=1)
+
+    # Compute p-value and decision
+    if direction == "greater":
+        p_value = np.mean(test_boot <= 0)
+        result = "significant" if p_value < alpha else "not significant"
+    elif direction == "less":
+        p_value = np.mean(test_boot >= 0)
+        result = "significant" if p_value < alpha else "not significant"
+    elif direction == "ne":
+        p_value = 2 * min(np.mean(test_boot <= 0), np.mean(test_boot >= 0))
+        result = "significant" if p_value < alpha else "not significant"
+    else:
+        raise ValueError("direction must be 'greater', 'less', or 'ne'")
+
+    return result, p_value
+  
+  
+### Now run the test:
+
+x1 = ames_py.loc[ames_py['Central_Air'] == 'Y', 'Sale_Price'].to_numpy()
+x2 = ames_py.loc[ames_py['Central_Air'] == 'N', 'Sale_Price'].to_numpy()
+
+boot(x1, x2, 'ne', 0.05)
+```
+

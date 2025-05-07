@@ -203,3 +203,6 @@ r-code-7
 r-code-8
 r-code-9
 r-code-10
+bootstrap
+r-function
+python-function
