@@ -1044,9 +1044,9 @@ The F-Test is invoked with the `var.test` function, which takes as input a `form
 The following code checks whether the distributions of MPG within each country have the same variance. 
 
 ```{r}
-var.test(MPG~Country,data=cars)
+leveneTest(MPG~Country,data=cars)
 ```
-The results from this test are very close to the level of significance. In this instance, I am going to opt for the `var.equal=FALSE` option in the `t.test()` procedure.
+
 
 ### Testing Equality of Means {#tsttest}
 
@@ -1055,7 +1055,7 @@ $$H_0: \mu_1 = \mu_2$$
 and the alternative hypothesis is $$H_a: \mu_1 \neq \mu_2$$
 
 ```{r}
-t.test(MPG~Country, data=cars, var.equal = FALSE)
+t.test(MPG~Country, data=cars, var.equal = TRUE)
 ```
 
 Our final conclusion from the t-test is the _rejection of the null hypothesis_ and the conclusion that _cars made in the US versus cars made in Japan have significantly different MPG. _
@@ -1116,13 +1116,15 @@ sp.stats.levene(py_cars[py_cars["Country"] == 'US']['MPG'], py_cars[py_cars["Cou
 T-test for two sample means:
 
 ```{python}
-sp.stats.ttest_ind(py_cars[py_cars["Country"] == 'US']['MPG'], py_cars[py_cars["Country"] == 'Japanese']['MPG'], equal_var = False)
+sp.stats.ttest_ind(py_cars[py_cars["Country"] == 'US']['MPG'], py_cars[py_cars["Country"] == 'Japanese']['MPG'], equal_var = True)
 ```
 
 
 ### Mann-Whitney-Wilcoxon Test {#wilcoxon}
 
 Looking at Figure \@ref(fig:qqplotcentralair) we see that the Normality assumption within each level of Central Air does not hold:
+
+#### R code:
 
 ```{r label='qqplotcentralair',fig.align='center',fig.cap="QQ-Plot: Quantiles of Sales Price vs. quantiles of a theoretical normal distribution with same mean and standard deviation, for each level of Central Air. "}
 
@@ -1134,7 +1136,7 @@ ggplot(data = ames, aes(sample = Sale_Price, color = Central_Air)) +
 
 In this situation, the best way to proceed would be with a non-parametric test. The Mann-Whitney-Wilcoxon test is not identical to the t-test in its null and alternative hypotheses, but it aims to answer the same question about an association between the binary attribute and the continuous attribute.
 
-The null and alternative hypotheses for this test are typically defined as follows, so long as the two groups _have_ the same shape:
+The null and alternative hypotheses for this test are typically defined as follows, so long as the two groups _have_ the approximately the same distribution:
 $$H_0: \text{ the medians of the two groups are equal }  $$
 $$H_a: \text{ the medians of the two groups are NOT equal }   $$
 If those distributions are also symmetric and have similar variance, then Mann-Whitney-Wilcoxon can be interpretted as testing for a difference in means. When the data does not have the same shape, Mann-Whitney-Wilcoxon is a test of __dominance__ between distributions. __Distributional dominance__ is the notion that one group's distribution is located at larger values than another, probabilistically speaking.  Formally, a random variable A has dominance over random variable B if $P(A x) \geq P(B\geq x)$ for all $x$, and for some $x$, $P(A\geq x) > P(B\geq x)$.
@@ -1157,20 +1159,19 @@ wilcox.test(Sale_Price ~ Central_Air, data = ames)
 ```
 
 
-### Python Code
+#### Python Code
 
 QQ plots for those homes with Central Air and without Central Air:
 ```{python}
-yes=r.ames[r.ames["Central_Air"]=="Y"]
-sma.qqplot(yes["Sale_Price"], line='45',fit=True)
 
+p = (
+    ggplot(ames_py, aes(sample='Sale_Price', color='Central_Air')) +
+    stat_qq() +
+    stat_qq_line()
+)
 
-```
+p.show
 
-
-```{python}
-no=r.ames[r.ames["Central_Air"]=="N"]
-sma.qqplot(no["Sale_Price"], line='45',fit=True)
 ```
 
 

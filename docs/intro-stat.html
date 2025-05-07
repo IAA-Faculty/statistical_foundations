@@ -177,7 +177,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.5.2" data-path="intro-stat.html"><a href="intro-stat.html#ftest"><i class="fa fa-check"></i><b>1.5.2</b> Testing Equality of Variances</a></li>
 <li class="chapter" data-level="1.5.3" data-path="intro-stat.html"><a href="intro-stat.html#tsttest"><i class="fa fa-check"></i><b>1.5.3</b> Testing Equality of Means</a></li>
 <li class="chapter" data-level="1.5.4" data-path="intro-stat.html"><a href="intro-stat.html#wilcoxon"><i class="fa fa-check"></i><b>1.5.4</b> Mann-Whitney-Wilcoxon Test</a></li>
-<li class="chapter" data-level="1.5.5" data-path="intro-stat.html"><a href="intro-stat.html#python-code-10"><i class="fa fa-check"></i><b>1.5.5</b> Python Code</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="slr.html"><a href="slr.html"><i class="fa fa-check"></i><b>2</b> Introduction to ANOVA and Linear Regression</a>
@@ -2057,34 +2056,28 @@ We conduct formal tests as follows:</p>
 <span class="math display">\[H_a: \sigma_1^2 \neq \sigma_2^2\]</span></p>
 <p>The F-Test is invoked with the <code>var.test</code> function, which takes as input a <code>formula</code>. A formula is an R object most often created using the <code>~</code> operator, for example <code>y ~ x + z</code>, interpreted as a specification that the response <code>y</code> is to be predicted with the inputs <code>x</code> and <code>z</code>. For our present discussion on two-sample t-tests, we might think of predicting our continuous attribute with our binary attribute.</p>
 <p>The following code checks whether the distributions of MPG within each country have the same variance.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="intro-stat.html#cb85-1" tabindex="-1"></a><span class="fu">var.test</span>(MPG<span class="sc">~</span>Country,<span class="at">data=</span>cars)</span></code></pre></div>
-<pre><code>## 
-##  F test to compare two variances
-## 
-## data:  MPG by Country
-## F = 1.3949, num df = 78, denom df = 248, p-value = 0.05848
-## alternative hypothesis: true ratio of variances is not equal to 1
-## 95 percent confidence interval:
-##  0.9882466 2.0380519
-## sample estimates:
-## ratio of variances 
-##           1.394915</code></pre>
-<p>The results from this test are very close to the level of significance. In this instance, I am going to opt for the <code>var.equal=FALSE</code> option in the <code>t.test()</code> procedure.</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="intro-stat.html#cb85-1" tabindex="-1"></a><span class="fu">leveneTest</span>(MPG<span class="sc">~</span>Country,<span class="at">data=</span>cars)</span></code></pre></div>
+<pre><code>## Warning in leveneTest.default(y = y, group = group, ...): group coerced to
+## factor.</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##        Df F value Pr(&gt;F)
+## group   1  2.6981 0.1014
+##       326</code></pre>
 </div>
 <div id="tsttest" class="section level3 hasAnchor" number="1.5.3">
 <h3><span class="header-section-number">1.5.3</span> Testing Equality of Means<a href="intro-stat.html#tsttest" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The two-sample t-test is performed by including a binary grouping variable along with the variable of interest into the <code>t.test()</code> function. Below we test whether the mean MPG is the same for cars made in the US versus cars made in Japan, and we include the <code>var.equal=FALSE</code>. The null hypothesis for the t-test is that the means of the two groups are equal:
 <span class="math display">\[H_0: \mu_1 = \mu_2\]</span>
 and the alternative hypothesis is <span class="math display">\[H_a: \mu_1 \neq \mu_2\]</span></p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="intro-stat.html#cb87-1" tabindex="-1"></a><span class="fu">t.test</span>(MPG<span class="sc">~</span>Country, <span class="at">data=</span>cars, <span class="at">var.equal =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="intro-stat.html#cb88-1" tabindex="-1"></a><span class="fu">t.test</span>(MPG<span class="sc">~</span>Country, <span class="at">data=</span>cars, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
-##  Welch Two Sample t-test
+##  Two Sample t-test
 ## 
 ## data:  MPG by Country
-## t = 13.551, df = 115.64, p-value &lt; 2.2e-16
+## t = 14.767, df = 326, p-value &lt; 2.2e-16
 ## alternative hypothesis: true difference in means between group Japanese and group US is not equal to 0
 ## 95 percent confidence interval:
-##   8.808417 11.824291
+##   8.942004 11.690704
 ## sample estimates:
 ## mean in group Japanese       mean in group US 
 ##               30.48101               20.16466</code></pre>
@@ -2092,56 +2085,58 @@ and the alternative hypothesis is <span class="math display">\[H_a: \mu_1 \neq \
 <div id="python-code-9" class="section level4 hasAnchor" number="1.5.3.1">
 <h4><span class="header-section-number">1.5.3.1</span> Python Code<a href="intro-stat.html#python-code-9" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>For testing the cars data set:</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb89-1"><a href="intro-stat.html#cb89-1" tabindex="-1"></a>py_cars <span class="op">=</span> pd.read_csv(<span class="st">&quot;https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/master/cars.csv&quot;</span>)</span>
-<span id="cb89-2"><a href="intro-stat.html#cb89-2" tabindex="-1"></a>p <span class="op">=</span> (</span>
-<span id="cb89-3"><a href="intro-stat.html#cb89-3" tabindex="-1"></a>    ggplot(py_cars, aes(sample<span class="op">=</span><span class="st">&#39;MPG&#39;</span>, color<span class="op">=</span><span class="st">&#39;Country&#39;</span>)) <span class="op">+</span></span>
-<span id="cb89-4"><a href="intro-stat.html#cb89-4" tabindex="-1"></a>    stat_qq() <span class="op">+</span></span>
-<span id="cb89-5"><a href="intro-stat.html#cb89-5" tabindex="-1"></a>    stat_qq_line()</span>
-<span id="cb89-6"><a href="intro-stat.html#cb89-6" tabindex="-1"></a>)</span>
-<span id="cb89-7"><a href="intro-stat.html#cb89-7" tabindex="-1"></a></span>
-<span id="cb89-8"><a href="intro-stat.html#cb89-8" tabindex="-1"></a>p.show</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb90-1"><a href="intro-stat.html#cb90-1" tabindex="-1"></a>py_cars <span class="op">=</span> pd.read_csv(<span class="st">&quot;https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/master/cars.csv&quot;</span>)</span>
+<span id="cb90-2"><a href="intro-stat.html#cb90-2" tabindex="-1"></a>p <span class="op">=</span> (</span>
+<span id="cb90-3"><a href="intro-stat.html#cb90-3" tabindex="-1"></a>    ggplot(py_cars, aes(sample<span class="op">=</span><span class="st">&#39;MPG&#39;</span>, color<span class="op">=</span><span class="st">&#39;Country&#39;</span>)) <span class="op">+</span></span>
+<span id="cb90-4"><a href="intro-stat.html#cb90-4" tabindex="-1"></a>    stat_qq() <span class="op">+</span></span>
+<span id="cb90-5"><a href="intro-stat.html#cb90-5" tabindex="-1"></a>    stat_qq_line()</span>
+<span id="cb90-6"><a href="intro-stat.html#cb90-6" tabindex="-1"></a>)</span>
+<span id="cb90-7"><a href="intro-stat.html#cb90-7" tabindex="-1"></a></span>
+<span id="cb90-8"><a href="intro-stat.html#cb90-8" tabindex="-1"></a>p.show</span></code></pre></div>
 <pre><code>## &lt;string&gt;:2: FutureWarning: Using repr(plot) to draw and show the plot figure is deprecated and will be removed in a future version. Use plot.show().
 ## &lt;bound method ggplot.show of &lt;Figure Size: (640 x 480)&gt;&gt;</code></pre>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-37-1.png" width="614" /></p>
 <p>Test for Normality:</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb91-1"><a href="intro-stat.html#cb91-1" tabindex="-1"></a>sma.stats.diagnostic.normal_ad(py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;US&#39;</span>][<span class="st">&#39;MPG&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb92-1"><a href="intro-stat.html#cb92-1" tabindex="-1"></a>sma.stats.diagnostic.normal_ad(py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;US&#39;</span>][<span class="st">&#39;MPG&#39;</span>])</span></code></pre></div>
 <pre><code>## (1.0993725351195565, 0.006880028084693556)</code></pre>
-<div class="sourceCode" id="cb93"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb93-1"><a href="intro-stat.html#cb93-1" tabindex="-1"></a>sma.stats.diagnostic.normal_ad(py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;Japanese&#39;</span>][<span class="st">&#39;MPG&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb94-1"><a href="intro-stat.html#cb94-1" tabindex="-1"></a>sma.stats.diagnostic.normal_ad(py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;Japanese&#39;</span>][<span class="st">&#39;MPG&#39;</span>])</span></code></pre></div>
 <pre><code>## (0.7338917066708177, 0.053548986754636846)</code></pre>
 <p>Test for equality of variance (need to define a function for the F-test):</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb95-1"><a href="intro-stat.html#cb95-1" tabindex="-1"></a>US<span class="op">=</span>py_cars[py_cars[<span class="st">&quot;Country&quot;</span>]<span class="op">==</span><span class="st">&quot;US&quot;</span>]</span>
-<span id="cb95-2"><a href="intro-stat.html#cb95-2" tabindex="-1"></a>Jap<span class="op">=</span>py_cars[py_cars[<span class="st">&quot;Country&quot;</span>]<span class="op">==</span><span class="st">&quot;Japanese&quot;</span>]</span>
-<span id="cb95-3"><a href="intro-stat.html#cb95-3" tabindex="-1"></a></span>
-<span id="cb95-4"><a href="intro-stat.html#cb95-4" tabindex="-1"></a>np.var(US[<span class="st">&quot;MPG&quot;</span>],ddof<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb96-1"><a href="intro-stat.html#cb96-1" tabindex="-1"></a>US<span class="op">=</span>py_cars[py_cars[<span class="st">&quot;Country&quot;</span>]<span class="op">==</span><span class="st">&quot;US&quot;</span>]</span>
+<span id="cb96-2"><a href="intro-stat.html#cb96-2" tabindex="-1"></a>Jap<span class="op">=</span>py_cars[py_cars[<span class="st">&quot;Country&quot;</span>]<span class="op">==</span><span class="st">&quot;Japanese&quot;</span>]</span>
+<span id="cb96-3"><a href="intro-stat.html#cb96-3" tabindex="-1"></a></span>
+<span id="cb96-4"><a href="intro-stat.html#cb96-4" tabindex="-1"></a>np.var(US[<span class="st">&quot;MPG&quot;</span>],ddof<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## 26.742939499935243</code></pre>
-<div class="sourceCode" id="cb97"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb97-1"><a href="intro-stat.html#cb97-1" tabindex="-1"></a>np.var(Jap[<span class="st">&quot;MPG&quot;</span>],ddof<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb98-1"><a href="intro-stat.html#cb98-1" tabindex="-1"></a>np.var(Jap[<span class="st">&quot;MPG&quot;</span>],ddof<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## 37.30412203829926</code></pre>
-<div class="sourceCode" id="cb99"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb99-1"><a href="intro-stat.html#cb99-1" tabindex="-1"></a><span class="co">#define F-test function</span></span>
-<span id="cb99-2"><a href="intro-stat.html#cb99-2" tabindex="-1"></a><span class="kw">def</span> f_test(x, y):</span>
-<span id="cb99-3"><a href="intro-stat.html#cb99-3" tabindex="-1"></a>    x <span class="op">=</span> np.array(x)</span>
-<span id="cb99-4"><a href="intro-stat.html#cb99-4" tabindex="-1"></a>    y <span class="op">=</span> np.array(y)</span>
-<span id="cb99-5"><a href="intro-stat.html#cb99-5" tabindex="-1"></a>    f <span class="op">=</span> np.var(x, ddof<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span>np.var(y, ddof<span class="op">=</span><span class="dv">1</span>) <span class="co">#calculate F test statistic </span></span>
-<span id="cb99-6"><a href="intro-stat.html#cb99-6" tabindex="-1"></a>    dfn <span class="op">=</span> x.size<span class="op">-</span><span class="dv">1</span> <span class="co">#define degrees of freedom numerator </span></span>
-<span id="cb99-7"><a href="intro-stat.html#cb99-7" tabindex="-1"></a>    dfd <span class="op">=</span> y.size<span class="op">-</span><span class="dv">1</span> <span class="co">#define degrees of freedom denominator </span></span>
-<span id="cb99-8"><a href="intro-stat.html#cb99-8" tabindex="-1"></a>    p <span class="op">=</span> <span class="dv">1</span><span class="op">-</span>stats.f.cdf(f, dfn, dfd) <span class="co">#find p-value of F test statistic </span></span>
-<span id="cb99-9"><a href="intro-stat.html#cb99-9" tabindex="-1"></a>    <span class="cf">return</span> f, p</span>
-<span id="cb99-10"><a href="intro-stat.html#cb99-10" tabindex="-1"></a>  </span>
-<span id="cb99-11"><a href="intro-stat.html#cb99-11" tabindex="-1"></a>f_test(US[<span class="st">&quot;MPG&quot;</span>],Jap[<span class="st">&quot;MPG&quot;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb100-1"><a href="intro-stat.html#cb100-1" tabindex="-1"></a><span class="co">#define F-test function</span></span>
+<span id="cb100-2"><a href="intro-stat.html#cb100-2" tabindex="-1"></a><span class="kw">def</span> f_test(x, y):</span>
+<span id="cb100-3"><a href="intro-stat.html#cb100-3" tabindex="-1"></a>    x <span class="op">=</span> np.array(x)</span>
+<span id="cb100-4"><a href="intro-stat.html#cb100-4" tabindex="-1"></a>    y <span class="op">=</span> np.array(y)</span>
+<span id="cb100-5"><a href="intro-stat.html#cb100-5" tabindex="-1"></a>    f <span class="op">=</span> np.var(x, ddof<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span>np.var(y, ddof<span class="op">=</span><span class="dv">1</span>) <span class="co">#calculate F test statistic </span></span>
+<span id="cb100-6"><a href="intro-stat.html#cb100-6" tabindex="-1"></a>    dfn <span class="op">=</span> x.size<span class="op">-</span><span class="dv">1</span> <span class="co">#define degrees of freedom numerator </span></span>
+<span id="cb100-7"><a href="intro-stat.html#cb100-7" tabindex="-1"></a>    dfd <span class="op">=</span> y.size<span class="op">-</span><span class="dv">1</span> <span class="co">#define degrees of freedom denominator </span></span>
+<span id="cb100-8"><a href="intro-stat.html#cb100-8" tabindex="-1"></a>    p <span class="op">=</span> <span class="dv">1</span><span class="op">-</span>stats.f.cdf(f, dfn, dfd) <span class="co">#find p-value of F test statistic </span></span>
+<span id="cb100-9"><a href="intro-stat.html#cb100-9" tabindex="-1"></a>    <span class="cf">return</span> f, p</span>
+<span id="cb100-10"><a href="intro-stat.html#cb100-10" tabindex="-1"></a>  </span>
+<span id="cb100-11"><a href="intro-stat.html#cb100-11" tabindex="-1"></a>f_test(US[<span class="st">&quot;MPG&quot;</span>],Jap[<span class="st">&quot;MPG&quot;</span>])</span></code></pre></div>
 <pre><code>## (0.7168896636269548, 0.9707618911603813)</code></pre>
 <p>Or can do Levene’s test:</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb101-1"><a href="intro-stat.html#cb101-1" tabindex="-1"></a>sp.stats.levene(py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;US&#39;</span>][<span class="st">&#39;MPG&#39;</span>], py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;Japanese&#39;</span>][<span class="st">&#39;MPG&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb102-1"><a href="intro-stat.html#cb102-1" tabindex="-1"></a>sp.stats.levene(py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;US&#39;</span>][<span class="st">&#39;MPG&#39;</span>], py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;Japanese&#39;</span>][<span class="st">&#39;MPG&#39;</span>])</span></code></pre></div>
 <pre><code>## LeveneResult(statistic=2.698137119235061, pvalue=0.10142974483944626)</code></pre>
 <p>T-test for two sample means:</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb103-1"><a href="intro-stat.html#cb103-1" tabindex="-1"></a>sp.stats.ttest_ind(py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;US&#39;</span>][<span class="st">&#39;MPG&#39;</span>], py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;Japanese&#39;</span>][<span class="st">&#39;MPG&#39;</span>], equal_var <span class="op">=</span> <span class="va">False</span>)</span></code></pre></div>
-<pre><code>## TtestResult(statistic=-13.550646343940725, pvalue=1.2512223268375437e-25, df=115.63536911707112)</code></pre>
+<div class="sourceCode" id="cb104"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb104-1"><a href="intro-stat.html#cb104-1" tabindex="-1"></a>sp.stats.ttest_ind(py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;US&#39;</span>][<span class="st">&#39;MPG&#39;</span>], py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;Japanese&#39;</span>][<span class="st">&#39;MPG&#39;</span>], equal_var <span class="op">=</span> <span class="va">True</span>)</span></code></pre></div>
+<pre><code>## TtestResult(statistic=-14.767000838703165, pvalue=3.8463879746671766e-38, df=326.0)</code></pre>
 </div>
 </div>
 <div id="wilcoxon" class="section level3 hasAnchor" number="1.5.4">
 <h3><span class="header-section-number">1.5.4</span> Mann-Whitney-Wilcoxon Test<a href="intro-stat.html#wilcoxon" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Looking at Figure <a href="intro-stat.html#fig:qqplotcentralair">1.16</a> we see that the Normality assumption within each level of Central Air does not hold:</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="intro-stat.html#cb105-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ames, <span class="fu">aes</span>(<span class="at">sample =</span> Sale_Price, <span class="at">color =</span> Central_Air)) <span class="sc">+</span></span>
-<span id="cb105-2"><a href="intro-stat.html#cb105-2" tabindex="-1"></a>     <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
-<span id="cb105-3"><a href="intro-stat.html#cb105-3" tabindex="-1"></a>     <span class="fu">stat_qq_line</span>()</span></code></pre></div>
+<div id="r-code-10" class="section level4 hasAnchor" number="1.5.4.1">
+<h4><span class="header-section-number">1.5.4.1</span> R code:<a href="intro-stat.html#r-code-10" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="intro-stat.html#cb106-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ames, <span class="fu">aes</span>(<span class="at">sample =</span> Sale_Price, <span class="at">color =</span> Central_Air)) <span class="sc">+</span></span>
+<span id="cb106-2"><a href="intro-stat.html#cb106-2" tabindex="-1"></a>     <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
+<span id="cb106-3"><a href="intro-stat.html#cb106-3" tabindex="-1"></a>     <span class="fu">stat_qq_line</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:qqplotcentralair"></span>
 <img src="bookdownproj_files/figure-html/qqplotcentralair-3.png" alt="QQ-Plot: Quantiles of Sales Price vs. quantiles of a theoretical normal distribution with same mean and standard deviation, for each level of Central Air. " width="672" />
 <p class="caption">
@@ -2149,7 +2144,7 @@ Figure 1.16: QQ-Plot: Quantiles of Sales Price vs. quantiles of a theoretical n
 </p>
 </div>
 <p>In this situation, the best way to proceed would be with a non-parametric test. The Mann-Whitney-Wilcoxon test is not identical to the t-test in its null and alternative hypotheses, but it aims to answer the same question about an association between the binary attribute and the continuous attribute.</p>
-<p>The null and alternative hypotheses for this test are typically defined as follows, so long as the two groups <em>have</em> the same shape:
+<p>The null and alternative hypotheses for this test are typically defined as follows, so long as the two groups <em>have</em> the approximately the same distribution:
 <span class="math display">\[H_0: \text{ the medians of the two groups are equal }  \]</span>
 <span class="math display">\[H_a: \text{ the medians of the two groups are NOT equal }   \]</span>
 If those distributions are also symmetric and have similar variance, then Mann-Whitney-Wilcoxon can be interpretted as testing for a difference in means. When the data does not have the same shape, Mann-Whitney-Wilcoxon is a test of <strong>dominance</strong> between distributions. <strong>Distributional dominance</strong> is the notion that one group’s distribution is located at larger values than another, probabilistically speaking. Formally, a random variable A has dominance over random variable B if <span class="math inline">\(P(A x) \geq P(B\geq x)\)</span> for all <span class="math inline">\(x\)</span>, and for some <span class="math inline">\(x\)</span>, <span class="math inline">\(P(A\geq x) &gt; P(B\geq x)\)</span>.</p>
@@ -2178,7 +2173,7 @@ Difference in location. <br> (distributional dominance)
 </tr>
 </table>
 <p>To perform this test, we use the <code>wilcox.test()</code> function, whose inputs are identical to the <code>t.test()</code> function.</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="intro-stat.html#cb106-1" tabindex="-1"></a><span class="fu">wilcox.test</span>(Sale_Price <span class="sc">~</span> Central_Air, <span class="at">data =</span> ames)</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="intro-stat.html#cb107-1" tabindex="-1"></a><span class="fu">wilcox.test</span>(Sale_Price <span class="sc">~</span> Central_Air, <span class="at">data =</span> ames)</span></code></pre></div>
 <pre><code>## 
 ##  Wilcoxon rank sum test with continuity correction
 ## 
@@ -2186,19 +2181,24 @@ Difference in location. <br> (distributional dominance)
 ## W = 63164, p-value &lt; 2.2e-16
 ## alternative hypothesis: true location shift is not equal to 0</code></pre>
 </div>
-<div id="python-code-10" class="section level3 hasAnchor" number="1.5.5">
-<h3><span class="header-section-number">1.5.5</span> Python Code<a href="intro-stat.html#python-code-10" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="python-code-10" class="section level4 hasAnchor" number="1.5.4.2">
+<h4><span class="header-section-number">1.5.4.2</span> Python Code<a href="intro-stat.html#python-code-10" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>QQ plots for those homes with Central Air and without Central Air:</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb108-1"><a href="intro-stat.html#cb108-1" tabindex="-1"></a>yes<span class="op">=</span>r.ames[r.ames[<span class="st">&quot;Central_Air&quot;</span>]<span class="op">==</span><span class="st">&quot;Y&quot;</span>]</span>
-<span id="cb108-2"><a href="intro-stat.html#cb108-2" tabindex="-1"></a>sma.qqplot(yes[<span class="st">&quot;Sale_Price&quot;</span>], line<span class="op">=</span><span class="st">&#39;45&#39;</span>,fit<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb109-1"><a href="intro-stat.html#cb109-1" tabindex="-1"></a>no<span class="op">=</span>r.ames[r.ames[<span class="st">&quot;Central_Air&quot;</span>]<span class="op">==</span><span class="st">&quot;N&quot;</span>]</span>
-<span id="cb109-2"><a href="intro-stat.html#cb109-2" tabindex="-1"></a>sma.qqplot(no[<span class="st">&quot;Sale_Price&quot;</span>], line<span class="op">=</span><span class="st">&#39;45&#39;</span>,fit<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-44-3.png" width="672" /></p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb109-1"><a href="intro-stat.html#cb109-1" tabindex="-1"></a>p <span class="op">=</span> (</span>
+<span id="cb109-2"><a href="intro-stat.html#cb109-2" tabindex="-1"></a>    ggplot(ames_py, aes(sample<span class="op">=</span><span class="st">&#39;Sale_Price&#39;</span>, color<span class="op">=</span><span class="st">&#39;Central_Air&#39;</span>)) <span class="op">+</span></span>
+<span id="cb109-3"><a href="intro-stat.html#cb109-3" tabindex="-1"></a>    stat_qq() <span class="op">+</span></span>
+<span id="cb109-4"><a href="intro-stat.html#cb109-4" tabindex="-1"></a>    stat_qq_line()</span>
+<span id="cb109-5"><a href="intro-stat.html#cb109-5" tabindex="-1"></a>)</span>
+<span id="cb109-6"><a href="intro-stat.html#cb109-6" tabindex="-1"></a></span>
+<span id="cb109-7"><a href="intro-stat.html#cb109-7" tabindex="-1"></a>p.show</span></code></pre></div>
+<pre><code>## &lt;string&gt;:2: FutureWarning: Using repr(plot) to draw and show the plot figure is deprecated and will be removed in a future version. Use plot.show().
+## &lt;bound method ggplot.show of &lt;Figure Size: (640 x 480)&gt;&gt;</code></pre>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-43-1.png" width="614" /></p>
 <p>Mann-Whitney Wilcoxon test:</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb110-1"><a href="intro-stat.html#cb110-1" tabindex="-1"></a>sp.stats.mannwhitneyu(ames_py[ames_py[<span class="st">&quot;Central_Air&quot;</span>] <span class="op">==</span> <span class="st">&#39;Y&#39;</span>][<span class="st">&#39;Sale_Price&#39;</span>], ames_py[ames_py[<span class="st">&quot;Central_Air&quot;</span>] <span class="op">==</span> <span class="st">&#39;N&#39;</span>][<span class="st">&#39;Sale_Price&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb111-1"><a href="intro-stat.html#cb111-1" tabindex="-1"></a>sp.stats.mannwhitneyu(ames_py[ames_py[<span class="st">&quot;Central_Air&quot;</span>] <span class="op">==</span> <span class="st">&#39;Y&#39;</span>][<span class="st">&#39;Sale_Price&#39;</span>], ames_py[ames_py[<span class="st">&quot;Central_Air&quot;</span>] <span class="op">==</span> <span class="st">&#39;N&#39;</span>][<span class="st">&#39;Sale_Price&#39;</span>])</span></code></pre></div>
 <pre><code>## MannwhitneyuResult(statistic=472700.0, pvalue=1.2086496396714786e-71)</code></pre>
 
+</div>
 </div>
 </div>
 </div>
