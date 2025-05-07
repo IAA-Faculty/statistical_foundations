@@ -198,3 +198,7 @@ r-code-5
 python-code-34
 python-code-35
 python-code-36
+r-code-6
+r-code-7
+r-code-8
+r-code-9

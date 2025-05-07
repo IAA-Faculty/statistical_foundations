@@ -38,36 +38,6 @@ library(reticulate)
 use_python("C:\\ProgramData\\Anaconda3\\python.exe")
 ```
 
-#### Python Code:
-
-```{python}
-
-import pandas as pd
-import numpy as np
-from sklearn.preprocessing import OneHotEncoder
-import seaborn as sns
-import matplotlib.pyplot as plt
-from numpy import random
-import statsmodels.api as sma
-import statsmodels as sm
-import pylab as py
-import scipy.stats as stats
-import scipy as sp
-import statsmodels.formula.api as smf
-import sklearn
-from sklearn.linear_model import Ridge
-from sklearn.linear_model import Lasso
-from sklearn.linear_model import ElasticNet
-from sklearn.metrics import mean_squared_error
-
-
-## This brings in the Ames housing data
-
-ames_py = pd.read_csv('https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/refs/heads/master/Ames.csv')
-
-ames_py
-```
-
 #### R code:
 
 ```{r eval=F, message=F,warning=FALSE}
@@ -103,6 +73,36 @@ ames <- make_ordinal_ames()
 str(ames)
 ```
 
+#### Python Code:
+
+```{python}
+
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import OneHotEncoder
+import seaborn as sns
+import matplotlib.pyplot as plt
+from numpy import random
+import statsmodels.api as sma
+import statsmodels as sm
+import pylab as py
+import scipy.stats as stats
+import scipy as sp
+import statsmodels.formula.api as smf
+import sklearn
+from sklearn.linear_model import Ridge
+from sklearn.linear_model import Lasso
+from sklearn.linear_model import ElasticNet
+from sklearn.metrics import mean_squared_error
+
+
+## This brings in the Ames housing data
+
+ames_py = pd.read_csv('https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/refs/heads/master/Ames.csv')
+
+ames_py
+```
+
 
 ## Exploratory Data Analysis (EDA) {#eda}
 
@@ -130,10 +130,6 @@ The crucial first step to any data science problem is exploratory data analysis 
 
 
  Throughout the textbook, we will continue to use a real-estate data set that contains the `sale_price` and numerous physical attributes of nearly 3,000 homes in Ames, Iowa in the early 2000s. The chunks above provide the code to import the Ames housing data into both Python and R.
-
-
-
-
 
 
 
@@ -549,7 +545,7 @@ knitr::include_graphics("img/bimodal.png")
 
 There are many ways to obtain all of the statistics described in the preceding sections, below we highlight 3:
 
-### R code:
+#### R code:
 
 * The `describe` function from the `Hmisc` package which can work on the entire dataset or a subset of columns.
 
@@ -572,7 +568,7 @@ ames %>% group_by(Exter_Qual) %>% dplyr::summarise(average = mean(Sale_Price), s
 summary(ames$Sale_Price)
 ```
 
-### Python Code: 
+#### Python code: 
 
 Getting summary statistics by Sales Price and External Quality:
 
@@ -642,7 +638,7 @@ Three common plots for examining the distribution of your data values:
 A histogram shows the shape of a univariate distribution. Each bar in the histogram represents a group of values (a _bin_). The height of the bar represents the either the frequency of or the percent of values in the bin. The width and number of bins is determined automatically, but the user can adjust them to see more or less detail in the histogram. 
 
 
-### R code
+#### R code
 
 Figure \@ref(fig:histogram) demonstrated a histogram of sale price. Sometimes it's nice to overlay a continuous approximation to the underlying distribution using a _kernal density estimator_  with the `geom_density` plot, demonstrated in Figure \@ref(fig:histwithkernal).
 
@@ -688,7 +684,7 @@ ggplot(ames,aes(x=Sale_Price/1000)) +
 
 ```
 
-### Python Code:
+#### Python Code:
 
 Overlay a density plot on top of a the Sales Price histogram:
 
@@ -780,7 +776,7 @@ A __normal probability plot__ (or QQ plot) graphs the sorted data values against
 Figure \@ref(fig:qqplot) shows a QQ plot for `Sale_Price`, and we can conclude that the variable is not Normally distributed (in fact it is right skewed). 
 
 
-### R code:
+#### R code:
 
 ```{r label='qqplot',fig.align='center',fig.cap='QQ-Plot: Quantiles of Sale_Price vs. quantiles of a theoretical normal distribution with same mean and standard deviation. Conclusion: Sale_Price is _not_ normally distributed due to a problem with skew.'}
 ggplot(data = ames, aes(sample = Sale_Price/1000)) +
@@ -788,7 +784,7 @@ ggplot(data = ames, aes(sample = Sale_Price/1000)) +
   stat_qq_line()
 ```
 
-### Python code:
+#### Python code:
 
 
 ```{python}
@@ -819,6 +815,8 @@ Many of us have become familiar with the _idea_ of a box plot, but when pressed 
 ```{r label='boxplot',fig.align='center',fig.cap='Anatomy of a Box Plot.',echo=F}
 knitr::include_graphics("img/boxplot.png")
 ```
+
+#### R code:
 
 Figure \@ref(fig:rboxplot) shows the boxplot of `Sale_Price`.
 
@@ -866,8 +864,6 @@ plt.show()
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Assuming 'ames_py' is your DataFrame containing the 'Central_Air' and 'Sale_Price' columns
-# Create a list of data to plot
 data_to_plot = [ames_py[ames_py['Central_Air'] == category]['Sale_Price'] for category in ames_py['Central_Air'].unique()]
 
 # Create the box plot
@@ -917,6 +913,9 @@ It's an important nuance to remember that the population mean is a fixed number.
 
 To obtain a confidence interval for a mean in R, we can use the `t.test()` function, as shown below.
 
+
+#### R code: 
+
 ```{r}
 t.test(ames$Sale_Price, conf.level = 0.95)
 ```
@@ -935,7 +934,7 @@ ls(t.test(ames$Sale_Price, conf.level = 0.95))
 results <- t.test(ames$Sale_Price, conf.level = 0.95)
 ```
 
-### Python Code
+#### Python Code
 
 Confidence intervals:
 
@@ -967,6 +966,7 @@ Suppose we flip the coin 100 times and count 65 heads. How likely is it that we 
 
 If we want to test whether the mean of continuous variable is equal to hypothesized value, we can use the `t.test()` function. The following code tests whether the average sale price of homes from Ames, Iowa over the data time period is \$178,000. For now, we'll use the classic $\alpha=0.05$ as our significance level. If we have enough evidence to reject this null hypothesis, we will conclude that the mean sale price is significantly different than \$178,000 for a two-tailed test (the default):
 
+#### R code:
 
 ```{r}
 t.test(ames$Sale_Price, mu = 178000)
@@ -984,7 +984,7 @@ t.test(ames$Sale_Price, mu = 178000, alternative = 'greater')
 
 In this second test, we see that we actually _do have enough evidence_ to claim that the true mean is greater than \$178,000 at the $\alpha=0.05$ level.
 
-### Python Code
+#### Python Code
 
 
 Proportion test:
@@ -1000,14 +1000,22 @@ One sample mean test (two-sided):
 
 ```{python}
 d = sm.stats.weightstats.DescrStatsW(ames_py['Sale_Price'])
-d.ttest_mean(value = 178000, alternative = 'two-sided')
+test_stat, p_val, df = d.ttest_mean(value=178000, alternative='larger')
+
+print(f"Test statistic (t): {test_stat}")
+print(f"P-value: {p_val}")
+print(f"Degrees of freedom: {df}")
 ```
 
 One sample mean test (greater than):
 
 ```{python}
 d = sm.stats.weightstats.DescrStatsW(ames_py['Sale_Price'])
-d.ttest_mean(value = 178000, alternative = 'larger')
+test_stat, p_val, df = d.ttest_mean(value = 178000, alternative = 'larger')
+
+print(f"Test statistic (t): {test_stat}")
+print(f"P-value: {p_val}")
+print(f"Degrees of freedom: {df}")
 ```
 
 
@@ -1031,6 +1039,10 @@ The $1^{st}$ assumption is not easily checked unless the data is generated over 
 ### Testing Normality of Groups {#testnorm}
 
 We can test the normality assumption either graphically or through formal statistical tests. The best graphical test of normality is a QQ-Plot, though histograms are often used as well. For this example, we will use the cars data set.  This data set shows the MPG for cars made in the US and cars made in Japan:
+
+
+#### R code: 
+
 
 ```{r label='qqplotcars',fig.align='center',fig.cap="QQ-Plot: Quantiles of MPG vs. quantiles of a theoretical normal distribution with same mean and standard deviation, for each Country. "}
 
@@ -1082,12 +1094,12 @@ t.test(MPG~Country, data=cars, var.equal = FALSE)
 
 Our final conclusion from the t-test is the _rejection of the null hypothesis_ and the conclusion that _cars made in the US versus cars made in Japan have significantly different MPG. _
 
-### Python Code
+#### Python Code
 
 For testing the cars data set:
 
 ```{python}
-py_cars = r.cars
+py_cars = pd.read_csv("https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/master/cars.csv")
 US = py_cars[py_cars["Country"]=="US"]
 sma.qqplot(US["MPG"], line='45',fit=True)
 
@@ -1142,9 +1154,6 @@ T-test for two sample means:
 ```{python}
 sp.stats.ttest_ind(py_cars[py_cars["Country"] == 'US']['MPG'], py_cars[py_cars["Country"] == 'Japanese']['MPG'], equal_var = False)
 ```
-
-
-
 
 
 ### Mann-Whitney-Wilcoxon Test {#wilcoxon}
