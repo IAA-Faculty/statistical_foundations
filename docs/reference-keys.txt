@@ -206,3 +206,6 @@ r-code-10
 bootstrap
 r-function
 python-function
+r-code-11
+r-code-12
+r-code-13

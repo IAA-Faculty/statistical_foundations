@@ -51,8 +51,11 @@ from sklearn.linear_model import Ridge
 from sklearn.linear_model import Lasso
 from sklearn.linear_model import ElasticNet
 from sklearn.metrics import mean_squared_error
-ames_py = r.ames
-ames_py = pd.DataFrame(ames_py)
+from plotnine import *
+
+ames_py = pd.read_csv('https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/refs/heads/master/Ames.csv')
+
+ames_py["Sales"]=ames_py["Sale_Price"]/1000
 
 ```
 
@@ -117,6 +120,9 @@ Since we are taking a random sample, each time you run this functions you will g
 
 The following code demonstrates sampling via the `tidyverse`. This method requires the use of an id variable. If your data set has a unique identifier built in, you may omit the first line of code (after `set.seed()`) and use that unique identifier in the third line.
 
+
+#### R code:
+
 ```{r  message=FALSE}
 library(tidyverse)
 
@@ -133,7 +139,7 @@ dim(test)
 ```
 
 
-### Python Code
+#### Python Code:
 
 To create the training data set in Python
 
@@ -142,16 +148,19 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 
 train,test = train_test_split(ames_py,test_size=0.3,random_state=123)
-train.head()
+print(train.shape)
+print(test.shape)
 ```
 
 
-However, note that this will create a different train/test split.  Therefore, we will just pull in our train/test data set from R.
+However, note that this will create a different train/test split.  Therefore, we will just pull in our train/test data set from Python.
 
-```{python}
-train = r.train
-test = r.test
+```{r}
+train <- py$train
+test <-py$test
 ```
+
+
 
 
 ## Bivariate EDA
@@ -163,6 +172,8 @@ Bivariate exploratory analysis is often used to assess relationships between two
 ### Continuous-Continuous Associations
 
 Let's conduct a preliminary assessment of the relationship between the size of the house in square feet (via `Gr_Liv_Area`) and the `Sale_Price` by creating a scatter plot (only on the training data). Note that we call this a preliminary assessment because we should not declare a statistical relationship without a formal hypothesis test (see Section \@ref(cor)). 
+
+#### R code:
 
 ```{r label='scatterplot',fig.align='center',fig.cap='Scatter plot demonstrating a positive linear relationship'} 
 ggplot(data = train) + 
@@ -188,7 +199,7 @@ ggplot(train) +
 
 This gives us the idea that there may be an association between these two attributes, but it can be tricky to rely solely on this graph without exploring the overall distribution in sale price for each group. While this chart is great for the purposes of _reporting_ (once we've verified the relationship), it's not the best one for exploratory analysis. The next two charts allow us to have much more information on one graphic. 
 
-The frequency histogram in Figure \@ref(fig:overhistogram) allows us to see that much fewer of the homes have a rating of `Excellent` versus the other tiers, a fact that makes it difficult to compare the distributions.  To normalize that quantity and compare the raw probability densities, we can change our axes to density (which is analogous to percentage) and employ a kernel density estimator with the `geom_density` plot as shown in Figure \@ref(fig:overhistogramdensitykernel). We can then clearly see that as the exterior quality of the home "goes up" (in the ordinal sense, not in the linear sense), the sale price of the home also increases.
+The frequency histogram in Figure \@ref(fig:overhistogram) allows us to see that much fewer of the homes have a rating of `Excellent` versus the other tiers, a fact that makes it difficult to compare the distributions.  To normalize that quantity and compare the raw probability densities, we can change our axes to density (which is analogous to percentage) and employ a kernel density estimator with the `geom_density` plot as shown in Figure \@ref(fig:overhistogram). We can then clearly see that as the exterior quality of the home "goes up" (in the ordinal sense, not in the linear sense), the sale price of the home also increases.
 
 ```{r label='overhistogram',fig.align='center',fig.cap='Histogram: Frequency of Sale_Price for varying qualities of home exterior'} 
 ggplot(train,aes(x=Sale_Price/1000, fill=Exter_Qual)) + 
@@ -198,16 +209,6 @@ ggplot(train,aes(x=Sale_Price/1000, fill=Exter_Qual)) +
 
 ```
 
-
-
-```{r label='overhistogramdensitykernel',fig.align='center',fig.cap='Histogram: Density of Sale_Price for varying qualities of home exterior'} 
-ggplot(ames,aes(x=Sale_Price/1000, fill=Exter_Qual)) + 
-  geom_density(alpha=0.2, position="identity") + 
-  labs(x = "Sales Price (Thousands $)")
-    
-  
-    
-```
 
 To further explore the location and spread of the data, we can create box-plots for each group using the following code:
 
@@ -228,16 +229,13 @@ If we want to test whether the `Sale_Price` is different for the different value
 For Continuous-Continuous Associations:
 
 ```{python}
-from scipy.stats import gaussian_kde
+p = (
+  ggplot(train,aes(x = "Gr_Liv_Area", y = "Sales")) + 
+  geom_point() +
+  labs(y = "Sales Price (Thousands $)", x = "Greater Living Area (Sqft)")
+  )
 
-plt.scatter(train['Gr_Liv_Area'], [price/1000 for price in train['Sale_Price']])
-
-# Setting labels
-plt.xlabel('Greater Living Area (Sqft)')
-plt.ylabel('Sales Price (Thousands $)')
-
-# Showing the plot
-plt.show()
+p.show()
 
 
 ```
@@ -246,91 +244,43 @@ plt.show()
 For Continuous-Categorical Associations:
 
 ```{python}
-# Calculate mean Sale Price for each Exterior Quality
-train['Exter_Qual'] = train['Exter_Qual'].cat.remove_unused_categories()
+p = (
+    ggplot(train) +
+    geom_bar(
+        aes(x="Exter_Qual", y="Sale_Price"),
+        stat="summary",
+        fun_y=np.mean,
+        position="dodge"
+    ) +
+    scale_y_continuous(labels=lambda l: ["{:,}".format(int(x)) for x in l])
+) + labs(x="External Quality",y = "Sales Price")
 
-mean_prices = train.groupby('Exter_Qual')['Sale_Price'].mean()
-
-# Plotting the data
-fig, ax = plt.subplots()
-mean_prices.plot(kind='bar', ax=ax)
-
-# Setting labels
-ax.set_ylabel('Sales Price (Thousands $)')
-ax.set_xlabel('Exterior Quality')
-ax.set_title('Average Sale Price by Exterior Quality')
-
-# Displaying the plot
-plt.show()
+p.show()
 ```
+
+Color coded histograms:
 
 
 ```{python}
-ames_py['Sale_Price2'] = ames_py['Sale_Price'] / 1000
-
-# Get unique categories for coloring
-unique_categories = ames_py['Exter_Qual'].unique()
-colors = plt.cm.viridis(np.linspace(0, 1, len(unique_categories)))
-
-# Plotting the data
-fig, ax = plt.subplots()
-
-for category, color in zip(unique_categories, colors):
-    subset = ames_py[ames_py['Exter_Qual'] == category]
-    ax.hist(subset['Sale_Price2'], bins=10, alpha=0.5, label=category, color=color)
-
-# Setting labels
-ax.set_xlabel('Sales Price (Thousands $)')
-ax.set_ylabel('Frequency')
-ax.legend(title='Exter_Qual')
-
-# Displaying the plot
-plt.show()
+p = (
+  ggplot(train,aes(x="Sales", fill="Exter_Qual")) + 
+  geom_histogram(alpha=0.2, position="identity") + 
+  labs(x = "Sales Price (Thousands $)") 
+  )
+p.show()
 ```
 
+Side-by-side boxplots:
 
 ```{python}
-# Get unique categories for coloring
-unique_categories = ames_py['Exter_Qual'].unique()
-colors = plt.cm.viridis(np.linspace(0, 1, len(unique_categories)))
-
-# Plotting the data
-fig, ax = plt.subplots()
-
-for category, color in zip(unique_categories, colors):
-    subset = ames_py[ames_py['Exter_Qual'] == category]
-    kde = gaussian_kde(subset['Sale_Price2'])
-    x = np.linspace(subset['Sale_Price2'].min(), subset['Sale_Price'].max(), 1000)
-    y = kde(x)
-    ax.fill_between(x, y, alpha=0.5, label=category, color=color)
-
-# Setting labels
-ax.set_xlabel('Sales Price (Thousands $)')
-ax.set_ylabel('Density')
-ax.legend(title='Exter_Qual')
-
-# Displaying the plot
-plt.show()
-```
-
-
-```{python}
-# Plotting the data
-fig, ax = plt.subplots()
-
-# Create box plot
-ames_py.boxplot(column='Sale_Price', by='Exter_Qual', ax=ax)
-
-# Set labels
-ax.set_xlabel('Exter_Qual')
-ax.set_ylabel('Sale Price')
-ax.set_title('Sale Price by Exterior Quality')
-
-# Remove the automatic 'Boxplot grouped by Exter_Qual' title
-plt.suptitle('')
-
-# Display the plot
-plt.show()
+p = (
+  ggplot(train, aes(y = "Sales", x = "Exter_Qual", fill = "Exter_Qual")) +
+  geom_boxplot() + 
+  labs(y = "Sales Price (Thousands $)", x = "Exterior Quality Category") +
+  stat_summary(fun_y=np.mean, geom = "point", shape="o", size = 3, color = "red", fill = "red") +
+  scale_fill_brewer(palette="Blues") + theme_classic() + coord_flip()
+  )
+p.show()
 ```
 
 
@@ -346,6 +296,8 @@ __One-way ANOVA__ aims to determine whether there is a difference in the mean of
 
 A one-way ANOVA refers to a single hypothesis test, which is $H_{0}: \mu_{1}=\mu_{2}=...\mu_{k}$ for a predictor variable with $k$ levels against the alternative of at least one difference. We will go back to the cars data set.  There is another cars data set called "cars2" that adds cars from Germany.  We can visualize this information via boxplots and density plots:
 
+R:
+
 ```{r}
 library(ggpubr)
 
@@ -359,8 +311,26 @@ ggdensity(cars2, x = "MPG",
 ```
 
 
+Python: 
+
+```{python}
+cars2 = pd.read_csv("https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/master/cars2.csv")
+
+p = (
+    ggplot(cars2, aes(x="MPG", fill="Country")) +
+    geom_density(alpha=0.3) +  # Overlapping density curves
+    labs(x="MPG")
+)
+
+print(p)
+```
+
+
 
 To test that the means are equal, we can use the function aov.  However, we must first assess the assumptions (normality within each group and variances are equal).  We can assess the normality assumption by using a QQ-plot on the residuals:
+
+
+#### R code: 
 
 ```{r}
 model<-aov(MPG~factor(Country), data=cars2)
@@ -474,28 +444,100 @@ A non-parametric version of the ANOVA test, the Kruskal-Wallis test, is also ava
 
 
 
-### Python Code
-
-Using statsmodels (linear regression approach to ANOVA):
+#### Python Code
+Using a linear regression approach:
 
 ```{python}
 import statsmodels.formula.api as smf
 
-model = smf.ols("Sale_Price ~ C(Exter_Qual)", data = train).fit()
+model = smf.ols("MPG ~ C(Country)", data = cars2).fit()
+
+
+#### Assuming constant variance and Normality:
 model.summary()
 ```
 
+To get the actual F statistic:
+
 
 ```{python}
-sm.api.stats.anova_lm(model, typ=2)
+
+#### Assuming constant variance and Normality:
+anova_table = sm.api.stats.anova_lm(model, typ=2)
+# Extract F-statistic and p-value for the factor of interest
+f_stat = anova_table.loc['C(Country)', 'F']
+p_val = anova_table.loc['C(Country)', 'PR(>F)']
+
+print(f"F-statistic: {f_stat:.4f}")
+print(f"P-value: {p_val:.4g}")
+```
+
+However, you need to test Normality and constant variance first!! To test Normality:
+
+
+```{python}
+cars2["resid"]=model.resid
+p = (
+    ggplot(cars2, aes(sample="resid")) +
+    geom_qq() +
+    geom_qq_line(color="blue", linetype="dashed") +
+    labs(title="QQ Plot of Residuals", x="Theoretical Quantiles", y="Sample Quantiles")
+)
+
+p.show()
 ```
 
 
-Another way of doing it in statsmodels:
+We can perform the Shapiro-Wilks test:
+
+```{python}
+shap_test = sp.stats.shapiro(model.resid)
+
+print(f"P-value is: {shap_test.pvalue:4f}")
+```
+
+Testing homogeneity of variance:
+
+```{python}
+US = cars2[cars2['Country']=='US']['MPG']
+Japan = cars2[cars2['Country']=='Japanese']['MPG']
+Germany = cars2[cars2['Country']=='Germany']['MPG']
+
+sp.stats.levene(US, Japan, Germany)
+```
+
+With visual inspection:
+
+```{python}
+cars2['resid']=model.resid
+cars2['predicted']=model.fittedvalues
+
+p=(ggplot(cars2, aes(x='predicted',y='resid')) + geom_point() +
+          geom_hline(yintercept = 0) + 
+          labs(x="Fitted Values", y="Residuals")
+         )
+
+p.show()
+```
+
+Test of homogeneity of variance if we are not comfortable with Normality:
+
+```{python}
+
+
+sp.stats.fligner(US, Japan, Germany)
+```
+
+There are other functions that can perform a one-way ANOVA.  For example,
+
+Using statsmodels:
 
 
 ```{python}
-sm.stats.oneway.anova_oneway(data = train['Sale_Price'], groups = train['Exter_Qual'], use_var = 'equal', welch_correction = False)
+model  = sm.stats.oneway.anova_oneway(data = cars2['MPG'], groups = cars2['Country'], use_var = 'equal', welch_correction = False)
+
+print(f"The F-statistic is: {model.statistic:.4f}")
+print(f"The p-value is: {model.pvalue:.4f}")
 ```
 
 
@@ -503,44 +545,9 @@ Using Scipy instead of statsmodels:
 
 
 ```{python}
-sp.stats.f_oneway(train['Sale_Price'][train['Exter_Qual'] == 'Excellent'],
-               train['Sale_Price'][train['Exter_Qual'] == 'Good'],
-               train['Sale_Price'][train['Exter_Qual'] == 'Typical'],
-               train['Sale_Price'][train['Exter_Qual'] == 'Fair'])
+sp.stats.f_oneway(US, Japan, Germany)
 ```
 
-
-
-```{python}
-train['pred_anova'] = model.predict()
-train['resid_anova'] = model.resid
-
-train[['Sale_Price', 'pred_anova', 'resid_anova']].head(n = 10)
-```
-
-
-```{python}
-sm.api.qqplot(train['resid_anova'])
-plt.show()
-
-sp.stats.shapiro(model.resid)
-```
-
-
-```{python}
-sp.stats.levene(train['Sale_Price'][train['Exter_Qual'] == 'Excellent'],
-               train['Sale_Price'][train['Exter_Qual'] == 'Good'],
-               train['Sale_Price'][train['Exter_Qual'] == 'Typical'],
-               train['Sale_Price'][train['Exter_Qual'] == 'Fair'])
-```
-
-
-```{python}
-sp.stats.fligner(train['Sale_Price'][train['Exter_Qual'] == 'Excellent'],
-               train['Sale_Price'][train['Exter_Qual'] == 'Good'],
-               train['Sale_Price'][train['Exter_Qual'] == 'Typical'],
-               train['Sale_Price'][train['Exter_Qual'] == 'Fair'])
-```
 
 
 ### Kruskal-Wallis {#kruskal}
@@ -563,16 +570,16 @@ Implementing the Kruskal-Wallis test in R is simple:
 
 
 ```{r}
-ggdensity(train, x = "Sale_Price",
+ggdensity(cars2, x = "MPG",
            add = "mean", rug = TRUE,
-           color = "Exter_Qual", fill = "Exter_Qual")
+           color = "Country", fill = "Country")
 
-model<-aov(Sale_Price ~ factor(Exter_Qual), data = train)
+model<-aov(MPG ~ factor(Country), data = cars2)
 
 ggqqplot(residuals(model))
 
 
-fligner.test(Sale_Price ~ Exter_Qual, data = train) # DOES NOT depend on Normality
+fligner.test(MPG ~ Country, data = cars2) # DOES NOT depend on Normality
 
 kruskal.test(MPG~factor(Country),data=cars2)
 
@@ -585,10 +592,7 @@ Our conclusion would be that the distribution of sale price is different across 
 ### Python Code
 
 ```{python}
-sp.stats.kruskal(train['Sale_Price'][train['Exter_Qual'] == 'Excellent'],
-               train['Sale_Price'][train['Exter_Qual'] == 'Good'],
-               train['Sale_Price'][train['Exter_Qual'] == 'Typical'],
-               train['Sale_Price'][train['Exter_Qual'] == 'Fair'])
+sp.stats.kruskal(US, Germany, Japan)
 ```
 
 
@@ -931,7 +935,7 @@ model_slr.summary()
 train['pred_slr'] = model_slr.predict()
 train['resid_slr'] = model_slr.resid
 
-train[['Sale_Price', 'pred_anova', 'pred_slr']].head(n = 10)
+#train[['Sale_Price', 'pred_anova', 'pred_slr']].head(n = 10)
 ```
 
 
@@ -940,33 +944,4 @@ sm.api.qqplot(train['resid_slr'])
 plt.show()
 ```
 
-
-
-```{python}
-import pandas as pd
-from sklearn.linear_model import LinearRegression
-from sklearn.preprocessing import OneHotEncoder
-
-
-encoder = OneHotEncoder(drop='first')  # drop='first' to avoid dummy variable trap
-central_air_encoded = encoder.fit_transform(train[['Central_Air']])
-
-# Convert encoded variable to DataFrame
-central_air_encoded_df = pd.DataFrame(central_air_encoded.toarray(), columns=encoder.get_feature_names_out(['Central_Air']))
-
-# Concatenate the encoded variable with the original DataFrame
-train_encoded = pd.concat([train[['Sale_Price']], central_air_encoded_df], axis=1)
-
-# Define the feature matrix (X) and target variable (y)
-X = train_encoded[['Central_Air_Y']]  # Selecting the encoded column
-y = train_encoded['Sale_Price']
-
-# Initialize and fit the linear regression model
-model = LinearRegression()
-model.fit(X, y)
-
-# Output the coefficients
-print("Intercept:", model.intercept_)
-print("Coefficient for Central_Air_Y:", model.coef_[0])
-```
 
