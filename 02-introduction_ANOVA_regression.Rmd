@@ -53,9 +53,11 @@ from sklearn.linear_model import ElasticNet
 from sklearn.metrics import mean_squared_error
 from plotnine import *
 
+
 ames_py = pd.read_csv('https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/refs/heads/master/Ames.csv')
 
 ames_py["Sales"]=ames_py["Sale_Price"]/1000
+
 
 ```
 
@@ -659,6 +661,32 @@ dunn.cars <- dunn.test(cars2$MPG,cars2$Country,kw=T,method="bonferroni")
 
 This is a nonparametric test and does not have as much power as the previous multiple comparisons.  Be sure you use the correct test based on what you see in the data.
 
+
+```{r, include=FALSE}
+boot<-function(x1,x2,direction,alpha){
+ x1_boot<-matrix(sample(x1,size=10000*length(x1),replace = T),nrow=10000)
+ x2_boot<-matrix(sample(x2,size=10000*length(x2),replace = T),nrow=10000)
+test_boot<-apply(x1_boot,1,median)-apply(x2_boot,1,median)
+if (direction =="greater") {
+   result <-ifelse(0 >= quantile(test_boot,alpha),"not significant", "significant")
+   p_value <- sum(test_boot <= 0)/10000
+}
+if (direction =="less") {
+   result <-ifelse(0 <= quantile(test_boot,(1-alpha)),"not significant", "significant")
+   p_value <-sum(test_boot >= 0)/10000
+}
+if (direction =="ne") {
+   result <-ifelse((0 >= quantile(test_boot,alpha)) & (0 <= quantile(test_boot,1-alpha)),"not significant", "significant")
+   p_value <-2 * min(sum(test_boot <= 0)/10000, sum(test_boot >= 0)/10000)
+}
+ return(list(as.character(result),p_value))
+}
+
+
+```
+
+
+
 ### Dunnett's Test {#dunnett}
 
 If the plan is to make fewer comparisons, specifically just $k-1$ comparisons where $k$ is the number of groups in your data (indicating you plan to compare all the groups to one specific group, usually the control group), then Dunnett's test would be preferrable to the Tukey-Kramer test. If all pairwise comparisons are not made, the Tukey-Kramer test is overly conservative, creating a confidence level that is much lower than specified by the user. Dunnett's test factors in fewer comparisons and thus should not be used for tests of all pairwise comparisons. 
@@ -671,11 +699,23 @@ dunnettTest(x = cars2$MPG, g = factor(cars2$group))
 ```
 In the output from Dunnett's test, we see that Japanese and German made cars are significantly different than US made cars (note that this does not compare Japanese to German!).
 
-If we are not able to assume equal variances, we Bootstrap two-sample test to compare each group to the control and then adjust the p-value using Bonferroni.
+If we are not able to assume equal variances, we can use the Bootstrap two-sample test to compare each group to the control and then adjust the p-value using Bonferroni.
+
+```{r}
+US=cars2$MPG[cars2$Country=="US"]
+Japan = cars2$MPG[cars2$Country=="Japanese"]
+Germany = cars2$MPG[cars2$Country=="Germany"]
 
 
+US_Japan = boot(US, Japan, 'ne', 0.05)
+x2 = Germany
+US_Germany = boot(US, Germany, 'ne', 0.05)
+pval= c(2*US_Japan[[2]],2*US_Germany[[2]])
+pval
+```
 
-### Python Code
+
+#### Python Code
 
 
 Tukey-Kramer test:
@@ -711,6 +751,68 @@ print(result)
 
 No Dunnett's test in Python. The team at statsmodels is supposedly "working on it".
 
+
+```{python, include=F}
+def boot(x1, x2, direction, alpha):
+    x1 = np.array(x1)
+    x2 = np.array(x2)
+
+    # Bootstrap resampling
+    x1_boot = np.random.choice(x1, size=(10000, len(x1)), replace=True)
+    x2_boot = np.random.choice(x2, size=(10000, len(x2)), replace=True)
+
+    # Compute bootstrapped differences in medians
+    test_boot = np.median(x1_boot, axis=1) - np.median(x2_boot, axis=1)
+
+    # Compute p-value and decision
+    if direction == "greater":
+        p_value = np.mean(test_boot <= 0)
+        result = "significant" if p_value < alpha else "not significant"
+    elif direction == "less":
+        p_value = np.mean(test_boot >= 0)
+        result = "significant" if p_value < alpha else "not significant"
+    elif direction == "ne":
+        p_value = 2 * min(np.mean(test_boot <= 0), np.mean(test_boot >= 0))
+        result = "significant" if p_value < alpha else "not significant"
+    else:
+        raise ValueError("direction must be 'greater', 'less', or 'ne'")
+
+    return result, p_value
+  
+  
+```
+
+Bootstrap correction:
+
+```{python}
+US = cars2['MPG'][cars2['Country']=='US']
+Japan = cars2['MPG'][cars2['Country']=='Japanese']
+Germany = cars2['MPG'][cars2['Country']=='Germany']
+
+result_J,pval_J = boot(US, Japan, 'ne', 0.05)
+result_G,pval_G = boot(US, Germany, 'ne', 0.05)
+2*pval_J
+2*pval_G
+```
+
+FDR correction:
+
+```{python}
+from statsmodels.stats.multitest import multipletests
+
+# Example list of raw p-values
+pvals = [0.001, 0.03, 0.2, 0.4]
+
+
+rejected, pvals_corrected, _, _ = multipletests(pvals, method='fdr_bh')
+print("Adjusted B-H p-values:", pvals_corrected)
+
+rejected, pvals_corrected, _, _ = multipletests(pvals, method='bonferroni')
+print("Adjusted Bonferroni p-values:", pvals_corrected)
+
+```
+
+
 ## Pearson Correlation {#cor}
 
   ANOVA is used to formally test the relationship between a categorical variable and a continuous variable. To formally test the (linear) relationship between two continuous attributes, we introduce __Pearson correlation__, commonly referred to as simply __correlation__. Correlation is a number between -1 and 1 which measures the strength of a linear relationship between two continuous attributes.
@@ -740,6 +842,8 @@ r = \frac{\mathbf{x_c}^T\mathbf{y_c}}{\|\mathbf{x_c}\|\|\mathbf{y_c}\|}.
 It is interesting to note that Equation \@ref(eq:veccorrelation) is identical to the formula for the cosine of the angle between to vectors. While this geometrical relationship does not benefit our intuition^[The n-dimensional "variable vectors" \mathbf{x_c} and \mathbf{y_c} live in the vast _sample space_ where the $i^{th}$ axis represents the $i^th$ observation in your dataset. In this space, a single point/vector is one possible set of sample values of n observations; this space can be difficult to grasp mentally], it is noteworthy nonetheless. 
  
 Pearson's correlation can be calculated in R with the built in `cor()` function, with the two continuous variables as input:
+
+#### R code: 
 
 ```{r}
 cor(train$Gr_Liv_Area,train$Sale_Price)
@@ -803,7 +907,7 @@ pairs(train[, c('Year_Built','Total_Bsmt_SF','First_Flr_SF','Gr_Liv_Area','Sale_
 ```
 
 
-### Python Code
+#### Python Code
 
 Pearson's correlation
 
@@ -822,33 +926,20 @@ sp.stats.pearsonr(train['Gr_Liv_Area'], train['Sale_Price'])
 Correlation Matrix
 
 ```{python}
-np.corrcoef(train[['Year_Built', 'Total_Bsmt_SF', 'First_Flr_SF', 'Gr_Liv_Area', 'Sale_Price']], rowvar = False)
+train_plot= train[['Year_Built', 'Total_Bsmt_SF', 'First_Flr_SF', 'Gr_Liv_Area', 'Sale_Price']]
+
+np.corrcoef(train_plot, rowvar = False)
 ```
+
 
 
 ```{python}
 
-import itertools
-# Selecting relevant columns
-columns = ['Year_Built', 'Total_Bsmt_SF', 'First_Flr_SF', 'Gr_Liv_Area', 'Sale_Price']
 
-# Create a pair plot
-fig, axes = plt.subplots(nrows=len(columns), ncols=len(columns), figsize=(12, 12))
+sns.pairplot(train_plot)
 
-for i, col1 in enumerate(columns):
-    for j, col2 in enumerate(columns):
-        ax = axes[i, j]
-        if i == j:
-            ax.hist(train[col1], bins=20)
-            ax.set_ylabel(col1)
-        else:
-            ax.scatter(train[col2], train[col1])
-        if i == len(columns) - 1:
-            ax.set_xlabel(col2)
-
-plt.tight_layout()
-plt.show()
 ```
+
 
 
 ## Simple Linear Regression 

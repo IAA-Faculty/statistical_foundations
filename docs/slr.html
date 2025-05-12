@@ -198,14 +198,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="2.5.1" data-path="slr.html"><a href="slr.html#tukey"><i class="fa fa-check"></i><b>2.5.1</b> Tukey-Kramer</a></li>
 <li class="chapter" data-level="2.5.2" data-path="slr.html"><a href="slr.html#dunnett"><i class="fa fa-check"></i><b>2.5.2</b> Dunnett’s Test</a></li>
-<li class="chapter" data-level="2.5.3" data-path="slr.html"><a href="slr.html#python-code-15"><i class="fa fa-check"></i><b>2.5.3</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="slr.html"><a href="slr.html#cor"><i class="fa fa-check"></i><b>2.6</b> Pearson Correlation</a>
 <ul>
 <li class="chapter" data-level="2.6.1" data-path="slr.html"><a href="slr.html#testcor"><i class="fa fa-check"></i><b>2.6.1</b> Statistical Test</a></li>
 <li class="chapter" data-level="2.6.2" data-path="slr.html"><a href="slr.html#effect-of-anomalous-observations"><i class="fa fa-check"></i><b>2.6.2</b> Effect of Anomalous Observations</a></li>
 <li class="chapter" data-level="2.6.3" data-path="slr.html"><a href="slr.html#the-correlation-matrix"><i class="fa fa-check"></i><b>2.6.3</b> The Correlation Matrix</a></li>
-<li class="chapter" data-level="2.6.4" data-path="slr.html"><a href="slr.html#python-code-16"><i class="fa fa-check"></i><b>2.6.4</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="2.7" data-path="slr.html"><a href="slr.html#simple-linear-regression"><i class="fa fa-check"></i><b>2.7</b> Simple Linear Regression</a>
 <ul>
@@ -735,7 +733,7 @@ Both the <code>lm()</code> function and the <code>aov()</code> function will pro
   <th>Date:</th>             <td>Mon, 12 May 2025</td> <th>  Prob (F-statistic):</th> <td>1.72e-55</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>09:44:21</td>     <th>  Log-Likelihood:    </th> <td> -1304.1</td>
+  <th>Time:</th>                 <td>12:46:33</td>     <th>  Log-Likelihood:    </th> <td> -1304.1</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   428</td>      <th>  AIC:               </th> <td>   2614.</td>
@@ -991,16 +989,26 @@ Figure 2.5: Confidence intervals for mean differences adjusted via Tukey-Kramer
 ## Germany  &lt; 2e-16
 ## Japanese 4.4e-16</code></pre>
 <p>In the output from Dunnett’s test, we see that Japanese and German made cars are significantly different than US made cars (note that this does not compare Japanese to German!).</p>
-<p>If we are not able to assume equal variances, we Bootstrap two-sample test to compare each group to the control and then adjust the p-value using Bonferroni.</p>
-</div>
-<div id="python-code-15" class="section level3 hasAnchor" number="2.5.3">
-<h3><span class="header-section-number">2.5.3</span> Python Code<a href="slr.html#python-code-15" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>If we are not able to assume equal variances, we can use the Bootstrap two-sample test to compare each group to the control and then adjust the p-value using Bonferroni.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="slr.html#cb88-1" tabindex="-1"></a>US<span class="ot">=</span>cars2<span class="sc">$</span>MPG[cars2<span class="sc">$</span>Country<span class="sc">==</span><span class="st">&quot;US&quot;</span>]</span>
+<span id="cb88-2"><a href="slr.html#cb88-2" tabindex="-1"></a>Japan <span class="ot">=</span> cars2<span class="sc">$</span>MPG[cars2<span class="sc">$</span>Country<span class="sc">==</span><span class="st">&quot;Japanese&quot;</span>]</span>
+<span id="cb88-3"><a href="slr.html#cb88-3" tabindex="-1"></a>Germany <span class="ot">=</span> cars2<span class="sc">$</span>MPG[cars2<span class="sc">$</span>Country<span class="sc">==</span><span class="st">&quot;Germany&quot;</span>]</span>
+<span id="cb88-4"><a href="slr.html#cb88-4" tabindex="-1"></a></span>
+<span id="cb88-5"><a href="slr.html#cb88-5" tabindex="-1"></a></span>
+<span id="cb88-6"><a href="slr.html#cb88-6" tabindex="-1"></a>US_Japan <span class="ot">=</span> <span class="fu">boot</span>(US, Japan, <span class="st">&#39;ne&#39;</span>, <span class="fl">0.05</span>)</span>
+<span id="cb88-7"><a href="slr.html#cb88-7" tabindex="-1"></a>x2 <span class="ot">=</span> Germany</span>
+<span id="cb88-8"><a href="slr.html#cb88-8" tabindex="-1"></a>US_Germany <span class="ot">=</span> <span class="fu">boot</span>(US, Germany, <span class="st">&#39;ne&#39;</span>, <span class="fl">0.05</span>)</span>
+<span id="cb88-9"><a href="slr.html#cb88-9" tabindex="-1"></a>pval<span class="ot">=</span> <span class="fu">c</span>(<span class="dv">2</span><span class="sc">*</span>US_Japan[[<span class="dv">2</span>]],<span class="dv">2</span><span class="sc">*</span>US_Germany[[<span class="dv">2</span>]])</span>
+<span id="cb88-10"><a href="slr.html#cb88-10" tabindex="-1"></a>pval</span></code></pre></div>
+<pre><code>## [1] 0 0</code></pre>
+<div id="python-code-15" class="section level4 hasAnchor" number="2.5.2.1">
+<h4><span class="header-section-number">2.5.2.1</span> Python Code<a href="slr.html#python-code-15" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Tukey-Kramer test:</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb88-1"><a href="slr.html#cb88-1" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.multicomp <span class="im">as</span> mc</span>
-<span id="cb88-2"><a href="slr.html#cb88-2" tabindex="-1"></a></span>
-<span id="cb88-3"><a href="slr.html#cb88-3" tabindex="-1"></a>comp <span class="op">=</span> mc.MultiComparison(cars2[<span class="st">&#39;MPG&#39;</span>], cars2[<span class="st">&#39;Country&#39;</span>])</span>
-<span id="cb88-4"><a href="slr.html#cb88-4" tabindex="-1"></a>ph_res <span class="op">=</span> comp.tukeyhsd(alpha <span class="op">=</span> <span class="fl">0.05</span>)</span>
-<span id="cb88-5"><a href="slr.html#cb88-5" tabindex="-1"></a>ph_res.summary()</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb90-1"><a href="slr.html#cb90-1" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.multicomp <span class="im">as</span> mc</span>
+<span id="cb90-2"><a href="slr.html#cb90-2" tabindex="-1"></a></span>
+<span id="cb90-3"><a href="slr.html#cb90-3" tabindex="-1"></a>comp <span class="op">=</span> mc.MultiComparison(cars2[<span class="st">&#39;MPG&#39;</span>], cars2[<span class="st">&#39;Country&#39;</span>])</span>
+<span id="cb90-4"><a href="slr.html#cb90-4" tabindex="-1"></a>ph_res <span class="op">=</span> comp.tukeyhsd(alpha <span class="op">=</span> <span class="fl">0.05</span>)</span>
+<span id="cb90-5"><a href="slr.html#cb90-5" tabindex="-1"></a>ph_res.summary()</span></code></pre></div>
 <table class="simpletable">
 <caption>Multiple Comparison of Means - Tukey HSD, FWER=0.05</caption>
 <tr>
@@ -1016,14 +1024,14 @@ Figure 2.5: Confidence intervals for mean differences adjusted via Tukey-Kramer
   <td>Japanese</td>    <td>US</td>    <td>-10.3164</td>  <td>0.0</td>  <td>-11.8688</td> <td>-8.7639</td>  <td>True</td> 
 </tr>
 </table>
-<div class="sourceCode" id="cb89"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb89-1"><a href="slr.html#cb89-1" tabindex="-1"></a>ph_res.plot_simultaneous()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-32-1.png" width="960" /></p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb91-1"><a href="slr.html#cb91-1" tabindex="-1"></a>ph_res.plot_simultaneous()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-34-1.png" width="960" /></p>
 <p>Games-Howell test (DO NOT RECOMMEND):</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb90-1"><a href="slr.html#cb90-1" tabindex="-1"></a><span class="co"># Games-Howell post hoc test</span></span>
-<span id="cb90-2"><a href="slr.html#cb90-2" tabindex="-1"></a><span class="im">import</span> pingouin <span class="im">as</span> pg</span>
-<span id="cb90-3"><a href="slr.html#cb90-3" tabindex="-1"></a></span>
-<span id="cb90-4"><a href="slr.html#cb90-4" tabindex="-1"></a>results <span class="op">=</span> pg.pairwise_gameshowell(dv<span class="op">=</span><span class="st">&#39;MPG&#39;</span>, between<span class="op">=</span><span class="st">&#39;Country&#39;</span>, data<span class="op">=</span>cars2)</span>
-<span id="cb90-5"><a href="slr.html#cb90-5" tabindex="-1"></a><span class="bu">print</span>(results)</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb92-1"><a href="slr.html#cb92-1" tabindex="-1"></a><span class="co"># Games-Howell post hoc test</span></span>
+<span id="cb92-2"><a href="slr.html#cb92-2" tabindex="-1"></a><span class="im">import</span> pingouin <span class="im">as</span> pg</span>
+<span id="cb92-3"><a href="slr.html#cb92-3" tabindex="-1"></a></span>
+<span id="cb92-4"><a href="slr.html#cb92-4" tabindex="-1"></a>results <span class="op">=</span> pg.pairwise_gameshowell(dv<span class="op">=</span><span class="st">&#39;MPG&#39;</span>, between<span class="op">=</span><span class="st">&#39;Country&#39;</span>, data<span class="op">=</span>cars2)</span>
+<span id="cb92-5"><a href="slr.html#cb92-5" tabindex="-1"></a><span class="bu">print</span>(results)</span></code></pre></div>
 <pre><code>##           A         B    mean(A)  ...          df          pval    hedges
 ## 0   Germany  Japanese  28.490000  ...  127.635392  3.547851e-02 -0.394392
 ## 1   Germany        US  28.490000  ...  235.926277  0.000000e+00  1.709407
@@ -1031,16 +1039,41 @@ Figure 2.5: Confidence intervals for mean differences adjusted via Tukey-Kramer
 ## 
 ## [3 rows x 10 columns]</code></pre>
 <p>Dunn’s test:</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb92-1"><a href="slr.html#cb92-1" tabindex="-1"></a><span class="im">import</span> scikit_posthocs <span class="im">as</span> scp</span>
-<span id="cb92-2"><a href="slr.html#cb92-2" tabindex="-1"></a></span>
-<span id="cb92-3"><a href="slr.html#cb92-3" tabindex="-1"></a></span>
-<span id="cb92-4"><a href="slr.html#cb92-4" tabindex="-1"></a>result <span class="op">=</span> scp.posthoc_dunn(cars2, val_col<span class="op">=</span><span class="st">&#39;MPG&#39;</span>, group_col<span class="op">=</span><span class="st">&#39;Country&#39;</span>, p_adjust<span class="op">=</span><span class="st">&#39;Bonferroni&#39;</span>)</span>
-<span id="cb92-5"><a href="slr.html#cb92-5" tabindex="-1"></a><span class="bu">print</span>(result)</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb94-1"><a href="slr.html#cb94-1" tabindex="-1"></a><span class="im">import</span> scikit_posthocs <span class="im">as</span> scp</span>
+<span id="cb94-2"><a href="slr.html#cb94-2" tabindex="-1"></a></span>
+<span id="cb94-3"><a href="slr.html#cb94-3" tabindex="-1"></a></span>
+<span id="cb94-4"><a href="slr.html#cb94-4" tabindex="-1"></a>result <span class="op">=</span> scp.posthoc_dunn(cars2, val_col<span class="op">=</span><span class="st">&#39;MPG&#39;</span>, group_col<span class="op">=</span><span class="st">&#39;Country&#39;</span>, p_adjust<span class="op">=</span><span class="st">&#39;Bonferroni&#39;</span>)</span>
+<span id="cb94-5"><a href="slr.html#cb94-5" tabindex="-1"></a><span class="bu">print</span>(result)</span></code></pre></div>
 <pre><code>##                Germany      Japanese            US
 ## Germany   1.000000e+00  7.536132e-01  1.851171e-27
 ## Japanese  7.536132e-01  1.000000e+00  1.524401e-29
 ## US        1.851171e-27  1.524401e-29  1.000000e+00</code></pre>
 <p>No Dunnett’s test in Python. The team at statsmodels is supposedly “working on it”.</p>
+<p>Bootstrap correction:</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb96-1"><a href="slr.html#cb96-1" tabindex="-1"></a>US <span class="op">=</span> cars2[<span class="st">&#39;MPG&#39;</span>][cars2[<span class="st">&#39;Country&#39;</span>]<span class="op">==</span><span class="st">&#39;US&#39;</span>]</span>
+<span id="cb96-2"><a href="slr.html#cb96-2" tabindex="-1"></a>Japan <span class="op">=</span> cars2[<span class="st">&#39;MPG&#39;</span>][cars2[<span class="st">&#39;Country&#39;</span>]<span class="op">==</span><span class="st">&#39;Japanese&#39;</span>]</span>
+<span id="cb96-3"><a href="slr.html#cb96-3" tabindex="-1"></a>Germany <span class="op">=</span> cars2[<span class="st">&#39;MPG&#39;</span>][cars2[<span class="st">&#39;Country&#39;</span>]<span class="op">==</span><span class="st">&#39;Germany&#39;</span>]</span>
+<span id="cb96-4"><a href="slr.html#cb96-4" tabindex="-1"></a></span>
+<span id="cb96-5"><a href="slr.html#cb96-5" tabindex="-1"></a>result_J,pval_J <span class="op">=</span> boot(US, Japan, <span class="st">&#39;ne&#39;</span>, <span class="fl">0.05</span>)</span>
+<span id="cb96-6"><a href="slr.html#cb96-6" tabindex="-1"></a>result_G,pval_G <span class="op">=</span> boot(US, Germany, <span class="st">&#39;ne&#39;</span>, <span class="fl">0.05</span>)</span>
+<span id="cb96-7"><a href="slr.html#cb96-7" tabindex="-1"></a><span class="dv">2</span><span class="op">*</span>pval_J</span></code></pre></div>
+<pre><code>## 0.0</code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb98-1"><a href="slr.html#cb98-1" tabindex="-1"></a><span class="dv">2</span><span class="op">*</span>pval_G</span></code></pre></div>
+<pre><code>## 0.0</code></pre>
+<p>FDR correction:</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb100-1"><a href="slr.html#cb100-1" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.multitest <span class="im">import</span> multipletests</span>
+<span id="cb100-2"><a href="slr.html#cb100-2" tabindex="-1"></a></span>
+<span id="cb100-3"><a href="slr.html#cb100-3" tabindex="-1"></a><span class="co"># Example list of raw p-values</span></span>
+<span id="cb100-4"><a href="slr.html#cb100-4" tabindex="-1"></a>pvals <span class="op">=</span> [<span class="fl">0.001</span>, <span class="fl">0.03</span>, <span class="fl">0.2</span>, <span class="fl">0.4</span>]</span>
+<span id="cb100-5"><a href="slr.html#cb100-5" tabindex="-1"></a></span>
+<span id="cb100-6"><a href="slr.html#cb100-6" tabindex="-1"></a></span>
+<span id="cb100-7"><a href="slr.html#cb100-7" tabindex="-1"></a>rejected, pvals_corrected, _, _ <span class="op">=</span> multipletests(pvals, method<span class="op">=</span><span class="st">&#39;fdr_bh&#39;</span>)</span>
+<span id="cb100-8"><a href="slr.html#cb100-8" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Adjusted B-H p-values:&quot;</span>, pvals_corrected)</span></code></pre></div>
+<pre><code>## Adjusted B-H p-values: [0.004      0.06       0.26666667 0.4       ]</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb102-1"><a href="slr.html#cb102-1" tabindex="-1"></a>rejected, pvals_corrected, _, _ <span class="op">=</span> multipletests(pvals, method<span class="op">=</span><span class="st">&#39;bonferroni&#39;</span>)</span>
+<span id="cb102-2"><a href="slr.html#cb102-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Adjusted Bonferroni p-values:&quot;</span>, pvals_corrected)</span></code></pre></div>
+<pre><code>## Adjusted Bonferroni p-values: [0.004 0.12  0.8   1.   ]</code></pre>
+</div>
 </div>
 </div>
 <div id="cor" class="section level2 hasAnchor" number="2.6">
@@ -1066,15 +1099,18 @@ r = \frac{\mathbf{x_c}^T\mathbf{y_c}}{\|\mathbf{x_c}\|\|\mathbf{y_c}\|}.
 \end{equation}\]</span></p>
 <p>It is interesting to note that Equation <a href="slr.html#eq:veccorrelation">(2.4)</a> is identical to the formula for the cosine of the angle between to vectors. While this geometrical relationship does not benefit our intuition<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, it is noteworthy nonetheless.</p>
 <p>Pearson’s correlation can be calculated in R with the built in <code>cor()</code> function, with the two continuous variables as input:</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="slr.html#cb94-1" tabindex="-1"></a><span class="fu">cor</span>(train<span class="sc">$</span>Gr_Liv_Area,train<span class="sc">$</span>Sale_Price)</span></code></pre></div>
+<div id="r-code-16" class="section level4 hasAnchor" number="2.6.0.1">
+<h4><span class="header-section-number">2.6.0.1</span> R code:<a href="slr.html#r-code-16" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="slr.html#cb104-1" tabindex="-1"></a><span class="fu">cor</span>(train<span class="sc">$</span>Gr_Liv_Area,train<span class="sc">$</span>Sale_Price)</span></code></pre></div>
 <pre><code>## [1] 0.695842</code></pre>
+</div>
 <div id="testcor" class="section level3 hasAnchor" number="2.6.1">
 <h3><span class="header-section-number">2.6.1</span> Statistical Test<a href="slr.html#testcor" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To test the statistical significance of correlation, we use a t-test with the null hypothesis that the correlation is equal to 0:
 <span class="math display">\[H_0: \rho = 0\]</span>
 <span class="math display">\[H_a: \rho \neq 0\]</span>
 If we can reject the null hypothesis, then we declare a significant linear association between the two variables. The <code>cor.test()</code> function in R will perform the test:</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="slr.html#cb96-1" tabindex="-1"></a><span class="fu">cor.test</span>(train<span class="sc">$</span>Gr_Liv_Area,train<span class="sc">$</span>Sale_Price)</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="slr.html#cb106-1" tabindex="-1"></a><span class="fu">cor.test</span>(train<span class="sc">$</span>Gr_Liv_Area,train<span class="sc">$</span>Sale_Price)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -1092,10 +1128,10 @@ If we can reject the null hypothesis, then we declare a significant linear assoc
 <div id="effect-of-anomalous-observations" class="section level3 hasAnchor" number="2.6.2">
 <h3><span class="header-section-number">2.6.2</span> Effect of Anomalous Observations<a href="slr.html#effect-of-anomalous-observations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>One final nuance that is important to note is the effect of anomalous observations on correlation. In Figure <a href="slr.html#fig:nocor">2.7</a> we display 30 random 2-dimensional data points <span class="math inline">\((x,y)\)</span> with no linear relationship.</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="slr.html#cb98-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">11</span>)</span>
-<span id="cb98-2"><a href="slr.html#cb98-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>)</span>
-<span id="cb98-3"><a href="slr.html#cb98-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>)</span>
-<span id="cb98-4"><a href="slr.html#cb98-4" tabindex="-1"></a><span class="fu">plot</span>(x,y)</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="slr.html#cb108-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">11</span>)</span>
+<span id="cb108-2"><a href="slr.html#cb108-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>)</span>
+<span id="cb108-3"><a href="slr.html#cb108-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>)</span>
+<span id="cb108-4"><a href="slr.html#cb108-4" tabindex="-1"></a><span class="fu">plot</span>(x,y)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:nocor"></span>
 <img src="bookdownproj_files/figure-html/nocor-1.png" alt="The variables x and y have no correlation" width="672" />
 <p class="caption">
@@ -1103,7 +1139,7 @@ Figure 2.7: The variables x and y have no correlation
 </p>
 </div>
 <p>The correlation is not exactly zero (we wouldn’t expect perfection from random data) but it is very close at 0.002.</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="slr.html#cb99-1" tabindex="-1"></a><span class="fu">cor.test</span>(x,y)</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="slr.html#cb109-1" tabindex="-1"></a><span class="fu">cor.test</span>(x,y)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -1116,9 +1152,9 @@ Figure 2.7: The variables x and y have no correlation
 ##         cor 
 ## 0.002276214</code></pre>
 <p>Next, we’ll add a single anomalous observation to our data and see how it affects both the correlation value and the correlation test.</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="slr.html#cb101-1" tabindex="-1"></a>x[<span class="dv">31</span>] <span class="ot">=</span> <span class="dv">4</span></span>
-<span id="cb101-2"><a href="slr.html#cb101-2" tabindex="-1"></a>y[<span class="dv">31</span>] <span class="ot">=</span> <span class="dv">50</span></span>
-<span id="cb101-3"><a href="slr.html#cb101-3" tabindex="-1"></a><span class="fu">cor.test</span>(x,y)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="slr.html#cb111-1" tabindex="-1"></a>x[<span class="dv">31</span>] <span class="ot">=</span> <span class="dv">4</span></span>
+<span id="cb111-2"><a href="slr.html#cb111-2" tabindex="-1"></a>y[<span class="dv">31</span>] <span class="ot">=</span> <span class="dv">50</span></span>
+<span id="cb111-3"><a href="slr.html#cb111-3" tabindex="-1"></a><span class="fu">cor.test</span>(x,y)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -1131,7 +1167,7 @@ Figure 2.7: The variables x and y have no correlation
 ##       cor 
 ## 0.7330043</code></pre>
 <p>The correlation jumps to 0.73 from 0.002 and is declared strongly significant! Figure <a href="slr.html#fig:extremenocor">2.8</a> illustrates the new data. This simple example shows why exploratory data analysis is so important! If we don’t explore our data and detect anomalous observations, we might improperly declare relationships are significant when they are driven by a single observation or a small handful of observations.</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="slr.html#cb103-1" tabindex="-1"></a><span class="fu">plot</span>(x,y)</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="slr.html#cb113-1" tabindex="-1"></a><span class="fu">plot</span>(x,y)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:extremenocor"></span>
 <img src="bookdownproj_files/figure-html/extremenocor-1.png" alt="A single anomalous observation creates strong correlation (0.73) where there previously was none" width="672" />
 <p class="caption">
@@ -1142,7 +1178,7 @@ Figure 2.8: A single anomalous observation creates strong correlation (0.73) whe
 <div id="the-correlation-matrix" class="section level3 hasAnchor" number="2.6.3">
 <h3><span class="header-section-number">2.6.3</span> The Correlation Matrix<a href="slr.html#the-correlation-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>It’s common to consider and calculate all pairwise correlations between variables in a dataset. If many attributes share a high degree of mutual correlation, this can cause problems for regression as will be discussed in Chapter 5. The pairwise correlations are generally arranged in an array called the <strong>correlation matrix</strong>, where the <span class="math inline">\((i,j)^{th}\)</span> entry is the correlation between the <span class="math inline">\(i^{th}\)</span> variable and <span class="math inline">\(j^{th}\)</span> variable in your list. To compute the correlation matrix, we again use the <code>cor()</code> function.</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="slr.html#cb104-1" tabindex="-1"></a><span class="fu">cor</span>(train[, <span class="fu">c</span>(<span class="st">&#39;Year_Built&#39;</span>,<span class="st">&#39;Total_Bsmt_SF&#39;</span>,<span class="st">&#39;First_Flr_SF&#39;</span>,<span class="st">&#39;Gr_Liv_Area&#39;</span>,<span class="st">&#39;Sale_Price&#39;</span>)])</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="slr.html#cb114-1" tabindex="-1"></a><span class="fu">cor</span>(train[, <span class="fu">c</span>(<span class="st">&#39;Year_Built&#39;</span>,<span class="st">&#39;Total_Bsmt_SF&#39;</span>,<span class="st">&#39;First_Flr_SF&#39;</span>,<span class="st">&#39;Gr_Liv_Area&#39;</span>,<span class="st">&#39;Sale_Price&#39;</span>)])</span></code></pre></div>
 <pre><code>##               Year_Built Total_Bsmt_SF First_Flr_SF Gr_Liv_Area Sale_Price
 ## Year_Built     1.0000000     0.4272263    0.3271756   0.2386360  0.5570318
 ## Total_Bsmt_SF  0.4272263     1.0000000    0.8065833   0.4538351  0.6253874
@@ -1150,46 +1186,30 @@ Figure 2.8: A single anomalous observation creates strong correlation (0.73) whe
 ## Gr_Liv_Area    0.2386360     0.4538351    0.5713599   1.0000000  0.6958420
 ## Sale_Price     0.5570318     0.6253874    0.6206734   0.6958420  1.0000000</code></pre>
 <p>Not surprisingly, we see strong positive correlation between the square footage of the basement and that of the first floor, and also between all of the area variables and the sale price. As demonstrated by Figures <a href="slr.html#fig:correlation">2.6</a> and <a href="slr.html#fig:extremenocor">2.8</a>, raw correlation values can be misleading and it’s unwise to calculate them without a scatter plot for context. The <code>pairs()</code> function in base R provides a simple matrix of scatterplots for this purpose.</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="slr.html#cb106-1" tabindex="-1"></a><span class="fu">pairs</span>(train[, <span class="fu">c</span>(<span class="st">&#39;Year_Built&#39;</span>,<span class="st">&#39;Total_Bsmt_SF&#39;</span>,<span class="st">&#39;First_Flr_SF&#39;</span>,<span class="st">&#39;Gr_Liv_Area&#39;</span>,<span class="st">&#39;Sale_Price&#39;</span>)])</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
-</div>
-<div id="python-code-16" class="section level3 hasAnchor" number="2.6.4">
-<h3><span class="header-section-number">2.6.4</span> Python Code<a href="slr.html#python-code-16" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="slr.html#cb116-1" tabindex="-1"></a><span class="fu">pairs</span>(train[, <span class="fu">c</span>(<span class="st">&#39;Year_Built&#39;</span>,<span class="st">&#39;Total_Bsmt_SF&#39;</span>,<span class="st">&#39;First_Flr_SF&#39;</span>,<span class="st">&#39;Gr_Liv_Area&#39;</span>,<span class="st">&#39;Sale_Price&#39;</span>)])</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<div id="python-code-16" class="section level4 hasAnchor" number="2.6.3.1">
+<h4><span class="header-section-number">2.6.3.1</span> Python Code<a href="slr.html#python-code-16" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Pearson’s correlation</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb107-1"><a href="slr.html#cb107-1" tabindex="-1"></a>np.corrcoef(train[<span class="st">&#39;Gr_Liv_Area&#39;</span>], train[<span class="st">&#39;Sale_Price&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb117-1"><a href="slr.html#cb117-1" tabindex="-1"></a>np.corrcoef(train[<span class="st">&#39;Gr_Liv_Area&#39;</span>], train[<span class="st">&#39;Sale_Price&#39;</span>])</span></code></pre></div>
 <pre><code>## array([[1.        , 0.69584201],
 ##        [0.69584201, 1.        ]])</code></pre>
 <p>Statistical test for Correlation</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb109-1"><a href="slr.html#cb109-1" tabindex="-1"></a>sp.stats.pearsonr(train[<span class="st">&#39;Gr_Liv_Area&#39;</span>], train[<span class="st">&#39;Sale_Price&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb119-1"><a href="slr.html#cb119-1" tabindex="-1"></a>sp.stats.pearsonr(train[<span class="st">&#39;Gr_Liv_Area&#39;</span>], train[<span class="st">&#39;Sale_Price&#39;</span>])</span></code></pre></div>
 <pre><code>## PearsonRResult(statistic=0.6958420133893222, pvalue=6.980207969293157e-297)</code></pre>
 <p>Correlation Matrix</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb111-1"><a href="slr.html#cb111-1" tabindex="-1"></a>np.corrcoef(train[[<span class="st">&#39;Year_Built&#39;</span>, <span class="st">&#39;Total_Bsmt_SF&#39;</span>, <span class="st">&#39;First_Flr_SF&#39;</span>, <span class="st">&#39;Gr_Liv_Area&#39;</span>, <span class="st">&#39;Sale_Price&#39;</span>]], rowvar <span class="op">=</span> <span class="va">False</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb121-1"><a href="slr.html#cb121-1" tabindex="-1"></a>train_plot<span class="op">=</span> train[[<span class="st">&#39;Year_Built&#39;</span>, <span class="st">&#39;Total_Bsmt_SF&#39;</span>, <span class="st">&#39;First_Flr_SF&#39;</span>, <span class="st">&#39;Gr_Liv_Area&#39;</span>, <span class="st">&#39;Sale_Price&#39;</span>]]</span>
+<span id="cb121-2"><a href="slr.html#cb121-2" tabindex="-1"></a></span>
+<span id="cb121-3"><a href="slr.html#cb121-3" tabindex="-1"></a>np.corrcoef(train_plot, rowvar <span class="op">=</span> <span class="va">False</span>)</span></code></pre></div>
 <pre><code>## array([[1.        , 0.42722628, 0.32717559, 0.23863599, 0.55703178],
 ##        [0.42722628, 1.        , 0.80658329, 0.45383515, 0.62538744],
 ##        [0.32717559, 0.80658329, 1.        , 0.57135986, 0.62067339],
 ##        [0.23863599, 0.45383515, 0.57135986, 1.        , 0.69584201],
 ##        [0.55703178, 0.62538744, 0.62067339, 0.69584201, 1.        ]])</code></pre>
-<div class="sourceCode" id="cb113"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb113-1"><a href="slr.html#cb113-1" tabindex="-1"></a><span class="im">import</span> itertools</span>
-<span id="cb113-2"><a href="slr.html#cb113-2" tabindex="-1"></a><span class="co"># Selecting relevant columns</span></span>
-<span id="cb113-3"><a href="slr.html#cb113-3" tabindex="-1"></a>columns <span class="op">=</span> [<span class="st">&#39;Year_Built&#39;</span>, <span class="st">&#39;Total_Bsmt_SF&#39;</span>, <span class="st">&#39;First_Flr_SF&#39;</span>, <span class="st">&#39;Gr_Liv_Area&#39;</span>, <span class="st">&#39;Sale_Price&#39;</span>]</span>
-<span id="cb113-4"><a href="slr.html#cb113-4" tabindex="-1"></a></span>
-<span id="cb113-5"><a href="slr.html#cb113-5" tabindex="-1"></a><span class="co"># Create a pair plot</span></span>
-<span id="cb113-6"><a href="slr.html#cb113-6" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="bu">len</span>(columns), ncols<span class="op">=</span><span class="bu">len</span>(columns), figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">12</span>))</span>
-<span id="cb113-7"><a href="slr.html#cb113-7" tabindex="-1"></a></span>
-<span id="cb113-8"><a href="slr.html#cb113-8" tabindex="-1"></a><span class="cf">for</span> i, col1 <span class="kw">in</span> <span class="bu">enumerate</span>(columns):</span>
-<span id="cb113-9"><a href="slr.html#cb113-9" tabindex="-1"></a>    <span class="cf">for</span> j, col2 <span class="kw">in</span> <span class="bu">enumerate</span>(columns):</span>
-<span id="cb113-10"><a href="slr.html#cb113-10" tabindex="-1"></a>        ax <span class="op">=</span> axes[i, j]</span>
-<span id="cb113-11"><a href="slr.html#cb113-11" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">==</span> j:</span>
-<span id="cb113-12"><a href="slr.html#cb113-12" tabindex="-1"></a>            ax.hist(train[col1], bins<span class="op">=</span><span class="dv">20</span>)</span>
-<span id="cb113-13"><a href="slr.html#cb113-13" tabindex="-1"></a>            ax.set_ylabel(col1)</span>
-<span id="cb113-14"><a href="slr.html#cb113-14" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb113-15"><a href="slr.html#cb113-15" tabindex="-1"></a>            ax.scatter(train[col2], train[col1])</span>
-<span id="cb113-16"><a href="slr.html#cb113-16" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">==</span> <span class="bu">len</span>(columns) <span class="op">-</span> <span class="dv">1</span>:</span>
-<span id="cb113-17"><a href="slr.html#cb113-17" tabindex="-1"></a>            ax.set_xlabel(col2)</span>
-<span id="cb113-18"><a href="slr.html#cb113-18" tabindex="-1"></a></span>
-<span id="cb113-19"><a href="slr.html#cb113-19" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb113-20"><a href="slr.html#cb113-20" tabindex="-1"></a>plt.show()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-44-1.png" width="1152" /></p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb123-1"><a href="slr.html#cb123-1" tabindex="-1"></a>sns.pairplot(train_plot)</span></code></pre></div>
+<pre><code>## &lt;seaborn.axisgrid.PairGrid object at 0x0000029B902F0BF0&gt;</code></pre>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-49-1.png" width="1200" /></p>
+</div>
 </div>
 </div>
 <div id="simple-linear-regression" class="section level2 hasAnchor" number="2.7">
@@ -1217,7 +1237,7 @@ where <span class="math inline">\(\beta_0\)</span>, the <strong>intercept</stron
 <li>The random errors have equal variance (homoskedasticity).</li>
 </ol>
 <p>It must now be noted that these assumptions are also in effect for the test of Pearson’s correlation in Section <a href="slr.html#testcor">2.6.1</a>, because the tests in simple linear regression are mathematically equivalent to that test. When these assumptions are not met, another approach to testing the significance of a linear relationship should be considered. The most common non-parametric approach to testing for an association between two continuous variables is Spearman’s correlation. Spearman’s correlation does not limit its findings to linear relationships; any monotonic relationship (one that is always increasing or always decreasing) will cause Spearman’s correlation to be significant. Similar to the approach taken by Kruskal-Wallis, Spearman’s correlation replaces the data with its ranks and computes Pearson’s correlation on the ranks. The same <code>cor</code> and <code>cor.test()</code> functions can be used; simply specify the <code>method='spearman'</code> option.</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="slr.html#cb114-1" tabindex="-1"></a><span class="fu">cor.test</span>(train<span class="sc">$</span>Gr_Liv_Area,train<span class="sc">$</span>Sale_Price, <span class="at">method =</span> <span class="st">&#39;spearman&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="slr.html#cb125-1" tabindex="-1"></a><span class="fu">cor.test</span>(train<span class="sc">$</span>Gr_Liv_Area,train<span class="sc">$</span>Sale_Price, <span class="at">method =</span> <span class="st">&#39;spearman&#39;</span>)</span></code></pre></div>
 <pre><code>## Warning in cor.test.default(x, y, ...): Cannot compute exact p-value with ties</code></pre>
 <pre><code>## 
 ##  Spearman&#39;s rank correlation rho
@@ -1237,12 +1257,12 @@ where <span class="math inline">\(\beta_0\)</span>, the <strong>intercept</stron
 The first thing we will do after creating the linear model is check our assumption using the default plots from <code>lm()</code> . From these four plots we will be most interested in the first two.</p>
 <p>In the top left plot, we are visually checking for homoskedasticity. We’d like to see the variability of the points remain constant from left to right on this chart, indicating that the errors have constant variance for each value of y. We do not want to see any fan shapes in this chart. Unfortunately, we do see just that: the variability of the errors is much smaller for smaller values of Sale Price than it is for larger values of Sale Price.</p>
 <p>In the top right plot, we are visually checking for normality of errors. We’d like to see the QQ-plot indicate normality with all the points roughly following the line. Unfortunately, we do not see that here. The errors do not appear to be normally distributed.</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="slr.html#cb117-1" tabindex="-1"></a>slr <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> Gr_Liv_Area, <span class="at">data=</span>train)</span>
-<span id="cb117-2"><a href="slr.html#cb117-2" tabindex="-1"></a></span>
-<span id="cb117-3"><a href="slr.html#cb117-3" tabindex="-1"></a><span class="fu">plot</span>(slr)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-46-1.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-46-2.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-46-3.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-46-4.png" width="672" /></p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="slr.html#cb128-1" tabindex="-1"></a>slr <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> Gr_Liv_Area, <span class="at">data=</span>train)</span>
+<span id="cb128-2"><a href="slr.html#cb128-2" tabindex="-1"></a></span>
+<span id="cb128-3"><a href="slr.html#cb128-3" tabindex="-1"></a><span class="fu">plot</span>(slr)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-51-1.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-51-2.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-51-3.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-51-4.png" width="672" /></p>
 <p>Despite the violation of assumptions, let’s continue examining the output from this regression in order to practice our interpretation of it.</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="slr.html#cb118-1" tabindex="-1"></a><span class="fu">summary</span>(slr)</span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="slr.html#cb129-1" tabindex="-1"></a><span class="fu">summary</span>(slr)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Sale_Price ~ Gr_Liv_Area, data = train)
@@ -1263,12 +1283,12 @@ The first thing we will do after creating the linear model is check our assumpti
 ## F-statistic:  1923 on 1 and 2049 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>The first thing we’re likely to examine in the coefficient table is the p-value for <code>Gr_Liv_Area</code>. It is strongly significant (in fact, it’s the same t-value and p-value as we saw for the <code>cor.test</code> as these tests are mathematically equivalent), indicating that there is an association between the size of the home and the sale price. Furthermore, the <em>parameter estimate</em> is 110.73 indicating that we’d expect the price of a home to increase by $110.73 for every additional square foot of living space. Because of the linearity of the model, we can extend this slope estimate to any unit change in <span class="math inline">\(x\)</span>. For example, it might be difficult to think in terms of single square feet when comparing houses, so we might prefer to use a 100 square-foot change and report our conclusion as follows: For each additional 100 square feet of living area, we expect the house price to increase by $11,0726.</p>
 <p>If we want to do this for a categorical variable with two levels (for example with Central Air), we would use the following code:</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="slr.html#cb120-1" tabindex="-1"></a>slr <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> <span class="fu">factor</span>(Central_Air), <span class="at">data=</span>train)</span>
-<span id="cb120-2"><a href="slr.html#cb120-2" tabindex="-1"></a></span>
-<span id="cb120-3"><a href="slr.html#cb120-3" tabindex="-1"></a><span class="fu">plot</span>(slr)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-48-1.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-48-2.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-48-3.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-48-4.png" width="672" /></p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="slr.html#cb131-1" tabindex="-1"></a>slr <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> <span class="fu">factor</span>(Central_Air), <span class="at">data=</span>train)</span>
+<span id="cb131-2"><a href="slr.html#cb131-2" tabindex="-1"></a></span>
+<span id="cb131-3"><a href="slr.html#cb131-3" tabindex="-1"></a><span class="fu">plot</span>(slr)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-53-1.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-53-2.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-53-3.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-53-4.png" width="672" /></p>
 <p>The variance does NOT look constant and Normality is not a good assumption here. However, just for illustration purposes, here is the output:</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="slr.html#cb121-1" tabindex="-1"></a><span class="fu">summary</span>(slr)</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="slr.html#cb132-1" tabindex="-1"></a><span class="fu">summary</span>(slr)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Sale_Price ~ factor(Central_Air), data = train)
@@ -1292,74 +1312,50 @@ The first thing we will do after creating the linear model is check our assumpti
 <div id="python-code-17" class="section level3 hasAnchor" number="2.7.3">
 <h3><span class="header-section-number">2.7.3</span> Python Code<a href="slr.html#python-code-17" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Assumptions of Linear Regression</p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb123-1"><a href="slr.html#cb123-1" tabindex="-1"></a>sp.stats.spearmanr(train[<span class="st">&#39;Gr_Liv_Area&#39;</span>], train[<span class="st">&#39;Sale_Price&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb134-1"><a href="slr.html#cb134-1" tabindex="-1"></a>sp.stats.spearmanr(train[<span class="st">&#39;Gr_Liv_Area&#39;</span>], train[<span class="st">&#39;Sale_Price&#39;</span>])</span></code></pre></div>
 <pre><code>## SignificanceResult(statistic=0.719959092874937, pvalue=0.0)</code></pre>
 <p>Test for Association</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb125-1"><a href="slr.html#cb125-1" tabindex="-1"></a>model_slr <span class="op">=</span> smf.ols(<span class="st">&quot;Sale_Price ~ Gr_Liv_Area&quot;</span>, data <span class="op">=</span> train).fit()</span>
-<span id="cb125-2"><a href="slr.html#cb125-2" tabindex="-1"></a>model_slr.summary()</span></code></pre></div>
-<table class="simpletable">
-<caption>OLS Regression Results</caption>
-<tr>
-  <th>Dep. Variable:</th>       <td>Sale_Price</td>    <th>  R-squared:         </th> <td>   0.484</td> 
-</tr>
-<tr>
-  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared:    </th> <td>   0.484</td> 
-</tr>
-<tr>
-  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   1923.</td> 
-</tr>
-<tr>
-  <th>Date:</th>             <td>Mon, 12 May 2025</td> <th>  Prob (F-statistic):</th> <td>6.98e-297</td>
-</tr>
-<tr>
-  <th>Time:</th>                 <td>09:44:33</td>     <th>  Log-Likelihood:    </th> <td> -25409.</td> 
-</tr>
-<tr>
-  <th>No. Observations:</th>      <td>  2051</td>      <th>  AIC:               </th> <td>5.082e+04</td>
-</tr>
-<tr>
-  <th>Df Residuals:</th>          <td>  2049</td>      <th>  BIC:               </th> <td>5.083e+04</td>
-</tr>
-<tr>
-  <th>Df Model:</th>              <td>     1</td>      <th>                     </th>     <td> </td>    
-</tr>
-<tr>
-  <th>Covariance Type:</th>      <td>nonrobust</td>    <th>                     </th>     <td> </td>    
-</tr>
-</table>
-<table class="simpletable">
-<tr>
-       <td></td>          <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
-</tr>
-<tr>
-  <th>Intercept</th>   <td> 1.577e+04</td> <td> 4006.043</td> <td>    3.937</td> <td> 0.000</td> <td> 7913.812</td> <td> 2.36e+04</td>
-</tr>
-<tr>
-  <th>Gr_Liv_Area</th> <td>  110.5452</td> <td>    2.521</td> <td>   43.857</td> <td> 0.000</td> <td>  105.602</td> <td>  115.488</td>
-</tr>
-</table>
-<table class="simpletable">
-<tr>
-  <th>Omnibus:</th>       <td>342.298</td> <th>  Durbin-Watson:     </th> <td>   2.050</td>
-</tr>
-<tr>
-  <th>Prob(Omnibus):</th> <td> 0.000</td>  <th>  Jarque-Bera (JB):  </th> <td>4078.850</td>
-</tr>
-<tr>
-  <th>Skew:</th>          <td> 0.396</td>  <th>  Prob(JB):          </th> <td>    0.00</td>
-</tr>
-<tr>
-  <th>Kurtosis:</th>      <td> 9.863</td>  <th>  Cond. No.          </th> <td>4.96e+03</td>
-</tr>
-</table><br/><br/>Notes:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.<br/>[2] The condition number is large, 4.96e+03. This might indicate that there are<br/>strong multicollinearity or other numerical problems.
-<div class="sourceCode" id="cb126"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb126-1"><a href="slr.html#cb126-1" tabindex="-1"></a></span>
-<span id="cb126-2"><a href="slr.html#cb126-2" tabindex="-1"></a>train[<span class="st">&#39;pred_slr&#39;</span>] <span class="op">=</span> model_slr.predict()</span>
-<span id="cb126-3"><a href="slr.html#cb126-3" tabindex="-1"></a>train[<span class="st">&#39;resid_slr&#39;</span>] <span class="op">=</span> model_slr.resid</span>
-<span id="cb126-4"><a href="slr.html#cb126-4" tabindex="-1"></a></span>
-<span id="cb126-5"><a href="slr.html#cb126-5" tabindex="-1"></a><span class="co">#train[[&#39;Sale_Price&#39;, &#39;pred_anova&#39;, &#39;pred_slr&#39;]].head(n = 10)</span></span></code></pre></div>
-<div class="sourceCode" id="cb127"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb127-1"><a href="slr.html#cb127-1" tabindex="-1"></a>sm.api.qqplot(train[<span class="st">&#39;resid_slr&#39;</span>])</span>
-<span id="cb127-2"><a href="slr.html#cb127-2" tabindex="-1"></a>plt.show()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb136-1"><a href="slr.html#cb136-1" tabindex="-1"></a>model_slr <span class="op">=</span> smf.ols(<span class="st">&quot;Sale_Price ~ Gr_Liv_Area&quot;</span>, data <span class="op">=</span> train).fit()</span>
+<span id="cb136-2"><a href="slr.html#cb136-2" tabindex="-1"></a>model_slr.summary()</span></code></pre></div>
+<pre><code>## &lt;class &#39;statsmodels.iolib.summary.Summary&#39;&gt;
+## &quot;&quot;&quot;
+##                             OLS Regression Results                            
+## ==============================================================================
+## Dep. Variable:             Sale_Price   R-squared:                       0.484
+## Model:                            OLS   Adj. R-squared:                  0.484
+## Method:                 Least Squares   F-statistic:                     1923.
+## Date:                Mon, 12 May 2025   Prob (F-statistic):          6.98e-297
+## Time:                        12:46:48   Log-Likelihood:                -25409.
+## No. Observations:                2051   AIC:                         5.082e+04
+## Df Residuals:                    2049   BIC:                         5.083e+04
+## Df Model:                           1                                         
+## Covariance Type:            nonrobust                                         
+## ===============================================================================
+##                   coef    std err          t      P&gt;|t|      [0.025      0.975]
+## -------------------------------------------------------------------------------
+## Intercept    1.577e+04   4006.043      3.937      0.000    7913.812    2.36e+04
+## Gr_Liv_Area   110.5452      2.521     43.857      0.000     105.602     115.488
+## ==============================================================================
+## Omnibus:                      342.298   Durbin-Watson:                   2.050
+## Prob(Omnibus):                  0.000   Jarque-Bera (JB):             4078.850
+## Skew:                           0.396   Prob(JB):                         0.00
+## Kurtosis:                       9.863   Cond. No.                     4.96e+03
+## ==============================================================================
+## 
+## Notes:
+## [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+## [2] The condition number is large, 4.96e+03. This might indicate that there are
+## strong multicollinearity or other numerical problems.
+## &quot;&quot;&quot;</code></pre>
+<div class="sourceCode" id="cb138"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb138-1"><a href="slr.html#cb138-1" tabindex="-1"></a></span>
+<span id="cb138-2"><a href="slr.html#cb138-2" tabindex="-1"></a>train[<span class="st">&#39;pred_slr&#39;</span>] <span class="op">=</span> model_slr.predict()</span>
+<span id="cb138-3"><a href="slr.html#cb138-3" tabindex="-1"></a>train[<span class="st">&#39;resid_slr&#39;</span>] <span class="op">=</span> model_slr.resid</span>
+<span id="cb138-4"><a href="slr.html#cb138-4" tabindex="-1"></a></span>
+<span id="cb138-5"><a href="slr.html#cb138-5" tabindex="-1"></a><span class="co">#train[[&#39;Sale_Price&#39;, &#39;pred_anova&#39;, &#39;pred_slr&#39;]].head(n = 10)</span></span></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb139-1"><a href="slr.html#cb139-1" tabindex="-1"></a>sm.api.qqplot(train[<span class="st">&#39;resid_slr&#39;</span>])</span></code></pre></div>
+<pre><code>## &lt;Figure size 700x500 with 1 Axes&gt;</code></pre>
+<div class="sourceCode" id="cb141"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb141-1"><a href="slr.html#cb141-1" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
 
 </div>
 </div>
