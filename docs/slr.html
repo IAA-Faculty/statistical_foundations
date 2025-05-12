@@ -209,7 +209,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="2.7.1" data-path="slr.html"><a href="slr.html#slrassumptions"><i class="fa fa-check"></i><b>2.7.1</b> Assumptions of Linear Regression</a></li>
 <li class="chapter" data-level="2.7.2" data-path="slr.html"><a href="slr.html#testing-for-association"><i class="fa fa-check"></i><b>2.7.2</b> Testing for Association</a></li>
-<li class="chapter" data-level="2.7.3" data-path="slr.html"><a href="slr.html#python-code-17"><i class="fa fa-check"></i><b>2.7.3</b> Python Code</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Complex ANOVA and Multiple Linear Regression</a>
@@ -733,7 +732,7 @@ Both the <code>lm()</code> function and the <code>aov()</code> function will pro
   <th>Date:</th>             <td>Mon, 12 May 2025</td> <th>  Prob (F-statistic):</th> <td>1.72e-55</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>12:46:33</td>     <th>  Log-Likelihood:    </th> <td> -1304.1</td>
+  <th>Time:</th>                 <td>13:16:47</td>     <th>  Log-Likelihood:    </th> <td> -1304.1</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   428</td>      <th>  AIC:               </th> <td>   2614.</td>
@@ -1207,7 +1206,7 @@ Figure 2.8: A single anomalous observation creates strong correlation (0.73) whe
 ##        [0.23863599, 0.45383515, 0.57135986, 1.        , 0.69584201],
 ##        [0.55703178, 0.62538744, 0.62067339, 0.69584201, 1.        ]])</code></pre>
 <div class="sourceCode" id="cb123"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb123-1"><a href="slr.html#cb123-1" tabindex="-1"></a>sns.pairplot(train_plot)</span></code></pre></div>
-<pre><code>## &lt;seaborn.axisgrid.PairGrid object at 0x0000029B902F0BF0&gt;</code></pre>
+<pre><code>## &lt;seaborn.axisgrid.PairGrid object at 0x0000018370A5DC40&gt;</code></pre>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-49-1.png" width="1200" /></p>
 </div>
 </div>
@@ -1237,6 +1236,8 @@ where <span class="math inline">\(\beta_0\)</span>, the <strong>intercept</stron
 <li>The random errors have equal variance (homoskedasticity).</li>
 </ol>
 <p>It must now be noted that these assumptions are also in effect for the test of Pearson’s correlation in Section <a href="slr.html#testcor">2.6.1</a>, because the tests in simple linear regression are mathematically equivalent to that test. When these assumptions are not met, another approach to testing the significance of a linear relationship should be considered. The most common non-parametric approach to testing for an association between two continuous variables is Spearman’s correlation. Spearman’s correlation does not limit its findings to linear relationships; any monotonic relationship (one that is always increasing or always decreasing) will cause Spearman’s correlation to be significant. Similar to the approach taken by Kruskal-Wallis, Spearman’s correlation replaces the data with its ranks and computes Pearson’s correlation on the ranks. The same <code>cor</code> and <code>cor.test()</code> functions can be used; simply specify the <code>method='spearman'</code> option.</p>
+<div id="r-code-17" class="section level4 hasAnchor" number="2.7.1.1">
+<h4><span class="header-section-number">2.7.1.1</span> R code:<a href="slr.html#r-code-17" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="slr.html#cb125-1" tabindex="-1"></a><span class="fu">cor.test</span>(train<span class="sc">$</span>Gr_Liv_Area,train<span class="sc">$</span>Sale_Price, <span class="at">method =</span> <span class="st">&#39;spearman&#39;</span>)</span></code></pre></div>
 <pre><code>## Warning in cor.test.default(x, y, ...): Cannot compute exact p-value with ties</code></pre>
 <pre><code>## 
@@ -1248,6 +1249,7 @@ where <span class="math inline">\(\beta_0\)</span>, the <strong>intercept</stron
 ## sample estimates:
 ##       rho 
 ## 0.7199591</code></pre>
+</div>
 </div>
 <div id="testing-for-association" class="section level3 hasAnchor" number="2.7.2">
 <h3><span class="header-section-number">2.7.2</span> Testing for Association<a href="slr.html#testing-for-association" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1308,13 +1310,12 @@ The first thing we will do after creating the linear model is check our assumpti
 ## Multiple R-squared:  0.0752, Adjusted R-squared:  0.07475 
 ## F-statistic: 166.6 on 1 and 2049 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>We see that Central does indeed have a significant linear relationship with Sales Price. Looking at the above output, we see that X took on the value of 1 if the category was “Yes” and 0 if it was “No”. Therefore, we can interpret the coefficient as we expect the sales price of a home in Ames, Iowa to be on average $83,938 higher if they have central air compared to those homes that do not have central air.</p>
-</div>
-<div id="python-code-17" class="section level3 hasAnchor" number="2.7.3">
-<h3><span class="header-section-number">2.7.3</span> Python Code<a href="slr.html#python-code-17" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="python-code-17" class="section level4 hasAnchor" number="2.7.2.1">
+<h4><span class="header-section-number">2.7.2.1</span> Python Code<a href="slr.html#python-code-17" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Assumptions of Linear Regression</p>
 <div class="sourceCode" id="cb134"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb134-1"><a href="slr.html#cb134-1" tabindex="-1"></a>sp.stats.spearmanr(train[<span class="st">&#39;Gr_Liv_Area&#39;</span>], train[<span class="st">&#39;Sale_Price&#39;</span>])</span></code></pre></div>
 <pre><code>## SignificanceResult(statistic=0.719959092874937, pvalue=0.0)</code></pre>
-<p>Test for Association</p>
+<p>Fit linear regression:</p>
 <div class="sourceCode" id="cb136"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb136-1"><a href="slr.html#cb136-1" tabindex="-1"></a>model_slr <span class="op">=</span> smf.ols(<span class="st">&quot;Sale_Price ~ Gr_Liv_Area&quot;</span>, data <span class="op">=</span> train).fit()</span>
 <span id="cb136-2"><a href="slr.html#cb136-2" tabindex="-1"></a>model_slr.summary()</span></code></pre></div>
 <pre><code>## &lt;class &#39;statsmodels.iolib.summary.Summary&#39;&gt;
@@ -1325,7 +1326,7 @@ The first thing we will do after creating the linear model is check our assumpti
 ## Model:                            OLS   Adj. R-squared:                  0.484
 ## Method:                 Least Squares   F-statistic:                     1923.
 ## Date:                Mon, 12 May 2025   Prob (F-statistic):          6.98e-297
-## Time:                        12:46:48   Log-Likelihood:                -25409.
+## Time:                        13:17:02   Log-Likelihood:                -25409.
 ## No. Observations:                2051   AIC:                         5.082e+04
 ## Df Residuals:                    2049   BIC:                         5.083e+04
 ## Df Model:                           1                                         
@@ -1349,14 +1350,74 @@ The first thing we will do after creating the linear model is check our assumpti
 ## &quot;&quot;&quot;</code></pre>
 <div class="sourceCode" id="cb138"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb138-1"><a href="slr.html#cb138-1" tabindex="-1"></a></span>
 <span id="cb138-2"><a href="slr.html#cb138-2" tabindex="-1"></a>train[<span class="st">&#39;pred_slr&#39;</span>] <span class="op">=</span> model_slr.predict()</span>
-<span id="cb138-3"><a href="slr.html#cb138-3" tabindex="-1"></a>train[<span class="st">&#39;resid_slr&#39;</span>] <span class="op">=</span> model_slr.resid</span>
-<span id="cb138-4"><a href="slr.html#cb138-4" tabindex="-1"></a></span>
-<span id="cb138-5"><a href="slr.html#cb138-5" tabindex="-1"></a><span class="co">#train[[&#39;Sale_Price&#39;, &#39;pred_anova&#39;, &#39;pred_slr&#39;]].head(n = 10)</span></span></code></pre></div>
-<div class="sourceCode" id="cb139"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb139-1"><a href="slr.html#cb139-1" tabindex="-1"></a>sm.api.qqplot(train[<span class="st">&#39;resid_slr&#39;</span>])</span></code></pre></div>
-<pre><code>## &lt;Figure size 700x500 with 1 Axes&gt;</code></pre>
-<div class="sourceCode" id="cb141"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb141-1"><a href="slr.html#cb141-1" tabindex="-1"></a>plt.show()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<span id="cb138-3"><a href="slr.html#cb138-3" tabindex="-1"></a>train[<span class="st">&#39;resid_slr&#39;</span>] <span class="op">=</span> model_slr.resid</span></code></pre></div>
+<p>Look at Normality</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb139-1"><a href="slr.html#cb139-1" tabindex="-1"></a>p <span class="op">=</span> (</span>
+<span id="cb139-2"><a href="slr.html#cb139-2" tabindex="-1"></a>  ggplot(train, aes(sample <span class="op">=</span> <span class="st">&quot;resid_slr&quot;</span>)) <span class="op">+</span></span>
+<span id="cb139-3"><a href="slr.html#cb139-3" tabindex="-1"></a>  stat_qq() <span class="op">+</span></span>
+<span id="cb139-4"><a href="slr.html#cb139-4" tabindex="-1"></a>  stat_qq_line()</span>
+<span id="cb139-5"><a href="slr.html#cb139-5" tabindex="-1"></a>  )</span>
+<span id="cb139-6"><a href="slr.html#cb139-6" tabindex="-1"></a></span>
+<span id="cb139-7"><a href="slr.html#cb139-7" tabindex="-1"></a>p.show()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-57-1.png" width="614" /></p>
+<p>Residual plot:</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb140-1"><a href="slr.html#cb140-1" tabindex="-1"></a>p <span class="op">=</span> (</span>
+<span id="cb140-2"><a href="slr.html#cb140-2" tabindex="-1"></a>  ggplot(train, aes(x<span class="op">=</span><span class="st">&#39;pred_slr&#39;</span>,y<span class="op">=</span><span class="st">&#39;resid_slr&#39;</span>))<span class="op">+</span> geom_point()<span class="op">+</span> labs(x<span class="op">=</span><span class="st">&#39;Predicted Values&#39;</span>,y<span class="op">=</span><span class="st">&#39;Residuals&#39;</span>)</span>
+<span id="cb140-3"><a href="slr.html#cb140-3" tabindex="-1"></a>  )</span>
+<span id="cb140-4"><a href="slr.html#cb140-4" tabindex="-1"></a>  </span>
+<span id="cb140-5"><a href="slr.html#cb140-5" tabindex="-1"></a>p.show()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-58-3.png" width="614" /></p>
+<p>With categorical variable:</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb141-1"><a href="slr.html#cb141-1" tabindex="-1"></a>model_slr <span class="op">=</span> smf.ols(<span class="st">&quot;Sale_Price ~ C(Central_Air)&quot;</span>, data <span class="op">=</span> train).fit()</span>
+<span id="cb141-2"><a href="slr.html#cb141-2" tabindex="-1"></a>model_slr.summary()</span></code></pre></div>
+<pre><code>## &lt;class &#39;statsmodels.iolib.summary.Summary&#39;&gt;
+## &quot;&quot;&quot;
+##                             OLS Regression Results                            
+## ==============================================================================
+## Dep. Variable:             Sale_Price   R-squared:                       0.075
+## Model:                            OLS   Adj. R-squared:                  0.075
+## Method:                 Least Squares   F-statistic:                     166.6
+## Date:                Mon, 12 May 2025   Prob (F-statistic):           1.05e-36
+## Time:                        13:17:03   Log-Likelihood:                -26008.
+## No. Observations:                2051   AIC:                         5.202e+04
+## Df Residuals:                    2049   BIC:                         5.203e+04
+## Df Model:                           1                                         
+## Covariance Type:            nonrobust                                         
+## =======================================================================================
+##                           coef    std err          t      P&gt;|t|      [0.025      0.975]
+## ---------------------------------------------------------------------------------------
+## Intercept            9.965e+04   6623.194     15.045      0.000    8.67e+04    1.13e+05
+## C(Central_Air)[T.Y]  8.852e+04   6857.927     12.908      0.000    7.51e+04    1.02e+05
+## ==============================================================================
+## Omnibus:                      816.452   Durbin-Watson:                   2.040
+## Prob(Omnibus):                  0.000   Jarque-Bera (JB):             4081.413
+## Skew:                           1.840   Prob(JB):                         0.00
+## Kurtosis:                       8.850   Cond. No.                         7.58
+## ==============================================================================
+## 
+## Notes:
+## [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+## &quot;&quot;&quot;</code></pre>
+<div class="sourceCode" id="cb143"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb143-1"><a href="slr.html#cb143-1" tabindex="-1"></a></span>
+<span id="cb143-2"><a href="slr.html#cb143-2" tabindex="-1"></a>train[<span class="st">&#39;pred_slr&#39;</span>] <span class="op">=</span> model_slr.predict()</span>
+<span id="cb143-3"><a href="slr.html#cb143-3" tabindex="-1"></a>train[<span class="st">&#39;resid_slr&#39;</span>] <span class="op">=</span> model_slr.resid</span></code></pre></div>
+<p>Plots:</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb144-1"><a href="slr.html#cb144-1" tabindex="-1"></a>p <span class="op">=</span> (</span>
+<span id="cb144-2"><a href="slr.html#cb144-2" tabindex="-1"></a>  ggplot(train, aes(sample <span class="op">=</span> <span class="st">&quot;resid_slr&quot;</span>)) <span class="op">+</span></span>
+<span id="cb144-3"><a href="slr.html#cb144-3" tabindex="-1"></a>  stat_qq() <span class="op">+</span></span>
+<span id="cb144-4"><a href="slr.html#cb144-4" tabindex="-1"></a>  stat_qq_line()</span>
+<span id="cb144-5"><a href="slr.html#cb144-5" tabindex="-1"></a>  )</span>
+<span id="cb144-6"><a href="slr.html#cb144-6" tabindex="-1"></a></span>
+<span id="cb144-7"><a href="slr.html#cb144-7" tabindex="-1"></a>p.show()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-60-5.png" width="614" /></p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb145-1"><a href="slr.html#cb145-1" tabindex="-1"></a>p <span class="op">=</span> (</span>
+<span id="cb145-2"><a href="slr.html#cb145-2" tabindex="-1"></a>  ggplot(train, aes(x<span class="op">=</span><span class="st">&#39;pred_slr&#39;</span>,y<span class="op">=</span><span class="st">&#39;resid_slr&#39;</span>))<span class="op">+</span> geom_point()<span class="op">+</span> labs(x<span class="op">=</span><span class="st">&#39;Predicted Values&#39;</span>,y<span class="op">=</span><span class="st">&#39;Residuals&#39;</span>)</span>
+<span id="cb145-3"><a href="slr.html#cb145-3" tabindex="-1"></a>  )</span>
+<span id="cb145-4"><a href="slr.html#cb145-4" tabindex="-1"></a>  </span>
+<span id="cb145-5"><a href="slr.html#cb145-5" tabindex="-1"></a>p.show()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-60-6.png" width="614" /></p>
 
+</div>
 </div>
 </div>
 </div>

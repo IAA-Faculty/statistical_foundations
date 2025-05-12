@@ -973,6 +973,8 @@ Linear regression, in particular the hypothesis tests that are generally perform
 
 It must now be noted that these assumptions are also in effect for the test of Pearson's correlation in Section \@ref(testcor), because the tests in simple linear regression are mathematically equivalent to that test. When these assumptions are not met, another approach to testing the significance of a linear relationship should be considered. The most common non-parametric approach to testing for an association between two continuous variables is Spearman's correlation. Spearman's correlation does not limit its findings to linear relationships; any monotonic relationship (one that is always increasing or always decreasing) will cause Spearman's correlation to be significant. Similar to the approach taken by Kruskal-Wallis, Spearman's correlation replaces the data with its ranks and computes Pearson's correlation on the ranks. The same `cor` and `cor.test()` functions can be used; simply specify the `method='spearman'` option. 
 
+#### R code:
+
 ```{r}
 cor.test(train$Gr_Liv_Area,train$Sale_Price, method = 'spearman')
 ```
@@ -1027,7 +1029,7 @@ summary(slr)
 We see that Central does indeed have a significant linear relationship with Sales Price.  Looking at the above output, we see that X took on the value of 1 if the category was "Yes" and 0 if it was "No".  Therefore, we can interpret the coefficient as we expect the sales price of a home in Ames, Iowa to be on average $83,938 higher if they have central air compared to those homes that do not have central air.
 
 
-### Python Code
+#### Python Code
 
 Assumptions of Linear Regression
 
@@ -1036,7 +1038,7 @@ sp.stats.spearmanr(train['Gr_Liv_Area'], train['Sale_Price'])
 ```
 
 
-Test for Association
+Fit linear regression:
 
 ```{python}
 model_slr = smf.ols("Sale_Price ~ Gr_Liv_Area", data = train).fit()
@@ -1045,13 +1047,57 @@ model_slr.summary()
 train['pred_slr'] = model_slr.predict()
 train['resid_slr'] = model_slr.resid
 
-#train[['Sale_Price', 'pred_anova', 'pred_slr']].head(n = 10)
+
 ```
 
+Look at Normality
 
 ```{python}
-sm.api.qqplot(train['resid_slr'])
-plt.show()
+p = (
+  ggplot(train, aes(sample = "resid_slr")) +
+  stat_qq() +
+  stat_qq_line()
+  )
+
+p.show()
 ```
 
+Residual plot:
+
+```{python}
+p = (
+  ggplot(train, aes(x='pred_slr',y='resid_slr'))+ geom_point()+ labs(x='Predicted Values',y='Residuals')
+  )
+  
+p.show()
+```
+
+With categorical variable:
+
+```{python}
+model_slr = smf.ols("Sale_Price ~ C(Central_Air)", data = train).fit()
+model_slr.summary()
+
+train['pred_slr'] = model_slr.predict()
+train['resid_slr'] = model_slr.resid
+```
+
+
+Plots:
+
+```{python}
+p = (
+  ggplot(train, aes(sample = "resid_slr")) +
+  stat_qq() +
+  stat_qq_line()
+  )
+
+p.show()
+
+p = (
+  ggplot(train, aes(x='pred_slr',y='resid_slr'))+ geom_point()+ labs(x='Predicted Values',y='Residuals')
+  )
+  
+p.show()
+```
 
