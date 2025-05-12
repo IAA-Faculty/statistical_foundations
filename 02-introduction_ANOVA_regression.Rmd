@@ -608,11 +608,13 @@ After performing an ANOVA and learning that there is a difference between the gr
 
 Let's suppose we are comparing grocery spending on 4 different credit card rewards programs. If we'd like to compare the rewards programs pairwise, that entails 6 different hypothesis tests (each is a two-sample t-test). If we keep a confidence level of $\alpha = 0.05$ and subsequently view "being wrong in one test" as a random event happening with probability $p=0.05$ then our probability of being wrong _in at least_ one test out of 6 could be as great as 0.26! 
 
-To control this experiment-wise error rate, we must lower our significance thresholds to account for it. Alternatively, we can view this as an adjustment of our p-values higher while keeping our significance threshold fixed as usual. This is typically the approach taken, as we prefer to fix our significance thresholds in accordance with previous literature or industry standards. There are many methods of adjustment that have been proposed over the years for this purpose. Here, we consider a few popular methods: Tukey's test (when a basic ANOVA is done), Games-Howell test (when Welch's ANOVA is done), Dunn's test (when Kruskal-Wallis test is done) for pairwise comparisons and Dunnett's test (or Mann-Whitney test with Bonferroni correction) for control group comparisons. 
+To control this experiment-wise error rate, we must lower our significance thresholds to account for it. Alternatively, we can view this as an adjustment of our p-values higher while keeping our significance threshold fixed as usual. This is typically the approach taken, as we prefer to fix our significance thresholds in accordance with previous literature or industry standards. There are many methods of adjustment that have been proposed over the years for this purpose. Here, we consider a few popular methods: Tukey's test (when a basic ANOVA is done), Games-Howell test (when Welch's ANOVA is done), Dunn's test (when Kruskal-Wallis test is done) for pairwise comparisons and Dunnett's test (or Bootstrap with correction) for control group comparisons. 
 
 ### Tukey-Kramer {#tukey}
 
 If our objective is to compare each group to every other group then Tukey's test of honest significant differences, also known as the Tukey-Kramer test is probably the most widely-available and popular corrections in practice (should ONLY be used if you do the basic ANOVA). However, it should be noted that Tukey's test _should not_ be used if one does not plan to make all pairwise comparisons. If only a subset of comparisons are of interest to the user (like comparisons only to a control group) then one should opt for the Dunnett or a modified Bonferroni correction. 
+
+#### R code:
 
 To employ Tukey's HSD in R, we must use the `aov()` function to create our ANOVA object rather than the `lm()` function. The output of the test shows the difference in means and the p-value for testing the null hypothesis that the means are equal (i.e. that the differences are equal to 0). 
 
@@ -669,15 +671,7 @@ dunnettTest(x = cars2$MPG, g = factor(cars2$group))
 ```
 In the output from Dunnett's test, we see that Japanese and German made cars are significantly different than US made cars (note that this does not compare Japanese to German!).
 
-If we are not able to assume equal variances, we can use the Welch two-sample test to compare each group to the control and then adjust the p-value using Bonferroni.
-
-We can use this same idea to to the Wilcoxon test for a nonparametric version (then adjust using Bonferroni).
-
-```{r}
-summary(welchManyOneTTest(x = cars2$MPG, g = factor(cars2$group),p.adjust.method="bonferroni"))
-
-summary(manyOneUTest(x = cars2$MPG, g = factor(cars2$group),p.adjust.method="bonferroni"))
-```
+If we are not able to assume equal variances, we Bootstrap two-sample test to compare each group to the control and then adjust the p-value using Bonferroni.
 
 
 
@@ -689,12 +683,31 @@ Tukey-Kramer test:
 ```{python}
 import statsmodels.stats.multicomp as mc
 
-comp = mc.MultiComparison(train['Sale_Price'], train['Exter_Qual'])
+comp = mc.MultiComparison(cars2['MPG'], cars2['Country'])
 ph_res = comp.tukeyhsd(alpha = 0.05)
 ph_res.summary()
 ph_res.plot_simultaneous()
 ```
 
+Games-Howell test (DO NOT RECOMMEND):
+
+```{python}
+# Games-Howell post hoc test
+import pingouin as pg
+
+results = pg.pairwise_gameshowell(dv='MPG', between='Country', data=cars2)
+print(results)
+```
+
+Dunn's test:
+
+```{python}
+import scikit_posthocs as scp
+
+
+result = scp.posthoc_dunn(cars2, val_col='MPG', group_col='Country', p_adjust='Bonferroni')
+print(result)
+```
 
 No Dunnett's test in Python. The team at statsmodels is supposedly "working on it".
 
