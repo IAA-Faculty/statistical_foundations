@@ -455,6 +455,12 @@ model = smf.ols("MPG ~ C(Country)", data = cars2).fit()
 
 #### Assuming constant variance and Normality:
 model.summary()
+f_stat = model.fvalue
+pvalue = model.f_pvalue
+
+# Print the result
+print(f"Overall F-statistic: {f_stat:.4f}")
+print(f"P-value: {pvalue: .4f}")
 ```
 
 To get the actual F statistic:
@@ -530,18 +536,18 @@ sp.stats.fligner(US, Japan, Germany)
 
 There are other functions that can perform a one-way ANOVA.  For example,
 
-Using statsmodels:
+Using statsmodels for Welch's ANOVA:
 
 
 ```{python}
-model  = sm.stats.oneway.anova_oneway(data = cars2['MPG'], groups = cars2['Country'], use_var = 'equal', welch_correction = False)
+model  = sm.stats.oneway.anova_oneway(data = cars2['MPG'], groups = cars2['Country'],  welch_correction = True)
 
 print(f"The F-statistic is: {model.statistic:.4f}")
 print(f"The p-value is: {model.pvalue:.4f}")
 ```
 
 
-Using Scipy instead of statsmodels:
+Scipy is able to do the basic ANOVA:
 
 
 ```{python}
@@ -567,7 +573,7 @@ We summarize this information in the following table:
 
 Implementing the Kruskal-Wallis test in R is simple:
 
-
+#### R code:
 
 ```{r}
 ggdensity(cars2, x = "MPG",
@@ -589,7 +595,7 @@ kruskal.test(MPG~factor(Country),data=cars2)
 Our conclusion would be that the distribution of sale price is different across different levels of exterior quality. 
 
 
-### Python Code
+#### Python Code:
 
 ```{python}
 sp.stats.kruskal(US, Germany, Japan)
