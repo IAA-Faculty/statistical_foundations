@@ -1,6 +1,8 @@
 # Complex ANOVA and Multiple Linear Regression {#mlr}
 
 
+
+
 ```{r include=F}
 library(AmesHousing)
 library(tidyverse)
@@ -23,17 +25,6 @@ library(TSA)
 library(carData)
 
 ames <- make_ordinal_ames() 
-
-library(reticulate)
-#use_python("C:\\Users\\sjsimmo2\\AppData\\Local\\Programs\\Python/Python39\\python.exe")
-use_python("C:\\ProgramData\\Anaconda3\\python.exe")
-
-```
-
-
-```{r  include=FALSE}
-library(tidyverse)
-
 set.seed(123)
 
 ames <- ames %>% mutate(id = row_number())
@@ -42,10 +33,47 @@ train <- ames %>% sample_frac(0.7)
 
 test <- anti_join(ames, train, by = 'id')
 
-dim(train)
-dim(test)
+library(reticulate)
+#use_python("C:\\Users\\sjsimmo2\\AppData\\Local\\Programs\\Python/Python39\\python.exe")
+use_python("C:\\ProgramData\\Anaconda3\\python.exe")
+
 ```
 
+
+
+```{python,echo=F}
+
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import OneHotEncoder
+import seaborn as sns
+import matplotlib.pyplot as plt
+from numpy import random
+import statsmodels.api as sma
+import statsmodels as sm
+import pylab as py
+import scipy.stats as stats
+import scipy as sp
+import statsmodels.formula.api as smf
+import sklearn
+from sklearn.linear_model import Ridge
+from sklearn.linear_model import Lasso
+from sklearn.linear_model import ElasticNet
+from sklearn.metrics import mean_squared_error
+from plotnine import *
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+
+
+ames_py = pd.read_csv('https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/refs/heads/master/Ames.csv')
+
+ames_py["Sales"]=ames_py["Sale_Price"]/1000
+
+
+
+train,test = train_test_split(ames_py,test_size=0.3,random_state=123)
+
+```
 
 In the One-Way ANOVA and simple linear regression models, there was only one variable - categorical for ANOVA and continuous for simple linear regression - to explain and predict our target variable. Rarely do we believe that only a single variable will suffice in predicting a variable of interest. Here in this Chapter we will generalize these models to the $n$-Way ANOVA and multiple linear regression models. These models contain multiple sets of variables to explain and predict our target variable.
 
@@ -82,6 +110,9 @@ In the One-Way ANOVA model, we used a single categorical predictor variable with
 Let's use the basic example of two categorical predictor variables in a Two-Way ANOVA. Previously, we talked about using heating quality as a factor to explain and predict sale price of homes in Ames, Iowa. Now, we also consider whether the home has central air. Although similar in nature, these two factors potentially provide important, unique pieces of information about the home. Similar to previous data science problems, let us first explore our variables and their potential relationships.
 
 Now that we have two variables that we will use to explain and predict sale price, here are some summary statistics (mean, standard deviation, minimum, and maximum) for each combination of category. We will use the ```group_by``` function on both predictor variables of interest to split the data and then the ```summarise``` function to calculate the metrics we are interested in.
+
+#### R code:
+
 
 ```{r}
 train %>% 
@@ -151,7 +182,40 @@ plot(tukey.ames2, las = 1)
 Starting with the variable for central air, we can see there is a statistical difference between the two categories. This is the exact same result as the overall F test for the variable since there are only two categories. For the heating quality variable, we can see some categories are different from each other, while others are not. Noticeably, the combination of poor with fair, good, and typical categories are **not** statistically different. Notice also the different widths of these confidence intervals do to the different combinations of sample sizes for the categories being tested.
 
 
-### Python Code
+#### Python Code
+
+Exploring the data:
+
+```{python}
+summary = (
+    train
+    .groupby(['Heating_QC', 'Central_Air'])
+    .agg(
+        mean=('Sale_Price', 'mean'),
+        sd=('Sale_Price', 'std'),
+        max=('Sale_Price', 'max'),
+        min=('Sale_Price', 'min'),
+        n=('Sale_Price', 'count')
+    )
+    .reset_index()
+)
+
+print(summary)
+```
+
+Graph:
+
+```{python}
+p = (
+  ggplot(summary, aes(x = "Heating_QC", y = "mean",  fill="Central_Air")) +
+  geom_bar(stat = "identity", position = position_dodge()) +
+  labs(y = "Sales Price (Thousands $)", x = "Heating Quality Category")  +
+  theme_minimal()
+    )
+
+p.show()
+```
+
 
 Two-way ANOVA model
 
@@ -159,7 +223,6 @@ Two-way ANOVA model
 import statsmodels.formula.api as smf
 import statsmodels.api as sm
 
-train=r.train
 
 model = smf.ols("Sale_Price ~ C(Heating_QC) + C(Central_Air)", data = train).fit()
 model.summary()
@@ -173,12 +236,17 @@ Post-hoc testing
 ```{python}
 from statsmodels.stats.multicomp import pairwise_tukeyhsd
 
-train['anova_combo'] = train.Heating_QC.astype('string') + " / " + train.Central_Air
+# Tukey's HSD for Heating_QC
+tukey_heating = pairwise_tukeyhsd(endog=train['Sale_Price'],
+                                  groups=train['Heating_QC'],
+                                  alpha=0.05)
+print(tukey_heating)
 
-mcomp = pairwise_tukeyhsd(endog = train['Sale_Price'], groups = train['anova_combo'], alpha = 0.05)
-
-mcomp.summary()
-mcomp.plot_simultaneous()
+# Tukey's HSD for Central_Air
+tukey_air = pairwise_tukeyhsd(endog=train['Sale_Price'],
+                               groups=train['Central_Air'],
+                               alpha=0.05)
+print(tukey_air)
 ```
 
 
