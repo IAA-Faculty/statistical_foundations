@@ -262,6 +262,8 @@ $$
 
 with the interaction effect, $(\alpha \beta)_{ij}$, as the multiplication of the two variables involved in the interaction. Interactions can occur between more than two variables as well. Interactions are good to evaluate as they can mask the effects of individual variables. For example, imagine a hypothetical example as shown in Figure \@ref(fig:twomeansint) where the impact of having central air is opposite depending on which category of heating quality you have.
 
+#### R code:
+
 ```{r}
 fake_HQ <- c("Poor", "Poor", "Excellent", "Excellent")
 fake_CA <- c("N", "Y", "N", "Y")
@@ -343,12 +345,12 @@ shapiro.test(x = ames_res)
 Neither of the normality or equal variance assumptions appear to be met here. This would be a good scenario to have a non-parametric approach. Unfortunately, the Kruskal-Wallis approach is not applicable to $n$-Way ANOVA where $n > 1$. These approaches would need more non-parametric versions of multiple regression models to account for them.
 
 
-### Python Code
+#### Python Code
 
 Two-way ANOVA with interactions
 
 ```{python}
-train=r.train
+
 import matplotlib.pyplot as plt
 import scipy as sp
 import pandas as pd
@@ -401,6 +403,8 @@ For this analysis we will use a new dataset. This dataset contains the average g
 
 Let's briefly explore this new dataset by looking at all 32 values using the ```print``` function.
 
+#### R code:
+
 ```{r}
 block <- read_csv(file = "garlic_block.csv")
 
@@ -440,7 +444,7 @@ The first, new assumption of randomness deals with the reliability of the analys
 
 
 
-### Python Code
+#### Python Code
 
 ```{python}
 block=pd.read_csv('https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/master/garlic_block.csv')
