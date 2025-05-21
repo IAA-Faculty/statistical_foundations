@@ -480,6 +480,8 @@ Unlike simple linear regression that can be visualized as a line through a 2-dim
 
 Let's visual an example with two predictor variables - the square footage of greater living area and the total number of rooms. These will predict sale price of a home. When none of the variables have any relationship with the target variable, we get a horizontal plane like the one shown below. This is similar in concept to a horizontal line in simple linear regression having a slope of 0, implying that the target variable does not change as the predictor variable changes.
 
+#### R code:
+
 ```{r echo=FALSE}
 lm0 <- lm(Sale_Price ~ 1, data = train)
 
@@ -767,7 +769,7 @@ With these results we estimate the average difference in sales price between hom
 
 
 
-### Python Code
+#### Python Code
 
 Global and Local Inference
 
@@ -783,10 +785,14 @@ Assumptions
 train['pred_mlr'] = model_mlr.predict()
 train['resid_mlr'] = model_mlr.resid
 
-train[['Sale_Price', 'pred_mlr', 'resid_mlr']].head(n = 10)
+p = (
+    ggplot(train, aes(sample="resid_mlr")) +
+    geom_qq() +
+    geom_qq_line(color="blue", linetype="dashed") +
+    labs(title="QQ Plot of Residuals", x="Theoretical Quantiles", y="Sample Quantiles")
+)
 
-sm.qqplot(train['resid_mlr'])
-plt.show()
+p.show()
 ```
 
 
