@@ -226,7 +226,7 @@ Notice that we've highlighted the mean on each box-plot for the purposes of comp
 
 If we want to test whether the `Sale_Price` is different for the different values of `Exter_Qual`, we have to reach for the multi-group alternative to the 2-sample t-test. This is called __Analysis of Variance__, or __ANOVA__ for short. 
 
-### Python Code
+#### Python Code
 
 For Continuous-Continuous Associations:
 
@@ -661,6 +661,7 @@ dunn.cars <- dunn.test(cars2$MPG,cars2$Country,kw=T,method="bonferroni")
 
 This is a nonparametric test and does not have as much power as the previous multiple comparisons.  Be sure you use the correct test based on what you see in the data.
 
+You can also use the bootstrap technique (similar to what you did when testing two populution means)....you will need to adjust the alpha level.
 
 ```{r, include=FALSE}
 boot<-function(x1,x2,direction,alpha){
