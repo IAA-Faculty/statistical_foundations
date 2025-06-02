@@ -22,19 +22,10 @@ library(lmtest)
 library(gmodels)
 library(TSA)
 library(carData)
+library(dplyr)
+
 
 ames <- make_ordinal_ames() 
-
-library(reticulate)
-#use_python("C:\\Users\\sjsimmo2\\AppData\\Local\\Programs\\Python/Python39\\python.exe")
-use_python("C:\\ProgramData\\Anaconda3\\python.exe")
-
-```
-
-
-```{r  include=FALSE}
-library(tidyverse)
-
 set.seed(123)
 
 ames <- ames %>% mutate(id = row_number())
@@ -43,9 +34,47 @@ train <- ames %>% sample_frac(0.7)
 
 test <- anti_join(ames, train, by = 'id')
 
+library(reticulate)
+#use_python("C:\\Users\\sjsimmo2\\AppData\\Local\\Programs\\Python/Python39\\python.exe")
+use_python("C:\\ProgramData\\Anaconda3\\python.exe")
 
 ```
 
+
+
+```{python,echo=F}
+
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import OneHotEncoder
+import seaborn as sns
+import matplotlib.pyplot as plt
+from numpy import random
+import statsmodels.api as sma
+import statsmodels as sm
+import pylab as py
+import scipy.stats as stats
+import scipy as sp
+import statsmodels.formula.api as smf
+import sklearn
+from sklearn.linear_model import Ridge
+from sklearn.linear_model import Lasso
+from sklearn.linear_model import ElasticNet
+from sklearn.metrics import mean_squared_error
+from plotnine import *
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+
+
+ames_py = pd.read_csv('https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/refs/heads/master/Ames.csv')
+
+ames_py["Sales"]=ames_py["Sale_Price"]/1000
+
+
+
+train,test = train_test_split(ames_py,test_size=0.3,random_state=123)
+
+```
 
 
 In this Chapter, we will take a look at each of the assumptions in a linear model.  We will discuss what tools you will use to assess these assumptions, how to diagnose if the assumptions are met, some common problems often encountered when these assumptions do not hold and finally some remedies to fix these common issues.  You will notice that a variety of data sets are used throughout this Chapter. This is to help visualize and test for various assumptions and how to identify when these assumptions are not met.
@@ -84,6 +113,7 @@ To illustrate this, we will use the Salaries data set in the package carData in 
 
 Using this data set, let's take a look at the relationship between each pair of variables in Figure \@ref(fig:pairsex).
 
+#### R code:
 
 ```{r fig=T, label='pairsex', fig.align='center',fig.cap='Matrix of Scatter Plots for the Salaries Data', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
 library(carData)
@@ -102,7 +132,7 @@ pairs(Salaries)
 
 If there are not too many variables, this plot is a nice way to see all the relationships in the data set.  The variables are listed along the diagonal and each off diagonal plot is a scatterplot of the variables represented by that row and column.  For example, the first row of plots have rank on the y-axis.  The first column of plots have rank along the x-axis.
 
-### Python Code
+#### Python Code:
 
 ```{python}
 import statsmodels.formula.api as smf
@@ -128,6 +158,8 @@ plt.show()
 
 As you can see from the above list of assumptions that most of them involve the error term which is estimated by the residuals.  We will be using the residuals for many of these diagnostics.  One of the most useful plot is referred as the residual plot.  This plot will have the residuals along the y-axis and either the predicted values or individual x-values along the x-axis.  The following figure is an example using the residuals from a linear model predicting salary using all of the explanatory variables. 
 
+#### R code:
+
 ```{r label='salresid', fig=T, prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE, fig.cap = 'Residuals vs. Predicted Values for Salary Model'}
 
 lm.model=lm(salary~.,data=Salaries)
@@ -136,7 +168,7 @@ ggplot(lm.model,aes(x=fitted(lm.model),y=resid(lm.model)))+geom_point(color="blu
 
 ```
 
-### Python Code
+#### Python Code:
 
 ```{python}
 model_mlr = smf.ols("salary ~ C(rank) + C(discipline) + yrs_since_phd + yrs_service + C(sex)", data = Salaries).fit()
@@ -154,10 +186,13 @@ Salaries[['salary', 'pred_mlr', 'resid_mlr']].head(n = 10)
 
 
 ```{python}
-ax = sns.relplot(data = Salaries, y = "resid_mlr", x = "pred_mlr")
-ax.set(ylabel = 'Residuals',
-       xlabel = 'Predicted Salary')
-plt.show()
+
+p=(ggplot(Salaries, aes(x='pred_mlr',y='resid_mlr')) + geom_point() +
+          geom_hline(yintercept = 0) + 
+          labs(x="Fitted Values", y="Residuals")
+         )
+
+p.show()
 ```
 
 
@@ -190,12 +225,15 @@ If your model has more than one x, it is easier to see if an individual input va
 
 Let's take a look at an example of where a quadratic linear regression is needed. This example is studying the effect of a chemical additive on paper strength.  The response variable is the amount of force required to break the paper (strength) and the explanatory variable is the amount of chemical additive (amount).
 
+#### R Code: 
 
 ```{r fig=T, fig.align='center', fig.cap = 'Residual Plot Showing a Quadratic Relationship', label='quadexample1', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
 
- amount=c(1,1,1,2,2,2,2,2,3,3,3,3,4,4,4,4,4,5,5,5,5,5)
+chemical <- tibble(
+ amount=c(1,1,1,2,2,2,2,2,3,3,3,3,4,4,4,4,4,5,5,5,5,5),
  strength=c(2.4,2.6,2.7,2.5,2.6,2.6,2.7,2.8,2.8,2.8,3.0,3.0,3.0,2.9,2.9,3.0,3.1,2.9,2.9,3.0,2.9,2.8)
- lm.quad=lm(strength~amount)
+)
+ lm.quad=lm(strength~amount, data=chemical)
  summary(lm.quad)
  ggplot(lm.quad,aes(x=amount,y=resid(lm.quad)))+geom_point(color="blue",size=3)+labs( x="Amount", y="Residuals")
 
@@ -208,12 +246,12 @@ However, after looking at the residual plot and noticing the quadratic shape, we
 
 ```{r fig=T, fig.align='center', fig.cap = 'New Residual Plot after Fitting a Quadratic Term', label='quadexample2', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
 
-amount.c<-scale(amount,scale=F)
+chemical$amount.c<-scale(chemical$amount,scale=F)
 
-lm.quad=lm(strength~amount.c + I(amount.c^2))
+lm.quad=lm(strength~amount.c + I(amount.c^2),data=chemical)
 
 summary(lm.quad)
-ggplot(lm.quad,aes(x=amount,y=resid(lm.quad)))+geom_point(color="orange",size=2)+labs(title="Residual plot", x="Amount", y="Residuals")
+ggplot(lm.quad,aes(x=amount.c,y=resid(lm.quad)))+geom_point(color="orange",size=2)+labs(title="Residual plot", x="Amount", y="Residuals")
 
 ```
 
@@ -226,10 +264,10 @@ and the residuals from this model are shown in Figure \@ref(fig:quadexample2). I
 ```{r fig=T, fig.align='center', fig.cap = 'New Residual Plot after Fitting a Cubic Term', label='quadexample3', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
 
 
-lm.3=lm(strength~amount.c+I(amount.c^2)+I(amount.c^3))
+lm.3=lm(strength~amount.c+I(amount.c^2)+I(amount.c^3),data=chemical)
 
 summary(lm.3)
-ggplot(lm.3,aes(x=amount,y=resid(lm.3)))+geom_point(color="orange",size=2)+labs(x="Amount", y="Residuals")
+ggplot(lm.3,aes(x=amount.c,y=resid(lm.3)))+geom_point(color="orange",size=2)+labs(x="Amount", y="Residuals")
 
 ```
 
@@ -245,7 +283,7 @@ In wrapping up the misspecified model, if a linear model does not look appropria
   4. Fit a nonparametric regression model (for example splines or a LOESS regression).\
 
 
-### Python Code
+#### Python Code:
 
 ```{python}
 chemical = pd.DataFrame({'amount': [1,1,1,2,2,2,2,2,3,3,3,3,4,4,4,4,4,5,5,5,5,5],
@@ -261,10 +299,13 @@ model_quad.summary()
 chemical['pred_mlr'] = model_quad.predict()
 chemical['resid_mlr'] = model_quad.resid
 
-ax = sns.relplot(data = chemical, y = "resid_mlr", x = "amount")
-ax.set(ylabel = 'Residuals',
-       xlabel = 'Amount')
-plt.show()
+
+p=(ggplot(chemical, aes(x="amount",y="resid_mlr")) +geom_point(color="blue") +
+          geom_hline(yintercept = 0) + 
+          labs(x="Amount", y="Residuals")
+         )
+
+p.show()
 ```
 
 
@@ -277,10 +318,12 @@ model_quad2.summary()
 chemical['pred_mlr2'] = model_quad2.predict()
 chemical['resid_mlr2'] = model_quad2.resid
 
-ax = sns.relplot(data = chemical, y = "resid_mlr2", x = "amount")
-ax.set(ylabel = 'Residuals',
-       xlabel = 'Amount')
-plt.show()
+p=(ggplot(chemical, aes(x="amount_c",y="resid_mlr2")) +geom_point(color="orange") +
+          geom_hline(yintercept = 0) + 
+          labs(x="Amount", y="Residuals")
+         )
+
+p.show()
 ```
 
 
@@ -291,10 +334,12 @@ model_quad3.summary()
 chemical['pred_mlr3'] = model_quad3.predict()
 chemical['resid_mlr3'] = model_quad3.resid
 
-ax = sns.relplot(data = chemical, y = "resid_mlr3", x = "amount")
-ax.set(ylabel = 'Residuals',
-       xlabel = 'Amount')
-plt.show()
+p=(ggplot(chemical, aes(x="amount_c",y="resid_mlr3")) +geom_point(color="orange") +
+          geom_hline(yintercept = 0) + 
+          labs(x="Amount", y="Residuals")
+         )
+
+p.show()
 ```
 
 
@@ -345,6 +390,8 @@ Notice how the variability increases as the predicted values increase (the bands
 
 The following fictious salary data set is from the online textbook [_Applied Statistics with R_](https://daviddalpiaz.github.io/appliedstats/index.html).  The explanatory variable is number of years employment and the response variable is annual salary.
 
+#### R code:
+
 ```{r fig=T, fig.align='center',fig.cap = 'Residuals With Heteroskedasticity',label='varexample', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
 years=c(1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,9,10,10,10,10,11,11,11,11,12,12,12,12,13,13,13,13,14,14,14,14,15,15,15,15,16,16,16,16,17,17,17,17,17,18,18,18,18,19,19,19,19,20,20,20,20,21,21,21,21,22,22,22,22,23,23,23,23,24,24,24,24,25,25,25)
 
@@ -390,11 +437,6 @@ summary(model2)
 ggplot(model2, aes(x = .fitted, y = .resid)) +
   geom_point()
 
-# weights using fitted values 
-weights2<-1/model1$fitted.values^2
-model3<-lm(y~x,weights=weights2)
-summary(model3)
-
 
 ```
 
@@ -418,7 +460,7 @@ In conclusion, if the assumption of Homoskadicity of variance is violated, you c
   4. Use a different distribution (for example if the response is count data, use Poisson distribution).
 
 
-### Python Code
+#### Python Code:
 
 ```{python}
 experience = pd.DataFrame({'salary': [41504,32619,44322,40038,46147,38447,38163,42104,25597,39599,55698,47220,65929,55794,45959,52460,60308,61458,56951,56174,59363,57642,69792,59321,66379,64282,48901,100711,59324,54752,73619,65382,58823,65717,92816,72550,71365,88888,62969,45298,111292,91491,106345,99009,73981,72547,74991,139249,119948,128962,98112,97159,125246,89694,73333,108710,97567,90359,119806,101343,147406,153020,143200,97327,184807,146263,127925,159785,174822,177610,210984,160044,137044,182996,184183,168666,121350,193627,142611,170131,134140,129446,201469,202104,220556,166419,149044,247017,247730,252917,235517,241276,197229,175879,253682,262578,207715,221179,212028,312549],
@@ -433,12 +475,28 @@ model_var.summary()
 experience['pred_mlr'] = model_var.predict()
 experience['resid_mlr'] = model_var.resid
 
-ax = sns.relplot(data = experience, y = "resid_mlr", x = "years")
-ax.set(ylabel = 'Residuals',
-       xlabel = 'Years')
-plt.show()
+p=(ggplot(experience, aes(x="pred_mlr",y="resid_mlr")) +geom_point(color="blue") +
+          geom_hline(yintercept = 0) + 
+          labs(x="Predicted Values", y="Residuals")
+         )
+
+p.show()
 ```
 
+To perform spearman's rank test:
+
+```{python}
+from scipy.stats import spearmanr
+
+experience['abs_resid']=experience['resid_mlr'].abs()
+
+correlation, p_value = spearmanr(experience['pred_mlr'], experience['abs_resid'])
+
+print(f"Spearman correlation: {correlation}")
+print(f"P-value: {p_value}")
+```
+
+Now let's do the log transformation:
 
 ```{python}
 experience['log_salary'] = np.log(experience['salary'])
@@ -449,31 +507,54 @@ model_var2.summary()
 experience['pred_mlr2'] = model_var2.predict()
 experience['resid_mlr2'] = model_var2.resid
 
-ax = sns.relplot(data = experience, y = "resid_mlr2", x = "years")
-ax.set(ylabel = 'Residuals',
-       xlabel = 'Years')
-plt.show()
+p = (ggplot(experience, aes(x='pred_mlr2',y='resid_mlr2')) + 
+geom_point(color="orange") +
+labs(x="Predicted Values", y="Residuals", title="Residual Plot")
+)
+
+p.show()
 ```
 
+We can also do the weighted LS regression in Python:
 
 ```{python}
-x=r.x
-y=r.y
-weights1=r.weights1
-weights2 = r.weights2
+x = np.repeat(np.arange(2, 11), 5)
 
+# Set seed and generate heteroscedastic error
+np.random.seed(26785)
+error = np.random.normal(loc=0, scale=x)
+
+# Generate y
+y = 50 + 1.2 * x + error
+df = pd.DataFrame({'x': x, 'y': y})
+
+model1 = smf.ols("y~x",data=df).fit()
+model1.summary()
+
+df['pred'] = model1.predict()
+df['resid'] = model1.resid
+
+p=(ggplot(df, aes(x="pred",y="resid")) +geom_point(color="blue") +
+          geom_hline(yintercept = 0) + 
+          labs(x="Predicted", y="Residuals")
+         )
+
+p.show()
+
+weights1 = 1 / x**2
 x = sm.add_constant(x)
-model1 = sm.WLS(y, x, weights=weights1)
-results1 = model1.fit()
-model2 = sm.WLS(y, x, weights=weights2)
+model2 = sm.WLS(y, x, weights=weights1)
 results2 = model2.fit()
 
 # Print regression results
-print(results1.summary())
 print(results2.summary())
 
-model2 = sm.OLS(y,x)
-results = model2.fit(cov_type='HC2')
+model3 = sm.OLS(y,x)
+results = model3.fit(cov_type='HC1')
+print(results.summary())
+
+model4 = sm.OLS(y,x)
+results = model4.fit(cov_type='HC2')
 print(results.summary())
 
 
