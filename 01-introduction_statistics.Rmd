@@ -966,7 +966,7 @@ One sample mean test (two-sided):
 
 ```{python}
 d = sm.stats.weightstats.DescrStatsW(ames_py['Sale_Price'])
-test_stat, p_val, df = d.ttest_mean(value=178000, alternative='larger')
+test_stat, p_val, df = d.ttest_mean(value=178000, alternative='two-sided')
 
 print(f"Test statistic (t): {test_stat}")
 print(f"P-value: {p_val}")
