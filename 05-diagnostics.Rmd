@@ -652,16 +652,33 @@ p=(ggplot(experience,aes(x="resid_mlr")) + geom_histogram(fill='blue', color='bl
 
 p.show()
 
-sm.qqplot(experience['resid_mlr'])
-plt.show()
+
+p = (
+    ggplot(experience, aes(sample='resid_mlr')) +
+    stat_qq() +
+    stat_qq_line()
+)
+
+p.show()
 
 sp.stats.shapiro(model_var.resid)
 ```
 
+We can also perform the Anderson-Darling test in Python:
 
 ```{python}
+from statsmodels.stats.diagnostic import normal_ad
+
+stat, pval = normal_ad(model_var.resid)
+
+print(f"Anderson-Darling statistic: {stat:.4f}")
+print(f"P-value: {pval:.4f}")
+```
+
+Box-cox:
+```{python}
 bc = sp.stats.boxcox(experience['salary'], alpha = 0.05)
-bc[1] # maxlog lambda value
+
 bc[2] # CI for lambda value
 ```
 
@@ -732,7 +749,18 @@ model_dw.summary()
 ```
 
 
-Durbin-Watson test statistic is reported by default in summary of linear regression, but there is no way of getting a p-value for this metric in Python.
+Durbin-Watson test statistic is reported by default in summary of linear regression, but there is no way of getting a p-value for this metric in Python.  However, you can use a more general test called the Breusch-Godfrey test (too general...not very powerful).
+
+```{python}
+from statsmodels.stats.diagnostic import acorr_breusch_godfrey
+
+# Get test result
+bg_test = acorr_breusch_godfrey(model_dw, nlags=1)
+
+# Output: test statistic, p-value, f-statistic, f p-value
+print(f"Breusch-Godfrey p-value: {bg_test[1]:.4f}")
+```
+
 
 ## Influential Observations and Outliers
 
