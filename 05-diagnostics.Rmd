@@ -597,6 +597,8 @@ There are MANY different tests for normality.  Only two will be covered here.
 
 With large samples, you will most likely end up rejecting these hypothesis tests (using corrected significance levels is recommended).  Keep in mind that you can also get different result from different tests.  It is up to you to make the decision on whether or not you are comfortable in the assumption for normality holding in different situations.
 
+#### R Code:
+
 ```{r normal_test, prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
 
 set.seed(55402)
@@ -639,9 +641,17 @@ In conclusion, to deal with data that is NOT normally distributed, we can either
 2. Transform either response or predictor variables or both to obtain normality in the residuals.
 
 
-### Python Code
+#### Python Code
 
 ```{python}
+
+p=(ggplot(experience,aes(x="resid_mlr")) + geom_histogram(fill='blue', color='black') +
+    labs(title='Histogram', x='Value', y='Count') +
+    theme_minimal()
+)
+
+p.show()
+
 sm.qqplot(experience['resid_mlr'])
 plt.show()
 
