@@ -810,6 +810,8 @@ We will use the Scottish hill races as an example to illustrate how to calculate
 * Distance:	Distance in the course
 * Climb:	Vertical climb in the course
 
+#### R code:
+
 ```{r influence, fig=T, fig.align='center',fig.cap = 'Plots for Exploring Outliers and Influential Points',label='influence', prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
 
 
@@ -826,7 +828,7 @@ a = ggplot(lm.model,aes(x=n.index,y=rstandard(lm.model)))+geom_point(color="oran
 b = ggplot(lm.model,aes(x=n.index,y=rstudent(lm.model)))+geom_point(color="orange")+geom_line(y=-3)+geom_line(y=3)+labs(title = "External Studentized Residuals",x="Observation",y="Residuals")
 
 ##Influential points
-c = ggplot(lm.model,aes(x=n.index,y=rstandard(lm.model)))+geom_point(color="orange")+geom_line(y=-3)+geom_line(y=3)+labs(title = "Internal Studentized Residuals",x="Observation",y="Residuals")
+c = ggplot(lm.model,aes(x=n.index,y=rstudent(lm.model)))+geom_point(color="orange")+geom_line(y=-3)+geom_line(y=3)+labs(title = "External Studentized Residuals",x="Observation",y="Residuals")
 
 ##Cook's D
 D.cut=4/(nrow(races_table)-3)
@@ -862,37 +864,140 @@ ggplot(lm.model,aes(x=hatvalues(lm.model),y=rstudent(lm.model))) +  geom_point(c
 ```
 
 
-### Python Code
+#### Python Code
 
-```{python}
-races_table = r.races_table
+Fit model:
+
+```{python data_python}
+
+races_table = pd.read_table("http://www.statsci.org/data/general/hills.txt")
+
+# Fit linear model
+X = races_table[['Distance', 'Climb']]
+X = sm.add_constant(X)  # adds intercept
+y = races_table['Time']
+lm_model = sma.OLS(y, X).fit()
+
 
 model_io = smf.ols("Time ~ Distance + Climb", data = races_table).fit()
 model_io.summary()
 ```
 
 
-```{python}
-sm.graphics.influence_plot(model_io)
-plt.show()
-
-```
-
-
-```{python}
-sm.graphics.plot_leverage_resid2(model_io)
-plt.show()
-```
-
-
-```{python}
+If you need to get actual values of residuals/influence:
+```{python python_influence}
 from statsmodels.stats.outliers_influence import OLSInfluence
 
-outliers_inf = OLSInfluence(model_io)
-outliers_inf.cooks_distance
-outliers_inf.resid_studentized
-outliers_inf.dfbetas
+influence = OLSInfluence(model_io)
+
+influence.resid_studentized_internal
+influence.resid_studentized_external
+influence.cooks_distance
+influence.dffits
+influence.dfbetas
+
+
 ```
+
+
+Plot of external studentized residuals:
+
+
+```{python}
+resid_values=influence.resid_studentized_external
+
+
+resid_df = pd.DataFrame({
+    'Observation': range(1, len(resid_values) + 1),
+    'Resid': resid_values
+})
+
+
+p = (
+    ggplot(resid_df, aes(x='Observation', y='Resid')) +
+    geom_point(color='orange') +
+    geom_hline(yintercept=-2, linetype='dashed', color='red') +
+    geom_hline(yintercept=2, linetype='dashed', color='red') +
+    labs(
+        title='External Studentized residuals',
+        x='Observation',
+        y='Studentized Residuals'
+    ) +
+    theme_minimal()
+)
+
+p.show()
+```
+
+
+Plot of Cook's D:
+
+```{python}
+cooks_value,_ = influence.cooks_distance
+
+# Calculate Cook's D threshold
+n = model_io.nobs
+p = model_io.df_model + 1  # includes intercept
+cutoff = 4/(n-p)
+
+cooks_df = pd.DataFrame({
+    'Observation': range(1, len(cooks_value) + 1),
+    'Cooks': cooks_value
+})
+
+p = (
+    ggplot(cooks_df, aes(x='Observation', y='Cooks')) +
+    geom_point(color='orange') +
+    geom_hline(yintercept=cutoff, linetype='dashed', color='red') +
+    labs(
+        title='Cooks D Plot with Cutoff',
+        x='Observation',
+        y='CooksD'
+    ) +
+    theme_minimal()
+)
+
+p.show()
+```
+
+
+Plot of DFFITS:
+
+```{python}
+dffits_values, _ = influence.dffits
+
+# Calculate DFFITS threshold
+n = model_io.nobs
+p = model_io.df_model + 1  # includes intercept
+cutoff = 2 * (p / n) ** 0.5
+
+dffits_df = pd.DataFrame({
+    'Observation': range(1, len(dffits_values) + 1),
+    'DFFITS': dffits_values
+})
+
+
+cutoff = 2 * (p / n) ** 0.5
+
+p = (
+    ggplot(dffits_df, aes(x='Observation', y='DFFITS')) +
+    geom_point(color='orange') +
+    geom_hline(yintercept=cutoff, linetype='dashed', color='red') +
+    geom_hline(yintercept=-cutoff, linetype='dashed', color='red') +
+    labs(
+        title='DFFITS Plot with Cutoff',
+        x='Observation',
+        y='DFFITS'
+    ) +
+    theme_minimal()
+)
+
+p.show()
+```
+
+
+Plot studentized residuals and leverage:
+
 
 
 ## Multicollinearity
