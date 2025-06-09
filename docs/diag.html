@@ -262,10 +262,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5.1" data-path="diag.html"><a href="diag.html#python-code-28"><i class="fa fa-check"></i><b>5.5.1</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="5.6" data-path="diag.html"><a href="diag.html#influential-observations-and-outliers"><i class="fa fa-check"></i><b>5.6</b> Influential Observations and Outliers</a></li>
-<li class="chapter" data-level="5.7" data-path="diag.html"><a href="diag.html#multicollinearity"><i class="fa fa-check"></i><b>5.7</b> Multicollinearity</a>
-<ul>
-<li class="chapter" data-level="5.7.1" data-path="diag.html"><a href="diag.html#python-code-30"><i class="fa fa-check"></i><b>5.7.1</b> Python Code</a></li>
-</ul></li>
+<li class="chapter" data-level="5.7" data-path="diag.html"><a href="diag.html#multicollinearity"><i class="fa fa-check"></i><b>5.7</b> Multicollinearity</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html"><i class="fa fa-check"></i><b>6</b> Model Building and Scoring for Prediction</a>
 <ul>
@@ -410,7 +407,7 @@ Figure 5.1: Matrix of Scatter Plots for the Salaries Data
 <span id="cb2-14"><a href="diag.html#cb2-14" tabindex="-1"></a></span>
 <span id="cb2-15"><a href="diag.html#cb2-15" tabindex="-1"></a>ax <span class="op">=</span> sns.pairplot(data <span class="op">=</span> Salaries[[<span class="st">&#39;rank&#39;</span>, <span class="st">&#39;discipline&#39;</span>, <span class="st">&#39;yrs_since_phd&#39;</span>, <span class="st">&#39;yrs_service&#39;</span>, <span class="st">&#39;salary&#39;</span>]])</span>
 <span id="cb2-16"><a href="diag.html#cb2-16" tabindex="-1"></a>plt.show()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-3-1.png" width="720" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-4-1.png" width="720" /></p>
 </div>
 <div id="examining-residuals" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Examining Residuals<a href="diag.html#examining-residuals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -443,10 +440,10 @@ Figure 5.2: Residuals vs. Predicted Values for Salary Model
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   54.20</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Sat, 07 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>1.79e-48</td>
+  <th>Date:</th>             <td>Mon, 09 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>1.79e-48</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>11:53:59</td>     <th>  Log-Likelihood:    </th> <td> -4538.9</td>
+  <th>Time:</th>                 <td>11:23:28</td>     <th>  Log-Likelihood:    </th> <td> -4538.9</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   397</td>      <th>  AIC:               </th> <td>   9092.</td>
@@ -522,7 +519,7 @@ Figure 5.2: Residuals vs. Predicted Values for Salary Model
 <span id="cb7-4"><a href="diag.html#cb7-4" tabindex="-1"></a>         )</span>
 <span id="cb7-5"><a href="diag.html#cb7-5" tabindex="-1"></a></span>
 <span id="cb7-6"><a href="diag.html#cb7-6" tabindex="-1"></a>p.show()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-6-1.png" width="614" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-7-1.png" width="614" /></p>
 </div>
 </div>
 <div id="misspecified-model" class="section level2 hasAnchor" number="5.2">
@@ -678,10 +675,10 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   24.08</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Sat, 07 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>8.52e-05</td>
+  <th>Date:</th>             <td>Mon, 09 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>8.52e-05</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>11:54:01</td>     <th>  Log-Likelihood:    </th> <td>  15.001</td>
+  <th>Time:</th>                 <td>11:23:29</td>     <th>  Log-Likelihood:    </th> <td>  15.001</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    22</td>      <th>  AIC:               </th> <td>  -26.00</td>
@@ -731,7 +728,7 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
 <span id="cb18-8"><a href="diag.html#cb18-8" tabindex="-1"></a>         )</span>
 <span id="cb18-9"><a href="diag.html#cb18-9" tabindex="-1"></a></span>
 <span id="cb18-10"><a href="diag.html#cb18-10" tabindex="-1"></a>p.show()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-8-1.png" width="614" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-9-1.png" width="614" /></p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="diag.html#cb19-1" tabindex="-1"></a>chemical[<span class="st">&#39;amount_c&#39;</span>] <span class="op">=</span> chemical[<span class="st">&#39;amount&#39;</span>] <span class="op">-</span> np.mean(chemical[<span class="st">&#39;amount&#39;</span>])</span>
 <span id="cb19-2"><a href="diag.html#cb19-2" tabindex="-1"></a>model_quad2 <span class="op">=</span> smf.ols(<span class="st">&quot;strength ~ amount_c + I(amount_c**2)&quot;</span>, data <span class="op">=</span> chemical).fit()</span>
 <span id="cb19-3"><a href="diag.html#cb19-3" tabindex="-1"></a>model_quad2.summary()</span></code></pre></div>
@@ -747,10 +744,10 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   17.93</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Sat, 07 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>4.21e-05</td>
+  <th>Date:</th>             <td>Mon, 09 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>4.21e-05</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>11:54:01</td>     <th>  Log-Likelihood:    </th> <td>  17.974</td>
+  <th>Time:</th>                 <td>11:23:30</td>     <th>  Log-Likelihood:    </th> <td>  17.974</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    22</td>      <th>  AIC:               </th> <td>  -29.95</td>
@@ -802,7 +799,7 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
 <span id="cb20-7"><a href="diag.html#cb20-7" tabindex="-1"></a>         )</span>
 <span id="cb20-8"><a href="diag.html#cb20-8" tabindex="-1"></a></span>
 <span id="cb20-9"><a href="diag.html#cb20-9" tabindex="-1"></a>p.show()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-9-3.png" width="614" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-10-3.png" width="614" /></p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="diag.html#cb21-1" tabindex="-1"></a>model_quad3 <span class="op">=</span> smf.ols(<span class="st">&quot;strength ~ amount_c + I(amount_c**2) + I(amount_c**3)&quot;</span>, data <span class="op">=</span> chemical).fit()</span>
 <span id="cb21-2"><a href="diag.html#cb21-2" tabindex="-1"></a>model_quad3.summary()</span></code></pre></div>
 <table class="simpletable">
@@ -817,10 +814,10 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   16.22</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Sat, 07 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>2.34e-05</td>
+  <th>Date:</th>             <td>Mon, 09 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>2.34e-05</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>11:54:02</td>     <th>  Log-Likelihood:    </th> <td>  20.708</td>
+  <th>Time:</th>                 <td>11:23:30</td>     <th>  Log-Likelihood:    </th> <td>  20.708</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    22</td>      <th>  AIC:               </th> <td>  -33.42</td>
@@ -875,7 +872,7 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
 <span id="cb22-7"><a href="diag.html#cb22-7" tabindex="-1"></a>         )</span>
 <span id="cb22-8"><a href="diag.html#cb22-8" tabindex="-1"></a></span>
 <span id="cb22-9"><a href="diag.html#cb22-9" tabindex="-1"></a>p.show()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-10-5.png" width="614" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-11-5.png" width="614" /></p>
 </div>
 </div>
 <div id="constant-variance" class="section level2 hasAnchor" number="5.3">
@@ -928,7 +925,7 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
 <span id="cb24-5"><a href="diag.html#cb24-5" tabindex="-1"></a>model1<span class="ot">&lt;-</span><span class="fu">lm</span>(y<span class="sc">~</span>x)</span>
 <span id="cb24-6"><a href="diag.html#cb24-6" tabindex="-1"></a><span class="fu">ggplot</span>(model1, <span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid)) <span class="sc">+</span></span>
 <span id="cb24-7"><a href="diag.html#cb24-7" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="diag.html#cb25-1" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
@@ -972,7 +969,7 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
 ## F-statistic:  8.17 on 1 and 43 DF,  p-value: 0.006542</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="diag.html#cb29-1" tabindex="-1"></a><span class="fu">ggplot</span>(model2, <span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid)) <span class="sc">+</span></span>
 <span id="cb29-2"><a href="diag.html#cb29-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-12-2.png" width="672" /></p>
 <p>Notice that the estimates do NOT change from OLS to WLS!! Just the standard errors. Another technique is to use robust standard errors. This can be done within the estimatr package:</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="diag.html#cb30-1" tabindex="-1"></a><span class="fu">library</span>(estimatr)</span>
 <span id="cb30-2"><a href="diag.html#cb30-2" tabindex="-1"></a>model3<span class="ot">&lt;-</span><span class="fu">lm_robust</span>(y<span class="sc">~</span>x,<span class="at">se_type =</span> <span class="st">&quot;HC1&quot;</span>)</span>
@@ -1032,10 +1029,10 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   492.8</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Sat, 07 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>5.16e-40</td>
+  <th>Date:</th>             <td>Mon, 09 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>5.16e-40</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>11:54:04</td>     <th>  Log-Likelihood:    </th> <td> -1162.5</td>
+  <th>Time:</th>                 <td>11:23:32</td>     <th>  Log-Likelihood:    </th> <td> -1162.5</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   100</td>      <th>  AIC:               </th> <td>   2329.</td>
@@ -1084,7 +1081,7 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
 <span id="cb35-7"><a href="diag.html#cb35-7" tabindex="-1"></a>         )</span>
 <span id="cb35-8"><a href="diag.html#cb35-8" tabindex="-1"></a></span>
 <span id="cb35-9"><a href="diag.html#cb35-9" tabindex="-1"></a>p.show()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-14-1.png" width="614" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-15-1.png" width="614" /></p>
 <p>To perform spearman’s rank test:</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="diag.html#cb36-1" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> spearmanr</span>
 <span id="cb36-2"><a href="diag.html#cb36-2" tabindex="-1"></a></span>
@@ -1113,10 +1110,10 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   805.2</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Sat, 07 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>4.63e-49</td>
+  <th>Date:</th>             <td>Mon, 09 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>4.63e-49</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>11:54:05</td>     <th>  Log-Likelihood:    </th> <td>  22.359</td>
+  <th>Time:</th>                 <td>11:23:33</td>     <th>  Log-Likelihood:    </th> <td>  22.359</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   100</td>      <th>  AIC:               </th> <td>  -40.72</td>
@@ -1165,7 +1162,7 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
 <span id="cb41-7"><a href="diag.html#cb41-7" tabindex="-1"></a>)</span>
 <span id="cb41-8"><a href="diag.html#cb41-8" tabindex="-1"></a></span>
 <span id="cb41-9"><a href="diag.html#cb41-9" tabindex="-1"></a>p.show()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-16-3.png" width="614" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-17-3.png" width="614" /></p>
 <p>We can also do the weighted LS regression in Python:</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="diag.html#cb42-1" tabindex="-1"></a>x <span class="op">=</span> np.repeat(np.arange(<span class="dv">2</span>, <span class="dv">11</span>), <span class="dv">5</span>)</span>
 <span id="cb42-2"><a href="diag.html#cb42-2" tabindex="-1"></a></span>
@@ -1191,10 +1188,10 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   11.43</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Sat, 07 Jun 2025</td> <th>  Prob (F-statistic):</th>  <td>0.00155</td>
+  <th>Date:</th>             <td>Mon, 09 Jun 2025</td> <th>  Prob (F-statistic):</th>  <td>0.00155</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>11:54:05</td>     <th>  Log-Likelihood:    </th> <td> -144.58</td>
+  <th>Time:</th>                 <td>11:23:33</td>     <th>  Log-Likelihood:    </th> <td> -144.58</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    45</td>      <th>  AIC:               </th> <td>   293.2</td>
@@ -1243,7 +1240,7 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
 <span id="cb43-7"><a href="diag.html#cb43-7" tabindex="-1"></a>         )</span>
 <span id="cb43-8"><a href="diag.html#cb43-8" tabindex="-1"></a></span>
 <span id="cb43-9"><a href="diag.html#cb43-9" tabindex="-1"></a>p.show()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-17-5.png" width="614" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-18-5.png" width="614" /></p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="diag.html#cb44-1" tabindex="-1"></a>weights1 <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> x<span class="op">**</span><span class="dv">2</span></span>
 <span id="cb44-2"><a href="diag.html#cb44-2" tabindex="-1"></a>x <span class="op">=</span> sm.add_constant(x)</span>
 <span id="cb44-3"><a href="diag.html#cb44-3" tabindex="-1"></a>model2 <span class="op">=</span> sm.WLS(y, x, weights<span class="op">=</span>weights1)</span>
@@ -1256,8 +1253,8 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
 ## Dep. Variable:                      y   R-squared:                       0.316
 ## Model:                            WLS   Adj. R-squared:                  0.301
 ## Method:                 Least Squares   F-statistic:                     19.90
-## Date:                Sat, 07 Jun 2025   Prob (F-statistic):           5.78e-05
-## Time:                        11:54:05   Log-Likelihood:                -135.29
+## Date:                Mon, 09 Jun 2025   Prob (F-statistic):           5.78e-05
+## Time:                        11:23:33   Log-Likelihood:                -135.29
 ## No. Observations:                  45   AIC:                             274.6
 ## Df Residuals:                      43   BIC:                             278.2
 ## Df Model:                           1                                         
@@ -1284,8 +1281,8 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
 ## Dep. Variable:                      y   R-squared:                       0.210
 ## Model:                            OLS   Adj. R-squared:                  0.192
 ## Method:                 Least Squares   F-statistic:                     10.96
-## Date:                Sat, 07 Jun 2025   Prob (F-statistic):            0.00189
-## Time:                        11:54:05   Log-Likelihood:                -144.58
+## Date:                Mon, 09 Jun 2025   Prob (F-statistic):            0.00189
+## Time:                        11:23:33   Log-Likelihood:                -144.58
 ## No. Observations:                  45   AIC:                             293.2
 ## Df Residuals:                      43   BIC:                             296.8
 ## Df Model:                           1                                         
@@ -1312,8 +1309,8 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
 ## Dep. Variable:                      y   R-squared:                       0.210
 ## Model:                            OLS   Adj. R-squared:                  0.192
 ## Method:                 Least Squares   F-statistic:                     10.74
-## Date:                Sat, 07 Jun 2025   Prob (F-statistic):            0.00208
-## Time:                        11:54:05   Log-Likelihood:                -144.58
+## Date:                Mon, 09 Jun 2025   Prob (F-statistic):            0.00208
+## Time:                        11:23:33   Log-Likelihood:                -144.58
 ## No. Observations:                  45   AIC:                             293.2
 ## Df Residuals:                      43   BIC:                             296.8
 ## Df Model:                           1                                         
@@ -1403,7 +1400,7 @@ The output from the graph clearly incates that <span class="math inline">\(\lamb
 <span id="cb55-5"><a href="diag.html#cb55-5" tabindex="-1"></a></span>
 <span id="cb55-6"><a href="diag.html#cb55-6" tabindex="-1"></a>p.show()</span></code></pre></div>
 <pre><code>## C:\PROGRA~3\ANACON~1\Lib\site-packages\plotnine\stats\stat_bin.py:109: PlotnineWarning: &#39;stat_bin()&#39; using &#39;bins = 11&#39;. Pick better value with &#39;binwidth&#39;.</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-18-1.png" width="614" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-19-1.png" width="614" /></p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="diag.html#cb57-1" tabindex="-1"></a>p <span class="op">=</span> (</span>
 <span id="cb57-2"><a href="diag.html#cb57-2" tabindex="-1"></a>    ggplot(experience, aes(sample<span class="op">=</span><span class="st">&#39;resid_mlr&#39;</span>)) <span class="op">+</span></span>
 <span id="cb57-3"><a href="diag.html#cb57-3" tabindex="-1"></a>    stat_qq() <span class="op">+</span></span>
@@ -1411,7 +1408,7 @@ The output from the graph clearly incates that <span class="math inline">\(\lamb
 <span id="cb57-5"><a href="diag.html#cb57-5" tabindex="-1"></a>)</span>
 <span id="cb57-6"><a href="diag.html#cb57-6" tabindex="-1"></a></span>
 <span id="cb57-7"><a href="diag.html#cb57-7" tabindex="-1"></a>p.show()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-18-2.png" width="614" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-19-2.png" width="614" /></p>
 <div class="sourceCode" id="cb58"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="diag.html#cb58-1" tabindex="-1"></a>sp.stats.shapiro(model_var.resid)</span></code></pre></div>
 <pre><code>## ShapiroResult(statistic=0.9825804700820449, pvalue=0.21006919799469664)</code></pre>
 <p>We can also perform the Anderson-Darling test in Python:</p>
@@ -1491,10 +1488,10 @@ The following data set illustrates this test using the Google data set in the TS
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   3.733</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Sat, 07 Jun 2025</td> <th>  Prob (F-statistic):</th>  <td>0.0539</td> 
+  <th>Date:</th>             <td>Mon, 09 Jun 2025</td> <th>  Prob (F-statistic):</th>  <td>0.0539</td> 
 </tr>
 <tr>
-  <th>Time:</th>                 <td>11:54:07</td>     <th>  Log-Likelihood:    </th> <td>  1209.3</td>
+  <th>Time:</th>                 <td>11:23:35</td>     <th>  Log-Likelihood:    </th> <td>  1209.3</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   521</td>      <th>  AIC:               </th> <td>  -2415.</td>
@@ -1663,10 +1660,10 @@ Figure 5.15: Influential and Outlier Observations
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   181.7</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Sat, 07 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>3.40e-18</td>
+  <th>Date:</th>             <td>Mon, 09 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>3.40e-18</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>11:54:10</td>     <th>  Log-Likelihood:    </th> <td> -142.11</td>
+  <th>Time:</th>                 <td>11:23:38</td>     <th>  Log-Likelihood:    </th> <td> -142.11</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    35</td>      <th>  AIC:               </th> <td>   290.2</td>
@@ -1928,7 +1925,7 @@ Figure 5.15: Influential and Outlier Observations
 <span id="cb85-21"><a href="diag.html#cb85-21" tabindex="-1"></a>)</span>
 <span id="cb85-22"><a href="diag.html#cb85-22" tabindex="-1"></a></span>
 <span id="cb85-23"><a href="diag.html#cb85-23" tabindex="-1"></a>p.show()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-24-1.png" width="614" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-25-1.png" width="614" /></p>
 <p>Plot of Cook’s D:</p>
 <div class="sourceCode" id="cb86"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb86-1"><a href="diag.html#cb86-1" tabindex="-1"></a>cooks_value,_ <span class="op">=</span> influence.cooks_distance</span>
 <span id="cb86-2"><a href="diag.html#cb86-2" tabindex="-1"></a></span>
@@ -1955,7 +1952,7 @@ Figure 5.15: Influential and Outlier Observations
 <span id="cb86-23"><a href="diag.html#cb86-23" tabindex="-1"></a>)</span>
 <span id="cb86-24"><a href="diag.html#cb86-24" tabindex="-1"></a></span>
 <span id="cb86-25"><a href="diag.html#cb86-25" tabindex="-1"></a>p.show()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-25-3.png" width="614" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-26-3.png" width="614" /></p>
 <p>Plot of DFFITS:</p>
 <div class="sourceCode" id="cb87"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb87-1"><a href="diag.html#cb87-1" tabindex="-1"></a>dffits_values, _ <span class="op">=</span> influence.dffits</span>
 <span id="cb87-2"><a href="diag.html#cb87-2" tabindex="-1"></a></span>
@@ -1972,7 +1969,7 @@ Figure 5.15: Influential and Outlier Observations
 <span id="cb87-13"><a href="diag.html#cb87-13" tabindex="-1"></a></span>
 <span id="cb87-14"><a href="diag.html#cb87-14" tabindex="-1"></a>cutoff <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> (p <span class="op">/</span> n) <span class="op">**</span> <span class="fl">0.5</span></span>
 <span id="cb87-15"><a href="diag.html#cb87-15" tabindex="-1"></a></span>
-<span id="cb87-16"><a href="diag.html#cb87-16" tabindex="-1"></a>p <span class="op">=</span> (</span>
+<span id="cb87-16"><a href="diag.html#cb87-16" tabindex="-1"></a>plot <span class="op">=</span> (</span>
 <span id="cb87-17"><a href="diag.html#cb87-17" tabindex="-1"></a>    ggplot(dffits_df, aes(x<span class="op">=</span><span class="st">&#39;Observation&#39;</span>, y<span class="op">=</span><span class="st">&#39;DFFITS&#39;</span>)) <span class="op">+</span></span>
 <span id="cb87-18"><a href="diag.html#cb87-18" tabindex="-1"></a>    geom_point(color<span class="op">=</span><span class="st">&#39;orange&#39;</span>) <span class="op">+</span></span>
 <span id="cb87-19"><a href="diag.html#cb87-19" tabindex="-1"></a>    geom_hline(yintercept<span class="op">=</span>cutoff, linetype<span class="op">=</span><span class="st">&#39;dashed&#39;</span>, color<span class="op">=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span></span>
@@ -1985,9 +1982,42 @@ Figure 5.15: Influential and Outlier Observations
 <span id="cb87-26"><a href="diag.html#cb87-26" tabindex="-1"></a>    theme_minimal()</span>
 <span id="cb87-27"><a href="diag.html#cb87-27" tabindex="-1"></a>)</span>
 <span id="cb87-28"><a href="diag.html#cb87-28" tabindex="-1"></a></span>
-<span id="cb87-29"><a href="diag.html#cb87-29" tabindex="-1"></a>p.show()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-26-5.png" width="614" /></p>
+<span id="cb87-29"><a href="diag.html#cb87-29" tabindex="-1"></a>plot.show()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-27-5.png" width="614" /></p>
 <p>Plot studentized residuals and leverage:</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb88-1"><a href="diag.html#cb88-1" tabindex="-1"></a>leverage_values <span class="op">=</span> influence.hat_matrix_diag</span>
+<span id="cb88-2"><a href="diag.html#cb88-2" tabindex="-1"></a>influence_df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb88-3"><a href="diag.html#cb88-3" tabindex="-1"></a>    <span class="st">&#39;leverage&#39;</span>: leverage_values,</span>
+<span id="cb88-4"><a href="diag.html#cb88-4" tabindex="-1"></a>    <span class="st">&#39;Resid&#39;</span>: resid_values,</span>
+<span id="cb88-5"><a href="diag.html#cb88-5" tabindex="-1"></a>    <span class="st">&#39;observation&#39;</span>: np.arange(n),</span>
+<span id="cb88-6"><a href="diag.html#cb88-6" tabindex="-1"></a>    <span class="st">&#39;Cooks&#39;</span>: cooks_value</span>
+<span id="cb88-7"><a href="diag.html#cb88-7" tabindex="-1"></a>})</span>
+<span id="cb88-8"><a href="diag.html#cb88-8" tabindex="-1"></a></span>
+<span id="cb88-9"><a href="diag.html#cb88-9" tabindex="-1"></a>influence_plot <span class="op">=</span> (</span>
+<span id="cb88-10"><a href="diag.html#cb88-10" tabindex="-1"></a>    ggplot(influence_df, aes(x<span class="op">=</span><span class="st">&#39;leverage&#39;</span>, y<span class="op">=</span><span class="st">&#39;Resid&#39;</span>, size<span class="op">=</span><span class="st">&#39;Cooks&#39;</span>)) <span class="op">+</span></span>
+<span id="cb88-11"><a href="diag.html#cb88-11" tabindex="-1"></a>    geom_point(color<span class="op">=</span><span class="st">&#39;blue&#39;</span>) <span class="op">+</span></span>
+<span id="cb88-12"><a href="diag.html#cb88-12" tabindex="-1"></a>    geom_hline(yintercept<span class="op">=</span><span class="dv">2</span>, linetype<span class="op">=</span><span class="st">&#39;dashed&#39;</span>, color<span class="op">=</span><span class="st">&#39;purple&#39;</span>) <span class="op">+</span></span>
+<span id="cb88-13"><a href="diag.html#cb88-13" tabindex="-1"></a>    geom_hline(yintercept<span class="op">=-</span><span class="dv">2</span>, linetype<span class="op">=</span><span class="st">&#39;dashed&#39;</span>, color<span class="op">=</span><span class="st">&#39;purple&#39;</span>) <span class="op">+</span></span>
+<span id="cb88-14"><a href="diag.html#cb88-14" tabindex="-1"></a>    geom_vline(xintercept<span class="op">=</span>cutoff, linetype<span class="op">=</span><span class="st">&#39;dashed&#39;</span>, color<span class="op">=</span><span class="st">&#39;green&#39;</span>) <span class="op">+</span></span>
+<span id="cb88-15"><a href="diag.html#cb88-15" tabindex="-1"></a>    scale_size_continuous(name<span class="op">=</span><span class="st">&quot;Cook&#39;s D&quot;</span>, <span class="bu">range</span><span class="op">=</span>[<span class="dv">1</span>, <span class="dv">20</span>]) <span class="op">+</span></span>
+<span id="cb88-16"><a href="diag.html#cb88-16" tabindex="-1"></a>    labs(</span>
+<span id="cb88-17"><a href="diag.html#cb88-17" tabindex="-1"></a>        title<span class="op">=</span><span class="st">&#39;Influence Plot with Cutoffs&#39;</span>,</span>
+<span id="cb88-18"><a href="diag.html#cb88-18" tabindex="-1"></a>        x<span class="op">=</span><span class="st">&#39;Leverage&#39;</span>,</span>
+<span id="cb88-19"><a href="diag.html#cb88-19" tabindex="-1"></a>        y<span class="op">=</span><span class="st">&#39;Studentized Residuals&#39;</span></span>
+<span id="cb88-20"><a href="diag.html#cb88-20" tabindex="-1"></a>    ) <span class="op">+</span></span>
+<span id="cb88-21"><a href="diag.html#cb88-21" tabindex="-1"></a>    theme_minimal()</span>
+<span id="cb88-22"><a href="diag.html#cb88-22" tabindex="-1"></a>)</span>
+<span id="cb88-23"><a href="diag.html#cb88-23" tabindex="-1"></a></span>
+<span id="cb88-24"><a href="diag.html#cb88-24" tabindex="-1"></a><span class="co"># Mark influential or outlying points</span></span>
+<span id="cb88-25"><a href="diag.html#cb88-25" tabindex="-1"></a>influence_df[<span class="st">&#39;label&#39;</span>] <span class="op">=</span> influence_df.<span class="bu">apply</span>(</span>
+<span id="cb88-26"><a href="diag.html#cb88-26" tabindex="-1"></a>    <span class="kw">lambda</span> row: <span class="bu">str</span>(row[<span class="st">&#39;observation&#39;</span>]) <span class="cf">if</span> <span class="bu">abs</span>(row[<span class="st">&#39;Resid&#39;</span>]) <span class="op">&gt;</span> <span class="dv">2</span> <span class="kw">and</span> row[<span class="st">&#39;leverage&#39;</span>] <span class="op">&gt;</span> cutoff <span class="cf">else</span> <span class="st">&#39;&#39;</span>,</span>
+<span id="cb88-27"><a href="diag.html#cb88-27" tabindex="-1"></a>    axis<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb88-28"><a href="diag.html#cb88-28" tabindex="-1"></a>)</span>
+<span id="cb88-29"><a href="diag.html#cb88-29" tabindex="-1"></a></span>
+<span id="cb88-30"><a href="diag.html#cb88-30" tabindex="-1"></a>influence_plot <span class="op">+=</span> geom_text(aes(label<span class="op">=</span><span class="st">&#39;label&#39;</span>), ha<span class="op">=</span><span class="st">&#39;left&#39;</span>, nudge_x<span class="op">=</span><span class="fl">0.01</span>, size<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb88-31"><a href="diag.html#cb88-31" tabindex="-1"></a></span>
+<span id="cb88-32"><a href="diag.html#cb88-32" tabindex="-1"></a>influence_plot.show()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-28-7.png" width="614" /></p>
 </div>
 </div>
 <div id="multicollinearity" class="section level2 hasAnchor" number="5.7">
@@ -2028,7 +2058,9 @@ Repeat this process for each of the other explanatory variables. If a VIF value 
 </li>
 <li>gear: Number of forward gears</li>
 </ul>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="diag.html#cb88-1" tabindex="-1"></a><span class="fu">cor</span>(mtcars)</span></code></pre></div>
+<div id="r-code-28" class="section level4 hasAnchor" number="5.7.0.1">
+<h4><span class="header-section-number">5.7.0.1</span> R code:<a href="diag.html#r-code-28" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="diag.html#cb89-1" tabindex="-1"></a><span class="fu">cor</span>(mtcars)</span></code></pre></div>
 <pre><code>##             mpg        cyl       disp         hp        drat         wt
 ## mpg   1.0000000 -0.8521620 -0.8475514 -0.7761684  0.68117191 -0.8676594
 ## cyl  -0.8521620  1.0000000  0.9020329  0.8324475 -0.69993811  0.7824958
@@ -2053,8 +2085,8 @@ Repeat this process for each of the other explanatory variables. If a VIF value 
 ## am   -0.22986086  0.1683451  1.00000000  0.7940588  0.05753435
 ## gear -0.21268223  0.2060233  0.79405876  1.0000000  0.27407284
 ## carb -0.65624923 -0.5696071  0.05753435  0.2740728  1.00000000</code></pre>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="diag.html#cb90-1" tabindex="-1"></a>lm.model<span class="ot">=</span><span class="fu">lm</span>(mpg<span class="sc">~</span>.,<span class="at">data=</span>mtcars)</span>
-<span id="cb90-2"><a href="diag.html#cb90-2" tabindex="-1"></a><span class="fu">vif</span>(lm.model)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="diag.html#cb91-1" tabindex="-1"></a>lm.model<span class="ot">=</span><span class="fu">lm</span>(mpg<span class="sc">~</span>.,<span class="at">data=</span>mtcars)</span>
+<span id="cb91-2"><a href="diag.html#cb91-2" tabindex="-1"></a><span class="fu">vif</span>(lm.model)</span></code></pre></div>
 <pre><code>##       cyl      disp        hp      drat        wt      qsec        vs        am 
 ## 15.373833 21.620241  9.832037  3.374620 15.164887  7.527958  4.965873  4.648487 
 ##      gear      carb 
@@ -2065,11 +2097,12 @@ Repeat this process for each of the other explanatory variables. If a VIF value 
 </li>
 <li>Create new transformed variables (take linear combinations of variables; create ratio of variables, etc).</li>
 </ol>
-<div id="python-code-30" class="section level3 hasAnchor" number="5.7.1">
-<h3><span class="header-section-number">5.7.1</span> Python Code<a href="diag.html#python-code-30" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb92"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb92-1"><a href="diag.html#cb92-1" tabindex="-1"></a>mtcars <span class="op">=</span> r.mtcars</span>
-<span id="cb92-2"><a href="diag.html#cb92-2" tabindex="-1"></a></span>
-<span id="cb92-3"><a href="diag.html#cb92-3" tabindex="-1"></a>np.corrcoef(mtcars, rowvar <span class="op">=</span> <span class="va">False</span>)</span></code></pre></div>
+</div>
+<div id="python-code-30" class="section level4 hasAnchor" number="5.7.0.2">
+<h4><span class="header-section-number">5.7.0.2</span> Python Code<a href="diag.html#python-code-30" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb93"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb93-1"><a href="diag.html#cb93-1" tabindex="-1"></a>mtcars <span class="op">=</span> r.mtcars</span>
+<span id="cb93-2"><a href="diag.html#cb93-2" tabindex="-1"></a></span>
+<span id="cb93-3"><a href="diag.html#cb93-3" tabindex="-1"></a>np.corrcoef(mtcars, rowvar <span class="op">=</span> <span class="va">False</span>)</span></code></pre></div>
 <pre><code>## array([[ 1.        , -0.85216196, -0.84755138, -0.77616837,  0.68117191,
 ##         -0.86765938,  0.41868403,  0.66403892,  0.59983243,  0.48028476,
 ##         -0.55092507],
@@ -2103,26 +2136,25 @@ Repeat this process for each of the other explanatory variables. If a VIF value 
 ##        [-0.55092507,  0.52698829,  0.39497686,  0.74981247, -0.0907898 ,
 ##          0.42760594, -0.65624923, -0.56960714,  0.05753435,  0.27407284,
 ##          1.        ]])</code></pre>
-<div class="sourceCode" id="cb94"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb94-1"><a href="diag.html#cb94-1" tabindex="-1"></a>X <span class="op">=</span> mtcars.loc[:, mtcars.columns<span class="op">!=</span><span class="st">&#39;mpg&#39;</span>]</span>
-<span id="cb94-2"><a href="diag.html#cb94-2" tabindex="-1"></a>X <span class="op">=</span> X.assign(const<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb94-3"><a href="diag.html#cb94-3" tabindex="-1"></a></span>
-<span id="cb94-4"><a href="diag.html#cb94-4" tabindex="-1"></a>vif <span class="op">=</span> pd.DataFrame()</span>
-<span id="cb94-5"><a href="diag.html#cb94-5" tabindex="-1"></a>vif[<span class="st">&#39;VIF&#39;</span>] <span class="op">=</span> [ss.outliers_influence.variance_inflation_factor(X.values, i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(X.shape[<span class="dv">1</span>])]</span>
-<span id="cb94-6"><a href="diag.html#cb94-6" tabindex="-1"></a>vif[<span class="st">&#39;variable&#39;</span>] <span class="op">=</span> X.columns</span>
-<span id="cb94-7"><a href="diag.html#cb94-7" tabindex="-1"></a></span>
-<span id="cb94-8"><a href="diag.html#cb94-8" tabindex="-1"></a><span class="bu">print</span>(vif)</span></code></pre></div>
-<pre><code>##             VIF variable
-## 0     15.373833      cyl
-## 1     21.620241     disp
-## 2      9.832037       hp
-## 3      3.374620     drat
-## 4     15.164887       wt
-## 5      7.527958     qsec
-## 6      4.965873       vs
-## 7      4.648487       am
-## 8      5.357452     gear
-## 9      7.908747     carb
-## 10  1596.273030    const</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb95-1"><a href="diag.html#cb95-1" tabindex="-1"></a>X <span class="op">=</span> mtcars.loc[:, mtcars.columns<span class="op">!=</span><span class="st">&#39;mpg&#39;</span>]</span>
+<span id="cb95-2"><a href="diag.html#cb95-2" tabindex="-1"></a><span class="co">#X = X.assign(const=1)</span></span>
+<span id="cb95-3"><a href="diag.html#cb95-3" tabindex="-1"></a></span>
+<span id="cb95-4"><a href="diag.html#cb95-4" tabindex="-1"></a>vif <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb95-5"><a href="diag.html#cb95-5" tabindex="-1"></a>vif[<span class="st">&#39;VIF&#39;</span>] <span class="op">=</span> [ss.outliers_influence.variance_inflation_factor(X.values, i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(X.shape[<span class="dv">1</span>])]</span>
+<span id="cb95-6"><a href="diag.html#cb95-6" tabindex="-1"></a>vif[<span class="st">&#39;variable&#39;</span>] <span class="op">=</span> X.columns</span>
+<span id="cb95-7"><a href="diag.html#cb95-7" tabindex="-1"></a></span>
+<span id="cb95-8"><a href="diag.html#cb95-8" tabindex="-1"></a><span class="bu">print</span>(vif)</span></code></pre></div>
+<pre><code>##           VIF variable
+## 0  112.629828      cyl
+## 1   98.930791     disp
+## 2   56.047781       hp
+## 3  132.214353     drat
+## 4  182.948049       wt
+## 5  317.534376     qsec
+## 6    8.752581       vs
+## 7    7.412020       am
+## 8  119.804879     gear
+## 9   32.213836     carb</code></pre>
 
 </div>
 </div>

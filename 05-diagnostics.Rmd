@@ -43,7 +43,6 @@ use_python("C:\\ProgramData\\Anaconda3\\python.exe")
 
 
 ```{python,echo=F}
-
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder
@@ -53,6 +52,10 @@ from numpy import random
 import statsmodels.api as sma
 import statsmodels as sm
 import pylab as py
+```
+
+
+```{python,echo=F}
 import scipy.stats as stats
 import scipy as sp
 import statsmodels.formula.api as smf
@@ -979,7 +982,7 @@ dffits_df = pd.DataFrame({
 
 cutoff = 2 * (p / n) ** 0.5
 
-p = (
+plot = (
     ggplot(dffits_df, aes(x='Observation', y='DFFITS')) +
     geom_point(color='orange') +
     geom_hline(yintercept=cutoff, linetype='dashed', color='red') +
@@ -992,12 +995,48 @@ p = (
     theme_minimal()
 )
 
-p.show()
+plot.show()
 ```
 
 
 Plot studentized residuals and leverage:
 
+
+```{python}
+
+leverage_values = influence.hat_matrix_diag
+influence_df = pd.DataFrame({
+    'leverage': leverage_values,
+    'Resid': resid_values,
+    'observation': np.arange(n),
+    'Cooks': cooks_value
+})
+
+influence_plot = (
+    ggplot(influence_df, aes(x='leverage', y='Resid', size='Cooks')) +
+    geom_point(color='blue') +
+    geom_hline(yintercept=2, linetype='dashed', color='purple') +
+    geom_hline(yintercept=-2, linetype='dashed', color='purple') +
+    geom_vline(xintercept=cutoff, linetype='dashed', color='green') +
+    scale_size_continuous(name="Cook's D", range=[1, 20]) +
+    labs(
+        title='Influence Plot with Cutoffs',
+        x='Leverage',
+        y='Studentized Residuals'
+    ) +
+    theme_minimal()
+)
+
+# Mark influential or outlying points
+influence_df['label'] = influence_df.apply(
+    lambda row: str(row['observation']) if abs(row['Resid']) > 2 and row['leverage'] > cutoff else '',
+    axis=1
+)
+
+influence_plot += geom_text(aes(label='label'), ha='left', nudge_x=0.01, size=8)
+
+influence_plot.show()
+```
 
 
 ## Multicollinearity
@@ -1033,6 +1072,8 @@ A data frame with 32 observations on 11 (numeric) variables.
 * am:	Transmission (0 = automatic, 1 = manual)   
 * gear:	Number of forward gears   
 
+#### R code:
+
 ```{r mult_coll, prompt=FALSE, eval=TRUE, message = FALSE, echo=TRUE}
 
 cor(mtcars)
@@ -1046,7 +1087,9 @@ From the correlation output and VIF output, it is clear that multicollinearity i
 2.  Create new transformed variables (take linear combinations of variables; create ratio of variables, etc).
 
 
-### Python Code
+#### Python Code
+
+
 
 ```{python}
 mtcars = r.mtcars
