@@ -47,6 +47,47 @@ test <- anti_join(ames, train, by = 'id')
 
 
 
+
+```{python,echo=F}
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import OneHotEncoder
+import seaborn as sns
+import matplotlib.pyplot as plt
+from numpy import random
+import statsmodels.api as sma
+import statsmodels as sm
+import pylab as py
+```
+
+
+```{python,echo=F}
+import scipy.stats as stats
+import scipy as sp
+import statsmodels.formula.api as smf
+import sklearn
+from sklearn.linear_model import Ridge
+from sklearn.linear_model import Lasso
+from sklearn.linear_model import ElasticNet
+from sklearn.metrics import mean_squared_error
+from plotnine import *
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+
+
+ames_py = pd.read_csv('https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/refs/heads/master/Ames.csv')
+
+ames_py["Sales"]=ames_py["Sale_Price"]/1000
+
+
+
+train,test = train_test_split(ames_py,test_size=0.3,random_state=123)
+
+```
+
+
+
+
 In the preceding chapters, we have only scratched the surface of model building. Linear regression is a great initial approach to take to model building. In fact, in the realm of statistical models, linear regression (calculated by ordinary least squares) is the **best linear unbiased estimator**. The two key pieces to that previous statement are "best" and "unbiased." 
 
 What does it mean to be **unbiased**? Each of the sample coefficients ($\hat{\beta}$'s) in the regression model are estimates of the true coefficients. Just like the statistics back in the EDA section, these sample coefficients have sampling distributions - specifically, normally distributed sampling distributions. The mean of the sampling distribution of $\hat{\beta}_j$ is the true (known) coefficient $\beta_j$. This means the coefficient is unbiased.
@@ -107,6 +148,8 @@ $$
 
 As mentioned above, the penalties we choose constrain the estimated coefficients in our model and shrink these estimates to zero. Different penalties have different effects on the estimated coefficients. Two common approaches to adding penalties are the ridge and LASSO approaches. The elastic net approach is a combination of these two. Let's explore each of these in further detail!
 
+#### R code:
+
 ### Ridge Regression
 
 Ridge regression adds what is commonly referred to as an "$L_2$" penalty:
@@ -118,6 +161,8 @@ $$
 This penalty is controlled by the **tuning parameter** $\lambda$. If $\lambda = 0$, then we have typical OLS linear regression. However, as $\lambda \rightarrow \infty$, the coefficients in the model shrink to zero. This makes intuitive sense. Since the estimated coefficients, $\hat{\beta}_j$'s, are the only thing changing to minimize this equation, then as $\lambda \rightarrow \infty$, the equation is best minimized by forcing the coefficients to be smaller and smaller. We will see how to optimize this penalty term in a later section.
 
 Let's build a regularized regression for our Ames dataset. To build a ridge regression we need separate data matrices for our predictors and our target variable. First, we isolate out the variables we are interested in using the ```select``` function. These functions cannot handle missing values in our dataset, so the last line of code using the ```mutate_if``` function which replaces missing values with the average of variable it is in. From there the ```model.matrix``` function will create any categorical dummy variables needed. We also isolate the target variable into its own vector.
+
+
 
 ```{r}
 train_reg <- train %>% 
@@ -256,26 +301,20 @@ The ```glmnet``` function automatically standardizes the variables before fittin
 
 What $\lambda$ term is best? What is the proper balance between ridge and LASSO penalties when building an elastic net? That will be discussed in the following section.
 
-### Python Code
+#### Python Code
 
 *Ridge Regression*
 
 ```{python}
 
-import scipy as sp
-import pandas as pd
-import numpy as np
-import statsmodels.formula.api as smf
-import statsmodels.api as sm
+
 import matplotlib.pyplot as plt
 from sklearn.linear_model import Ridge
-from sklearn.model_selection import train_test_split
+
 from sklearn.metrics import mean_squared_error
 from sklearn.linear_model import Lasso
 from sklearn.linear_model import ElasticNet
 
-train=r.train
-test=r.test
 train = train[['Sale_Price', 'Lot_Area', 'Street', 'Bldg_Type',
                'House_Style', 'Overall_Qual', 'Roof_Style', 
                'Central_Air', 'First_Flr_SF', 'Second_Flr_SF', 
@@ -302,11 +341,24 @@ print(train_dummy)
 
 
 ```{python}
+from sklearn.preprocessing import StandardScaler
+
+y = train_dummy['Sale_Price']
+
+X = train_dummy.loc[:, train_dummy.columns != 'Sale_Price']
+
+
+numeric_cols = train_dummy.select_dtypes(include=['number']).columns
+scaler = StandardScaler()
+train_dummy[numeric_cols] = scaler.fit_transform(train_dummy[numeric_cols])
 y = train_dummy['Sale_Price']
 
 X = train_dummy.loc[:, train_dummy.columns != 'Sale_Price']
 
 ames_ridge = Ridge(alpha = 1.0).fit(X, y)
+ames_ridge.score(X, y)
+coef_df = pd.DataFrame({'Feature': X.columns, 'Coefficient': ames_ridge.coef_})
+print(coef_df)
 ```
 
 
