@@ -282,7 +282,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.3.1" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#model-metrics"><i class="fa fa-check"></i><b>6.3.1</b> Model Metrics</a></li>
 <li class="chapter" data-level="6.3.2" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#test-dataset-comparison"><i class="fa fa-check"></i><b>6.3.2</b> Test Dataset Comparison</a></li>
-<li class="chapter" data-level="6.3.3" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#python-code-32"><i class="fa fa-check"></i><b>6.3.3</b> Python Code</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html"><i class="fa fa-check"></i><b>7</b> Categorical Data Analysis</a>
@@ -1900,6 +1899,8 @@ Figure 6.1: Example of a 10-fold Cross-Validation
 <h3><span class="header-section-number">6.2.2</span> CV in Regularized Regression<a href="model-building-and-scoring-for-prediction.html#cv-in-regularized-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In R, the <code>cv.glmnet</code> function will automatically implement a 10-fold CV (by default, but can be adjusted through options) to help evaluate and optimize the <span class="math inline">\(\lambda\)</span> values for our regularized regression models.</p>
 <p>Let’s perform an example using the LASSO regression. The <code>cv.glmnet</code> function takes the same inputs as the <code>glmnet</code> function above. Again, we will use the <code>plot</code> function, but this time we get a different plot.</p>
+<div id="r-code-30" class="section level4 hasAnchor" number="6.2.2.1">
+<h4><span class="header-section-number">6.2.2.1</span> R code:<a href="model-building-and-scoring-for-prediction.html#r-code-30" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="model-building-and-scoring-for-prediction.html#cb28-1" tabindex="-1"></a>ames_lasso_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(<span class="at">x =</span> train_x,  <span class="at">y =</span> train_y,  <span class="at">alpha =</span> <span class="dv">1</span>)</span>
 <span id="cb28-2"><a href="model-building-and-scoring-for-prediction.html#cb28-2" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="model-building-and-scoring-for-prediction.html#cb28-3" tabindex="-1"></a><span class="fu">plot</span>(ames_lasso_cv)</span></code></pre></div>
@@ -1957,6 +1958,7 @@ Figure 6.1: Example of a 10-fold Cross-Validation
 ## TotRms_AbvGrd               -1.486941e+03      .</code></pre>
 <p>The variable describing the overall quality of the home is the driving factor of this model as well as the other variables listed above.</p>
 <p>A similar approach can be taken for CV with ridge regression using the same structure of code. That will not be covered here. Elastic nets are more complicated in that they have multiple parameters to optimize. For that approach, an optimization grid will need to be structured to evaluate different <span class="math inline">\(\lambda\)</span> values across different <span class="math inline">\(\alpha\)</span> values. A loop can be set up to run the <code>cv.glmnet</code> function across many different values of <span class="math inline">\(\alpha\)</span>. That will not be covered in detail here.</p>
+</div>
 </div>
 </div>
 <div id="model-comparisons" class="section level2 hasAnchor" number="6.3">
@@ -2019,9 +2021,8 @@ The MAPE gives the average absolute <em>percentage</em> difference between our p
 ## 1       13.4</code></pre>
 <p>From the above results, we see that the linear regression has a lower MAPE.</p>
 <p>Once we have scored models with the test dataset, we should <strong>not</strong> go back to try and rebuild any models. We will use the model with the lowest MAE or MAPE. This number is also the number that we report on how well our model performs. No metrics on the training dataset should be reported for the performance of the model.</p>
-</div>
-<div id="python-code-32" class="section level3 hasAnchor" number="6.3.3">
-<h3><span class="header-section-number">6.3.3</span> Python Code<a href="model-building-and-scoring-for-prediction.html#python-code-32" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="python-code-32" class="section level4 hasAnchor" number="6.3.2.1">
+<h4><span class="header-section-number">6.3.2.1</span> Python Code<a href="model-building-and-scoring-for-prediction.html#python-code-32" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><em>CV in Regularized Regression</em></p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="model-building-and-scoring-for-prediction.html#cb44-1" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LassoCV</span>
 <span id="cb44-2"><a href="model-building-and-scoring-for-prediction.html#cb44-2" tabindex="-1"></a></span>
@@ -2057,7 +2058,12 @@ The MAPE gives the average absolute <em>percentage</em> difference between our p
 <span id="cb47-18"><a href="model-building-and-scoring-for-prediction.html#cb47-18" tabindex="-1"></a></span>
 <span id="cb47-19"><a href="model-building-and-scoring-for-prediction.html#cb47-19" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="model-building-and-scoring-for-prediction.html#cb48-1" tabindex="-1"></a><span class="co"># Best alpha found by cross-validation</span></span>
+<span id="cb48-2"><a href="model-building-and-scoring-for-prediction.html#cb48-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Optimal alpha:&quot;</span>, lasso.alpha_)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="model-building-and-scoring-for-prediction.html#cb49-1" tabindex="-1"></a><span class="co"># Coefficients at optimal alpha</span></span>
+<span id="cb49-2"><a href="model-building-and-scoring-for-prediction.html#cb49-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Coefficients:&quot;</span>, lasso.coef_)</span></code></pre></div>
 
+</div>
 </div>
 </div>
 </div>

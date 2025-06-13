@@ -485,6 +485,8 @@ In R, the ```cv.glmnet``` function will automatically implement a 10-fold CV (by
 
 Let's perform an example using the LASSO regression. The ```cv.glmnet``` function takes the same inputs as the ```glmnet``` function above. Again, we will use the ```plot``` function, but this time we get a different plot. 
 
+#### R code:
+
 ```{r}
 ames_lasso_cv <- cv.glmnet(x = train_x,  y = train_y,  alpha = 1)
 
@@ -583,7 +585,7 @@ From the above results, we see that the linear regression has a lower MAPE.
 Once we have scored models with the test dataset, we should **not** go back to try and rebuild any models. We will use the model with the lowest MAE or MAPE. This number is also the number that we report on how well our model performs. No metrics on the training dataset should be reported for the performance of the model.
 
 
-### Python Code
+#### Python Code
 
 *CV in Regularized Regression*
 
@@ -629,5 +631,20 @@ _ = plt.title(
 )
 
 plt.show()
+```
+
+
+```{python}
+# Best alpha found by cross-validation
+print("Optimal alpha:", lasso.alpha_)
+
+
+```
+
+```{python}
+# Coefficients at optimal alpha
+print("Coefficients:", lasso.coef_)
+
+
 ```
 
