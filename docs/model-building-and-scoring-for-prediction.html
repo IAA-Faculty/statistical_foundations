@@ -1017,15 +1017,18 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="model-building-and-scoring-for-prediction.html#cb16-1" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p><em>LASSO Regression</em></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="model-building-and-scoring-for-prediction.html#cb17-1" tabindex="-1"></a>ames_lasso <span class="op">=</span> Lasso(alpha <span class="op">=</span> <span class="dv">2</span>, max_iter <span class="op">=</span> <span class="dv">5000</span>).fit(X, y)</span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="model-building-and-scoring-for-prediction.html#cb18-1" tabindex="-1"></a>n_alphas <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb18-2"><a href="model-building-and-scoring-for-prediction.html#cb18-2" tabindex="-1"></a>alphas2 <span class="op">=</span> np.logspace(<span class="dv">2</span>, <span class="dv">5</span>, n_alphas)</span>
-<span id="cb18-3"><a href="model-building-and-scoring-for-prediction.html#cb18-3" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="model-building-and-scoring-for-prediction.html#cb18-4" tabindex="-1"></a>coefs2 <span class="op">=</span> []</span>
-<span id="cb18-5"><a href="model-building-and-scoring-for-prediction.html#cb18-5" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> alphas2:</span>
-<span id="cb18-6"><a href="model-building-and-scoring-for-prediction.html#cb18-6" tabindex="-1"></a>    lasso <span class="op">=</span> Lasso(alpha <span class="op">=</span> a, max_iter <span class="op">=</span> <span class="dv">5000</span>)</span>
-<span id="cb18-7"><a href="model-building-and-scoring-for-prediction.html#cb18-7" tabindex="-1"></a>    lasso.fit(X, y)</span>
-<span id="cb18-8"><a href="model-building-and-scoring-for-prediction.html#cb18-8" tabindex="-1"></a>    coefs2.append(lasso.coef_)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="model-building-and-scoring-for-prediction.html#cb17-1" tabindex="-1"></a>ames_lasso <span class="op">=</span> Lasso(alpha <span class="op">=</span> <span class="fl">0.01</span>, max_iter <span class="op">=</span> <span class="dv">5000</span>).fit(X, y)</span>
+<span id="cb17-2"><a href="model-building-and-scoring-for-prediction.html#cb17-2" tabindex="-1"></a>r2 <span class="op">=</span> ames_lasso.score(X, y)</span>
+<span id="cb17-3"><a href="model-building-and-scoring-for-prediction.html#cb17-3" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;R-squared:&quot;</span>, r2)</span></code></pre></div>
+<pre><code>## R-squared: 0.7856554440782524</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="model-building-and-scoring-for-prediction.html#cb19-1" tabindex="-1"></a>n_alphas <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb19-2"><a href="model-building-and-scoring-for-prediction.html#cb19-2" tabindex="-1"></a>alphas2 <span class="op">=</span> np.logspace(<span class="op">-</span><span class="dv">4</span>,<span class="dv">0</span>, n_alphas)</span>
+<span id="cb19-3"><a href="model-building-and-scoring-for-prediction.html#cb19-3" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="model-building-and-scoring-for-prediction.html#cb19-4" tabindex="-1"></a>coefs2 <span class="op">=</span> []</span>
+<span id="cb19-5"><a href="model-building-and-scoring-for-prediction.html#cb19-5" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> alphas2:</span>
+<span id="cb19-6"><a href="model-building-and-scoring-for-prediction.html#cb19-6" tabindex="-1"></a>    lasso <span class="op">=</span> Lasso(alpha <span class="op">=</span> a, max_iter <span class="op">=</span> <span class="dv">5000</span>)</span>
+<span id="cb19-7"><a href="model-building-and-scoring-for-prediction.html#cb19-7" tabindex="-1"></a>    lasso.fit(X, y)</span>
+<span id="cb19-8"><a href="model-building-and-scoring-for-prediction.html#cb19-8" tabindex="-1"></a>    coefs2.append(lasso.coef_)</span></code></pre></div>
 <style>#sk-container-id-2 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: black;
@@ -1430,31 +1433,30 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-</style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Lasso(alpha=100000.0, max_iter=5000)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;Lasso<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.linear_model.Lasso.html">?<span>Documentation for Lasso</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>Lasso(alpha=100000.0, max_iter=5000)</pre></div> </div></div></div></div>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="model-building-and-scoring-for-prediction.html#cb19-1" tabindex="-1"></a>plt.cla()</span>
-<span id="cb19-2"><a href="model-building-and-scoring-for-prediction.html#cb19-2" tabindex="-1"></a>ax2 <span class="op">=</span> plt.gca()</span>
-<span id="cb19-3"><a href="model-building-and-scoring-for-prediction.html#cb19-3" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="model-building-and-scoring-for-prediction.html#cb19-4" tabindex="-1"></a>ax2.plot(alphas2, coefs2)</span>
-<span id="cb19-5"><a href="model-building-and-scoring-for-prediction.html#cb19-5" tabindex="-1"></a>ax2.set_xscale(<span class="st">&quot;log&quot;</span>)</span>
-<span id="cb19-6"><a href="model-building-and-scoring-for-prediction.html#cb19-6" tabindex="-1"></a>plt.xlabel(<span class="st">&quot;alpha&quot;</span>)</span>
-<span id="cb19-7"><a href="model-building-and-scoring-for-prediction.html#cb19-7" tabindex="-1"></a>plt.ylabel(<span class="st">&quot;weights&quot;</span>)</span>
-<span id="cb19-8"><a href="model-building-and-scoring-for-prediction.html#cb19-8" tabindex="-1"></a>plt.title(<span class="st">&quot;LASSO coefficients as a function of the regularization&quot;</span>)</span>
-<span id="cb19-9"><a href="model-building-and-scoring-for-prediction.html#cb19-9" tabindex="-1"></a>plt.axis(<span class="st">&quot;tight&quot;</span>)</span></code></pre></div>
-<pre><code>## (70.79457843841381, 141253.75446227554, -0.05500000000000001, 0.05500000000000001)</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="model-building-and-scoring-for-prediction.html#cb21-1" tabindex="-1"></a>plt.show()</span></code></pre></div>
+</style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Lasso(max_iter=5000)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;Lasso<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.linear_model.Lasso.html">?<span>Documentation for Lasso</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>Lasso(max_iter=5000)</pre></div> </div></div></div></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="model-building-and-scoring-for-prediction.html#cb20-1" tabindex="-1"></a>plt.cla()</span>
+<span id="cb20-2"><a href="model-building-and-scoring-for-prediction.html#cb20-2" tabindex="-1"></a>ax2 <span class="op">=</span> plt.gca()</span>
+<span id="cb20-3"><a href="model-building-and-scoring-for-prediction.html#cb20-3" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="model-building-and-scoring-for-prediction.html#cb20-4" tabindex="-1"></a>ax2.plot(alphas2, coefs2)</span>
+<span id="cb20-5"><a href="model-building-and-scoring-for-prediction.html#cb20-5" tabindex="-1"></a>ax2.set_xscale(<span class="st">&quot;log&quot;</span>)</span>
+<span id="cb20-6"><a href="model-building-and-scoring-for-prediction.html#cb20-6" tabindex="-1"></a>plt.xlabel(<span class="st">&quot;alpha&quot;</span>)</span>
+<span id="cb20-7"><a href="model-building-and-scoring-for-prediction.html#cb20-7" tabindex="-1"></a>plt.ylabel(<span class="st">&quot;weights&quot;</span>)</span>
+<span id="cb20-8"><a href="model-building-and-scoring-for-prediction.html#cb20-8" tabindex="-1"></a>plt.title(<span class="st">&quot;LASSO coefficients as a function of the regularization&quot;</span>)</span>
+<span id="cb20-9"><a href="model-building-and-scoring-for-prediction.html#cb20-9" tabindex="-1"></a>plt.axis(<span class="st">&quot;tight&quot;</span>)</span></code></pre></div>
+<pre><code>## (6.309573444801929e-05, 1.5848931924611136, -0.8434967687703434, 2.0604968454835833)</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="model-building-and-scoring-for-prediction.html#cb22-1" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-15-3.png" width="672" /></p>
 <ul>
 <li>Elastic Net*</li>
 </ul>
-<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="model-building-and-scoring-for-prediction.html#cb22-1" tabindex="-1"></a>ames_en <span class="op">=</span> ElasticNet(alpha <span class="op">=</span> <span class="dv">1</span>, l1_ratio<span class="op">=</span><span class="fl">0.5</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="model-building-and-scoring-for-prediction.html#cb23-1" tabindex="-1"></a>n_alphas <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb23-2"><a href="model-building-and-scoring-for-prediction.html#cb23-2" tabindex="-1"></a>alphas3 <span class="op">=</span> np.logspace(<span class="dv">1</span>, <span class="dv">8</span>, n_alphas)</span>
-<span id="cb23-3"><a href="model-building-and-scoring-for-prediction.html#cb23-3" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="model-building-and-scoring-for-prediction.html#cb23-4" tabindex="-1"></a>coefs3 <span class="op">=</span> []</span>
-<span id="cb23-5"><a href="model-building-and-scoring-for-prediction.html#cb23-5" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> alphas3:</span>
-<span id="cb23-6"><a href="model-building-and-scoring-for-prediction.html#cb23-6" tabindex="-1"></a>    en <span class="op">=</span> ElasticNet(alpha <span class="op">=</span> a, l1_ratio<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb23-7"><a href="model-building-and-scoring-for-prediction.html#cb23-7" tabindex="-1"></a>    en.fit(X, y)</span>
-<span id="cb23-8"><a href="model-building-and-scoring-for-prediction.html#cb23-8" tabindex="-1"></a>    coefs3.append(en.coef_)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="model-building-and-scoring-for-prediction.html#cb23-1" tabindex="-1"></a>ames_en <span class="op">=</span> ElasticNet(alpha <span class="op">=</span> <span class="fl">0.01</span>, l1_ratio<span class="op">=</span><span class="fl">0.5</span>).fit(X,y)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="model-building-and-scoring-for-prediction.html#cb24-1" tabindex="-1"></a>alphas <span class="op">=</span> np.logspace(<span class="op">-</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">100</span>)  </span>
+<span id="cb24-2"><a href="model-building-and-scoring-for-prediction.html#cb24-2" tabindex="-1"></a>coefs <span class="op">=</span> []</span>
+<span id="cb24-3"><a href="model-building-and-scoring-for-prediction.html#cb24-3" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="model-building-and-scoring-for-prediction.html#cb24-4" tabindex="-1"></a><span class="cf">for</span> alpha <span class="kw">in</span> alphas:</span>
+<span id="cb24-5"><a href="model-building-and-scoring-for-prediction.html#cb24-5" tabindex="-1"></a>    en <span class="op">=</span> ElasticNet(alpha<span class="op">=</span>alpha, l1_ratio<span class="op">=</span><span class="fl">0.5</span>, max_iter<span class="op">=</span><span class="dv">10000</span>)</span>
+<span id="cb24-6"><a href="model-building-and-scoring-for-prediction.html#cb24-6" tabindex="-1"></a>    en.fit(X, y)</span>
+<span id="cb24-7"><a href="model-building-and-scoring-for-prediction.html#cb24-7" tabindex="-1"></a>    coefs.append(en.coef_)</span></code></pre></div>
 <style>#sk-container-id-3 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: black;
@@ -1859,19 +1861,22 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-</style><div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>ElasticNet(alpha=100000000.0)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" checked><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;ElasticNet<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.linear_model.ElasticNet.html">?<span>Documentation for ElasticNet</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>ElasticNet(alpha=100000000.0)</pre></div> </div></div></div></div>
-<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="model-building-and-scoring-for-prediction.html#cb24-1" tabindex="-1"></a>plt.cla()</span>
-<span id="cb24-2"><a href="model-building-and-scoring-for-prediction.html#cb24-2" tabindex="-1"></a>ax3 <span class="op">=</span> plt.gca()</span>
-<span id="cb24-3"><a href="model-building-and-scoring-for-prediction.html#cb24-3" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="model-building-and-scoring-for-prediction.html#cb24-4" tabindex="-1"></a>ax3.plot(alphas3, coefs3)</span>
-<span id="cb24-5"><a href="model-building-and-scoring-for-prediction.html#cb24-5" tabindex="-1"></a>ax3.set_xscale(<span class="st">&quot;log&quot;</span>)</span>
-<span id="cb24-6"><a href="model-building-and-scoring-for-prediction.html#cb24-6" tabindex="-1"></a>plt.xlabel(<span class="st">&quot;alpha&quot;</span>)</span>
-<span id="cb24-7"><a href="model-building-and-scoring-for-prediction.html#cb24-7" tabindex="-1"></a>plt.ylabel(<span class="st">&quot;weights&quot;</span>)</span>
-<span id="cb24-8"><a href="model-building-and-scoring-for-prediction.html#cb24-8" tabindex="-1"></a>plt.title(<span class="st">&quot;ElasticNet coefficients as a function of the regularization&quot;</span>)</span>
-<span id="cb24-9"><a href="model-building-and-scoring-for-prediction.html#cb24-9" tabindex="-1"></a>plt.axis(<span class="st">&quot;tight&quot;</span>)</span></code></pre></div>
-<pre><code>## (4.46683592150963, 223872113.8568338, -0.05500000000000001, 0.05500000000000001)</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="model-building-and-scoring-for-prediction.html#cb26-1" tabindex="-1"></a>plt.show()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-17-5.png" width="672" /></p>
+</style><div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>ElasticNet(alpha=10.0, max_iter=10000)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" checked><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;ElasticNet<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.linear_model.ElasticNet.html">?<span>Documentation for ElasticNet</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>ElasticNet(alpha=10.0, max_iter=10000)</pre></div> </div></div></div></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="model-building-and-scoring-for-prediction.html#cb25-1" tabindex="-1"></a>coefs <span class="op">=</span> np.array(coefs)</span>
+<span id="cb25-2"><a href="model-building-and-scoring-for-prediction.html#cb25-2" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="model-building-and-scoring-for-prediction.html#cb25-3" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb25-4"><a href="model-building-and-scoring-for-prediction.html#cb25-4" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(coefs.shape[<span class="dv">1</span>]):</span>
+<span id="cb25-5"><a href="model-building-and-scoring-for-prediction.html#cb25-5" tabindex="-1"></a>    plt.plot(alphas, coefs[:, i], label<span class="op">=</span><span class="ss">f&#39;X</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">&#39;</span> <span class="cf">if</span> X.columns <span class="kw">is</span> <span class="va">None</span> <span class="cf">else</span> X.columns[i])</span>
+<span id="cb25-6"><a href="model-building-and-scoring-for-prediction.html#cb25-6" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="model-building-and-scoring-for-prediction.html#cb25-7" tabindex="-1"></a>plt.xscale(<span class="st">&#39;log&#39;</span>)</span>
+<span id="cb25-8"><a href="model-building-and-scoring-for-prediction.html#cb25-8" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;alpha&#39;</span>)</span>
+<span id="cb25-9"><a href="model-building-and-scoring-for-prediction.html#cb25-9" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Coefficient value&#39;</span>)</span>
+<span id="cb25-10"><a href="model-building-and-scoring-for-prediction.html#cb25-10" tabindex="-1"></a>plt.title(<span class="st">&#39;Elastic Net Coefficients vs Alpha&#39;</span>)</span>
+<span id="cb25-11"><a href="model-building-and-scoring-for-prediction.html#cb25-11" tabindex="-1"></a>plt.axis(<span class="st">&#39;tight&#39;</span>)</span></code></pre></div>
+<pre><code>## (5.623413251903491e-05, 17.78279410038923, -0.946024891566964, 1.961316240685612)</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="model-building-and-scoring-for-prediction.html#cb27-1" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb27-2"><a href="model-building-and-scoring-for-prediction.html#cb27-2" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-17-5.png" width="768" /></p>
 </div>
 </div>
 </div>
@@ -1895,22 +1900,22 @@ Figure 6.1: Example of a 10-fold Cross-Validation
 <h3><span class="header-section-number">6.2.2</span> CV in Regularized Regression<a href="model-building-and-scoring-for-prediction.html#cv-in-regularized-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In R, the <code>cv.glmnet</code> function will automatically implement a 10-fold CV (by default, but can be adjusted through options) to help evaluate and optimize the <span class="math inline">\(\lambda\)</span> values for our regularized regression models.</p>
 <p>Let’s perform an example using the LASSO regression. The <code>cv.glmnet</code> function takes the same inputs as the <code>glmnet</code> function above. Again, we will use the <code>plot</code> function, but this time we get a different plot.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="model-building-and-scoring-for-prediction.html#cb27-1" tabindex="-1"></a>ames_lasso_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(<span class="at">x =</span> train_x,  <span class="at">y =</span> train_y,  <span class="at">alpha =</span> <span class="dv">1</span>)</span>
-<span id="cb27-2"><a href="model-building-and-scoring-for-prediction.html#cb27-2" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="model-building-and-scoring-for-prediction.html#cb27-3" tabindex="-1"></a><span class="fu">plot</span>(ames_lasso_cv)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="model-building-and-scoring-for-prediction.html#cb28-1" tabindex="-1"></a>ames_lasso_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(<span class="at">x =</span> train_x,  <span class="at">y =</span> train_y,  <span class="at">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb28-2"><a href="model-building-and-scoring-for-prediction.html#cb28-2" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="model-building-and-scoring-for-prediction.html#cb28-3" tabindex="-1"></a><span class="fu">plot</span>(ames_lasso_cv)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="model-building-and-scoring-for-prediction.html#cb28-1" tabindex="-1"></a>ames_lasso_cv<span class="sc">$</span>lambda.min </span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="model-building-and-scoring-for-prediction.html#cb29-1" tabindex="-1"></a>ames_lasso_cv<span class="sc">$</span>lambda.min </span></code></pre></div>
 <pre><code>## [1] 41.25712</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="model-building-and-scoring-for-prediction.html#cb30-1" tabindex="-1"></a>ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="model-building-and-scoring-for-prediction.html#cb31-1" tabindex="-1"></a>ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se</span></code></pre></div>
 <pre><code>## [1] 3588.334</code></pre>
 <p>The above plot shows the results from our cross-validation. Here the models are evaluated based on their <strong>mean-squared error</strong> (MSE). The MSE is defined as <span class="math inline">\(\frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_i)^2\)</span>. The <span class="math inline">\(\lambda\)</span> value that minimizes the MSE is 49.69435 (with a <span class="math inline">\(\log(\lambda)\)</span> = 3.91). This is highlighted by the first, vertical dashed line. The second vertical dashed line is the largest <span class="math inline">\(\lambda\)</span> value that is one standard error above the minimum value. This value is especially useful in LASSO regressions. The largest <span class="math inline">\(\lambda\)</span> within one standard error would provide approximately the same MSE, but with a further reduction in the number of variables. Notice that to go from the first line to the second, the change in MSE is very small, but the reduction of variables is from 36 variables to around 12 variables.</p>
 <p>Let’s look at the impact on the coefficients under this penalty using the <code>glmnet</code> function as before.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="model-building-and-scoring-for-prediction.html#cb32-1" tabindex="-1"></a><span class="fu">plot</span>(ames_lasso, <span class="at">xvar =</span> <span class="st">&quot;lambda&quot;</span>)</span>
-<span id="cb32-2"><a href="model-building-and-scoring-for-prediction.html#cb32-2" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">log</span>(ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>)</span>
-<span id="cb32-3"><a href="model-building-and-scoring-for-prediction.html#cb32-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">log</span>(ames_lasso_cv<span class="sc">$</span>lambda.min), <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="model-building-and-scoring-for-prediction.html#cb33-1" tabindex="-1"></a><span class="fu">plot</span>(ames_lasso, <span class="at">xvar =</span> <span class="st">&quot;lambda&quot;</span>)</span>
+<span id="cb33-2"><a href="model-building-and-scoring-for-prediction.html#cb33-2" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">log</span>(ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>)</span>
+<span id="cb33-3"><a href="model-building-and-scoring-for-prediction.html#cb33-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">log</span>(ames_lasso_cv<span class="sc">$</span>lambda.min), <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <p>To investigate which variables are important at a <span class="math inline">\(\lambda\)</span> value, we can view the coefficients using the <code>coef</code> function. They are ranked here:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="model-building-and-scoring-for-prediction.html#cb33-1" tabindex="-1"></a><span class="fu">coef</span>(ames_lasso, <span class="at">s =</span> <span class="fu">c</span>(ames_lasso_cv<span class="sc">$</span>lambda.min, ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se))</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="model-building-and-scoring-for-prediction.html#cb34-1" tabindex="-1"></a><span class="fu">coef</span>(ames_lasso, <span class="at">s =</span> <span class="fu">c</span>(ames_lasso_cv<span class="sc">$</span>lambda.min, ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se))</span></code></pre></div>
 <pre><code>## 37 x 2 sparse Matrix of class &quot;dgCMatrix&quot;
 ##                                        s1           s2
 ## (Intercept)                  4.553410e+04  84886.87520
@@ -1980,16 +1985,16 @@ The MAPE gives the average absolute <em>percentage</em> difference between our p
 <div id="test-dataset-comparison" class="section level3 hasAnchor" number="6.3.2">
 <h3><span class="header-section-number">6.3.2</span> Test Dataset Comparison<a href="model-building-and-scoring-for-prediction.html#test-dataset-comparison" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The final model we had from Chapter <a href="diag.html#diag">5</a> had the variables . From this model we can use the <code>predict</code> function with the <code>newdata =</code> option to use score the <code>test</code> dataset.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="model-building-and-scoring-for-prediction.html#cb35-1" tabindex="-1"></a>ames_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> . , <span class="at">data =</span> train_reg)</span>
-<span id="cb35-2"><a href="model-building-and-scoring-for-prediction.html#cb35-2" tabindex="-1"></a>test<span class="sc">$</span>pred_lm <span class="ot">&lt;-</span> <span class="fu">predict</span>(ames_lm, <span class="at">newdata =</span> test)</span>
-<span id="cb35-3"><a href="model-building-and-scoring-for-prediction.html#cb35-3" tabindex="-1"></a></span>
-<span id="cb35-4"><a href="model-building-and-scoring-for-prediction.html#cb35-4" tabindex="-1"></a><span class="fu">head</span>(test<span class="sc">$</span>pred_lm)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="model-building-and-scoring-for-prediction.html#cb36-1" tabindex="-1"></a>ames_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sale_Price <span class="sc">~</span> . , <span class="at">data =</span> train_reg)</span>
+<span id="cb36-2"><a href="model-building-and-scoring-for-prediction.html#cb36-2" tabindex="-1"></a>test<span class="sc">$</span>pred_lm <span class="ot">&lt;-</span> <span class="fu">predict</span>(ames_lm, <span class="at">newdata =</span> test)</span>
+<span id="cb36-3"><a href="model-building-and-scoring-for-prediction.html#cb36-3" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="model-building-and-scoring-for-prediction.html#cb36-4" tabindex="-1"></a><span class="fu">head</span>(test<span class="sc">$</span>pred_lm)</span></code></pre></div>
 <pre><code>##        1        2        3        4        5        6 
 ## 166194.9 178562.0 233583.0 111924.2 215227.1 129452.5</code></pre>
 <p>To get predictions from the regularized regression models, a <span class="math inline">\(\lambda\)</span> value must be selected. For the previous LASSO regression we will choose the largest <span class="math inline">\(\lambda\)</span> value within one standard error of the minimum <span class="math inline">\(\lambda\)</span> value to help reduce the number of variables. Again, we will use the <code>predict</code> function. The <code>s =</code> option is where we input the <span class="math inline">\(\lambda\)</span> value. The <code>newx =</code> option is where we specify the <code>test</code> dataset.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="model-building-and-scoring-for-prediction.html#cb37-1" tabindex="-1"></a>test_reg<span class="sc">$</span>pred_lasso <span class="ot">&lt;-</span> <span class="fu">predict</span>(ames_lasso, <span class="at">s =</span> ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se, <span class="at">newx =</span> test_x)</span>
-<span id="cb37-2"><a href="model-building-and-scoring-for-prediction.html#cb37-2" tabindex="-1"></a></span>
-<span id="cb37-3"><a href="model-building-and-scoring-for-prediction.html#cb37-3" tabindex="-1"></a><span class="fu">head</span>(test_reg<span class="sc">$</span>pred_lasso)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="model-building-and-scoring-for-prediction.html#cb38-1" tabindex="-1"></a>test_reg<span class="sc">$</span>pred_lasso <span class="ot">&lt;-</span> <span class="fu">predict</span>(ames_lasso, <span class="at">s =</span> ames_lasso_cv<span class="sc">$</span>lambda<span class="fl">.1</span>se, <span class="at">newx =</span> test_x)</span>
+<span id="cb38-2"><a href="model-building-and-scoring-for-prediction.html#cb38-2" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="model-building-and-scoring-for-prediction.html#cb38-3" tabindex="-1"></a><span class="fu">head</span>(test_reg<span class="sc">$</span>pred_lasso)</span></code></pre></div>
 <pre><code>##         s1
 ## 1 156677.8
 ## 2 172432.5
@@ -1998,16 +2003,16 @@ The MAPE gives the average absolute <em>percentage</em> difference between our p
 ## 5 200908.8
 ## 6 124913.5</code></pre>
 <p>Now we need to calculate the MAE and MAPE for each model for comparison.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="model-building-and-scoring-for-prediction.html#cb39-1" tabindex="-1"></a>test <span class="sc">%&gt;%</span></span>
-<span id="cb39-2"><a href="model-building-and-scoring-for-prediction.html#cb39-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lm_APE =</span> <span class="dv">100</span><span class="sc">*</span><span class="fu">abs</span>((Sale_Price <span class="sc">-</span> pred_lm)<span class="sc">/</span>Sale_Price)) <span class="sc">%&gt;%</span></span>
-<span id="cb39-3"><a href="model-building-and-scoring-for-prediction.html#cb39-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">MAPE_lm =</span> <span class="fu">mean</span>(lm_APE))</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="model-building-and-scoring-for-prediction.html#cb40-1" tabindex="-1"></a>test <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="model-building-and-scoring-for-prediction.html#cb40-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lm_APE =</span> <span class="dv">100</span><span class="sc">*</span><span class="fu">abs</span>((Sale_Price <span class="sc">-</span> pred_lm)<span class="sc">/</span>Sale_Price)) <span class="sc">%&gt;%</span></span>
+<span id="cb40-3"><a href="model-building-and-scoring-for-prediction.html#cb40-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">MAPE_lm =</span> <span class="fu">mean</span>(lm_APE))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
 ##   MAPE_lm
 ##     &lt;dbl&gt;
 ## 1    12.3</code></pre>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="model-building-and-scoring-for-prediction.html#cb41-1" tabindex="-1"></a>test_reg <span class="sc">%&gt;%</span></span>
-<span id="cb41-2"><a href="model-building-and-scoring-for-prediction.html#cb41-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lasso_APE =</span> <span class="dv">100</span><span class="sc">*</span><span class="fu">abs</span>((Sale_Price <span class="sc">-</span> pred_lasso)<span class="sc">/</span>Sale_Price)) <span class="sc">%&gt;%</span></span>
-<span id="cb41-3"><a href="model-building-and-scoring-for-prediction.html#cb41-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">MAPE_lasso =</span> <span class="fu">mean</span>(lasso_APE))</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="model-building-and-scoring-for-prediction.html#cb42-1" tabindex="-1"></a>test_reg <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="model-building-and-scoring-for-prediction.html#cb42-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lasso_APE =</span> <span class="dv">100</span><span class="sc">*</span><span class="fu">abs</span>((Sale_Price <span class="sc">-</span> pred_lasso)<span class="sc">/</span>Sale_Price)) <span class="sc">%&gt;%</span></span>
+<span id="cb42-3"><a href="model-building-and-scoring-for-prediction.html#cb42-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">MAPE_lasso =</span> <span class="fu">mean</span>(lasso_APE))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
 ##   MAPE_lasso
 ##        &lt;dbl&gt;
@@ -2018,39 +2023,39 @@ The MAPE gives the average absolute <em>percentage</em> difference between our p
 <div id="python-code-32" class="section level3 hasAnchor" number="6.3.3">
 <h3><span class="header-section-number">6.3.3</span> Python Code<a href="model-building-and-scoring-for-prediction.html#python-code-32" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><em>CV in Regularized Regression</em></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="model-building-and-scoring-for-prediction.html#cb43-1" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LassoCV</span>
-<span id="cb43-2"><a href="model-building-and-scoring-for-prediction.html#cb43-2" tabindex="-1"></a></span>
-<span id="cb43-3"><a href="model-building-and-scoring-for-prediction.html#cb43-3" tabindex="-1"></a>ames_lasso2 <span class="op">=</span> LassoCV(cv <span class="op">=</span> <span class="dv">10</span>, random_state <span class="op">=</span> <span class="dv">0</span>).fit(X, y)</span>
-<span id="cb43-4"><a href="model-building-and-scoring-for-prediction.html#cb43-4" tabindex="-1"></a></span>
-<span id="cb43-5"><a href="model-building-and-scoring-for-prediction.html#cb43-5" tabindex="-1"></a>ames_lasso2.alpha_</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="model-building-and-scoring-for-prediction.html#cb44-1" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LassoCV</span>
+<span id="cb44-2"><a href="model-building-and-scoring-for-prediction.html#cb44-2" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="model-building-and-scoring-for-prediction.html#cb44-3" tabindex="-1"></a>ames_lasso2 <span class="op">=</span> LassoCV(cv <span class="op">=</span> <span class="dv">10</span>, random_state <span class="op">=</span> <span class="dv">0</span>).fit(X, y)</span>
+<span id="cb44-4"><a href="model-building-and-scoring-for-prediction.html#cb44-4" tabindex="-1"></a></span>
+<span id="cb44-5"><a href="model-building-and-scoring-for-prediction.html#cb44-5" tabindex="-1"></a>ames_lasso2.alpha_</span></code></pre></div>
 <pre><code>## 0.0006958420133893223</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="model-building-and-scoring-for-prediction.html#cb45-1" tabindex="-1"></a><span class="im">import</span> time</span>
-<span id="cb45-2"><a href="model-building-and-scoring-for-prediction.html#cb45-2" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb45-3"><a href="model-building-and-scoring-for-prediction.html#cb45-3" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LassoLarsIC</span>
-<span id="cb45-4"><a href="model-building-and-scoring-for-prediction.html#cb45-4" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline</span>
-<span id="cb45-5"><a href="model-building-and-scoring-for-prediction.html#cb45-5" tabindex="-1"></a></span>
-<span id="cb45-6"><a href="model-building-and-scoring-for-prediction.html#cb45-6" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
-<span id="cb45-7"><a href="model-building-and-scoring-for-prediction.html#cb45-7" tabindex="-1"></a>model <span class="op">=</span> make_pipeline(StandardScaler(), LassoCV(cv <span class="op">=</span> <span class="dv">10</span>)).fit(X, y)</span>
-<span id="cb45-8"><a href="model-building-and-scoring-for-prediction.html#cb45-8" tabindex="-1"></a>fit_time <span class="op">=</span> time.time() <span class="op">-</span> start_time</span></code></pre></div>
-<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="model-building-and-scoring-for-prediction.html#cb46-1" tabindex="-1"></a>lasso <span class="op">=</span> model[<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb46-2"><a href="model-building-and-scoring-for-prediction.html#cb46-2" tabindex="-1"></a>plt.semilogx(lasso.alphas_, lasso.mse_path_, linestyle<span class="op">=</span><span class="st">&quot;:&quot;</span>)</span>
-<span id="cb46-3"><a href="model-building-and-scoring-for-prediction.html#cb46-3" tabindex="-1"></a>plt.plot(</span>
-<span id="cb46-4"><a href="model-building-and-scoring-for-prediction.html#cb46-4" tabindex="-1"></a>    lasso.alphas_,</span>
-<span id="cb46-5"><a href="model-building-and-scoring-for-prediction.html#cb46-5" tabindex="-1"></a>    lasso.mse_path_.mean(axis<span class="op">=-</span><span class="dv">1</span>),</span>
-<span id="cb46-6"><a href="model-building-and-scoring-for-prediction.html#cb46-6" tabindex="-1"></a>    color<span class="op">=</span><span class="st">&quot;black&quot;</span>,</span>
-<span id="cb46-7"><a href="model-building-and-scoring-for-prediction.html#cb46-7" tabindex="-1"></a>    label<span class="op">=</span><span class="st">&quot;Average across the folds&quot;</span>,</span>
-<span id="cb46-8"><a href="model-building-and-scoring-for-prediction.html#cb46-8" tabindex="-1"></a>    linewidth<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb46-9"><a href="model-building-and-scoring-for-prediction.html#cb46-9" tabindex="-1"></a>)</span>
-<span id="cb46-10"><a href="model-building-and-scoring-for-prediction.html#cb46-10" tabindex="-1"></a>plt.axvline(lasso.alpha_, linestyle<span class="op">=</span><span class="st">&quot;--&quot;</span>, color<span class="op">=</span><span class="st">&quot;black&quot;</span>, label<span class="op">=</span><span class="st">&quot;alpha: CV estimate&quot;</span>)</span>
-<span id="cb46-11"><a href="model-building-and-scoring-for-prediction.html#cb46-11" tabindex="-1"></a></span>
-<span id="cb46-12"><a href="model-building-and-scoring-for-prediction.html#cb46-12" tabindex="-1"></a>plt.xlabel(<span class="vs">r&quot;$\alpha$&quot;</span>)</span>
-<span id="cb46-13"><a href="model-building-and-scoring-for-prediction.html#cb46-13" tabindex="-1"></a>plt.ylabel(<span class="st">&quot;Mean square error&quot;</span>)</span>
-<span id="cb46-14"><a href="model-building-and-scoring-for-prediction.html#cb46-14" tabindex="-1"></a>plt.legend()</span>
-<span id="cb46-15"><a href="model-building-and-scoring-for-prediction.html#cb46-15" tabindex="-1"></a>_ <span class="op">=</span> plt.title(</span>
-<span id="cb46-16"><a href="model-building-and-scoring-for-prediction.html#cb46-16" tabindex="-1"></a>    <span class="ss">f&quot;Mean square error on each fold: coordinate descent (train time: </span><span class="sc">{</span>fit_time<span class="sc">:.2f}</span><span class="ss">s)&quot;</span></span>
-<span id="cb46-17"><a href="model-building-and-scoring-for-prediction.html#cb46-17" tabindex="-1"></a>)</span>
-<span id="cb46-18"><a href="model-building-and-scoring-for-prediction.html#cb46-18" tabindex="-1"></a></span>
-<span id="cb46-19"><a href="model-building-and-scoring-for-prediction.html#cb46-19" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="model-building-and-scoring-for-prediction.html#cb46-1" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb46-2"><a href="model-building-and-scoring-for-prediction.html#cb46-2" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb46-3"><a href="model-building-and-scoring-for-prediction.html#cb46-3" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LassoLarsIC</span>
+<span id="cb46-4"><a href="model-building-and-scoring-for-prediction.html#cb46-4" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline</span>
+<span id="cb46-5"><a href="model-building-and-scoring-for-prediction.html#cb46-5" tabindex="-1"></a></span>
+<span id="cb46-6"><a href="model-building-and-scoring-for-prediction.html#cb46-6" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb46-7"><a href="model-building-and-scoring-for-prediction.html#cb46-7" tabindex="-1"></a>model <span class="op">=</span> make_pipeline(StandardScaler(), LassoCV(cv <span class="op">=</span> <span class="dv">10</span>)).fit(X, y)</span>
+<span id="cb46-8"><a href="model-building-and-scoring-for-prediction.html#cb46-8" tabindex="-1"></a>fit_time <span class="op">=</span> time.time() <span class="op">-</span> start_time</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="model-building-and-scoring-for-prediction.html#cb47-1" tabindex="-1"></a>lasso <span class="op">=</span> model[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb47-2"><a href="model-building-and-scoring-for-prediction.html#cb47-2" tabindex="-1"></a>plt.semilogx(lasso.alphas_, lasso.mse_path_, linestyle<span class="op">=</span><span class="st">&quot;:&quot;</span>)</span>
+<span id="cb47-3"><a href="model-building-and-scoring-for-prediction.html#cb47-3" tabindex="-1"></a>plt.plot(</span>
+<span id="cb47-4"><a href="model-building-and-scoring-for-prediction.html#cb47-4" tabindex="-1"></a>    lasso.alphas_,</span>
+<span id="cb47-5"><a href="model-building-and-scoring-for-prediction.html#cb47-5" tabindex="-1"></a>    lasso.mse_path_.mean(axis<span class="op">=-</span><span class="dv">1</span>),</span>
+<span id="cb47-6"><a href="model-building-and-scoring-for-prediction.html#cb47-6" tabindex="-1"></a>    color<span class="op">=</span><span class="st">&quot;black&quot;</span>,</span>
+<span id="cb47-7"><a href="model-building-and-scoring-for-prediction.html#cb47-7" tabindex="-1"></a>    label<span class="op">=</span><span class="st">&quot;Average across the folds&quot;</span>,</span>
+<span id="cb47-8"><a href="model-building-and-scoring-for-prediction.html#cb47-8" tabindex="-1"></a>    linewidth<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb47-9"><a href="model-building-and-scoring-for-prediction.html#cb47-9" tabindex="-1"></a>)</span>
+<span id="cb47-10"><a href="model-building-and-scoring-for-prediction.html#cb47-10" tabindex="-1"></a>plt.axvline(lasso.alpha_, linestyle<span class="op">=</span><span class="st">&quot;--&quot;</span>, color<span class="op">=</span><span class="st">&quot;black&quot;</span>, label<span class="op">=</span><span class="st">&quot;alpha: CV estimate&quot;</span>)</span>
+<span id="cb47-11"><a href="model-building-and-scoring-for-prediction.html#cb47-11" tabindex="-1"></a></span>
+<span id="cb47-12"><a href="model-building-and-scoring-for-prediction.html#cb47-12" tabindex="-1"></a>plt.xlabel(<span class="vs">r&quot;$\alpha$&quot;</span>)</span>
+<span id="cb47-13"><a href="model-building-and-scoring-for-prediction.html#cb47-13" tabindex="-1"></a>plt.ylabel(<span class="st">&quot;Mean square error&quot;</span>)</span>
+<span id="cb47-14"><a href="model-building-and-scoring-for-prediction.html#cb47-14" tabindex="-1"></a>plt.legend()</span>
+<span id="cb47-15"><a href="model-building-and-scoring-for-prediction.html#cb47-15" tabindex="-1"></a>_ <span class="op">=</span> plt.title(</span>
+<span id="cb47-16"><a href="model-building-and-scoring-for-prediction.html#cb47-16" tabindex="-1"></a>    <span class="ss">f&quot;Mean square error on each fold: coordinate descent (train time: </span><span class="sc">{</span>fit_time<span class="sc">:.2f}</span><span class="ss">s)&quot;</span></span>
+<span id="cb47-17"><a href="model-building-and-scoring-for-prediction.html#cb47-17" tabindex="-1"></a>)</span>
+<span id="cb47-18"><a href="model-building-and-scoring-for-prediction.html#cb47-18" tabindex="-1"></a></span>
+<span id="cb47-19"><a href="model-building-and-scoring-for-prediction.html#cb47-19" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 
 </div>

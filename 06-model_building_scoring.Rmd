@@ -387,13 +387,15 @@ plt.show()
 *LASSO Regression*
 
 ```{python}
-ames_lasso = Lasso(alpha = 2, max_iter = 5000).fit(X, y)
+ames_lasso = Lasso(alpha = 0.01, max_iter = 5000).fit(X, y)
+r2 = ames_lasso.score(X, y)
+print("R-squared:", r2)
 ```
 
 
 ```{python}
 n_alphas = 100
-alphas2 = np.logspace(2, 5, n_alphas)
+alphas2 = np.logspace(-4,0, n_alphas)
 
 coefs2 = []
 for a in alphas2:
@@ -417,31 +419,34 @@ plt.show()
 * Elastic Net*
 
 ```{python}
-ames_en = ElasticNet(alpha = 1, l1_ratio=0.5)
+ames_en = ElasticNet(alpha = 0.01, l1_ratio=0.5).fit(X,y)
 ```
 
 
 
 ```{python}
-n_alphas = 100
-alphas3 = np.logspace(1, 8, n_alphas)
+alphas = np.logspace(-4, 1, 100)  
+coefs = []
 
-coefs3 = []
-for a in alphas3:
-    en = ElasticNet(alpha = a, l1_ratio=0.5)
+for alpha in alphas:
+    en = ElasticNet(alpha=alpha, l1_ratio=0.5, max_iter=10000)
     en.fit(X, y)
-    coefs3.append(en.coef_)
+    coefs.append(en.coef_)
 
-plt.cla()
-ax3 = plt.gca()
+coefs = np.array(coefs)
 
-ax3.plot(alphas3, coefs3)
-ax3.set_xscale("log")
-plt.xlabel("alpha")
-plt.ylabel("weights")
-plt.title("ElasticNet coefficients as a function of the regularization")
-plt.axis("tight")
+plt.figure(figsize=(8, 6))
+for i in range(coefs.shape[1]):
+    plt.plot(alphas, coefs[:, i], label=f'X{i}' if X.columns is None else X.columns[i])
+
+plt.xscale('log')
+plt.xlabel('alpha')
+plt.ylabel('Coefficient value')
+plt.title('Elastic Net Coefficients vs Alpha')
+plt.axis('tight')
+plt.grid(True)
 plt.show()
+
 ```
 
 ## Optimizing Penalties
