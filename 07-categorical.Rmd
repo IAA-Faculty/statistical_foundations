@@ -60,8 +60,15 @@ from sklearn.linear_model import Ridge
 from sklearn.linear_model import Lasso
 from sklearn.linear_model import ElasticNet
 from sklearn.metrics import mean_squared_error
-train = r.train
-test = r.test
+from sklearn.model_selection import train_test_split
+from plotnine import *
+
+
+ames_py = pd.read_csv('https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/refs/heads/master/Ames.csv')
+
+ames_py["Sales"]=ames_py["Sale_Price"]/1000
+
+train,test = train_test_split(ames_py,test_size=0.3,random_state=123)
 
 ```
 
@@ -87,6 +94,7 @@ This Chapter aims to answer the following questions:
 ## Describing Categorical Data
 
 We need to first explore our data before building any models to try and explain/predict our categorical target variable. With categorical variables, we can look at the distribution of the categories as well as see if this distribution has any association with other variables. For this analysis we are going to still use our Ames housing data. Imagine you worked for a real estate agency and got a bonus check if you sold a house above \$175,000 in value. Let's create this variable in our data:
+
 
 ```{r}
 library(dplyr)
@@ -147,33 +155,43 @@ train['Bonus'] = np.where(train['Sale_Price'] > 175000, 1, 0)
 ```{python}
 train['Bonus'].value_counts()
 
-ax = sns.countplot(x = "Bonus", data = train, color = "blue")
-ax.set(xlabel = 'Bonus Eligible',
-       ylabel = 'Frequency',
-       title = 'Bar Graph of Bonus Eligibility')
-plt.show()
+plot = (
+    ggplot(train)
+    + geom_bar(aes(x='Bonus'))
+    + labs(x='Bonus', y='Count')
+    + theme_minimal()
+)
+
+plot.show()
+
+
+
 ```
 
 
 ```{python}
 train['Central_Air'].value_counts()
 
-plt.cla()
-ax = sns.countplot(x = "Central_Air", data = train, color = "blue")
-ax.set(xlabel = 'Central Air',
-       ylabel = 'Frequency',
-       title = 'Bar Graph of Central Air Availability')
-plt.show()
+plot = (
+    ggplot(train)
+    + geom_bar(aes(x='Central_Air'))
+    + labs(x='Central_Air', y='Count')
+    + theme_minimal()
+)
+
+plot.show()
 ```
 
 
 ```{python}
-plt.cla()
-ax = sns.countplot(x = "Bonus", data = train, hue = "Central_Air")
-ax.set(xlabel = 'Central Air',
-       ylabel = 'Frequency',
-       title = 'Bar Graph of Central Air Availability')
-plt.show()
+plot = (
+    ggplot(train)
+    + geom_bar(aes(x='Bonus', fill='Central_Air'), position='stack')
+    + labs(x='Bonus', y='Count', fill='Central_Air')
+    + theme_minimal()
+)
+
+plot.show()
 ```
 
 
