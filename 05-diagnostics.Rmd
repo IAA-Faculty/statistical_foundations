@@ -135,7 +135,7 @@ pairs(Salaries)
 
 If there are not too many variables, this plot is a nice way to see all the relationships in the data set.  The variables are listed along the diagonal and each off diagonal plot is a scatterplot of the variables represented by that row and column.  For example, the first row of plots have rank on the y-axis.  The first column of plots have rank along the x-axis.
 
-#### Python Code:
+### Python Code:
 
 ```{python}
 import statsmodels.formula.api as smf
@@ -171,7 +171,7 @@ ggplot(lm.model,aes(x=fitted(lm.model),y=resid(lm.model)))+geom_point(color="blu
 
 ```
 
-#### Python Code:
+### Python Code:
 
 ```{python}
 model_mlr = smf.ols("salary ~ C(rank) + C(discipline) + yrs_since_phd + yrs_service + C(sex)", data = Salaries).fit()
@@ -286,7 +286,7 @@ In wrapping up the misspecified model, if a linear model does not look appropria
   4. Fit a nonparametric regression model (for example splines or a LOESS regression).\
 
 
-#### Python Code:
+### Python Code:
 
 ```{python}
 chemical = pd.DataFrame({'amount': [1,1,1,2,2,2,2,2,3,3,3,3,4,4,4,4,4,5,5,5,5,5],
@@ -463,7 +463,7 @@ In conclusion, if the assumption of Homoskadicity of variance is violated, you c
   4. Use a different distribution (for example if the response is count data, use Poisson distribution).
 
 
-#### Python Code:
+### Python Code:
 
 ```{python}
 experience = pd.DataFrame({'salary': [41504,32619,44322,40038,46147,38447,38163,42104,25597,39599,55698,47220,65929,55794,45959,52460,60308,61458,56951,56174,59363,57642,69792,59321,66379,64282,48901,100711,59324,54752,73619,65382,58823,65717,92816,72550,71365,88888,62969,45298,111292,91491,106345,99009,73981,72547,74991,139249,119948,128962,98112,97159,125246,89694,73333,108710,97567,90359,119806,101343,147406,153020,143200,97327,184807,146263,127925,159785,174822,177610,210984,160044,137044,182996,184183,168666,121350,193627,142611,170131,134140,129446,201469,202104,220556,166419,149044,247017,247730,252917,235517,241276,197229,175879,253682,262578,207715,221179,212028,312549],
@@ -644,7 +644,7 @@ In conclusion, to deal with data that is NOT normally distributed, we can either
 2. Transform either response or predictor variables or both to obtain normality in the residuals.
 
 
-#### Python Code
+### Python Code
 
 ```{python}
 
@@ -867,7 +867,7 @@ ggplot(lm.model,aes(x=hatvalues(lm.model),y=rstudent(lm.model))) +  geom_point(c
 ```
 
 
-#### Python Code
+### Python Code
 
 Fit model:
 
@@ -1087,7 +1087,7 @@ From the correlation output and VIF output, it is clear that multicollinearity i
 2.  Create new transformed variables (take linear combinations of variables; create ratio of variables, etc).
 
 
-#### Python Code
+### Python Code
 
 
 

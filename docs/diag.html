@@ -253,16 +253,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5" data-path="diag.html"><a href="diag.html"><i class="fa fa-check"></i><b>5</b> Diagnostics</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="diag.html"><a href="diag.html#examining-residuals"><i class="fa fa-check"></i><b>5.1</b> Examining Residuals</a></li>
-<li class="chapter" data-level="5.2" data-path="diag.html"><a href="diag.html#misspecified-model"><i class="fa fa-check"></i><b>5.2</b> Misspecified Model</a></li>
-<li class="chapter" data-level="5.3" data-path="diag.html"><a href="diag.html#constant-variance"><i class="fa fa-check"></i><b>5.3</b> Constant Variance</a></li>
-<li class="chapter" data-level="5.4" data-path="diag.html"><a href="diag.html#normality"><i class="fa fa-check"></i><b>5.4</b> Normality</a></li>
+<li class="chapter" data-level="5.0.1" data-path="diag.html"><a href="diag.html#python-code-23"><i class="fa fa-check"></i><b>5.0.1</b> Python Code:</a></li>
+<li class="chapter" data-level="5.1" data-path="diag.html"><a href="diag.html#examining-residuals"><i class="fa fa-check"></i><b>5.1</b> Examining Residuals</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="diag.html"><a href="diag.html#python-code-24"><i class="fa fa-check"></i><b>5.1.1</b> Python Code:</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="diag.html"><a href="diag.html#misspecified-model"><i class="fa fa-check"></i><b>5.2</b> Misspecified Model</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="diag.html"><a href="diag.html#python-code-25"><i class="fa fa-check"></i><b>5.2.1</b> Python Code:</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="diag.html"><a href="diag.html#constant-variance"><i class="fa fa-check"></i><b>5.3</b> Constant Variance</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="diag.html"><a href="diag.html#python-code-26"><i class="fa fa-check"></i><b>5.3.1</b> Python Code:</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="diag.html"><a href="diag.html#normality"><i class="fa fa-check"></i><b>5.4</b> Normality</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="diag.html"><a href="diag.html#python-code-27"><i class="fa fa-check"></i><b>5.4.1</b> Python Code</a></li>
+</ul></li>
 <li class="chapter" data-level="5.5" data-path="diag.html"><a href="diag.html#correlated-errors"><i class="fa fa-check"></i><b>5.5</b> Correlated Errors</a>
 <ul>
 <li class="chapter" data-level="5.5.1" data-path="diag.html"><a href="diag.html#python-code-28"><i class="fa fa-check"></i><b>5.5.1</b> Python Code</a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="diag.html"><a href="diag.html#influential-observations-and-outliers"><i class="fa fa-check"></i><b>5.6</b> Influential Observations and Outliers</a></li>
-<li class="chapter" data-level="5.7" data-path="diag.html"><a href="diag.html#multicollinearity"><i class="fa fa-check"></i><b>5.7</b> Multicollinearity</a></li>
+<li class="chapter" data-level="5.6" data-path="diag.html"><a href="diag.html#influential-observations-and-outliers"><i class="fa fa-check"></i><b>5.6</b> Influential Observations and Outliers</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="diag.html"><a href="diag.html#python-code-29"><i class="fa fa-check"></i><b>5.6.1</b> Python Code</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="diag.html"><a href="diag.html#multicollinearity"><i class="fa fa-check"></i><b>5.7</b> Multicollinearity</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="diag.html"><a href="diag.html#python-code-30"><i class="fa fa-check"></i><b>5.7.1</b> Python Code</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html"><i class="fa fa-check"></i><b>6</b> Model Building and Scoring for Prediction</a>
 <ul>
@@ -389,8 +408,8 @@ Figure 5.1: Matrix of Scatter Plots for the Salaries Data
 </div>
 <p>If there are not too many variables, this plot is a nice way to see all the relationships in the data set. The variables are listed along the diagonal and each off diagonal plot is a scatterplot of the variables represented by that row and column. For example, the first row of plots have rank on the y-axis. The first column of plots have rank along the x-axis.</p>
 </div>
-<div id="python-code-23" class="section level4 hasAnchor" number="5.0.0.2">
-<h4><span class="header-section-number">5.0.0.2</span> Python Code:<a href="diag.html#python-code-23" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="python-code-23" class="section level3 hasAnchor" number="5.0.1">
+<h3><span class="header-section-number">5.0.1</span> Python Code:<a href="diag.html#python-code-23" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="diag.html#cb2-1" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
 <span id="cb2-2"><a href="diag.html#cb2-2" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb2-3"><a href="diag.html#cb2-3" tabindex="-1"></a><span class="im">import</span> statsmodels.stats <span class="im">as</span> ss</span>
@@ -424,8 +443,8 @@ Figure 5.2: Residuals vs. Predicted Values for Salary Model
 </p>
 </div>
 </div>
-<div id="python-code-24" class="section level4 hasAnchor" number="5.1.0.2">
-<h4><span class="header-section-number">5.1.0.2</span> Python Code:<a href="diag.html#python-code-24" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="python-code-24" class="section level3 hasAnchor" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Python Code:<a href="diag.html#python-code-24" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="diag.html#cb4-1" tabindex="-1"></a>model_mlr <span class="op">=</span> smf.ols(<span class="st">&quot;salary ~ C(rank) + C(discipline) + yrs_since_phd + yrs_service + C(sex)&quot;</span>, data <span class="op">=</span> Salaries).fit()</span>
 <span id="cb4-2"><a href="diag.html#cb4-2" tabindex="-1"></a>model_mlr.summary()</span></code></pre></div>
 <table class="simpletable">
@@ -440,10 +459,10 @@ Figure 5.2: Residuals vs. Predicted Values for Salary Model
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   54.20</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Mon, 09 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>1.79e-48</td>
+  <th>Date:</th>             <td>Tue, 17 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>1.79e-48</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>11:23:28</td>     <th>  Log-Likelihood:    </th> <td> -4538.9</td>
+  <th>Time:</th>                 <td>13:26:21</td>     <th>  Log-Likelihood:    </th> <td> -4538.9</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   397</td>      <th>  AIC:               </th> <td>   9092.</td>
@@ -656,8 +675,8 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
 </li>
 </ol>
 </div>
-<div id="python-code-25" class="section level4 hasAnchor" number="5.2.0.2">
-<h4><span class="header-section-number">5.2.0.2</span> Python Code:<a href="diag.html#python-code-25" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="python-code-25" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Python Code:<a href="diag.html#python-code-25" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="diag.html#cb17-1" tabindex="-1"></a>chemical <span class="op">=</span> pd.DataFrame({<span class="st">&#39;amount&#39;</span>: [<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>],</span>
 <span id="cb17-2"><a href="diag.html#cb17-2" tabindex="-1"></a>                   <span class="st">&#39;strength&#39;</span>: [<span class="fl">2.4</span>,<span class="fl">2.6</span>,<span class="fl">2.7</span>,<span class="fl">2.5</span>,<span class="fl">2.6</span>,<span class="fl">2.6</span>,<span class="fl">2.7</span>,<span class="fl">2.8</span>,<span class="fl">2.8</span>,<span class="fl">2.8</span>,<span class="fl">3.0</span>,<span class="fl">3.0</span>,<span class="fl">3.0</span>,<span class="fl">2.9</span>,<span class="fl">2.9</span>,<span class="fl">3.0</span>,<span class="fl">3.1</span>,<span class="fl">2.9</span>,<span class="fl">2.9</span>,<span class="fl">3.0</span>,<span class="fl">2.9</span>,<span class="fl">2.8</span>]})</span>
 <span id="cb17-3"><a href="diag.html#cb17-3" tabindex="-1"></a></span>
@@ -675,10 +694,10 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   24.08</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Mon, 09 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>8.52e-05</td>
+  <th>Date:</th>             <td>Tue, 17 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>8.52e-05</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>11:23:29</td>     <th>  Log-Likelihood:    </th> <td>  15.001</td>
+  <th>Time:</th>                 <td>13:26:23</td>     <th>  Log-Likelihood:    </th> <td>  15.001</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    22</td>      <th>  AIC:               </th> <td>  -26.00</td>
@@ -744,10 +763,10 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   17.93</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Mon, 09 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>4.21e-05</td>
+  <th>Date:</th>             <td>Tue, 17 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>4.21e-05</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>11:23:30</td>     <th>  Log-Likelihood:    </th> <td>  17.974</td>
+  <th>Time:</th>                 <td>13:26:23</td>     <th>  Log-Likelihood:    </th> <td>  17.974</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    22</td>      <th>  AIC:               </th> <td>  -29.95</td>
@@ -814,10 +833,10 @@ Figure 5.7: New Residual Plot after Fitting a Cubic Term
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   16.22</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Mon, 09 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>2.34e-05</td>
+  <th>Date:</th>             <td>Tue, 17 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>2.34e-05</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>11:23:30</td>     <th>  Log-Likelihood:    </th> <td>  20.708</td>
+  <th>Time:</th>                 <td>13:26:24</td>     <th>  Log-Likelihood:    </th> <td>  20.708</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    22</td>      <th>  AIC:               </th> <td>  -33.42</td>
@@ -1010,8 +1029,8 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
 <li>Use a different distribution (for example if the response is count data, use Poisson distribution).</li>
 </ol>
 </div>
-<div id="python-code-26" class="section level4 hasAnchor" number="5.3.0.2">
-<h4><span class="header-section-number">5.3.0.2</span> Python Code:<a href="diag.html#python-code-26" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="python-code-26" class="section level3 hasAnchor" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Python Code:<a href="diag.html#python-code-26" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="diag.html#cb34-1" tabindex="-1"></a>experience <span class="op">=</span> pd.DataFrame({<span class="st">&#39;salary&#39;</span>: [<span class="dv">41504</span>,<span class="dv">32619</span>,<span class="dv">44322</span>,<span class="dv">40038</span>,<span class="dv">46147</span>,<span class="dv">38447</span>,<span class="dv">38163</span>,<span class="dv">42104</span>,<span class="dv">25597</span>,<span class="dv">39599</span>,<span class="dv">55698</span>,<span class="dv">47220</span>,<span class="dv">65929</span>,<span class="dv">55794</span>,<span class="dv">45959</span>,<span class="dv">52460</span>,<span class="dv">60308</span>,<span class="dv">61458</span>,<span class="dv">56951</span>,<span class="dv">56174</span>,<span class="dv">59363</span>,<span class="dv">57642</span>,<span class="dv">69792</span>,<span class="dv">59321</span>,<span class="dv">66379</span>,<span class="dv">64282</span>,<span class="dv">48901</span>,<span class="dv">100711</span>,<span class="dv">59324</span>,<span class="dv">54752</span>,<span class="dv">73619</span>,<span class="dv">65382</span>,<span class="dv">58823</span>,<span class="dv">65717</span>,<span class="dv">92816</span>,<span class="dv">72550</span>,<span class="dv">71365</span>,<span class="dv">88888</span>,<span class="dv">62969</span>,<span class="dv">45298</span>,<span class="dv">111292</span>,<span class="dv">91491</span>,<span class="dv">106345</span>,<span class="dv">99009</span>,<span class="dv">73981</span>,<span class="dv">72547</span>,<span class="dv">74991</span>,<span class="dv">139249</span>,<span class="dv">119948</span>,<span class="dv">128962</span>,<span class="dv">98112</span>,<span class="dv">97159</span>,<span class="dv">125246</span>,<span class="dv">89694</span>,<span class="dv">73333</span>,<span class="dv">108710</span>,<span class="dv">97567</span>,<span class="dv">90359</span>,<span class="dv">119806</span>,<span class="dv">101343</span>,<span class="dv">147406</span>,<span class="dv">153020</span>,<span class="dv">143200</span>,<span class="dv">97327</span>,<span class="dv">184807</span>,<span class="dv">146263</span>,<span class="dv">127925</span>,<span class="dv">159785</span>,<span class="dv">174822</span>,<span class="dv">177610</span>,<span class="dv">210984</span>,<span class="dv">160044</span>,<span class="dv">137044</span>,<span class="dv">182996</span>,<span class="dv">184183</span>,<span class="dv">168666</span>,<span class="dv">121350</span>,<span class="dv">193627</span>,<span class="dv">142611</span>,<span class="dv">170131</span>,<span class="dv">134140</span>,<span class="dv">129446</span>,<span class="dv">201469</span>,<span class="dv">202104</span>,<span class="dv">220556</span>,<span class="dv">166419</span>,<span class="dv">149044</span>,<span class="dv">247017</span>,<span class="dv">247730</span>,<span class="dv">252917</span>,<span class="dv">235517</span>,<span class="dv">241276</span>,<span class="dv">197229</span>,<span class="dv">175879</span>,<span class="dv">253682</span>,<span class="dv">262578</span>,<span class="dv">207715</span>,<span class="dv">221179</span>,<span class="dv">212028</span>,<span class="dv">312549</span>],</span>
 <span id="cb34-2"><a href="diag.html#cb34-2" tabindex="-1"></a>                   <span class="st">&#39;years&#39;</span>: [<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">11</span>,<span class="dv">11</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="dv">13</span>,<span class="dv">13</span>,<span class="dv">13</span>,<span class="dv">13</span>,<span class="dv">14</span>,<span class="dv">14</span>,<span class="dv">14</span>,<span class="dv">14</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">18</span>,<span class="dv">18</span>,<span class="dv">18</span>,<span class="dv">18</span>,<span class="dv">19</span>,<span class="dv">19</span>,<span class="dv">19</span>,<span class="dv">19</span>,<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">21</span>,<span class="dv">21</span>,<span class="dv">21</span>,<span class="dv">21</span>,<span class="dv">22</span>,<span class="dv">22</span>,<span class="dv">22</span>,<span class="dv">22</span>,<span class="dv">23</span>,<span class="dv">23</span>,<span class="dv">23</span>,<span class="dv">23</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">25</span>,<span class="dv">25</span>,<span class="dv">25</span>]})</span>
 <span id="cb34-3"><a href="diag.html#cb34-3" tabindex="-1"></a></span>
@@ -1029,10 +1048,10 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   492.8</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Mon, 09 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>5.16e-40</td>
+  <th>Date:</th>             <td>Tue, 17 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>5.16e-40</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>11:23:32</td>     <th>  Log-Likelihood:    </th> <td> -1162.5</td>
+  <th>Time:</th>                 <td>13:26:26</td>     <th>  Log-Likelihood:    </th> <td> -1162.5</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   100</td>      <th>  AIC:               </th> <td>   2329.</td>
@@ -1110,10 +1129,10 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   805.2</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Mon, 09 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>4.63e-49</td>
+  <th>Date:</th>             <td>Tue, 17 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>4.63e-49</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>11:23:33</td>     <th>  Log-Likelihood:    </th> <td>  22.359</td>
+  <th>Time:</th>                 <td>13:26:27</td>     <th>  Log-Likelihood:    </th> <td>  22.359</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   100</td>      <th>  AIC:               </th> <td>  -40.72</td>
@@ -1188,10 +1207,10 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   11.43</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Mon, 09 Jun 2025</td> <th>  Prob (F-statistic):</th>  <td>0.00155</td>
+  <th>Date:</th>             <td>Tue, 17 Jun 2025</td> <th>  Prob (F-statistic):</th>  <td>0.00155</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>11:23:33</td>     <th>  Log-Likelihood:    </th> <td> -144.58</td>
+  <th>Time:</th>                 <td>13:26:27</td>     <th>  Log-Likelihood:    </th> <td> -144.58</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    45</td>      <th>  AIC:               </th> <td>   293.2</td>
@@ -1253,8 +1272,8 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
 ## Dep. Variable:                      y   R-squared:                       0.316
 ## Model:                            WLS   Adj. R-squared:                  0.301
 ## Method:                 Least Squares   F-statistic:                     19.90
-## Date:                Mon, 09 Jun 2025   Prob (F-statistic):           5.78e-05
-## Time:                        11:23:33   Log-Likelihood:                -135.29
+## Date:                Tue, 17 Jun 2025   Prob (F-statistic):           5.78e-05
+## Time:                        13:26:27   Log-Likelihood:                -135.29
 ## No. Observations:                  45   AIC:                             274.6
 ## Df Residuals:                      43   BIC:                             278.2
 ## Df Model:                           1                                         
@@ -1281,8 +1300,8 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
 ## Dep. Variable:                      y   R-squared:                       0.210
 ## Model:                            OLS   Adj. R-squared:                  0.192
 ## Method:                 Least Squares   F-statistic:                     10.96
-## Date:                Mon, 09 Jun 2025   Prob (F-statistic):            0.00189
-## Time:                        11:23:33   Log-Likelihood:                -144.58
+## Date:                Tue, 17 Jun 2025   Prob (F-statistic):            0.00189
+## Time:                        13:26:27   Log-Likelihood:                -144.58
 ## No. Observations:                  45   AIC:                             293.2
 ## Df Residuals:                      43   BIC:                             296.8
 ## Df Model:                           1                                         
@@ -1309,8 +1328,8 @@ Figure 5.11: Residual Plot Showing Stabilized Variance after Log Transform
 ## Dep. Variable:                      y   R-squared:                       0.210
 ## Model:                            OLS   Adj. R-squared:                  0.192
 ## Method:                 Least Squares   F-statistic:                     10.74
-## Date:                Mon, 09 Jun 2025   Prob (F-statistic):            0.00208
-## Time:                        11:23:33   Log-Likelihood:                -144.58
+## Date:                Tue, 17 Jun 2025   Prob (F-statistic):            0.00208
+## Time:                        13:26:27   Log-Likelihood:                -144.58
 ## No. Observations:                  45   AIC:                             293.2
 ## Df Residuals:                      43   BIC:                             296.8
 ## Df Model:                           1                                         
@@ -1391,8 +1410,8 @@ The output from the graph clearly incates that <span class="math inline">\(\lamb
 <li>Transform either response or predictor variables or both to obtain normality in the residuals.</li>
 </ol>
 </div>
-<div id="python-code-27" class="section level4 hasAnchor" number="5.4.0.2">
-<h4><span class="header-section-number">5.4.0.2</span> Python Code<a href="diag.html#python-code-27" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="python-code-27" class="section level3 hasAnchor" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Python Code<a href="diag.html#python-code-27" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="diag.html#cb55-1" tabindex="-1"></a>p<span class="op">=</span>(ggplot(experience,aes(x<span class="op">=</span><span class="st">&quot;resid_mlr&quot;</span>)) <span class="op">+</span> geom_histogram(fill<span class="op">=</span><span class="st">&#39;blue&#39;</span>, color<span class="op">=</span><span class="st">&#39;black&#39;</span>) <span class="op">+</span></span>
 <span id="cb55-2"><a href="diag.html#cb55-2" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">&#39;Histogram&#39;</span>, x<span class="op">=</span><span class="st">&#39;Value&#39;</span>, y<span class="op">=</span><span class="st">&#39;Count&#39;</span>) <span class="op">+</span></span>
 <span id="cb55-3"><a href="diag.html#cb55-3" tabindex="-1"></a>    theme_minimal()</span>
@@ -1488,10 +1507,10 @@ The following data set illustrates this test using the Google data set in the TS
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   3.733</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Mon, 09 Jun 2025</td> <th>  Prob (F-statistic):</th>  <td>0.0539</td> 
+  <th>Date:</th>             <td>Tue, 17 Jun 2025</td> <th>  Prob (F-statistic):</th>  <td>0.0539</td> 
 </tr>
 <tr>
-  <th>Time:</th>                 <td>11:23:35</td>     <th>  Log-Likelihood:    </th> <td>  1209.3</td>
+  <th>Time:</th>                 <td>13:26:29</td>     <th>  Log-Likelihood:    </th> <td>  1209.3</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   521</td>      <th>  AIC:               </th> <td>  -2415.</td>
@@ -1634,8 +1653,8 @@ Figure 5.15: Influential and Outlier Observations
 </p>
 </div>
 </div>
-<div id="python-code-29" class="section level4 hasAnchor" number="5.6.0.2">
-<h4><span class="header-section-number">5.6.0.2</span> Python Code<a href="diag.html#python-code-29" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="python-code-29" class="section level3 hasAnchor" number="5.6.1">
+<h3><span class="header-section-number">5.6.1</span> Python Code<a href="diag.html#python-code-29" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Fit model:</p>
 <div class="sourceCode" id="cb74"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb74-1"><a href="diag.html#cb74-1" tabindex="-1"></a>races_table <span class="op">=</span> pd.read_table(<span class="st">&quot;http://www.statsci.org/data/general/hills.txt&quot;</span>)</span>
 <span id="cb74-2"><a href="diag.html#cb74-2" tabindex="-1"></a></span>
@@ -1660,10 +1679,10 @@ Figure 5.15: Influential and Outlier Observations
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   181.7</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Mon, 09 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>3.40e-18</td>
+  <th>Date:</th>             <td>Tue, 17 Jun 2025</td> <th>  Prob (F-statistic):</th> <td>3.40e-18</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>11:23:38</td>     <th>  Log-Likelihood:    </th> <td> -142.11</td>
+  <th>Time:</th>                 <td>13:26:31</td>     <th>  Log-Likelihood:    </th> <td> -142.11</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    35</td>      <th>  AIC:               </th> <td>   290.2</td>
@@ -2098,8 +2117,8 @@ Repeat this process for each of the other explanatory variables. If a VIF value 
 <li>Create new transformed variables (take linear combinations of variables; create ratio of variables, etc).</li>
 </ol>
 </div>
-<div id="python-code-30" class="section level4 hasAnchor" number="5.7.0.2">
-<h4><span class="header-section-number">5.7.0.2</span> Python Code<a href="diag.html#python-code-30" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="python-code-30" class="section level3 hasAnchor" number="5.7.1">
+<h3><span class="header-section-number">5.7.1</span> Python Code<a href="diag.html#python-code-30" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb93"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb93-1"><a href="diag.html#cb93-1" tabindex="-1"></a>mtcars <span class="op">=</span> r.mtcars</span>
 <span id="cb93-2"><a href="diag.html#cb93-2" tabindex="-1"></a></span>
 <span id="cb93-3"><a href="diag.html#cb93-3" tabindex="-1"></a>np.corrcoef(mtcars, rowvar <span class="op">=</span> <span class="va">False</span>)</span></code></pre></div>
@@ -2137,24 +2156,25 @@ Repeat this process for each of the other explanatory variables. If a VIF value 
 ##          0.42760594, -0.65624923, -0.56960714,  0.05753435,  0.27407284,
 ##          1.        ]])</code></pre>
 <div class="sourceCode" id="cb95"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb95-1"><a href="diag.html#cb95-1" tabindex="-1"></a>X <span class="op">=</span> mtcars.loc[:, mtcars.columns<span class="op">!=</span><span class="st">&#39;mpg&#39;</span>]</span>
-<span id="cb95-2"><a href="diag.html#cb95-2" tabindex="-1"></a><span class="co">#X = X.assign(const=1)</span></span>
+<span id="cb95-2"><a href="diag.html#cb95-2" tabindex="-1"></a>X <span class="op">=</span> X.assign(const<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb95-3"><a href="diag.html#cb95-3" tabindex="-1"></a></span>
 <span id="cb95-4"><a href="diag.html#cb95-4" tabindex="-1"></a>vif <span class="op">=</span> pd.DataFrame()</span>
 <span id="cb95-5"><a href="diag.html#cb95-5" tabindex="-1"></a>vif[<span class="st">&#39;VIF&#39;</span>] <span class="op">=</span> [ss.outliers_influence.variance_inflation_factor(X.values, i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(X.shape[<span class="dv">1</span>])]</span>
 <span id="cb95-6"><a href="diag.html#cb95-6" tabindex="-1"></a>vif[<span class="st">&#39;variable&#39;</span>] <span class="op">=</span> X.columns</span>
 <span id="cb95-7"><a href="diag.html#cb95-7" tabindex="-1"></a></span>
 <span id="cb95-8"><a href="diag.html#cb95-8" tabindex="-1"></a><span class="bu">print</span>(vif)</span></code></pre></div>
-<pre><code>##           VIF variable
-## 0  112.629828      cyl
-## 1   98.930791     disp
-## 2   56.047781       hp
-## 3  132.214353     drat
-## 4  182.948049       wt
-## 5  317.534376     qsec
-## 6    8.752581       vs
-## 7    7.412020       am
-## 8  119.804879     gear
-## 9   32.213836     carb</code></pre>
+<pre><code>##             VIF variable
+## 0     15.373833      cyl
+## 1     21.620241     disp
+## 2      9.832037       hp
+## 3      3.374620     drat
+## 4     15.164887       wt
+## 5      7.527958     qsec
+## 6      4.965873       vs
+## 7      4.648487       am
+## 8      5.357452     gear
+## 9      7.908747     carb
+## 10  1596.273030    const</code></pre>
 
 </div>
 </div>
