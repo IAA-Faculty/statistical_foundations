@@ -141,7 +141,7 @@ dim(test)
 ```
 
 
-#### Python Code:
+### Python Code:
 
 To create the training data set in Python
 
@@ -226,7 +226,7 @@ Notice that we've highlighted the mean on each box-plot for the purposes of comp
 
 If we want to test whether the `Sale_Price` is different for the different values of `Exter_Qual`, we have to reach for the multi-group alternative to the 2-sample t-test. This is called __Analysis of Variance__, or __ANOVA__ for short. 
 
-#### Python Code
+### Python Code
 
 For Continuous-Continuous Associations:
 
@@ -446,7 +446,7 @@ A non-parametric version of the ANOVA test, the Kruskal-Wallis test, is also ava
 
 
 
-#### Python Code
+### Python Code
 Using a linear regression approach:
 
 ```{python}
@@ -597,7 +597,7 @@ kruskal.test(MPG~factor(Country),data=cars2)
 Our conclusion would be that the distribution of sale price is different across different levels of exterior quality. 
 
 
-#### Python Code:
+### Python Code:
 
 ```{python}
 sp.stats.kruskal(US, Germany, Japan)
@@ -716,7 +716,7 @@ pval
 ```
 
 
-#### Python Code
+### Python Code
 
 
 Tukey-Kramer test:
@@ -908,7 +908,7 @@ pairs(train[, c('Year_Built','Total_Bsmt_SF','First_Flr_SF','Gr_Liv_Area','Sale_
 ```
 
 
-#### Python Code
+### Python Code
 
 Pearson's correlation
 
@@ -1030,7 +1030,7 @@ summary(slr)
 We see that Central does indeed have a significant linear relationship with Sales Price.  Looking at the above output, we see that X took on the value of 1 if the category was "Yes" and 0 if it was "No".  Therefore, we can interpret the coefficient as we expect the sales price of a home in Ames, Iowa to be on average $83,938 higher if they have central air compared to those homes that do not have central air.
 
 
-#### Python Code
+### Python Code
 
 Assumptions of Linear Regression
 
