@@ -628,6 +628,14 @@ print(odds_ratio)
 ```
 
 
+
+```{python}
+odds_ratio = (np.exp(log_model2.params))
+
+print(odds_ratio)
+```
+
+
 *Model Assessment*
 
 Python doesn't have concordant / discordant pair calculations. We will learn in Fall semester other metrics to evaluate a logistic regression model that Python does have.
