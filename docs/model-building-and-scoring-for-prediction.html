@@ -272,6 +272,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1.2" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#ridge-regression"><i class="fa fa-check"></i><b>6.1.2</b> Ridge Regression</a></li>
 <li class="chapter" data-level="6.1.3" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#lasso"><i class="fa fa-check"></i><b>6.1.3</b> LASSO</a></li>
 <li class="chapter" data-level="6.1.4" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#elastic-net"><i class="fa fa-check"></i><b>6.1.4</b> Elastic Net</a></li>
+<li class="chapter" data-level="6.1.5" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#python-code-31"><i class="fa fa-check"></i><b>6.1.5</b> Python Code</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#optimizing-penalties"><i class="fa fa-check"></i><b>6.2</b> Optimizing Penalties</a>
 <ul>
@@ -282,6 +283,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.3.1" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#model-metrics"><i class="fa fa-check"></i><b>6.3.1</b> Model Metrics</a></li>
 <li class="chapter" data-level="6.3.2" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#test-dataset-comparison"><i class="fa fa-check"></i><b>6.3.2</b> Test Dataset Comparison</a></li>
+<li class="chapter" data-level="6.3.3" data-path="model-building-and-scoring-for-prediction.html"><a href="model-building-and-scoring-for-prediction.html#python-code-32"><i class="fa fa-check"></i><b>6.3.3</b> Python Code</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="categorical-data-analysis.html"><a href="categorical-data-analysis.html"><i class="fa fa-check"></i><b>7</b> Categorical Data Analysis</a>
@@ -484,8 +486,9 @@ min(SSE + \lambda[ \alpha \sum_{j=1}^p |\hat{\beta}_j| + (1-\alpha) \sum_{j=1}^p
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>The <code>glmnet</code> function automatically standardizes the variables before fitting the regression model. This is important so that all of the variables are on the same scale before adjustments are made to the estimated coefficients. Even with this standardization we can see the large coefficient values for some of the variables. The top of the plot lists how many variables are in the model at each value of penalty. Notice as the penalty increases, the number of variables decreases as variables are forced to zero using the LASSO piece of the elastic net penalty.</p>
 <p>What <span class="math inline">\(\lambda\)</span> term is best? What is the proper balance between ridge and LASSO penalties when building an elastic net? That will be discussed in the following section.</p>
-<div id="python-code-31" class="section level4 hasAnchor" number="6.1.4.1">
-<h4><span class="header-section-number">6.1.4.1</span> Python Code<a href="model-building-and-scoring-for-prediction.html#python-code-31" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+<div id="python-code-31" class="section level3 hasAnchor" number="6.1.5">
+<h3><span class="header-section-number">6.1.5</span> Python Code<a href="model-building-and-scoring-for-prediction.html#python-code-31" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><em>Ridge Regression</em></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="model-building-and-scoring-for-prediction.html#cb6-1" tabindex="-1"></a></span>
 <span id="cb6-2"><a href="model-building-and-scoring-for-prediction.html#cb6-2" tabindex="-1"></a></span>
@@ -1878,7 +1881,6 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-17-5.png" width="768" /></p>
 </div>
 </div>
-</div>
 <div id="optimizing-penalties" class="section level2 hasAnchor" number="6.2">
 <h2><span class="header-section-number">6.2</span> Optimizing Penalties<a href="model-building-and-scoring-for-prediction.html#optimizing-penalties" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>No matter the approach listed above, a penatly term <span class="math inline">\(\lambda\)</span> needs to be picked. However, we do not want to get caught overfitting our training data by minimizing the variance so much that it is not generalizable to the overall pattern and other similar data. Take the following plot:</p>
@@ -2021,8 +2023,9 @@ The MAPE gives the average absolute <em>percentage</em> difference between our p
 ## 1       13.4</code></pre>
 <p>From the above results, we see that the linear regression has a lower MAPE.</p>
 <p>Once we have scored models with the test dataset, we should <strong>not</strong> go back to try and rebuild any models. We will use the model with the lowest MAE or MAPE. This number is also the number that we report on how well our model performs. No metrics on the training dataset should be reported for the performance of the model.</p>
-<div id="python-code-32" class="section level4 hasAnchor" number="6.3.2.1">
-<h4><span class="header-section-number">6.3.2.1</span> Python Code<a href="model-building-and-scoring-for-prediction.html#python-code-32" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+<div id="python-code-32" class="section level3 hasAnchor" number="6.3.3">
+<h3><span class="header-section-number">6.3.3</span> Python Code<a href="model-building-and-scoring-for-prediction.html#python-code-32" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><em>CV in Regularized Regression</em></p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="model-building-and-scoring-for-prediction.html#cb44-1" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LassoCV</span>
 <span id="cb44-2"><a href="model-building-and-scoring-for-prediction.html#cb44-2" tabindex="-1"></a></span>
@@ -2063,7 +2066,6 @@ The MAPE gives the average absolute <em>percentage</em> difference between our p
 <div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="model-building-and-scoring-for-prediction.html#cb49-1" tabindex="-1"></a><span class="co"># Coefficients at optimal alpha</span></span>
 <span id="cb49-2"><a href="model-building-and-scoring-for-prediction.html#cb49-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Coefficients:&quot;</span>, lasso.coef_)</span></code></pre></div>
 
-</div>
 </div>
 </div>
 </div>

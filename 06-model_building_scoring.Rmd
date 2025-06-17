@@ -301,7 +301,7 @@ The ```glmnet``` function automatically standardizes the variables before fittin
 
 What $\lambda$ term is best? What is the proper balance between ridge and LASSO penalties when building an elastic net? That will be discussed in the following section.
 
-#### Python Code
+### Python Code
 
 *Ridge Regression*
 
@@ -585,7 +585,7 @@ From the above results, we see that the linear regression has a lower MAPE.
 Once we have scored models with the test dataset, we should **not** go back to try and rebuild any models. We will use the model with the lowest MAE or MAPE. This number is also the number that we report on how well our model performs. No metrics on the training dataset should be reported for the performance of the model.
 
 
-#### Python Code
+### Python Code
 
 *CV in Regularized Regression*
 
