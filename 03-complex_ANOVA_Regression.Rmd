@@ -182,7 +182,7 @@ plot(tukey.ames2, las = 1)
 Starting with the variable for central air, we can see there is a statistical difference between the two categories. This is the exact same result as the overall F test for the variable since there are only two categories. For the heating quality variable, we can see some categories are different from each other, while others are not. Noticeably, the combination of poor with fair, good, and typical categories are **not** statistically different. Notice also the different widths of these confidence intervals do to the different combinations of sample sizes for the categories being tested.
 
 
-#### Python Code
+### Python Code
 
 Exploring the data:
 
@@ -345,7 +345,7 @@ shapiro.test(x = ames_res)
 Neither of the normality or equal variance assumptions appear to be met here. This would be a good scenario to have a non-parametric approach. Unfortunately, the Kruskal-Wallis approach is not applicable to $n$-Way ANOVA where $n > 1$. These approaches would need more non-parametric versions of multiple regression models to account for them.
 
 
-#### Python Code
+### Python Code
 
 Two-way ANOVA with interactions
 
@@ -444,7 +444,7 @@ The first, new assumption of randomness deals with the reliability of the analys
 
 
 
-#### Python Code
+### Python Code
 
 ```{python}
 block=pd.read_csv('https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/master/garlic_block.csv')
@@ -769,7 +769,7 @@ With these results we estimate the average difference in sales price between hom
 
 
 
-#### Python Code
+### Python Code
 
 Global and Local Inference
 
