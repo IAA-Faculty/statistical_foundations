@@ -73,7 +73,7 @@ ames <- make_ordinal_ames()
 str(ames)
 ```
 
-#### Python Code:
+### Python Code:
 
 ```{python}
 
@@ -231,7 +231,7 @@ head(dummies)
 ```
 
 
-#### Python Code
+### Python Code
 
 
 For one-hot encoding in Python:
@@ -387,7 +387,7 @@ ggplot(data = ames) +
 
 From this initial inspection, we can conclude that most of the houses sell for less than $200,000 and there are a number of expensive anomalies. To more concretely describe and quantify a statistical distribution, we use statistics that describe the _location, spread, and shape_ of the data.
 
-#### Python code:
+### Python code:
 
 Summary information for the the Ames data set:
 
@@ -558,7 +558,7 @@ ames %>% group_by(Exter_Qual) %>% dplyr::summarise(average = mean(Sale_Price), s
 summary(ames$Sale_Price)
 ```
 
-#### Python code: 
+### Python code: 
 
 Getting summary statistics by Sales Price and External Quality:
 
@@ -674,7 +674,7 @@ ggplot(ames,aes(x=Sale_Price/1000)) +
 
 ```
 
-#### Python Code:
+### Python Code:
 
 Overlay a density plot on top of a the Sales Price histogram:
 
@@ -757,7 +757,7 @@ ggplot(data = ames, aes(sample = Sale_Price/1000)) +
   stat_qq_line()
 ```
 
-#### Python code:
+### Python code:
 
 
 ```{python}
@@ -818,7 +818,7 @@ ggplot(data = ames, aes(y = Sale_Price/1000, x = Central_Air, fill = Central_Air
 
 
 
-#### Python Code
+### Python Code
 
 Boxplots:
 
@@ -900,7 +900,7 @@ ls(t.test(ames$Sale_Price, conf.level = 0.95))
 results <- t.test(ames$Sale_Price, conf.level = 0.95)
 ```
 
-#### Python Code
+### Python Code
 
 Confidence intervals:
 
@@ -950,7 +950,7 @@ t.test(ames$Sale_Price, mu = 178000, alternative = 'greater')
 
 In this second test, we see that we actually _do have enough evidence_ to claim that the true mean is greater than \$178,000 at the $\alpha=0.05$ level.
 
-#### Python Code
+### Python Code
 
 
 Proportion test:
@@ -1060,7 +1060,7 @@ t.test(MPG~Country, data=cars, var.equal = TRUE)
 
 Our final conclusion from the t-test is the _rejection of the null hypothesis_ and the conclusion that _cars made in the US versus cars made in Japan have significantly different MPG. _
 
-#### Python Code
+### Python Code
 
 For testing the cars data set:
 
@@ -1159,7 +1159,7 @@ wilcox.test(Sale_Price ~ Central_Air, data = ames)
 ```
 
 
-#### Python Code
+### Python Code
 
 QQ plots for those homes with Central Air and without Central Air:
 ```{python}
