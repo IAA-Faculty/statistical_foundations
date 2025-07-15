@@ -1003,7 +1003,9 @@ Plot studentized residuals and leverage:
 
 
 ```{python}
-
+n = model_io.nobs
+p = model_io.df_model + 1  # includes intercept
+cutoff = 2 * (p / n) 
 leverage_values = influence.hat_matrix_diag
 influence_df = pd.DataFrame({
     'leverage': leverage_values,
