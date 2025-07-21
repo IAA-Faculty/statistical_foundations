@@ -1209,7 +1209,7 @@ if (direction =="less") {
 }
 if (direction =="ne") {
    result <-ifelse((0 >= quantile(test_boot,alpha)) & (0 <= quantile(test_boot,1-alpha)),"not significant", "significant")
-   p_value <-2 * min(sum(test_boot <= 0)/10000, sum(test_boot >= 0)/10000)
+   p_value <-min((2 * min(sum(test_boot <= 0)/10000, sum(test_boot >= 0)/10000)),1)
 }
  return(list(as.character(result),p_value))
 }
@@ -1246,7 +1246,7 @@ def boot(x1, x2, direction, alpha):
         p_value = np.mean(test_boot >= 0)
         result = "significant" if p_value < alpha else "not significant"
     elif direction == "ne":
-        p_value = 2 * min(np.mean(test_boot <= 0), np.mean(test_boot >= 0))
+        p_value = min(2 * min(np.mean(test_boot <= 0), np.mean(test_boot >= 0)),1)
         result = "significant" if p_value < alpha else "not significant"
     else:
         raise ValueError("direction must be 'greater', 'less', or 'ne'")
