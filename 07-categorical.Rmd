@@ -268,7 +268,7 @@ Both the Pearson and Likelihood Ratio $\chi^2$ tests can handle any type of cate
 $$
 \chi^2_{MH} = (n-1)r^2
 $$
-where $r^2$ is the Pearson correlation between the column and row variables. This test follows a $\chi^2$-distribution with only one degree of freedom.
+where $r^2$ is the Spearman's correlation between the column and row variables. This test follows a $\chi^2$-distribution with only one degree of freedom.
 
 Since both the central air and bonus eligibility variables are binary, they are ordinal. Since they are both ordinal, we should use the Mantel-Haenszel $\chi^2$ test with the ```CMHtest``` function. In the main output table, the first row is the Mantel-Haenszel $\chi^2$ test.
 
