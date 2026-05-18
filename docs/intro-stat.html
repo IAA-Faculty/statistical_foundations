@@ -939,30 +939,32 @@ Other
 <h4><span class="header-section-number">1.1.2.1</span> R code:<a href="intro-stat.html#r-code-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>You will need to bring the packages into your currently opened R session (this will need to be done whenever you open a new session):</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="intro-stat.html#cb8-1" tabindex="-1"></a><span class="fu">library</span>(AmesHousing)</span>
-<span id="cb8-2"><a href="intro-stat.html#cb8-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb8-3"><a href="intro-stat.html#cb8-3" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb8-4"><a href="intro-stat.html#cb8-4" tabindex="-1"></a><span class="fu">library</span>(DescTools)</span>
-<span id="cb8-5"><a href="intro-stat.html#cb8-5" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
-<span id="cb8-6"><a href="intro-stat.html#cb8-6" tabindex="-1"></a><span class="fu">library</span>(mosaic)</span>
-<span id="cb8-7"><a href="intro-stat.html#cb8-7" tabindex="-1"></a><span class="fu">library</span>(modelr)</span>
-<span id="cb8-8"><a href="intro-stat.html#cb8-8" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
-<span id="cb8-9"><a href="intro-stat.html#cb8-9" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb8-10"><a href="intro-stat.html#cb8-10" tabindex="-1"></a><span class="fu">library</span>(Hmisc)</span>
-<span id="cb8-11"><a href="intro-stat.html#cb8-11" tabindex="-1"></a><span class="fu">library</span>(onehot)</span>
-<span id="cb8-12"><a href="intro-stat.html#cb8-12" tabindex="-1"></a><span class="fu">library</span>(jmuOutlier)</span>
-<span id="cb8-13"><a href="intro-stat.html#cb8-13" tabindex="-1"></a><span class="fu">library</span>(leaps)</span>
-<span id="cb8-14"><a href="intro-stat.html#cb8-14" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
-<span id="cb8-15"><a href="intro-stat.html#cb8-15" tabindex="-1"></a><span class="fu">library</span>(nortest)</span>
-<span id="cb8-16"><a href="intro-stat.html#cb8-16" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb8-17"><a href="intro-stat.html#cb8-17" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span>
-<span id="cb8-18"><a href="intro-stat.html#cb8-18" tabindex="-1"></a><span class="fu">library</span>(TSA)</span>
-<span id="cb8-19"><a href="intro-stat.html#cb8-19" tabindex="-1"></a><span class="fu">library</span>(carData)</span></code></pre></div>
+<span id="cb8-2"><a href="intro-stat.html#cb8-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 4.5.2</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="intro-stat.html#cb10-1" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb10-2"><a href="intro-stat.html#cb10-2" tabindex="-1"></a><span class="fu">library</span>(DescTools)</span>
+<span id="cb10-3"><a href="intro-stat.html#cb10-3" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
+<span id="cb10-4"><a href="intro-stat.html#cb10-4" tabindex="-1"></a><span class="fu">library</span>(mosaic)</span>
+<span id="cb10-5"><a href="intro-stat.html#cb10-5" tabindex="-1"></a><span class="fu">library</span>(modelr)</span>
+<span id="cb10-6"><a href="intro-stat.html#cb10-6" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb10-7"><a href="intro-stat.html#cb10-7" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb10-8"><a href="intro-stat.html#cb10-8" tabindex="-1"></a><span class="fu">library</span>(Hmisc)</span></code></pre></div>
+<pre><code>## Warning: package &#39;Hmisc&#39; was built under R version 4.5.2</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="intro-stat.html#cb12-1" tabindex="-1"></a><span class="fu">library</span>(onehot)</span>
+<span id="cb12-2"><a href="intro-stat.html#cb12-2" tabindex="-1"></a><span class="fu">library</span>(jmuOutlier)</span>
+<span id="cb12-3"><a href="intro-stat.html#cb12-3" tabindex="-1"></a><span class="fu">library</span>(leaps)</span>
+<span id="cb12-4"><a href="intro-stat.html#cb12-4" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
+<span id="cb12-5"><a href="intro-stat.html#cb12-5" tabindex="-1"></a><span class="fu">library</span>(nortest)</span>
+<span id="cb12-6"><a href="intro-stat.html#cb12-6" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb12-7"><a href="intro-stat.html#cb12-7" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span>
+<span id="cb12-8"><a href="intro-stat.html#cb12-8" tabindex="-1"></a><span class="fu">library</span>(TSA)</span>
+<span id="cb12-9"><a href="intro-stat.html#cb12-9" tabindex="-1"></a><span class="fu">library</span>(carData)</span></code></pre></div>
 <p>To create one-hot encoding in R:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="intro-stat.html#cb9-1" tabindex="-1"></a><span class="fu">library</span>(onehot)</span>
-<span id="cb9-2"><a href="intro-stat.html#cb9-2" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="intro-stat.html#cb9-3" tabindex="-1"></a>encoder  <span class="ot">=</span> <span class="fu">onehot</span>(dat)</span>
-<span id="cb9-4"><a href="intro-stat.html#cb9-4" tabindex="-1"></a>dummies <span class="ot">=</span> <span class="fu">predict</span>(encoder,dat)</span>
-<span id="cb9-5"><a href="intro-stat.html#cb9-5" tabindex="-1"></a><span class="fu">head</span>(dummies)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="intro-stat.html#cb13-1" tabindex="-1"></a><span class="fu">library</span>(onehot)</span>
+<span id="cb13-2"><a href="intro-stat.html#cb13-2" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="intro-stat.html#cb13-3" tabindex="-1"></a>encoder  <span class="ot">=</span> <span class="fu">onehot</span>(dat)</span>
+<span id="cb13-4"><a href="intro-stat.html#cb13-4" tabindex="-1"></a>dummies <span class="ot">=</span> <span class="fu">predict</span>(encoder,dat)</span>
+<span id="cb13-5"><a href="intro-stat.html#cb13-5" tabindex="-1"></a><span class="fu">head</span>(dummies)</span></code></pre></div>
 <pre><code>##             y x1=A x1=B x1=C x2=U x2=V x2=W x2=X x2=Y x2=Z
 ## [1,] 1.205632    1    0    0    0    0    0    0    0    1
 ## [2,] 2.197258    1    0    0    0    0    0    0    0    1
@@ -975,16 +977,16 @@ Other
 <div id="python-code-1" class="section level3 hasAnchor" number="1.1.3">
 <h3><span class="header-section-number">1.1.3</span> Python Code<a href="intro-stat.html#python-code-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>For one-hot encoding in Python:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="intro-stat.html#cb11-1" tabindex="-1"></a>x1<span class="op">=</span>np.repeat([<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>],<span class="dv">10</span>)</span>
-<span id="cb11-2"><a href="intro-stat.html#cb11-2" tabindex="-1"></a>x2<span class="op">=</span>np.repeat([<span class="st">&quot;Z&quot;</span>, <span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>,<span class="st">&quot;W&quot;</span>,<span class="st">&quot;V&quot;</span>,<span class="st">&quot;U&quot;</span>],<span class="dv">5</span>)</span>
-<span id="cb11-3"><a href="intro-stat.html#cb11-3" tabindex="-1"></a>random.seed(<span class="dv">41</span>)</span>
-<span id="cb11-4"><a href="intro-stat.html#cb11-4" tabindex="-1"></a>y<span class="op">=</span>np.concatenate([np.random.normal(loc<span class="op">=</span><span class="fl">2.0</span>, scale<span class="op">=</span><span class="fl">1.0</span>, size<span class="op">=</span><span class="dv">10</span>),np.random.normal(loc<span class="op">=</span><span class="fl">1.0</span>, scale<span class="op">=</span><span class="fl">1.0</span>, size<span class="op">=</span><span class="dv">10</span>),np.random.normal(loc<span class="op">=</span><span class="fl">0.0</span>, scale<span class="op">=</span><span class="fl">1.0</span>, size<span class="op">=</span><span class="dv">10</span>)])</span>
-<span id="cb11-5"><a href="intro-stat.html#cb11-5" tabindex="-1"></a>array<span class="op">=</span>np.array([x1,x2,y])</span>
-<span id="cb11-6"><a href="intro-stat.html#cb11-6" tabindex="-1"></a>array2<span class="op">=</span>np.transpose(array)</span>
-<span id="cb11-7"><a href="intro-stat.html#cb11-7" tabindex="-1"></a>column_values<span class="op">=</span>[<span class="st">&quot;x1&quot;</span>,<span class="st">&quot;x2&quot;</span>,<span class="st">&quot;y&quot;</span>]</span>
-<span id="cb11-8"><a href="intro-stat.html#cb11-8" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(data <span class="op">=</span> array2, </span>
-<span id="cb11-9"><a href="intro-stat.html#cb11-9" tabindex="-1"></a>                  columns <span class="op">=</span> column_values)</span>
-<span id="cb11-10"><a href="intro-stat.html#cb11-10" tabindex="-1"></a><span class="bu">print</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="intro-stat.html#cb15-1" tabindex="-1"></a>x1<span class="op">=</span>np.repeat([<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>],<span class="dv">10</span>)</span>
+<span id="cb15-2"><a href="intro-stat.html#cb15-2" tabindex="-1"></a>x2<span class="op">=</span>np.repeat([<span class="st">&quot;Z&quot;</span>, <span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>,<span class="st">&quot;W&quot;</span>,<span class="st">&quot;V&quot;</span>,<span class="st">&quot;U&quot;</span>],<span class="dv">5</span>)</span>
+<span id="cb15-3"><a href="intro-stat.html#cb15-3" tabindex="-1"></a>random.seed(<span class="dv">41</span>)</span>
+<span id="cb15-4"><a href="intro-stat.html#cb15-4" tabindex="-1"></a>y<span class="op">=</span>np.concatenate([np.random.normal(loc<span class="op">=</span><span class="fl">2.0</span>, scale<span class="op">=</span><span class="fl">1.0</span>, size<span class="op">=</span><span class="dv">10</span>),np.random.normal(loc<span class="op">=</span><span class="fl">1.0</span>, scale<span class="op">=</span><span class="fl">1.0</span>, size<span class="op">=</span><span class="dv">10</span>),np.random.normal(loc<span class="op">=</span><span class="fl">0.0</span>, scale<span class="op">=</span><span class="fl">1.0</span>, size<span class="op">=</span><span class="dv">10</span>)])</span>
+<span id="cb15-5"><a href="intro-stat.html#cb15-5" tabindex="-1"></a>array<span class="op">=</span>np.array([x1,x2,y])</span>
+<span id="cb15-6"><a href="intro-stat.html#cb15-6" tabindex="-1"></a>array2<span class="op">=</span>np.transpose(array)</span>
+<span id="cb15-7"><a href="intro-stat.html#cb15-7" tabindex="-1"></a>column_values<span class="op">=</span>[<span class="st">&quot;x1&quot;</span>,<span class="st">&quot;x2&quot;</span>,<span class="st">&quot;y&quot;</span>]</span>
+<span id="cb15-8"><a href="intro-stat.html#cb15-8" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(data <span class="op">=</span> array2, </span>
+<span id="cb15-9"><a href="intro-stat.html#cb15-9" tabindex="-1"></a>                  columns <span class="op">=</span> column_values)</span>
+<span id="cb15-10"><a href="intro-stat.html#cb15-10" tabindex="-1"></a><span class="bu">print</span>(df)</span></code></pre></div>
 <pre><code>##    x1 x2                      y
 ## 0   A  Z     1.7292876769326795
 ## 1   A  Z       2.10484805260974
@@ -1016,8 +1018,8 @@ Other
 ## 27  C  U   -0.44642437564718757
 ## 28  C  U     1.1143136000921545
 ## 29  C  U    -1.3808025981774998</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="intro-stat.html#cb13-1" tabindex="-1"></a>one_hot_encoded_data <span class="op">=</span> pd.get_dummies(df, columns <span class="op">=</span> [<span class="st">&#39;x1&#39;</span>, <span class="st">&#39;x2&#39;</span>],dtype<span class="op">=</span><span class="bu">int</span>)</span>
-<span id="cb13-2"><a href="intro-stat.html#cb13-2" tabindex="-1"></a><span class="bu">print</span>(one_hot_encoded_data)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="intro-stat.html#cb17-1" tabindex="-1"></a>one_hot_encoded_data <span class="op">=</span> pd.get_dummies(df, columns <span class="op">=</span> [<span class="st">&#39;x1&#39;</span>, <span class="st">&#39;x2&#39;</span>],dtype<span class="op">=</span><span class="bu">int</span>)</span>
+<span id="cb17-2"><a href="intro-stat.html#cb17-2" tabindex="-1"></a><span class="bu">print</span>(one_hot_encoded_data)</span></code></pre></div>
 <pre><code>##                         y  x1_A  x1_B  x1_C  x2_U  x2_V  x2_W  x2_X  x2_Y  x2_Z
 ## 0      1.7292876769326795     1     0     0     0     0     0     0     0     1
 ## 1        2.10484805260974     1     0     0     0     0     0     0     0     1
@@ -1168,7 +1170,7 @@ Other
 </caption>
 <p><strong>Effects coding</strong></p>
 <p>Effects coding is useful for obtaining a more general comparative interpretation when you have approximately equal sample sizes across each level of your categorical attribute. Effects coding is designed to allow the user to compare each level to <em>all</em> of the other levels. More specifically the mean of each level is compared to the <strong>overall mean</strong> of your data. However, the comparison is actually to the so-called <em>grand mean</em>, which is the mean of the means of each group. When sample sizes are equal, the grand mean and the overall sample mean are equivalent. When sample sizes are <em>not</em> equal, the parameter estimates for effects coding should not be used for interpretation or explanation.</p>
-<p>Effects coding still requires a <em>reference level</em>, however the purpose of the reference level is not the same as it was in reference-level coding. Here, the reference level is left out in the sense that no comparison is made between it and the overall mean. Table <a href="intro-stat.html#tab:effcoding">1.3</a> shows our same example with effects coding. Again we notice the absence of the column indicating “blue” but now the reference level receives values of <code>-1</code> rather than <code>0</code> for all 3 dummy columns. We will revisit the interpretation of linear regression coefficients under this coding scheme in the Simple Linear Regression Section.</p>
+<p>Effects coding still requires a <em>reference level</em>, however the purpose of the reference level is not the same as it was in reference-level coding. Here, the reference level is left out in the sense that no comparison is made between it and the overall mean. Table <a href="intro-stat.html#tab:effcoding">1.3</a> shows our same example with effects coding. Again we notice the absence of the column indicating “blue” but now the reference level receives values of <code>-1</code> rather than <code>0</code> for all 3 dummy columns. This type of coding is not used as often any more and will not be discussed further in bootcamp. R and Python use reference coding (some older SAS procedures will have effects coding).</p>
 <table>
 <tr>
 <td>
@@ -1377,10 +1379,10 @@ PhD
 <p>We’ll begin by exploring one of our nominal features, <code>Heating_QC</code> which categorizes the quality and condition of a home’s heating system. To create plots in R, we will use the popular <code>ggplot2</code> library. At the same time, we will load the <code>tidyverse</code> library which we will use in the next chunk of code.</p>
 <div id="r-code-2" class="section level4 hasAnchor" number="1.1.6.1">
 <h4><span class="header-section-number">1.1.6.1</span> R code:<a href="intro-stat.html#r-code-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="intro-stat.html#cb15-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb15-2"><a href="intro-stat.html#cb15-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb15-3"><a href="intro-stat.html#cb15-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ames) <span class="sc">+</span></span>
-<span id="cb15-4"><a href="intro-stat.html#cb15-4" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Heating_QC),<span class="at">fill=</span><span class="st">&quot;orange&quot;</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Heating System Quality&quot;</span>,<span class="at">y=</span><span class="st">&quot;Frequency&quot;</span>,<span class="at">title=</span><span class="st">&quot;Bar Graph of Heating System&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="intro-stat.html#cb19-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb19-2"><a href="intro-stat.html#cb19-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb19-3"><a href="intro-stat.html#cb19-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ames) <span class="sc">+</span></span>
+<span id="cb19-4"><a href="intro-stat.html#cb19-4" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Heating_QC),<span class="at">fill=</span><span class="st">&quot;orange&quot;</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Heating System Quality&quot;</span>,<span class="at">y=</span><span class="st">&quot;Frequency&quot;</span>,<span class="at">title=</span><span class="st">&quot;Bar Graph of Heating System&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:barchart"></span>
 <img src="bookdownproj_files/figure-html/barchart-1.png" alt="Distribution of Nominal Variable Heating_QC" width="672" />
 <p class="caption">
@@ -1388,8 +1390,8 @@ Figure 1.1: Distribution of Nominal Variable Heating_QC
 </p>
 </div>
 <p>To summon the same information in tabular form, we can use the <code>count()</code> function to create a table:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="intro-stat.html#cb16-1" tabindex="-1"></a>ames <span class="sc">%&gt;%</span> </span>
-<span id="cb16-2"><a href="intro-stat.html#cb16-2" tabindex="-1"></a>  <span class="fu">count</span>(Heating_QC)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="intro-stat.html#cb20-1" tabindex="-1"></a>ames <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="intro-stat.html#cb20-2" tabindex="-1"></a>  <span class="fu">count</span>(Heating_QC)</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 2
 ##   Heating_QC     n
 ##   &lt;ord&gt;      &lt;int&gt;
@@ -1400,9 +1402,9 @@ Figure 1.1: Distribution of Nominal Variable Heating_QC
 ## 5 Excellent   1495</code></pre>
 <p>You’ll notice that very few houses (3) have heating systems in <code>Poor</code> condition, and the majority of houses have systems rated <code>Excellent</code>. <strong>It will likely make sense to combine the categories of <code>Fair</code> and <code>Poor</code> in our eventual analysis, a decision we will later revisit.</strong></p>
 <p>Next we create a <strong>histogram</strong> for an interval attribute like <code>Sale_Price</code>:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="intro-stat.html#cb18-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ames) <span class="sc">+</span></span>
-<span id="cb18-2"><a href="intro-stat.html#cb18-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Sale_Price<span class="sc">/</span><span class="dv">1000</span>),<span class="at">fill=</span><span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb18-3"><a href="intro-stat.html#cb18-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>,<span class="at">y=</span><span class="st">&quot;Frequency&quot;</span>,<span class="at">title=</span><span class="st">&quot;Histogram of Sales Price in Thousands of Dollars&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="intro-stat.html#cb22-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ames) <span class="sc">+</span></span>
+<span id="cb22-2"><a href="intro-stat.html#cb22-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Sale_Price<span class="sc">/</span><span class="dv">1000</span>),<span class="at">fill=</span><span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb22-3"><a href="intro-stat.html#cb22-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>,<span class="at">y=</span><span class="st">&quot;Frequency&quot;</span>,<span class="at">title=</span><span class="st">&quot;Histogram of Sales Price in Thousands of Dollars&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:histogram"></span>
 <img src="bookdownproj_files/figure-html/histogram-1.png" alt="Distribution of Interval Variable Sale_Price" width="672" />
 <p class="caption">
@@ -1415,7 +1417,7 @@ Figure 1.2: Distribution of Interval Variable Sale_Price
 <div id="python-code-2" class="section level3 hasAnchor" number="1.1.7">
 <h3><span class="header-section-number">1.1.7</span> Python code:<a href="intro-stat.html#python-code-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Summary information for the the Ames data set:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="intro-stat.html#cb19-1" tabindex="-1"></a>ames_py.describe()</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="intro-stat.html#cb23-1" tabindex="-1"></a>ames_py.describe()</span></code></pre></div>
 <pre><code>##        Lot_Frontage       Lot_Area  ...    Longitude     Latitude
 ## count   2930.000000    2930.000000  ...  2930.000000  2930.000000
 ## mean      57.647782   10147.921843  ...   -93.642897    42.034482
@@ -1428,12 +1430,12 @@ Figure 1.2: Distribution of Interval Variable Sale_Price
 ## 
 ## [8 rows x 35 columns]</code></pre>
 <p>Creating a frequency bar plot for Heating Quality:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="intro-stat.html#cb21-1" tabindex="-1"></a>p<span class="op">=</span>ggplot(ames_py,aes(x <span class="op">=</span> <span class="st">&quot;Heating_QC&quot;</span>)) <span class="op">+</span> geom_bar(fill<span class="op">=</span><span class="st">&quot;orange&quot;</span>) <span class="op">+</span> labs(x<span class="op">=</span><span class="st">&quot;Heating System Quality&quot;</span>,y<span class="op">=</span><span class="st">&quot;Frequency&quot;</span>,title<span class="op">=</span><span class="st">&quot;Bar Graph of Heating System&quot;</span>)</span>
-<span id="cb21-2"><a href="intro-stat.html#cb21-2" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="intro-stat.html#cb21-3" tabindex="-1"></a>p.show()</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="intro-stat.html#cb25-1" tabindex="-1"></a>p<span class="op">=</span>ggplot(ames_py,aes(x <span class="op">=</span> <span class="st">&quot;Heating_QC&quot;</span>)) <span class="op">+</span> geom_bar(fill<span class="op">=</span><span class="st">&quot;orange&quot;</span>) <span class="op">+</span> labs(x<span class="op">=</span><span class="st">&quot;Heating System Quality&quot;</span>,y<span class="op">=</span><span class="st">&quot;Frequency&quot;</span>,title<span class="op">=</span><span class="st">&quot;Bar Graph of Heating System&quot;</span>)</span>
+<span id="cb25-2"><a href="intro-stat.html#cb25-2" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="intro-stat.html#cb25-3" tabindex="-1"></a>p.show()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-11-1.png" width="614" /></p>
 <p>Creating a table of frequencies for Heating Quality:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="intro-stat.html#cb22-1" tabindex="-1"></a>ames_py[<span class="st">&#39;Heating_QC&#39;</span>].value_counts()</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="intro-stat.html#cb26-1" tabindex="-1"></a>ames_py[<span class="st">&#39;Heating_QC&#39;</span>].value_counts()</span></code></pre></div>
 <pre><code>## Heating_QC
 ## Excellent    1495
 ## Typical       864
@@ -1442,11 +1444,11 @@ Figure 1.2: Distribution of Interval Variable Sale_Price
 ## Poor            3
 ## Name: count, dtype: int64</code></pre>
 <p>Creating a frequency histogram of Sales Price:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="intro-stat.html#cb24-1" tabindex="-1"></a>ames_py[<span class="st">&quot;Sales&quot;</span>] <span class="op">=</span> ames_py[<span class="st">&quot;Sale_Price&quot;</span>]<span class="op">/</span><span class="dv">1000</span></span>
-<span id="cb24-2"><a href="intro-stat.html#cb24-2" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="intro-stat.html#cb24-3" tabindex="-1"></a>p<span class="op">=</span>ggplot(ames_py,aes(x <span class="op">=</span> <span class="st">&quot;Sales&quot;</span>)) <span class="op">+</span> geom_histogram(fill<span class="op">=</span><span class="st">&quot;blue&quot;</span>) <span class="op">+</span> labs(x <span class="op">=</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>,y<span class="op">=</span><span class="st">&quot;Frequency&quot;</span>,title<span class="op">=</span><span class="st">&quot;Histogram of Sales Price in Thousands of Dollars&quot;</span>)</span>
-<span id="cb24-4"><a href="intro-stat.html#cb24-4" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="intro-stat.html#cb24-5" tabindex="-1"></a>p.show()</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="intro-stat.html#cb28-1" tabindex="-1"></a>ames_py[<span class="st">&quot;Sales&quot;</span>] <span class="op">=</span> ames_py[<span class="st">&quot;Sale_Price&quot;</span>]<span class="op">/</span><span class="dv">1000</span></span>
+<span id="cb28-2"><a href="intro-stat.html#cb28-2" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="intro-stat.html#cb28-3" tabindex="-1"></a>p<span class="op">=</span>ggplot(ames_py,aes(x <span class="op">=</span> <span class="st">&quot;Sales&quot;</span>)) <span class="op">+</span> geom_histogram(fill<span class="op">=</span><span class="st">&quot;blue&quot;</span>) <span class="op">+</span> labs(x <span class="op">=</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>,y<span class="op">=</span><span class="st">&quot;Frequency&quot;</span>,title<span class="op">=</span><span class="st">&quot;Histogram of Sales Price in Thousands of Dollars&quot;</span>)</span>
+<span id="cb28-4"><a href="intro-stat.html#cb28-4" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="intro-stat.html#cb28-5" tabindex="-1"></a>p.show()</span></code></pre></div>
 <pre><code>## C:\PROGRA~3\ANACON~1\Lib\site-packages\plotnine\stats\stat_bin.py:109: PlotnineWarning: &#39;stat_bin()&#39; using &#39;bins = 64&#39;. Pick better value with &#39;binwidth&#39;.</code></pre>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-13-3.png" width="614" /></p>
 </div>
@@ -1570,9 +1572,9 @@ Figure 1.4: Example of a Bimodal Distribution
 <ul>
 <li>The <code>describe</code> function from the <code>Hmisc</code> package which can work on the entire dataset or a subset of columns.</li>
 </ul>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="intro-stat.html#cb26-1" tabindex="-1"></a><span class="fu">library</span>(Hmisc)</span>
-<span id="cb26-2"><a href="intro-stat.html#cb26-2" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="intro-stat.html#cb26-3" tabindex="-1"></a>Hmisc<span class="sc">::</span><span class="fu">describe</span>(ames<span class="sc">$</span>Sale_Price)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="intro-stat.html#cb30-1" tabindex="-1"></a><span class="fu">library</span>(Hmisc)</span>
+<span id="cb30-2"><a href="intro-stat.html#cb30-2" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="intro-stat.html#cb30-3" tabindex="-1"></a>Hmisc<span class="sc">::</span><span class="fu">describe</span>(ames<span class="sc">$</span>Sale_Price)</span></code></pre></div>
 <pre><code>## ames$Sale_Price 
 ##        n  missing distinct     Info     Mean  pMedian      Gmd      .05 
 ##     2930        0     1032        1   180796   170000    81960    87500 
@@ -1583,8 +1585,8 @@ Figure 1.4: Example of a Bimodal Distribution
 <ul>
 <li>The tidyverse <code>summarise</code> function, in this case obtaining statistics for each <code>Exter_Qual</code> separately.</li>
 </ul>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="intro-stat.html#cb28-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb28-2"><a href="intro-stat.html#cb28-2" tabindex="-1"></a>ames <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Exter_Qual) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">average =</span> <span class="fu">mean</span>(Sale_Price), <span class="at">st.dev =</span> <span class="fu">sd</span>(Sale_Price), <span class="at">maximum =</span> <span class="fu">max</span>(Sale_Price), <span class="at">minimum =</span> <span class="fu">min</span>(Sale_Price))</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="intro-stat.html#cb32-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb32-2"><a href="intro-stat.html#cb32-2" tabindex="-1"></a>ames <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Exter_Qual) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">average =</span> <span class="fu">mean</span>(Sale_Price), <span class="at">st.dev =</span> <span class="fu">sd</span>(Sale_Price), <span class="at">maximum =</span> <span class="fu">max</span>(Sale_Price), <span class="at">minimum =</span> <span class="fu">min</span>(Sale_Price))</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 5
 ##   Exter_Qual average  st.dev maximum minimum
 ##   &lt;ord&gt;        &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;
@@ -1595,7 +1597,7 @@ Figure 1.4: Example of a Bimodal Distribution
 <ul>
 <li>The base R <code>summary</code> function, which can work on the entire dataset or an individual variable</li>
 </ul>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="intro-stat.html#cb30-1" tabindex="-1"></a><span class="fu">summary</span>(ames<span class="sc">$</span>Sale_Price)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="intro-stat.html#cb34-1" tabindex="-1"></a><span class="fu">summary</span>(ames<span class="sc">$</span>Sale_Price)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   12789  129500  160000  180796  213500  755000</code></pre>
 </div>
@@ -1603,7 +1605,7 @@ Figure 1.4: Example of a Bimodal Distribution
 <div id="python-code-3" class="section level3 hasAnchor" number="1.1.11">
 <h3><span class="header-section-number">1.1.11</span> Python code:<a href="intro-stat.html#python-code-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Getting summary statistics by Sales Price and External Quality:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="intro-stat.html#cb32-1" tabindex="-1"></a>ames_py[<span class="st">&#39;Sale_Price&#39;</span>].describe()</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="intro-stat.html#cb36-1" tabindex="-1"></a>ames_py[<span class="st">&#39;Sale_Price&#39;</span>].describe()</span></code></pre></div>
 <pre><code>## count      2930.000000
 ## mean     180796.060068
 ## std       79886.692357
@@ -1613,7 +1615,7 @@ Figure 1.4: Example of a Bimodal Distribution
 ## 75%      213500.000000
 ## max      755000.000000
 ## Name: Sale_Price, dtype: float64</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="intro-stat.html#cb34-1" tabindex="-1"></a>ames_py.groupby(<span class="st">&#39;Exter_Qual&#39;</span>)[<span class="st">&#39;Sale_Price&#39;</span>].describe()</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="intro-stat.html#cb38-1" tabindex="-1"></a>ames_py.groupby(<span class="st">&#39;Exter_Qual&#39;</span>)[<span class="st">&#39;Sale_Price&#39;</span>].describe()</span></code></pre></div>
 <pre><code>##              count           mean            std  ...       50%       75%       max
 ## Exter_Qual                                        ...                              
 ## Excellent    107.0  377918.616822  106987.707970  ...  370967.0  442520.5  755000.0
@@ -1671,9 +1673,9 @@ Figure 1.5: The Laplace distribution (top left) is leptokurtic because it has mo
 <div id="r-code-4" class="section level4 hasAnchor" number="1.1.16.1">
 <h4><span class="header-section-number">1.1.16.1</span> R code<a href="intro-stat.html#r-code-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Figure <a href="intro-stat.html#fig:histogram">1.2</a> demonstrated a histogram of sale price. Sometimes it’s nice to overlay a continuous approximation to the underlying distribution using a <em>kernal density estimator</em> with the <code>geom_density</code> plot, demonstrated in Figure <a href="intro-stat.html#fig:histwithkernal">1.6</a>.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="intro-stat.html#cb36-1" tabindex="-1"></a><span class="fu">ggplot</span>(ames,<span class="fu">aes</span>(<span class="at">x=</span>Sale_Price<span class="sc">/</span><span class="dv">1000</span>)) <span class="sc">+</span> </span>
-<span id="cb36-2"><a href="intro-stat.html#cb36-2" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density..), <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">geom_density</span>( <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb36-3"><a href="intro-stat.html#cb36-3" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>)  </span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="intro-stat.html#cb40-1" tabindex="-1"></a><span class="fu">ggplot</span>(ames,<span class="fu">aes</span>(<span class="at">x=</span>Sale_Price<span class="sc">/</span><span class="dv">1000</span>)) <span class="sc">+</span> </span>
+<span id="cb40-2"><a href="intro-stat.html#cb40-2" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density..), <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">geom_density</span>( <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb40-3"><a href="intro-stat.html#cb40-3" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>)  </span></code></pre></div>
 <pre><code>## Warning: The dot-dot notation (`..density..`) was deprecated in ggplot2 3.4.0.
 ## ℹ Please use `after_stat(density)` instead.
 ## This warning is displayed once every 8 hours.
@@ -1687,22 +1689,22 @@ Figure 1.6: Histogram of Sale_Price with kernal density estimator
 </div>
 <p>In our next example, Figure <a href="intro-stat.html#fig:overhistogramAC">1.7</a>, we’ll complicate the previous example by showing <em>two</em> distributions of sale price, one for each level of the binary variable <code>Central_Air</code>, overlaid on the same axes.</p>
 <p>We can immediately see that there are many more houses that have central air than do not in this data. It appears as though the two distributions have different locations, with the purple distribution centered at a larger sale price. To normalize that quantity and compare the raw probability densitites, we can change our axes to density as in Figure <a href="intro-stat.html#fig:overhistogramdensityAC">1.8</a>.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="intro-stat.html#cb38-1" tabindex="-1"></a><span class="fu">ggplot</span>(ames,<span class="fu">aes</span>(<span class="at">x=</span>Sale_Price<span class="sc">/</span><span class="dv">1000</span>)) <span class="sc">+</span> </span>
-<span id="cb38-2"><a href="intro-stat.html#cb38-2" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">data=</span><span class="fu">subset</span>(ames,Central_Air <span class="sc">==</span> <span class="st">&#39;Y&#39;</span>),<span class="fu">aes</span>(<span class="at">fill=</span>Central_Air), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb38-3"><a href="intro-stat.html#cb38-3" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">data=</span><span class="fu">subset</span>(ames,Central_Air <span class="sc">==</span> <span class="st">&#39;N&#39;</span>),<span class="fu">aes</span>(<span class="at">fill=</span>Central_Air), <span class="at">alpha  =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb38-4"><a href="intro-stat.html#cb38-4" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>)  <span class="sc">+</span> <span class="fu">scale_fill_manual</span>(<span class="at">name=</span><span class="st">&quot;Central_Air&quot;</span>,<span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;blue&quot;</span>),<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="intro-stat.html#cb42-1" tabindex="-1"></a><span class="fu">ggplot</span>(ames,<span class="fu">aes</span>(<span class="at">x=</span>Sale_Price<span class="sc">/</span><span class="dv">1000</span>)) <span class="sc">+</span> </span>
+<span id="cb42-2"><a href="intro-stat.html#cb42-2" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">data=</span><span class="fu">subset</span>(ames,Central_Air <span class="sc">==</span> <span class="st">&#39;Y&#39;</span>),<span class="fu">aes</span>(<span class="at">fill=</span>Central_Air), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb42-3"><a href="intro-stat.html#cb42-3" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">data=</span><span class="fu">subset</span>(ames,Central_Air <span class="sc">==</span> <span class="st">&#39;N&#39;</span>),<span class="fu">aes</span>(<span class="at">fill=</span>Central_Air), <span class="at">alpha  =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb42-4"><a href="intro-stat.html#cb42-4" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>)  <span class="sc">+</span> <span class="fu">scale_fill_manual</span>(<span class="at">name=</span><span class="st">&quot;Central_Air&quot;</span>,<span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;blue&quot;</span>),<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:overhistogramAC"></span>
 <img src="bookdownproj_files/figure-html/overhistogramAC-1.png" alt="Histogram: Frequency of Sale_Price for Each value of Central_Air" width="672" />
 <p class="caption">
 Figure 1.7: Histogram: Frequency of Sale_Price for Each value of Central_Air
 </p>
 </div>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="intro-stat.html#cb39-1" tabindex="-1"></a><span class="fu">ggplot</span>(ames,<span class="fu">aes</span>(<span class="at">x=</span>Sale_Price<span class="sc">/</span><span class="dv">1000</span>)) <span class="sc">+</span> </span>
-<span id="cb39-2"><a href="intro-stat.html#cb39-2" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">data=</span><span class="fu">subset</span>(ames,Central_Air <span class="sc">==</span> <span class="st">&#39;Y&#39;</span>),<span class="fu">aes</span>(<span class="at">y=</span>..density..,<span class="at">fill=</span>Central_Air), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb39-3"><a href="intro-stat.html#cb39-3" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">data=</span><span class="fu">subset</span>(ames,Central_Air <span class="sc">==</span> <span class="st">&#39;N&#39;</span>),<span class="fu">aes</span>(<span class="at">y=</span>..density..,<span class="at">fill=</span>Central_Air), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb39-4"><a href="intro-stat.html#cb39-4" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>) </span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="intro-stat.html#cb43-1" tabindex="-1"></a><span class="fu">ggplot</span>(ames,<span class="fu">aes</span>(<span class="at">x=</span>Sale_Price<span class="sc">/</span><span class="dv">1000</span>)) <span class="sc">+</span> </span>
+<span id="cb43-2"><a href="intro-stat.html#cb43-2" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">data=</span><span class="fu">subset</span>(ames,Central_Air <span class="sc">==</span> <span class="st">&#39;Y&#39;</span>),<span class="fu">aes</span>(<span class="at">y=</span>..density..,<span class="at">fill=</span>Central_Air), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb43-3"><a href="intro-stat.html#cb43-3" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">data=</span><span class="fu">subset</span>(ames,Central_Air <span class="sc">==</span> <span class="st">&#39;N&#39;</span>),<span class="fu">aes</span>(<span class="at">y=</span>..density..,<span class="at">fill=</span>Central_Air), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb43-4"><a href="intro-stat.html#cb43-4" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>) </span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:overhistogramdensityAC"></span>
 <img src="bookdownproj_files/figure-html/overhistogramdensityAC-1.png" alt="Histogram: Density of Sale_Price for varying qualities of  Central_Air" width="672" />
 <p class="caption">
@@ -1710,10 +1712,10 @@ Figure 1.8: Histogram: Density of Sale_Price for varying qualities of Central_Ai
 </p>
 </div>
 <p>To ease our differentiation of the histograms even further, we again employ a kernel density estimator as shown in Figure <a href="intro-stat.html#fig:overhistogramdensitykernelAC">1.9</a>. This is an appealing alternative to the histogram for continuous data that is assumed to originate from some smooth underlying distribution.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="intro-stat.html#cb41-1" tabindex="-1"></a><span class="fu">ggplot</span>(ames,<span class="fu">aes</span>(<span class="at">x=</span>Sale_Price<span class="sc">/</span><span class="dv">1000</span>)) <span class="sc">+</span> </span>
-<span id="cb41-2"><a href="intro-stat.html#cb41-2" tabindex="-1"></a>    <span class="fu">geom_density</span>(<span class="at">data=</span><span class="fu">subset</span>(ames,Central_Air <span class="sc">==</span> <span class="st">&#39;Y&#39;</span>),<span class="fu">aes</span>(<span class="at">fill=</span>Central_Air), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb41-3"><a href="intro-stat.html#cb41-3" tabindex="-1"></a>    <span class="fu">geom_density</span>(<span class="at">data=</span><span class="fu">subset</span>(ames,Central_Air <span class="sc">==</span> <span class="st">&#39;N&#39;</span>),<span class="fu">aes</span>(<span class="at">fill=</span>Central_Air), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb41-4"><a href="intro-stat.html#cb41-4" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>)  </span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="intro-stat.html#cb45-1" tabindex="-1"></a><span class="fu">ggplot</span>(ames,<span class="fu">aes</span>(<span class="at">x=</span>Sale_Price<span class="sc">/</span><span class="dv">1000</span>)) <span class="sc">+</span> </span>
+<span id="cb45-2"><a href="intro-stat.html#cb45-2" tabindex="-1"></a>    <span class="fu">geom_density</span>(<span class="at">data=</span><span class="fu">subset</span>(ames,Central_Air <span class="sc">==</span> <span class="st">&#39;Y&#39;</span>),<span class="fu">aes</span>(<span class="at">fill=</span>Central_Air), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb45-3"><a href="intro-stat.html#cb45-3" tabindex="-1"></a>    <span class="fu">geom_density</span>(<span class="at">data=</span><span class="fu">subset</span>(ames,Central_Air <span class="sc">==</span> <span class="st">&#39;N&#39;</span>),<span class="fu">aes</span>(<span class="at">fill=</span>Central_Air), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb45-4"><a href="intro-stat.html#cb45-4" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>)  </span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:overhistogramdensitykernelAC"></span>
 <img src="bookdownproj_files/figure-html/overhistogramdensitykernelAC-1.png" alt="Histogram: Density of Sale_Price for varying qualities of Central_Air" width="672" />
 <p class="caption">
@@ -1725,49 +1727,49 @@ Figure 1.9: Histogram: Density of Sale_Price for varying qualities of Central_Ai
 <div id="python-code-4" class="section level3 hasAnchor" number="1.1.17">
 <h3><span class="header-section-number">1.1.17</span> Python Code:<a href="intro-stat.html#python-code-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Overlay a density plot on top of a the Sales Price histogram:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="intro-stat.html#cb42-1" tabindex="-1"></a>p <span class="op">=</span> (</span>
-<span id="cb42-2"><a href="intro-stat.html#cb42-2" tabindex="-1"></a>    ggplot(ames_py, aes(x<span class="op">=</span><span class="st">&#39;Sales&#39;</span>)) <span class="op">+</span></span>
-<span id="cb42-3"><a href="intro-stat.html#cb42-3" tabindex="-1"></a>    geom_histogram(aes(y<span class="op">=</span><span class="st">&#39;..density..&#39;</span>), bins<span class="op">=</span><span class="dv">30</span>, fill<span class="op">=</span><span class="st">&#39;lightgray&#39;</span>, color<span class="op">=</span><span class="st">&#39;black&#39;</span>) <span class="op">+</span></span>
-<span id="cb42-4"><a href="intro-stat.html#cb42-4" tabindex="-1"></a>    geom_density(color<span class="op">=</span><span class="st">&#39;black&#39;</span>, size<span class="op">=</span><span class="fl">1.5</span>) <span class="op">+</span></span>
-<span id="cb42-5"><a href="intro-stat.html#cb42-5" tabindex="-1"></a>    labs(x<span class="op">=</span><span class="st">&#39;Sales Price (Thousands $)&#39;</span>) </span>
-<span id="cb42-6"><a href="intro-stat.html#cb42-6" tabindex="-1"></a>)</span>
-<span id="cb42-7"><a href="intro-stat.html#cb42-7" tabindex="-1"></a></span>
-<span id="cb42-8"><a href="intro-stat.html#cb42-8" tabindex="-1"></a>p.show()</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="intro-stat.html#cb46-1" tabindex="-1"></a>p <span class="op">=</span> (</span>
+<span id="cb46-2"><a href="intro-stat.html#cb46-2" tabindex="-1"></a>    ggplot(ames_py, aes(x<span class="op">=</span><span class="st">&#39;Sales&#39;</span>)) <span class="op">+</span></span>
+<span id="cb46-3"><a href="intro-stat.html#cb46-3" tabindex="-1"></a>    geom_histogram(aes(y<span class="op">=</span><span class="st">&#39;..density..&#39;</span>), bins<span class="op">=</span><span class="dv">30</span>, fill<span class="op">=</span><span class="st">&#39;lightgray&#39;</span>, color<span class="op">=</span><span class="st">&#39;black&#39;</span>) <span class="op">+</span></span>
+<span id="cb46-4"><a href="intro-stat.html#cb46-4" tabindex="-1"></a>    geom_density(color<span class="op">=</span><span class="st">&#39;black&#39;</span>, size<span class="op">=</span><span class="fl">1.5</span>) <span class="op">+</span></span>
+<span id="cb46-5"><a href="intro-stat.html#cb46-5" tabindex="-1"></a>    labs(x<span class="op">=</span><span class="st">&#39;Sales Price (Thousands $)&#39;</span>) </span>
+<span id="cb46-6"><a href="intro-stat.html#cb46-6" tabindex="-1"></a>)</span>
+<span id="cb46-7"><a href="intro-stat.html#cb46-7" tabindex="-1"></a></span>
+<span id="cb46-8"><a href="intro-stat.html#cb46-8" tabindex="-1"></a>p.show()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-18-1.png" width="614" /></p>
 <p>Showing overlaid histograms:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="intro-stat.html#cb43-1" tabindex="-1"></a>p <span class="op">=</span> (</span>
-<span id="cb43-2"><a href="intro-stat.html#cb43-2" tabindex="-1"></a>    ggplot(ames_py, aes(x<span class="op">=</span><span class="st">&quot;Sale_Price&quot;</span>, fill<span class="op">=</span><span class="st">&quot;Central_Air&quot;</span>)) <span class="op">+</span></span>
-<span id="cb43-3"><a href="intro-stat.html#cb43-3" tabindex="-1"></a>    geom_histogram(position<span class="op">=</span><span class="st">&quot;identity&quot;</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, bins<span class="op">=</span><span class="dv">30</span>) <span class="op">+</span></span>
-<span id="cb43-4"><a href="intro-stat.html#cb43-4" tabindex="-1"></a>    labs(x<span class="op">=</span><span class="st">&quot;Sale Price (Thousands $)&quot;</span>, fill<span class="op">=</span><span class="st">&quot;Central Air&quot;</span>) <span class="op">+</span></span>
-<span id="cb43-5"><a href="intro-stat.html#cb43-5" tabindex="-1"></a>    scale_fill_manual(values<span class="op">=</span>{<span class="st">&quot;N&quot;</span>: <span class="st">&quot;red&quot;</span>, <span class="st">&quot;Y&quot;</span>: <span class="st">&quot;blue&quot;</span>}, labels<span class="op">=</span>[<span class="st">&quot;No&quot;</span>, <span class="st">&quot;Yes&quot;</span>]) </span>
-<span id="cb43-6"><a href="intro-stat.html#cb43-6" tabindex="-1"></a>)</span>
-<span id="cb43-7"><a href="intro-stat.html#cb43-7" tabindex="-1"></a></span>
-<span id="cb43-8"><a href="intro-stat.html#cb43-8" tabindex="-1"></a>p.show()</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="intro-stat.html#cb47-1" tabindex="-1"></a>p <span class="op">=</span> (</span>
+<span id="cb47-2"><a href="intro-stat.html#cb47-2" tabindex="-1"></a>    ggplot(ames_py, aes(x<span class="op">=</span><span class="st">&quot;Sale_Price&quot;</span>, fill<span class="op">=</span><span class="st">&quot;Central_Air&quot;</span>)) <span class="op">+</span></span>
+<span id="cb47-3"><a href="intro-stat.html#cb47-3" tabindex="-1"></a>    geom_histogram(position<span class="op">=</span><span class="st">&quot;identity&quot;</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, bins<span class="op">=</span><span class="dv">30</span>) <span class="op">+</span></span>
+<span id="cb47-4"><a href="intro-stat.html#cb47-4" tabindex="-1"></a>    labs(x<span class="op">=</span><span class="st">&quot;Sale Price (Thousands $)&quot;</span>, fill<span class="op">=</span><span class="st">&quot;Central Air&quot;</span>) <span class="op">+</span></span>
+<span id="cb47-5"><a href="intro-stat.html#cb47-5" tabindex="-1"></a>    scale_fill_manual(values<span class="op">=</span>{<span class="st">&quot;N&quot;</span>: <span class="st">&quot;red&quot;</span>, <span class="st">&quot;Y&quot;</span>: <span class="st">&quot;blue&quot;</span>}, labels<span class="op">=</span>[<span class="st">&quot;No&quot;</span>, <span class="st">&quot;Yes&quot;</span>]) </span>
+<span id="cb47-6"><a href="intro-stat.html#cb47-6" tabindex="-1"></a>)</span>
+<span id="cb47-7"><a href="intro-stat.html#cb47-7" tabindex="-1"></a></span>
+<span id="cb47-8"><a href="intro-stat.html#cb47-8" tabindex="-1"></a>p.show()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-19-3.png" width="614" /></p>
 <p>Overlay of density plots (for Sales Price broken down by Central Air):</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="intro-stat.html#cb44-1" tabindex="-1"></a>p <span class="op">=</span> (</span>
-<span id="cb44-2"><a href="intro-stat.html#cb44-2" tabindex="-1"></a>    ggplot(ames_py, aes(x<span class="op">=</span><span class="st">&quot;Sale_Price&quot;</span>, fill<span class="op">=</span><span class="st">&quot;Central_Air&quot;</span>)) <span class="op">+</span></span>
-<span id="cb44-3"><a href="intro-stat.html#cb44-3" tabindex="-1"></a>    geom_histogram(aes(y<span class="op">=</span><span class="st">&#39;..density..&#39;</span>), position<span class="op">=</span><span class="st">&quot;identity&quot;</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, bins<span class="op">=</span><span class="dv">30</span>) <span class="op">+</span></span>
-<span id="cb44-4"><a href="intro-stat.html#cb44-4" tabindex="-1"></a>    labs(x<span class="op">=</span><span class="st">&quot;Sale Price (Thousands $)&quot;</span>, y<span class="op">=</span><span class="st">&quot;Density&quot;</span>, fill<span class="op">=</span><span class="st">&quot;Central Air&quot;</span>) <span class="op">+</span></span>
-<span id="cb44-5"><a href="intro-stat.html#cb44-5" tabindex="-1"></a>    scale_fill_manual(values<span class="op">=</span>{<span class="st">&quot;N&quot;</span>: <span class="st">&quot;red&quot;</span>, <span class="st">&quot;Y&quot;</span>: <span class="st">&quot;blue&quot;</span>}, labels<span class="op">=</span>[<span class="st">&quot;No&quot;</span>, <span class="st">&quot;Yes&quot;</span>]) </span>
-<span id="cb44-6"><a href="intro-stat.html#cb44-6" tabindex="-1"></a>)</span>
-<span id="cb44-7"><a href="intro-stat.html#cb44-7" tabindex="-1"></a></span>
-<span id="cb44-8"><a href="intro-stat.html#cb44-8" tabindex="-1"></a>p.show()</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="intro-stat.html#cb48-1" tabindex="-1"></a>p <span class="op">=</span> (</span>
+<span id="cb48-2"><a href="intro-stat.html#cb48-2" tabindex="-1"></a>    ggplot(ames_py, aes(x<span class="op">=</span><span class="st">&quot;Sale_Price&quot;</span>, fill<span class="op">=</span><span class="st">&quot;Central_Air&quot;</span>)) <span class="op">+</span></span>
+<span id="cb48-3"><a href="intro-stat.html#cb48-3" tabindex="-1"></a>    geom_histogram(aes(y<span class="op">=</span><span class="st">&#39;..density..&#39;</span>), position<span class="op">=</span><span class="st">&quot;identity&quot;</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, bins<span class="op">=</span><span class="dv">30</span>) <span class="op">+</span></span>
+<span id="cb48-4"><a href="intro-stat.html#cb48-4" tabindex="-1"></a>    labs(x<span class="op">=</span><span class="st">&quot;Sale Price (Thousands $)&quot;</span>, y<span class="op">=</span><span class="st">&quot;Density&quot;</span>, fill<span class="op">=</span><span class="st">&quot;Central Air&quot;</span>) <span class="op">+</span></span>
+<span id="cb48-5"><a href="intro-stat.html#cb48-5" tabindex="-1"></a>    scale_fill_manual(values<span class="op">=</span>{<span class="st">&quot;N&quot;</span>: <span class="st">&quot;red&quot;</span>, <span class="st">&quot;Y&quot;</span>: <span class="st">&quot;blue&quot;</span>}, labels<span class="op">=</span>[<span class="st">&quot;No&quot;</span>, <span class="st">&quot;Yes&quot;</span>]) </span>
+<span id="cb48-6"><a href="intro-stat.html#cb48-6" tabindex="-1"></a>)</span>
+<span id="cb48-7"><a href="intro-stat.html#cb48-7" tabindex="-1"></a></span>
+<span id="cb48-8"><a href="intro-stat.html#cb48-8" tabindex="-1"></a>p.show()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-20-5.png" width="614" /></p>
 <p>With Kernel density overlaid:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="intro-stat.html#cb45-1" tabindex="-1"></a>p <span class="op">=</span> (</span>
-<span id="cb45-2"><a href="intro-stat.html#cb45-2" tabindex="-1"></a>    ggplot(ames_py, aes(x<span class="op">=</span><span class="st">&quot;Sale_Price&quot;</span>, fill<span class="op">=</span><span class="st">&quot;Central_Air&quot;</span>)) <span class="op">+</span></span>
-<span id="cb45-3"><a href="intro-stat.html#cb45-3" tabindex="-1"></a>    </span>
-<span id="cb45-4"><a href="intro-stat.html#cb45-4" tabindex="-1"></a>    <span class="co"># Histogram with density scaling</span></span>
-<span id="cb45-5"><a href="intro-stat.html#cb45-5" tabindex="-1"></a>    geom_histogram(aes(y<span class="op">=</span><span class="st">&#39;..density..&#39;</span>), position<span class="op">=</span><span class="st">&quot;identity&quot;</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, bins<span class="op">=</span><span class="dv">30</span>) <span class="op">+</span></span>
-<span id="cb45-6"><a href="intro-stat.html#cb45-6" tabindex="-1"></a>    </span>
-<span id="cb45-7"><a href="intro-stat.html#cb45-7" tabindex="-1"></a>    <span class="co"># KDE overlay, grouped by Central_Air</span></span>
-<span id="cb45-8"><a href="intro-stat.html#cb45-8" tabindex="-1"></a>    geom_density(aes(color<span class="op">=</span><span class="st">&quot;Central_Air&quot;</span>), alpha<span class="op">=</span><span class="fl">0.2</span>) <span class="op">+</span></span>
-<span id="cb45-9"><a href="intro-stat.html#cb45-9" tabindex="-1"></a>    </span>
-<span id="cb45-10"><a href="intro-stat.html#cb45-10" tabindex="-1"></a>    labs(x<span class="op">=</span><span class="st">&quot;Sale Price (Thousands $)&quot;</span>, y<span class="op">=</span><span class="st">&quot;Density&quot;</span>, fill<span class="op">=</span><span class="st">&quot;Central Air&quot;</span>, color<span class="op">=</span><span class="st">&quot;Central Air&quot;</span>) </span>
-<span id="cb45-11"><a href="intro-stat.html#cb45-11" tabindex="-1"></a>)</span>
-<span id="cb45-12"><a href="intro-stat.html#cb45-12" tabindex="-1"></a></span>
-<span id="cb45-13"><a href="intro-stat.html#cb45-13" tabindex="-1"></a>p.show()</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="intro-stat.html#cb49-1" tabindex="-1"></a>p <span class="op">=</span> (</span>
+<span id="cb49-2"><a href="intro-stat.html#cb49-2" tabindex="-1"></a>    ggplot(ames_py, aes(x<span class="op">=</span><span class="st">&quot;Sale_Price&quot;</span>, fill<span class="op">=</span><span class="st">&quot;Central_Air&quot;</span>)) <span class="op">+</span></span>
+<span id="cb49-3"><a href="intro-stat.html#cb49-3" tabindex="-1"></a>    </span>
+<span id="cb49-4"><a href="intro-stat.html#cb49-4" tabindex="-1"></a>    <span class="co"># Histogram with density scaling</span></span>
+<span id="cb49-5"><a href="intro-stat.html#cb49-5" tabindex="-1"></a>    geom_histogram(aes(y<span class="op">=</span><span class="st">&#39;..density..&#39;</span>), position<span class="op">=</span><span class="st">&quot;identity&quot;</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, bins<span class="op">=</span><span class="dv">30</span>) <span class="op">+</span></span>
+<span id="cb49-6"><a href="intro-stat.html#cb49-6" tabindex="-1"></a>    </span>
+<span id="cb49-7"><a href="intro-stat.html#cb49-7" tabindex="-1"></a>    <span class="co"># KDE overlay, grouped by Central_Air</span></span>
+<span id="cb49-8"><a href="intro-stat.html#cb49-8" tabindex="-1"></a>    geom_density(aes(color<span class="op">=</span><span class="st">&quot;Central_Air&quot;</span>), alpha<span class="op">=</span><span class="fl">0.2</span>) <span class="op">+</span></span>
+<span id="cb49-9"><a href="intro-stat.html#cb49-9" tabindex="-1"></a>    </span>
+<span id="cb49-10"><a href="intro-stat.html#cb49-10" tabindex="-1"></a>    labs(x<span class="op">=</span><span class="st">&quot;Sale Price (Thousands $)&quot;</span>, y<span class="op">=</span><span class="st">&quot;Density&quot;</span>, fill<span class="op">=</span><span class="st">&quot;Central Air&quot;</span>, color<span class="op">=</span><span class="st">&quot;Central Air&quot;</span>) </span>
+<span id="cb49-11"><a href="intro-stat.html#cb49-11" tabindex="-1"></a>)</span>
+<span id="cb49-12"><a href="intro-stat.html#cb49-12" tabindex="-1"></a></span>
+<span id="cb49-13"><a href="intro-stat.html#cb49-13" tabindex="-1"></a>p.show()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-21-7.png" width="614" /></p>
 </div>
 <div id="normal-probability-plots-qq-plots" class="section level3 hasAnchor" number="1.1.18">
@@ -1776,9 +1778,9 @@ Figure 1.9: Histogram: Density of Sale_Price for varying qualities of Central_Ai
 <p>Figure <a href="intro-stat.html#fig:qqplot">1.10</a> shows a QQ plot for <code>Sale_Price</code>, and we can conclude that the variable is not Normally distributed (in fact it is right skewed).</p>
 <div id="r-code-5" class="section level4 hasAnchor" number="1.1.18.1">
 <h4><span class="header-section-number">1.1.18.1</span> R code:<a href="intro-stat.html#r-code-5" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="intro-stat.html#cb46-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ames, <span class="fu">aes</span>(<span class="at">sample =</span> Sale_Price<span class="sc">/</span><span class="dv">1000</span>)) <span class="sc">+</span></span>
-<span id="cb46-2"><a href="intro-stat.html#cb46-2" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
-<span id="cb46-3"><a href="intro-stat.html#cb46-3" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="intro-stat.html#cb50-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ames, <span class="fu">aes</span>(<span class="at">sample =</span> Sale_Price<span class="sc">/</span><span class="dv">1000</span>)) <span class="sc">+</span></span>
+<span id="cb50-2"><a href="intro-stat.html#cb50-2" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
+<span id="cb50-3"><a href="intro-stat.html#cb50-3" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:qqplot"></span>
 <img src="bookdownproj_files/figure-html/qqplot-9.png" alt="QQ-Plot: Quantiles of Sale_Price vs. quantiles of a theoretical normal distribution with same mean and standard deviation. Conclusion: Sale_Price is _not_ normally distributed due to a problem with skew." width="672" />
 <p class="caption">
@@ -1789,24 +1791,24 @@ Figure 1.10: QQ-Plot: Quantiles of Sale_Price vs. quantiles of a theoretical no
 </div>
 <div id="python-code-5" class="section level3 hasAnchor" number="1.1.19">
 <h3><span class="header-section-number">1.1.19</span> Python code:<a href="intro-stat.html#python-code-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="intro-stat.html#cb47-1" tabindex="-1"></a>p <span class="op">=</span> (</span>
-<span id="cb47-2"><a href="intro-stat.html#cb47-2" tabindex="-1"></a>  ggplot(ames_py, aes(sample <span class="op">=</span> <span class="st">&quot;Sales&quot;</span>)) <span class="op">+</span></span>
-<span id="cb47-3"><a href="intro-stat.html#cb47-3" tabindex="-1"></a>  stat_qq() <span class="op">+</span></span>
-<span id="cb47-4"><a href="intro-stat.html#cb47-4" tabindex="-1"></a>  stat_qq_line()</span>
-<span id="cb47-5"><a href="intro-stat.html#cb47-5" tabindex="-1"></a>  )</span>
-<span id="cb47-6"><a href="intro-stat.html#cb47-6" tabindex="-1"></a></span>
-<span id="cb47-7"><a href="intro-stat.html#cb47-7" tabindex="-1"></a>p.show()</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="intro-stat.html#cb51-1" tabindex="-1"></a>p <span class="op">=</span> (</span>
+<span id="cb51-2"><a href="intro-stat.html#cb51-2" tabindex="-1"></a>  ggplot(ames_py, aes(sample <span class="op">=</span> <span class="st">&quot;Sales&quot;</span>)) <span class="op">+</span></span>
+<span id="cb51-3"><a href="intro-stat.html#cb51-3" tabindex="-1"></a>  stat_qq() <span class="op">+</span></span>
+<span id="cb51-4"><a href="intro-stat.html#cb51-4" tabindex="-1"></a>  stat_qq_line()</span>
+<span id="cb51-5"><a href="intro-stat.html#cb51-5" tabindex="-1"></a>  )</span>
+<span id="cb51-6"><a href="intro-stat.html#cb51-6" tabindex="-1"></a></span>
+<span id="cb51-7"><a href="intro-stat.html#cb51-7" tabindex="-1"></a>p.show()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-22-1.png" width="614" /></p>
 <p>There are two main patterns that we expect to find when examining QQ-plots:</p>
 <ol style="list-style-type: decimal">
 <li>A quadratic shape, as seen in Figure <a href="intro-stat.html#fig:qqplot">1.10</a>. This pattern indicates a deviation from normality due to skewness to the data.</li>
 <li>An S-shape (or cubic shape), as seen in Figure <a href="intro-stat.html#fig:qqplotKurt">1.11</a>. This pattern indicates deviation from normality due to kurtosis.</li>
 </ol>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="intro-stat.html#cb48-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">j1 =</span> <span class="fu">rlaplace</span>(<span class="dv">10000</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
-<span id="cb48-2"><a href="intro-stat.html#cb48-2" tabindex="-1"></a></span>
-<span id="cb48-3"><a href="intro-stat.html#cb48-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="at">sample=</span>j1)) <span class="sc">+</span></span>
-<span id="cb48-4"><a href="intro-stat.html#cb48-4" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
-<span id="cb48-5"><a href="intro-stat.html#cb48-5" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="intro-stat.html#cb52-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">j1 =</span> <span class="fu">rlaplace</span>(<span class="dv">10000</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb52-2"><a href="intro-stat.html#cb52-2" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="intro-stat.html#cb52-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="at">sample=</span>j1)) <span class="sc">+</span></span>
+<span id="cb52-4"><a href="intro-stat.html#cb52-4" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
+<span id="cb52-5"><a href="intro-stat.html#cb52-5" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:qqplotKurt"></span>
 <img src="bookdownproj_files/figure-html/qqplotKurt-3.png" alt="QQ-Plot: Quantiles of the Laplace distribution vs. quantiles of a theoretical normal distribution with same mean and standard deviation. Conclusion: Data is _not_ normally distributed (in fact it is leptokurtic), due to a problem with kurtosis." width="672" />
 <p class="caption">
@@ -1827,9 +1829,9 @@ Figure 1.12: Anatomy of a Box Plot.
 <div id="r-code-6" class="section level4 hasAnchor" number="1.1.20.1">
 <h4><span class="header-section-number">1.1.20.1</span> R code:<a href="intro-stat.html#r-code-6" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Figure <a href="intro-stat.html#fig:rboxplot">1.13</a> shows the boxplot of <code>Sale_Price</code>.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="intro-stat.html#cb49-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ames, <span class="fu">aes</span>(<span class="at">y =</span> Sale_Price<span class="sc">/</span><span class="dv">1000</span>)) <span class="sc">+</span> </span>
-<span id="cb49-2"><a href="intro-stat.html#cb49-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
-<span id="cb49-3"><a href="intro-stat.html#cb49-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="intro-stat.html#cb53-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ames, <span class="fu">aes</span>(<span class="at">y =</span> Sale_Price<span class="sc">/</span><span class="dv">1000</span>)) <span class="sc">+</span> </span>
+<span id="cb53-2"><a href="intro-stat.html#cb53-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb53-3"><a href="intro-stat.html#cb53-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:rboxplot"></span>
 <img src="bookdownproj_files/figure-html/rboxplot-1.png" alt="Box Plot of Sales Price" width="672" />
 <p class="caption">
@@ -1838,10 +1840,10 @@ Figure 1.13: Box Plot of Sales Price
 </div>
 <p>Furthermore, we might want to compare the boxplots of <code>Sale_Price</code> for different levels of a categorical variable, like <code>Central_Air</code> as we did with histograms and densities in Figures <a href="intro-stat.html#fig:overhistogramAC">1.7</a> and <a href="intro-stat.html#fig:overhistogramdensityAC">1.8</a>.</p>
 <p>The following code achieves this goal in Figure <a href="intro-stat.html#fig:multiboxplotAC">1.14</a>.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="intro-stat.html#cb50-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ames, <span class="fu">aes</span>(<span class="at">y =</span> Sale_Price<span class="sc">/</span><span class="dv">1000</span>, <span class="at">x =</span> Central_Air, <span class="at">fill =</span> Central_Air)) <span class="sc">+</span> </span>
-<span id="cb50-2"><a href="intro-stat.html#cb50-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
-<span id="cb50-3"><a href="intro-stat.html#cb50-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Central Air&quot;</span>) <span class="sc">+</span></span>
-<span id="cb50-4"><a href="intro-stat.html#cb50-4" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette=</span><span class="st">&quot;Accent&quot;</span>) <span class="sc">+</span> <span class="fu">theme_classic</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="intro-stat.html#cb54-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ames, <span class="fu">aes</span>(<span class="at">y =</span> Sale_Price<span class="sc">/</span><span class="dv">1000</span>, <span class="at">x =</span> Central_Air, <span class="at">fill =</span> Central_Air)) <span class="sc">+</span> </span>
+<span id="cb54-2"><a href="intro-stat.html#cb54-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb54-3"><a href="intro-stat.html#cb54-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Central Air&quot;</span>) <span class="sc">+</span></span>
+<span id="cb54-4"><a href="intro-stat.html#cb54-4" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette=</span><span class="st">&quot;Accent&quot;</span>) <span class="sc">+</span> <span class="fu">theme_classic</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:multiboxplotAC"></span>
 <img src="bookdownproj_files/figure-html/multiboxplotAC-1.png" alt="Box Plots of Sale_Price for each level of Exter_Qual" width="672" />
 <p class="caption">
@@ -1853,23 +1855,23 @@ Figure 1.14: Box Plots of Sale_Price for each level of Exter_Qual
 <div id="python-code-6" class="section level3 hasAnchor" number="1.1.21">
 <h3><span class="header-section-number">1.1.21</span> Python Code<a href="intro-stat.html#python-code-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Boxplots:</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="intro-stat.html#cb51-1" tabindex="-1"></a>p<span class="op">=</span> (</span>
-<span id="cb51-2"><a href="intro-stat.html#cb51-2" tabindex="-1"></a>  ggplot(ames_py, aes(y <span class="op">=</span> <span class="st">&quot;Sales&quot;</span>)) <span class="op">+</span> </span>
-<span id="cb51-3"><a href="intro-stat.html#cb51-3" tabindex="-1"></a>  geom_boxplot() <span class="op">+</span> </span>
-<span id="cb51-4"><a href="intro-stat.html#cb51-4" tabindex="-1"></a>  labs(y <span class="op">=</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>)</span>
-<span id="cb51-5"><a href="intro-stat.html#cb51-5" tabindex="-1"></a>  )</span>
-<span id="cb51-6"><a href="intro-stat.html#cb51-6" tabindex="-1"></a></span>
-<span id="cb51-7"><a href="intro-stat.html#cb51-7" tabindex="-1"></a>p.show()</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="intro-stat.html#cb55-1" tabindex="-1"></a>p<span class="op">=</span> (</span>
+<span id="cb55-2"><a href="intro-stat.html#cb55-2" tabindex="-1"></a>  ggplot(ames_py, aes(y <span class="op">=</span> <span class="st">&quot;Sales&quot;</span>)) <span class="op">+</span> </span>
+<span id="cb55-3"><a href="intro-stat.html#cb55-3" tabindex="-1"></a>  geom_boxplot() <span class="op">+</span> </span>
+<span id="cb55-4"><a href="intro-stat.html#cb55-4" tabindex="-1"></a>  labs(y <span class="op">=</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>)</span>
+<span id="cb55-5"><a href="intro-stat.html#cb55-5" tabindex="-1"></a>  )</span>
+<span id="cb55-6"><a href="intro-stat.html#cb55-6" tabindex="-1"></a></span>
+<span id="cb55-7"><a href="intro-stat.html#cb55-7" tabindex="-1"></a>p.show()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-23-1.png" width="614" /></p>
 <p>Boxplots by Central Air:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="intro-stat.html#cb52-1" tabindex="-1"></a>p <span class="op">=</span> (</span>
-<span id="cb52-2"><a href="intro-stat.html#cb52-2" tabindex="-1"></a>  ggplot(ames_py, aes(y <span class="op">=</span> <span class="st">&quot;Sales&quot;</span>, x <span class="op">=</span> <span class="st">&quot;Central_Air&quot;</span>, fill <span class="op">=</span> <span class="st">&quot;Central_Air&quot;</span>)) <span class="op">+</span> </span>
-<span id="cb52-3"><a href="intro-stat.html#cb52-3" tabindex="-1"></a>  geom_boxplot() <span class="op">+</span> </span>
-<span id="cb52-4"><a href="intro-stat.html#cb52-4" tabindex="-1"></a>  labs(y <span class="op">=</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>, x <span class="op">=</span> <span class="st">&quot;Central Air&quot;</span>) <span class="op">+</span></span>
-<span id="cb52-5"><a href="intro-stat.html#cb52-5" tabindex="-1"></a>   theme_classic() <span class="op">+</span> coord_flip()</span>
-<span id="cb52-6"><a href="intro-stat.html#cb52-6" tabindex="-1"></a>  )</span>
-<span id="cb52-7"><a href="intro-stat.html#cb52-7" tabindex="-1"></a></span>
-<span id="cb52-8"><a href="intro-stat.html#cb52-8" tabindex="-1"></a>p.show()</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="intro-stat.html#cb56-1" tabindex="-1"></a>p <span class="op">=</span> (</span>
+<span id="cb56-2"><a href="intro-stat.html#cb56-2" tabindex="-1"></a>  ggplot(ames_py, aes(y <span class="op">=</span> <span class="st">&quot;Sales&quot;</span>, x <span class="op">=</span> <span class="st">&quot;Central_Air&quot;</span>, fill <span class="op">=</span> <span class="st">&quot;Central_Air&quot;</span>)) <span class="op">+</span> </span>
+<span id="cb56-3"><a href="intro-stat.html#cb56-3" tabindex="-1"></a>  geom_boxplot() <span class="op">+</span> </span>
+<span id="cb56-4"><a href="intro-stat.html#cb56-4" tabindex="-1"></a>  labs(y <span class="op">=</span> <span class="st">&quot;Sales Price (Thousands $)&quot;</span>, x <span class="op">=</span> <span class="st">&quot;Central Air&quot;</span>) <span class="op">+</span></span>
+<span id="cb56-5"><a href="intro-stat.html#cb56-5" tabindex="-1"></a>   theme_classic() <span class="op">+</span> coord_flip()</span>
+<span id="cb56-6"><a href="intro-stat.html#cb56-6" tabindex="-1"></a>  )</span>
+<span id="cb56-7"><a href="intro-stat.html#cb56-7" tabindex="-1"></a></span>
+<span id="cb56-8"><a href="intro-stat.html#cb56-8" tabindex="-1"></a>p.show()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-24-3.png" width="614" /></p>
 </div>
 </div>
@@ -1910,7 +1912,7 @@ This will be the subject of interest in the next section.</p>
 <p>To obtain a confidence interval for a mean in R, we can use the <code>t.test()</code> function, as shown below.</p>
 <div id="r-code-7" class="section level4 hasAnchor" number="1.3.0.1">
 <h4><span class="header-section-number">1.3.0.1</span> R code:<a href="intro-stat.html#r-code-7" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="intro-stat.html#cb53-1" tabindex="-1"></a><span class="fu">t.test</span>(ames<span class="sc">$</span>Sale_Price, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="intro-stat.html#cb57-1" tabindex="-1"></a><span class="fu">t.test</span>(ames<span class="sc">$</span>Sale_Price, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -1923,21 +1925,21 @@ This will be the subject of interest in the next section.</p>
 ## mean of x 
 ##  180796.1</code></pre>
 <p>We can gather based on the output that our 95% confidence interval for the mean of <code>Sale_Price</code> is [177902.3, 183689.9]. This function also outputs some extra information that relates to hypothesis testing which we will discuss in Section <a href="intro-stat.html#hypotest">1.4</a>. For now, if we only want to pull the output containing the confidence interval information, we can specify <code>$conf.int</code> to the object output from <code>t.test</code>:</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="intro-stat.html#cb55-1" tabindex="-1"></a><span class="fu">t.test</span>(ames<span class="sc">$</span>Sale_Price, <span class="at">conf.level =</span> <span class="fl">0.95</span>)<span class="sc">$</span>conf.int</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="intro-stat.html#cb59-1" tabindex="-1"></a><span class="fu">t.test</span>(ames<span class="sc">$</span>Sale_Price, <span class="at">conf.level =</span> <span class="fl">0.95</span>)<span class="sc">$</span>conf.int</span></code></pre></div>
 <pre><code>## [1] 177902.3 183689.9
 ## attr(,&quot;conf.level&quot;)
 ## [1] 0.95</code></pre>
 <p>To learn the labels of the various pieces of output, you can list them with the <code>ls()</code> function, or by saving the output as an object (below, <code>results</code> is the object that stores the output) and exploring it in your environment (upper right panel in RStudio):</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="intro-stat.html#cb57-1" tabindex="-1"></a><span class="fu">ls</span>(<span class="fu">t.test</span>(ames<span class="sc">$</span>Sale_Price, <span class="at">conf.level =</span> <span class="fl">0.95</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="intro-stat.html#cb61-1" tabindex="-1"></a><span class="fu">ls</span>(<span class="fu">t.test</span>(ames<span class="sc">$</span>Sale_Price, <span class="at">conf.level =</span> <span class="fl">0.95</span>))</span></code></pre></div>
 <pre><code>##  [1] &quot;alternative&quot; &quot;conf.int&quot;    &quot;data.name&quot;   &quot;estimate&quot;    &quot;method&quot;     
 ##  [6] &quot;null.value&quot;  &quot;p.value&quot;     &quot;parameter&quot;   &quot;statistic&quot;   &quot;stderr&quot;</code></pre>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="intro-stat.html#cb59-1" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(ames<span class="sc">$</span>Sale_Price, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="intro-stat.html#cb63-1" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(ames<span class="sc">$</span>Sale_Price, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 </div>
 <div id="python-code-7" class="section level3 hasAnchor" number="1.3.1">
 <h3><span class="header-section-number">1.3.1</span> Python Code<a href="intro-stat.html#python-code-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Confidence intervals:</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="intro-stat.html#cb60-1" tabindex="-1"></a>d <span class="op">=</span> sm.stats.weightstats.DescrStatsW(ames_py[<span class="st">&#39;Sale_Price&#39;</span>])</span>
-<span id="cb60-2"><a href="intro-stat.html#cb60-2" tabindex="-1"></a>d.tconfint_mean(<span class="fl">0.05</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb64-1"><a href="intro-stat.html#cb64-1" tabindex="-1"></a>d <span class="op">=</span> sm.stats.weightstats.DescrStatsW(ames_py[<span class="st">&#39;Sale_Price&#39;</span>])</span>
+<span id="cb64-2"><a href="intro-stat.html#cb64-2" tabindex="-1"></a>d.tconfint_mean(<span class="fl">0.05</span>)</span></code></pre></div>
 <pre><code>## (177902.26200144587, 183689.85813507292)</code></pre>
 </div>
 </div>
@@ -1957,7 +1959,7 @@ Suppose we flip the coin 100 times and count 65 heads. How likely is it that we 
 <p>If we want to test whether the mean of continuous variable is equal to hypothesized value, we can use the <code>t.test()</code> function. The following code tests whether the average sale price of homes from Ames, Iowa over the data time period is $178,000. For now, we’ll use the classic <span class="math inline">\(\alpha=0.05\)</span> as our significance level. If we have enough evidence to reject this null hypothesis, we will conclude that the mean sale price is significantly different than $178,000 for a two-tailed test (the default):</p>
 <div id="r-code-8" class="section level4 hasAnchor" number="1.4.1.1">
 <h4><span class="header-section-number">1.4.1.1</span> R code:<a href="intro-stat.html#r-code-8" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="intro-stat.html#cb62-1" tabindex="-1"></a><span class="fu">t.test</span>(ames<span class="sc">$</span>Sale_Price, <span class="at">mu =</span> <span class="dv">178000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="intro-stat.html#cb66-1" tabindex="-1"></a><span class="fu">t.test</span>(ames<span class="sc">$</span>Sale_Price, <span class="at">mu =</span> <span class="dv">178000</span>)</span></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -1971,7 +1973,7 @@ Suppose we flip the coin 100 times and count 65 heads. How likely is it that we 
 ##  180796.1</code></pre>
 <p>Because our <em>p-value is greater than our alpha</em> level of 0.05, we <em>fail to reject</em> the null hypothesis. We do not quite have sufficient evidence to say the mean is different from 178,000.</p>
 <p>If we’re instead interested in testing whether the <code>Sale_Price</code> is <em>higher</em> than $178,000, we can specify this in the <code>alternative=</code> option.</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="intro-stat.html#cb64-1" tabindex="-1"></a><span class="fu">t.test</span>(ames<span class="sc">$</span>Sale_Price, <span class="at">mu =</span> <span class="dv">178000</span>, <span class="at">alternative =</span> <span class="st">&#39;greater&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="intro-stat.html#cb68-1" tabindex="-1"></a><span class="fu">t.test</span>(ames<span class="sc">$</span>Sale_Price, <span class="at">mu =</span> <span class="dv">178000</span>, <span class="at">alternative =</span> <span class="st">&#39;greater&#39;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -1989,30 +1991,30 @@ Suppose we flip the coin 100 times and count 65 heads. How likely is it that we 
 <div id="python-code-8" class="section level3 hasAnchor" number="1.4.2">
 <h3><span class="header-section-number">1.4.2</span> Python Code<a href="intro-stat.html#python-code-8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Proportion test:</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a href="intro-stat.html#cb66-1" tabindex="-1"></a>count<span class="op">=</span><span class="dv">65</span></span>
-<span id="cb66-2"><a href="intro-stat.html#cb66-2" tabindex="-1"></a>nobs<span class="op">=</span><span class="dv">100</span></span>
-<span id="cb66-3"><a href="intro-stat.html#cb66-3" tabindex="-1"></a>value<span class="op">=</span><span class="fl">0.5</span></span>
-<span id="cb66-4"><a href="intro-stat.html#cb66-4" tabindex="-1"></a>sm.stats.proportion.proportions_ztest(count,nobs,value,alternative<span class="op">=</span><span class="st">&#39;two-sided&#39;</span>,prop_var<span class="op">=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb70-1"><a href="intro-stat.html#cb70-1" tabindex="-1"></a>count<span class="op">=</span><span class="dv">65</span></span>
+<span id="cb70-2"><a href="intro-stat.html#cb70-2" tabindex="-1"></a>nobs<span class="op">=</span><span class="dv">100</span></span>
+<span id="cb70-3"><a href="intro-stat.html#cb70-3" tabindex="-1"></a>value<span class="op">=</span><span class="fl">0.5</span></span>
+<span id="cb70-4"><a href="intro-stat.html#cb70-4" tabindex="-1"></a>sm.stats.proportion.proportions_ztest(count,nobs,value,alternative<span class="op">=</span><span class="st">&#39;two-sided&#39;</span>,prop_var<span class="op">=</span><span class="fl">0.5</span>)</span></code></pre></div>
 <pre><code>## (3.0000000000000004, 0.0026997960632601866)</code></pre>
 <p>One sample mean test (two-sided):</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb68-1"><a href="intro-stat.html#cb68-1" tabindex="-1"></a>d <span class="op">=</span> sm.stats.weightstats.DescrStatsW(ames_py[<span class="st">&#39;Sale_Price&#39;</span>])</span>
-<span id="cb68-2"><a href="intro-stat.html#cb68-2" tabindex="-1"></a>test_stat, p_val, df <span class="op">=</span> d.ttest_mean(value<span class="op">=</span><span class="dv">178000</span>, alternative<span class="op">=</span><span class="st">&#39;two-sided&#39;</span>)</span>
-<span id="cb68-3"><a href="intro-stat.html#cb68-3" tabindex="-1"></a></span>
-<span id="cb68-4"><a href="intro-stat.html#cb68-4" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test statistic (t): </span><span class="sc">{</span>test_stat<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb72-1"><a href="intro-stat.html#cb72-1" tabindex="-1"></a>d <span class="op">=</span> sm.stats.weightstats.DescrStatsW(ames_py[<span class="st">&#39;Sale_Price&#39;</span>])</span>
+<span id="cb72-2"><a href="intro-stat.html#cb72-2" tabindex="-1"></a>test_stat, p_val, df <span class="op">=</span> d.ttest_mean(value<span class="op">=</span><span class="dv">178000</span>, alternative<span class="op">=</span><span class="st">&#39;two-sided&#39;</span>)</span>
+<span id="cb72-3"><a href="intro-stat.html#cb72-3" tabindex="-1"></a></span>
+<span id="cb72-4"><a href="intro-stat.html#cb72-4" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test statistic (t): </span><span class="sc">{</span>test_stat<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
 <pre><code>## Test statistic (t): 1.89454911013789</code></pre>
-<div class="sourceCode" id="cb70"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb70-1"><a href="intro-stat.html#cb70-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;P-value: </span><span class="sc">{</span>p_val<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb74-1"><a href="intro-stat.html#cb74-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;P-value: </span><span class="sc">{</span>p_val<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
 <pre><code>## P-value: 0.05825057277962961</code></pre>
-<div class="sourceCode" id="cb72"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb72-1"><a href="intro-stat.html#cb72-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Degrees of freedom: </span><span class="sc">{</span>df<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb76-1"><a href="intro-stat.html#cb76-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Degrees of freedom: </span><span class="sc">{</span>df<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
 <pre><code>## Degrees of freedom: 2929.0</code></pre>
 <p>One sample mean test (greater than):</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb74-1"><a href="intro-stat.html#cb74-1" tabindex="-1"></a>d <span class="op">=</span> sm.stats.weightstats.DescrStatsW(ames_py[<span class="st">&#39;Sale_Price&#39;</span>])</span>
-<span id="cb74-2"><a href="intro-stat.html#cb74-2" tabindex="-1"></a>test_stat, p_val, df <span class="op">=</span> d.ttest_mean(value <span class="op">=</span> <span class="dv">178000</span>, alternative <span class="op">=</span> <span class="st">&#39;larger&#39;</span>)</span>
-<span id="cb74-3"><a href="intro-stat.html#cb74-3" tabindex="-1"></a></span>
-<span id="cb74-4"><a href="intro-stat.html#cb74-4" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test statistic (t): </span><span class="sc">{</span>test_stat<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb78-1"><a href="intro-stat.html#cb78-1" tabindex="-1"></a>d <span class="op">=</span> sm.stats.weightstats.DescrStatsW(ames_py[<span class="st">&#39;Sale_Price&#39;</span>])</span>
+<span id="cb78-2"><a href="intro-stat.html#cb78-2" tabindex="-1"></a>test_stat, p_val, df <span class="op">=</span> d.ttest_mean(value <span class="op">=</span> <span class="dv">178000</span>, alternative <span class="op">=</span> <span class="st">&#39;larger&#39;</span>)</span>
+<span id="cb78-3"><a href="intro-stat.html#cb78-3" tabindex="-1"></a></span>
+<span id="cb78-4"><a href="intro-stat.html#cb78-4" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test statistic (t): </span><span class="sc">{</span>test_stat<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
 <pre><code>## Test statistic (t): 1.89454911013789</code></pre>
-<div class="sourceCode" id="cb76"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb76-1"><a href="intro-stat.html#cb76-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;P-value: </span><span class="sc">{</span>p_val<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb80-1"><a href="intro-stat.html#cb80-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;P-value: </span><span class="sc">{</span>p_val<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
 <pre><code>## P-value: 0.029125286389814806</code></pre>
-<div class="sourceCode" id="cb78"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb78-1"><a href="intro-stat.html#cb78-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Degrees of freedom: </span><span class="sc">{</span>df<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb82-1"><a href="intro-stat.html#cb82-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Degrees of freedom: </span><span class="sc">{</span>df<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
 <pre><code>## Degrees of freedom: 2929.0</code></pre>
 </div>
 </div>
@@ -2032,11 +2034,11 @@ Suppose we flip the coin 100 times and count 65 heads. How likely is it that we 
 <p>We can test the normality assumption either graphically or through formal statistical tests. The best graphical test of normality is a QQ-Plot, though histograms are often used as well. For this example, we will use the cars data set. This data set shows the MPG for cars made in the US and cars made in Japan:</p>
 <div id="r-code-9" class="section level4 hasAnchor" number="1.5.1.1">
 <h4><span class="header-section-number">1.5.1.1</span> R code:<a href="intro-stat.html#r-code-9" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="intro-stat.html#cb80-1" tabindex="-1"></a>cars<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/master/cars.csv&quot;</span>)</span>
-<span id="cb80-2"><a href="intro-stat.html#cb80-2" tabindex="-1"></a></span>
-<span id="cb80-3"><a href="intro-stat.html#cb80-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cars, <span class="fu">aes</span>(<span class="at">sample =</span> MPG, <span class="at">color =</span> Country)) <span class="sc">+</span></span>
-<span id="cb80-4"><a href="intro-stat.html#cb80-4" tabindex="-1"></a>     <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
-<span id="cb80-5"><a href="intro-stat.html#cb80-5" tabindex="-1"></a>     <span class="fu">stat_qq_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="intro-stat.html#cb84-1" tabindex="-1"></a>cars<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/master/cars.csv&quot;</span>)</span>
+<span id="cb84-2"><a href="intro-stat.html#cb84-2" tabindex="-1"></a></span>
+<span id="cb84-3"><a href="intro-stat.html#cb84-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cars, <span class="fu">aes</span>(<span class="at">sample =</span> MPG, <span class="at">color =</span> Country)) <span class="sc">+</span></span>
+<span id="cb84-4"><a href="intro-stat.html#cb84-4" tabindex="-1"></a>     <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
+<span id="cb84-5"><a href="intro-stat.html#cb84-5" tabindex="-1"></a>     <span class="fu">stat_qq_line</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:qqplotcars"></span>
 <img src="bookdownproj_files/figure-html/qqplotcars-1.png" alt="QQ-Plot: Quantiles of MPG vs. quantiles of a theoretical normal distribution with same mean and standard deviation, for each Country. " width="672" />
 <p class="caption">
@@ -2047,13 +2049,13 @@ Figure 1.15: QQ-Plot: Quantiles of MPG vs. quantiles of a theoretical normal di
 <span class="math display">\[H_0: \text{ the data is normally distributed}\]</span>
 <span class="math display">\[H_a: \text{ the data is NOT normally distributed}\]</span>
 We conduct formal tests as follows:</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="intro-stat.html#cb81-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(cars<span class="sc">$</span>MPG[cars<span class="sc">$</span>Country<span class="sc">==</span><span class="st">&#39;US&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="intro-stat.html#cb85-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(cars<span class="sc">$</span>MPG[cars<span class="sc">$</span>Country<span class="sc">==</span><span class="st">&#39;US&#39;</span>])</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  cars$MPG[cars$Country == &quot;US&quot;]
 ## W = 0.98874, p-value = 0.04918</code></pre>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="intro-stat.html#cb83-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(cars<span class="sc">$</span>MPG[cars<span class="sc">$</span>Country<span class="sc">==</span><span class="st">&#39;Japanese&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="intro-stat.html#cb87-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(cars<span class="sc">$</span>MPG[cars<span class="sc">$</span>Country<span class="sc">==</span><span class="st">&#39;Japanese&#39;</span>])</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -2070,7 +2072,7 @@ We conduct formal tests as follows:</p>
 <span class="math display">\[H_a: \sigma_1^2 \neq \sigma_2^2\]</span></p>
 <p>The F-Test is invoked with the <code>var.test</code> function, which takes as input a <code>formula</code>. A formula is an R object most often created using the <code>~</code> operator, for example <code>y ~ x + z</code>, interpreted as a specification that the response <code>y</code> is to be predicted with the inputs <code>x</code> and <code>z</code>. For our present discussion on two-sample t-tests, we might think of predicting our continuous attribute with our binary attribute.</p>
 <p>The following code checks whether the distributions of MPG within each country have the same variance.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="intro-stat.html#cb85-1" tabindex="-1"></a><span class="fu">leveneTest</span>(MPG<span class="sc">~</span>Country,<span class="at">data=</span>cars)</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="intro-stat.html#cb89-1" tabindex="-1"></a><span class="fu">leveneTest</span>(MPG<span class="sc">~</span>Country,<span class="at">data=</span>cars)</span></code></pre></div>
 <pre><code>## Warning in leveneTest.default(y = y, group = group, ...): group coerced to
 ## factor.</code></pre>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
@@ -2083,7 +2085,7 @@ We conduct formal tests as follows:</p>
 <p>The two-sample t-test is performed by including a binary grouping variable along with the variable of interest into the <code>t.test()</code> function. Below we test whether the mean MPG is the same for cars made in the US versus cars made in Japan, and we include the <code>var.equal=FALSE</code>. The null hypothesis for the t-test is that the means of the two groups are equal:
 <span class="math display">\[H_0: \mu_1 = \mu_2\]</span>
 and the alternative hypothesis is <span class="math display">\[H_a: \mu_1 \neq \mu_2\]</span></p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="intro-stat.html#cb88-1" tabindex="-1"></a><span class="fu">t.test</span>(MPG<span class="sc">~</span>Country, <span class="at">data=</span>cars, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="intro-stat.html#cb92-1" tabindex="-1"></a><span class="fu">t.test</span>(MPG<span class="sc">~</span>Country, <span class="at">data=</span>cars, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Two Sample t-test
 ## 
@@ -2100,47 +2102,47 @@ and the alternative hypothesis is <span class="math display">\[H_a: \mu_1 \neq \
 <div id="python-code-9" class="section level3 hasAnchor" number="1.5.4">
 <h3><span class="header-section-number">1.5.4</span> Python Code<a href="intro-stat.html#python-code-9" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>For testing the cars data set:</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb90-1"><a href="intro-stat.html#cb90-1" tabindex="-1"></a>py_cars <span class="op">=</span> pd.read_csv(<span class="st">&quot;https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/master/cars.csv&quot;</span>)</span>
-<span id="cb90-2"><a href="intro-stat.html#cb90-2" tabindex="-1"></a>p <span class="op">=</span> (</span>
-<span id="cb90-3"><a href="intro-stat.html#cb90-3" tabindex="-1"></a>    ggplot(py_cars, aes(sample<span class="op">=</span><span class="st">&#39;MPG&#39;</span>, color<span class="op">=</span><span class="st">&#39;Country&#39;</span>)) <span class="op">+</span></span>
-<span id="cb90-4"><a href="intro-stat.html#cb90-4" tabindex="-1"></a>    stat_qq() <span class="op">+</span></span>
-<span id="cb90-5"><a href="intro-stat.html#cb90-5" tabindex="-1"></a>    stat_qq_line()</span>
-<span id="cb90-6"><a href="intro-stat.html#cb90-6" tabindex="-1"></a>)</span>
-<span id="cb90-7"><a href="intro-stat.html#cb90-7" tabindex="-1"></a></span>
-<span id="cb90-8"><a href="intro-stat.html#cb90-8" tabindex="-1"></a>p.show</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb94-1"><a href="intro-stat.html#cb94-1" tabindex="-1"></a>py_cars <span class="op">=</span> pd.read_csv(<span class="st">&quot;https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/master/cars.csv&quot;</span>)</span>
+<span id="cb94-2"><a href="intro-stat.html#cb94-2" tabindex="-1"></a>p <span class="op">=</span> (</span>
+<span id="cb94-3"><a href="intro-stat.html#cb94-3" tabindex="-1"></a>    ggplot(py_cars, aes(sample<span class="op">=</span><span class="st">&#39;MPG&#39;</span>, color<span class="op">=</span><span class="st">&#39;Country&#39;</span>)) <span class="op">+</span></span>
+<span id="cb94-4"><a href="intro-stat.html#cb94-4" tabindex="-1"></a>    stat_qq() <span class="op">+</span></span>
+<span id="cb94-5"><a href="intro-stat.html#cb94-5" tabindex="-1"></a>    stat_qq_line()</span>
+<span id="cb94-6"><a href="intro-stat.html#cb94-6" tabindex="-1"></a>)</span>
+<span id="cb94-7"><a href="intro-stat.html#cb94-7" tabindex="-1"></a></span>
+<span id="cb94-8"><a href="intro-stat.html#cb94-8" tabindex="-1"></a>p.show</span></code></pre></div>
 <pre><code>## &lt;string&gt;:2: FutureWarning: Using repr(plot) to draw and show the plot figure is deprecated and will be removed in a future version. Use plot.show().
 ## &lt;bound method ggplot.show of &lt;Figure Size: (640 x 480)&gt;&gt;</code></pre>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-37-1.png" width="614" /></p>
 <p>Test for Normality:</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb92-1"><a href="intro-stat.html#cb92-1" tabindex="-1"></a>sma.stats.diagnostic.normal_ad(py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;US&#39;</span>][<span class="st">&#39;MPG&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb96-1"><a href="intro-stat.html#cb96-1" tabindex="-1"></a>sma.stats.diagnostic.normal_ad(py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;US&#39;</span>][<span class="st">&#39;MPG&#39;</span>])</span></code></pre></div>
 <pre><code>## (1.0993725351195565, 0.006880028084693556)</code></pre>
-<div class="sourceCode" id="cb94"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb94-1"><a href="intro-stat.html#cb94-1" tabindex="-1"></a>sma.stats.diagnostic.normal_ad(py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;Japanese&#39;</span>][<span class="st">&#39;MPG&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb98-1"><a href="intro-stat.html#cb98-1" tabindex="-1"></a>sma.stats.diagnostic.normal_ad(py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;Japanese&#39;</span>][<span class="st">&#39;MPG&#39;</span>])</span></code></pre></div>
 <pre><code>## (0.7338917066708177, 0.053548986754636846)</code></pre>
 <p>Test for equality of variance (need to define a function for the F-test):</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb96-1"><a href="intro-stat.html#cb96-1" tabindex="-1"></a>US<span class="op">=</span>py_cars[py_cars[<span class="st">&quot;Country&quot;</span>]<span class="op">==</span><span class="st">&quot;US&quot;</span>]</span>
-<span id="cb96-2"><a href="intro-stat.html#cb96-2" tabindex="-1"></a>Jap<span class="op">=</span>py_cars[py_cars[<span class="st">&quot;Country&quot;</span>]<span class="op">==</span><span class="st">&quot;Japanese&quot;</span>]</span>
-<span id="cb96-3"><a href="intro-stat.html#cb96-3" tabindex="-1"></a></span>
-<span id="cb96-4"><a href="intro-stat.html#cb96-4" tabindex="-1"></a>np.var(US[<span class="st">&quot;MPG&quot;</span>],ddof<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb100-1"><a href="intro-stat.html#cb100-1" tabindex="-1"></a>US<span class="op">=</span>py_cars[py_cars[<span class="st">&quot;Country&quot;</span>]<span class="op">==</span><span class="st">&quot;US&quot;</span>]</span>
+<span id="cb100-2"><a href="intro-stat.html#cb100-2" tabindex="-1"></a>Jap<span class="op">=</span>py_cars[py_cars[<span class="st">&quot;Country&quot;</span>]<span class="op">==</span><span class="st">&quot;Japanese&quot;</span>]</span>
+<span id="cb100-3"><a href="intro-stat.html#cb100-3" tabindex="-1"></a></span>
+<span id="cb100-4"><a href="intro-stat.html#cb100-4" tabindex="-1"></a>np.var(US[<span class="st">&quot;MPG&quot;</span>],ddof<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## 26.742939499935243</code></pre>
-<div class="sourceCode" id="cb98"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb98-1"><a href="intro-stat.html#cb98-1" tabindex="-1"></a>np.var(Jap[<span class="st">&quot;MPG&quot;</span>],ddof<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb102-1"><a href="intro-stat.html#cb102-1" tabindex="-1"></a>np.var(Jap[<span class="st">&quot;MPG&quot;</span>],ddof<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## 37.30412203829926</code></pre>
-<div class="sourceCode" id="cb100"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb100-1"><a href="intro-stat.html#cb100-1" tabindex="-1"></a><span class="co">#define F-test function</span></span>
-<span id="cb100-2"><a href="intro-stat.html#cb100-2" tabindex="-1"></a><span class="kw">def</span> f_test(x, y):</span>
-<span id="cb100-3"><a href="intro-stat.html#cb100-3" tabindex="-1"></a>    x <span class="op">=</span> np.array(x)</span>
-<span id="cb100-4"><a href="intro-stat.html#cb100-4" tabindex="-1"></a>    y <span class="op">=</span> np.array(y)</span>
-<span id="cb100-5"><a href="intro-stat.html#cb100-5" tabindex="-1"></a>    f <span class="op">=</span> np.var(x, ddof<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span>np.var(y, ddof<span class="op">=</span><span class="dv">1</span>) <span class="co">#calculate F test statistic </span></span>
-<span id="cb100-6"><a href="intro-stat.html#cb100-6" tabindex="-1"></a>    dfn <span class="op">=</span> x.size<span class="op">-</span><span class="dv">1</span> <span class="co">#define degrees of freedom numerator </span></span>
-<span id="cb100-7"><a href="intro-stat.html#cb100-7" tabindex="-1"></a>    dfd <span class="op">=</span> y.size<span class="op">-</span><span class="dv">1</span> <span class="co">#define degrees of freedom denominator </span></span>
-<span id="cb100-8"><a href="intro-stat.html#cb100-8" tabindex="-1"></a>    p <span class="op">=</span> <span class="dv">1</span><span class="op">-</span>stats.f.cdf(f, dfn, dfd) <span class="co">#find p-value of F test statistic </span></span>
-<span id="cb100-9"><a href="intro-stat.html#cb100-9" tabindex="-1"></a>    <span class="cf">return</span> f, p</span>
-<span id="cb100-10"><a href="intro-stat.html#cb100-10" tabindex="-1"></a>  </span>
-<span id="cb100-11"><a href="intro-stat.html#cb100-11" tabindex="-1"></a>f_test(US[<span class="st">&quot;MPG&quot;</span>],Jap[<span class="st">&quot;MPG&quot;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb104-1"><a href="intro-stat.html#cb104-1" tabindex="-1"></a><span class="co">#define F-test function</span></span>
+<span id="cb104-2"><a href="intro-stat.html#cb104-2" tabindex="-1"></a><span class="kw">def</span> f_test(x, y):</span>
+<span id="cb104-3"><a href="intro-stat.html#cb104-3" tabindex="-1"></a>    x <span class="op">=</span> np.array(x)</span>
+<span id="cb104-4"><a href="intro-stat.html#cb104-4" tabindex="-1"></a>    y <span class="op">=</span> np.array(y)</span>
+<span id="cb104-5"><a href="intro-stat.html#cb104-5" tabindex="-1"></a>    f <span class="op">=</span> np.var(x, ddof<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span>np.var(y, ddof<span class="op">=</span><span class="dv">1</span>) <span class="co">#calculate F test statistic </span></span>
+<span id="cb104-6"><a href="intro-stat.html#cb104-6" tabindex="-1"></a>    dfn <span class="op">=</span> x.size<span class="op">-</span><span class="dv">1</span> <span class="co">#define degrees of freedom numerator </span></span>
+<span id="cb104-7"><a href="intro-stat.html#cb104-7" tabindex="-1"></a>    dfd <span class="op">=</span> y.size<span class="op">-</span><span class="dv">1</span> <span class="co">#define degrees of freedom denominator </span></span>
+<span id="cb104-8"><a href="intro-stat.html#cb104-8" tabindex="-1"></a>    p <span class="op">=</span> <span class="dv">1</span><span class="op">-</span>stats.f.cdf(f, dfn, dfd) <span class="co">#find p-value of F test statistic </span></span>
+<span id="cb104-9"><a href="intro-stat.html#cb104-9" tabindex="-1"></a>    <span class="cf">return</span> f, p</span>
+<span id="cb104-10"><a href="intro-stat.html#cb104-10" tabindex="-1"></a>  </span>
+<span id="cb104-11"><a href="intro-stat.html#cb104-11" tabindex="-1"></a>f_test(US[<span class="st">&quot;MPG&quot;</span>],Jap[<span class="st">&quot;MPG&quot;</span>])</span></code></pre></div>
 <pre><code>## (0.7168896636269548, 0.9707618911603813)</code></pre>
 <p>Or can do Levene’s test:</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb102-1"><a href="intro-stat.html#cb102-1" tabindex="-1"></a>sp.stats.levene(py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;US&#39;</span>][<span class="st">&#39;MPG&#39;</span>], py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;Japanese&#39;</span>][<span class="st">&#39;MPG&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb106-1"><a href="intro-stat.html#cb106-1" tabindex="-1"></a>sp.stats.levene(py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;US&#39;</span>][<span class="st">&#39;MPG&#39;</span>], py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;Japanese&#39;</span>][<span class="st">&#39;MPG&#39;</span>])</span></code></pre></div>
 <pre><code>## LeveneResult(statistic=2.698137119235061, pvalue=0.10142974483944626)</code></pre>
 <p>T-test for two sample means:</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb104-1"><a href="intro-stat.html#cb104-1" tabindex="-1"></a>sp.stats.ttest_ind(py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;US&#39;</span>][<span class="st">&#39;MPG&#39;</span>], py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;Japanese&#39;</span>][<span class="st">&#39;MPG&#39;</span>], equal_var <span class="op">=</span> <span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb108-1"><a href="intro-stat.html#cb108-1" tabindex="-1"></a>sp.stats.ttest_ind(py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;US&#39;</span>][<span class="st">&#39;MPG&#39;</span>], py_cars[py_cars[<span class="st">&quot;Country&quot;</span>] <span class="op">==</span> <span class="st">&#39;Japanese&#39;</span>][<span class="st">&#39;MPG&#39;</span>], equal_var <span class="op">=</span> <span class="va">True</span>)</span></code></pre></div>
 <pre><code>## TtestResult(statistic=-14.767000838703165, pvalue=3.8463879746671766e-38, df=326.0)</code></pre>
 </div>
 <div id="wilcoxon" class="section level3 hasAnchor" number="1.5.5">
@@ -2148,9 +2150,9 @@ and the alternative hypothesis is <span class="math display">\[H_a: \mu_1 \neq \
 <p>Looking at Figure <a href="intro-stat.html#fig:qqplotcentralair">1.16</a> we see that the Normality assumption within each level of Central Air does not hold:</p>
 <div id="r-code-10" class="section level4 hasAnchor" number="1.5.5.1">
 <h4><span class="header-section-number">1.5.5.1</span> R code:<a href="intro-stat.html#r-code-10" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="intro-stat.html#cb106-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ames, <span class="fu">aes</span>(<span class="at">sample =</span> Sale_Price, <span class="at">color =</span> Central_Air)) <span class="sc">+</span></span>
-<span id="cb106-2"><a href="intro-stat.html#cb106-2" tabindex="-1"></a>     <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
-<span id="cb106-3"><a href="intro-stat.html#cb106-3" tabindex="-1"></a>     <span class="fu">stat_qq_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="intro-stat.html#cb110-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ames, <span class="fu">aes</span>(<span class="at">sample =</span> Sale_Price, <span class="at">color =</span> Central_Air)) <span class="sc">+</span></span>
+<span id="cb110-2"><a href="intro-stat.html#cb110-2" tabindex="-1"></a>     <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
+<span id="cb110-3"><a href="intro-stat.html#cb110-3" tabindex="-1"></a>     <span class="fu">stat_qq_line</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:qqplotcentralair"></span>
 <img src="bookdownproj_files/figure-html/qqplotcentralair-3.png" alt="QQ-Plot: Quantiles of Sales Price vs. quantiles of a theoretical normal distribution with same mean and standard deviation, for each level of Central Air. " width="672" />
 <p class="caption">
@@ -2187,7 +2189,7 @@ Difference in location. <br> (distributional dominance)
 </tr>
 </table>
 <p>To perform this test, we use the <code>wilcox.test()</code> function, whose inputs are identical to the <code>t.test()</code> function.</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="intro-stat.html#cb107-1" tabindex="-1"></a><span class="fu">wilcox.test</span>(Sale_Price <span class="sc">~</span> Central_Air, <span class="at">data =</span> ames)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="intro-stat.html#cb111-1" tabindex="-1"></a><span class="fu">wilcox.test</span>(Sale_Price <span class="sc">~</span> Central_Air, <span class="at">data =</span> ames)</span></code></pre></div>
 <pre><code>## 
 ##  Wilcoxon rank sum test with continuity correction
 ## 
@@ -2199,18 +2201,18 @@ Difference in location. <br> (distributional dominance)
 <div id="python-code-10" class="section level3 hasAnchor" number="1.5.6">
 <h3><span class="header-section-number">1.5.6</span> Python Code<a href="intro-stat.html#python-code-10" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>QQ plots for those homes with Central Air and without Central Air:</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb109-1"><a href="intro-stat.html#cb109-1" tabindex="-1"></a>p <span class="op">=</span> (</span>
-<span id="cb109-2"><a href="intro-stat.html#cb109-2" tabindex="-1"></a>    ggplot(ames_py, aes(sample<span class="op">=</span><span class="st">&#39;Sale_Price&#39;</span>, color<span class="op">=</span><span class="st">&#39;Central_Air&#39;</span>)) <span class="op">+</span></span>
-<span id="cb109-3"><a href="intro-stat.html#cb109-3" tabindex="-1"></a>    stat_qq() <span class="op">+</span></span>
-<span id="cb109-4"><a href="intro-stat.html#cb109-4" tabindex="-1"></a>    stat_qq_line()</span>
-<span id="cb109-5"><a href="intro-stat.html#cb109-5" tabindex="-1"></a>)</span>
-<span id="cb109-6"><a href="intro-stat.html#cb109-6" tabindex="-1"></a></span>
-<span id="cb109-7"><a href="intro-stat.html#cb109-7" tabindex="-1"></a>p.show</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb113-1"><a href="intro-stat.html#cb113-1" tabindex="-1"></a>p <span class="op">=</span> (</span>
+<span id="cb113-2"><a href="intro-stat.html#cb113-2" tabindex="-1"></a>    ggplot(ames_py, aes(sample<span class="op">=</span><span class="st">&#39;Sale_Price&#39;</span>, color<span class="op">=</span><span class="st">&#39;Central_Air&#39;</span>)) <span class="op">+</span></span>
+<span id="cb113-3"><a href="intro-stat.html#cb113-3" tabindex="-1"></a>    stat_qq() <span class="op">+</span></span>
+<span id="cb113-4"><a href="intro-stat.html#cb113-4" tabindex="-1"></a>    stat_qq_line()</span>
+<span id="cb113-5"><a href="intro-stat.html#cb113-5" tabindex="-1"></a>)</span>
+<span id="cb113-6"><a href="intro-stat.html#cb113-6" tabindex="-1"></a></span>
+<span id="cb113-7"><a href="intro-stat.html#cb113-7" tabindex="-1"></a>p.show</span></code></pre></div>
 <pre><code>## &lt;string&gt;:2: FutureWarning: Using repr(plot) to draw and show the plot figure is deprecated and will be removed in a future version. Use plot.show().
 ## &lt;bound method ggplot.show of &lt;Figure Size: (640 x 480)&gt;&gt;</code></pre>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-43-1.png" width="614" /></p>
 <p>Mann-Whitney Wilcoxon test:</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb111-1"><a href="intro-stat.html#cb111-1" tabindex="-1"></a>sp.stats.mannwhitneyu(ames_py[ames_py[<span class="st">&quot;Central_Air&quot;</span>] <span class="op">==</span> <span class="st">&#39;Y&#39;</span>][<span class="st">&#39;Sale_Price&#39;</span>], ames_py[ames_py[<span class="st">&quot;Central_Air&quot;</span>] <span class="op">==</span> <span class="st">&#39;N&#39;</span>][<span class="st">&#39;Sale_Price&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb115-1"><a href="intro-stat.html#cb115-1" tabindex="-1"></a>sp.stats.mannwhitneyu(ames_py[ames_py[<span class="st">&quot;Central_Air&quot;</span>] <span class="op">==</span> <span class="st">&#39;Y&#39;</span>][<span class="st">&#39;Sale_Price&#39;</span>], ames_py[ames_py[<span class="st">&quot;Central_Air&quot;</span>] <span class="op">==</span> <span class="st">&#39;N&#39;</span>][<span class="st">&#39;Sale_Price&#39;</span>])</span></code></pre></div>
 <pre><code>## MannwhitneyuResult(statistic=472700.0, pvalue=1.2086496396714786e-71)</code></pre>
 </div>
 <div id="bootstrap" class="section level3 hasAnchor" number="1.5.7">
@@ -2221,30 +2223,30 @@ Difference in location. <br> (distributional dominance)
 <span class="math display">\[H_a: \text{ the medians of the two groups are NOT equal }   \]</span></p>
 <div id="r-function" class="section level4 hasAnchor" number="1.5.7.1">
 <h4><span class="header-section-number">1.5.7.1</span> R function:<a href="intro-stat.html#r-function" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="intro-stat.html#cb113-1" tabindex="-1"></a>boot<span class="ot">&lt;-</span><span class="cf">function</span>(x1,x2,direction,alpha){</span>
-<span id="cb113-2"><a href="intro-stat.html#cb113-2" tabindex="-1"></a> x1_boot<span class="ot">&lt;-</span><span class="fu">matrix</span>(<span class="fu">sample</span>(x1,<span class="at">size=</span><span class="dv">10000</span><span class="sc">*</span><span class="fu">length</span>(x1),<span class="at">replace =</span> T),<span class="at">nrow=</span><span class="dv">10000</span>)</span>
-<span id="cb113-3"><a href="intro-stat.html#cb113-3" tabindex="-1"></a> x2_boot<span class="ot">&lt;-</span><span class="fu">matrix</span>(<span class="fu">sample</span>(x2,<span class="at">size=</span><span class="dv">10000</span><span class="sc">*</span><span class="fu">length</span>(x2),<span class="at">replace =</span> T),<span class="at">nrow=</span><span class="dv">10000</span>)</span>
-<span id="cb113-4"><a href="intro-stat.html#cb113-4" tabindex="-1"></a>test_boot<span class="ot">&lt;-</span><span class="fu">apply</span>(x1_boot,<span class="dv">1</span>,median)<span class="sc">-</span><span class="fu">apply</span>(x2_boot,<span class="dv">1</span>,median)</span>
-<span id="cb113-5"><a href="intro-stat.html#cb113-5" tabindex="-1"></a><span class="cf">if</span> (direction <span class="sc">==</span><span class="st">&quot;greater&quot;</span>) {</span>
-<span id="cb113-6"><a href="intro-stat.html#cb113-6" tabindex="-1"></a>   result <span class="ot">&lt;-</span><span class="fu">ifelse</span>(<span class="dv">0</span> <span class="sc">&gt;=</span> <span class="fu">quantile</span>(test_boot,alpha),<span class="st">&quot;not significant&quot;</span>, <span class="st">&quot;significant&quot;</span>)</span>
-<span id="cb113-7"><a href="intro-stat.html#cb113-7" tabindex="-1"></a>   p_value <span class="ot">&lt;-</span> <span class="fu">sum</span>(test_boot <span class="sc">&lt;=</span> <span class="dv">0</span>)<span class="sc">/</span><span class="dv">10000</span></span>
-<span id="cb113-8"><a href="intro-stat.html#cb113-8" tabindex="-1"></a>}</span>
-<span id="cb113-9"><a href="intro-stat.html#cb113-9" tabindex="-1"></a><span class="cf">if</span> (direction <span class="sc">==</span><span class="st">&quot;less&quot;</span>) {</span>
-<span id="cb113-10"><a href="intro-stat.html#cb113-10" tabindex="-1"></a>   result <span class="ot">&lt;-</span><span class="fu">ifelse</span>(<span class="dv">0</span> <span class="sc">&lt;=</span> <span class="fu">quantile</span>(test_boot,(<span class="dv">1</span><span class="sc">-</span>alpha)),<span class="st">&quot;not significant&quot;</span>, <span class="st">&quot;significant&quot;</span>)</span>
-<span id="cb113-11"><a href="intro-stat.html#cb113-11" tabindex="-1"></a>   p_value <span class="ot">&lt;-</span><span class="fu">sum</span>(test_boot <span class="sc">&gt;=</span> <span class="dv">0</span>)<span class="sc">/</span><span class="dv">10000</span></span>
-<span id="cb113-12"><a href="intro-stat.html#cb113-12" tabindex="-1"></a>}</span>
-<span id="cb113-13"><a href="intro-stat.html#cb113-13" tabindex="-1"></a><span class="cf">if</span> (direction <span class="sc">==</span><span class="st">&quot;ne&quot;</span>) {</span>
-<span id="cb113-14"><a href="intro-stat.html#cb113-14" tabindex="-1"></a>   result <span class="ot">&lt;-</span><span class="fu">ifelse</span>((<span class="dv">0</span> <span class="sc">&gt;=</span> <span class="fu">quantile</span>(test_boot,alpha)) <span class="sc">&amp;</span> (<span class="dv">0</span> <span class="sc">&lt;=</span> <span class="fu">quantile</span>(test_boot,<span class="dv">1</span><span class="sc">-</span>alpha)),<span class="st">&quot;not significant&quot;</span>, <span class="st">&quot;significant&quot;</span>)</span>
-<span id="cb113-15"><a href="intro-stat.html#cb113-15" tabindex="-1"></a>   p_value <span class="ot">&lt;-</span><span class="fu">min</span>((<span class="dv">2</span> <span class="sc">*</span> <span class="fu">min</span>(<span class="fu">sum</span>(test_boot <span class="sc">&lt;=</span> <span class="dv">0</span>)<span class="sc">/</span><span class="dv">10000</span>, <span class="fu">sum</span>(test_boot <span class="sc">&gt;=</span> <span class="dv">0</span>)<span class="sc">/</span><span class="dv">10000</span>)),<span class="dv">1</span>)</span>
-<span id="cb113-16"><a href="intro-stat.html#cb113-16" tabindex="-1"></a>}</span>
-<span id="cb113-17"><a href="intro-stat.html#cb113-17" tabindex="-1"></a> <span class="fu">return</span>(<span class="fu">list</span>(<span class="fu">as.character</span>(result),p_value))</span>
-<span id="cb113-18"><a href="intro-stat.html#cb113-18" tabindex="-1"></a>}</span>
-<span id="cb113-19"><a href="intro-stat.html#cb113-19" tabindex="-1"></a></span>
-<span id="cb113-20"><a href="intro-stat.html#cb113-20" tabindex="-1"></a><span class="do">#### Now run the test:</span></span>
-<span id="cb113-21"><a href="intro-stat.html#cb113-21" tabindex="-1"></a></span>
-<span id="cb113-22"><a href="intro-stat.html#cb113-22" tabindex="-1"></a>x1<span class="ot">&lt;-</span>ames<span class="sc">$</span>Sale_Price[ames<span class="sc">$</span>Central_Air<span class="sc">==</span><span class="st">&quot;Y&quot;</span>]</span>
-<span id="cb113-23"><a href="intro-stat.html#cb113-23" tabindex="-1"></a>x2<span class="ot">&lt;-</span>ames<span class="sc">$</span>Sale_Price[ames<span class="sc">$</span>Central_Air<span class="sc">==</span><span class="st">&quot;N&quot;</span>]</span>
-<span id="cb113-24"><a href="intro-stat.html#cb113-24" tabindex="-1"></a><span class="fu">boot</span>(x1,x2,<span class="st">&#39;ne&#39;</span>,<span class="fl">0.05</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="intro-stat.html#cb117-1" tabindex="-1"></a>boot<span class="ot">&lt;-</span><span class="cf">function</span>(x1,x2,direction,alpha){</span>
+<span id="cb117-2"><a href="intro-stat.html#cb117-2" tabindex="-1"></a> x1_boot<span class="ot">&lt;-</span><span class="fu">matrix</span>(<span class="fu">sample</span>(x1,<span class="at">size=</span><span class="dv">10000</span><span class="sc">*</span><span class="fu">length</span>(x1),<span class="at">replace =</span> T),<span class="at">nrow=</span><span class="dv">10000</span>)</span>
+<span id="cb117-3"><a href="intro-stat.html#cb117-3" tabindex="-1"></a> x2_boot<span class="ot">&lt;-</span><span class="fu">matrix</span>(<span class="fu">sample</span>(x2,<span class="at">size=</span><span class="dv">10000</span><span class="sc">*</span><span class="fu">length</span>(x2),<span class="at">replace =</span> T),<span class="at">nrow=</span><span class="dv">10000</span>)</span>
+<span id="cb117-4"><a href="intro-stat.html#cb117-4" tabindex="-1"></a>test_boot<span class="ot">&lt;-</span><span class="fu">apply</span>(x1_boot,<span class="dv">1</span>,median)<span class="sc">-</span><span class="fu">apply</span>(x2_boot,<span class="dv">1</span>,median)</span>
+<span id="cb117-5"><a href="intro-stat.html#cb117-5" tabindex="-1"></a><span class="cf">if</span> (direction <span class="sc">==</span><span class="st">&quot;greater&quot;</span>) {</span>
+<span id="cb117-6"><a href="intro-stat.html#cb117-6" tabindex="-1"></a>   result <span class="ot">&lt;-</span><span class="fu">ifelse</span>(<span class="dv">0</span> <span class="sc">&gt;=</span> <span class="fu">quantile</span>(test_boot,alpha),<span class="st">&quot;not significant&quot;</span>, <span class="st">&quot;significant&quot;</span>)</span>
+<span id="cb117-7"><a href="intro-stat.html#cb117-7" tabindex="-1"></a>   p_value <span class="ot">&lt;-</span> <span class="fu">sum</span>(test_boot <span class="sc">&lt;=</span> <span class="dv">0</span>)<span class="sc">/</span><span class="dv">10000</span></span>
+<span id="cb117-8"><a href="intro-stat.html#cb117-8" tabindex="-1"></a>}</span>
+<span id="cb117-9"><a href="intro-stat.html#cb117-9" tabindex="-1"></a><span class="cf">if</span> (direction <span class="sc">==</span><span class="st">&quot;less&quot;</span>) {</span>
+<span id="cb117-10"><a href="intro-stat.html#cb117-10" tabindex="-1"></a>   result <span class="ot">&lt;-</span><span class="fu">ifelse</span>(<span class="dv">0</span> <span class="sc">&lt;=</span> <span class="fu">quantile</span>(test_boot,(<span class="dv">1</span><span class="sc">-</span>alpha)),<span class="st">&quot;not significant&quot;</span>, <span class="st">&quot;significant&quot;</span>)</span>
+<span id="cb117-11"><a href="intro-stat.html#cb117-11" tabindex="-1"></a>   p_value <span class="ot">&lt;-</span><span class="fu">sum</span>(test_boot <span class="sc">&gt;=</span> <span class="dv">0</span>)<span class="sc">/</span><span class="dv">10000</span></span>
+<span id="cb117-12"><a href="intro-stat.html#cb117-12" tabindex="-1"></a>}</span>
+<span id="cb117-13"><a href="intro-stat.html#cb117-13" tabindex="-1"></a><span class="cf">if</span> (direction <span class="sc">==</span><span class="st">&quot;ne&quot;</span>) {</span>
+<span id="cb117-14"><a href="intro-stat.html#cb117-14" tabindex="-1"></a>   result <span class="ot">&lt;-</span><span class="fu">ifelse</span>((<span class="dv">0</span> <span class="sc">&gt;=</span> <span class="fu">quantile</span>(test_boot,alpha)) <span class="sc">&amp;</span> (<span class="dv">0</span> <span class="sc">&lt;=</span> <span class="fu">quantile</span>(test_boot,<span class="dv">1</span><span class="sc">-</span>alpha)),<span class="st">&quot;not significant&quot;</span>, <span class="st">&quot;significant&quot;</span>)</span>
+<span id="cb117-15"><a href="intro-stat.html#cb117-15" tabindex="-1"></a>   p_value <span class="ot">&lt;-</span><span class="fu">min</span>((<span class="dv">2</span> <span class="sc">*</span> <span class="fu">min</span>(<span class="fu">sum</span>(test_boot <span class="sc">&lt;=</span> <span class="dv">0</span>)<span class="sc">/</span><span class="dv">10000</span>, <span class="fu">sum</span>(test_boot <span class="sc">&gt;=</span> <span class="dv">0</span>)<span class="sc">/</span><span class="dv">10000</span>)),<span class="dv">1</span>)</span>
+<span id="cb117-16"><a href="intro-stat.html#cb117-16" tabindex="-1"></a>}</span>
+<span id="cb117-17"><a href="intro-stat.html#cb117-17" tabindex="-1"></a> <span class="fu">return</span>(<span class="fu">list</span>(<span class="fu">as.character</span>(result),p_value))</span>
+<span id="cb117-18"><a href="intro-stat.html#cb117-18" tabindex="-1"></a>}</span>
+<span id="cb117-19"><a href="intro-stat.html#cb117-19" tabindex="-1"></a></span>
+<span id="cb117-20"><a href="intro-stat.html#cb117-20" tabindex="-1"></a><span class="do">#### Now run the test:</span></span>
+<span id="cb117-21"><a href="intro-stat.html#cb117-21" tabindex="-1"></a></span>
+<span id="cb117-22"><a href="intro-stat.html#cb117-22" tabindex="-1"></a>x1<span class="ot">&lt;-</span>ames<span class="sc">$</span>Sale_Price[ames<span class="sc">$</span>Central_Air<span class="sc">==</span><span class="st">&quot;Y&quot;</span>]</span>
+<span id="cb117-23"><a href="intro-stat.html#cb117-23" tabindex="-1"></a>x2<span class="ot">&lt;-</span>ames<span class="sc">$</span>Sale_Price[ames<span class="sc">$</span>Central_Air<span class="sc">==</span><span class="st">&quot;N&quot;</span>]</span>
+<span id="cb117-24"><a href="intro-stat.html#cb117-24" tabindex="-1"></a><span class="fu">boot</span>(x1,x2,<span class="st">&#39;ne&#39;</span>,<span class="fl">0.05</span>)</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;significant&quot;
 ## 
@@ -2253,39 +2255,39 @@ Difference in location. <br> (distributional dominance)
 </div>
 <div id="python-function" class="section level4 hasAnchor" number="1.5.7.2">
 <h4><span class="header-section-number">1.5.7.2</span> Python function:<a href="intro-stat.html#python-function" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb115"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb115-1"><a href="intro-stat.html#cb115-1" tabindex="-1"></a><span class="kw">def</span> boot(x1, x2, direction, alpha):</span>
-<span id="cb115-2"><a href="intro-stat.html#cb115-2" tabindex="-1"></a>    x1 <span class="op">=</span> np.array(x1)</span>
-<span id="cb115-3"><a href="intro-stat.html#cb115-3" tabindex="-1"></a>    x2 <span class="op">=</span> np.array(x2)</span>
-<span id="cb115-4"><a href="intro-stat.html#cb115-4" tabindex="-1"></a></span>
-<span id="cb115-5"><a href="intro-stat.html#cb115-5" tabindex="-1"></a>    <span class="co"># Bootstrap resampling</span></span>
-<span id="cb115-6"><a href="intro-stat.html#cb115-6" tabindex="-1"></a>    x1_boot <span class="op">=</span> np.random.choice(x1, size<span class="op">=</span>(<span class="dv">10000</span>, <span class="bu">len</span>(x1)), replace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb115-7"><a href="intro-stat.html#cb115-7" tabindex="-1"></a>    x2_boot <span class="op">=</span> np.random.choice(x2, size<span class="op">=</span>(<span class="dv">10000</span>, <span class="bu">len</span>(x2)), replace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb115-8"><a href="intro-stat.html#cb115-8" tabindex="-1"></a></span>
-<span id="cb115-9"><a href="intro-stat.html#cb115-9" tabindex="-1"></a>    <span class="co"># Compute bootstrapped differences in medians</span></span>
-<span id="cb115-10"><a href="intro-stat.html#cb115-10" tabindex="-1"></a>    test_boot <span class="op">=</span> np.median(x1_boot, axis<span class="op">=</span><span class="dv">1</span>) <span class="op">-</span> np.median(x2_boot, axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb115-11"><a href="intro-stat.html#cb115-11" tabindex="-1"></a></span>
-<span id="cb115-12"><a href="intro-stat.html#cb115-12" tabindex="-1"></a>    <span class="co"># Compute p-value and decision</span></span>
-<span id="cb115-13"><a href="intro-stat.html#cb115-13" tabindex="-1"></a>    <span class="cf">if</span> direction <span class="op">==</span> <span class="st">&quot;greater&quot;</span>:</span>
-<span id="cb115-14"><a href="intro-stat.html#cb115-14" tabindex="-1"></a>        p_value <span class="op">=</span> np.mean(test_boot <span class="op">&lt;=</span> <span class="dv">0</span>)</span>
-<span id="cb115-15"><a href="intro-stat.html#cb115-15" tabindex="-1"></a>        result <span class="op">=</span> <span class="st">&quot;significant&quot;</span> <span class="cf">if</span> p_value <span class="op">&lt;</span> alpha <span class="cf">else</span> <span class="st">&quot;not significant&quot;</span></span>
-<span id="cb115-16"><a href="intro-stat.html#cb115-16" tabindex="-1"></a>    <span class="cf">elif</span> direction <span class="op">==</span> <span class="st">&quot;less&quot;</span>:</span>
-<span id="cb115-17"><a href="intro-stat.html#cb115-17" tabindex="-1"></a>        p_value <span class="op">=</span> np.mean(test_boot <span class="op">&gt;=</span> <span class="dv">0</span>)</span>
-<span id="cb115-18"><a href="intro-stat.html#cb115-18" tabindex="-1"></a>        result <span class="op">=</span> <span class="st">&quot;significant&quot;</span> <span class="cf">if</span> p_value <span class="op">&lt;</span> alpha <span class="cf">else</span> <span class="st">&quot;not significant&quot;</span></span>
-<span id="cb115-19"><a href="intro-stat.html#cb115-19" tabindex="-1"></a>    <span class="cf">elif</span> direction <span class="op">==</span> <span class="st">&quot;ne&quot;</span>:</span>
-<span id="cb115-20"><a href="intro-stat.html#cb115-20" tabindex="-1"></a>        p_value <span class="op">=</span> <span class="bu">min</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">min</span>(np.mean(test_boot <span class="op">&lt;=</span> <span class="dv">0</span>), np.mean(test_boot <span class="op">&gt;=</span> <span class="dv">0</span>)),<span class="dv">1</span>)</span>
-<span id="cb115-21"><a href="intro-stat.html#cb115-21" tabindex="-1"></a>        result <span class="op">=</span> <span class="st">&quot;significant&quot;</span> <span class="cf">if</span> p_value <span class="op">&lt;</span> alpha <span class="cf">else</span> <span class="st">&quot;not significant&quot;</span></span>
-<span id="cb115-22"><a href="intro-stat.html#cb115-22" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb115-23"><a href="intro-stat.html#cb115-23" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;direction must be &#39;greater&#39;, &#39;less&#39;, or &#39;ne&#39;&quot;</span>)</span>
-<span id="cb115-24"><a href="intro-stat.html#cb115-24" tabindex="-1"></a></span>
-<span id="cb115-25"><a href="intro-stat.html#cb115-25" tabindex="-1"></a>    <span class="cf">return</span> result, p_value</span>
-<span id="cb115-26"><a href="intro-stat.html#cb115-26" tabindex="-1"></a>  </span>
-<span id="cb115-27"><a href="intro-stat.html#cb115-27" tabindex="-1"></a>  </span>
-<span id="cb115-28"><a href="intro-stat.html#cb115-28" tabindex="-1"></a><span class="co">### Now run the test:</span></span>
-<span id="cb115-29"><a href="intro-stat.html#cb115-29" tabindex="-1"></a></span>
-<span id="cb115-30"><a href="intro-stat.html#cb115-30" tabindex="-1"></a>x1 <span class="op">=</span> ames_py.loc[ames_py[<span class="st">&#39;Central_Air&#39;</span>] <span class="op">==</span> <span class="st">&#39;Y&#39;</span>, <span class="st">&#39;Sale_Price&#39;</span>].to_numpy()</span>
-<span id="cb115-31"><a href="intro-stat.html#cb115-31" tabindex="-1"></a>x2 <span class="op">=</span> ames_py.loc[ames_py[<span class="st">&#39;Central_Air&#39;</span>] <span class="op">==</span> <span class="st">&#39;N&#39;</span>, <span class="st">&#39;Sale_Price&#39;</span>].to_numpy()</span>
-<span id="cb115-32"><a href="intro-stat.html#cb115-32" tabindex="-1"></a></span>
-<span id="cb115-33"><a href="intro-stat.html#cb115-33" tabindex="-1"></a>boot(x1, x2, <span class="st">&#39;ne&#39;</span>, <span class="fl">0.05</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb119-1"><a href="intro-stat.html#cb119-1" tabindex="-1"></a><span class="kw">def</span> boot(x1, x2, direction, alpha):</span>
+<span id="cb119-2"><a href="intro-stat.html#cb119-2" tabindex="-1"></a>    x1 <span class="op">=</span> np.array(x1)</span>
+<span id="cb119-3"><a href="intro-stat.html#cb119-3" tabindex="-1"></a>    x2 <span class="op">=</span> np.array(x2)</span>
+<span id="cb119-4"><a href="intro-stat.html#cb119-4" tabindex="-1"></a></span>
+<span id="cb119-5"><a href="intro-stat.html#cb119-5" tabindex="-1"></a>    <span class="co"># Bootstrap resampling</span></span>
+<span id="cb119-6"><a href="intro-stat.html#cb119-6" tabindex="-1"></a>    x1_boot <span class="op">=</span> np.random.choice(x1, size<span class="op">=</span>(<span class="dv">10000</span>, <span class="bu">len</span>(x1)), replace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb119-7"><a href="intro-stat.html#cb119-7" tabindex="-1"></a>    x2_boot <span class="op">=</span> np.random.choice(x2, size<span class="op">=</span>(<span class="dv">10000</span>, <span class="bu">len</span>(x2)), replace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb119-8"><a href="intro-stat.html#cb119-8" tabindex="-1"></a></span>
+<span id="cb119-9"><a href="intro-stat.html#cb119-9" tabindex="-1"></a>    <span class="co"># Compute bootstrapped differences in medians</span></span>
+<span id="cb119-10"><a href="intro-stat.html#cb119-10" tabindex="-1"></a>    test_boot <span class="op">=</span> np.median(x1_boot, axis<span class="op">=</span><span class="dv">1</span>) <span class="op">-</span> np.median(x2_boot, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb119-11"><a href="intro-stat.html#cb119-11" tabindex="-1"></a></span>
+<span id="cb119-12"><a href="intro-stat.html#cb119-12" tabindex="-1"></a>    <span class="co"># Compute p-value and decision</span></span>
+<span id="cb119-13"><a href="intro-stat.html#cb119-13" tabindex="-1"></a>    <span class="cf">if</span> direction <span class="op">==</span> <span class="st">&quot;greater&quot;</span>:</span>
+<span id="cb119-14"><a href="intro-stat.html#cb119-14" tabindex="-1"></a>        p_value <span class="op">=</span> np.mean(test_boot <span class="op">&lt;=</span> <span class="dv">0</span>)</span>
+<span id="cb119-15"><a href="intro-stat.html#cb119-15" tabindex="-1"></a>        result <span class="op">=</span> <span class="st">&quot;significant&quot;</span> <span class="cf">if</span> p_value <span class="op">&lt;</span> alpha <span class="cf">else</span> <span class="st">&quot;not significant&quot;</span></span>
+<span id="cb119-16"><a href="intro-stat.html#cb119-16" tabindex="-1"></a>    <span class="cf">elif</span> direction <span class="op">==</span> <span class="st">&quot;less&quot;</span>:</span>
+<span id="cb119-17"><a href="intro-stat.html#cb119-17" tabindex="-1"></a>        p_value <span class="op">=</span> np.mean(test_boot <span class="op">&gt;=</span> <span class="dv">0</span>)</span>
+<span id="cb119-18"><a href="intro-stat.html#cb119-18" tabindex="-1"></a>        result <span class="op">=</span> <span class="st">&quot;significant&quot;</span> <span class="cf">if</span> p_value <span class="op">&lt;</span> alpha <span class="cf">else</span> <span class="st">&quot;not significant&quot;</span></span>
+<span id="cb119-19"><a href="intro-stat.html#cb119-19" tabindex="-1"></a>    <span class="cf">elif</span> direction <span class="op">==</span> <span class="st">&quot;ne&quot;</span>:</span>
+<span id="cb119-20"><a href="intro-stat.html#cb119-20" tabindex="-1"></a>        p_value <span class="op">=</span> <span class="bu">min</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">min</span>(np.mean(test_boot <span class="op">&lt;=</span> <span class="dv">0</span>), np.mean(test_boot <span class="op">&gt;=</span> <span class="dv">0</span>)),<span class="dv">1</span>)</span>
+<span id="cb119-21"><a href="intro-stat.html#cb119-21" tabindex="-1"></a>        result <span class="op">=</span> <span class="st">&quot;significant&quot;</span> <span class="cf">if</span> p_value <span class="op">&lt;</span> alpha <span class="cf">else</span> <span class="st">&quot;not significant&quot;</span></span>
+<span id="cb119-22"><a href="intro-stat.html#cb119-22" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb119-23"><a href="intro-stat.html#cb119-23" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;direction must be &#39;greater&#39;, &#39;less&#39;, or &#39;ne&#39;&quot;</span>)</span>
+<span id="cb119-24"><a href="intro-stat.html#cb119-24" tabindex="-1"></a></span>
+<span id="cb119-25"><a href="intro-stat.html#cb119-25" tabindex="-1"></a>    <span class="cf">return</span> result, p_value</span>
+<span id="cb119-26"><a href="intro-stat.html#cb119-26" tabindex="-1"></a>  </span>
+<span id="cb119-27"><a href="intro-stat.html#cb119-27" tabindex="-1"></a>  </span>
+<span id="cb119-28"><a href="intro-stat.html#cb119-28" tabindex="-1"></a><span class="co">### Now run the test:</span></span>
+<span id="cb119-29"><a href="intro-stat.html#cb119-29" tabindex="-1"></a></span>
+<span id="cb119-30"><a href="intro-stat.html#cb119-30" tabindex="-1"></a>x1 <span class="op">=</span> ames_py.loc[ames_py[<span class="st">&#39;Central_Air&#39;</span>] <span class="op">==</span> <span class="st">&#39;Y&#39;</span>, <span class="st">&#39;Sale_Price&#39;</span>].to_numpy()</span>
+<span id="cb119-31"><a href="intro-stat.html#cb119-31" tabindex="-1"></a>x2 <span class="op">=</span> ames_py.loc[ames_py[<span class="st">&#39;Central_Air&#39;</span>] <span class="op">==</span> <span class="st">&#39;N&#39;</span>, <span class="st">&#39;Sale_Price&#39;</span>].to_numpy()</span>
+<span id="cb119-32"><a href="intro-stat.html#cb119-32" tabindex="-1"></a></span>
+<span id="cb119-33"><a href="intro-stat.html#cb119-33" tabindex="-1"></a>boot(x1, x2, <span class="st">&#39;ne&#39;</span>, <span class="fl">0.05</span>)</span></code></pre></div>
 <pre><code>## (&#39;significant&#39;, 0.0)</code></pre>
 
 </div>
