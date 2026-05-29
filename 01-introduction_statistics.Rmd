@@ -1307,5 +1307,15 @@ cat(sprintf("Significant: %s\n", ifelse(t_result$p.value < 0.05, "YES ???", "NO 
 
 ```{python}
 ab_test = pd.read_csv("https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/master/ab_test_data.csv")
+
+p = (
+    ggplot(ab_test, aes(sample='revenue', color='group')) +
+    stat_qq() +
+    stat_qq_line()
+)
+
+p.show
+
+sp.stats.levene(ab_test[ab_test["group"] == 'control']['revenue'], ab_test[ab_test["group"] == 'treatment']['revenue'])
 ```
 

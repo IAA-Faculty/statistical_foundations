@@ -2352,7 +2352,20 @@ Difference in location. <br> (distributional dominance)
 </div>
 <div id="python-code-11" class="section level4 hasAnchor" number="1.5.8.2">
 <h4><span class="header-section-number">1.5.8.2</span> Python Code<a href="intro-stat.html#python-code-11" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb138"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb138-1"><a href="intro-stat.html#cb138-1" tabindex="-1"></a>ab_test <span class="op">=</span> pd.read_csv(<span class="st">&quot;https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/master/ab_test_data.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb138-1"><a href="intro-stat.html#cb138-1" tabindex="-1"></a>ab_test <span class="op">=</span> pd.read_csv(<span class="st">&quot;https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/master/ab_test_data.csv&quot;</span>)</span>
+<span id="cb138-2"><a href="intro-stat.html#cb138-2" tabindex="-1"></a></span>
+<span id="cb138-3"><a href="intro-stat.html#cb138-3" tabindex="-1"></a>p <span class="op">=</span> (</span>
+<span id="cb138-4"><a href="intro-stat.html#cb138-4" tabindex="-1"></a>    ggplot(ab_test, aes(sample<span class="op">=</span><span class="st">&#39;revenue&#39;</span>, color<span class="op">=</span><span class="st">&#39;group&#39;</span>)) <span class="op">+</span></span>
+<span id="cb138-5"><a href="intro-stat.html#cb138-5" tabindex="-1"></a>    stat_qq() <span class="op">+</span></span>
+<span id="cb138-6"><a href="intro-stat.html#cb138-6" tabindex="-1"></a>    stat_qq_line()</span>
+<span id="cb138-7"><a href="intro-stat.html#cb138-7" tabindex="-1"></a>)</span>
+<span id="cb138-8"><a href="intro-stat.html#cb138-8" tabindex="-1"></a></span>
+<span id="cb138-9"><a href="intro-stat.html#cb138-9" tabindex="-1"></a>p.show</span></code></pre></div>
+<pre><code>## &lt;string&gt;:2: FutureWarning: Using repr(plot) to draw and show the plot figure is deprecated and will be removed in a future version. Use plot.show().
+## &lt;bound method ggplot.show of &lt;Figure Size: (640 x 480)&gt;&gt;</code></pre>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-48-1.png" width="614" /></p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb140-1"><a href="intro-stat.html#cb140-1" tabindex="-1"></a>sp.stats.levene(ab_test[ab_test[<span class="st">&quot;group&quot;</span>] <span class="op">==</span> <span class="st">&#39;control&#39;</span>][<span class="st">&#39;revenue&#39;</span>], ab_test[ab_test[<span class="st">&quot;group&quot;</span>] <span class="op">==</span> <span class="st">&#39;treatment&#39;</span>][<span class="st">&#39;revenue&#39;</span>])</span></code></pre></div>
+<pre><code>## LeveneResult(statistic=5.523813487522519, pvalue=0.019400449590944856)</code></pre>
 
 </div>
 </div>
