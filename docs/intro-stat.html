@@ -2366,6 +2366,8 @@ Difference in location. <br> (distributional dominance)
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-48-1.png" width="614" /></p>
 <div class="sourceCode" id="cb140"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb140-1"><a href="intro-stat.html#cb140-1" tabindex="-1"></a>sp.stats.levene(ab_test[ab_test[<span class="st">&quot;group&quot;</span>] <span class="op">==</span> <span class="st">&#39;control&#39;</span>][<span class="st">&#39;revenue&#39;</span>], ab_test[ab_test[<span class="st">&quot;group&quot;</span>] <span class="op">==</span> <span class="st">&#39;treatment&#39;</span>][<span class="st">&#39;revenue&#39;</span>])</span></code></pre></div>
 <pre><code>## LeveneResult(statistic=5.523813487522519, pvalue=0.019400449590944856)</code></pre>
+<div class="sourceCode" id="cb142"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb142-1"><a href="intro-stat.html#cb142-1" tabindex="-1"></a>sp.stats.ttest_ind(ab_test[ab_test[<span class="st">&quot;group&quot;</span>] <span class="op">==</span> <span class="st">&#39;treatment&#39;</span>][<span class="st">&#39;revenue&#39;</span>], ab_test[ab_test[<span class="st">&quot;group&quot;</span>] <span class="op">==</span> <span class="st">&#39;control&#39;</span>][<span class="st">&#39;revenue&#39;</span>], equal_var <span class="op">=</span> <span class="va">False</span>, alternative<span class="op">=</span><span class="st">&#39;greater&#39;</span>)</span></code></pre></div>
+<pre><code>## TtestResult(statistic=1.7017178718367345, pvalue=0.04493925861647027, df=290.40491322082454)</code></pre>
 
 </div>
 </div>

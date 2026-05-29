@@ -1317,5 +1317,7 @@ p = (
 p.show
 
 sp.stats.levene(ab_test[ab_test["group"] == 'control']['revenue'], ab_test[ab_test["group"] == 'treatment']['revenue'])
+
+sp.stats.ttest_ind(ab_test[ab_test["group"] == 'treatment']['revenue'], ab_test[ab_test["group"] == 'control']['revenue'], equal_var = False, alternative='greater')
 ```
 
