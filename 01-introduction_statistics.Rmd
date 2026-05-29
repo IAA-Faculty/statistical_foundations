@@ -1284,19 +1284,25 @@ print(summary_stats)
 control   <- ab_test %>% filter(group == "control")
 treatment <- ab_test %>% filter(group == "treatment")
 
-#ab_result<-boot(treatment$revenue,control$revenue,"greater",0.05)
+ggplot(data = ab_test, aes(sample = revenue, color = group)) +
+        stat_qq() +
+        stat_qq_line()
 
-#t_result <- t.test(treatment$revenue, control$revenue, alternative = "greater")
-#print(t_result)
+leveneTest(revenue~factor(group),data=ab_test)
 
-#cat("\n--- Revenue Results ---\n")
-#cat(sprintf("Control avg revenue/user:   $%.2f\n", mean(control$revenue)))
-#cat(sprintf("Treatment avg revenue/user: $%.2f\n", mean(treatment$revenue)))
-#cat(sprintf("p-value: %.4f\n", t_result$p.value))
-#cat(sprintf("Significant: %s\n", ifelse(t_result$p.value < 0.05, "YES ???", "NO ???")))
+t_result <- t.test(treatment$revenue, control$revenue, alternative = "greater")
+print(t_result)
+
+cat("\n--- Revenue Results ---\n")
+cat(sprintf("Control avg revenue/user:   $%.2f\n", mean(control$revenue)))
+cat(sprintf("Treatment avg revenue/user: $%.2f\n", mean(treatment$revenue)))
+cat(sprintf("p-value: %.4f\n", t_result$p.value))
+cat(sprintf("Significant: %s\n", ifelse(t_result$p.value < 0.05, "YES ???", "NO ???")))
 
 
 ```
+
+
 #### Python Code
 
 ```{python}

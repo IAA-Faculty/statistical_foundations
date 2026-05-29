@@ -2309,25 +2309,50 @@ Difference in location. <br> (distributional dominance)
 <pre><code>## # A tibble: 2 × 3
 ##   group         n avg_revenue
 ##   &lt;chr&gt;     &lt;int&gt;       &lt;dbl&gt;
-## 1 control    1000        3.56
-## 2 treatment  1000        5.67</code></pre>
+## 1 control     123        28.9
+## 2 treatment   182        31.1</code></pre>
 <div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="intro-stat.html#cb123-1" tabindex="-1"></a>control   <span class="ot">&lt;-</span> ab_test <span class="sc">%&gt;%</span> <span class="fu">filter</span>(group <span class="sc">==</span> <span class="st">&quot;control&quot;</span>)</span>
 <span id="cb123-2"><a href="intro-stat.html#cb123-2" tabindex="-1"></a>treatment <span class="ot">&lt;-</span> ab_test <span class="sc">%&gt;%</span> <span class="fu">filter</span>(group <span class="sc">==</span> <span class="st">&quot;treatment&quot;</span>)</span>
 <span id="cb123-3"><a href="intro-stat.html#cb123-3" tabindex="-1"></a></span>
-<span id="cb123-4"><a href="intro-stat.html#cb123-4" tabindex="-1"></a><span class="co">#ab_result&lt;-boot(treatment$revenue,control$revenue,&quot;greater&quot;,0.05)</span></span>
-<span id="cb123-5"><a href="intro-stat.html#cb123-5" tabindex="-1"></a></span>
-<span id="cb123-6"><a href="intro-stat.html#cb123-6" tabindex="-1"></a><span class="co">#t_result &lt;- t.test(treatment$revenue, control$revenue, alternative = &quot;greater&quot;)</span></span>
-<span id="cb123-7"><a href="intro-stat.html#cb123-7" tabindex="-1"></a><span class="co">#print(t_result)</span></span>
-<span id="cb123-8"><a href="intro-stat.html#cb123-8" tabindex="-1"></a></span>
-<span id="cb123-9"><a href="intro-stat.html#cb123-9" tabindex="-1"></a><span class="co">#cat(&quot;\n--- Revenue Results ---\n&quot;)</span></span>
-<span id="cb123-10"><a href="intro-stat.html#cb123-10" tabindex="-1"></a><span class="co">#cat(sprintf(&quot;Control avg revenue/user:   $%.2f\n&quot;, mean(control$revenue)))</span></span>
-<span id="cb123-11"><a href="intro-stat.html#cb123-11" tabindex="-1"></a><span class="co">#cat(sprintf(&quot;Treatment avg revenue/user: $%.2f\n&quot;, mean(treatment$revenue)))</span></span>
-<span id="cb123-12"><a href="intro-stat.html#cb123-12" tabindex="-1"></a><span class="co">#cat(sprintf(&quot;p-value: %.4f\n&quot;, t_result$p.value))</span></span>
-<span id="cb123-13"><a href="intro-stat.html#cb123-13" tabindex="-1"></a><span class="co">#cat(sprintf(&quot;Significant: %s\n&quot;, ifelse(t_result$p.value &lt; 0.05, &quot;YES ???&quot;, &quot;NO ???&quot;)))</span></span></code></pre></div>
+<span id="cb123-4"><a href="intro-stat.html#cb123-4" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ab_test, <span class="fu">aes</span>(<span class="at">sample =</span> revenue, <span class="at">color =</span> group)) <span class="sc">+</span></span>
+<span id="cb123-5"><a href="intro-stat.html#cb123-5" tabindex="-1"></a>        <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
+<span id="cb123-6"><a href="intro-stat.html#cb123-6" tabindex="-1"></a>        <span class="fu">stat_qq_line</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="intro-stat.html#cb124-1" tabindex="-1"></a><span class="fu">leveneTest</span>(revenue<span class="sc">~</span><span class="fu">factor</span>(group),<span class="at">data=</span>ab_test)</span></code></pre></div>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##        Df F value Pr(&gt;F)  
+## group   1  5.5238 0.0194 *
+##       303                 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="intro-stat.html#cb126-1" tabindex="-1"></a>t_result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(treatment<span class="sc">$</span>revenue, control<span class="sc">$</span>revenue, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span>
+<span id="cb126-2"><a href="intro-stat.html#cb126-2" tabindex="-1"></a><span class="fu">print</span>(t_result)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  treatment$revenue and control$revenue
+## t = 1.7017, df = 290.4, p-value = 0.04494
+## alternative hypothesis: true difference in means is greater than 0
+## 95 percent confidence interval:
+##  0.06726199        Inf
+## sample estimates:
+## mean of x mean of y 
+##  31.12676  28.90854</code></pre>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="intro-stat.html#cb128-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">--- Revenue Results ---</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## --- Revenue Results ---</code></pre>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="intro-stat.html#cb130-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;Control avg revenue/user:   $%.2f</span><span class="sc">\n</span><span class="st">&quot;</span>, <span class="fu">mean</span>(control<span class="sc">$</span>revenue)))</span></code></pre></div>
+<pre><code>## Control avg revenue/user:   $28.91</code></pre>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="intro-stat.html#cb132-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;Treatment avg revenue/user: $%.2f</span><span class="sc">\n</span><span class="st">&quot;</span>, <span class="fu">mean</span>(treatment<span class="sc">$</span>revenue)))</span></code></pre></div>
+<pre><code>## Treatment avg revenue/user: $31.13</code></pre>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="intro-stat.html#cb134-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;p-value: %.4f</span><span class="sc">\n</span><span class="st">&quot;</span>, t_result<span class="sc">$</span>p.value))</span></code></pre></div>
+<pre><code>## p-value: 0.0449</code></pre>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="intro-stat.html#cb136-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;Significant: %s</span><span class="sc">\n</span><span class="st">&quot;</span>, <span class="fu">ifelse</span>(t_result<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="st">&quot;YES ???&quot;</span>, <span class="st">&quot;NO ???&quot;</span>)))</span></code></pre></div>
+<pre><code>## Significant: YES ???</code></pre>
 </div>
 <div id="python-code-11" class="section level4 hasAnchor" number="1.5.8.2">
 <h4><span class="header-section-number">1.5.8.2</span> Python Code<a href="intro-stat.html#python-code-11" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb124"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb124-1"><a href="intro-stat.html#cb124-1" tabindex="-1"></a>ab_test <span class="op">=</span> pd.read_csv(<span class="st">&quot;https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/master/ab_test_data.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb138-1"><a href="intro-stat.html#cb138-1" tabindex="-1"></a>ab_test <span class="op">=</span> pd.read_csv(<span class="st">&quot;https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/master/ab_test_data.csv&quot;</span>)</span></code></pre></div>
 
 </div>
 </div>
