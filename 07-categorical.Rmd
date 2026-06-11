@@ -61,6 +61,8 @@ from sklearn.linear_model import Lasso
 from sklearn.linear_model import ElasticNet
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import roc_auc_score
 from plotnine import *
 
 
@@ -656,7 +658,23 @@ print(odds_ratio)
 
 *Model Assessment*
 
-Python doesn't have concordant / discordant pair calculations. We will learn in Fall semester other metrics to evaluate a logistic regression model that Python does have.
+Concordance:
+
+```{python}
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import roc_auc_score
+
+
+
+lp_model = smf.ols("Bonus ~ Gr_Liv_Area", data = train).fit()
+pred_probabilities = lp_model.predict(train)
+concordance = roc_auc_score(train['Bonus'], pred_probabilities)
+
+print(f"\nConcordance Statistic (C-Statistic): {concordance:.4f}")
+
+
+```
+
 
 *Variable Selection and Regularized Regression*
 
