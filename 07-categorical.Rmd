@@ -196,7 +196,25 @@ plot.show()
 
 
 ```{python}
-pd.crosstab(index = train['Central_Air'], columns = train['Bonus'])
+counts = pd.crosstab(train['Central_Air'], train['Bonus'], margins=True)
+
+# Get row proportions 
+row_pct = pd.crosstab(train['Central_Air'], train['Bonus'], normalize='index') 
+
+# Get column proportions 
+col_pct = pd.crosstab(train['Central_Air'], train['Bonus'], normalize='columns') 
+
+# Get table proportions
+all_pct = pd.crosstab(train['Central_Air'], train['Bonus'], normalize='all') 
+
+print("\n--- Row Proportions ---")
+print(row_pct.round(2))
+
+print("\n--- Column Proportions ---")
+print(col_pct.round(2))
+
+print("\n--- Table Proportions ---")
+print(all_pct.round(2))
 ```
 
 
