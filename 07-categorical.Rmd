@@ -135,7 +135,7 @@ ggplot(data = train) +
   geom_bar(mapping = aes(x = Bonus, fill = Central_Air))
 ```
 
-From the above output we can see that 147 homes have no central air with only 5 of them being bonus eligible. However, there are 1904 homes that have central air with 835 of them being bonus eligible. For an even more detailed breakdown we can use the ```CrossTable``` function.
+From the above output we can see that 133 homes have no central air with only 2 of them being bonus eligible. However, there are 1918 homes that have central air with 849 of them being bonus eligible. For an even more detailed breakdown we can use the ```CrossTable``` function.
 
 ```{r}
 library(gmodels)
@@ -143,7 +143,7 @@ library(gmodels)
 CrossTable(train$Central_Air, train$Bonus)
 ```
 
-The advantage of the ```CrossTable``` function is that we can easily get not only the frequencies, but the cell, row, and column proportions. For example, the third number in each cell gives us the row proportion. For homes without central air, 96.6% of them are not bonus eligible, while 3.4% of them are. For homes with central air, 56.1% of the homes are not bonus eligible, while 43.9% of them are. This would appear that the distribution of bonus eligible homes changes across levels of central air - a relationship between the two variables. This expected relationship needs to be tested statistically for verification.
+The advantage of the ```CrossTable``` function is that we can easily get not only the frequencies, but the cell, row, and column proportions. For example, the third number in each cell gives us the row proportion. For homes without central air, 98.5% of them are not bonus eligible, while 1.5% of them are. For homes with central air, 55.7% of the homes are not bonus eligible, while 44.3% of them are. This would appear that the distribution of bonus eligible homes changes across levels of central air - a relationship between the two variables. This expected relationship needs to be tested statistically for verification.
 
 ### Python Code
 
@@ -247,7 +247,7 @@ ggplot() +
   xlim(0,15) + ylim(0,1) +theme_minimal()
 ```
 
-Two common $\chi^2$ tests are the Pearson and Likelihood Ratio $\chi^2$ tests. They compare the observed count of observations in each cell of a cross-tabulation table between two variables to their expected count **if** there was no relationship. The expected cell count applies the overall distribution of one variable across all the levels of the other variable. For example, overall 59% of all homes are not bonus eligible. **If** that were to apply to every level of central air, then the 140 homes without central air would be expected to have 86.73 ( $ = 147 \times 0.59 $ ) of them would be bonus eligible while 60.27 ( $ = 147 \times 0.41$ ) of them would not be bonus eligible. We actually observe 142 and 5 homes for each of these categories respectively. The further the observed data is from the expected data, the more evidence we have that there is a relationship between the two variables.
+Two common $\chi^2$ tests are the Pearson and Likelihood Ratio $\chi^2$ tests. They compare the observed count of observations in each cell of a cross-tabulation table between two variables to their expected count **if** there was no relationship. The expected cell count applies the overall distribution of one variable across all the levels of the other variable. For example, overall 58.5% of all homes are not bonus eligible. **If** that were to apply to every level of central air, then the 133 homes without central air would be expected to have 77.8 ( $ = 133 \times 0.585 $ ) of them would be bonus eligible while 55.2 ( $ = 133 \times 0.415$ ) of them would not be bonus eligible. We actually observe 131 and 2 homes for each of these categories respectively. The further the observed data is from the expected data, the more evidence we have that there is a relationship between the two variables.
 
 The test statistic for the Pearson $\chi^2$ test is the following:
 
@@ -338,7 +338,7 @@ Let's again examine the cross-tabulation table between central air and bonus eli
 CrossTable(train$Central_Air, train$Bonus)
 ```
 
-Let's look at the row without central air. The probability that a home without central air is not bonus eligible is 96.6%. That implies that the odds of not being bonus eligible in homes without central air is 28.41 (= 0.966/0.034). For homes with central air, the odds of not being bonus eligible are 1.28 (= 0.561/0.439). The odds ratio between these two would be approximately 22.2 (= 28.41/1.28). In other words, homes without central air are 22.2 times more likely (in terms of odds) to not be bonus eligible as compared to homes with central air. This relationship is intuitive based on the numbers we have seen. Without going into details, it can also be shown that homes with central air are 22.2 times as likely (in terms of odds) to be bonus eligible.
+Let's look at the row without central air. The probability that a home without central air is not bonus eligible is 98.5%. That implies that the odds of not being bonus eligible in homes without central air is 65.7 (= 0.985/0.015). For homes with central air, the odds of not being bonus eligible are 1.26 (= 0.557/0.443). The odds ratio between these two would be approximately 52.14 (= 65.7/1.26). In other words, homes without central air are 52.14 times more likely (in terms of odds) to not be bonus eligible as compared to homes with central air. This relationship is intuitive based on the numbers we have seen. Without going into details, it can also be shown that homes with central air are 52.14 times as likely (in terms of odds) to be bonus eligible.
 
 We can use the ```OddsRatio``` function to get these same results.
 
@@ -376,21 +376,20 @@ As previously mentioned, these are only a few of the dozens of different measure
 
 ### Python Code
 
-Odds Ratios are the statistic calculated from the Fisher's Exact test from the previous code:
+Odds ratio:
 
 ```{python}
-from scipy.stats import fisher_exact
+table = pd.crosstab(train['Central_Air'], train['Bonus'])
 
-fisher_exact(pd.crosstab(index = train['Central_Air'], columns = train['Bonus']))
+# Convert to a statsmodels 2x2 Table object
+sm_table = sma.stats.Table2x2(table.values)
+
+print(f"Odds Ratio: {sm_table.oddsratio:.4f}")
+print(f"Log Odds Ratio: {sm_table.log_oddsratio:.4f}")
+print(f"Odds Ratio 95% CI: {sm_table.oddsratio_confint()}")
 ```
 
-
-```{python}
-from scipy.stats import fisher_exact
-
-fisher_exact(pd.crosstab(index = train['Central_Air'], columns = train['Bonus']))
-```
-
+Cramer's:
 
 ```{python}
 from scipy.stats.contingency import association
@@ -398,6 +397,7 @@ from scipy.stats.contingency import association
 association(pd.crosstab(index = train['Central_Air'], columns = train['Bonus']), method = "cramer")
 ```
 
+Spearman:
 
 ```{python}
 from scipy.stats import spearmanr
