@@ -360,7 +360,7 @@ import numpy as np
 model = smf.ols("Sale_Price ~ C(Heating_QC)*C(Central_Air)", data = train).fit()
 model.summary()
 
-sm.stats.anova_lm(model, typ=2)
+sm.stats.anova_lm(model, typ=3)
 
 train['resid_anova_2way'] = model.resid
 ```
